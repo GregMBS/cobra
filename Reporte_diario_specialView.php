@@ -85,7 +85,7 @@
 values ('" . $row['c_cvge'] . "','" . $row['cliente'] . "','" . $row['status_de_credito'] .
                                 "','" . $row['producto'] . "','" . $row['subproducto'] .
                                 "',0,0," . $row['monto'] . ")";
-                        $con->query($qi) or die($con->error);
+                        $pdo->query($qi);
                         if ($row['hauto'] != $temprow['hauto']) {
                             if ($temprow['hauto'] > 0) {
                                 echo '<tr>';
@@ -138,7 +138,7 @@ values ('" . $row['c_cvge'] . "','" . $row['cliente'] . "','" . $row['status_de_
                     <thead class="ui-widget-header">
                         <tr>
                             <?php
-                            for ($i = 0; $i < $numberfieldsVencido; $i++) {
+                            for ($i = 0; $i < $numberfieldsVencidos; $i++) {
                                 $var = $resultVencidos->getColumnMeta($i);
                                 echo "<th>" . $var['name'] . "</th>";
                             }
@@ -329,7 +329,7 @@ from gmbtemp group by gestor;";
                 $querySegmento = "select cliente,substring_index(sdc,'-',1),sum(pago),sum(vigente),sum(vencido)
 from gmbtemp group by cliente,substring_index(sdc,'-',1);";
                 $resultSegmento = $pdo->query($querySegmento);
-                $numberfieldsSegmento = $resultSegmento->countColumns();
+                $numberfieldsSegmento = $resultSegmento->columnCount();
                 ?>   
                 <table class="ui-widget">
                     <thead class="ui-widget-header">

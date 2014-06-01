@@ -85,8 +85,8 @@ order by d_fech desc,c_hrin desc limit 1";
 from notas 
 where c_cvge='" . $capt . "' AND borrado=0 and fecha<>'0000-00-00'
 AND concat_ws(' ',fecha,hora)<now()";
-    $resultnotas = mysqli_query($con, $querynotas) or die("ERROR RM2 - " . mysqli_error($con));
-    while ($answernotas = mysqli_fetch_row($resultnotas)) {
+    $resultnotas = $pdo->query($querynotas);
+    foreach ($resultnotas as $answernotas) {
         $notalert = $answernotas[0];
         $notalertt = $answernotas[1];
     }
@@ -1251,14 +1251,14 @@ $resultAccion = $pdo->query($queryAccion);
 $queryMotiv = "SELECT motiv FROM motivadores;";
 $resultMotiv = $pdo->query($queryMotiv);
 
-$queryDictamenV = "SELECT dictamen,v_cc,judicial FROM dictamenes "
+$queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
         . "where callcenter=1 order by dictamen";
 if ($mytipo == 'visitador') {
-    $query = "SELECT dictamen,v_cc,judicial FROM dictamenes "
+    $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
             . "where visitas=1 order by dictamen";
 }
 if ($mytipo == 'admin') {
-    $query = "SELECT dictamen,v_cc,judicial FROM dictamenes "
+    $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
             . "order by dictamen";
 }
 $resultDictamen = $pdo->query($queryDictamen);
