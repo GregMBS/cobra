@@ -10,7 +10,7 @@ $start=mysql_real_escape_string($_GET['start']);
 $end=mysql_real_escape_string($_GET['end']);
 $client=mysql_real_escape_string($_GET['client']);
 $merc=0;
-if ($client=='Surtifirme') {$merc=1;}
+if ($client=='Surtidor del Hogar') {$merc=1;}
 If ($start>$end) {list($start,$end) = array($end,$start);}
 for ($i=$start;$i<$end+1;$i++) {
 	$qins="INSERT IGNORE INTO folios (folio,cliente,mercancia)

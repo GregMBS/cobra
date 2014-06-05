@@ -22,7 +22,7 @@ join historia on c_cont=id_cuenta
 left join cyberres cr on c_cvst=cr.dictamen 
 left join cyberact on accion=c_accion 
 where d_fech>last_day(curdate()-interval 5 week) 
-and cliente = 'Surtifirme' 
+and cliente = 'Surtidor del Hogar' 
 order by d_fech,c_hrin
 ;";
 $result=mysql_query($querymain) or die(mysql_error());

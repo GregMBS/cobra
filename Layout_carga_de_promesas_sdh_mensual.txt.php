@@ -20,7 +20,7 @@ from resumen
 join historia h1 on c_cont=id_cuenta
 left join cyberact on accion=c_accion 
 where d_fech>last_day(curdate() - interval 5 week)
-and cliente = 'Surtifirme' 
+and cliente = 'Surtidor del Hogar' 
 and c_cvst like 'PRO%DE%' and n_prom>0 
 and not exists (select auto from historia h2 where h2.c_cont=id_cuenta and h2.n_prom>0 and h2.d_fech=h1.d_fech and h2.c_hrfi>h1.c_hrfi)
 order by d_fech,c_hrin

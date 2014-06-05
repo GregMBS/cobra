@@ -31,7 +31,7 @@ and confirmado=0
 where folios.fecha>last_day(curdate()-interval 1 month)+interval 1 day
 and h1.d_prom>last_day(curdate()-interval 1 month)
 and monto is null
-and folios.cliente regexp 'Surtifirme'
+and folios.cliente regexp 'Surtidor del Hogar'
 and not exists (select auto from historia h2 
 where h2.c_cont=id and h2.n_prom>0 and h2.c_cvst like 'PROMESA DE%' 
 and h2.auto>h1.auto and concat(h2.d_fech,' ',h2.c_hrin)<=folios.fecha)
@@ -62,7 +62,7 @@ and id=c_cont
 and confirmado=0
 where folios.fecha>last_day(curdate()-interval 1 month)+interval 1 day
 and h1.d_prom>last_day(curdate()-interval 1 month)
-and folios.cliente regexp 'Surtifirme' group by folio
+and folios.cliente regexp 'Surtidor del Hogar' group by folio
 ";
 mysql_query($querymainb) or die('Pass2: ' . mysql_error());
 $aColumns = array('cliente', 'folio', 'enviado', 'upd', 'crear', 'folio', 'cuenta',

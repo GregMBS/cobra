@@ -33,6 +33,7 @@ else {
 	<div id="admin"> 
 <h2>Cargas</h2>
 <button onclick="window.location='carga2.php?capt=<?php echo $capt;?>'">Cargar Cartera</button>
+<button onclick="window.location='carga_sdhextras.php?capt=<?php echo $capt;?>'">Cargar SDH Productos</button>
 <button onclick="window.location='pagobulk.php?capt=<?php echo $capt;?>'">Cargar Pagos Confirmados</button>
 <button onclick="window.location='carga_cedula.php?capt=<?php echo $capt;?>'">Cargar y imprimir Cedulas</button><br>
 <h2>Visitas</h2>

@@ -61,7 +61,7 @@ h1.n_prom,h1.d_prom,h1.n_prom,'','',
 h1.c_cvge,'Cobranza Integral' as 'despacho','' as 'upd',h1.d_fech
 from resumen
 join historia h1 on h1.c_cont=id_cuenta and h1.n_prom>0
-where cliente ='Surtifirme'
+where cliente ='Surtidor del Hogar'
 and h1.c_cvst like 'PROMESA DE%'
 and not exists
 (select auto from historia h2 where h2.c_cont=h1.c_cont and h2.n_prom>0 and h2.auto>h1.auto)

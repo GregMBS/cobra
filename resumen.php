@@ -1,7 +1,8 @@
 <?php
 include 'Mobile_Detect.php';
 $detect = new Mobile_Detect();
-
+$gets = $_SERVER['QUERY_STRING'];
+parse_str($gets, $get); 
 date_default_timezone_set('America/Monterrey');
 
 function highhist($stat, $visit) {
@@ -33,22 +34,32 @@ if (!empty($mytipo)) {
 
     $oldgo = '';
 
-    if (isset($_GET['go'])) {
-        $go = mysqli_real_escape_string($con, $_GET['go']);
+    if (isset($get['go'])) {
+        $go = mysqli_real_escape_string($con, $get['go']);
     } else {
         $go = '';
     }
-    $getupdate = isset($_GET['find']);
-    $isoldid = isset($_GET['id_cuenta']);
+        if ($go == 'ULTIMA') {
+        $queryult = "SELECT c_cont FROM historia WHERE c_cvge='" . $capt .
+                "' and c_cont <> '0' ORDER BY d_fech desc, C_hrfi desc LIMIT 1";
+        $resultult = mysqli_query($con, $queryult) or die("ERROR RM4 - " . mysqli_error($con));
+        while ($answerult = mysqli_fetch_row($resultult)) {
+            $find = $answerult[0];
+        }
+        $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FROMULTIMA";
+        header($redirector);
+    }
+$getupdate = isset($get['find']);
+    $isoldid = isset($get['id_cuenta']);
     if ($getupdate) {
         $findg = filter_input(INPUT_GET, 'find');
         $findu = mysqli_real_escape_string($con, $findg);
-        if (isset($_GET['field'])) {
-            $field = mysqli_real_escape_string($con, $_GET['field']);
+        if (isset($get['field'])) {
+            $field = mysqli_real_escape_string($con, $get['field']);
         } else {
             $field = 'id_cuenta';
         }
-//   $capt = mysqli_real_escape_string($con,$_GET['capt']);
+//   $capt = mysqli_real_escape_string($con,$get['capt']);
         // We perform a bit of filtering
         $findU = strtoupper($findu);
         $findS = strip_tags($findU);
@@ -56,8 +67,8 @@ if (!empty($mytipo)) {
     }
     /*
       if ($postupdate) {
-      $find = mysqli_real_escape_string($con,$_GET['find']);
-      $capt = mysqli_real_escape_string($con,$_GET['capt']);
+      $find = mysqli_real_escape_string($con,$get['find']);
+      $capt = mysqli_real_escape_string($con,$get['capt']);
       // We perform a bit of filtering
       $find = strtoupper($find);
       $find = strip_tags($find);
@@ -104,66 +115,56 @@ AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
             $alertfuente = $answernotas2[2];
         }
     }
-    if ($go == 'ULTIMA') {
-        $queryult = "SELECT c_cont FROM historia WHERE c_cvge='" . $capt .
-                "' and c_cont <> '0' ORDER BY d_fech desc, C_hrfi desc LIMIT 1";
-        $resultult = mysqli_query($con, $queryult) or die("ERROR RM4 - " . mysqli_error($con));
-        while ($answerult = mysqli_fetch_row($resultult)) {
-            $find = $answerult[0];
-        }
-        $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FROMULTIMA";
-        header($redirector);
-    }
     if ($go == 'LOGOUT') {
         $page = "Location: logout.php?gone=&capt=" . $capt;
         header($page);
     }
-    if ($go == 'CAPTURADO' && !empty($_GET['C_CVST'])) {
-        $C_CVGE = mysqli_real_escape_string($con, $_GET['C_CVGE']);
-        $C_CVBA = mysqli_real_escape_string($con, $_GET['C_CVBA']);
-        $C_CONT = mysqli_real_escape_string($con, $_GET['C_CONT']);
-        $C_CONTAN = mysqli_real_escape_string($con, $_GET['C_CONTAN']);
-        $C_CTIPO = mysqli_real_escape_string($con, $_GET['C_CTIPO']);
-        $C_COWN = mysqli_real_escape_string($con, $_GET['C_COWN']);
-        $C_CSTAT = mysqli_real_escape_string($con, $_GET['C_CSTAT']);
-        $CUENTA = mysqli_real_escape_string($con, $_GET['CUENTA']);
-        $C_OBSE1 = utf8_decode(mysqli_real_escape_string($con, $_GET['C_OBSE1']));
-        $C_CALLE1 = mysqli_real_escape_string($con, $_GET['C_CALLE1']);
-        $C_CALLE2 = mysqli_real_escape_string($con, $_GET['C_CALLE2']);
-        $C_ATTE = mysqli_real_escape_string($con, $_GET['C_ATTE']);
-        $C_CARG = mysqli_real_escape_string($con, $_GET['C_CARG']);
-        $C_TELE = mysqli_real_escape_string($con, $_GET['C_TELE']);
-        $C_RCON = mysqli_real_escape_string($con, $_GET['C_RCON']);
-        $C_NSE = mysqli_real_escape_string($con, $_GET['C_NSE']);
-        $C_CNIV = mysqli_real_escape_string($con, $_GET['C_CNIV']);
-        $C_CFAC = mysqli_real_escape_string($con, $_GET['C_CFAC']);
-        $C_CPTA = mysqli_real_escape_string($con, $_GET['C_CPTA']);
-        $C_CREJ = mysqli_real_escape_string($con, $_GET['C_CREJ']);
-        $C_CPAT = mysqli_real_escape_string($con, $_GET['C_CPAT']);
-        $C_VISIT = mysqli_real_escape_string($con, $_GET['C_VISIT']);
-        $C_CVST = mysqli_real_escape_string($con, $_GET['C_CVST']);
-        $ACCION = mysqli_real_escape_string($con, $_GET['ACCION']);
-        $C_MOTIV = mysqli_real_escape_string($con, $_GET['C_MOTIV']);
-        $C_HRIN = mysqli_real_escape_string($con, $_GET['C_VH']) . ':' . mysqli_real_escape_string($con, $_GET['C_VMN']);
+    if ($go == 'CAPTURADO' && !empty($get['C_CVST'])) {
+        $C_CVGE = mysqli_real_escape_string($con, $get['C_CVGE']);
+        $C_CVBA = mysqli_real_escape_string($con, $get['C_CVBA']);
+        $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
+        $C_CONTAN = mysqli_real_escape_string($con, $get['C_CONTAN']);
+        $C_CTIPO = mysqli_real_escape_string($con, $get['C_CTIPO']);
+        $C_COWN = mysqli_real_escape_string($con, $get['C_COWN']);
+        $C_CSTAT = mysqli_real_escape_string($con, $get['C_CSTAT']);
+        $CUENTA = mysqli_real_escape_string($con, $get['CUENTA']);
+        $C_OBSE1 = utf8_decode(mysqli_real_escape_string($con, $get['C_OBSE1']));
+        $C_CALLE1 = mysqli_real_escape_string($con, $get['C_CALLE1']);
+        $C_CALLE2 = mysqli_real_escape_string($con, $get['C_CALLE2']);
+        $C_ATTE = mysqli_real_escape_string($con, $get['C_ATTE']);
+        $C_CARG = mysqli_real_escape_string($con, $get['C_CARG']);
+        $C_TELE = mysqli_real_escape_string($con, $get['C_TELE']);
+        $C_RCON = mysqli_real_escape_string($con, $get['C_RCON']);
+        $C_NSE = mysqli_real_escape_string($con, $get['C_NSE']);
+        $C_CNIV = mysqli_real_escape_string($con, $get['C_CNIV']);
+        $C_CFAC = mysqli_real_escape_string($con, $get['C_CFAC']);
+        $C_CPTA = mysqli_real_escape_string($con, $get['C_CPTA']);
+        $C_CREJ = mysqli_real_escape_string($con, $get['C_CREJ']);
+        $C_CPAT = mysqli_real_escape_string($con, $get['C_CPAT']);
+        $C_VISIT = mysqli_real_escape_string($con, $get['C_VISIT']);
+        $C_CVST = mysqli_real_escape_string($con, $get['C_CVST']);
+        $ACCION = mysqli_real_escape_string($con, $get['ACCION']);
+        $C_MOTIV = mysqli_real_escape_string($con, $get['C_MOTIV']);
+        $C_HRIN = mysqli_real_escape_string($con, $get['C_VH']) . ':' . mysqli_real_escape_string($con, $get['C_VMN']);
         $C_HRFI = date('H:i:s');
-        $D_FECH = mysqli_real_escape_string($con, $_GET['C_VD']);
-        $D_PROM = mysqli_real_escape_string($con, $_GET['D_PROMv']);
-        $N_PROM0 = mysqli_real_escape_string($con, $_GET['N_PROMv']);
-        $D_PAGO = mysqli_real_escape_string($con, $_GET['D_PAGOv']);
-        $N_PAGO = mysqli_real_escape_string($con, $_GET['N_PAGOv']);
-        $C_PROM = mysqli_real_escape_string($con, $_GET['C_PROM']);
-        $C_NTEL = mysqli_real_escape_string($con, $_GET['C_NTEL']);
-        $C_NDIR = trim(mysqli_real_escape_string($con, $_GET['C_NDIR']));
-        $C_EMAIL = trim(mysqli_real_escape_string($con, $_GET['C_EMAIL']));
-        $C_OBSE2 = mysqli_real_escape_string($con, $_GET['C_OBSE2']);
-        $C_EJE = mysqli_real_escape_string($con, $_GET['C_EJE']);
+        $D_FECH = mysqli_real_escape_string($con, $get['C_VD']);
+        $D_PROM = mysqli_real_escape_string($con, $get['D_PROMv']);
+        $N_PROM0 = mysqli_real_escape_string($con, $get['N_PROMv']);
+        $D_PAGO = mysqli_real_escape_string($con, $get['D_PAGOv']);
+        $N_PAGO = mysqli_real_escape_string($con, $get['N_PAGOv']);
+        $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
+        $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
+        $C_NDIR = trim(mysqli_real_escape_string($con, $get['C_NDIR']));
+        $C_EMAIL = trim(mysqli_real_escape_string($con, $get['C_EMAIL']));
+        $C_OBSE2 = mysqli_real_escape_string($con, $get['C_OBSE2']);
+        $C_EJE = mysqli_real_escape_string($con, $get['C_EJE']);
         if (empty($N_PROM0)) {
             $N_PROM0 = 0;
         }
         $N_PROM = str_replace('$', '', $N_PROM0);
-        $C_FREQ = mysqli_real_escape_string($con, $_GET['C_FREQ']);
-        for ($merciv = 0; $merciv < count($_GET['MERCv']); $merciv++) {
-            $MERCv[$merciv] = mysqli_real_escape_string($con, $_GET['MERCv'][$merciv]);
+        $C_FREQ = mysqli_real_escape_string($con, $get['C_FREQ']);
+        for ($merciv = 0; $merciv < count($get['MERCv']); $merciv++) {
+            $MERCv[$merciv] = mysqli_real_escape_string($con, $get['MERCv'][$merciv]);
         }
 
         $queryins = "INSERT INTO historia (C_CVGE,C_CVBA,C_CONT,C_CVST,D_FECH,C_HRIN,
@@ -283,7 +284,7 @@ order by v_cc LIMIT 1;";
             $resulthot = mysqli_query($con, $queryhot) or die("ERROR RM14a - " . mysqli_error($con));
             while ($answerhot = mysqli_fetch_row($resulthot)) {
                 $hot = $answerhot[0];
-            };
+            }
             $querysa = "update resumen set status_aarsa='" . $best . "' where id_cuenta=" . $C_CONT . ";";
             mysqli_query($con, $querysa) or die("ERROR RM15 - " . mysqli_error($con));
             $querysa3 = "update resumen set status_aarsa='" . $hot . "' 
@@ -372,10 +373,10 @@ and id_cuenta=" . $C_CONT . ";";
     <?php
 }
 if ($go == 'NUEVOS') {
-    $C_CONT = mysqli_real_escape_string($con, $_GET['C_CONT']);
-    $C_NTEL = mysqli_real_escape_string($con, $_GET['C_NTEL']);
-    $C_NDIR = trim(mysqli_real_escape_string($con, $_GET['C_NDIR']));
-    $C_OBSE2 = mysqli_real_escape_string($con, $_GET['C_OBSE2']);
+    $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
+    $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
+    $C_NDIR = trim(mysqli_real_escape_string($con, $get['C_NDIR']));
+    $C_OBSE2 = mysqli_real_escape_string($con, $get['C_OBSE2']);
     if (!empty($C_NTEL)) {
         $queryntel = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_NTEL . " WHERE id_cuenta='" . $C_CONT . "'";
         mysqli_query($con, $queryntel) or die("ERROR RM17 - " . mysqli_error($con));
@@ -401,13 +402,12 @@ if ($go == 'NUEVOS') {
     $redirector = "Location: resumen.php?&capt=" . $capt;
     header($redirector);
 }
-if ($go == 'GUARDAR' && !empty($_GET['C_CVST'])) {
-    $oldgo = mysqli_real_escape_string($con, $_GET['oldgo']);
+if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
+    $oldgo = mysqli_real_escape_string($con, $get['oldgo']);
     $error = 0;
-    $flag = mysqli_real_escape_string($con, $_GET['error']);
-    ;
-    $C_CVGE = mysqli_real_escape_string($con, urldecode($_GET['C_CVGE']));
-    $AUTH = mysqli_real_escape_string($con, $_GET['AUTH']);
+    $flag = mysqli_real_escape_string($con, $get['error']);
+    $C_CVGE = mysqli_real_escape_string($con, urldecode($get['C_CVGE']));
+    $AUTH = mysqli_real_escape_string($con, $get['AUTH']);
     if ($C_CVGE != $capt) {
         $AUTH = $capt;
     }
@@ -417,54 +417,54 @@ if ($go == 'GUARDAR' && !empty($_GET['C_CVST'])) {
     if (empty($AUTH)) {
         $AUTH = '';
     }
-    $C_CONT = mysqli_real_escape_string($con, $_GET['C_CONT']);
-    $C_CVST = mysqli_real_escape_string($con, urldecode($_GET['C_CVST']));
-    $C_CVBA = mysqli_real_escape_string($con, urldecode($_GET['C_CVBA']));
-    $ACCION = mysqli_real_escape_string($con, urldecode($_GET['ACCION']));
-    $C_MOTIV = mysqli_real_escape_string($con, urldecode($_GET['C_MOTIV']));
-    $D_FECH = mysqli_real_escape_string($con, $_GET['D_FECH']);
-    $C_HRIN = mysqli_real_escape_string($con, $_GET['C_HRIN']);
+    $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
+    $C_CVST = mysqli_real_escape_string($con, urldecode($get['C_CVST']));
+    $C_CVBA = mysqli_real_escape_string($con, urldecode($get['C_CVBA']));
+    $ACCION = mysqli_real_escape_string($con, urldecode($get['ACCION']));
+    $C_MOTIV = mysqli_real_escape_string($con, urldecode($get['C_MOTIV']));
+    $D_FECH = mysqli_real_escape_string($con, $get['D_FECH']);
+    $C_HRIN = mysqli_real_escape_string($con, $get['C_HRIN']);
     $C_HRFI = date('H:i:s');
-    $C_TELE = mysqli_real_escape_string($con, $_GET['C_TELE']);
-    $CUANDO = mysqli_real_escape_string($con, $_GET['CUANDO']);
-    $CUENTA = mysqli_real_escape_string($con, $_GET['CUENTA']);
-    $C_OBSE1 = utf8_decode(strtoupper(mysqli_real_escape_string($con, $_GET['C_OBSE1'])));
-    $C_ATTE = mysqli_real_escape_string($con, $_GET['C_ATTE']);
-    $C_CNP = mysqli_real_escape_string($con, $_GET['C_CNP']);
-//$C_CREJ=mysqli_real_escape_string($con,$_GET['C_CREJ']);
-//$C_CPAT=mysqli_real_escape_string($con,$_GET['C_CPAT']);
-    $C_CONTAN = mysqli_real_escape_string($con, urldecode($_GET['C_CONTAN']));
-    $C_CARG = utf8_encode(mysqli_real_escape_string($con, urldecode($_GET['C_CARG'])));
-    $C_CAMP = mysqli_real_escape_string($con, $_GET['camp']);
-    $D_PROM1 = mysqli_real_escape_string($con, $_GET['D_PROM1']);
-    $D_PROM2 = mysqli_real_escape_string($con, $_GET['D_PROM2']);
-    $D_PROM3 = mysqli_real_escape_string($con, $_GET['D_PROM3']);
-    $D_PROM4 = mysqli_real_escape_string($con, $_GET['D_PROM4']);
-    $D_PAGO = mysqli_real_escape_string($con, $_GET['D_PAGO']);
-    $N_PAGO = mysqli_real_escape_string($con, $_GET['N_PAGO']);
-    if (isset($_GET['D_MERC'])) {
-        $D_MERC = mysqli_real_escape_string($con, $_GET['D_MERC']);
+    $C_TELE = mysqli_real_escape_string($con, $get['C_TELE']);
+    $CUANDO = mysqli_real_escape_string($con, $get['CUANDO']);
+    $CUENTA = mysqli_real_escape_string($con, $get['CUENTA']);
+    $C_OBSE1 = utf8_decode(strtoupper(mysqli_real_escape_string($con, $get['C_OBSE1'])));
+    $C_ATTE = mysqli_real_escape_string($con, $get['C_ATTE']);
+    $C_CNP = mysqli_real_escape_string($con, $get['C_CNP']);
+//$C_CREJ=mysqli_real_escape_string($con,$get['C_CREJ']);
+//$C_CPAT=mysqli_real_escape_string($con,$get['C_CPAT']);
+    $C_CONTAN = mysqli_real_escape_string($con, urldecode($get['C_CONTAN']));
+    $C_CARG = utf8_encode(mysqli_real_escape_string($con, urldecode($get['C_CARG'])));
+    $C_CAMP = mysqli_real_escape_string($con, $get['camp']);
+    $D_PROM1 = mysqli_real_escape_string($con, $get['D_PROM1']);
+    $D_PROM2 = mysqli_real_escape_string($con, $get['D_PROM2']);
+    $D_PROM3 = mysqli_real_escape_string($con, $get['D_PROM3']);
+    $D_PROM4 = mysqli_real_escape_string($con, $get['D_PROM4']);
+    $D_PAGO = mysqli_real_escape_string($con, $get['D_PAGO']);
+    $N_PAGO = mysqli_real_escape_string($con, $get['N_PAGO']);
+    if (isset($get['D_MERC'])) {
+        $D_MERC = mysqli_real_escape_string($con, $get['D_MERC']);
     } else {
         $D_MERC = '';
     }
-    if (isset($_GET['MERC'])) {
-        for ($merci = 0; $merci < count($_GET['MERC']); $merci++) {
-            $MERC[$merci] = mysqli_real_escape_string($con, $_GET['MERC'][$merci]);
+    if (isset($get['MERC'])) {
+        for ($merci = 0; $merci < count($get['MERC']); $merci++) {
+            $MERC[$merci] = mysqli_real_escape_string($con, $get['MERC'][$merci]);
         }
     }
-    $C_PROM = mysqli_real_escape_string($con, $_GET['C_PROM']);
-    $N_PROM_OLD = mysqli_real_escape_string($con, $_GET['N_PROM_OLD']);
-    $N_PROM1 = mysqli_real_escape_string($con, $_GET['N_PROM1']);
-    $N_PROM2 = mysqli_real_escape_string($con, $_GET['N_PROM2']);
-    $N_PROM3 = mysqli_real_escape_string($con, $_GET['N_PROM3']);
-    $N_PROM4 = mysqli_real_escape_string($con, $_GET['N_PROM4']);
+    $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
+    $N_PROM_OLD = mysqli_real_escape_string($con, $get['N_PROM_OLD']);
+    $N_PROM1 = mysqli_real_escape_string($con, $get['N_PROM1']);
+    $N_PROM2 = mysqli_real_escape_string($con, $get['N_PROM2']);
+    $N_PROM3 = mysqli_real_escape_string($con, $get['N_PROM3']);
+    $N_PROM4 = mysqli_real_escape_string($con, $get['N_PROM4']);
     $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
-//$C_FREQ=mysqli_real_escape_string($con,$_GET['C_FREQ']);
-    $C_NTEL = mysqli_real_escape_string($con, $_GET['C_NTEL']);
-    $C_NDIR = mysqli_real_escape_string($con, $_GET['C_NDIR']);
-    $C_EMAIL = trim(mysqli_real_escape_string($con, $_GET['C_EMAIL']));
-    $C_OBSE2 = mysqli_real_escape_string($con, $_GET['C_OBSE2']);
-    $C_EJE = mysqli_real_escape_string($con, $_GET['C_EJE']);
+//$C_FREQ=mysqli_real_escape_string($con,$get['C_FREQ']);
+    $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
+    $C_NDIR = mysqli_real_escape_string($con, $get['C_NDIR']);
+    $C_EMAIL = trim(mysqli_real_escape_string($con, $get['C_EMAIL']));
+    $C_OBSE2 = mysqli_real_escape_string($con, $get['C_OBSE2']);
+    $C_EJE = mysqli_real_escape_string($con, $get['C_EJE']);
     $montomax = 0;
     $fechamin = '2020-12-31';
     $fechamax = '2007-01-01';
@@ -638,9 +638,9 @@ AND c_hrin='" . $C_HRIN . "' AND c_hrfi='" . $C_HRFI . "'
                 $mmonto = $answerlast[1];
             }
         }
-        $querypup = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
+        $querypupa = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
 where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
-        mysqli_query($con, $querypup) or die("ERROR RM32a - " . mysqli_error($con));
+        mysqli_query($con, $querypupa) or die("ERROR RM32a - " . mysqli_error($con));
         $best = $C_CVST;
         $querybest = "select c_cvst,v_cc from historia,dictamenes 
 where v_cc=
@@ -778,7 +778,7 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
         }
 //}
         $redirector = "Location: resumen.php?capt=" . $capt;
-        $fromelastix = (!empty($_GET['elastix']));
+        $fromelastix = (!empty($get['elastix']));
         if ($fromelastix) {
             $redirector = "Location: resumen.php?shutup=yes&capt=" . $capt;
         }
@@ -932,7 +932,7 @@ order by fecha_ultima_gestion  LIMIT 1
     }
 } else {
     $clientestr = '';
-    if (!empty($_GET['clientefilt'])) {
+    if (!empty($get['clientefilt'])) {
         $clientefilter = filter_input(INPUT_GET, 'clientefilt');
         $clientefilt = mysqli_real_escape_string($con, $clientefilter);
         if (strlen($clientefilt) > 1) {
@@ -1069,7 +1069,7 @@ if (empty($saldo_cuota)) {
     $saldo_cuota = 0;
 }
 $email_deudor = $row[92];
-if (is_int($row[93])) {
+if (isset($row[93])) {
     $id_cuenta = $row[93];
     $qsliced = "delete from rslice where user='" . $capt . "';";
     mysqli_query($con, $qsliced) or die("ERROR RM55 - " . mysqli_error($con));
@@ -1163,7 +1163,7 @@ if ($mytipo != 'admin') {
         $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL 
 WHERE locker='" . $capt . "';";
         $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-        if ($cliente == 'Surtifirme') {
+        if ($cliente == 'Surtidor del Hogar') {
             $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
         }
         if ($mytipo == 'admin') {
@@ -1172,7 +1172,7 @@ WHERE locker='" . $capt . "';";
         $queryunlock2 = "UPDATE rslice SET timelock=NULL, locker=NULL 
 WHERE locker='" . $capt . "';";
         $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-        if ($cliente == 'Surtifirme') {
+        if ($cliente == 'Surtidor del Hogar') {
             $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
         }
         mysqli_autocommit($con, FALSE);
@@ -1185,7 +1185,6 @@ WHERE locker='" . $capt . "';";
 resumen 
 WHERE id_cuenta='" . $id_cuenta . "';";
         $resulttlock = mysqli_query($con, $querytlock) or die("ERROR RM53 - " . mysqli_error($con));
-        $tl = '';
         if ($resulttlock) {
             while ($answertlock = mysqli_fetch_row($resulttlock)) {
                 $tl = $answertlock[0];
@@ -1204,7 +1203,7 @@ $CT = date("H:i:s");
 $others = 0;
 $queryothers = "select count(1) FROM resumen 
 where nombre_deudor='$nombre_deudor'
-and '$cliente'='Surtifirme';";
+and '$cliente'='Surtidor del Hogar';";
 $resultothers = mysqli_query($con, $queryothers) or die("ERROR RMothers - " . mysqli_error($con));
 while ($rowothers = mysqli_fetch_row($resultothers)) {
     $others = $rowothers[0];
@@ -1230,9 +1229,10 @@ $stn->execute();
 $resultng = $stn->fetchAll();
 
 $queryextra = "SELECT *
- FROM resumen 
-WHERE nombre_deudor=':nombre_deudor'
-AND ':cliente'='Surtifirme';";
+ FROM resumeni,sdhextras 
+WHERE cuenta=numero_de_cuenta 
+AND nombre_deudor=':nombre_deudor'
+AND ':cliente'='Surtidor del Hogar';";
 $ste = $pdo->prepare($queryextra);
 $ste->bindParam(':nombre_deudor', $nombre_deudor);
 $ste->bindParam(':cliente', $cliente);

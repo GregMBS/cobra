@@ -729,7 +729,7 @@ AND id>0 and mercancia=0 and fecha>last_day(curdate()-interval 1 month) order by
             $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL 
 WHERE locker='" . $capt . "';";
             $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-            if ($cliente == 'Surtifirme') {
+            if ($cliente == 'Surtidor del Hogar') {
                 $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
             }
             if ($mytipo == 'admin') {
@@ -738,7 +738,7 @@ WHERE locker='" . $capt . "';";
             $queryunlock2 = "UPDATE rslice SET timelock=NULL, locker=NULL 
 WHERE locker='" . $capt . "';";
             $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-            if ($cliente == 'Surtifirme') {
+            if ($cliente == 'Surtidor del Hogar') {
                 $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
             }
             mysqli_autocommit($con, FALSE);
@@ -768,7 +768,7 @@ $CT = date("H:i:s");
 $others = 0;
 $queryothers = "select count(1) FROM resumen 
 where nombre_deudor='$nombre_deudor'
-and '$cliente'='Surtifirme';";
+and '$cliente'='Surtidor del Hogar';";
 $resultothers = mysqli_query($con, $queryothers) or die("ERROR RMothers - " . mysqli_error($con));
 while ($rowothers = mysqli_fetch_row($resultothers)) {
     $others = $rowothers[0];
