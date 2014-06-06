@@ -1229,10 +1229,10 @@ $stn->execute();
 $resultng = $stn->fetchAll();
 
 $queryextra = "SELECT *
- FROM resumeni,sdhextras 
+ FROM resumen,sdhextras 
 WHERE cuenta=numero_de_cuenta 
-AND nombre_deudor=':nombre_deudor'
-AND ':cliente'='Surtidor del Hogar';";
+AND nombre_deudor=:nombre_deudor
+AND :cliente='Surtidor del Hogar';";
 $ste = $pdo->prepare($queryextra);
 $ste->bindParam(':nombre_deudor', $nombre_deudor);
 $ste->bindParam(':cliente', $cliente);

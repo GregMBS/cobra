@@ -581,6 +581,9 @@
                     <?php if ($others > 1) { ?> 
                         <LI><A onClick="paging('EXTRAS');">OTRAS CUENTAS</A></LI>
                     <?php } ?>
+                    <?php if ($cliente == 'Surtidor del Hogar') { ?> 
+                        <LI><A onClick="paging('EXTRAS');">PRODUCTOS</A></LI>
+                    <?php } ?>
                     <LI><A onClick="paging('VISITA')">CAPTURA VISITA</A></LI>
                     <LI><A onClick="paging('HISTORIA')">HISTORIA</A></LI>
                 </UL>
@@ -1770,7 +1773,7 @@
                 <?php } ?>
             </div>
             <div id="GESTION">
-                <form action="resumen.php" method="get" id="gestionform" 
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" id="gestionform" 
                       onSubmit="return validate_form(this, event,<?php echo $saldo_descuento_2 + 0; ?>,<?php
                       if (empty($AUTH)) {
                           $AUTH = '';
@@ -1786,10 +1789,11 @@
                             <tr>
                                 <td>Gestor</td>
                                 <td><select name="C_CVGE">
+                                        <option value="<?php echo $capt; ?>"><?php echo $capt; ?></option>
                                         <?php
                                         foreach ($resultGestor as $answerGestor) {
                                             ?>
-                                            <option value="<?php echo $answerGestor[1]; ?>" <?php if ($answerGestor[1] == $capt) { ?>selected="selected"<?php } ?>><?php echo $answerGestor[0]; ?></option>
+                                            <option value="<?php echo $answerGestor[1]; ?>"><?php echo $answerGestor[0]; ?></option>
                                         <?php }
                                         ?>
                                     </select></td>
