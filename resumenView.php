@@ -1773,7 +1773,7 @@
                 <?php } ?>
             </div>
             <div id="GESTION">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" id="gestionform" 
+                <form action="resumen.php" method="get" id="gestionform" 
                       onSubmit="return validate_form(this, event,<?php echo $saldo_descuento_2 + 0; ?>,<?php
                       if (empty($AUTH)) {
                           $AUTH = '';

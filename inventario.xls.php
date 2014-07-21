@@ -1,7 +1,7 @@
 <?php
 require_once 'admin_hdr_2.php';
 require_once 'vendor/autoload.php';
-set_time_limit(60);
+set_time_limit(180);
 
 while ($answercheck=mysql_fetch_row($resultcheck)) {
 if ($answercheck[0]!=1) {die($capt.$ticket);}
@@ -38,7 +38,7 @@ tel_1_ref_1,(tel_1_ref_1 in (select c_tele from livelines))*(1-(tel_1_ref_1 in (
 tel_1_ref_2,(tel_1_ref_2 in (select c_tele from livelines))*(1-(tel_1_ref_2 in (select c_tele from deadlines))) as 't1r2 efectivo'
     from resumen 
 left join dictamenes d1 on status_aarsa=d1.dictamen
-where 1=1 
+where status_de_credito not regexp '-' 
 ".$clientestr." 
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
     ;";
@@ -130,5 +130,3 @@ else {
 <?php } 
 }
 }
-mysql_close($con);
-?>

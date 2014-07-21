@@ -1,16 +1,15 @@
 <?php
+
 include 'Mobile_Detect.php';
 $detect = new Mobile_Detect();
 $gets = $_SERVER['QUERY_STRING'];
-parse_str($gets, $get); 
+parse_str($gets, $get);
 date_default_timezone_set('America/Monterrey');
+setlocale(LC_MONETARY, 'en_US');
 
 function highhist($stat, $visit) {
     $highstr = '';
     if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
-        $highstr = " class='deudor'";
-    }
-    if (($stat == 'PROMESA DE PAGO TOTAL J') || ($stat == 'PROMESA DE PAGO PARCIAL J') || ($stat == 'CLIENTE NEGOCIANDO J')) {
         $highstr = " class='deudor'";
     }
     if (!empty($visit)) {
@@ -30,8 +29,6 @@ if (substr($capt, 0, 8) == "practica") {
     $tcapt = "practica";
 }
 if (!empty($mytipo)) {
-    setlocale(LC_MONETARY, 'en_US');
-
     $oldgo = '';
 
     if (isset($get['go'])) {
@@ -39,7 +36,7 @@ if (!empty($mytipo)) {
     } else {
         $go = '';
     }
-        if ($go == 'ULTIMA') {
+    if ($go == 'ULTIMA') {
         $queryult = "SELECT c_cont FROM historia WHERE c_cvge='" . $capt .
                 "' and c_cont <> '0' ORDER BY d_fech desc, C_hrfi desc LIMIT 1";
         $resultult = mysqli_query($con, $queryult) or die("ERROR RM4 - " . mysqli_error($con));
@@ -49,7 +46,7 @@ if (!empty($mytipo)) {
         $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FROMULTIMA";
         header($redirector);
     }
-$getupdate = isset($get['find']);
+    $getupdate = isset($get['find']);
     $isoldid = isset($get['id_cuenta']);
     if ($getupdate) {
         $findg = filter_input(INPUT_GET, 'find');
@@ -65,16 +62,7 @@ $getupdate = isset($get['find']);
         $findS = strip_tags($findU);
         $find = trim($findS);
     }
-    /*
-      if ($postupdate) {
-      $find = mysqli_real_escape_string($con,$get['find']);
-      $capt = mysqli_real_escape_string($con,$get['capt']);
-      // We perform a bit of filtering
-      $find = strtoupper($find);
-      $find = strip_tags($find);
-      $find = trim ($find);
-      };
-     */
+
     $pagalert = 0;
     $querypagos = "select (c_cvst like 'PAG%'),c_cont from historia 
 where c_cvge='" . $capt . "' and d_fech=curdate() and c_cvst like 'PAG%'
@@ -91,6 +79,7 @@ order by d_fech desc,c_hrin desc limit 1";
             $pagalert = 0;
         }
     }
+
     $notalert = '';
     $querynotas = "select min(concat_ws(' ',fecha,hora)<now()),min(concat_ws(' ',fecha,hora))
 from notas 
@@ -115,10 +104,12 @@ AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
             $alertfuente = $answernotas2[2];
         }
     }
+
     if ($go == 'LOGOUT') {
         $page = "Location: logout.php?gone=&capt=" . $capt;
         header($page);
     }
+
     if ($go == 'CAPTURADO' && !empty($get['C_CVST'])) {
         $C_CVGE = mysqli_real_escape_string($con, $get['C_CVGE']);
         $C_CVBA = mysqli_real_escape_string($con, $get['C_CVBA']);
@@ -314,63 +305,13 @@ and id_cuenta not in (
 select id_cuenta from pagos where fecha>last_day(curdate()-interval 1 month))
 and id_cuenta=" . $C_CONT . ";";
             mysqli_query($con, $querysa2) or die("ERROR RM15b - " . mysqli_error($con));
-            /*
-              $querysa4 = "update resumen,dictamenes d1
-              set status_aarsa='CONVENIO INCUMPLIDA J'
-              where status_aarsa=d1.dictamen and (cliente like 'J%' or cliente like
-              '%JUR')
-              and d1.queue='Convenios'
-              and pagos_vencidos>0
-              and not exists (select * from historia, dictamenes d2
-              where c_cont=id_cuenta and queue='convenios' and d2.dictamen=c_cvst
-              and ((d_fech>fecha_de_actualizacion) or (d_prom>=curdate())))
-              and id_cuenta=".$C_CONT.";";
-              $querysa5 = "update resumen,dictamenes
-              set status_aarsa='CONVENIO CURADO J'
-              where status_aarsa=dictamen  and (cliente like 'J%' or cliente like '%JUR')
-              and queue='Convenios'
-              and pagos_vencidos=0
-              and not exists (select * from historia where c_cont=id_cuenta
-              and c_cvst like 'firm%' and d_fech<curdate()-interval 3 month)
-              and id_cuenta=".$C_CONT.";";
-              $querysa6 = "update resumen
-              set status_aarsa='LIQUIDACION DE CREDITO J'
-              where status_aarsa = 'PAGO TOTAL J'  and (cliente like 'J%' or cliente like '%JUR')
-              and pagos_vencidos=0
-              and id_cuenta=".$C_CONT.";";
-              $querysa7 = "update resumen,dictamenes
-              set status_aarsa='REGULARIZACION J'
-              where status_aarsa=dictamen  and (cliente like 'J%' or cliente like '%JUR')
-              and queue='PAGOS' and pagos_vencidos=0
-              and not exists
-              (select * from historia where c_cont=id_cuenta and c_cvst like 'firm%')
-              and id_cuenta=".$C_CONT.";";
-              $querysa8 = "update resumen,dictamenes
-              set status_aarsa='ASIGNAR JUDICIAL J'
-              where status_aarsa=dictamen and (cliente like 'J%' or cliente like '%JUR')
-              and queue not in ('PAGOS','PROMESAS','CONVENIOS','REGULAIZACION')
-              and fecha_de_asignacion<curdate()-interval 60 day
-              and id_cuenta=".$C_CONT.";";
-              $querysa9 = "update resumen,historia set status_aarsa='CONVENIO CURADO J'
-              where c_cont=id_cuenta and c_cvst='CONVENIO CURADO J'  and (cliente like 'J%' or cliente like '%JUR')
-              and id_cuenta=".$C_CONT.";";
-             */
             $redirector = "Location: resumen.php?capt=" . $capt . "&go=FROMBUSCAR&i=0&field=id_cuenta&find=" . $C_CONT;
             header($redirector);
         }
     }
 } else {
-    ?>
-    <HTML>
-        <HEAD>
-            <TITLE>Error de capturar gestion</TITLE>
-        </HEAD>
-        <BODY>
-            <h2><?php echo $flagmsg; ?></h2>
-            <a href="resumen.php?capt=<?php echo $capt; ?>&field=id_cuenta&find=<?php echo $C_CONT; ?>">Regresa para arreglarlo</a>
-        </BODY>
-    </HTML>
-    <?php
+    $flagmsg = "Acceso sin autorizaci&oacute;n";
+    include 'resumenErrorView.php';
 }
 if ($go == 'NUEVOS') {
     $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
@@ -693,46 +634,6 @@ and id_cuenta not in (
 select id_cuenta from pagos where fecha>last_day(curdate()-interval 1 month))
 and id_cuenta=" . $C_CONT . ";";
         mysqli_query($con, $querysa2) or die("ERROR RM15b - " . mysqli_error($con));
-        /*
-          $querysa4 = "update resumen,dictamenes
-          set status_aarsa='CONVENIO INCUMPLIDA J'
-          where status_aarsa=dictamen and (cliente like 'J%' or cliente like '%JUR')
-          and queue='Convenios'
-          and pagos_vencidos>0
-          and not exists (select * from historia, dictamenes d2
-          where c_cont=id_cuenta and queue='convenios' and d2.dictamen=c_cvst
-          and ((d_fech>fecha_de_actualizacion) or (d_prom>=curdate())))
-          and id_cuenta=".$C_CONT.";";
-          $querysa5 = "update resumen,dictamenes
-          set status_aarsa='CONVENIO CURADO J'
-          where status_aarsa=dictamen  and (cliente like 'J%' or cliente like '%JUR')
-          and queue='Convenios'
-          and pagos_vencidos=0
-          and not exists (select * from historia where c_cont=id_cuenta
-          and c_cvst like 'firm%' and d_fech<curdate()-interval 3 month)
-          and id_cuenta=".$C_CONT.";";
-          $querysa6 = "update resumen
-          set status_aarsa='LIQUIDACION DE CREDITO J'
-          where status_aarsa = 'PAGO TOTAL J'  and (cliente like 'J%' or cliente like '%JUR')
-          and pagos_vencidos=0
-          and id_cuenta=".$C_CONT.";";
-          $querysa7 = "update resumen,dictamenes
-          set status_aarsa='REGULARIZACION J'
-          where status_aarsa=dictamen  and (cliente like 'J%' or cliente like '%JUR')
-          and queue='PAGOS' and pagos_vencidos=0
-          and not exists
-          (select * from historia where c_cont=id_cuenta and c_cvst like 'firm%')
-          and id_cuenta=".$C_CONT.";";
-          $querysa8 = "update resumen,dictamenes
-          set status_aarsa='ASIGNAR JUDICIAL J'
-          where status_aarsa=dictamen and (cliente like 'J%' or cliente like '%JUR')
-          and queue not in ('PAGOS','PROMESAS','CONVENIOS','REGULAIZACION')
-          and fecha_de_asignacion<curdate()-interval 60 day
-          and id_cuenta=".$C_CONT.";";
-          $querysa9 = "update resumen,historia set status_aarsa='CONVENIO CURADO J'
-          where c_cont=id_cuenta and c_cvst='CONVENIO CURADO J'  and (cliente like 'J%' or cliente like '%JUR')
-          and id_cuenta=".$C_CONT.";";
-         */
         if (!empty($C_NTEL)) {
             $queryntel = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_NTEL . " WHERE id_cuenta='" . $C_CONT . "'";
             mysqli_query($con, $queryntel) or die("ERROR RM27 - " . mysqli_error($con));
@@ -788,17 +689,7 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
         }
         header($redirector);
     } else {
-        ?>
-        <HTML>
-            <HEAD>
-                <TITLE>Error de capturar gestion</TITLE>
-            </HEAD>
-            <BODY>
-                <h2><?php echo $flagmsg; ?></h2>
-                <a href="resumen.php?capt=<?php echo $capt; ?>&field=id_cuenta&find=<?php echo $C_CONT; ?>">Regresa para arreglarlo</a>
-            </BODY>
-        </HTML>
-        <?php
+        include 'resumenErrorView.php';
     }
 }
 if (substr($capt, 0, 8) == "practica") {
@@ -1230,7 +1121,7 @@ $resultng = $stn->fetchAll();
 
 $queryextra = "SELECT *
  FROM resumen,sdhextras 
-WHERE cuenta=numero_de_cuenta 
+WHERE cuenta=numero_de_credito 
 AND nombre_deudor=:nombre_deudor
 AND :cliente='Surtidor del Hogar';";
 $ste = $pdo->prepare($queryextra);

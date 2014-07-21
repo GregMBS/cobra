@@ -3,7 +3,6 @@ $host = "localhost";
 $user = "root";
 $pwd = "4sale";
 $db = "cobra";
-$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = (mysql_connect($host, $user, $pwd)) or die ("Could not connect to MySQL");
 mysql_query("USE $db") or die ("Could not select $db database");
 $ticket=mysql_real_escape_string($_COOKIE['auth']);
@@ -16,7 +15,7 @@ else {
 $tipo=$answercheck[1];
 if (empty($_REQUEST['page'])||($_REQUEST['page']+0==0)) {$page=0;} else {$page=mysql_real_escape_string($_REQUEST['page']);}
 $tcapt=$capt;
-if (substr($capt,0,8)=="practica") {$tcapt="practica";}
+
 $updown='';
 	 set_time_limit(300);
 $go='';
@@ -42,7 +41,7 @@ from resumen
 join dictamenes on dictamen=status_aarsa
 join historia h1 on id_cuenta=c_cont
 left join pagos on pagos.id_cuenta=c_cont and fecha>=d_fech
-where n_prom>0 and queue in ('CLIENTE NEGOCIANDO','PROMESAS','PAGOS','PAGANDO CONVENIO', 'PROMESAS INCUMPLIDAS')
+where n_prom>0 and queue in ('CLIENTE NEGOCIANDO','PROMESAS', 'PROMESAS INCUMPLIDAS')
 and status_de_credito not regexp 'inactivo$'
 and d_prom>last_day(curdate()-interval 1 month)
 and d_fech>last_day(curdate()-interval 2 month)

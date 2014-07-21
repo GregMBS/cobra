@@ -32,52 +32,52 @@ $i=1;
 $cc=$answer[5];
 if ($cc=='') {$cc='  ';}
 if (strlen($answer[4])==4) {$cc='';}
-echo "200,2,'".str_pad($answer[0],25," ",STR_PAD_RIGHT)."','".
+echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
-" ".$answer[2]."','".
-str_pad($i,5,"0",STR_PAD_LEFT)."','".
-$answer[3]."','".$answer[4]."','".$cc."','".
-"MUÑOZ   ','".
-cleanup($answer[6])."'\r\n";
+" ".$answer[2].
+str_pad($i,5,"0",STR_PAD_LEFT).
+$answer[3].$answer[4].$cc.
+"CSI     ".
+cleanup($answer[6])."\r\n";
 if ($answer[7]!='') {
 $i++;
-echo "200,2,'".str_pad($answer[0],25," ",STR_PAD_RIGHT)."','".
+echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
-" ".$answer[2]."','".
-str_pad($i,5,"0",STR_PAD_LEFT)."','".
-$answer[3]."','".$answer[4]."','".$cc."','".
-"MUÑOZ   ','".
-cleanup($answer[7])."'\r\n";
+" ".$answer[2].
+str_pad($i,5,"0",STR_PAD_LEFT).
+$answer[3].$answer[4].$cc.
+"CSI     ".
+cleanup($answer[7])."\r\n";
 	}
 if ($answer[8]!='') {
 $i++;
-echo "200,2,'".str_pad($answer[0],25," ",STR_PAD_RIGHT)."','".
+echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
-" ".$answer[2]."','".
-str_pad($i,5,"0",STR_PAD_LEFT)."','".
-$answer[3]."','".$answer[4]."','".$cc."','".
-"MUÑOZ   ','".
-cleanup($answer[8])."'\r\n";
+" ".$answer[2].
+str_pad($i,5,"0",STR_PAD_LEFT).
+$answer[3].$answer[4].$cc.
+"CSI     ".
+cleanup($answer[8])."\r\n";
 	}
 if ($answer[9]!='') {
 $i++;
-echo "200,2,'".str_pad($answer[0],25," ",STR_PAD_RIGHT)."','".
+echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
-" ".$answer[2]."','".
-str_pad($i,5,"0",STR_PAD_LEFT)."','".
-$answer[3]."','".$answer[4]."','".$cc."','".
-"MUÑOZ   ','".
-cleanup($answer[9])."'\r\n";
+" ".$answer[2].
+str_pad($i,5,"0",STR_PAD_LEFT).
+$answer[3].$answer[4].$cc.
+"CSI     ".
+cleanup($answer[9])."\r\n";
 	}
 if ($answer[10]!='') {
 $i++;
-echo "200,2,'".str_pad($answer[0],25," ",STR_PAD_RIGHT)."','".
+echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
-" ".$answer[2]."','".
-str_pad($i,5,"0",STR_PAD_LEFT)."','".
-$answer[3]."','".$answer[4]."','".$cc."','".
-"MUÑOZ   ','".
-cleanup($answer[10])."'\r\n";
+" ".$answer[2].
+str_pad($i,5,"0",STR_PAD_LEFT).
+$answer[3].$answer[4].$cc.
+"CSI     ".
+cleanup($answer[10])."\r\n";
 	}
 }
 }

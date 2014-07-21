@@ -1,7 +1,8 @@
 <?php
-set_time_limit(300);
-require_once 'Spreadsheet/Excel/Writer.php';
-include('admin_hdr_2.php');
+require_once 'admin_hdr_2.php';
+require_once 'phpexcel/phpexcel/Classes/PHPExcel.php';
+set_time_limit(180);
+
 while ($answercheck=mysql_fetch_row($resultcheck)) {
 if ($answercheck[0]!=1) {die($capt.$ticket);}
 else {
@@ -11,7 +12,8 @@ function MesNom($n)
     
     return date("M", $timestamp);
 }
-    if (!empty($_REQUEST['go'])) 
+
+    if (!empty($_GET['go'])) 
     {
         $go = mysql_real_escape_string($_REQUEST['go']);
         $gestor = mysql_real_escape_string($_REQUEST['gestor']);
@@ -48,30 +50,46 @@ $workbook = new Spreadsheet_Excel_Writer();
 
 $filename="Query_de_gestiones_".date('ymd',strtotime($fecha1))."_".date('ymd',strtotime($fecha2)).".xls";
 // sending HTTP headers
-$workbook->send($filename);
+//$workbook->send($filename);
 
-// Creating a worksheet
-$worksheet =& $workbook->addWorksheet('Reporte CS');
-$worksheet->setInputEncoding('ISO-8859-1');
+$objPHPExcel = new PHPExcel();
 
+// Set properties
+$objPHPExcel->getProperties()->setCreator("Cobranza Integral");
+$objPHPExcel->getProperties()->setLastModifiedBy("Eduardo Pantoja");
+$objPHPExcel->getProperties()->setTitle("Query_de_inventario");
+$objPHPExcel->getProperties()->setSubject("COBRA Inventario");
+$objPHPExcel->getProperties()->setDescription("COBRA Inventario");
+$objPHPExcel->setActiveSheetIndex(0);
 
 $ii=0;
 $numberfields = mysql_num_fields($result);
-
+$afield=array();
    for ($i=0; $i<$numberfields ; $i++ ) {
+	$letter=chr(ord("A")+$i);
        $var = mysql_field_name($result, $i);
-	$worksheet->write(0, $i, $var);
+       $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, 1, $var);
+       $objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
    }
-$ii++;
-while ($row = mysql_fetch_row($result)) 
-    {
-    for ($j=0;$j<$numberfields; $j++) {
-	$worksheet->write($ii, $j, $row[$j]);
+
+$row = 2; // 1-based index
+while($row_data = mysql_fetch_assoc($result)) {
+    $col = 0;
+    foreach($row_data as $key=>$value) {
+	$pad="";
+	if ($col==0) {$pad=" ";}
+       	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $value.$pad);
+        $col++;
     }
-    $ii++;
+    $row++;
     }
-$workbook->close();
-    }
+$objPHPExcel->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
+header("Content-Type: application/vnd.ms-excel");
+header('Content-Disposition: attachment; filename="'.$filename.'"');
+header("Cache-Control: max-age=0");
+ 
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel5");
+$objWriter->save("php://output");}
 else {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"

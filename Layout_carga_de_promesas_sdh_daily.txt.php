@@ -3,9 +3,14 @@
 $con = '';
 include('admin_hdr_i.php');
 set_time_limit(300);
+if (date('w') == 1) {
+    $startday = 4;
+} else {
+    $startday = 2;
+}
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 header('Content-Type: text/plain; charset=windows-1252');
-header("Content-Disposition: attachment; filename='Reporte_600.txt'");
+header("Content-Disposition: attachment; filename='Reporte 600.txt'");
 $querymain = "SELECT numero_de_cuenta,
             DATE_FORMAT(d_fech,'%m%d%Y') as 'dFech',codigo,
 DATE_FORMAT(d_prom1,'%m%d%Y') as 'dProm1',n_prom1,
@@ -26,8 +31,8 @@ DATE_FORMAT(curdate(),'%m%d%Y') as 'dNow'
 from resumen 
 join historia h1 on c_cont=id_cuenta
 left join cyberact on accion=c_accion 
-where d_fech>last_day(curdate() - interval 5 week)
-and cliente regexp 'Credito Si' 
+where d_fech<curdate() and d_fech>(curdate() - interval " . $startday . " day)
+and cliente regexp 'Surti' 
 and c_cvst like 'PRO%DE%' and n_prom>0 
 and not exists (select auto from historia h2 where h2.c_cont=id_cuenta and h2.n_prom>0 and h2.d_fech=h1.d_fech and h2.c_hrfi>h1.c_hrfi)
 order by d_fech,c_hrin
@@ -46,7 +51,7 @@ while ($answer = $result->fetch_assoc()) {
         $cod = 'LH';
         $cn = '001';
     }
-    $fecha = array('00000000', '00000000', '00000000', '00000000');
+    $fecha = array('00000000000000000000000000000000');
     $fecha[0] = $answer['dFech'];
     $fecha[1] = $answer['dProm1'];
     if ($answer['dFech'] < $answer['dNow']) {
@@ -78,16 +83,17 @@ while ($answer = $result->fetch_assoc()) {
             $fecha[$ii] = $answer['dProm' . $ii . 'A'];
         }
     }
+//var_dump($fecha);die();
     echo "6007" . str_pad($answer['numero_de_cuenta'], 25, " ", STR_PAD_RIGHT) . 
-    "CSI     " . $cod . "PP" . str_pad($fecha[0], 8, "0", STR_PAD_LEFT) . 
-    $cn . str_pad($j, 3, "0", STR_PAD_LEFT) .
-    str_pad($fecha[1], 8, "0", STR_PAD_LEFT) .
+    "COBINTEG" . $cod . "PP" . str_pad($fecha[0], 8, "0", STR_PAD_LEFT) . 
+    $cn .  str_pad($j, 3, "0", STR_PAD_LEFT) . 
+    str_pad($fecha[1], 8, "0", STR_PAD_LEFT) . 
     str_pad(round($monto * 100), 15, "0", STR_PAD_LEFT) . "\r\n";
     if ($answer['cProm'] > 1) {
 //                $j++;
         for ($jj = 2; $jj <= $answer['cProm']; $jj++) {
             echo "6007" . str_pad($answer['numero_de_cuenta'], 25, " ", STR_PAD_RIGHT) . 
-            "CSI     " . $cod . "PP" . str_pad($fecha[$jj - 1], 8, "0", STR_PAD_LEFT) . 
+            "COBINTEG" . $cod . "PP" . str_pad($fecha[$jj - 1], 8, "0", STR_PAD_LEFT) . 
             $cn .  str_pad($jj, 3, "0", STR_PAD_LEFT) . 
             str_pad($fecha[$jj], 8, "0", STR_PAD_LEFT) . 
             str_pad(round($answer['n_prom' . $jj] * 100), 15, "0", STR_PAD_LEFT) . "\r\n";

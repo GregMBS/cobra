@@ -52,12 +52,14 @@ if (isset($iSortCol_0)) {
  * word by word on any field. It's possible to do here, but concerned about efficiency
  * on very large tables, and MySQL's regex functionality is very limited
  */
+$aWhere = array();
 $sWhere0 = "WHERE (";
 for ($i = 0; $i < count($aColumns); $i++) {
     $whereCol = filter_input($aColumns[$i]);
     if (!empty($whereCol)) {
-        $sWhere0 .= $aColumns[$i] . " LIKE '%" . trim($whereCol) . "%' AND ";
+        $sWhere0 .= $aColumns[$i] . " LIKE :" . $aColumns[$i] . " AND ";
     }
+    $aWhere[":" . $aColumns[$i]] = "%" . trim($whereCol) . "%";
 }
 $sWhere = substr_replace($sWhere0, "", -4);
 

@@ -29,7 +29,7 @@ join historia on c_cont=id_cuenta
 left join cyberres cr on c_cvst=cr.dictamen 
 left join cyberact on accion=c_accion 
 where d_fech<curdate() and d_fech>(curdate() - interval ".$startday." day) 
-and cliente regexp 'Credito Si' 
+and cliente regexp 'Surti' 
 order by d_fech,c_hrin
 ;";
 $result=mysql_query($querymain) or die(mysql_error());
@@ -42,8 +42,8 @@ echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
 " ".$answer[2].
 str_pad($i,5,"0",STR_PAD_LEFT).
-$answer[3].$answer[4].$cc.
-"CSI     ".
+$answer[3].str_pad($answer[4],2," ",STR_PAD_RIGHT).str_pad($cc,2," ",STR_PAD_RIGHT).
+"COBINTEG".
 cleanup($answer[6])."\r\n";
 if ($answer[7]!='') {
 $i++;
@@ -51,8 +51,8 @@ echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
 " ".$answer[2].
 str_pad($i,5,"0",STR_PAD_LEFT).
-$answer[3].$answer[4].$cc.
-"CSI     ".
+$answer[3].str_pad($answer[4],2," ",STR_PAD_RIGHT).str_pad($cc,2," ",STR_PAD_RIGHT).
+"COBINTEG".
 cleanup($answer[7])."\r\n";
 	}
 if ($answer[8]!='') {
@@ -61,8 +61,8 @@ echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
 " ".$answer[2].
 str_pad($i,5,"0",STR_PAD_LEFT).
-$answer[3].$answer[4].$cc.
-"CSI     ".
+$answer[3].str_pad($answer[4],2," ",STR_PAD_RIGHT).str_pad($cc,2," ",STR_PAD_RIGHT).
+"COBINTEG".
 cleanup($answer[8])."\r\n";
 	}
 if ($answer[9]!='') {
@@ -71,8 +71,8 @@ echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
 " ".$answer[2].
 str_pad($i,5,"0",STR_PAD_LEFT).
-$answer[3].$answer[4].$cc.
-"CSI     ".
+$answer[3].str_pad($answer[4],2," ",STR_PAD_RIGHT).str_pad($cc,2," ",STR_PAD_RIGHT).
+"COBINTEG".
 cleanup($answer[9])."\r\n";
 	}
 if ($answer[10]!='') {
@@ -81,8 +81,8 @@ echo "2007".str_pad($answer[0],25," ",STR_PAD_RIGHT).
 str_pad($answer[1],8,"0",STR_PAD_LEFT).
 " ".$answer[2].
 str_pad($i,5,"0",STR_PAD_LEFT).
-$answer[3].$answer[4].$cc.
-"CSI     ".
+$answer[3].str_pad($answer[4],2," ",STR_PAD_RIGHT).str_pad($cc,2," ",STR_PAD_RIGHT).
+"COBINTEG".
 cleanup($answer[10])."\r\n";
 	}
 }

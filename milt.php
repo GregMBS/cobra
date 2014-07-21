@@ -22,7 +22,7 @@ foreach ($result0 as $row0) {
 
 $msg=$row0['msg'];
 $lim=$row0['lineas'];
-if ($lim>4) {$lim=4;}
+if ($lim>100) {$lim=100;}
 
 $q1 = "SELECT auto,id,tel,turno FROM robot.calllist " .
 "WHERE msg = :msg ".

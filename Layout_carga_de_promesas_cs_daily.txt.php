@@ -51,7 +51,7 @@ while ($answer = $result->fetch_assoc()) {
         $cod = 'LH';
         $cn = '001';
     }
-    $fecha = array('00000000','00000000','00000000','00000000');
+    $fecha = array('00000000000000000000000000000000');
     $fecha[0] = $answer['dFech'];
     $fecha[1] = $answer['dProm1'];
     if ($answer['dFech'] < $answer['dNow']) {
@@ -84,19 +84,19 @@ while ($answer = $result->fetch_assoc()) {
         }
     }
 //var_dump($fecha);die();
-    echo "600,2,'" . str_pad($answer['numero_de_cuenta'], 25, " ", STR_PAD_RIGHT) . "','" .
-    "MUÑOZ   ','" . $cod . "','PP','" . str_pad($fecha[0], 8, "0", STR_PAD_LEFT) . "','" .
-    $cn . "','" . str_pad($j, 3, "0", STR_PAD_LEFT) . "','" .
-    str_pad($fecha[1], 8, "0", STR_PAD_LEFT) . "','" .
-    str_pad(round($monto * 100), 15, "0", STR_PAD_LEFT) . "'\r\n";
+    echo "6007" . str_pad($answer['numero_de_cuenta'], 25, " ", STR_PAD_RIGHT) . 
+    "CSI     " . $cod . "PP" . str_pad($fecha[0], 8, "0", STR_PAD_LEFT) . 
+    $cn .  str_pad($j, 3, "0", STR_PAD_LEFT) . 
+    str_pad($fecha[1], 8, "0", STR_PAD_LEFT) . 
+    str_pad(round($monto * 100), 15, "0", STR_PAD_LEFT) . "\r\n";
     if ($answer['cProm'] > 1) {
 //                $j++;
         for ($jj = 2; $jj <= $answer['cProm']; $jj++) {
-            echo "600,2,'" . str_pad($answer['numero_de_cuenta'], 25, " ", STR_PAD_RIGHT) . "','" .
-            "MUÑOZ   ','" . $cod . "','PP','" . str_pad($fecha[$jj - 1], 8, "0", STR_PAD_LEFT) . "','" .
-            $cn . "','" . str_pad($jj, 3, "0", STR_PAD_LEFT) . "','" .
-            str_pad($fecha[$jj], 8, "0", STR_PAD_LEFT) . "','" .
-            str_pad(round($answer['n_prom' . $jj] * 100), 15, "0", STR_PAD_LEFT) . "'\r\n";
+            echo "6007" . str_pad($answer['numero_de_cuenta'], 25, " ", STR_PAD_RIGHT) . 
+            "CSI     " . $cod . "PP" . str_pad($fecha[$jj - 1], 8, "0", STR_PAD_LEFT) . 
+            $cn .  str_pad($jj, 3, "0", STR_PAD_LEFT) . 
+            str_pad($fecha[$jj], 8, "0", STR_PAD_LEFT) . 
+            str_pad(round($answer['n_prom' . $jj] * 100), 15, "0", STR_PAD_LEFT) . "\r\n";
         }
     }
 }
