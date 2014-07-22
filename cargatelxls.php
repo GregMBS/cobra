@@ -110,7 +110,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                                 . "OR length(tel) = 12;";
                         mysql_query($querycleanzeropad) or die(mysql_error());
 
-                        $querycleanlength = "DELETE robot.tempc "
+                        $querycleanlength = "DELETE FROM robot.tempc "
                                 . "WHERE length(tel) < 8 "
                                 . "OR length(tel) >13;";
                         mysql_query($querycleanlength) or die(mysql_error());
