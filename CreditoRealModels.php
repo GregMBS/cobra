@@ -69,6 +69,7 @@ class CreditoRealModels {
         'ES' => 'COMENTARIO',
         'B1' => 'POSIBLE ACLARACION ',
         'F1' => 'ENVIO GENERAL',
+        'S1' => 'PROCESOS MASIVOS',
         'U1' => 'SIN CONTACTO',
         'M1' => 'MENSAJE'
     );
@@ -132,6 +133,7 @@ class CreditoRealModels {
         'B14' => 'MODIFICACIÓN DE BURÓ DE CRÉDITO',
         'B15' => 'PAGOS PARCIALES SIN APLICAR',
         'B16' => 'PAGOS PARA LIQUIDAR SIN APLICAR',
+        'F1' => 'ENVIO GENERAL',
         'F11' => 'ROBOT O BLASTER',
         'F12' => 'SMS',
         'F13' => 'CARTA',
