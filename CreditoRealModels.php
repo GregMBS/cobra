@@ -135,6 +135,7 @@ class CreditoRealModels {
         'B14' => 'MODIFICACIÓN DE BURÓ DE CRÉDITO',
         'B15' => 'PAGOS PARCIALES SIN APLICAR',
         'B16' => 'PAGOS PARA LIQUIDAR SIN APLICAR',
+        'ES' => 'COMENTARIO',
         'F1' => 'ENVIO GENERAL',
         'F11' => 'ROBOT O BLASTER',
         'F12' => 'SMS',

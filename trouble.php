@@ -8,12 +8,13 @@ header($redirector);
 else {
 $sistema=$_SERVER['REMOTE_ADDR'];
 $usuario=$capt;
-$go=mysql_real_escape_string($_REQUEST['go']);
+$get = filter_input_array(INPUT_GET);
+$go=mysql_real_escape_string($get['go']);
 if ($go=='ENVIAR') {
 $fechahora = date('Y-m-d H:i:s');
-$fuente=mysql_real_escape_string($_REQUEST['fuente']);
-$descripcion=mysql_real_escape_string($_REQUEST['descripcion']);
-$error_msg=mysql_real_escape_string($_REQUEST['error_msg']);
+$fuente=mysql_real_escape_string($get['fuente']);
+$descripcion=mysql_real_escape_string($get['descripcion']);
+$error_msg=mysql_real_escape_string($get['error_msg']);
 $queryins = "INSERT INTO cobra.trouble (sistema,usuario,fechahora,fuente,descripcion,error_msg) 
 VALUES ('$sistema','$usuario',now(),'$fuente','$descripcion','$error_msg')";
 mysql_query($queryins) or die (mysql_error());
@@ -61,7 +62,7 @@ Sin embargo, espero:
 
 </textarea><br>
 <span class="formcap">Error mensajen (texto <em>EXACTO</em>)</span><textarea rows="2" cols="40" name="error_msg"></textarea><br>
-<input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $C_CONT;?> /><br>
+<input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $go['C_CONT'];?> /><br>
 <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt;?> /><br>
 <input type="submit" name="go" value="ENVIAR">
 </form>
@@ -71,6 +72,3 @@ Sin embargo, espero:
 <?php 
 }  
 }
-mysql_close($con);
-?>
-
