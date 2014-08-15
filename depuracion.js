@@ -74,7 +74,7 @@ np=n1+n2+n3+n4;
 if(typeof(tf.N_PROM_OLD) !== "undefined")
 {npo=parseFloat(tf.N_PROM_OLD.value);}
 if(typeof(tf.C_CVST) !== "undefined")
-{cvt=trim(tf.C_CVST.value);}
+{cvt=trim(tf.C_CVST.value);} else {cvt='';}
 if(typeof(tf.C_CONTAN) !== "undefined")
 {ccn=trim(tf.C_CONTAN.value);}
 if(typeof(tf.C_NTEL) !== "undefined")
@@ -101,6 +101,10 @@ alert('Checando validad de gestion:\nCUENTA - '+tf.CUENTA.value+'\nStatus - '+cv
 
 try {
 //Promise date-amount checks - promise 1
+if (cvt==='') {
+    tf.C_CVST.style.backgroundColor="yellow";
+    flag=1;
+    alerttxt=alerttxt+'Tiene que elegir el estatus de la gestion.';}
 if ((n1>0)) {
 //wrong status for promise
     var promStat = ["PROMESA DE PAGO PARCIAL", "PROMESA DE PAGO TOTAL", "CONFIRMA PROMESA"];
@@ -417,7 +421,7 @@ try {
                     'MENSAJE CON EMPLEADO';
 var cargoMatchList = new RegExp(cuandoMatchListStr);
 if (cvt.match(cargoMatchList)) {
-    if (cuando.length==0) {
+    if (cuando.length===0) {
         alerttxt=alerttxt+'Contacto requiere LOCALIZABLE';
         tf.CUANDO.style.backgroundColor="yellow";
         flag=1;
@@ -429,20 +433,20 @@ if (cvt.match(cargoMatchList)) {
 }
 
 //monto de promesa can only have numbers and one decimal point.
-if ((n1.toString()).match(/[0-9\.]/)) {flag=flag;} else 
+if ((n1.toString()).match(/[0-9\.]/)) {flag = flag+0;} else 
 	{alerttxt=alerttxt+'No puede usarse un separador de miles'+'\n'+'No puede dejar campo blanco. Usa 0.'+'\n';
 	tf.N_PROM1.style.backgroundColor="yellow";
 	flag=1;}
-if ((n2.toString()).match(/[0-9\.]/)) {flag=flag;} else
+if ((n2.toString()).match(/[0-9\.]/)) {flag = flag+0;} else
 	{alerttxt=alerttxt+'No puede usarse un separador de miles'+'\n'+'No puede dejar campo blanco. Usa 0.'+'\n';tf.N_PROM2.style.backgroundColor="yellow";flag=1;}
 //monto de pago can only have numbers and one decimal point.
-if ((npa.toString()).match(/[0-9\.]/)) {flag=flag;} else
+if ((npa.toString()).match(/[0-9\.]/)) {flag = flag+0;} else
 	{alerttxt=alerttxt+'No puede usarse un separador de miles'+'\n';
 	tf.N_PAGO.style.backgroundColor="yellow";
 	flag=1;}
 //new telephones can only have numbers
 if (cnt!==null) {
-if ((cnt.toString()).match(/[0-9]/)) {flag=flag;} else
+if ((cnt.toString()).match(/[0-9]/)) {flag = flag+0;} else
 	{alerttxt=alerttxt+'No puede usarse un separador o letras en telefonos'+'\n';
 	tf.C_NTEL.style.backgroundColor="yellow";
 	flag=1;}
@@ -451,7 +455,7 @@ if ((cnt.length!==0)&&(cnt.length!==8)&&(cnt.length!==10)&&(cnt.length!==13))
 	tf.C_NTEL.style.backgroundColor="yellow";flag=1;}
 }
 if (co2!==null) {
-if ((co2.toString()).match(/[0-9]/))  {flag=flag;}
+if ((co2.toString()).match(/[0-9]/))  {flag = flag+0;}
 // else
 //  {alerttxt=alerttxt+'No puede usarse un separador o letras en telefonos'+'\n';
 //  tf.C_OBSE2.style.backgroundColor="yellow";
@@ -468,7 +472,7 @@ if (n1>0){
 			tf.D_PROM1.style.backgroundColor="yellow";
 			flag=1;}
 if (authorized<1) {
-aflag=flag;
+aflag = flag+0;
 if (ccn==="PROMESA DE PAGO TOTAL")
     {alerttxt=alerttxt+"Solamente un supervisor puede sobreescribido una promesa activa.";
     flag=1;
