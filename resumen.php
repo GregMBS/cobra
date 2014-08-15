@@ -195,10 +195,12 @@ and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
             $errorv = $errorv + 1;
             $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
         }
+        /*
         if (($N_PROM1 == 0) && ($N_PROM2 > 0)) {
             $errorv = $errorv + 1;
             $flagmsgv = $flagmsgv . '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
         }
+        */
         if ($C_VISIT == '') {
             $errorv = $errorv + 1;
             $flagmsgv = $flagmsgv . '<BR>' . "GESTION NECESITA VISITADOR";
