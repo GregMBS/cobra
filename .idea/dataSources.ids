@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - cobra@localhost" uuid="504defd3-8677-450c-8438-f391f8d1dfac">
+    <database-info product="MySQL" version="5.5.38-0+wheezy1-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.31 ( Revision: alexander.soklakov@oracle.com-20140520065950-groqzzbvxprqdmnz )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="cobra"/>
+    <table name="acciones" schema="" catalog="cobra" type="TABLE">
+      <column name="accion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="callcenter" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="visitas" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="judicial" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="promo" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="accion"/>
+      <index name="cc" unique="false" columns="callcenter"/>
+    </table>
+    <table name="breaks" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="gestor" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tipo" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="empieza" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <column name="termina" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="new_index" unique="false" columns="gestor"/>
+      <index name="new_index2" unique="false" columns="empieza,termina"/>
+      <index name="new_index3" unique="false" columns="gestor,empieza,termina"/>
+    </table>
+    <table name="callme" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="gestor" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cuenta" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tel" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ext" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="tiempo" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="completado" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="c_tele" unique="false" columns="tel"/>
+      <index name="fini" unique="false" columns="completado"/>
+    </table>
+    <table name="cargadex" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="field" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="type" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nullok" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="position" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ktable" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+    </table>
+    <table name="clientes" schema="" catalog="cobra" type="TABLE">
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="cliente"/>
+    </table>
+    <table name="cnp" schema="" catalog="cobra" type="TABLE">
+      <column name="status" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="auto" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="acr" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="cnpdex" unique="false" columns="status"/>
+    </table>
+    <table name="deadlines" schema="" catalog="cobra" type="TABLE">
+      <column name="c_tele" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="c_tele"/>
+      <index name="new_index" unique="false" columns="c_tele"/>
+    </table>
+    <table name="dictamenes" schema="" catalog="cobra" type="TABLE">
+      <column name="dictamen" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="visitas" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <column name="callcenter" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <column name="judicial" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <column name="promo" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <column name="auto" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="v_cc" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="OTk="/>
+      <column name="v_v" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="OTk="/>
+      <column name="v_j" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="OTk="/>
+      <column name="queue" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="cc" unique="false" columns="callcenter"/>
+      <index name="cstats" unique="false" columns="dictamen"/>
+      <index name="q" unique="false" columns="queue"/>
+      <index name="sa" unique="false" columns="dictamen,v_cc"/>
+      <index name="value" unique="false" columns="v_cc"/>
+    </table>
+    <table name="extradex" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="field" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="type" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nullok" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="position" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+    </table>
+    <table name="folios" schema="" catalog="cobra" type="TABLE">
+      <column name="folio" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="usado" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="cuenta" sqlType="VARCHAR" precision="8" scale="0" nullable="true" jdbcType="12"/>
+      <column name="gestor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="enviado" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="fecha" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="mora" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="capital" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="saldo_can" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="mercancia" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="bigsearch" unique="false" columns="enviado,cliente,folio"/>
+      <index name="ccmatch" unique="false" columns="cuenta,cliente"/>
+      <index name="cli" unique="false" columns="cliente"/>
+      <index name="cta" unique="false" columns="cuenta"/>
+      <index name="d_fech" unique="false" columns="fecha"/>
+      <index name="idc" unique="false" columns="id,cliente,enviado,folio"/>
+      <index name="propuesta" unique="false" columns="folio"/>
+    </table>
+    <table name="gchangelog" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_cuenta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fechahora" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="gestor_old" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="gestor_new" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="c_cont" unique="false" columns="id_cuenta"/>
+    </table>
+    <table name="gmbtemp" schema="" catalog="cobra" type="TABLE">
+      <column name="gestor" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cliente" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="sdc" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="producto" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="subproducto" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="vigente" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="vencido" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="pago" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="meta" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MS4wMA=="/>
+      <column name="metap" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="negociado" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMQ=="/>
+      <column name="cumplimentop" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="pronostico" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="pronosticop" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+    </table>
+    <table name="grupos" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="grupo" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="pw" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="enlace" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="pwd" unique="false" columns="pw"/>
+      <index name="tipo" unique="false" columns="grupo"/>
+    </table>
+    <table name="histdate" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="d_fech" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="fecha" unique="false" columns="d_fech"/>
+    </table>
+    <table name="histgest" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="c_cvge" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="cover" unique="false" columns="auto,c_cvge"/>
+      <index name="new_index2" unique="false" columns="c_cvge"/>
+    </table>
+    <table name="historia" schema="" catalog="cobra" type="TABLE">
+      <column name="Auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="C_CVGE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CVBA" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CONT" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="C_CVST" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="D_FECH" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="C_HRIN" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <column name="C_HRFI" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <column name="C_TELE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_MSGE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CUENTA" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="C_OBSE1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_OBSE2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CONTAN" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_NSE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_VISIT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_ATTE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CNIV" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CARG" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CFAC" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CPTA" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_RCON" sqlType="VARCHAR" precision="2" scale="0" nullable="true" jdbcType="12"/>
+      <column name="AUTH" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CARGADO" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CUANDO" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="D_PROM" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="C_PROM" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="N_PROM" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="C_CALLE1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CALLE2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CNP" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_NTEL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_NDIR" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_FREQ" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CTIPO" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_COWN" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CSTAT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CREJ" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CPAT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_ACCION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_MOTIV" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="C_CAMP" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="D_PROM1" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="N_PROM1" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="D_PROM2" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="N_PROM2" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="C_EJE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="error" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="N_PROM3" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="D_PROM3" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="N_PROM4" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="D_PROM4" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="Auto"/>
+      <foreign-key name="fk_historia_resumen" columns="C_CONT" ref-table="resumen" ref-schema="" ref-catalog="cobra" ref-columns="id_cuenta" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="ccmatch" unique="false" columns="CUENTA,C_CVGE"/>
+      <index name="cliente" unique="false" columns="C_CVBA"/>
+      <index name="duplicates" unique="false" columns="C_CONT,C_HRIN,D_FECH"/>
+      <index name="fk_historia_1_idx" unique="false" columns="C_CONT"/>
+      <index name="gestion" unique="false" columns="C_OBSE1"/>
+      <index name="gwhen" unique="false" columns="C_CVGE,D_FECH"/>
+      <index name="misc" unique="false" columns="C_MSGE"/>
+      <index name="misdup" unique="false" columns="C_CONT,C_CVBA"/>
+      <index name="prom" unique="false" columns="N_PROM,D_PROM"/>
+      <index name="status_aarsa" unique="false" columns="C_CVST"/>
+      <index name="tel" unique="false" columns="C_TELE,C_NTEL"/>
+      <index name="timing" unique="false" columns="D_FECH,C_HRIN,C_HRFI"/>
+      <index name="visitador" unique="false" columns="C_VISIT"/>
+      <index name="whowhen" unique="false" columns="C_CONT,D_FECH"/>
+    </table>
+    <table name="livelines" schema="" catalog="cobra" type="TABLE">
+      <column name="c_tele" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="c_tele"/>
+      <index name="new_index" unique="false" columns="c_tele"/>
+    </table>
+    <table name="motivadores" schema="" catalog="cobra" type="TABLE">
+      <column name="motiv" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="callcenter" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="visitas" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="judicial" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="motiv"/>
+      <index name="cc" unique="false" columns="callcenter"/>
+    </table>
+    <table name="nombres" schema="" catalog="cobra" type="TABLE">
+      <column name="usuaria" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="iniciales" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="completo" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tipo" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ticket" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="camp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="turno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="authcode" sqlType="VARCHAR" precision="6" scale="0" nullable="true" jdbcType="12"/>
+      <column name="passw" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="J2FkYXJjJw=="/>
+      <column name="policy" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="cliente" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="ac" unique="false" columns="authcode"/>
+      <index name="c_cvge" unique="false" columns="iniciales"/>
+      <index name="eje" unique="false" columns="usuaria"/>
+      <index name="fullname" unique="false" columns="completo"/>
+      <index name="grupo" unique="false" columns="tipo"/>
+    </table>
+    <table name="notas" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="c_cvge" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="d_fech" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="c_hora" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="hora" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <column name="nota" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="borrado" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="cuenta" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="fuente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="c_cont" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="id_cuenta" unique="false" columns="c_cont"/>
+      <index name="normdex" unique="false" columns="c_cvge,borrado"/>
+    </table>
+    <table name="pagos" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cuenta" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="monto" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="gestor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="confirmado" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="credito" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="id_cuenta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <foreign-key name="fk_pagos_resumen" columns="id_cuenta" ref-table="resumen" ref-schema="" ref-catalog="cobra" ref-columns="id_cuenta" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="c_cont" unique="false" columns="id_cuenta"/>
+      <index name="cc" unique="false" columns="cuenta,cliente"/>
+      <index name="cf" unique="false" columns="confirmado"/>
+      <index name="fk_pagos_resumen" unique="false" columns="id_cuenta"/>
+      <index name="numero_cuenta" unique="false" columns="cuenta"/>
+      <index name="p_fech" unique="false" columns="fecha"/>
+    </table>
+    <table name="permalog" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="usuario" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tipo" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fechahora" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="gestor" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="extension" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="c_cvge" unique="false" columns="gestor"/>
+      <index name="user" unique="false" columns="usuario"/>
+    </table>
+    <table name="plasticuentas" schema="" catalog="cobra" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_cuenta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="id_queue" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="uniq" unique="true" columns="id_cuenta,id_queue"/>
+    </table>
+    <table name="plastiqueues" schema="" catalog="cobra" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cliente" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="queue" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="active" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="tqniq" unique="true" columns="title,queue"/>
+    </table>
+    <table name="queuelist" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="gestor" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cliente" sqlType="VARCHAR" precision="80" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status_aarsa" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jy4n"/>
+      <column name="camp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="orden1" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="J2lkX2N1ZW50YSc="/>
+      <column name="updown1" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="MT1kZXNj"/>
+      <column name="orden2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="updown2" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="MT1kZXNj"/>
+      <column name="orden3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="updown3" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="MT1kZXNj"/>
+      <column name="sdc" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="bloqueado" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="MT1ibG9xdWVhZG8="/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="big" unique="false" columns="gestor,cliente,sdc,camp"/>
+      <index name="blocks" unique="false" columns="bloqueado"/>
+      <index name="csort" unique="false" columns="camp"/>
+      <index name="dups" unique="false" columns="cliente,sdc,status_aarsa"/>
+      <index name="mtch" unique="false" columns="cliente,sdc"/>
+      <index name="queue" unique="false" columns="status_aarsa"/>
+      <index name="sortby" unique="false" columns="gestor,camp"/>
+      <index name="sortwho" unique="false" columns="gestor,cliente"/>
+    </table>
+    <table name="resumen" schema="" catalog="cobra" type="TABLE">
+      <column name="nombre_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_deudor" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_deudor" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="plano_guia_roji" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cuadrante_guia_roji" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_deudor_alterno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_deudor_alterno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_deudor_alterno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_deudor_alterno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_deudor_alterno" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_deudor_aterno" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="plano_guia_roji_alterno" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cuadrante_guia_roji_alterno" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status_aarsa" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="avapar" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_ref_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_referencia_1" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_referencia_1" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_ref_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_referencia_2" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_referencia_2" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_ref_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_referencia_3" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_referencia_3" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_ref_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_referencia_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_referencia_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="originacion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_referencia_4" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_referencia_4" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_laboral" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_laboral" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_laboral" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_laboral" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="saldo_corriente" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="fecha_de_actualizacion" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="numero_de_cuenta" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="numero_de_credito" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="contrato" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="saldo_total" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="saldo_vencido" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="saldo_descuento_1" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="saldo_descuento_2" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="fecha_corte" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="fecha_limite" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="fecha_de_ultimo_pago" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="monto_ultimo_pago" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="producto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="subproducto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status_de_credito" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="pagos_vencidos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="monto_adeudado" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="fecha_de_asignacion" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="fecha_de_deasignacion" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="cuenta_concentradora_1" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="saldo_cuota" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="email_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="id_cuenta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nss" sqlType="VARCHAR" precision="11" scale="0" nullable="true" jdbcType="12"/>
+      <column name="rfc_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="telefonos_marcados" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="telefono_de_ultimo_contacto" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dias_vencidos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="ejecutivo_asignado_call_center" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="J3NpbmFzaWcn"/>
+      <column name="ejecutivo_asignado_domiciliario" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="prioridad_de_gestion" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="nrpp" sqlType="VARCHAR" precision="11" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_aval" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="localizar" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="fecha_ultima_gestion" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="empresa" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="timelock" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="locker" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fecha_convenio" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="especial" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="direccion_nueva" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="norobot" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id_cuenta"/>
+      <exported-key name="fk_historia_resumen" table="historia" schema="" catalog="cobra" columns="C_CONT"/>
+      <exported-key name="fk_pagos_resumen" table="pagos" schema="" catalog="cobra" columns="id_cuenta"/>
+      <index name="actual" unique="false" columns="fecha_de_actualizacion"/>
+      <index name="actualizado" unique="false" columns="tel_1_verif"/>
+      <index name="capturista" unique="false" columns="ejecutivo_asignado_call_center"/>
+      <index name="ccred" unique="false" columns="cliente,numero_de_cuenta,numero_de_credito"/>
+      <index name="cligest" unique="false" columns="cliente,status_de_credito,status_aarsa"/>
+      <index name="codpost" unique="false" columns="cp_deudor"/>
+      <index name="cuenta" unique="false" columns="numero_de_cuenta"/>
+      <index name="defaultSort" unique="false" columns="status_de_credito,fecha_ultima_gestion,saldo_total"/>
+      <index name="defaultsort2" unique="false" columns="cliente,fecha_de_actualizacion"/>
+      <index name="direccion" unique="false" columns="colonia_deudor,ciudad_deudor,estado_deudor,cp_deudor"/>
+      <index name="fecha" unique="false" columns="fecha_ultima_gestion"/>
+      <index name="icl" unique="false" columns="id_cuenta,cliente"/>
+      <index name="idtel" unique="false" columns="id_cuenta,tel_1"/>
+      <index name="locking" unique="false" columns="locker,timelock"/>
+      <index name="nombre" unique="false" columns="nombre_deudor"/>
+      <index name="prod" unique="false" columns="producto,subproducto"/>
+      <index name="ql" unique="false" columns="ejecutivo_asignado_call_center,cliente,status_de_credito"/>
+      <index name="queuesg" unique="false" columns="status_de_credito,ejecutivo_asignado_call_center,cliente,status_aarsa"/>
+      <index name="queuesort" unique="false" columns="status_aarsa"/>
+      <index name="robot" unique="false" columns="norobot"/>
+      <index name="saldo" unique="false" columns="saldo_total"/>
+      <index name="statussort" unique="false" columns="status_de_credito"/>
+      <index name="tels" unique="false" columns="tel_1,tel_2,tel_1_verif,tel_2_verif"/>
+      <index name="tops" unique="false" columns="ejecutivo_asignado_call_center,saldo_total"/>
+    </table>
+    <table name="rlook" schema="" catalog="cobra" type="TABLE">
+      <column name="id_cuenta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="numero_de_cuenta" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="nombre_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status_aarsa" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_laboral" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_laboral" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="telefonos_marcados" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_cuenta"/>
+      <index name="cuenta" unique="false" columns="numero_de_cuenta"/>
+      <index name="id" unique="false" columns="id_cuenta"/>
+    </table>
+    <table name="rotad" schema="" catalog="cobra" type="TABLE">
+      <column name="pauto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+    </table>
+    <table name="rrotas" schema="" catalog="cobra" type="TABLE">
+      <column name="numero_de_cuenta" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status_de_credito" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="status_aarsa" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="producto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="subproducto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pauto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="monto" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="hauto" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="n_prom1" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="d_prom1" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="n_prom2" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="d_prom2" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="n_prom3" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="d_prom3" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="n_prom4" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="d_prom4" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="c_cvge" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="semaforo" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="id_cuenta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+    </table>
+    <table name="rslice" schema="" catalog="cobra" type="TABLE">
+      <column name="nombre_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_deudor" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_deudor" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="plano_guia_roji" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cuadrante_guia_roji" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_deudor_alterno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_deudor_alterno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_deudor_alterno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_deudor_alterno" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_deudor_alterno" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_deudor_aterno" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4_alterno" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="plano_guia_roji_alterno" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cuadrante_guia_roji_alterno" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status_aarsa" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="sucursal_cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_ref_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_referencia_1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_referencia_1" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_referencia_1" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_ref_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_referencia_2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_referencia_2" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_referencia_2" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_ref_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_referencia_3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_referencia_3" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_referencia_3" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_ref_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_referencia_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_referencia_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_referencia_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_referencia_4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_referencia_4" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_referencia_4" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_ref_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_ref_4" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_laboral" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_laboral" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_laboral" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_laboral" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="saldo_corriente" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="fecha_de_actualizacion" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="numero_de_cuenta" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="numero_de_credito" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="contrato" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="saldo_total" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="saldo_vencido" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="saldo_descuento_1" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="saldo_descuento_2" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="fecha_corte" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="fecha_limite" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="fecha_de_ultimo_pago" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="monto_ultimo_pago" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="producto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="subproducto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status_de_credito" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pagos_vencidos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="monto_adeudado" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="fecha_de_asignacion" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="fecha_de_deasignacion" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="cuenta_concentradora_1" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="saldo_cuota" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="email_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="id_cuenta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="pago_pactado" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="rfc_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="telefonos_marcados" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_4_verif" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="telefono_de_ultimo_contacto" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dias_vencidos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="ejecutivo_asignado_call_center" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="J3NpbmFzaWcn"/>
+      <column name="ejecutivo_asignado_domiciliario" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="prioridad_de_gestion" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="region_aarsa" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="parentesco_aval" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="localizar" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="fecha_ultima_gestion" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="empresa" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="timelock" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="locker" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fecha_de_venta" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="especial" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="direccion_nueva" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="norobot" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="user" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="timeuser" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id_cuenta"/>
+      <index name="actual" unique="false" columns="fecha_de_actualizacion"/>
+      <index name="actualizado" unique="false" columns="tel_1_verif"/>
+      <index name="capturista" unique="false" columns="ejecutivo_asignado_call_center"/>
+      <index name="ccred" unique="false" columns="cliente,numero_de_cuenta,numero_de_credito"/>
+      <index name="cligest" unique="false" columns="cliente,status_de_credito,status_aarsa"/>
+      <index name="codpost" unique="false" columns="cp_deudor"/>
+      <index name="cuenta" unique="false" columns="numero_de_cuenta"/>
+      <index name="defaultSort" unique="false" columns="status_de_credito,fecha_ultima_gestion,saldo_total"/>
+      <index name="defaultsort2" unique="false" columns="cliente,ejecutivo_asignado_call_center"/>
+      <index name="direccion" unique="false" columns="colonia_deudor,ciudad_deudor,estado_deudor,cp_deudor"/>
+      <index name="fecha" unique="false" columns="fecha_ultima_gestion"/>
+      <index name="icl" unique="false" columns="id_cuenta,cliente"/>
+      <index name="locking" unique="false" columns="locker,timelock"/>
+      <index name="nombre" unique="false" columns="nombre_deudor"/>
+      <index name="prod" unique="false" columns="producto,subproducto"/>
+      <index name="ql" unique="false" columns="ejecutivo_asignado_call_center,cliente,status_de_credito"/>
+      <index name="queuesg" unique="false" columns="status_de_credito,ejecutivo_asignado_call_center,cliente,status_aarsa"/>
+      <index name="queuesort" unique="false" columns="status_aarsa"/>
+      <index name="robot" unique="false" columns="norobot"/>
+      <index name="saldo" unique="false" columns="saldo_total"/>
+      <index name="statussort" unique="false" columns="status_de_credito"/>
+      <index name="tels" unique="false" columns="tel_1,tel_2,tel_1_verif,tel_2_verif"/>
+      <index name="tops" unique="false" columns="ejecutivo_asignado_call_center,saldo_total"/>
+    </table>
+    <table name="sdhextras" schema="" catalog="cobra" type="TABLE">
+      <column name="cuenta" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="productos" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="st" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="sv" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="sd" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="period" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="monto" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="sdd" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="subcuenta" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="gc" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="xmora" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="grupo" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="liquid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="cta" unique="false" columns="cuenta,subcuenta"/>
+    </table>
+    <table name="temp" schema="" catalog="cobra" type="TABLE">
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="numero_de_cuenta" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dias_vencidos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="pagos_vencidos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="saldo_descuento_1" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="numero_de_credito" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status_de_credito" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="producto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_deudor" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_2" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_3" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="empresa" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="domicilio_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colonia_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ciudad_laboral" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tel_1_laboral" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="estado_laboral" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cp_laboral" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="saldo_descuento_2" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="saldo_vencido" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="saldo_total" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="saldo_cuota" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="monto_ultimo_pago" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="fecha_de_ultimo_pago" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="rfc_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fecha_de_actualizacion" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="originacion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <index name="nc" unique="false" columns="numero_de_cuenta,cliente"/>
+    </table>
+    <table name="trouble" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="fechahora" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="sistema" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="usuario" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fuente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="error_msg" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fechacomp" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="it_guy" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="reparacion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+    </table>
+    <table name="userlog" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="usuario" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tipo" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fechahora" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="gestor" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="extension" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="cover" unique="false" columns="gestor,fechahora,usuario"/>
+      <index name="fordelete" unique="false" columns="usuario"/>
+    </table>
+    <table name="vasign" schema="" catalog="cobra" type="TABLE">
+      <column name="auto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cuenta" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="gestor" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fechaout" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="fechain" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="c_cont" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="auto"/>
+      <index name="bigsort" unique="false" columns="cuenta,fechaout"/>
+      <index name="cc" unique="false" columns="c_cont"/>
+      <index name="cta" unique="false" columns="cuenta"/>
+      <index name="dups" unique="false" columns="c_cont,gestor,fechaout"/>
+      <index name="dups2" unique="false" columns="c_cont,gestor"/>
+      <index name="fechas" unique="false" columns="fechaout,fechain"/>
+      <index name="reverse" unique="false" columns="fechain,fechaout"/>
+      <index name="visitador" unique="false" columns="gestor"/>
+    </table>
+    <table name="xrotas" schema="" catalog="cobra" type="TABLE">
+      <column name="numero_de_cuenta" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="cliente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status_de_credito" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="status_aarsa" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="producto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="subproducto" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre_deudor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pauto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="monto" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="hauto" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="n_prom1" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="d_prom1" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="n_prom2" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="d_prom2" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="n_prom3" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="d_prom3" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="n_prom4" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3" def="MC4wMA=="/>
+      <column name="d_prom4" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="c_cvge" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="semaforo" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="id_cuenta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+    </table>
+    <procedure name="q" schema="" catalog="cobra" type="2">
+      <prototype>
+        <parameter name="status" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
+        <parameter name="" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="vcc" schema="" catalog="cobra" type="2">
+      <prototype>
+        <parameter name="status" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
+        <parameter name="" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+  </data-source>
+</component>
