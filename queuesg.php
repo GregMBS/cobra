@@ -1,6 +1,5 @@
 <?php
 include('usuario_hdr_i.php');
-$mytipo = $answercheck[1];
 $get    = filter_input_array(INPUT_GET);
 $go     = $get['go'];
 $GESTOR = mysqli_real_escape_string($con, $get['capt']);
@@ -15,29 +14,34 @@ if ($go == 'INTRO') {
     if (empty($sdc)) {
         $sdc = '';
     }
-    $queue       = mysqli_real_escape_string($con, $get['queue']);
-    $queryqueue  = "select camp from queuelist
+    $queue      = mysqli_real_escape_string($con, $get['queue']);
+    $queryqueue = "select camp from queuelist
 where cliente=?
 and status_aarsa=?
 and sdc=?
 and gestor=?
 and bloqueado=0 limit 1
 ";
-    $stq         = $con->prepare($queryqueue);
-    $stq->bind_param('ssss', $cliente, $queue, $sdc, $GESTOR);
-    $stq->execute();
-    $stq->bind_result($camp);
-    $resultqueue = mysqli_query($con, $queryqueue) or die(mysqli_error($con));
-    while ($answerqueue = mysqli_fetch_assoc($resultqueue)) {
-        $camp = $answerqueue['camp'];
+    if ($stq        = $con->prepare($queryqueue)) {
+        $stq->bind_param('ssss', $cliente, $queue, $sdc, $GESTOR);
+        $stq->execute();
+        $stq->bind_result($camp);
+        $stq->fetch();
+    } else {
+        die($con->error);
     }
+    $stq->close();
     if ($camp >= 0) {
         $queryupd = "UPDATE nombres SET camp=? "
             ."where iniciales=?;";
-        $stu      = $con->prepare($queryupd);
-        $stu->bind_param('is', $camp, $GESTOR);
-        $stu->execute();
-        $msg      = "<h2>Se elige queue ".$cliente." ".$sdc." ".$queue."</h2>";
+        if ($stu      = $con->prepare($queryupd)) {
+            $stu->bind_param('is', $camp, $GESTOR);
+            $stu->execute();
+        } else {
+            die($con->error);
+        }
+        $stu->close();
+        $msg = "<h2>Se elige queue ".$cliente." ".$sdc." ".$queue."</h2>";
     }
 } else {
     $msg = "<h2>Se elige queue bloqueado o equivocado.</h2>";
@@ -67,8 +71,8 @@ $arrays  = rtrim($arrays, ',').']';
 $queryq  = "SELECT distinct status_aarsa,sdc,cliente
 FROM queuelist WHERE gestor = '".$GESTOR."' and bloqueado=0
 ORDER BY cliente,sdc,status_aarsa;";
-$resultq = mysql_query($queryq) or die(mysql_error());
-while ($rowq    = mysql_fetch_row($resultq)) {
+$resultq = $con->query($queryq) or die($con->error());
+while ($rowq    = $resultq->fetch_row()) {
     $arrayq = $arrayq.'["';
     $arrayq = $arrayq.$rowq[0].'","'.$rowq[1].'","'.$rowq[2].'"],';
 }
@@ -135,7 +139,7 @@ $arrayq = rtrim($arrayq, ',').']';
                 });
             });
         </script>
-        <?php echo $msg; ?>
+<?php echo $msg; ?>
         <div>
             <form method='get' action='#' name='<?php echo $GESTOR; ?>'>
                 <div>

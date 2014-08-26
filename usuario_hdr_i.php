@@ -4,7 +4,6 @@ $host    = "localhost";
 $user    = "root";
 $pwd     = "4sale";
 $db      = "cobra";
-$uri     = rtrim(dirname('usuarrio_hdr_i.php'), '/\\');
 $con     = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_error($con));
 set_time_limit(300);
 $cookie  = filter_input_array(INPUT_COOKIE);
