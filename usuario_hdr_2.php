@@ -18,4 +18,3 @@ if (!empty($_REQUEST['capt']))
 }
 $querycheck="SELECT count(1),max(tipo) FROM nombres WHERE ticket='".$ticket."' AND iniciales='".$capt."';";
 $resultcheck=mysql_query($querycheck);
-?>

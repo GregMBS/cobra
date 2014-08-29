@@ -1,65 +1,64 @@
 <?php
-include('usuario_hdr_2.php');
-while ($answercheck=mysql_fetch_row($resultcheck)) {
-if ($answercheck[0]==11) {die('ERROR');}
-else {
-$queryswitch="USE dnt";
-mysql_query($queryswitch) or die("ERROR WM1 - ".mysql_error());
-$querymain = "SELECT * FROM gray WHERE tel = '' LIMIT 1";
-$go=mysql_real_escape_string($_REQUEST['go']);
-$tel='';
-$nombre='';
-$cp='';
-$calle='';
-$colonia='';
-$ciudad='';
-$estado='';
-if ($go=='FROMBUSCAR') {
-$find=mysql_real_escape_string($_REQUEST['find']);
-$querymain = "SELECT * FROM gray WHERE tel = '".$find."' LIMIT 1";
+require_once 'pdo_connect.php'; // returns $pdo
+require_once 'userCheckClass.php';
+$capt        = filter_input(INPUT_GET, 'capt');
+$uc          = new userCheckClass($pdo);
+$mytipo      = $uc->userCheck();
+$queryswitch = "USE dnt";
+$pdo->query($queryswitch);
+$go          = filter_input(INPUT_GET, 'go');
+$find        = '';
+if ($go == 'FROMBUSCAR') {
+    $find = filter_input(INPUT_GET, 'find');
 }
-$result = mysql_query($querymain) or die("ERROR WM2 - ".mysql_error());
-while($row = mysql_fetch_row($result)) {
-$tel=$row[0];
-$nombre=$row[1];
-$cp=$row[3];
-$calle=$row[2];
-$colonia=$row[4];
-$ciudad=$row[5];
-$estado=$row[6];
-}
+$querymain = "SELECT tel, nombre_deudor, cp_deudor, domicilio_deudor, "
+    ."colonia_deudor, ciudad_deudor, estado_deudor "
+    ."FROM gray "
+    ."WHERE tel = :find "
+    ."LIMIT 1";
+$stm       = $pdo->prepare($querymain);
+$stm->bindParam(':find', $find);
+$stm->execute();
+$result    = $stm->fetch(PDO::FETCH_ASSOC);
+$tel       = $row['tel'];
+$nombre    = $row['nombre_deudor'];
+$cp        = $row['cp_deudor'];
+$calle     = $row['domicilio_deudor'];
+$colonia   = $row['colonia_deudor'];
+$ciudad    = $row['ciudad_deudor'];
+$estado    = $row['estado_deudor'];
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<head>
-<title>Directorio</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style type="text/css">
-       body {font-family: verdana,arial, helvetica, sans-serif; font-size: 10pt; background-color: #ffffff;color:#000000;}
-       span.formcap {display: block; width: 13em; float: left; font-size: 100%; font-weight:bold;}
-</style>
-</head>
-<body>
-<div>
-<form action='whitesearch.php' method='get'>
-<input type="hidden" name="capt" value="<?php if (isset($capt)) {echo $capt;} ?>">
-<input type="hidden" name="go" value="BUSCAR">
-<span class='formcap'>Nombre</span><input type='text' name='nombre' id="nombre" value='<?php if (isset($nombre)) {echo $nombre;} ?>'><br>
-<span class='formcap'>Tel&eacute;fono</span><input type='text' name='tel' value='<?php if (isset($tel)) {echo $tel;} ?>'><br>
-<span class='formcap'>Calle</span><input type='text' name='calle' value='<?php if (isset($calle)) {echo $calle;} ?>'><br>
-<span class='formcap'>Colonia</span><input type='text' name='colonia' value='<?php if (isset($colonia)) {echo $colonia;} ?>'><br>
-<span class='formcap'>Ciudad</span><input type='text' name='ciudad' value='<?php if (isset($ciudad)) {echo $ciudad;} ?>'><br>
-<span class='formcap'>Estado</span><input type='text' name='estado' value='<?php if (isset($estado)) {echo $estado;} ?>'><br>
-<span class='formcap'>CP</span><input type='text' name='cp' value='<?php if (isset($cp)) {echo $cp;} ?>'><br>
-<input type="submit" value="BUSCAR">
-<a href="javascript:window.location='white.php?capt=<?php echo $capt?>';">CLARO</a>
-</form>
-</div>
-<?php   
-}
-}
-mysql_close($con);
-?>
-</body>
+    <head>
+        <title>Directorio</title>
+        <meta charset="utf-8">
+	<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
+	<script src="js/jquery-1.5.1.min.js" type="text/javascript"></script>
+	<script src="js/jquery-ui-1.8.13.custom.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div>
+            <form action='whitesearch.php' method='get'>
+                <input type="hidden" name="capt" value="<?php echo $capt; ?>">
+                <input type="hidden" name="go" value="BUSCAR">
+                <label for="nombre">Nombre</label>
+                <input type='text' name='nombre' id="nombre" value='<?php echo $nombre; ?>'><br>
+                <label for="tel">Teléfono</label>
+                <input type='text' name='tel' id='tel' value='<?php echo $tel; ?>'><br>
+                <label for="calle">Calle</label>
+                <input type='text' name='calle' id='calle' value='<?php echo $calle; ?>'><br>
+                <label for="colonia">Colonia</label>
+                <input type='text' name='colonia' id='colonia' value='<?php echo $colonia; ?>'><br>
+                <label for="ciudad">Ciudad</label>
+                <input type='text' name='ciudad' id='ciudad' value='<?php echo $ciudad; ?>'><br>
+                <label for="estado">Estado</label>
+                <input type='text' name='estado' id='estado' value='<?php echo $estado; ?>'><br>
+                <label for="cp">CP</label>
+                <input type='text' name='cp' id='cp' value='<?php echo $cp; ?>'><br>
+                <input type="submit" value="BUSCAR">
+                <a href="javascript:window.location='white.php?capt=<?php echo $capt ?>';">CLARO</a>
+            </form>
+        </div>
+    </body>
 </html> 
