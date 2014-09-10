@@ -1,20 +1,22 @@
 <?php
 include('usuario_hdr_i.php');
-$get    = filter_input_array(INPUT_GET);
-$go     = $get['go'];
-$GESTOR = mysqli_real_escape_string($con, $get['capt']);
+$go     = filter_input(INPUT_GET, 'go');
+$GESTOR = mysqli_real_escape_string($con, filter_input(INPUT_GET, 'capt'));
 if (empty($GESTOR)) {
     $GESTOR = '';
 }
 $msg = "";
 if ($go == 'INTRO') {
     $camp    = -1;
-    $cliente = mysqli_real_escape_string($con, $get['cliente']);
-    $sdc     = mysqli_real_escape_string($con, $get['segmento']);
+    $cliente = mysqli_real_escape_string($con,
+        filter_input(INPUT_GET, 'cliente'));
+    $sdc     = mysqli_real_escape_string($con,
+        filter_input(INPUT_GET, 'segmento'));
     if (empty($sdc)) {
         $sdc = '';
     }
-    $queue      = mysqli_real_escape_string($con, $get['queue']);
+    $queue      = mysqli_real_escape_string($con,
+        filter_input(INPUT_GET, 'queue'));
     $queryqueue = "select camp from queuelist
 where cliente=?
 and status_aarsa=?
