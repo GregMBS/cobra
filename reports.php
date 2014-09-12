@@ -99,6 +99,8 @@ Cambiar Gestor Asignado</button>
 <button onclick="window.location='Productividad_CS.php?capt=<?php echo $capt;?>'">Productividad</button>
 <button onclick="window.location='fdm-cs.php?capt=<?php echo $capt;?>'">Fin del Mes</button>
 <button onclick="window.open('CS_daily.php?capt=<?php echo $capt;?>','Credito Si Auditario','width=400,height=200,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes')">Credito Si Auditario</button><br>
+<h3>DIMEX</h3>
+<button onclick="window.location='DIMEXReport.php?capt=<?php echo $capt;?>'">Reporte de DIMEX</button>
 <h3>Prestamo Familiar</h3>
 <button onclick="window.location='CartasFiniquitos.php?capt=<?php echo $capt;?>'">Cartas Finiquitos</button>
 	</div> 

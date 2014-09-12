@@ -17,8 +17,9 @@ $objPHPExcel->getProperties()->setSubject("COBRA Reporte_de_DIMEX");
 $objPHPExcel->getProperties()->setDescription("COBRA Reporte_de_DIMEX");
 $objPHPExcel->setActiveSheetIndex(0);
 $i = 0;
-foreach ($result['headers'] as $headers) {
+foreach ($result['headers'] as $var) {
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, 1, $var);
+    $i++;
 }
 $ii = 2;
 foreach ($result['data'] as $row) {

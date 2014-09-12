@@ -66,7 +66,8 @@ class DIMEXModels
             from resumen, historia, nombres
             where c_cvge = iniciales
             and c_cont = id_cuenta
-            and cliente = 'DIMEX';
+            and cliente = 'DIMEX'
+            and d_fech > curdate() - interval 5 week;
             ";
         $stm       = $this->con->prepare($querymain);
         $stm->execute();
@@ -79,6 +80,10 @@ class DIMEXModels
         $output = array();
         foreach ($data as $row) {
             $row['c_cvst'] = $this->getStatusCode($row['c_cvst']);
+            if ($row['n_prom'] == 0) {
+                $row['d_prom'] = '';
+                $row['n_prom'] = '';
+            }
             if (!empty($row['c_cvst'])) {
                 $output[] = $row;
             }
@@ -90,12 +95,8 @@ class DIMEXModels
     {
         $cobra   = $this->getFromCobra();
         $data    = $this->addSpecialData($cobra);
-        $columns = $this->columnNames;
-        $headers = array();
-        foreach ($columns as $column) {
-            $headers[] = utf8_decode($column);
-        }
-        $output = array('headers' => $headers, 'data' => $data);
+        $headers = $this->columnNames;
+        $output  = array('headers' => $headers, 'data' => $data);
         return $output;
     }
 }
