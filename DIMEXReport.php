@@ -20,11 +20,11 @@ $i = 0;
 foreach ($result['headers'] as $headers) {
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, 1, $var);
 }
-$ii = 0;
+$ii = 2;
 foreach ($result['data'] as $row) {
     $iii = 0;
     foreach ($row as $cell) {
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, $ii,
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($iii, $ii,
             $cell);
         $iii++;
     }

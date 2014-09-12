@@ -19,13 +19,13 @@ class DIMEXModels
         'RPC',
         'PTP'
     );
-    private $statusCode = array(
+    private $statusCode  = array(
         'ACLARACION' => '*ACLARACION DE PAGO ',
         'CLIENTE FALLECIDO' => '*CLIENTE FALLECIDO',
         'CLIENTE NEGOCIANDO' => '*CLIENTE NEGOCIANDO ',
         'CONFIRMA PROMESA' => '*CONFIRMA PROMESA',
-        'MENSAJE CON FAMILIAR' => '*MENSAJE CON FAMILIAR ',
-        'MENSAJE CON TERCERO' => '*MENSAJE CON TERCERO ',
+        'MENSAJE CON FAMILIAR' => '*MENSAJE CON FAMILIAR',
+        'MENSAJE CON TERCERO' => '*MENSAJE CON TERCERO',
         'MENSAJE EN CONTESTADORA' => '*MENSAJE EN BUZON',
         'NEGATIVA DE PAGO' => '*NEGATIVA DE PAGO',
         'PAGANDO CONVENIO' => '*PAGO PARCIAL',
@@ -33,11 +33,11 @@ class DIMEXModels
         'PAGO TOTAL' => '*PAGO TOTAL',
         'PROMESA DE PAGO PARCIAL' => '*PROMESA DE PAGO PARCIAL',
         'PROMESA DE PAGO TOTAL' => '*PROMESA DE PAGO TOTAL',
-        'TEL NO CONTESTA' => '*TELEFONO NO CONTESTA      ',
+        'TEL NO CONTESTA' => '*TELEFONO NO CONTESTA',
         'TEL NO EXISTE' => '*TELEFONO NO EXISTE',
-        'TEL OCUPADA' => '*TELEFONO NO CONTESTA      ',
+        'TEL OCUPADA' => '*TELEFONO NO CONTESTA',
         'TEL SUSPENDIDO' => '*TELEFONO SUSPENDIDO',
-        'TERCERO NO CONOCE DEUDOR' => '*TERCERO DICE NO CONOCER A CLIENTE '
+        'TERCERO NO CONOCE DEUDOR' => '*TERCERO DICE NO CONOCER A CLIENTE'
     );
 
     public function __construct()
@@ -47,12 +47,13 @@ class DIMEXModels
         $this->con = $db->getDB();
     }
 
-    private function getStatusCode($key) {
-     if (isset($this->statusCode[$key])) {
-         return $this->statusCode[$key];
-     } else {
-         return '';
-     }
+    private function getStatusCode($key)
+    {
+        if (isset($this->statusCode[$key])) {
+            return $this->statusCode[$key];
+        } else {
+            return '';
+        }
     }
 
     private function getFromCobra()
@@ -67,7 +68,9 @@ class DIMEXModels
             and c_cont = id_cuenta
             and cliente = 'DIMEX';
             ";
-        $result    = $this->con->query($querymain);
+        $stm       = $this->con->prepare($querymain);
+        $stm->execute();
+        $result    = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -75,13 +78,9 @@ class DIMEXModels
     {
         $output = array();
         foreach ($data as $row) {
-            $inrow           = $row;
-            $inrow['c_cvst'] = $this->getStatusCode($row['c_cvst']);
-            foreach ($this->keys as $key) {
-                $outrow[] = $inrow[$key];
-            }
-            if (!empty($outrow['c_cvst'])) {
-                $output[] = $outrow;
+            $row['c_cvst'] = $this->getStatusCode($row['c_cvst']);
+            if (!empty($row['c_cvst'])) {
+                $output[] = $row;
             }
         }
         return $output;
@@ -92,7 +91,11 @@ class DIMEXModels
         $cobra   = $this->getFromCobra();
         $data    = $this->addSpecialData($cobra);
         $columns = $this->columnNames;
-        $output  = array('headers' => $columns, 'data' => $data);
+        $headers = array();
+        foreach ($columns as $column) {
+            $headers[] = utf8_decode($column);
+        }
+        $output = array('headers' => $headers, 'data' => $data);
         return $output;
     }
 }
