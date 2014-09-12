@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'PHPExcel' => array($vendorDir . '/codeplex/phpexcel'),
+    'PHPExcel' => array($vendorDir . '/codeplex/phpexcel', $vendorDir . '/phpoffice/phpexcel/Classes'),
 );

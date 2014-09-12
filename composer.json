@@ -1,5 +1,6 @@
 {
     "require": {
-        "CodePlex/PHPExcel": "dev-master"
+        "CodePlex/PHPExcel": "dev-master",
+        "phpoffice/phpexcel": "dev-master"
     }
 }
