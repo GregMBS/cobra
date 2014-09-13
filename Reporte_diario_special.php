@@ -1,12 +1,8 @@
 <?php
-
-require_once ('admin_hdr_2.php'); // oldstyle
-require_once ('pdo_connect.php'); // $pdo
-while ($answercheck = mysql_fetch_row($resultcheck)) {
-    if ($answercheck[0] != 1) {
-        header('Location: index.php');
-    }
-}
+require_once 'pdoConnect.php';
+$pdoc  = new pdoConnect();
+$pdo   = $pdoc->dbConnectAdmin();
+$capt  = filter_input(INPUT_GET, 'capt');
 
 function last_business_day($year, $month) {
     $lbdg = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -29,7 +25,7 @@ $lbd1 = last_business_day(date("Y"), date("n"));
 $adjust = '-interval 2 day';
 //last day saturday	
 //$adjust='-interval 1 day';
-mysql_query('DROP TABLE IF EXISTS rrotas;');
+$pdo->query('DROP TABLE IF EXISTS rrotas;');
 $queryrrotas = "create table rrotas
 select numero_de_cuenta,resumen.cliente,status_de_credito,status_aarsa,producto,subproducto,
 nombre_deudor,pagos.auto as pauto,monto,fecha,historia.auto as hauto,

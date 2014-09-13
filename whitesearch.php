@@ -1,9 +1,8 @@
 <?php
-require_once 'pdo_connect.php'; // returns $pdo
-require_once 'userCheckClass.php';
-$capt      = filter_input(INPUT_GET, 'capt');
-$uc        = new userCheckClass($pdo);
-$mytipo    = $uc->userCheck();
+require_once 'pdoConnect.php';
+$pdoc  = new pdoConnect();
+$pdo   = $pdoc->dbConnectUser();
+$capt  = filter_input(INPUT_GET, 'capt');
 $searchstr = '';
 $tel       = filter_input(INPUT_GET, 'tel');
 $nombre    = filter_input(INPUT_GET, 'nombre');

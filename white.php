@@ -1,8 +1,8 @@
 <?php
-require_once 'pdo_connect.php'; // returns $pdo
-require_once 'userCheckClass.php';
-$uc = new userCheckClass($pdo);
-$uc->userCheck();
+require_once 'pdoConnect.php';
+$pdoc = new pdoConnect();
+$pdo  = $pdoc->dbConnectUser();
+$capt = filter_input(INPUT_GET, 'capt');
 ?>
 <!DOCTYPE html>
 <html>

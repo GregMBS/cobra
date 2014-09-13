@@ -19,7 +19,9 @@ function highhist($stat, $visit) {
 }
 
 require_once 'usuario_hdr_i.php'; //returns $con
-require_once 'pdo_connect.php';   //returns $pdo
+require_once 'pdoConnect.php';
+$pdoc = new pdoConnect();
+$pdo  = $pdoc->dbConnectUser();
 if ($detect->isMobile()) {
     header("Location: resumen-mobile.php?capt=" . $capt);
 }
@@ -32,7 +34,7 @@ if (!empty($mytipo)) {
     $oldgo = '';
 
     if (isset($get['go'])) {
-        $go = mysqli_real_escape_string($con, $get['go']);
+        $go = $get['go'];
     } else {
         $go = '';
     }

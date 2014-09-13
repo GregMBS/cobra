@@ -59,7 +59,6 @@ Cambiar Gestor Asignado</button>
 <button onclick="window.location='latest_best.php?capt=<?php echo $capt;?>'">Ultimo y Mejor Status</button>
 <button onclick="window.location='rotas.php?capt=<?php echo $capt;?>'">Promesas del Mes Actual</button>
 <button onclick="window.location='pagosum.php?capt=<?php echo $capt;?>'">Pagos por Cliente</button>
-<!--<button onclick="window.location='horarios.php?capt=<?php echo $capt;?>'">Productividad Total este Mes</button>-->
 <button onclick="window.location='horarios_clean.php?capt=<?php echo $capt;?>'">Productividad este Mes</button>
 <button onclick="window.location='perfmes.php?capt=<?php echo $capt;?>'">Productividad Mes Anterior</button>
 <button onclick="window.location='horariosv.php?capt=<?php echo $capt;?>'">Productividad Visit. este Mes</button>
