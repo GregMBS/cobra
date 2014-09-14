@@ -1,11 +1,4 @@
 <?php
-//include('user_hdr.php');
-//while ($answercheck=mysql_fetch_row($resultcheck)) {
-//if ($answercheck[0]!=1) {
-//$redirector = "Location: index.php";
-//header($redirector);
-//}
-//else {
 $host = "localhost";
 $user = "root";
 $pswd = "4sale";
