@@ -8,8 +8,11 @@
 class pdoConnect
 {
     protected $dsn        = 'mysql:dbname=cobra;host=localhost';
-    protected $username   = "cobra";
-    protected $passwd     = "aarsa";
+    protected $username   = "root";
+    protected $passwd     = "4sale";
+    /**
+     * @var PDO
+     */
     protected $pdo;
     protected $queryadmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt AND tipo='admin';";
@@ -20,6 +23,9 @@ class pdoConnect
     {
         $this->pdo = new PDO($this->dsn, $this->username, $this->passwd);
     }
+    /**
+     * @returns PDO
+     */
 
     private function dbConnect($querycheck)
     {
@@ -40,7 +46,9 @@ class pdoConnect
         }
         return $this->pdo;
     }
-
+    /**
+     * @returns PDO
+     */
     public function dbConnectAdmin()
     {
         $querycheck = $this->queryadmin;
@@ -48,6 +56,9 @@ class pdoConnect
         return $pdo;
     }
 
+    /**
+     * @returns PDO
+     */
     public function dbConnectUser()
     {
         $querycheck = $this->queryuser;

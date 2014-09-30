@@ -97,22 +97,15 @@ $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 <html>
     <head>
         <title>COBRA - Cambio de Status</title>
-
-        <style type="text/css">
-            body {font-family: arial, helvetica, sans-serif; font-size: 8pt; background-color: #00a0f0; color:#000000;}
-            table {border: 1pt solid #000000;background-color: #c0c0c0;}
-            tr:hover {background-color: #ff0000;}
-            th {border: 1pt solid #000000;background-color: #c0c0c0;}
-            .loud {text-align:center; font-weight:bold; color:red;}
-            .num {text-align:right;}
-        </style>
-
+        <link href="vendor/components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
+        <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
     </head>
     <body>
         <h1>CAMBIO DE STATUS</h1>
         <button onClick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar al panel administrativo</button>
-        <table summary="Cuentas">
-            <thead>
+        <table class="ui-widget">
+            <thead class="ui-widget-header">
                 <tr>
                     <th>CUENTA</th>
                     <th>NOMBRE</th>
@@ -120,7 +113,7 @@ $result = $stm->fetchAll(PDO::FETCH_ASSOC);
                     <th>CAMPAÑA</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="ui-widget-content">
                 <?php
                 $j      = 0;
                 foreach ($result as $row) {

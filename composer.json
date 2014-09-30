@@ -1,6 +1,6 @@
 {
     "require": {
-        "CodePlex/PHPExcel": "dev-master",
-        "phpoffice/phpexcel": "dev-master"
+        "phpoffice/phpexcel": "dev-master",
+        "components/jqueryui": "dev-master"
     }
 }

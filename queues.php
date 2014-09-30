@@ -1,181 +1,224 @@
 <?php
-include('admin_hdr_2.php');
-while ($answercheck=mysql_fetch_row($resultcheck)) {
-if ($answercheck[0]!=1) {}
-else {
-$go=mysql_real_escape_string($_REQUEST['go']);
-if ($go=='INTRO') {
-$CAMP=mysql_real_escape_string($_REQUEST['camp']);
-$GESTOR=mysql_real_escape_string($_REQUEST['gestor']);
-$queryupd="UPDATE nombres SET camp='".$CAMP."' where iniciales='".$GESTOR."';";
-mysql_query($queryupd) or die(mysql_error());
-};
-if ($go=='BLOQUEAR') {
-$CAMP=mysql_real_escape_string($_REQUEST['camp']);
-$GESTOR=mysql_real_escape_string($_REQUEST['gestor']);
-$queryupd="UPDATE queuelist SET bloqueado=1 
-WHERE gestor='".$GESTOR."'
-AND camp='".$CAMP."' 
-;";
-mysql_query($queryupd) or die(mysql_error());
-};
-if ($go=='DESBLOQUEAR') {
-$CAMP=mysql_real_escape_string($_REQUEST['camp']);
-$GESTOR=mysql_real_escape_string($_REQUEST['gestor']);
-$queryupd="UPDATE queuelist SET bloqueado=0 
-WHERE gestor='".$GESTOR."'
-AND camp='".$CAMP."' 
-;";
-mysql_query($queryupd) or die(mysql_error());
-};
-if ($go=='INTRO TODOS') {
-$QUEUE=mysql_real_escape_string($_REQUEST['queue']);
-$QUEUES=explode(',',$QUEUE);
-$queryupd="UPDATE nombres,queuelist SET nombres.camp=queuelist.camp 
-where iniciales=gestor and cliente='".$QUEUES[0]."'
-and sdc='".$QUEUES[1]."' and status_aarsa='".$QUEUES[2]."'
-;";if ($QUEUES[1]="") {
-$queryupd="UPDATE nombres,queuelist SET nombres.camp=queuelist.camp 
-where iniciales=gestor and cliente='".$QUEUES[0]."'
-and status_aarsa='".$QUEUES[2]."'
-;";}
-mysql_query($queryupd) or die(mysql_error());
-};
-if ($go=='BLOQUEAR TODOS') {
-$QUEUE=mysql_real_escape_string($_REQUEST['queue']);
-$queryupd="UPDATE queuelist SET bloqueado=1 
-where concat_ws(',',cliente,sdc,status_aarsa)='".$QUEUE."';";
-mysql_query($queryupd) or die(mysql_error());
-};
-if ($go=='DESBLOQUEAR TODOS') {
-$QUEUE=mysql_real_escape_string($_REQUEST['queue']);
-$queryupd="UPDATE queuelist SET bloqueado=0 
-where concat_ws(',',cliente,sdc,status_aarsa)='".$QUEUE."';";
-mysql_query($queryupd) or die(mysql_error());
-};
-$oldgestor='';
-$querylist = "SELECT distinct gestor,tipo,nombres.camp FROM queuelist 
+require_once 'pdoConnect.php';
+$pdoc      = new pdoConnect();
+$pdo       = $pdoc->dbConnectUser();
+$capt      = filter_input(INPUT_GET, 'capt');
+$go        = filter_input(INPUT_GET, 'go');
+$searchstr = '';
+$CAMP      = filter_input(INPUT_GET, 'camp', FILTER_VALIDATE_INT);
+$GESTOR    = filter_input(INPUT_GET, 'gestor');
+if ($go == 'INTRO') {
+    $queryupd = "UPDATE nombres SET camp=:camp "
+        ."where iniciales=:gestor;";
+    $stu      = $pdo->prepare($queryupd);
+    $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
+    $stu->bindParam(':gestor', $GESTOR);
+    $stu->execute();
+}
+if ($go == 'BLOQUEAR') {
+    $queryblock = "UPDATE queuelist SET bloqueado=1
+WHERE gestor=:gestor
+AND camp=:camp;";
+    $stb        = $pdo->prepare($queryblock);
+    $stb->bindParam(':camp', $CAMP, PDO::PARAM_INT);
+    $stb->bindParam(':gestor', $GESTOR);
+    $stb->execute();
+}
+if ($go == 'DESBLOQUEAR') {
+    $querydes = "UPDATE queuelist SET bloqueado=0
+WHERE gestor=:gestor
+AND camp=:camp;";
+    $std      = $pdo->prepare($querydes);
+    $std->bindParam(':camp', $CAMP, PDO::PARAM_INT);
+    $std->bindParam(':gestor', $GESTOR);
+    $std->execute();
+}
+if ($go == 'INTRO TODOS') {
+    $QUEUE  = filter_input(INPUT_GET, 'queue');
+    $QUEUES = explode(',', $QUEUE);
+    if ($QUEUES[1] == "") {
+        $queryqueue = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
+where iniciales=gestor and cliente=:cliente
+and status_aarsa=:status;";
+        $stq        = $pdo->prepare($queryqueue);
+    } else {
+        $queryqueue = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
+where iniciales=gestor and cliente=:cliente
+and sdc=:sdc and status_aarsa=:status;";
+        $stq        = $pdo->prepare($queryqueue);
+        $stq->bindParam(':sdc', $QUEUES[1]);
+    }
+    $stq->bindParam(':cliente', $QUEUES[0]);
+    $stq->bindParam(':status', $QUEUES[2]);
+    $stq->execute();
+}
+if ($go == 'BLOQUEAR TODOS') {
+    $QUEUE   = filter_input(INPUT_GET, 'queue');
+    $QUEUES  = explode(',', $QUEUE);
+    $querybt = "UPDATE queuelist SET bloqueado=1
+where cliente=:cliente
+and sdc=:sdc and status_aarsa=:status;";
+    $stbt    = $pdo->prepare($querybt);
+    $stbt->bindParam(':cliente', $QUEUES[0]);
+    $stbt->bindParam(':sdc', $QUEUES[1]);
+    $stbt->bindParam(':status', $QUEUES[2]);
+    $stbt->execute();
+}
+if ($go == 'DESBLOQUEAR TODOS') {
+    $QUEUE   = mysql_real_escape_string($_REQUEST['queue']);
+    $querydt = "UPDATE queuelist SET bloqueado=0
+where cliente=:cliente
+and sdc=:sdc and status_aarsa=:status;";
+    $stdt    = $pdo->prepare($querydt);
+    $stdt->bindParam(':cliente', $QUEUES[0]);
+    $stdt->bindParam(':sdc', $QUEUES[1]);
+    $stdt->bindParam(':status', $QUEUES[2]);
+    $stdt->execute();
+}
+$oldgestor  = '';
+$querylist  = "SELECT distinct gestor,tipo,nombres.camp as campnow
+    FROM queuelist
 JOIN nombres ON gestor=iniciales 
 WHERE tipo <> ''
 ORDER BY gestor";
-$resultlist = mysql_query($querylist) or die(mysql_error());
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title>Administraci&oacute;n de los queues</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<style type="text/css">
-       body {font-family: arial, helvetica, sans-serif; font-size: 10pt; background-color: #00a0f0; color:#000000;}
-	.loud {text-align:center; font-weight:bold; color:red;}  
-	.num {text-align:right;}
-       .blocked {font-style:italic; color:#ff0000;}
-       #todobar {background-color:#20c0f0}
- </style>
-</head>
-<body>
-<button onclick="window.location='reports.php?capt=<?php echo $capt;?>'">Regressar a la plantilla administrativa</button><br>
-<div style='clear:both;background-color:#ffffff;width:100%'>
-<div style='float:left;width:25%'>Gestor</div>
-<div style='float:left;width:50%'>Queue</div>
-</div>
-<div>
-<div style='clear:both;border:1pt black solid'>
-<form method='get' action='queues.php' name='todos'>
-<div style='float:left;width:25%'>
-<input name='gestor' type='text' readonly='readonly' value='todos'>
-</div>
-<div style='float:left;width:40%'>
-<select name='queue'>
-<?php 
-$queryq = "SELECT distinct cliente,sdc,status_aarsa,bloqueado
+$resultlist = $pdo->query($querylist);
+$queryq     = "SELECT distinct cliente,sdc,status_aarsa,bloqueado
 FROM queuelist
+WHERE cliente<> ''
 ORDER BY cliente,sdc,status_aarsa;";
-$resultq = mysql_query($queryq) or die(mysql_error());
-while($rowq = mysql_fetch_row($resultq)) {
-$CLIENTE = $rowq[0];
-$SDC = $rowq[1];
-$CR = $rowq[2];
-if ($CR=='.') {$CR='todos';};
-$bloqueado = $rowq[3];
-$campsel='';
+$resultq    = $pdo->query($queryq);
 ?>
-<option value='<?php echo $CLIENTE.','.$SDC.','.$CR;;?>' <?php if ($bloqueado==1) {echo "class='blocked'";}?>><?php echo $CLIENTE.'-'.$SDC.'-'.$CR;?></option>
-<?php } ?>
-</select>
-</div>
-<div style='float:left;width:30%'>
-<input type="submit" name="go" value="INTRO TODOS"><br>
-<input type="submit" name="go" value="BLOQUEAR TODOS"><br>
-<input type="submit" name="go" value="DESBLOQUEAR TODOS">
-</div>
-<input type="hidden" name="capt" value="<?php echo $capt ?>"> 
-</form>
-</div>
-<?php } ?>
-</div>
-<div>
-<?php
-while($rowlist = mysql_fetch_row($resultlist)) {
-$GESTOR = $rowlist[0];
-$tipo = $rowlist[1];
-$campnow = $rowlist[2];
-?>
-<div style='clear:both;border:1pt black solid'>
-<form method='get' action='queues.php' name='<?php echo $GESTOR;?>'>
-<div style='float:left;width:25%'>
-<input name='gestor' type='text' readonly='readonly' value='<?php echo $GESTOR;?>'>
-</div>
-<div style='float:left;width:40%'>
-<?php 
-$queryqc = "SELECT cliente,sdc,status_aarsa,nombres.camp
-FROM queuelist,nombres 
-WHERE gestor = '".$GESTOR."' and gestor=iniciales and nombres.camp=queuelist.camp
-ORDER BY cliente,sdc,status_aarsa;";
-$resultqc = mysql_query($queryqc) or die(mysql_error());
-while($rowqc = mysql_fetch_row($resultqc)) {
-$CLIENTEc = $rowqc[0];
-$SDCc = $rowqc[1];
-$CRc = $rowqc[2];
-if ($CRc=='.') {$CRc='todos';};
-$CAMPc = $rowqc[3];
-echo $CLIENTEc.'-'.$SDCc.'-'.$CRc;
-}
-?>
-<br>
-<select name='camp'>
-<?php 
-$queryq = "SELECT cliente,sdc,status_aarsa,camp,bloqueado
-FROM queuelist WHERE gestor = '".$GESTOR."'
-ORDER BY cliente,sdc,camp;";
-$resultq = mysql_query($queryq) or die(mysql_error());
-while($rowq = mysql_fetch_row($resultq)) {
-$CLIENTE = $rowq[0];
-$SDC = $rowq[1];
-$CR = $rowq[2];
-if ($CR=='.') {$CR='todos';};
-$CAMP = $rowq[3];
-$bloqueado = $rowq[4];
-$campsel='';
-?>
-<option value='<?php echo $CAMP;?>' <?php if ($bloqueado==1) {echo "class='blocked'";}?>><?php echo $CLIENTE.'-'.$SDC.'-'.$CR;?></option>
-<?php } ?>
-</select>
-</div>
-<div style='float:left;width:30%'>
-<input type="submit" name="go" value="INTRO">
-<input type="submit" name="go" value="BLOQUEAR">
-<input type="submit" name="go" value="DESBLOQUEAR">
-</div>
-<input type="hidden" name="capt" value="<?php echo $capt ?>"> 
-</form>
-</div>
-<?php } ?>
-</div>
-</body>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Administraci&oacute;n de los queues</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
+        <script src="js/jquery-1.5.1.min.js" type="text/javascript"></script>
+        <script src="js/jquery-ui-1.8.13.custom.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <div style='clear:both;background-color:#ffffff;width:100%'>
+            <div style='float:left;width:25%'>Gestor</div>
+            <div style='float:left;width:50%'>Queue</div>
+        </div>
+        <div>
+            <div style='clear:both;border:1pt black solid'>
+                <form method='get' action='queues.php' name='todos'>
+                    <div style='float:left;width:25%'>
+                        <input name='gestor' type='text' readonly='readonly' value='todos'>
+                    </div>
+                    <div style='float:left;width:40%'>
+                        <select name='queue'>
+                            <?php
+                            foreach ($resultq->fetchAll(PDO::FETCH_ASSOC) as $rowq) {
+                                $CLIENTE = $rowq['cliente'];
+                                $SDC     = $rowq['sdc'];
+                                $CR      = $rowq['status_aarsa'];
+                                if ($CR == '.') {
+                                    $CR = 'todos';
+                                }
+                                $bloqueado = $rowq['bloqueado'];
+                                $campsel   = '';
+                                ?>
+                                <option value='<?php
+                                echo $CLIENTE.','.$SDC.','.$CR;
+                                ?>' <?php
+                                        if ($bloqueado == 1) {
+                                            echo "class='blocked'";
+                                        }
+                                        ?>><?php echo $CLIENTE.'-'.$SDC.'-'.$CR; ?></option>
+                                    <?php } ?>
+                        </select>
+                    </div>
+                    <div style='float:left;width:30%'>
+                        <input type="submit" name="go" value="INTRO TODOS"><br>
+                        <input type="submit" name="go" value="BLOQUEAR TODOS"><br>
+                        <input type="submit" name="go" value="DESBLOQUEAR TODOS">
+                    </div>
+                    <input type="hidden" name="capt" value="<?php echo $capt ?>">
+                </form>
+            </div>
+        </div>
+        <div>
+            <?php
+            foreach ($resultlist->fetchAll(PDO::FETCH_ASSOC) as $rowlist) {
+                $GESTOR   = $rowlist['gestor'];
+                $tipo     = $rowlist['tipo'];
+                $campnow  = $rowlist['campnow'];
+                ?>
+                <div style='clear:both;border:1pt black solid'>
+                    <form method='get' action='queues.php' name='<?php echo $GESTOR; ?>'>
+                        <div style='float:left;width:25%'>
+                            <input name='gestor' type='text' readonly='readonly' value='<?php echo $GESTOR; ?>'>
+                        </div>
+                        <div style='float:left;width:40%'>
+                            <?php
+                            $queryqc  = "SELECT cliente, sdc, status_aarsa, 
+                                nombres.camp as campnow
+                                FROM queuelist, nombres 
+                                WHERE gestor = :gestor and gestor=iniciales 
+                                and nombres.camp=queuelist.camp
+                                and cliente<>''
+                                ORDER BY cliente,sdc,status_aarsa;";
+                            $stqc = $pdo->prepare($queryqc);
+                            $stqc->bindParam(':gestor', $GESTOR);
+                            $stqc->execute();
+                            $resultqc = $stqc->fetchAll(PDO::FETCH_ASSOC);
+                            foreach ($resultqc as $rowqc) {
+                                $CLIENTEc = $rowqc['cliente'];
+                                $SDCc     = $rowqc['sdc'];
+                                $CRc      = $rowqc['status_aarsa'];
+                                if ($CRc == '.') {
+                                    $CRc = 'todos';
+                                }
+                                $CAMPc = $rowqc['campnow'];
+                                echo $CLIENTEc.'-'.$SDCc.'-'.$CRc;
+                            }
+                            ?>
+                            <br>
+                            <select name='camp'>
+                                <?php
+                                $queryqa  = "SELECT cliente, sdc, status_aarsa,
+                                    camp, bloqueado
+                                    FROM queuelist
+                                    WHERE gestor = :gestor
+                                    and cliente<>''
+                                    ORDER BY cliente,sdc,camp;";
+                                $stqa = $pdo->prepare($queryqa);
+                            $stqa->bindParam(':gestor', $GESTOR);
+                            $stqa->execute();
+                            $resultqa = $stqa->fetchAll(PDO::FETCH_ASSOC);
+                            foreach ($resultqa as $rowq) {
+                                    $CLIENTE = $rowq['cliente'];
+                                    $SDC     = $rowq['sdc'];
+                                    $CR      = $rowq['status_aarsa'];
+                                    if ($CR == '.') {
+                                        $CR = 'todos';
+                                    }
+                                    $CAMP      = $rowq['camp'];
+                                    $bloqueado = $rowq['bloqueado'];
+                                    $campsel   = '';
+                                    ?>
+                                    <option value='<?php echo $CAMP; ?>' <?php
+                                    if ($bloqueado == 1) {
+                                        echo "class='blocked'";
+                                    }
+                                    ?>><?php echo $CLIENTE.'-'.$SDC.'-'.$CR; ?></option>
+                                        <?php } ?>
+                            </select>
+                        </div>
+                        <div style='float:left;width:30%'>
+                            <input type="submit" name="go" value="INTRO">
+                            <input type="submit" name="go" value="BLOQUEAR">
+                            <input type="submit" name="go" value="DESBLOQUEAR">
+                        </div>
+                        <input type="hidden" name="capt" value="<?php echo $capt ?>">
+                    </form>
+                </div>
+            <?php } ?>
+        </div>
+    </body>
 </html> 
-<?php
-}
-mysql_close($con);
-?>
+

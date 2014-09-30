@@ -47,15 +47,17 @@ else {
 <button onclick="window.location='segmentadmin.php?capt=<?php echo $capt;?>'">Administrar Segmetos</button><br>
 <button onclick="window.location='changest.php?capt=<?php echo $capt;?>'">
 Cambiar Status de Credito</button>
+<!--
 <button onclick="window.location='changegest.php?capt=<?php echo $capt;?>'">
 Cambiar Gestor Asignado</button>
+-->
 <button onclick="window.location='inactivar.php?capt=<?php echo $capt;?>'">Inactivar Cuentas</button><br>
 	</div> 
 	<div id="gen"> 
 <h2>Reportes Generales</h2>
-<button onclick="window.location='queuesqcg.php?capt=<?php echo $capt;?>'">Queues por Gestor</button>
+<!--<button onclick="window.location='queuesqcg.php?capt=<?php echo $capt;?>'">Queues por Gestor</button>-->
 <button onclick="window.location='queuesqc.php?capt=<?php echo $capt;?>'">Queues por Cliente</button>
-<button onclick="window.location='queueReview.php?capt=<?php echo $capt;?>'">Reporte de Queues</button><br>
+<!--<button onclick="window.location='queueReview.php?capt=<?php echo $capt;?>'">Reporte de Queues</button><br>-->
 <button onclick="window.location='latest_best.php?capt=<?php echo $capt;?>'">Ultimo y Mejor Status</button>
 <button onclick="window.location='rotas.php?capt=<?php echo $capt;?>'">Promesas del Mes Actual</button>
 <button onclick="window.location='pagosum.php?capt=<?php echo $capt;?>'">Pagos por Cliente</button>

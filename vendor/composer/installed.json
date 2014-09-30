@@ -1,57 +1,5 @@
 [
     {
-        "name": "codeplex/phpexcel",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/markushausammann/PHPExcel.git",
-            "reference": "7f72be58b4f0a136a4ee9997318d717ecb18abc6"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/markushausammann/PHPExcel/zipball/7f72be58b4f0a136a4ee9997318d717ecb18abc6",
-            "reference": "7f72be58b4f0a136a4ee9997318d717ecb18abc6",
-            "shasum": ""
-        },
-        "require": {
-            "ext-xml": "*",
-            "php": ">=5.2.0"
-        },
-        "time": "2013-06-13 17:41:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "PHPExcel": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL"
-        ],
-        "authors": [
-            {
-                "name": "Maarten Balliauw",
-                "homepage": "http://blog.maartenballiauw.be"
-            },
-            {
-                "name": "Mark Baker"
-            },
-            {
-                "name": "Erit Tilt"
-            }
-        ],
-        "description": "PHPExcel - OpenXML - Create Excel2007 documents in PHP - Spreadsheet engine",
-        "homepage": "http://phpexcel.codeplex.com",
-        "keywords": [
-            "OpenXML",
-            "excel",
-            "php",
-            "spreadsheet"
-        ]
-    },
-    {
         "name": "phpoffice/phpexcel",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -109,5 +57,303 @@
             "xls",
             "xlsx"
         ]
+    },
+    {
+        "name": "symfony/process",
+        "version": "v2.5.4",
+        "version_normalized": "2.5.4.0",
+        "target-dir": "Symfony/Component/Process",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Process.git",
+            "reference": "136cf0bdaacea81f779583376d47dd8aef4fc6ba"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/Process/zipball/136cf0bdaacea81f779583376d47dd8aef4fc6ba",
+            "reference": "136cf0bdaacea81f779583376d47dd8aef4fc6ba",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "time": "2014-08-31 03:22:04",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.5-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Process\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Symfony Process Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "kriswallsmith/assetic",
+        "version": "v1.1.2",
+        "version_normalized": "1.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kriswallsmith/assetic.git",
+            "reference": "735cffd3982c6e8cdebe292d5db39d077f65890f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/735cffd3982c6e8cdebe292d5db39d077f65890f",
+            "reference": "735cffd3982c6e8cdebe292d5db39d077f65890f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.1",
+            "symfony/process": "~2.1"
+        },
+        "require-dev": {
+            "cssmin/cssmin": "*",
+            "joliclic/javascript-packer": "*",
+            "kamicane/packager": "*",
+            "leafo/lessphp": "*",
+            "leafo/scssphp": "*",
+            "leafo/scssphp-compass": "*",
+            "mrclay/minify": "*",
+            "phpunit/phpunit": "~3.7",
+            "ptachoire/cssembed": "*",
+            "twig/twig": "~1.6"
+        },
+        "suggest": {
+            "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
+            "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
+            "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin",
+            "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
+            "twig/twig": "Assetic provides the integration with the Twig templating engine"
+        },
+        "time": "2013-07-19 00:03:27",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Assetic": "src/"
+            },
+            "files": [
+                "src/functions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kris Wallsmith",
+                "email": "kris.wallsmith@gmail.com",
+                "homepage": "http://kriswallsmith.net/"
+            }
+        ],
+        "description": "Asset Management for PHP",
+        "homepage": "https://github.com/kriswallsmith/assetic",
+        "keywords": [
+            "assets",
+            "compression",
+            "minification"
+        ]
+    },
+    {
+        "name": "robloach/component-installer",
+        "version": "0.0.12",
+        "version_normalized": "0.0.12.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/RobLoach/component-installer.git",
+            "reference": "1864f25db21fc173e02a359f646acd596c1b0460"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/1864f25db21fc173e02a359f646acd596c1b0460",
+            "reference": "1864f25db21fc173e02a359f646acd596c1b0460",
+            "shasum": ""
+        },
+        "require": {
+            "kriswallsmith/assetic": "1.*",
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "composer/composer": "1.*"
+        },
+        "time": "2013-08-31 23:46:48",
+        "type": "composer-installer",
+        "extra": {
+            "class": "ComponentInstaller\\Installer"
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "ComponentInstaller": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Rob Loach",
+                "email": "robloach@gmail.com",
+                "homepage": "http://robloach.net"
+            }
+        ],
+        "description": "Allows installation of Components via Composer."
+    },
+    {
+        "name": "components/jquery",
+        "version": "2.1.1",
+        "version_normalized": "2.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/components/jquery.git",
+            "reference": "9e2c56ed9f17e6b55de97ae64a3ed0cf17cd30d4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/components/jquery/zipball/9e2c56ed9f17e6b55de97ae64a3ed0cf17cd30d4",
+            "reference": "9e2c56ed9f17e6b55de97ae64a3ed0cf17cd30d4",
+            "shasum": ""
+        },
+        "require": {
+            "robloach/component-installer": "*"
+        },
+        "time": "2014-07-02 11:52:43",
+        "type": "component",
+        "extra": {
+            "component": {
+                "scripts": [
+                    "jquery.js"
+                ],
+                "files": [
+                    "jquery.min.js",
+                    "jquery.min.map",
+                    "jquery-migrate.js",
+                    "jquery-migrate.min.js"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "John Resig",
+                "email": "jeresig@gmail.com",
+                "homepage": "http://ejohn.org/"
+            }
+        ],
+        "description": "jQuery JavaScript Library",
+        "homepage": "http://jquery.com"
+    },
+    {
+        "name": "components/jqueryui",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/components/jqueryui.git",
+            "reference": "39890e8599bdd79c423ea21b967195106800b87d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/components/jqueryui/zipball/39890e8599bdd79c423ea21b967195106800b87d",
+            "reference": "39890e8599bdd79c423ea21b967195106800b87d",
+            "shasum": ""
+        },
+        "require": {
+            "components/jquery": ">=1.8"
+        },
+        "time": "2014-08-13 21:01:50",
+        "type": "component",
+        "extra": {
+            "component": {
+                "name": "jquery-ui",
+                "scripts": [
+                    "jquery-ui.js"
+                ],
+                "files": [
+                    "ui/**",
+                    "themes/**",
+                    "jquery-ui.min.js"
+                ],
+                "shim": {
+                    "deps": [
+                        "jquery"
+                    ],
+                    "exports": "jQuery"
+                }
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "jQuery UI Team",
+                "homepage": "http://jqueryui.com/about"
+            },
+            {
+                "name": "Joern Zaefferer",
+                "email": "joern.zaefferer@gmail.com",
+                "homepage": "http://bassistance.de"
+            },
+            {
+                "name": "Scott Gonzalez",
+                "email": "scott.gonzalez@gmail.com",
+                "homepage": "http://scottgonzalez.com"
+            },
+            {
+                "name": "Kris Borchers",
+                "email": "kris.borchers@gmail.com",
+                "homepage": "http://krisborchers.com"
+            },
+            {
+                "name": "Mike Sherov",
+                "email": "mike.sherov@gmail.com",
+                "homepage": "http://mike.sherov.com"
+            },
+            {
+                "name": "TJ VanToll",
+                "email": "tj.vantoll@gmail.com",
+                "homepage": "http://tjvantoll.com"
+            },
+            {
+                "name": "Corey Frang",
+                "email": "gnarf37@gmail.com",
+                "homepage": "http://gnarf.net"
+            }
+        ],
+        "description": "jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library. Whether you're building highly interactive web applications or you just need to add a date picker to a form control, jQuery UI is the perfect choice."
     }
 ]

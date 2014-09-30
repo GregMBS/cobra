@@ -6,5 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'PHPExcel' => array($vendorDir . '/codeplex/phpexcel', $vendorDir . '/phpoffice/phpexcel/Classes'),
+    'Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
+    'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
+    'ComponentInstaller' => array($vendorDir . '/robloach/component-installer/src'),
+    'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
 );

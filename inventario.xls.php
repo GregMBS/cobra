@@ -66,7 +66,13 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
     $i        = 0;
     $colnames = $result[0];
     foreach ($colnames as $key => $value) {
-        $letter = chr(ord("A") + $i);
+                if ($i<26) {
+                    $letter = chr(ord("A") + $i);
+                } else {
+                    $top = floor($i/26);
+                    $bottom = $i % 26;
+                    $letter = chr(ord("A") + $top) . chr(ord("A") + $bottom);
+                }
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, 1, $key);
         $objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
         $i++;
