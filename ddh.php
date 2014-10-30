@@ -6,7 +6,7 @@ $capt      = filter_input(INPUT_GET, 'capt');
 $gestor    = filter_input(INPUT_GET, 'gestor');
 $fecha     = filter_input(INPUT_GET, 'fecha');
 $querymain = "select numero_de_cuenta, nombre_deudor,
-    saldo_total, status_de_credito,
+    saldo_total, status_de_credito, status_aarsa,
     ejecutivo_asignado_call_center,
     dias_vencidos, c_cvst, c_hrin,
     saldo_descuento_2, producto, estado_deudor,
@@ -33,7 +33,10 @@ $result    = $stm->fetchAll(PDO::FETCH_ASSOC);
         <script src="vendor/datatables/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
         <script>
             $(function () {
-                $('table').dataTable({"bJQueryUI": true});
+                $('table').dataTable({
+                    "bPaginate": false,
+                    "bJQueryUI": true
+                });
             });
         </script>
     </head>
@@ -44,7 +47,7 @@ $result    = $stm->fetchAll(PDO::FETCH_ASSOC);
                     <th>CUENTA</th>
                     <th>NOMBRE</th>
                     <th>CLIENTE</th>
-                    <th>GESTOR</th>
+                    <th>STATUS DE LA CUENTA</th>
                     <th>DIAS VENCIDOS</th>
                     <th>SALDO TOTAL</th>
                     <th>RESULTADOS</th>
@@ -58,7 +61,7 @@ $result    = $stm->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($result as $row) {
                     $CUENTA            = $row['numero_de_cuenta'];
                     $CLIENTE           = $row['cliente'];
-                    $GESTOR            = $row['c_cvst'];
+                    $GESTOR            = $row['status_aarsa'];
                     $ID_CUENTA         = $row['id_cuenta'];
                     $STATUS_AARSA      = $row['c_cvst'];
                     $VALOR             = $row['vcc'];
