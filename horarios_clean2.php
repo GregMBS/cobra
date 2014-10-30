@@ -197,7 +197,7 @@ and fecha=last_day(curdate() - interval 1 month) + interval $i day";
                                         <td class="light<?php
                                         if ($start[$i] == '00:00') {
                                             echo ' zeros';
-                                        };
+                                        }
                                         ?>"><?php echo $start[$i]; ?></td>
                                     <?php } ?>
                                 </tr>
@@ -208,7 +208,7 @@ and fecha=last_day(curdate() - interval 1 month) + interval $i day";
                                         <td class="light<?php
                                             if ($stop[$i] == '00:00') {
                                                 echo ' zeros';
-                                            };
+                                            }
                                             ?>"><?php echo $stop[$i]; ?></td>
                                         <?php
                                     }
@@ -222,7 +222,7 @@ and fecha=last_day(curdate() - interval 1 month) + interval $i day";
                                         <td class="light<?php
                                                 if ($diff[$i] == 0) {
                                                     echo ' zeros';
-                                                };
+                                                }
                                                 ?>"><?php
                                         $hrs       = floor($diff[$i] / 3600);
                                         $mins      = round(($diff[$i] - $hrs * 3600)
@@ -248,7 +248,7 @@ and fecha=last_day(curdate() - interval 1 month) + interval $i day";
                                         <td class="light<?php
                                             if ($break[$i] == 0) {
                                                 echo ' zeros';
-                                            };
+                                            }
                                             ?>"><?php
                                         $hrs       = floor($break[$i] / 3600);
                                         $mins      = round(($break[$i] - $hrs * 3600)
@@ -274,7 +274,7 @@ and fecha=last_day(curdate() - interval 1 month) + interval $i day";
                                         <td class="light<?php
                                         if ($bano[$i] == 0) {
                                             echo ' zeros';
-                                        };
+                                        }
                                         ?>"><?php
                                             $hrs        = floor($bano[$i] / 3600);
                                             $mins       = round(($bano[$i] - $hrs
@@ -300,7 +300,7 @@ and fecha=last_day(curdate() - interval 1 month) + interval $i day";
                                         <td class="light<?php
                         if ($tlla[$i] == 0) {
                             echo ' zeros';
-                        };
+                        }
                                         ?>">
                                             <a href='<?php echo strtolower('ddh.php?capt='.$capt.'&i='.$tlla[$i].'&gestor='.$gestor.'&fecha='.$yr.'-'.$mes.'-'.$i); ?>'>
                                         <?php echo $tlla[$i]; ?></a></td>
@@ -320,7 +320,7 @@ and fecha=last_day(curdate() - interval 1 month) + interval $i day";
                                         <td class="light<?php
                                         if ($lla[$i] == 0) {
                                             echo ' zeros';
-                                        };
+                                        }
                                         ?>">
                                             <a href='<?php echo strtolower('ddh.php?capt='.$capt.'&i='.$lla[$i].'&gestor='.$gestor.'&fecha='.$yr.'-'.$mes.'-'.$i); ?>'>
                                         <?php echo $lla[$i]; ?></a></td>
@@ -346,7 +346,7 @@ and D_FECH>last_day(curdate() - interval 1 month)";
                                         <td class="light<?php
                         if ($ct[$i] == 0) {
                             echo ' zeros';
-                        };
+                        }
                                         ?>"><?php echo $ct[$i]; ?></td>
                                             <?php
                                             $sumct      = $sumct + $ct[$i];
@@ -364,7 +364,7 @@ and D_FECH>last_day(curdate() - interval 1 month)";
                                         <td class="light<?php
                                             if ($nct[$i] == 0) {
                                                 echo ' zeros';
-                                            };
+                                            }
                                             ?>"><?php echo $nct[$i]; ?></td>
                                         <?php
                                         $sumnct      = $sumnct + $nct[$i];
@@ -382,7 +382,7 @@ and D_FECH>last_day(curdate() - interval 1 month)";
                                         <td class="light<?php
                                             if ($prom[$i] == 0) {
                                                 echo ' zeros';
-                                            };
+                                            }
                                             ?>">
                                             <a href='<?php echo strtolower('pdh.php?capt='.$capt.'&i='.$prom[$i].'&gestor='.$gestor.'&fecha='.$yr.'-'.$mes.'-'.$i); ?>'>
                                             <?php echo $prom[$i]; ?></a></td>
@@ -402,7 +402,7 @@ and D_FECH>last_day(curdate() - interval 1 month)";
                                         <td class="light<?php
                 if ($pag[$i] == 0) {
                     echo ' zeros';
-                };
+                }
                 ?>"><?php echo $pag[$i]; ?></td>
                 <?php
                 $sump      = $sump + $pag[$i];

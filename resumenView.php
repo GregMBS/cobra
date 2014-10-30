@@ -397,9 +397,9 @@
             <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
         </head>
         <body onLoad="alerttxt = new String('');
-    paging('HISTORIA');
-    openSearch();
-    aviso();" id="todos">
+                paging('HISTORIA');
+                openSearch();
+                aviso();" id="todos">
             <div id="buttonbox">
                 <?php if (($go == 'FROMULTIMA') || ($go == 'FROMBUSCAR')) { ?>
                     <form class="buttons" name="seg" method="get" action=
@@ -482,24 +482,24 @@
                            }
                            ?>
                     <input type="hidden" name="FC" value="<?php
-                           if (isset($FC)) {
-                               echo $FC;
-                           }
-                           ?>">
+                    if (isset($FC)) {
+                        echo $FC;
+                    }
+                    ?>">
                     <input type="hidden" name="mytipo" value="admin">
                     <input type="submit" name="go" value="FOLIOS"></form>
-                           <?php $CTA = $numero_de_credito; ?>
+                <?php $CTA = $numero_de_credito; ?>
                 <form class="buttons" name="notasq" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
                                                                                                                       name="capt" value="<?php
-                if (isset($capt)) {
-                    echo $capt;
-                }
-                ?>">
-                    <input type="hidden" name="CUENTA" value="<?php
-                                                                                                                      if (isset($numero_de_cuenta)) {
-                                                                                                                          echo $numero_de_cuenta;
+                                                                                                                      if (isset($capt)) {
+                                                                                                                          echo $capt;
                                                                                                                       }
                                                                                                                       ?>">
+                    <input type="hidden" name="CUENTA" value="<?php
+                    if (isset($numero_de_cuenta)) {
+                        echo $numero_de_cuenta;
+                    }
+                    ?>">
                     <input type="hidden" name="C_CONT" value="<?php
                     if (isset($id_cuenta)) {
                         echo $id_cuenta;
@@ -510,10 +510,10 @@
                       "queuesg.php" id="queuesg">
                     <input type="hidden"
                            name="mytipo" value="<?php
-                    if (isset($mytipo)) {
-                        echo $mytipo;
-                    }
-                    ?>">
+                           if (isset($mytipo)) {
+                               echo $mytipo;
+                           }
+                           ?>">
                     <input type="hidden"
                            name="capt" value="<?php
                            if (isset($capt)) {
@@ -524,29 +524,28 @@
                 <form class="buttons" name="logout" method="get" action=
                       "resumen.php" id="logout">
                     <input type="hidden" name="capt" value="<?php
-                           if (isset($capt)) {
-                               echo $capt;
-                           }
-                           ?>">
+                    if (isset($capt)) {
+                        echo $capt;
+                    }
+                    ?>">
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                     <input type="submit" name="go" value="LOGOUT"></form>
-                           <?php if ($camp == 0) { ?>
+                <?php if ($camp == 0) { ?>
                     <form action="resumen.php" method="get">
                         <input type="hidden" name="capt" value="<?php echo $capt ?>">
                         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                         <select name="clientefilt" onChange="this.form.submit()">
                             <option value="" <?php if (!empty($clientefilt)) {
-                    ?>
+                        ?>
                                         selected="selected"
-                            <?php } ?>>todos</option>
-                            <?php
-                            foreach ($resultfilt as $answerfilt) {
-                                ?>
+                                    <?php } ?>>todos</option>
+                                    <?php
+                                    foreach ($resultfilt as $answerfilt) {
+                                        ?>
                                 <option value="<?php echo $answerfilt['cliente']; ?>" <?php
-                                        if (($cliente == $answerfilt['cliente'])
-                                            && ($sdc == $answerfilt['sdc']) && ($cr
-                                            == $answerfilt['queue'])) {
-                                            ?>
+                                if (($cliente == $answerfilt['cliente']) && ($sdc
+                                    == $answerfilt['sdc']) && ($cr == $answerfilt['queue'])) {
+                                    ?>
                                             selected='selected'
                                             <?php
                                         }
@@ -577,16 +576,16 @@
                 <span style='font-weight:bold;font-size:120%;'><?php echo $capt; ?></span>
                 <?php if (!empty($cliente)) { ?>
                     <span onmouseover='this.style.visibility = "hidden";'><img style="position:absolute;top:0;right:0" height=50 alt="client logo" src='<?php
-                    echo
-                    $cliente;
-                    ?>.jpg'></span>
-                                                                           <?php } ?>
+                        echo
+                        $cliente;
+                        ?>.jpg'></span>
+                    <?php } ?>
                 <form class="buttons" name="trouble" method="get" action="trouble.php" id="trouble" target="_blank">
                     <input type="hidden" name="capt" value="<?php
-                                                                           if (isset($capt)) {
-                                                                               echo $capt;
-                                                                           }
-                                                                           ?>">
+                    if (isset($capt)) {
+                        echo $capt;
+                    }
+                    ?>">
                     <input type="submit" name="go" value="ERROR">
                 </form>
                 <?php
@@ -601,8 +600,8 @@
                     <LI><A onClick="paging('LABORAL')">LABORAL</A></LI>
                     <LI><A onClick="paging('CONTABLES')">CONTABLES</A></LI>
                     <LI><A onClick="paging('MISCELANEA')">MISCELANEA</A></LI>
-                    <?php if ($others
-                        > 1) {
+                    <?php
+                    if ($others > 1) {
                         ?>
                         <LI><A onClick="paging('EXTRAS');">OTRAS CUENTAS</A></LI>
                     <?php } ?>
@@ -704,145 +703,145 @@
                 </div>
                 <div id="TELEFONOS">
                     <span class='formcap'>Tel Casa</span><input type='text' name=tel_1 id="tel_1" readonly='readonly' value='<?php
-                                    if (isset($tel_1)) {
-                                        echo $tel_1;
-                                    }
-                                    ?>'><br>
+                    if (isset($tel_1)) {
+                        echo $tel_1;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel Cel</span><input type='text' name=tel_2 id="tel_2" readonly='readonly' value='<?php
-                                                                if (isset($tel_2)) {
-                                                                    echo $tel_2;
-                                                                }
-                                                                ?>'><br>
+                    if (isset($tel_2)) {
+                        echo $tel_2;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel 3</span><input type='text' name=tel_3 id="tel_3" readonly='readonly' value='<?php
-                                                               if (isset($tel_3)) {
-                                                                   echo $tel_3;
-                                                               }
-                                                               ?>'><br>
+                    if (isset($tel_3)) {
+                        echo $tel_3;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel 4</span><input type='text' name=tel_4 id="tel_4" readonly='readonly' value='<?php
-                                                             if (isset($tel_4)) {
-                                                                 echo $tel_4;
-                                                             }
-                                                             ?>'><br>
+                    if (isset($tel_4)) {
+                        echo $tel_4;
+                    }
+                    ?>'><br>
                     <span class='formcap'>E-mail</span><input type='text' name=email_deudor readonly='readonly' value='<?php
-                                                             if (isset($email_deudor)) {
-                                                                 echo $email_deudor;
-                                                             }
-                                                             ?>'><br>
+                    if (isset($email_deudor)) {
+                        echo $email_deudor;
+                    }
+                    ?>'><br>
                 </div>
                 <div id="REFERENCIAS">
-<?php if (isset($nombre_deudor_alterno)) { ?>
+                    <?php if (isset($nombre_deudor_alterno)) { ?>
                         <span class='formcaps'>Aval</span><input type='text' name=nombre_deudor_alterno id="nombre_deudor_alterno" readonly='readonly' value='<?php
                         if (isset($nombre_deudor_alterno)) {
                             echo htmlentities($nombre_deudor_alterno);
                         }
                         ?>'>
-                        <?php
+                                                                 <?php
                                                              }
                                                              if (isset($domicilio_deudor_alterno)) {
                                                                  ?>
                         <br><span class='formcaps'>Dirección Aval</span>
                         <textarea readonly='readonly'><?php
-                                                             echo $domicilio_deudor_alterno."\n".
-                                                             $colonia_deudor_alterno."\n".
-                                                             $ciudad_deudor_alterno."\n".
-                                                             $estado_deudor_alterno;
-                                                                 ?>
-                        </textarea>
-                            <?php
-                        }
-                        if (isset($domicilio_deudor_alterno_2a)) {
+                            echo $domicilio_deudor_alterno."\n".
+                            $colonia_deudor_alterno."\n".
+                            $ciudad_deudor_alterno."\n".
+                            $estado_deudor_alterno;
                             ?>
-                        <textarea readonly='readonly'><?php
-                        echo $domicilio_deudor_alterno_2a."\n".
-                        $colonia_deudor_alterno_2a."\n".
-                        $ciudad_deudor_alterno_2a."\n".
-                        $estado_deudor_alterno_2a;
+                        </textarea>
+                        <?php
+                    }
+                    if (isset($domicilio_deudor_alterno_2a)) {
                         ?>
-                        </textarea>
-                            <?php
-                        }
-                        if (isset($nombre_deudor_alterno_2)) {
+                        <textarea readonly='readonly'><?php
+                            echo $domicilio_deudor_alterno_2a."\n".
+                            $colonia_deudor_alterno_2a."\n".
+                            $ciudad_deudor_alterno_2a."\n".
+                            $estado_deudor_alterno_2a;
                             ?>
+                        </textarea>
+                        <?php
+                    }
+                    if (isset($nombre_deudor_alterno_2)) {
+                        ?>
                         <br><span class='formcaps'>Aval 2</span><input type='text' name=nombre_deudor_alterno_2
                                                                        id="nombre_deudor_alterno_2" readonly='readonly'
                                                                        value='<?php
-                    if (isset($nombre_deudor_alterno_2)) {
-                        echo htmlentities($nombre_deudor_alterno_2);
-                    }
-                            ?>'>
+                                                                       if (isset($nombre_deudor_alterno_2)) {
+                                                                           echo htmlentities($nombre_deudor_alterno_2);
+                                                                       }
+                                                                       ?>'>
                                                                        <?php
                                                                    }
                                                                    if (isset($domicilio_deudor_alterno_2)) {
                                                                        ?>
                         <br><span class='formcaps'>Dirección Aval 2</span>
                         <textarea readonly='readonly'><?php
-                                                                   echo $domicilio_deudor_alterno_2."\n".
-                                                                   $colonia_deudor_alterno_2."\n".
-                                                                   $ciudad_deudor_alterno_2."\n".
-                                                                   $estado_deudor_alterno_2;
-                                                                       ?>
-                        </textarea>
-                            <?php
-                        }
-                        if (isset($domicilio_deudor_alterno_2b)) {
+                            echo $domicilio_deudor_alterno_2."\n".
+                            $colonia_deudor_alterno_2."\n".
+                            $ciudad_deudor_alterno_2."\n".
+                            $estado_deudor_alterno_2;
                             ?>
-                        <textarea readonly='readonly'><?php
-                        echo $domicilio_deudor_alterno_2b."\n".
-                        $colonia_deudor_alterno_2b."\n".
-                        $ciudad_deudor_alterno_2b."\n".
-                        $estado_deudor_alterno_2b;
+                        </textarea>
+                        <?php
+                    }
+                    if (isset($domicilio_deudor_alterno_2b)) {
                         ?>
-                        </textarea>
-                            <?php
-                        }
-                        if (isset($parentesco_aval)) {
+                        <textarea readonly='readonly'><?php
+                            echo $domicilio_deudor_alterno_2b."\n".
+                            $colonia_deudor_alterno_2b."\n".
+                            $ciudad_deudor_alterno_2b."\n".
+                            $estado_deudor_alterno_2b;
                             ?>
+                        </textarea>
+                        <?php
+                    }
+                    if (isset($parentesco_aval)) {
+                        ?>
                         <input type='text' name=parentesco_aval class='shortinp' readonly='readonly' value='<?php
                         if (isset($parentesco_aval)) {
                             echo $parentesco_aval;
                         }
                         ?>'><br>
-                    <?php } ?>
+                           <?php } ?>
                     <br>
-                           <?php if (isset($tel_1_alterno)) { ?>
+                    <?php if (isset($tel_1_alterno)) { ?>
                         <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_alterno id="tel_1_alterno" readonly='readonly' value='<?php
                         if (isset($tel_1_alterno)) {
                             echo $tel_1_alterno;
                         }
                         ?>'><br>
-                        <?php
+                                                                     <?php
                                                                  }
                                                                  if (isset($tel_2_alterno)) {
                                                                      ?>
                         <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_alterno id="tel_2_alterno" readonly='readonly' value='<?php
-                                                                     if (isset($tel_2_alterno)) {
-                                                                         echo $tel_2_alterno;
-                                                                     }
-                                                                     ?>'><br>
-                        <?php
+                        if (isset($tel_2_alterno)) {
+                            echo $tel_2_alterno;
+                        }
+                        ?>'><br>
+                                                                    <?php
                                                                 }
                                                                 if (isset($tel_3_alterno)) {
                                                                     ?>
                         <span class='formcaps'>Tel 3</span><input type='text' name=tel_3_alterno id="tel_3_alterno" readonly='readonly' value='<?php
-                                                                    if (isset($tel_3_alterno)) {
-                                                                        echo $tel_3_alterno;
-                                                                    }
-                                                                    ?>'><br>
-                        <?php
+                        if (isset($tel_3_alterno)) {
+                            echo $tel_3_alterno;
+                        }
+                        ?>'><br>
+                                                                  <?php
                                                               }
                                                               if (isset($tel_4_alterno)) {
                                                                   ?>
                         <span class='formcaps'>Tel 4</span><input type='text' name=tel_4_alterno id="tel_4_alterno" readonly='readonly' value='<?php
-                                                                  if (isset($tel_4_alterno)) {
-                                                                      echo $tel_4_alterno;
-                                                                  }
-                                                                  ?>'><br>
-                        <?php
+                        if (isset($tel_4_alterno)) {
+                            echo $tel_4_alterno;
+                        }
+                        ?>'><br>
+                                                                  <?php
                                                               }
                                                               if ($cliente == 'UR') {
                                                                   ?>
                         <span class='formcap'>Madre</span>
-                                                              <?php } else { ?>
+                    <?php } else { ?>
                         <span class='formcaps'>Ref 1</span>
                         <?php
                     }
@@ -853,74 +852,74 @@
                             echo htmlentities($nombre_referencia_1);
                         }
                         ?>'>
-                        <?php
+                               <?php
                            }
                            if (isset($referencias_1)) {
                                ?>
                         <input type='text' name=referencias_1 class='shortinp' readonly='readonly' value='<?php
-                               if (isset($referencias_1)) {
-                                   echo $referencias_1;
-                               }
-                               ?>'><br>
-                    <?php } ?>
+                        if (isset($referencias_1)) {
+                            echo $referencias_1;
+                        }
+                        ?>'><br>
+                           <?php } ?>
                     <br>
-                           <?php if (isset($tel_1_ref_1)) { ?>
+                    <?php if (isset($tel_1_ref_1)) { ?>
                         <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_ref_1 id="tel_1_ref_1" readonly='readonly' value='<?php
                         if (isset($tel_1_ref_1)) {
                             echo $tel_1_ref_1;
                         }
                         ?>'><br>
-                        <?php
+                                                                     <?php
                                                                  }
                                                                  if (isset($tel_2_ref_1)) {
                                                                      ?>
                         <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_ref_1 id="tel_2_ref_1" readonly='readonly' value='<?php
-                                                                     if (isset($tel_2_ref_1)) {
-                                                                         echo $tel_2_ref_1;
-                                                                     }
-                                                                     ?>'><br>
-                        <?php
+                        if (isset($tel_2_ref_1)) {
+                            echo $tel_2_ref_1;
+                        }
+                        ?>'><br>
+                                                                    <?php
                                                                 }
                                                                 ?>
                     <span class='formcaps'>Ref 2</span>
-                                                                <?php if (isset($nombre_referencia_2)) { ?>
+                    <?php if (isset($nombre_referencia_2)) { ?>
                         <input type='text' size=40 name=nombre_referencia_2 id="nombre_referencia_2" readonly='readonly' value='<?php
                         if (isset($nombre_referencia_2)) {
                             echo htmlentities($nombre_referencia_2);
                         }
                         ?>'>
-                        <?php
+                               <?php
                            }
                            if (isset($referencias_2)) {
                                ?>
                         <input type='text' name=referencias_2  class='shortinp' readonly='readonly' value='<?php
-                               if (isset($referencias_2)) {
-                                   echo $referencias_2;
-                               }
-                               ?>'><br>
-                    <?php } ?>
+                        if (isset($referencias_2)) {
+                            echo $referencias_2;
+                        }
+                        ?>'><br>
+                           <?php } ?>
                     <br>
-                           <?php if (isset($tel_1_ref_2)) { ?>
+                    <?php if (isset($tel_1_ref_2)) { ?>
                         <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_ref_2 id="tel_1_ref_2" readonly='readonly' value='<?php
                         if (isset($tel_1_ref_2)) {
                             echo $tel_1_ref_2;
                         }
                         ?>'><br>
-                        <?php
+                                                                     <?php
                                                                  }
                                                                  if (isset($tel_2_ref_2)) {
                                                                      ?>
                         <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_ref_2 id="tel_2_ref_2" readonly='readonly' value='<?php
-                                                                     if (isset($tel_2_ref_2)) {
-                                                                         echo $tel_2_ref_2;
-                                                                     }
-                                                                     ?>'><br>
-                        <?php
+                        if (isset($tel_2_ref_2)) {
+                            echo $tel_2_ref_2;
+                        }
+                        ?>'><br>
+                                                                    <?php
                                                                 }
                                                                 if ($cliente == 'UR') {
                                                                     ?>
                         <span class='formcap'>Tutor</span>
-                                                                <?php } else { ?>
+                    <?php } else { ?>
                         <span class='formcaps'>Ref 3</span>
                         <?php
                     }
@@ -931,69 +930,69 @@
                             echo htmlentities($nombre_referencia_3);
                         }
                         ?>'>
-                        <?php
+                               <?php
                            }
                            if (isset($referencias_3)) {
                                ?>
                         <input type='text' name=referencias_3  class='shortinp' readonly='readonly' value='<?php
-                               if (isset($referencias_3)) {
-                                   echo $referencias_3;
-                               }
-                               ?>'><br>
-                    <?php } ?>
+                        if (isset($referencias_3)) {
+                            echo $referencias_3;
+                        }
+                        ?>'><br>
+                           <?php } ?>
                     <br>
-                           <?php if (isset($tel_1_ref_3)) { ?>
+                    <?php if (isset($tel_1_ref_3)) { ?>
                         <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_ref_3 id="tel_1_ref_3" readonly='readonly' value='<?php
                         if (isset($tel_1_ref_3)) {
                             echo $tel_1_ref_3;
                         }
                         ?>'><br>
-                        <?php
+                                                                     <?php
                                                                  }
                                                                  if (isset($tel_2_ref_3)) {
                                                                      ?>
                         <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_ref_3 id="tel_2_ref_3" readonly='readonly' value='<?php
-                                                                     if (isset($tel_2_ref_3)) {
-                                                                         echo $tel_2_ref_3;
-                                                                     }
-                                                                     ?>'><br>
-                        <?php
+                        if (isset($tel_2_ref_3)) {
+                            echo $tel_2_ref_3;
+                        }
+                        ?>'><br>
+                                                                    <?php
                                                                 }
                                                                 if (isset($nombre_referencia_4)) {
                                                                     ?>
                         <span class='formcaps'>Ref 4</span>
                         <input type='text' size=40 name=nombre_referencia_4 id="nombre_referencia_4" readonly='readonly' value='<?php
-                                                                if (isset($nombre_referencia_4)) {
-                                                                    echo htmlentities($nombre_referencia_4);
-                                                                }
-                                                                    ?>'>
-                        <?php
+                        if (isset($nombre_referencia_4)) {
+                            echo htmlentities($nombre_referencia_4);
+                        }
+                        ?>'>
+                               <?php
                            }
                            if (isset($referencias_4)) {
                                ?>
                         <input type='text' name=referencias_4  class='shortinp' readonly='readonly' value='<?php
-                               if (isset($referencias_4)) {
-                                   echo $referencias_4;
-                               }
-                               ?>'><br>
-                    <?php } ?>
+                        if (isset($referencias_4)) {
+                            echo $referencias_4;
+                        }
+                        ?>'><br>
+                           <?php } ?>
                     <br>
-                           <?php if (isset($tel_1_ref_4)) { ?>
+                    <?php if (isset($tel_1_ref_4)) { ?>
                         <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_ref_4 id="tel_1_ref_4" readonly='readonly' value='<?php
                         if (isset($tel_1_ref_4)) {
                             echo $tel_1_ref_4;
                         }
                         ?>'><br>
-                        <?php
+                                                                     <?php
                                                                  }
                                                                  if (isset($tel_2_ref_4)) {
                                                                      ?>
                         <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_ref_4 id="tel_2_ref_4" readonly='readonly' value='<?php
-                                                                     if (isset($tel_2_ref_4)) {
-                                                                         echo $tel_2_ref_4;
-                                                                     }
-                                                                     ?>'><br>
-                    <?php } ?>
+                        if (isset($tel_2_ref_4)) {
+                            echo $tel_2_ref_4;
+                        }
+                        ?>'><br>
+                                                                <?php } ?>
                 </div>
 
                 <div id="LABORAL">
@@ -1003,37 +1002,32 @@
                     }
                     ?>'><br>
                     <span class='formcap'>Domicilio</span><input type='text' name=domicilio_laboral readonly='readonly' value='<?php
-                                                               if (isset($domicilio_laboral)) {
-                                                                   echo $domicilio_laboral;
-                                                               }
-                                                               ?>'><br>
-                    <span class='formcap'>Colonia</span><input type='text' name=colonia_laboral readonly='readonly' value='<?php
-                                                                 if (isset($colonia_laboral)) {
-                                                                     echo $colonia_laboral;
-                                                                 }
-                                                                 ?>'><br>
-                    <span class='formcap'>Ciudad Estado</span><input type='text' name=ciudad_laboral readonly='readonly' value='<?php
-                                                               if (isset($ciudad_laboral)) {
-                                                                   echo $ciudad_laboral;
-                                                               }
-                                                               ?>'><br>
-                    <!--<span class='formcap'>Estado/CP</span><input type='text' name=estado_laboral readonly='readonly' value='<?php echo $estado_laboral.'/'.$cp_laboral; ?>'><br>
-                    -->
-                    <span class='formcap'>NRPP</span><input type='text' name=estado_laboral readonly='readonly' value='<?php
-                    if (isset($nrpp)) {
-                        echo $nrpp;
+                    if (isset($domicilio_laboral)) {
+                        echo $domicilio_laboral;
                     }
-                                                               ?>'><br>
+                    ?>'><br>
+                    <span class='formcap'>Colonia</span><input type='text' name=colonia_laboral readonly='readonly' value='<?php
+                    if (isset($colonia_laboral)) {
+                        echo $colonia_laboral;
+                    }
+                    ?>'><br>
+                    <span class='formcap'>Ciudad Estado</span><input type='text' name=ciudad_laboral readonly='readonly' value='<?php
+                    if (isset($ciudad_laboral)) {
+                        echo $ciudad_laboral;
+                    }
+                    ?>'><br>
+                    <!--<span class='formcap'>Estado/CP</span><input type='text' name=estado_laboral readonly='readonly' value='<?php echo $estado_laboral.'/'.$cp_laboral; ?>'><br>
+                    --><br>
                     <span class='formcap'>Tel 1</span><input type='text' name=tel_1_laboral id="tel_1_laboral" readonly='readonly' value='<?php
-                                                            if (isset($tel_1_laboral)) {
-                                                                echo $tel_1_laboral;
-                                                            }
-                                                            ?>'><br>
+                    if (isset($tel_1_laboral)) {
+                        echo $tel_1_laboral;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel 2</span><input type='text' name=tel_2_laboral id="tel_2_laboral" readonly='readonly' value='<?php
-                                                             if (isset($tel_2_laboral)) {
-                                                                 echo $tel_2_laboral;
-                                                             }
-                                                             ?>'><br>
+                    if (isset($tel_2_laboral)) {
+                        echo $tel_2_laboral;
+                    }
+                    ?>'><br>
                 </div>
                 <br>
                 </div>
@@ -1048,9 +1042,9 @@
                             <th>Saldo capital</th>
                             <th>Saldo descuento</th>
                         </tr>
-<?php
-foreach ($resultextra as $answerextra) {
-    ?>
+                        <?php
+                        foreach ($resultextra as $answerextra) {
+                            ?>
                             <tr>
                                 <td><?php echo $answerextra['cliente']; ?></td>
                                 <td><?php echo $answerextra['status_de_credito']; ?></td>
@@ -1060,7 +1054,7 @@ foreach ($resultextra as $answerextra) {
                                 <td><?php echo number_format($answerextra['sd'], 2); ?></td>
                                 <td><?php echo number_format($answerextra['sdd'], 2); ?></td>
                             </tr>
-<?php } ?>
+                        <?php } ?>
                     </table>
                 </div>
 
@@ -1069,40 +1063,40 @@ foreach ($resultextra as $answerextra) {
                         <tr>
                             <td>Numero de credito</td>
                             <td><input type='text' name=numero_de_credito readonly='readonly' value='<?php
-if (isset($numero_de_credito)) {
-    echo $numero_de_credito;
-}
-?>'></td>
+                                if (isset($numero_de_credito)) {
+                                    echo $numero_de_credito;
+                                }
+                                ?>'></td>
                             <td>ID cuenta</td>
                             <td><input type='text' name="id_cuenta" id="id_cuenta" readonly='readonly' value='<?php
                                 if (isset($id_cuenta)) {
                                     echo $id_cuenta;
                                 }
-?>'></td>
+                                ?>'></td>
                                 <?php if (!empty($folio)) { ?>
                                 <td>Ultimo folio</td>
                                 <td><input type='text' name="ufolio" id="ufolio" readonly='readonly' value='<?php echo $folio; ?>' />
-<?php } ?>
+                                <?php } ?>
                         </tr>
                         <tr>
                             <td>Fecha de asignacion</td>
                             <td><input type='text' name=fecha_de_asignacion readonly='readonly' value='<?php
-if (isset($fecha_de_asignacion)) {
-    echo $fecha_de_asignacion;
-}
-?>'></td>
+                                if (isset($fecha_de_asignacion)) {
+                                    echo $fecha_de_asignacion;
+                                }
+                                ?>'></td>
                             <td>Fecha de actualizacion</td>
                             <td><input type='text' name=fecha_de_actualizacion readonly='readonly' value='<?php
                                 if (isset($fecha_de_actualizacion)) {
                                     echo $fecha_de_actualizacion;
                                 }
-?>'></td>
+                                ?>'></td>
                             <td>RFC deudor</td>
                             <td><input type='text' name=rfc_deudor readonly='readonly' value='<?php
                                 if (isset($rfc_deudor)) {
                                     echo $rfc_deudor;
                                 }
-?>'></td>
+                                ?>'></td>
                         </tr>
                         <tr>
                             <td>Fecha de retiro</td>
@@ -1110,13 +1104,13 @@ if (isset($fecha_de_asignacion)) {
                                 if (isset($fecha_de_deasignacion)) {
                                     echo $fecha_de_deasignacion;
                                 }
-?>'></td>
+                                ?>'></td>
                             <td>Saldo cuota</td>
                             <td><input type='text' name=saldo_cuota readonly='readonly' value='<?php
                                 if (isset($saldo_cuota)) {
                                     echo '$'.number_format($saldo_cuota);
                                 }
-?>'></td></tr>
+                                ?>'></td></tr>
                         </tr>
                         <tr>
                             <td>Saldo total</td>
@@ -1124,32 +1118,32 @@ if (isset($fecha_de_asignacion)) {
                                 if (isset($saldo_total)) {
                                     echo '$'.number_format($saldo_total);
                                 }
-?>'></td>
+                                ?>'></td>
                                 <?php
-                                       if ($saldo_descuento_1 > 0) {
-                                           ?>
+                                if ($saldo_descuento_1 > 0) {
+                                    ?>
                                 <td>Saldo total sin gastos</td>
                                 <td><input type='text' name=saldo_descuento_1 readonly='readonly' value='<?php echo '$'.number_format($saldo_descuento_1); ?>'></td>
-    <?php
-}
-if ($gastos_de_cobranza > 0) {
-    ?>
+                                <?php
+                            }
+                            if ($gastos_de_cobranza > 0) {
+                                ?>
                                 <td>Gastos de Cobranza</td>
                                 <td><input type='text' name=gastos_de_cobranza readonly='readonly' value='<?php
-                            echo '$'.number_format($gastos_de_cobranza);
-                            ?>'></td>
+                                    echo '$'.number_format($gastos_de_cobranza);
+                                    ?>'></td>
                                     <?php
-                                       }
+                                }
 
-                                       if ($monto_adeudado > 0) {
-                                           ?>
+                                if ($monto_adeudado > 0) {
+                                    ?>
                                 <td>Monto en Contenci&oacute;n</td>
                                 <td><input type='text' name=monto_adeudado readonly='readonly' value='<?php
-                                echo '$'.number_format($monto_adeudado);
-                                ?>'></td>
+                                    echo '$'.number_format($monto_adeudado);
+                                    ?>'></td>
                                     <?php
-                                       }
-                                       ?>
+                                }
+                                ?>
                             <td>% descuento</td>
                             <td><input type='text' name=descuento readonly='readonly' value='<?php
                                 if ($saldo_descuento_1 > 0) {
@@ -1159,40 +1153,26 @@ if ($gastos_de_cobranza > 0) {
                                     echo number_format(100 - ($saldo_descuento_2
                                         / ($saldo_total + 0.01)) * 100)."%";
                                 }
-                                       ?>'></td>
+                                ?>'></td>
+                            <td>Frecuencia</td>
+                            <td><input type='text' name=frecuencia readonly='readonly' value='<?php
+                                if (isset($frecuencia)) {
+                                    echo $frecuencia;
+                                }
+                                ?>'>
+                            <td>Reestructura</td>
+                            <td><input type='text' name=contrato readonly='readonly' value='<?php
+                                if (isset($contrato)) {
+                                    echo $contrato;
+                                }
+                                ?>'>
+                            </td>
                         </tr>
                         <tr>
                             <td>Saldo vencido</td>
                             <td><input type='text' name=saldo_vencido readonly='readonly' value='<?php echo '$'.number_format($saldo_vencido); ?>'></td>
                             <td>Saldo descuento</td>
                             <td><input type='text' name=saldo_descuento_2 readonly='readonly' value='<?php echo '$'.number_format($saldo_descuento_2); ?>'></td>
-                            <td>Frecuencia</td>
-                            <td><input type='text' name=frecuencia readonly='readonly' value='<?php
-                                if (isset($frecuencia)) {
-                                    echo $frecuencia;
-                                }
-                                       ?>'>
-                            <td>Reestructura</td>
-                            <td><input type='text' name=contrato readonly='readonly' value='<?php
-                                if (isset($contrato)) {
-                                    echo $contrato;
-                                }
-                                       ?>'>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Fecha - ultimo pago</td>
-                            <td><input type='text' name=fecha_de_ultimo_pago readonly='readonly' value='<?php
-                                if (isset($fecha_de_ultimo_pago)) {
-                                    echo $fecha_de_ultimo_pago;
-                                }
-                                       ?>'></td>
-                            <td>Monto ultimo pago</td>
-                            <td><input type='text' name=monto_ultimo_pago readonly='readonly' value='<?php
-                                if (isset($monto_ultimo_pago)) {
-                                    echo '$'.number_format($monto_ultimo_pago);
-                                }
-                                       ?>'></td>
                             <td>Productos</td>
                             <td><input type='text' name=producto readonly='readonly' value='<?php
                                 if (!empty($prods)) {
@@ -1200,78 +1180,109 @@ if ($gastos_de_cobranza > 0) {
                                 } else {
                                     echo htmlentities($producto);
                                 }
-                                       ?>'></td>
+                                ?>'></td>
+                                <?php
+                                if (isset($subproducto)) {
+                                    ?>
+                                <td>Subproducto</td>
+                                <td><input type='text' name=subproducto readonly='readonly' value='<?php
+                                    echo htmlentities($subproducto);
+                                    ?>'></td>
+                                    <?php
+                                }
+                                ?>
                         </tr>
                         <tr>
-<?php
-if (isset($subproducto)) {
-    ?>
-                                <td>Rango Mora</td>
+                            <td>Fecha - ultimo pago</td>
+                            <td><input type='text' name=fecha_de_ultimo_pago readonly='readonly' value='<?php
+                                if (isset($fecha_de_ultimo_pago)) {
+                                    echo $fecha_de_ultimo_pago;
+                                }
+                                ?>'></td>
+                            <td>Monto ultimo pago</td>
+                            <td><input type='text' name=monto_ultimo_pago readonly='readonly' value='<?php
+                                if (isset($monto_ultimo_pago)) {
+                                    echo '$'.number_format($monto_ultimo_pago);
+                                }
+                                ?>'></td>
+                                <?php
+                                if (isset($cuenta_concentradora_1)) {
+                                    ?>
+                                <td>VIN</td>
                                 <td><input type='text' name=subproducto readonly='readonly' value='<?php
-                            if (isset($subproducto)) {
-                                echo htmlentities($subproducto);
-                            }
-    ?>'></td>
+                                    echo htmlentities($cuenta_concentradora_1);
+                                    ?>'></td>
                                     <?php
-                                       }
-                                       ?>
+                                }
+
+                                if (isset($nrpp)) {
+                                    ?>
+                                <td>Placa</td>
+                                <td><input type='text' name=subproducto readonly='readonly' value='<?php
+                                    echo htmlentities($nrpp);
+                                    ?>'></td>
+                                    <?php
+                                }
+                                ?>
+                        </tr>
+                        <tr>
                             <td>Segmento</td>
                             <td><input type='text' name=status_de_credito readonly='readonly' value='<?php
                                 if (isset($status_de_credito)) {
                                     echo $status_de_credito;
                                 }
-                                       ?>'></td>
+                                ?>'></td>
                             <td>Meses vencidos</td>
                             <td><input type='text' name=pagos_vencidos readonly='readonly' value='<?php
                                 if (isset($pagos_vencidos)) {
                                     echo $pagos_vencidos;
                                 }
-                                       ?>'>
+                                ?>'>
                             <td>D&iacute;as vencidos</td>
                             <td><input type='text' name=dias_vencidos readonly='readonly' value='<?php
                                 if (isset($dias_vencidos)) {
                                     echo $dias_vencidos;
                                 }
-                                       ?>'><br>
+                                ?>'><br>
                         </tr>
                     </table>
                 </div>
                 <div id="MISCELANEA">
                     <span class='formcap'>Telefonos marcados</span><input type='text' name="telefonos_marcados" id="telefonos_marcados" readonly='readonly' value='<?php
-                                if (isset($telefonos_marcados)) {
-                                    echo $telefonos_marcados;
-                                }
-                                       ?>'><br>
+                    if (isset($telefonos_marcados)) {
+                        echo $telefonos_marcados;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel 1 verificado</span><input type='text' name="tel_1_verif" id="tel_1_verif" readonly='readonly' value='<?php
-                                                                          if (isset($tel_1_verif)) {
-                                                                              echo $tel_1_verif;
-                                                                          }
-                                                                          ?>'><br>
+                    if (isset($tel_1_verif)) {
+                        echo $tel_1_verif;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel 2 verificado</span><input type='text' name="tel_2_verif" id="tel_2_verif" readonly='readonly' value='<?php
-                                                                        if (isset($tel_2_verif)) {
-                                                                            echo $tel_2_verif;
-                                                                        }
-                                                                        ?>'><br>
+                    if (isset($tel_2_verif)) {
+                        echo $tel_2_verif;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel 3 verificado</span><input type='text' name="tel_3_verif" id="tel_3_verif" readonly='readonly' value='<?php
-                                                                        if (isset($tel_3_verif)) {
-                                                                            echo $tel_3_verif;
-                                                                        }
-                                                                        ?>'><br>
+                    if (isset($tel_3_verif)) {
+                        echo $tel_3_verif;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel 4 verificado</span><input type='text' name="tel_4_verif" id="tel_4_verif" readonly='readonly' value='<?php
-                                                                        if (isset($tel_4_verif)) {
-                                                                            echo $tel_4_verif;
-                                                                        }
-                                                                        ?>'><br>
+                    if (isset($tel_4_verif)) {
+                        echo $tel_4_verif;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Tel de ult. contacto</span><input type='text' name="telefono_de_ultimo_contacto" readonly='readonly' value='<?php
-                                                                        if (isset($telefono_de_ultimo_contacto)) {
-                                                                            echo $telefono_de_ultimo_contacto;
-                                                                        }
-                                                                        ?>'><br>
+                    if (isset($telefono_de_ultimo_contacto)) {
+                        echo $telefono_de_ultimo_contacto;
+                    }
+                    ?>'><br>
                     <span class='formcap'>Ultimo status</span><input type='text' name='ultimo_status_de_la_gestion' readonly='readonly' value='<?php
-                                                                            if (isset($ultimo_status_de_la_gestion)) {
-                                                                                echo $ultimo_status_de_la_gestion;
-                                                                            }
-                                                                            ?>'><br>
+                    if (isset($ultimo_status_de_la_gestion)) {
+                        echo $ultimo_status_de_la_gestion;
+                    }
+                    ?>'><br>
                 </div>
 
             </form>
@@ -1291,23 +1302,23 @@ if (isset($subproducto)) {
                     </select><br>
                     Client = <select name="cliente">
                         <option value=" ">Todos</option>
-<?php
-foreach ($resultcl as $answercl) {
-    ?>
+                        <?php
+                        foreach ($resultcl as $answercl) {
+                            ?>
                             <option value="<?php echo $answercl[0]; ?>"><?php echo $answercl[0]; ?>
                             </option>
-<?php } ?>
+                        <?php } ?>
                     </select><br>
                     <input type="hidden" name="capt" value="<?php
-if (isset($capt)) {
-    echo $capt;
-}
-?>">
+                    if (isset($capt)) {
+                        echo $capt;
+                    }
+                    ?>">
                     <input type="hidden" name="C_CONT" value="<?php
-                           if (isset($id_cuenta)) {
-                               echo $id_cuenta;
-                           }
-                           ?>">
+                    if (isset($id_cuenta)) {
+                        echo $id_cuenta;
+                    }
+                    ?>">
                     <input type="hidden" name="go" value="BUSCAR">
                     <input type="hidden" name="from" value="resumen.php">
                     <input type="submit" name="go1" value="BUSCAR">
@@ -1317,9 +1328,9 @@ if (isset($capt)) {
             </div>
             <div class="togglebox" id="VISITA">
                 <form action="resumen.php" method="get" id="capturaform" 
-                      onSubmit="return validate_form2(this, event,<?php echo $saldo_descuento_2
-                    + 0;
-                           ?>,<?php
+                      onSubmit="return validate_form2(this, event,<?php
+                      echo $saldo_descuento_2 + 0;
+                      ?>,<?php
                       if (empty($AUTH)) {
                           $AUTH = '';
                       }
@@ -1333,67 +1344,67 @@ if (isset($capt)) {
                     <div class="noshow">
                         <input type="text" name="error" readonly="readonly" value="1" ><br>
                         <input type="text" name="C_HRFI" readonly="readonly" value="<?php
-                      if (isset($CT)) {
-                          echo $CT;
-                      }
-                      ?>" ><br>
+                        if (isset($CT)) {
+                            echo $CT;
+                        }
+                        ?>" ><br>
                         <input type="text" name="AUTO" readonly="readonly" value="" ><br>
                         <input type="text" name="find" readonly="readonly" value="<?php
                         if (isset($find)) {
                             echo $find;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="field" readonly="readonly" value="<?php
                         if (isset($field)) {
                             echo $field;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="capt" readonly="readonly" value="<?php
                         if (isset($capt)) {
                             echo $capt;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="camp" readonly="readonly" value="<?php
                         if (isset($camp)) {
                             echo $camp;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="neworder" readonly="readonly" value="<?php
                         if (isset($neworder)) {
                             echo $neworder;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="C_CVGE" readonly="readonly" value="<?php
                         if (isset($C_CVGE)) {
                             echo $C_CVGE;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="C_CVBA" readonly="readonly" value="<?php
                         if (isset($cliente)) {
                             echo $cliente;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="C_ATTE" readonly="readonly" value="" ><br>
                         <input type="text" name="C_CONT" readonly="readonly" value="<?php
                         if (isset($id_cuenta)) {
                             echo $id_cuenta;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="C_CONTAN" readonly="readonly" value="<?php
                         if (isset($status_aarsa)) {
                             echo $status_aarsa;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="CUENTA" id="CUENTA2" readonly="readonly" value="<?php
                         if (isset($numero_de_cuenta)) {
                             echo $numero_de_cuenta;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="C_EJE" readonly="readonly" value="<?php
                         if (isset($ejecutivo_asignado_call_center)) {
                             echo $ejecutivo_asignado_call_center;
                         }
-                      ?>" ><br>
+                        ?>" ><br>
                         <input type="text" name="oldgo" readonly="readonly" value="<?php echo $go; ?>" ><br>
                     </div>
                     <p>DICTAMEN DOMICILIO PARTICULAR</p>
@@ -1750,12 +1761,12 @@ if (isset($capt)) {
                             $fieldname = $fieldnames[$j];
                             ?>
                             <th<?php echo ' class="'.$fieldsize[$j].'"'; ?>><?php
-                        if (isset($fieldname)) {
-                            echo $fieldname;
+                                if (isset($fieldname)) {
+                                    echo $fieldname;
+                                }
+                                ?></th> <?php
                         }
-                            ?></th> <?php
-                            }
-                            ?></tr>
+                        ?></tr>
                 </table>
                 <?php
                 if (!empty($rowsub)) {
@@ -1776,52 +1787,54 @@ if (isset($capt)) {
                                     $stat      = utf8_encode($answer['c_cvst']);
                                     ?>
                                     <tr<?php echo highhist($stat, $visit); ?>><?php
-                            for ($k = 0; $k < 5; $k++) {
-                                $anku = utf8_encode($answer[$k]);
-                                if (is_null($anku)) {
-                                    $anku = "&nbsp;";
-                                }
-                                $ank    = str_replace('00:00:00', '', $anku);
-                                $jscode = '';
-                                if ($fieldsize[$k] == "gestion") {
-                                    $jscode1 = " onClick='alert(";
-                                    $jscode2 = ")'";
-                                    $jscode  = $jscode1.'"'.ereg_replace("[\n\r]",
-                                            " ", $timestamp.': '.$gestion).'"'.$jscode2;
-                                }
-                                        ?>
+                                        for ($k = 0; $k < 5; $k++) {
+                                            $anku = utf8_encode($answer[$k]);
+                                            if (is_null($anku)) {
+                                                $anku = "&nbsp;";
+                                            }
+                                            $ank    = str_replace('00:00:00',
+                                                '', $anku);
+                                            $jscode = '';
+                                            if ($fieldsize[$k] == "gestion") {
+                                                $jscode1 = " onClick='alert(";
+                                                $jscode2 = ")'";
+                                                $jscode  = $jscode1.'"'.ereg_replace("[\n\r]",
+                                                        " ",
+                                                        $timestamp.': '.$gestion).'"'.$jscode2;
+                                            }
+                                            ?>
                                             <td<?php
                                             if ($c == 1) {
                                                 echo " style='background-color:#dddddd'";
                                             }
                                             echo ' class="'.$fieldsize[$k].'"'.$jscode;
                                             ?>>
-                                            <?php
-                                            if (isset($ank)) {
-                                                echo htmlentities($ank,
-                                                    ENT_QUOTES, "UTF-8");
-                                            }
-                                            ?>
-                                            </td>
                                                     <?php
-                                                } $c = 1 - $c;
-                                                ?>
+                                                    if (isset($ank)) {
+                                                        echo htmlentities($ank,
+                                                            ENT_QUOTES, "UTF-8");
+                                                    }
+                                                    ?>
+                                            </td>
+                                            <?php
+                                        } $c = 1 - $c;
+                                        ?>
                                     </tr>
-                                        <?php
-                                        $j++;
-                                    }
-                                    ?>
+                                    <?php
+                                    $j++;
+                                }
+                                ?>
                                 <tr><td></td></tr>
                             </tbody>
                         </table>
                     </div>
-<?php } ?>
+                <?php } ?>
             </div>
             <div id="GESTION">
                 <form action="resumen.php" method="get" id="gestionform" 
-                      onSubmit="return validate_form(this, event,<?php echo $saldo_descuento_2
-+ 0;
-?>,<?php
+                      onSubmit="return validate_form(this, event,<?php
+                      echo $saldo_descuento_2 + 0;
+                      ?>,<?php
                       if (empty($AUTH)) {
                           $AUTH = '';
                       }
@@ -1832,8 +1845,8 @@ if (isset($capt)) {
                       }
                       ?>, ' ');">
                     <table id="databox">
-                        <?php if ($mytipo == 'admin'
-                            || $mytipo == 'supervisor') {
+                        <?php
+                        if ($mytipo == 'admin' || $mytipo == 'supervisor') {
                             ?>
                             <tr>
                                 <td>Gestor</td>

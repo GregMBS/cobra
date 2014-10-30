@@ -1,6 +1,7 @@
 {
     "require": {
         "phpoffice/phpexcel": "dev-master",
-        "components/jqueryui": "dev-master"
+        "components/jqueryui": "dev-master",
+        "datatables/datatables": "1.10.3"
     }
 }
