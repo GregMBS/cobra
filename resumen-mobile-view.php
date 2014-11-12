@@ -239,7 +239,6 @@
         <SCRIPT TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
         <SCRIPT type="text/javascript">
 $(document).ready(function() {
-    $('#buscar').hide();
     $('#buttonbox a').button();
     $("div[data-role='collapsible'] *").click(function() {
         $('html, body').animate({
@@ -969,7 +968,7 @@ if (isset($tel_2_ref_4)) {
                     </div>
                     </form>
 <?php } ?>
-                <div data-rel="popup" id="buscar">
+                <div data-role="popup" id="buscar">
                     <h1>Buscar</h1>
                     <form name="search" method="get" action=
                           "buscar.php" id="search">Buscar a: <input type=
