@@ -57,7 +57,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
 		<html>
 		    <head>
 			<title>Administraci&oacute;n de las segmentos</title>
-			<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
+			<link rel="stylesheet" href="css/vader/jquery-ui.css" type="text/css" media="all" />
 			<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
 			<script src="js/jquery-ui-1.8.14.custom.min.js" type="text/javascript"></script>
 			<style>
