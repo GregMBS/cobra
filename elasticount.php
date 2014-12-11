@@ -28,8 +28,8 @@ group by id_campaign order by estatus,script";
 <meta http-equiv="refresh" content="30"/>
 <title>Elastix Queues</title>
 			<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" /> 
-			<script src="js/jquery-1.5.1.min.js" type="text/javascript"></script> 
-			<script src="js/jquery-ui-1.8.13.custom.min.js" type="text/javascript"></script> 
+			<script src="vendor/components/jquery/jquery,js" type="text/javascript"></script> 
+			<script src="vendor/components/jqueryui/jquery-ui,js" type="text/javascript"></script> 
 			<script src="DT/media/js/jquery.dataTables.min.js" type="text/javascript"></script> 
 <script  LANGUAGE="JavaScript" TYPE="text/JavaScript">
 function foutpop() 

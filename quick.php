@@ -58,9 +58,9 @@ foreach ($resultfout as $answerfout) {
         <meta http-equiv="refresh" content="60"/>
         <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
-        <script src="js/jquery-1.5.1.min.js" type="text/javascript"></script>
+        <script src="vendor/components/jquery/jquery,js" type="text/javascript"></script>
         <script src="DT/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="js/jquery-ui-1.8.13.custom.min.js" type="text/javascript"></script>
+        <script src="vendor/components/jqueryui/jquery-ui,js" type="text/javascript"></script>
         <style>
             tr.odd { background-color: white }
             tr.even { background-color: #dddddd }

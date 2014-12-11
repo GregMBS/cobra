@@ -26,8 +26,8 @@ order by data_length desc;";
 <head>
 <title>Database Status</title>
 			<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" /> 
-			<script src="js/jquery-1.5.1.min.js" type="text/javascript"></script> 
-			<script src="js/jquery-ui-1.8.13.custom.min.js" type="text/javascript"></script> 
+			<script src="vendor/components/jquery/jquery,js" type="text/javascript"></script> 
+			<script src="vendor/components/jqueryui/jquery-ui,js" type="text/javascript"></script> 
 <style>
 	tr:hover {background-color: yellow;}
 </style>

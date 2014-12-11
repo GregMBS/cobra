@@ -27,7 +27,7 @@
       var github_user = null
       
     </script>
-    <script src="js/jquery-1.5.1.min.js" type="text/javascript"></script>
+    <script src="vendor/components/jquery/jquery,js" type="text/javascript"></script>
     <script src="https://d3nwyuy0nl342s.cloudfront.net/54e75cc17c543a91f799e9c3acca29524998d225/javascripts/bundle_common.js" type="text/javascript"></script>
 <script src="https://d3nwyuy0nl342s.cloudfront.net/54e75cc17c543a91f799e9c3acca29524998d225/javascripts/bundle_github.js" type="text/javascript"></script>
 
