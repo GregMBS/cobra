@@ -128,8 +128,8 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
 <head>
 	<title>Promesas y Pagos</title>
 	<link rel="Stylesheet" href="css/redmond/jquery-ui.css" />
-        <script type="text/javascript" charset="utf8" src="vendor/components/jquery/jquery,js"></script>
-        <script type="text/javascript" charset="utf8" src="vendor/components/jqueryui/jquery-ui,js"></script>
+        <script type="text/javascript" charset="utf8" src="vendor/components/jquery/jquery.js"></script>
+        <script type="text/javascript" charset="utf8" src="vendor/components/jqueryui/jquery-ui.js"></script>
 </head>
 <body>
 <script>

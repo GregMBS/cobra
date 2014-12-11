@@ -11,8 +11,8 @@ else {
 <head>
 <title>Credito Si Auditario</title>
 			<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" /> 
-			<script src="vendor/components/jquery/jquery,js" type="text/javascript"></script> 
-			<script src="vendor/components/jqueryui/jquery-ui,js" type="text/javascript"></script> 
+			<script src="vendor/components/jquery/jquery.js" type="text/javascript"></script> 
+			<script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script> 
 </head>
 <body>
 <h2><?php echo date(); ?></h2>

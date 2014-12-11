@@ -9,8 +9,8 @@ else {
 <head>
 <title>Cobra Reports Menu</title>
   <link rel="Stylesheet" href="css/redmond/jquery-ui.css" />
-  <script type="text/javascript" charset="utf8" src="vendor/components/jquery/jquery,js"></script>
-  <script type="text/javascript" charset="utf8" src="vendor/components/jqueryui/jquery-ui,js"></script>
+  <script type="text/javascript" charset="utf8" src="vendor/components/jquery/jquery.js"></script>
+  <script type="text/javascript" charset="utf8" src="vendor/components/jqueryui/jquery-ui.js"></script>
 </head>
 <body id="demos">
 <script>

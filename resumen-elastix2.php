@@ -577,8 +577,8 @@ while ($answerd=mysqli_fetch_row($resultd)) {
 <title>Resumen desde ELASTIX</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 			<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" /> 
-			<script src="vendor/components/jquery/jquery,js" type="text/javascript"></script> 
-			<script src="vendor/components/jqueryui/jquery-ui,js" type="text/javascript"></script> 
+			<script src="vendor/components/jquery/jquery.js" type="text/javascript"></script> 
+			<script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script> 
 <style type="text/css">
        body {font-family: verdana,arial, helvetica, sans-serif; font-size: 10pt; background-color: #ffffff;color:#000000;}
        .hidebox {display:none}

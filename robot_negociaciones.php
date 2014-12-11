@@ -67,8 +67,8 @@ $queryprep="TRUNCATE robot.calllist;";
 <head>
 <title>Query para Elastix</title>
 			<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" /> 
-			<script src="vendor/components/jquery/jquery,js" type="text/javascript"></script> 
-			<script src="vendor/components/jqueryui/jquery-ui,js" type="text/javascript"></script> 
+			<script src="vendor/components/jquery/jquery.js" type="text/javascript"></script> 
+			<script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script> 
 </head>
 <body>
 <button onclick="window.location='reports.php?capt=<?php echo $capt;?>'">Regressar a la plantilla administrativa</button><br>

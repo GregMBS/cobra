@@ -108,8 +108,8 @@ $std         = $pdo->prepare($querydc);
     <head>
         <title>Query para Elastix</title>
         <link rel="Stylesheet" href="css/redmond/jquery-ui.css" />
-        <script type="text/javascript" charset="utf8" src="vendor/components/jquery/jquery,js"></script>
-        <script type="text/javascript" charset="utf8" src="vendor/components/jqueryui/jquery-ui,js"></script>
+        <script type="text/javascript" charset="utf8" src="vendor/components/jquery/jquery.js"></script>
+        <script type="text/javascript" charset="utf8" src="vendor/components/jqueryui/jquery-ui.js"></script>
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>

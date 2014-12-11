@@ -80,8 +80,8 @@ $cid=mysql_real_escape_string($_GET['ext']);
 <head>
 <title>Celulares</title>
 			<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" /> 
-			<script src="vendor/components/jquery/jquery,js" type="text/javascript"></script> 
-			<script src="vendor/components/jqueryui/jquery-ui,js" type="text/javascript"></script> 
+			<script src="vendor/components/jquery/jquery.js" type="text/javascript"></script> 
+			<script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script> 
 <style type="text/css">
        pre {border: 1pt solid #000000;background-color: #ffffff;font-size:7pt}
 </style>

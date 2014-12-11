@@ -8,8 +8,8 @@ $capt=$_GET['capt'];
 <title>PBX Colas</title>
 <meta http-equiv="refresh" content="2"/>
 			<link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" /> 
-			<script src="vendor/components/jquery/jquery,js" type="text/javascript"></script> 
-			<script src="vendor/components/jqueryui/jquery-ui,js" type="text/javascript"></script> 
+			<script src="vendor/components/jquery/jquery.js" type="text/javascript"></script> 
+			<script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script> 
 
 <style type="text/css">
 		body {font-size:75%}
