@@ -17,10 +17,6 @@ else {
 	$(function() {
 		$( "#tabs" ).tabs();
 		$( "button" ).button();
-		$( "button" ).css("vertical-align", "bottom")
-		$( "button" ).width("4cm");
-		$( "button" ).height("1.6cm");
-		$( "body" ).css("font-size", "8pt")
 	});
 </script>
 <div id="tabs"> 
@@ -145,5 +141,3 @@ Cambiar Gestor Asignado</button>
 <?php
 }
 }
-mysql_close();
-?>
