@@ -19,7 +19,7 @@ if (!empty($go)) {
 	}
 
 	if ($go == "AGREGAR") {
-		$cliseg		 = mysql_real_escape_string(filter_input(INPUT_GET, 'cliseg'));
+		$cliseg		 = filter_input(INPUT_GET, 'cliseg');
 		$clientesegmento = explode(';', $cliseg);
 		$cliente	 = $clientesegmento[0];
 		$segmento	 = $clientesegmento[1];
@@ -28,13 +28,18 @@ if (!empty($go)) {
             SELECT distinct gestor, :cliente, status_aarsa, updown1, orden1,
 	    9999999, :segmento, 0
             FROM queuelist;";
-		$sti		 = $pdo->prepare($querylistin);
-		$sti->bindParam(':cliente', $cliente);
-		$sti->bindParam(':segmento', $segmento);
-		$sti->execute();
-		$querylistcamp	 = "update queuelist
+		try {
+			$sti		 = $pdo->prepare($querylistin);
+			$sti->bindParam(':cliente', $cliente);
+			$sti->bindParam(':segmento', $segmento);
+			$sti->execute();
+			$querylistcamp	 = "update queuelist
             set camp=auto where camp=9999999;";
-		$pdo->query($querylistcamp);
+			$pdo->query($querylistcamp);
+		} catch (PDOException $e) {
+			die($e->getMessage());
+		}
+
 		header("Location: segmentadmin.php?capt=".$capt);
 	}
 }
