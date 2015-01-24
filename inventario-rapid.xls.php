@@ -35,6 +35,7 @@ function MesNom($n)
 //$gestorstr=" and ejecutivo_asignado_call_center not regexp '-' ";
 $gestorstr='';
 $clientestr='';
+$activestr=" and status_de_credito not regexp '-' ";
 if ($cliente!='todos') {$clientestr=" and cliente='".$cliente."' ";}
     $querymain = "SELECT id_cuenta,numero_de_cuenta,nombre_deudor,resumen.cliente,
     substring_index(status_de_credito,'-',1) as segmento,
@@ -48,7 +49,8 @@ count(historia.auto) as gestiones
 left join dictamenes d1 on status_aarsa=d1.dictamen
 left join historia on id_cuenta=c_cont
 where status_de_credito not like '%inactivo' 
-".$clientestr." 
+".$clientestr."
+".$activestr."
 group by id_cuenta
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
     ;";
