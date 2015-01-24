@@ -248,7 +248,7 @@ ORDER BY d_fech, c_hrin";
             numero_de_credito, numero_de_cuenta, producto, c_accion,
             c_cvst, left(c_obse1,199) as gestion from resumen, historia 
     where id_cuenta=c_cont and status_de_credito not like '%inactivo' 
-    and cliente = 'Credito Real' and d_fech > last_day(curdate() - interval 5 week) and d_fech <= last_day(curdate() - interval 1 week)
+    and cliente = 'Credito Real' and d_fech > last_day(curdate() - interval 6 week) and d_fech <= last_day(curdate() - interval 2 week)
 ORDER BY d_fech, c_hrin";
         $stm = $this->con->prepare($querymain);
         $stm->bindParam(':start', $this->getStartDate());
