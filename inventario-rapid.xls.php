@@ -44,7 +44,7 @@ if ($cliente!='todos') {$clientestr=" and cliente='".$cliente."' ";}
     saldo_total,d1.queue,saldo_descuento_1,saldo_descuento_2,
     domicilio_deudor,colonia_deudor,ciudad_deudor, estado_deudor,cp_deudor,
     ejecutivo_asignado_call_center, ejecutivo_asignado_domiciliario,
-count(historia.auto) as gestiones
+count(historia.auto) as gestiones,fecha_de_asignacion
     from resumen 
 left join dictamenes d1 on status_aarsa=d1.dictamen
 left join historia on id_cuenta=c_cont
