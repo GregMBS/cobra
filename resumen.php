@@ -112,7 +112,7 @@ AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
         header($page);
     }
 
-    if ($go == 'CAPTURADO' && !empty($get['C_CVST'])) {
+    if (($go == 'CAPTURADO') && (!empty($get['C_CVST']))) {
         $C_CVGE = mysqli_real_escape_string($con, $get['C_CVGE']);
         $C_CVBA = mysqli_real_escape_string($con, $get['C_CVBA']);
         $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
