@@ -54,8 +54,8 @@ $capt	 = filter_input(INPUT_GET, 'capt');
 	    } catch (PEAR_Exception $e) {
 		    echo $e;
 	    }
-	    $output = explode("\n", $qlist);
-	    foreach ($output as $out) {
+	    $outputq = explode("\n", $qlist);
+	    foreach ($outputq as $out) {
 		    if (preg_match("/^80/", $out)) {
 			    echo substr($out, 0, 10)."\n";
 		    }
@@ -123,9 +123,9 @@ try {
 } catch (PEAR_Exception $e) {
 	echo $e;
 }
-$outputl = explode("\n", $outputc);
-$outputs = sort($outputl);
-for ($i = 0; $i < count($outputl); $i++) {
+$output = explode("\n", $outputc);
+$outputs = sort($output);
+for ($i = 0; $i < count($output); $i++) {
 	$colsIax = array(0, 1, 2, 7);
 	if (preg_match("/^IAX2/", $output[$i])) {
 		?><tr class="dahdi"><?php
