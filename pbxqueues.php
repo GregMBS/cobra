@@ -103,7 +103,7 @@ $capt	 = filter_input(INPUT_GET, 'capt');
 	<pre>
 	    <?php
 	    try {
-		    $outputli = $ast->command('core show channels detailed', '--END COMMAND--');
+		    $outputli = $ast->command('core show channels verbose', '--END COMMAND--');
 	    } catch (PEAR_Exception $e) {
 		    echo $e;
 		    $outputli = "";
