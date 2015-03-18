@@ -1,7 +1,6 @@
 <?php
-
-include 'Mobile_Detect.php';
-$detect = new Mobile_Detect();
+//include 'Mobile_Detect.php';
+//$detect = new Mobile_Detect();
 $gets = $_SERVER['QUERY_STRING'];
 parse_str($gets, $get);
 date_default_timezone_set('America/Monterrey');
@@ -22,9 +21,11 @@ require_once 'usuario_hdr_i.php'; //returns $con
 require_once 'pdoConnect.php';
 $pdoc = new pdoConnect();
 $pdo  = $pdoc->dbConnectUser();
+/*
 if ($detect->isMobile()) {
     header("Location: resumen-mobile.php?capt=" . $capt);
 }
+*/
 $tcapt = $capt;
 $C_CVGE = $capt;
 if (substr($capt, 0, 8) == "practica") {
