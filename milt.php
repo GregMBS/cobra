@@ -27,6 +27,7 @@ if ($lim>100) {$lim=100;}
 $q1 = "SELECT auto,id,tel,turno FROM robot.calllist " .
 "WHERE msg = :msg ".
 "AND id <> '' AND tel <> '' ".
+"AND turno = 0 ".
 "ORDER BY turno LIMIT ".$lim.";";
 try {
     $sth1 = $dbh->prepare($q1);
