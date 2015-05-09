@@ -46,6 +46,6 @@ $cta=$row[1];
 //$output[] = array('id' => $auto, 'cuenta' => $cta, 'tel' => $tt, 'msg' => $msg);
 }
 }
-$output[] = array('id' => 0, 'cuenta' => 0, 'tel' => '7018118716578', 'msg' => '');
+$output[] = array('id' => 0, 'cuenta' => 0, 'tel' => '18716578', 'msg' => '');
 echo json_encode($output);
 
