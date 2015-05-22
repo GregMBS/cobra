@@ -1115,9 +1115,9 @@ $stf->execute();
 $resultfilt = $stf->fetchAll();
 
 $queryng = "SELECT count(1) as cng FROM historia 
-WHERE c_cvge=':capt' 
+WHERE c_cvge=:capt 
 AND d_fech=curdate()
-AND c_cont <> '0'
+AND c_cont <> 0
 ";
 $stn = $pdo->prepare($queryng);
 $stn->bindParam(':capt', $capt);
