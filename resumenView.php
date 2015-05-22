@@ -687,13 +687,13 @@
                                     $campoc  = " style='background-color:red; color:white;'";
                                     foreach ($resultng as $answerng) {
                                         $numgest = $answerng['cng'];
+				    }
                                         if ($numgest > 20) {
                                             $campoc = " style='background-color:yellow; color:black;'";
                                         }
                                         if ($numgest > 40) {
                                             $campoc = " style='background-color:green; color:white;'";
                                         }
-                                    }
                                     ?>
                                     <input type="text"<?php echo $campoc; ?> name="numgest" id="numgest" readonly="readonly" value="<?php echo $numgest.' gestiones'; ?>">
                                 </div>
