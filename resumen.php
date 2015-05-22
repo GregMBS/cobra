@@ -1122,7 +1122,7 @@ AND c_cont <> '0'
 $stn = $pdo->prepare($queryng);
 $stn->bindParam(':capt', $capt);
 $stn->execute();
-$resultng = $stn->fetchAll();
+$resultng = $stn->fetch();
 
 $queryextra = "SELECT *
  FROM resumen,sdhextras 

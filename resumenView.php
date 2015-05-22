@@ -683,11 +683,9 @@
                                     <input type="text" name="timerm" id="timerm" readonly="readonly" value="0" size="3">:
                                     <input type="text" name="timers" id="timers" readonly="readonly" value="0" size="3"><br>
                                     <?php
-                                    $numgest = 0;
                                     $campoc  = " style='background-color:red; color:white;'";
-                                    foreach ($resultng as $answerng) {
-                                        $numgest = $answerng['cng'];
-				    }
+                                    $numgest = $resultng['cng'] or 0;
+				    
                                         if ($numgest > 20) {
                                             $campoc = " style='background-color:yellow; color:black;'";
                                         }
