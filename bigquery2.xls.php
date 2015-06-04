@@ -1,8 +1,8 @@
 <?php
 require_once 'pdoConnect.php';
-$pdoc	 = new pdoConnect();
-$pdo	 = $pdoc->dbConnectAdmin();
-$capt	 = filter_input(INPUT_GET, 'capt');
+$pdoc = new pdoConnect();
+$pdo  = $pdoc->dbConnectAdmin();
+$capt = filter_input(INPUT_GET, 'capt');
 require_once 'vendor/autoload.php';
 set_time_limit(180);
 
@@ -59,7 +59,7 @@ ORDER BY d_fech,c_hrin
 		$std->bindParam(':cliente', $cliente);
 	}
 	$std->execute();
-	$result		 = $std->fetchAll(PDO::FETCH_ASSOC);
+    $result = $std->fetchAll(PDO::FETCH_ASSOC);
 // Creating a workbook
 	$filename	 = "Query_de_gestiones_".$fecha1."_".$fecha2.".xlsx";
 
@@ -73,16 +73,16 @@ ORDER BY d_fech,c_hrin
 	$objPHPExcel->getProperties()->setDescription("COBRA Inventario");
 	$objPHPExcel->setActiveSheetIndex(0);
 
-	$ii		 = 0;
-	$i		 = 0;
-	$colnames	 = $result[0];
+    $ii       = 0;
+    $i        = 0;
+    $colnames = $result[0];
 	foreach ($colnames as $key => $value) {
-		if ($i < 26) {
+                if ($i<26) {
 			$letter = chr(ord("A") + $i);
 		} else {
-			$top	 = floor($i / 26);
-			$bottom	 = $i % 26;
-			$letter	 = chr(ord("A") + $top).chr(ord("A") + $bottom);
+                    $top = floor($i/26);
+                    $bottom = $i % 26;
+                    $letter = chr(ord("A") + $top) . chr(ord("A") + $bottom);
 		}
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, 1, $key);
 		$objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
@@ -97,8 +97,8 @@ ORDER BY d_fech,c_hrin
 			if ($col == 0) {
 				$pad = " ";
 			}
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row,
-			    $value.$pad);
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,
+                $row, $value.$pad);
 			$col++;
 		}
 		$row++;
@@ -110,7 +110,7 @@ ORDER BY d_fech,c_hrin
 
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
 	$objWriter->save("php://output");
-}
+} else {
 ?>
 <!DOCTYPE html>
 <html>
@@ -219,3 +219,5 @@ ORDER BY d_fech,c_hrin
 	</form>
     </body>
 </html> 
+    <?php
+}
