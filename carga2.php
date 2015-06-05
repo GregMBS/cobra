@@ -107,10 +107,10 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
 
                                 for ($c = 0; $c < $num; $c++) {
 
-                                    if (!empty($data[$c])) {
+                                    if (!empty(trim($data[$c]))) {
                                         ?>
                                         <tr><td><?php
-                                                echo $data[$c]
+                                                echo trim($data[$c])
                                                 ?></td>
                                             <td>
                                                 <select name="pos<?php
@@ -125,7 +125,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                                                     while ($answerres = mysql_fetch_row($resultres)) {
                                                         ?>
                                                         <option value='<?php echo $k ?>'<?php
-                                                        if ($data[$c] == $answerres[0]) {
+                                                        if (trim($data[$c]) == $answerres[0]) {
                                                             echo " selected='selected'";
                                                         }
                                                         ?>><?php echo $answerres[0]; ?></option>
