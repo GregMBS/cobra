@@ -107,7 +107,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
 
                                 for ($c = 0; $c < $num; $c++) {
 
-                                    if (!empty(trim($data[$c]))) {
+                                    if (!empty($data[$c])) {
                                         ?>
                                         <tr><td><?php
                                                 echo trim($data[$c])
