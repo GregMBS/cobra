@@ -35,19 +35,22 @@ $capt	 = filter_input(INPUT_GET, 'capt');
 	<pre>
 	    <?php
 	    try {
-		    $qlist = $ast->command('queue show 600', '--END COMMAND--');
+		    $qlist = $ast->command('queue show 900', '--END COMMAND--');
 	    } catch (PEAR_Exception $e) {
 		    echo $e;
 	    }
 	    $outputq = explode("\n", $qlist);
 	    foreach ($outputq as $out) {
-		    if (preg_match("/^80/", $out)) {
+//		    if (preg_match("/^80/", $out)) {
 			    echo substr($out, 0, 10)."\n";
-		    }
-		    if (preg_match("/wait/", $out)) {
+//		    }
+/*
+                            if (preg_match("/wait/", $out)) {
 			    echo $out."\n";
 		    }
-	    }
+*/
+  	    }
+
 	    try {
 		    $qlist2 = $ast->command('queue show 2002', '--END COMMAND--');
 	    } catch (PEAR_Exception $e) {
@@ -81,7 +84,7 @@ $capt	 = filter_input(INPUT_GET, 'capt');
 	    }
 //echo $outputp;
 	    ?></pre>
-	<h2>Troncales</h2>
+	<h2>IAX Troncales</h2>
 	<pre>
 	    <?php
 	    try {
@@ -99,7 +102,25 @@ $capt	 = filter_input(INPUT_GET, 'capt');
 	    }
 //echo $outputp;
 	    ?></pre>
-	<h2>Lineas</h2>
+	<h2>SIP Troncales</h2>
+	<pre>
+	    <?php
+	    try {
+		    $outputS = $ast->command('sip show peers', '--END COMMAND--');
+		    $outputS .= $ast->command('sip show registry', '--END COMMAND--');
+	    } catch (PEAR_Exception $e) {
+		    echo $e;
+		    $outputS = "";
+	    }
+	    $outputSS = explode("\n", $outputS);
+	    foreach ($outputSS as $oS) {
+		    if (!preg_match("/e:/", $oS)) {
+			    echo $oS."\n";
+		    }
+	    }
+//echo $outputp;
+	    ?></pre>
+	<h2>Llamadas</h2>
 	<pre>
 	    <?php
 	    try {
