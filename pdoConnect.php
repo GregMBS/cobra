@@ -14,10 +14,34 @@ class pdoConnect
      * @var PDO
      */
     protected $pdo;
+
+    /**
+     *
+     * @var string
+     */
     protected $queryadmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
-            AND iniciales=:capt AND tipo='admin';";
+            AND iniciales=:capt AND tipo='admin'";
+
+
+    /**
+     *
+     * @var string
+     */
     protected $queryuser  = "SELECT count(1) FROM nombres WHERE ticket=:ticket
-            AND iniciales=:capt;";
+            AND iniciales=:capt";
+
+    /**
+     *
+     * @var string
+     */
+    public $tipo;
+
+    /**
+     *
+     * @var string
+     */
+    protected $querytipo = 'SELECT tipo FROM nombres WHERE ticket=:ticket
+            AND iniciales=:capt limit 1';
 
     public function __construct()
     {
@@ -44,6 +68,12 @@ class pdoConnect
             $redirector = 'Location: index.php';
             header($redirector);
         }
+        $stt   = $this->pdo->prepare($this->querytipo);
+        $stt->bindParam(':ticket', $ticket);
+        $stt->bindParam(':capt', $capt);
+        $stt->execute();
+        $tipo = $stt->fetch();
+        $this->tipo=$tipo['tipo'];
         return $this->pdo;
     }
     /**
