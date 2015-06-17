@@ -42,6 +42,9 @@ $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         <meta charset="utf-8">
         <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+        <style>
+            body { font-size: 9pt; }
+        </style>
         <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
         <script src="DT/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
