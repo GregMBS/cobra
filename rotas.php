@@ -41,12 +41,12 @@ $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         <title>Promesas</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+        <link href="vendor/datatables/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <style>
             body { font-size: 9pt; }
         </style>
         <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
-        <script src="DT/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="vendor/datatables/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
     </head>
     <body>
@@ -151,7 +151,12 @@ $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         </table>
         <script>
             $(function() {
-                $('#cuentas').dataTable({"bJQueryUI": true});
+                $('#cuentas').dataTable({
+                    "paging": false,
+                    "language": {
+                        "url": "/js/Spanish.json"
+                    }
+                });
             });
         </script>
     </body>
