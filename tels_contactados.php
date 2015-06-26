@@ -42,10 +42,12 @@ from resumen
 where status_de_credito not like "%o"
 order by cliente,numero_de_cuenta
 ;';
-
-    $result = $pdo->query($querymain,  PDO::FETCH_ASSOC);
+    $stm=$pdo->prepare($querymain);
+    $stm->execute();
+    $result = $stm->fetch(PDO::FETCH_ASSOC);
 // Creating a workbook
-    if ($result[0]) {
+    if ($result) {
+        var_dump($result);die();
         $workbook = new Spreadsheet_Excel_Writer();
 
         $filename = "Query_de_telefonos_".date('ymd').".xls";
