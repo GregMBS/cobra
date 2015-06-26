@@ -44,10 +44,9 @@ order by cliente,numero_de_cuenta
 ;';
     $stm=$pdo->prepare($querymain);
     $stm->execute();
-    $result = $stm->fetch(PDO::FETCH_ASSOC);
+    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 // Creating a workbook
     if ($result) {
-        var_dump($result);die();
         $workbook = new Spreadsheet_Excel_Writer();
 
         $filename = "Query_de_telefonos_".date('ymd').".xls";
