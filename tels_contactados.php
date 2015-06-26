@@ -70,6 +70,7 @@ order by cliente,numero_de_cuenta
         $ii++;
         foreach ($result as $row) {
 //echo "<tr>";
+            var_dump($row);die();
             for ($j = 0; $j < $numberfields; $j++) {
                 $worksheet->write($ii, $j, $row[$j]);
 //echo "<td>".$row[$j]."</td>";
