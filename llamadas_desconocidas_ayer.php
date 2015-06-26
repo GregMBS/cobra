@@ -45,7 +45,7 @@ $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = mysql_connect($host,$user,$pswd) or die ("Could not connect to MySQL");
 mysql_select_db($db,$con) or die ("Could not select $db database");
 $querya="SELECT * FROM cdr 
-where calldate>curdate()-interval 1 day and calldate<curdate() and length(src)=3 and dst like '9%' and src>600";
+where calldate>curdate()-interval 1 day and calldate<curdate() and length(src)=3";
 $resulta=mysql_query($querya) or die(mysql_error());
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
