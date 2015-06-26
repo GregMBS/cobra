@@ -43,9 +43,9 @@ where status_de_credito not like "%o"
 order by cliente,numero_de_cuenta
 ;';
 
-    $result = $pdo->query($querymain);
+    $result = $pdo->query($querymain,  PDO::FETCH_ASSOC);
 // Creating a workbook
-    if (is_array($result[0])) {
+    if ($result[0]) {
         $workbook = new Spreadsheet_Excel_Writer();
 
         $filename = "Query_de_telefonos_".date('ymd').".xls";
