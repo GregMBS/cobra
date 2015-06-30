@@ -26,7 +26,7 @@ $capt	 = filter_input(INPUT_GET, 'capt');
 		echo $e;
 	}
 	try {
-		$ast->login('admin', 'amp111');
+		$ast->login('admin', 'cs1pb1x12');
 	} catch (PEAR_Exception $e) {
 		echo $e;
 	}
