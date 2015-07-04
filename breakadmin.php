@@ -111,38 +111,41 @@ $result    = $pdo->query($querymain);
                         <td>
                             <?php echo $empieza; ?><br>
                             <select name="ehora" form="cambiar">
-                                <?php for ($i = 0; $i < 24; $i++) { ?>
-                                    <option value='<?php echo sprintf("%02d", $i); ?>'><?php
-                                        echo sprintf("%02d", $i);
-                                        ?></option>
-                                <?php } ?>
-                            </select>
-                            :
-                            <select name="emin" form="cambiar">
-                                <?php for ($i = 0; $i < 60; $i++) { ?>
-                                    <option value='<?php echo sprintf("%02d", $i); ?>'><?php
-                                        echo sprintf("%02d", $i);
-                                        ?></option>
-                                <?php } ?>
-                            </select>
-                        </td>
-                        <td>
-                            <?php echo $termina; ?><br>
-                            <select name="thora" form="cambiar">
                                 <?php for ($i = 0; $i
-                                    < 24; $i++) {
-                                    ?>
+                                    < 24; $i++) { ?>
                                     <option value='<?php echo sprintf("%02d", $i); ?>'><?php
                                         echo sprintf("%02d", $i);
                                         ?></option>
     <?php } ?>
                             </select>
                             :
-                            <select name="tmin" form="cambiar">
-                                    <?php for ($i = 0; $i < 60; $i++) { ?>
+                            <select name="emin" form="cambiar">
+                                    <?php for ($i
+                                    = 0; $i < 60; $i++) { ?>
                                     <option value='<?php echo sprintf("%02d", $i); ?>'><?php
-                                        echo sprintf("%02d", $i);
-                                        ?></option>
+                                    echo sprintf("%02d", $i);
+                                    ?></option>
+    <?php } ?>
+                            </select>
+                        </td>
+                        <td>
+                                <?php echo $termina; ?><br>
+                            <select name="thora" form="cambiar">
+                                <?php
+                                for ($i = 0; $i < 24; $i++) {
+                                    ?>
+                                    <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                                    echo sprintf("%02d", $i);
+                                    ?></option>
+    <?php } ?>
+                            </select>
+                            :
+                            <select name="tmin" form="cambiar">
+                                    <?php for ($i
+                                    = 0; $i < 60; $i++) { ?>
+                                    <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                            echo sprintf("%02d", $i);
+                            ?></option>
     <?php } ?>
                             </select>
                         </td>
@@ -160,8 +163,8 @@ $result    = $pdo->query($querymain);
                         </td>
                         </form>
                     </tr>
-                <?php }
-                ?>
+<?php }
+?>
                 <tr>
 
                     <td>
@@ -173,20 +176,20 @@ $result    = $pdo->query($querymain);
                                 ."order by iniciales";
                             $resultti = $pdo->query($queryti);
 
-                            while ($answerti = mysql_fetch_array($resultti)) {
+                            foreach ($resultti as $answerti) {
                                 ?>
                                 <option value="<?php
-                                if (isset($answerti['iniciales'])) {
-                                    echo $answerti['iniciales'];
-                                }
-                                ?>" style="font-size:120%;" >
+                                        if (isset($answerti['iniciales'])) {
+                                            echo $answerti['iniciales'];
+                                        }
+                                        ?>" style="font-size:120%;" >
                                     <?php
                                     if (isset($answerti['iniciales'])) {
                                         echo $answerti['iniciales'];
                                     }
                                     ?></option>
-                            <?php }
-                            ?>
+<?php }
+?>
                         </select>
 
                     </td>
@@ -202,36 +205,38 @@ $result    = $pdo->query($querymain);
                     <td>
                         <select name="ehora" form="agregar">
                                 <?php for ($i = 0; $i
-                                    < 24; $i++) { ?>
+                                    < 24; $i++) {
+                                    ?>
                                 <option value='<?php echo sprintf("%02d", $i); ?>'><?php
                                 echo sprintf("%02d", $i);
                                 ?></option>
-<?php } ?>
+                            <?php } ?>
                         </select>
                         :
                         <select name="emin" form="agregar">
                                 <?php for ($i = 0; $i
-                                    < 60; $i++) { ?>
-                                <option value='<?php echo sprintf("%02d", $i); ?>'><?php
-                            echo sprintf("%02d", $i);
-                            ?></option>
-<?php } ?>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="thora" form="agregar">
-                                <?php for ($i = 0; $i < 24; $i++) { ?>
+                                    < 60; $i++) {
+                                    ?>
                                 <option value='<?php echo sprintf("%02d", $i); ?>'><?php
                             echo sprintf("%02d", $i);
                             ?></option>
                             <?php } ?>
                         </select>
+                    </td>
+                    <td>
+                        <select name="thora" form="agregar">
+<?php for ($i = 0; $i < 24; $i++) { ?>
+                                <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+    echo sprintf("%02d", $i);
+    ?></option>
+                                <?php } ?>
+                        </select>
                         :
                         <select name="tmin" form="agregar">
-                                <?php for ($i = 0; $i < 60; $i++) { ?>
+<?php for ($i = 0; $i < 60; $i++) { ?>
                                 <option value='<?php echo sprintf("%02d", $i); ?>'><?php
-                            echo sprintf("%02d", $i);
-                            ?></option>
+    echo sprintf("%02d", $i);
+    ?></option>
 <?php } ?>
                         </select>
                     </td>
