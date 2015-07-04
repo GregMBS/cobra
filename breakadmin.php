@@ -1,206 +1,249 @@
 <?php
-include('admin_hdr_2.php');
-while ($answercheck=mysql_fetch_row($resultcheck)) {
-if ($answercheck[0]!=1) {}
-else {
-    if (!empty($_REQUEST['go'])) 
-    {
-        $go = mysql_real_escape_string($_REQUEST['go']);
-        $tipo=mysql_real_escape_string($_REQUEST['tipo']);
-        $auto=mysql_real_escape_string($_REQUEST['auto']);
-        $gestor=mysql_real_escape_string($_REQUEST['gestor']);
-        $empieza=mysql_real_escape_string($_REQUEST['ehora']).':'.mysql_real_escape_string($_REQUEST['emin']).':00';
-        $termina=mysql_real_escape_string($_REQUEST['thora']).':'.mysql_real_escape_string($_REQUEST['tmin']).':00';
+require_once 'pdoConnect.php';
+$pdoc    = new pdoConnect();
+$pdo     = $pdoc->dbConnectAdmin();
+$capt    = filter_input(INPUT_GET, 'capt');
+$go      = filter_input(INPUT_GET, 'go');
+$tipo    = filter_input(INPUT_GET, 'tipo');
+$auto    = filter_input(INPUT_GET, 'auto');
+$gestor  = filter_input(INPUT_GET, 'gestor');
+$ehora   = filter_input(INPUT_GET, 'ehora');
+$emin    = filter_input(INPUT_GET, 'emin');
+$empieza = $ehora.':'.$emin.':00';
+$thora   = filter_input(INPUT_GET, 'thora');
+$tmin    = filter_input(INPUT_GET, 'tmin');
+$termina = $thora.':'.$tmin.':00';
 
-        if ($go == "CAMBIAR") 
-        {
-        $queryu = "UPDATE breaks 
-            SET tipo='" . $tipo . "',
-            empieza='" . $empieza . "',
-            termina='" . $termina . "',
-            tipo='" . $tipo . "' 
-            WHERE auto='" . $auto . "'";
-            $resultu = mysql_query($queryu) or die(mysql_error());
-        }
-        
-        if ($go == "BORRAR") 
-        {
-            $queryb = "DELETE FROM breaks WHERE auto='" . $auto . "'";
-            $resultb = mysql_query($queryb) or die(mysql_error());
-        }
-        
-        if ($go == "AGREGAR") 
-        {
-            $queryin = "INSERT INTO breaks (gestor, tipo, empieza, termina) 
-	VALUES ('" . $gestor . "','" . $tipo . "','" . $empieza . "','" . $termina . "')";
-            $resultin = mysql_query($queryin) or die(mysql_error());
-        }
-    }
-    $querymain = "SELECT auto, gestor, tipo, empieza, termina FROM breaks 
+if ($go == "CAMBIAR") {
+    $queryu = "UPDATE breaks
+            SET tipo=:tipo,
+            empieza=:empieza,
+            termina=:termina
+            WHERE auto=:auto";
+    $stu    = $pdo->prepare($queryu);
+    $stu->bindParam(':auto', $auto, PDO::PARAM_INT);
+    $stu->bindParam(':tipo', $tipo);
+    $stu->bindParam(':empieza', $auto);
+    $stu->bindParam(':termina', $auto);
+    $stu->execute();
+}
+
+if ($go == "BORRAR") {
+    $queryb = "DELETE FROM breaks WHERE auto=:auto";
+    $stb    = $pdo->prepare($queryb);
+    $stb->bindParam(':auto', $auto, PDO::PARAM_INT);
+    $stb->execute();
+}
+
+if ($go == "AGREGAR") {
+    $queryin = "INSERT INTO breaks (gestor, tipo, empieza, termina)
+	VALUES (:gestor,:tipo,:empieza,:termina)";
+    $sta     = $pdo->prepare($queryin);
+    $sta->bindParam(':gestor', $gestor);
+    $sta->bindParam(':tipo', $tipo);
+    $sta->bindParam(':empieza', $auto);
+    $sta->bindParam(':termina', $auto);
+    $sta->execute();
+}
+
+$querymain = "SELECT auto, gestor, tipo, empieza, termina FROM breaks 
     order by gestor,empieza";
-    $result = mysql_query($querymain) or die(mysql_error());
+$result    = $pdo->query($querymain);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<head>
-<title>Administraci&oacute;n de breaks</title>
+    <head>
+        <title>Administraci&oacute;n de breaks</title>
+        <link href="vendor/components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
+        <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <table class="ui-widget">
+            <thead class="ui-widget-header">
+                <tr>
+                    <th>Gestor</a></th>
+                    <th>Tipo</a></th>
+                    <th>Empieza</a></th>
+                    <th>Termina</a></th>
+                </tr>
+            </thead>
+            <tbody class="ui-widget-content">
+                <?php
+                foreach ($result as $row) {
+                    $auto    = $row['auto'];
+                    $gestor  = $row['gestor'];
+                    $tipo    = $row['tipo'];
+                    $empieza = $row['empieza'];
+                    $termina = $row['termina'];
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $gestor; ?>
+                        </td>
+                        <td>
+                            <?php echo $tipo; ?><br>
+                            <select name="tipo" form="cambiar">
+                                <option value=""></option>
+                                <option value="break"<?php
+                                if ($tipo == 'hora') {
+                                    echo " selected='selected'";
+                                }
+                                ?>>hora (60 min)</option>
+                                <option value="break"<?php
+                                if ($tipo == 'break') {
+                                    echo " selected='selected'";
+                                }
+                                ?>>break (30 min)</option>
+                                <option value="fumo"<?php
+                                if ($tipo == 'fumo') {
+                                    echo " selected='selected'";
+                                }
+                                ?>>fumo (15 min)</option>
+                                <option value="bano"<?php
+                                if ($tipo == 'bano') {
+                                    echo " selected='selected'";
+                                }
+                                ?>>baño (10 min)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <?php echo $empieza; ?><br>
+                            <select name="ehora" form="cambiar">
+                                <?php for ($i = 0; $i < 24; $i++) { ?>
+                                    <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                                        echo sprintf("%02d", $i);
+                                        ?></option>
+                                <?php } ?>
+                            </select>
+                            :
+                            <select name="emin" form="cambiar">
+                                <?php for ($i = 0; $i < 60; $i++) { ?>
+                                    <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                                        echo sprintf("%02d", $i);
+                                        ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td>
+                            <?php echo $termina; ?><br>
+                            <select name="thora" form="cambiar">
+                                <?php for ($i = 0; $i
+                                    < 24; $i++) {
+                                    ?>
+                                    <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                                        echo sprintf("%02d", $i);
+                                        ?></option>
+    <?php } ?>
+                            </select>
+                            :
+                            <select name="tmin" form="cambiar">
+                                    <?php for ($i = 0; $i < 60; $i++) { ?>
+                                    <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                                        echo sprintf("%02d", $i);
+                                        ?></option>
+    <?php } ?>
+                            </select>
+                        </td>
+                        <td>
+                            <form method="get" action="breakadmin.php" name="cambiar">
+                                <input type="submit" name="go" value="CAMBIAR" />
+                                <input type="hidden" name="capt" value="<?php echo $capt; ?>"
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get" action="breakadmin.php" name="borrar">
+                                <input type="submit" name="go" value="BORRAR" />
+                                <input type="hidden" name="capt" value="<?php echo $capt; ?>"
+                            </form>
+                        </td>
+                        </form>
+                    </tr>
+                <?php }
+                ?>
+                <tr>
 
-<style type="text/css">
-       body {font-family: arial, helvetica, sans-serif; font-size: 8pt; background-color: #00a0f0; color:#000000;}
-       table {border: 1pt solid #000000;background-color: #c0c0c0;}
-     tr:hover {background-color: #ff0000;}
-       th {border: 1pt solid #000000;background-color: #c0c0c0;}
-	.loud {text-align:center; font-weight:bold; color:red;}  
-	.num {text-align:right;}
- </style>
-</head>
-<body>
-<button onclick="window.location='reports.php?capt=<?php echo $capt;?>'">Regressar a la plantilla administrativa</button><br>
-<table summary="Gestores">
-<thead>
-<tr>
-<form action="breakadmin.php" method="get" name="migoorden">
-<input type="hidden" name="capt" value="<?php echo $capt ?>">
-<th>Gestor</a></th>
-<th>Tipo</a></th>
-<th>Empieza</a></th>
-<th>Termina</a></th>
-</tr>
-</thead>
-<tbody>
-<?php
-    while ($row = mysql_fetch_row($result)) 
-    {
-        $auto = $row[0];
-        $gestor = $row[1];
-        $tipo = $row[2];
-        $empieza = $row[3];
-        $termina = $row[4];
-?>
-<tr>
-<form class="gestorchange" name="gestorchange<?php echo $auto ?>" method="get" action=
-"breakadmin.php" id="gestorchange<?php echo $auto ?>">
-<input type="hidden" name="capt" value="<?php echo $capt ?>"> 
-<input type="hidden" name="auto" value="<?php echo $auto ?>"> 
-<td>
-<input type="text" name="gestor" readonly=readonly value="<?php echo $gestor;?>"><br>
-</td>
-<td>
-<?php echo $tipo;?><br>
-<select name="tipo">
-<option value=""></option>
-<option value="break"<?php if ($tipo=='break') {echo " selected='selected'";} ?>>break (30 min)</option>
-<option value="bano"<?php if ($tipo=='bano') {echo " selected='selected'";} ?>>baño (10 min)</option>
-</select>
-</td>
-<td>
-<?php echo $empieza;?><br>
-<select name="ehora">
-<?php for ($i=0;$i<24;$i++) { ?>
-<option value='<?php echo sprintf("%02d",$i);?>'><?php echo sprintf("%02d",$i);?></option>
-<?php } ?>
-</select>
-:
-<select name="emin">
-<?php for ($i=0;$i<60;$i++) { ?>
-<option value='<?php echo sprintf("%02d",$i);?>'><?php echo sprintf("%02d",$i);?></option>
-<?php } ?>
-</select>
-</td>
-<td>
-<?php echo $termina;?><br>
-<select name="thora">
-<?php for ($i=0;$i<24;$i++) { ?>
-<option value='<?php echo sprintf("%02d",$i);?>'><?php echo sprintf("%02d",$i);?></option>
-<?php } ?>
-</select>
-:
-<select name="tmin">
-<?php for ($i=0;$i<60;$i++) { ?>
-<option value='<?php echo sprintf("%02d",$i);?>'><?php echo sprintf("%02d",$i);?></option>
-<?php } ?>
-</select>
-</td>
-<td><input type="submit" name="go" value="CAMBIAR">
-</td>
-<td><input type="submit" name="go" value="BORRAR">
-</td>
-</form>
-</tr>
-<?php
-    } ?>
-<tr>
-<form class="gestoradd" name="gestoradd" method="get" action=
-"<?php echo $_SERVER['PHP_SELF'] ?>" id="gestoradd">
-<input type="hidden" name="capt" value="<?php echo $capt ?>"> 
-<td>
-<select name="gestor">
-<option value=""></option>
-<?php
-        $queryti = "SELECT iniciales FROM nombres WHERE tipo<>'admin' and tipo <>'visitador' order by iniciales";
-        $resultti = mysql_query($queryti);
-        
-        while ($answerti = mysql_fetch_array($resultti)) 
-        { ?>
-  <option value="<?php 
-            if (isset($answerti[0])) 
-            {
-                echo $answerti[0];
-            } ?>" style="font-size:120%;" >
-	<?php 
-            if (isset($answerti[0])) 
-            {
-                echo $answerti[0];
-            } ?></option>
-<?php
-        } ?>
-</select>
+                    <td>
+                        <select name="gestor" form="agregar">
+                            <option value=""></option>
+                            <?php
+                            $queryti  = "SELECT iniciales FROM nombres "
+                                ."WHERE tipo NOT IN ('admin','visitador') "
+                                ."order by iniciales";
+                            $resultti = $pdo->query($queryti);
 
-</td>
-<td>
-<select name="tipo">
-<option value=""></option>
-<option value="break">break (30 min)</option>
-<option value="bano">baño (10 min)</option>
-</select>
-</td>
-<td>
-<select name="ehora">
-<?php for ($i=0;$i<24;$i++) { ?>
-<option value='<?php echo sprintf("%02d",$i);?>'><?php echo sprintf("%02d",$i);?></option>
+                            while ($answerti = mysql_fetch_array($resultti)) {
+                                ?>
+                                <option value="<?php
+                                if (isset($answerti['iniciales'])) {
+                                    echo $answerti['iniciales'];
+                                }
+                                ?>" style="font-size:120%;" >
+                                    <?php
+                                    if (isset($answerti['iniciales'])) {
+                                        echo $answerti['iniciales'];
+                                    }
+                                    ?></option>
+                            <?php }
+                            ?>
+                        </select>
+
+                    </td>
+                    <td>
+                        <select name="tipo" form="agregar">
+                            <option value=""></option>
+                            <option value="hora">hora (60 min)</option>
+                            <option value="break">break (30 min)</option>
+                            <option value="fumo">fumo (15 min)</option>
+                            <option value="bano">baño (10 min)</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="ehora" form="agregar">
+                                <?php for ($i = 0; $i
+                                    < 24; $i++) { ?>
+                                <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                                echo sprintf("%02d", $i);
+                                ?></option>
 <?php } ?>
-</select>
-:
-<select name="emin">
-<?php for ($i=0;$i<60;$i++) { ?>
-<option value='<?php echo sprintf("%02d",$i);?>'><?php echo sprintf("%02d",$i);?></option>
+                        </select>
+                        :
+                        <select name="emin" form="agregar">
+                                <?php for ($i = 0; $i
+                                    < 60; $i++) { ?>
+                                <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                            echo sprintf("%02d", $i);
+                            ?></option>
 <?php } ?>
-</select>
-</td>
-<td>
-<select name="thora">
-<?php for ($i=0;$i<24;$i++) { ?>
-<option value='<?php echo sprintf("%02d",$i);?>'><?php echo sprintf("%02d",$i);?></option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="thora" form="agregar">
+                                <?php for ($i = 0; $i < 24; $i++) { ?>
+                                <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                            echo sprintf("%02d", $i);
+                            ?></option>
+                            <?php } ?>
+                        </select>
+                        :
+                        <select name="tmin" form="agregar">
+                                <?php for ($i = 0; $i < 60; $i++) { ?>
+                                <option value='<?php echo sprintf("%02d", $i); ?>'><?php
+                            echo sprintf("%02d", $i);
+                            ?></option>
 <?php } ?>
-</select>
-:
-<select name="tmin">
-<?php for ($i=0;$i<60;$i++) { ?>
-<option value='<?php echo sprintf("%02d",$i);?>'><?php echo sprintf("%02d",$i);?></option>
-<?php } ?>
-</select>
-</td>
-<td><input type="submit" name="go" value="AGREGAR">
-</td>
-</form>
-</tr>
-</tbody>
-</table>
-</body>
+                        </select>
+                    </td>
+                    <td>
+                        <form name="agregar" method="get" action="breakadmin.php">
+                            <input type="hidden" name="capt" value="<?php echo $capt ?>">
+                            <input type="submit" name="go" value="AGREGAR">
+                        </form>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </body>
 </html> 
-<?php
-}
-}
-mysql_close($con);
-?>
