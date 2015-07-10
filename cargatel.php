@@ -29,7 +29,7 @@ else {
     
     while ($answercl = mysql_fetch_array($resultcl)) 
     {?>
-  <option value="<?php echo $answercl[0].','.$answercl[1];?>" style="font-size:120%;">
+  <option value="<?php echo $answercl[0].'_'.$answercl[1];?>" style="font-size:120%;">
   <?php echo $answercl[0].','.$answercl[1];?></option>
 <?php
     } ?>
