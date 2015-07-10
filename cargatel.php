@@ -79,7 +79,7 @@ WHERE left(tel,1)<>9;";
             $fields = $_POST['fields'];
 $queryput1 = "INSERT INTO robot.calllist (id,tel,msg,turno) 
 SELECT id,tel,msg,0 FROM robot.tempc left join (select msg from robot.msglist 
-where concat_ws(',',client,tipo)='".$msgtag."') as tmp on 1=1
+where msg='".$msgtag."') as tmp on 1=1
 ;";
 $queryput2 = "INSERT INTO robot.calllist (id,tel,msg,turno) 
 SELECT id,tel,msg,0 FROM robot.tempc left join (select msg from robot.msglist 
