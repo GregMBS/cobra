@@ -57,7 +57,7 @@ mysql_query($querytemp1) or die(mysql_error());
   `turno` varchar(50)
 )';
 mysql_query($querytemp2) or die(mysql_error());
-$data0 = preg_replace('/[^0-9a-zA-Z]/', ',', $_POST['data']);
+$data0 = preg_replace('/[^0-9a-zA-Z\-]/', ',', $_POST['data']);
 //$data0 = $_POST['data'];
 $data1 = preg_replace('/\,\,/', ',', $data0);
 $data = explode(',', $data1);
