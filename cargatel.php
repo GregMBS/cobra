@@ -62,9 +62,12 @@ $data0 = preg_replace('/[^0-9a-zA-Z]/', ',', $_POST['data']);
 $data1 = preg_replace('/\,\,/', ',', $data0);
 $data = explode(',', $data1);
 $max=ceil(count($data)/2);
-$veces=1;
 $veces=mysql_real_escape_string($_POST['count']);
+if (empty($veces)) { $veces = 1; }
 $msgtag=mysql_real_escape_string($_POST['msgtag']);
+$mt = explode('_', $msgtag);
+$cliente = $mt[0];
+$tipo = $mt[1];
 $queryload='';
 for ($i=0;$i<$max;$i++) {
 $a=$i*2;
@@ -83,7 +86,7 @@ where msg='".$msgtag."') as tmp on 1=1
 ;";
 $queryput2 = "INSERT INTO robot.calllist (id,tel,msg,turno) 
 SELECT id,tel,msg,0 FROM robot.tempc left join (select msg from robot.msglist 
-where concat_ws(',',client,tipo)='".$msgtag."') as tmp on 1=1
+where client='".$cliente."' and tipo='".$tipo."') as tmp on 1=1
 ;";
 mysql_query($queryput1) or die(mysql_error());
 //echo $queryput1.'<br>';
