@@ -23,7 +23,7 @@ if (!empty($go)) {
     $querymain = "SELECT numero_de_cuenta,nombre_deudor,resumen.cliente,
     status_de_credito,saldo_total,d1.queue,saldo_descuento_2,
     domicilio_deudor,colonia_deudor,ciudad_deudor, estado_deudor,cp_deudor,
-    ejecutivo_asignado_call_center as usuario,fecha_de_asignacion, decha_ultima_gestion,
+    ejecutivo_asignado_call_center as usuario,fecha_de_asignacion, fecha_ultima_gestion,
 tel_1,(tel_1 in (select c_tele from livelines))*(1-(tel_1 in (select c_tele from deadlines))) as 't1 efectivo',
 tel_2,(tel_2 in (select c_tele from livelines))*(1-(tel_2 in (select c_tele from deadlines))) as 't2 efectivo',
 tel_3,(tel_3 in (select c_tele from livelines))*(1-(tel_3 in (select c_tele from deadlines))) as 't3 efectivo',
