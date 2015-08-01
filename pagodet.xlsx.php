@@ -14,7 +14,7 @@ $lastmonth = strftime("%B %Y", strtotime("last month"));
 $queryDA   = "select cuenta, fecha, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
-                    gestor, confirmado, fechacapt
+                    gestor, confirmado
 from pagos, resumen
 where fecha>last_day(curdate()-interval 5 week)
 and pagos.id_cuenta=resumen.id_cuenta
