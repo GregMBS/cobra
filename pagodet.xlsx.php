@@ -19,8 +19,12 @@ from pagos, resumen
 where fecha>last_day(curdate()-interval 5 week)
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
-$std   = $pdo->query($queryDA) or die($pdo->errorInfo());
-$result = $std->fetchAll(PDO::FETCH_ASSOC) or die($pdo->errorInfo());
+$std   = $pdo->query($queryDA);
+if (!$std) {
+    var_dump($pdo->errorInfo());
+    die();
+}
+$result = $std->fetchAll(PDO::FETCH_ASSOC);
 $filename = "Pagos_".trim(date('ym')).".xlsx";
 $output   = array();
 $output[] = array_keys($result[0]);
