@@ -1,10 +1,14 @@
 <?php
+set_time_limit(300);
+require_once 'vendor/autoload.php';
+
+use Box\Spout\Writer\WriterFactory;
+use Box\Spout\Common\Type;
+
 require_once 'pdoConnect.php';
 $pdoc = new pdoConnect();
 $pdo  = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
-require_once 'vendor/autoload.php';
-set_time_limit(180);
 
 function MesNom($n)
 {
@@ -62,54 +66,21 @@ ORDER BY d_fech,c_hrin
     $result = $std->fetchAll(PDO::FETCH_ASSOC);
 // Creating a workbook
 	$filename	 = "Query_de_gestiones_".$fecha1."_".$fecha2.".xlsx";
+$output   = array();
+$output[] = array_keys($result[0]);
+foreach ($result as $row) {
+    $row['saldo_total'] = (float) $row['saldo_total'];
+    $row['monto pago'] = (float) $row['monto pago'];
+    $row['n_prom'] = (float) $row['n_prom'];
+    $row['n_prom1'] = (float) $row['n_prom1'];
+    $row['n_prom2'] = (float) $row['n_prom2'];
+    $output[]     = $row;
+}
+$writer = WriterFactory::create(Type::XLSX);
+$writer->openToBrowser($filename); // stream data directly to the browser
+$writer->addRows($output); // add multiple rows at a time
+$writer->close();
 
-	$objPHPExcel = new PHPExcel();
-
-// Set properties
-	$objPHPExcel->getProperties()->setCreator("Cobranza Integral");
-	$objPHPExcel->getProperties()->setLastModifiedBy("Eduardo Pantoja");
-	$objPHPExcel->getProperties()->setTitle("Query_de_inventario");
-	$objPHPExcel->getProperties()->setSubject("COBRA Inventario");
-	$objPHPExcel->getProperties()->setDescription("COBRA Inventario");
-	$objPHPExcel->setActiveSheetIndex(0);
-
-    $ii       = 0;
-    $i        = 0;
-    $colnames = $result[0];
-	foreach ($colnames as $key => $value) {
-                if ($i<26) {
-			$letter = chr(ord("A") + $i);
-		} else {
-                    $top = floor($i/26);
-                    $bottom = $i % 26;
-                    $letter = chr(ord("A") + $top) . chr(ord("A") + $bottom);
-		}
-		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, 1, $key);
-		$objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
-		$i++;
-	}
-
-	$row = 2; // 1-based index
-	foreach ($result as $row_data) {
-		$col = 0;
-		foreach ($row_data as $key => $value) {
-			$pad = "";
-			if ($col == 0) {
-				$pad = " ";
-			}
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,
-                $row, $value.$pad);
-			$col++;
-		}
-		$row++;
-	}
-	$objPHPExcel->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
-	header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-	header('Content-Disposition: attachment; filename="'.$filename.'"');
-	header("Cache-Control: max-age=0");
-
-	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
-	$objWriter->save("php://output");
 } else {
 ?>
 <!DOCTYPE html>
@@ -183,8 +154,8 @@ ORDER BY d_fech,c_hrin
 		<select name="fecha1">
 		    <?php
 		    $queryfu	 = "SELECT distinct d_fech FROM historia
-        where d_fech>last_day(curdate()-interval 1 year) 
-        ORDER BY d_fech limit 360";
+        where d_fech>last_day(curdate()-interval 10 year)
+        ORDER BY d_fech limit 3600";
 		    $resultfu	 = $pdo->query($queryfu);
 		    foreach ($resultfu as $answerfu) {
 			    ?>
