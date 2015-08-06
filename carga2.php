@@ -44,8 +44,8 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                                     <tr><td>Client</td>
                                         <td><input type="text" name="cliente" />
                                             <input type="hidden" name="filename" value="<?php
-                                                   echo $deststr
-                                                   ?>" />
+                                            echo $deststr
+                                            ?>" />
                                             <input type="hidden" name="capt" value="<?php echo $capt ?>" />
                                         </td></tr>
                                     <tr><td>Reemplazar lo anterior <input type="checkbox" name="reemplazar" id="reemplazar"></td></tr>
@@ -82,14 +82,14 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                             $row++;
                             ?>
                             <input name="cliente" type="hidden" value="<?php
-                                   echo $cliente
-                                   ?>" />
+                            echo $cliente
+                            ?>" />
                             <input name="fecha_de_actualizacion" type="hidden" value="<?php
-                                   echo $fecha_de_actualizacion
-                                   ?>" />
+                            echo $fecha_de_actualizacion
+                            ?>" />
                             <input type="hidden" name="filename" value='<?php
-                                   echo $filename
-                                   ?>' />
+                            echo $filename
+                            ?>' />
                             <input type="hidden" name="capt" value="<?php echo $capt ?>" />
                         </p>
                         <p>
@@ -114,8 +114,8 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                                                 ?></td>
                                             <td>
                                                 <select name="pos<?php
-                                                        echo $c
-                                                        ?>">
+                                                echo $c
+                                                ?>">
                                                     <option value='nousar<?php echo $c ?>'>no usar</option>
                                                     <?php
                                                     $queryres  = "show columns from resumen";
@@ -138,8 +138,8 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                                     } else {
                                         ?>
                                         <input type="hidden" value="nousar" name="pos<?php
-                                               echo $c
-                                               ?>"/>
+                                        echo $c
+                                        ?>"/>
                                                <?php
                                            }
                                        }
@@ -239,22 +239,19 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                     if (($handle     = fopen($filename2, "r")) !== FALSE) {
                         while (($data = fgetcsv($handle, 1000, ',', '"')) !== FALSE) {
                             if ($n == 0) {
-                                $header = $data;
-                            }
-                            for ($i = 0; $i < count($header); $i++) {
-                                if ($header[$i] == 'nousar') {
-                                    $header[$i] .= $i;
-                                }
+                                $header    = $data;
+                                $queryload = "INSERT INTO cobra.temp (".implode(",",
+                                        $header).") VALUES ";
                             }
                             if ($n > 0) {
-                                $queryload = "INSERT IGNORE INTO cobra.temp (".implode(",",
-                                        $header).") VALUES ('".implode("','",
-                                        $data)."');";
+                                $limpio = str_replace("'", "", $data);
+                                $queryload .= "('".implode("','", $limpio)."'),";
 //			echo $queryload."<br>";
-                                mysql_query($queryload) or die('Load temp 2:'.mysql_error());
                             }
                             $n++;
                         }
+                        $queryloadtrim = rtrim($queryload, ",");
+                        mysql_query($queryloadtrim) or die('Load temp 2:'.mysql_error());
                     }
                     $querycommit = "COMMIT";
                     mysql_query($querycommit) or die('Commit:'.mysql_error());
