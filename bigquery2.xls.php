@@ -71,9 +71,6 @@ $output[] = array_keys($result[0]);
 foreach ($result as $row) {
     $row['saldo_total'] = (float) $row['saldo_total'];
     $row['monto pago'] = (float) $row['monto pago'];
-    $row['n_prom'] = (float) $row['n_prom'];
-    $row['n_prom1'] = (float) $row['n_prom1'];
-    $row['n_prom2'] = (float) $row['n_prom2'];
     $output[]     = $row;
 }
 $writer = WriterFactory::create(Type::XLSX);
