@@ -110,7 +110,7 @@ tr.even { background-color: #dddddd }
 			"sAjaxSource": "folioadminsf_ajax.php",
 			"bPaginate": false,
 			"oLanguage": {
-				"sUrl": "DT/espanol.txt"
+				"sUrl": "espanol.txt"
 			},
 
 		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {

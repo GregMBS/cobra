@@ -117,7 +117,7 @@ and folios.cliente regexp 'Credito Si' group by folio
                             "sAjaxSource": "folioadmin_ajax.php",
                             "bPaginate": false,
                             "oLanguage": {
-                                "sUrl": "DT/espanol.txt"
+                                "sUrl": "espanol.txt"
                             },
                             "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                                 if (aData[2] === 0) {
