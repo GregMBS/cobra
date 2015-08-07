@@ -34,6 +34,16 @@ $rowsub   = $sts->fetchAll(PDO::FETCH_ASSOC);
         <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
         <script src="vendor/datatables/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <script>
+	    $(document).ready(function () {
+		    $('#pagos').dataTable({
+			    "bPaginate": false,
+			    "oLanguage": {
+				    "sUrl": "espanol.txt"
+			    }
+		    });
+	    });
+        </script>
     </head>
     <body>
         <div id="pagobox">
@@ -41,7 +51,7 @@ $rowsub   = $sts->fetchAll(PDO::FETCH_ASSOC);
                 CUENTA:&nbsp;&nbsp;<?php echo $CUENTA ?><br>
                 CLIENTE:&nbsp;<?php echo $CLIENTE ?>
             </p>
-            <table class="ui-widget" id="pagohead">
+            <table class="ui-widget" id="pagos">
                 <thead class='ui-widget-header'>
                     <tr>
                         <th>FECHA</th>
