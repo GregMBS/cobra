@@ -9,9 +9,9 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
         <html>
             <head>
                 <title>Cobra Reports Menu</title>
-                <link rel="Stylesheet" href="css/redmond/jquery-ui.css" />
-                <script type="text/javascript" charset="utf8" src="vendor/components/jquery/jquery.js"></script>
-                <script type="text/javascript" charset="utf8" src="vendor/components/jqueryui/jquery-ui.js"></script>
+                <link rel="Stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" />
+                <script type="text/javascript" charset="utf8" src="bower_components/jquery/dist/jquery.js"></script>
+                <script type="text/javascript" charset="utf8" src="bower_components/jqueryui/jquery-ui.js"></script>
             </head>
             <body id="demos">
                 <script>

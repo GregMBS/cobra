@@ -26,11 +26,11 @@ $result    = $stm->fetchAll(PDO::FETCH_ASSOC);
 <html>
     <head>
         <title>Cuentas gestionado por <?php echo $gestor; ?> en <?php echo $fecha; ?></title>
-        <link href="vendor/components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link href="vendor/datatables/datatables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
-        <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
-        <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
-        <script src="vendor/datatables/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+        <link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/datatables/media/bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
+        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <script src="bower_components/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
         <script>
             $(function () {
                 $('table').dataTable({

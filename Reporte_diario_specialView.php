@@ -2,9 +2,9 @@
 <html>
     <head>
         <title>Promesas y Pagos</title>
-        <link rel="Stylesheet" href="css/redmond/jquery-ui.css" />
-        <script type="text/javascript" charset="utf8" src="vendor/components/jquery/jquery.js"></script>
-        <script type="text/javascript" charset="utf8" src="vendor/components/jqueryui/jquery-ui.js"></script>
+        <link rel="Stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" />
+        <script type="text/javascript" charset="utf8" src="bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" charset="utf8" src="bower_components/jqueryui/jquery-ui.js"></script>
     </head>
     <body>
         <script>

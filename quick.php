@@ -56,11 +56,11 @@ foreach ($resultfout as $answerfout) {
     <head>
         <title>Quick Performance</title>
         <meta http-equiv="refresh" content="60"/>
-        <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
-        <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
-        <script src="DT/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/jquery.dataTables.css">
+        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
         <style>
             tr.odd { background-color: white }
             tr.even { background-color: #dddddd }

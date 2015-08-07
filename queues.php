@@ -93,9 +93,9 @@ $resultq    = $pdo->query($queryq);
     <head>
         <title>Administraci&oacute;n de los queues</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
-        <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
-        <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>

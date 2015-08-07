@@ -27,9 +27,9 @@
             width: 376px;
         }
     </style>
-		<script type="text/javascript" language="javascript" src="DT/media/js/jquery.js"></script> 
-		<script type="text/javascript" language="javascript" src="DT/media/js/jquery.js"></script> 
-		<script type="text/javascript" language="javascript" src="DT/media/js/jquery.dataTables.js"></script> 
+		<script type="text/javascript" language="javascript" src="bower_components/datatables/media/js/jquery.js"></script> 
+		<script type="text/javascript" language="javascript" src="bower_components/datatables/media/js/jquery.js"></script> 
+		<script type="text/javascript" language="javascript" src="bower_components/datatables/media/js/jquery.dataTables.js"></script> 
 		<script type="text/javascript" charset="utf-8"> 
 			$(document).ready(function() {
 				$('#AbogadoDetailView').dataTable( {

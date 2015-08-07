@@ -24,9 +24,9 @@ if ($gestor == 'total') {
     <head>
         <title>Horarios</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="vendor/components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
-        <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
-        <script src="vendor/components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
         <style type="text/css">
             tr:hover {background-color: #ffff00;}
             .heavy {font-weight:bold;font-size:10pt;}
