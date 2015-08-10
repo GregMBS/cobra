@@ -15,6 +15,12 @@ function MesNom($n)
 $go = filter_input(INPUT_GET, 'go');
 if (!empty($go)) {
     $cliente    = filter_input(INPUT_GET, 'cliente');
+    $inactivo   = filter_input(INPUT_GET, 'inactivos');
+    if ($inactivo == '1') {
+        $sdctext = " 1 = 1 ";
+    } else {
+        $sdctext = " status_de_credito not regexp '-' ";
+    }
     $gestorstr  = '';
     $clientestr = '';
     if ($cliente != 'todos') {
@@ -38,8 +44,9 @@ tel_1_ref_1,(tel_1_ref_1 in (select c_tele from livelines))*(1-(tel_1_ref_1 in (
 tel_1_ref_2,(tel_1_ref_2 in (select c_tele from livelines))*(1-(tel_1_ref_2 in (select c_tele from deadlines))) as 't1r2 efectivo'
     from resumen 
 left join dictamenes d1 on status_aarsa=d1.dictamen
-where status_de_credito not regexp '-' 
-".$clientestr." 
+where  
+".$sdctext."
+".$clientestr."
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
     ;";
     $std       = $pdo->prepare($querymain);
@@ -136,6 +143,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
                             ?>
                     </select>
                 </p>
+                <input type="checkbox" name="inactivos" value="1" /><br>
                 <input type='submit' name='go' value='Query Inventario'>
             </form>
         </body>
