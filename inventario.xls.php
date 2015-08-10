@@ -143,7 +143,9 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
                             ?>
                     </select>
                 </p>
-                <input type="checkbox" name="inactivos" value="1" /><br>
+                <input type="checkbox" name="inactivos" id="inactivos" value="1" />
+                <label for="inactivos">Incluir cuentas inactivas</label>
+                    <br>
                 <input type='submit' name='go' value='Query Inventario'>
             </form>
         </body>
