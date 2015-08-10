@@ -34,11 +34,7 @@ if (substr($capt, 0, 8) == "practica") {
 if (!empty($mytipo)) {
     $oldgo = '';
 
-    if (isset($get['go'])) {
-        $go = $get['go'];
-    } else {
-        $go = '';
-    }
+    $go = filter_input(INPUT_GET, 'go');
     if ($go == 'ULTIMA') {
         $queryult = "SELECT c_cont FROM historia WHERE c_cvge='" . $capt .
                 "' and c_cont <> '0' ORDER BY d_fech desc, C_hrfi desc LIMIT 1";
