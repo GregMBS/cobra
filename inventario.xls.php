@@ -30,7 +30,6 @@ if (!empty($go)) {
     status_de_credito,saldo_total,d1.queue,saldo_descuento_2,
     domicilio_deudor,colonia_deudor,ciudad_deudor, estado_deudor,cp_deudor,
     ejecutivo_asignado_call_center as usuario,fecha_de_asignacion, fecha_ultima_gestion, 
-    min(d_fech) as fecha_primera_gestion,
 tel_1	,	((exists (select 1 from livelines where livelines.c_tele = tel_1))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_1)))		as		't1 efectivo',
 tel_2	,	((exists (select 1 from livelines where livelines.c_tele = tel_2))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_2)))		as		't2 efectivo',
 tel_3	,	((exists (select 1 from livelines where livelines.c_tele = tel_3))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_3)))		as		't3 efectivo',
@@ -45,7 +44,6 @@ tel_1_ref_1	,	((exists (select 1 from livelines where livelines.c_tele = tel_1_r
 tel_1_ref_2	,	((exists (select 1 from livelines where livelines.c_tele = tel_1_ref_2))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_1_ref_2)))		as		't1r2 efectivo'
     from resumen 
 left join dictamenes d1 on status_aarsa=d1.dictamen
-left join historia on c_cont=id_cuenta
 where ".$sdctext." ".$clientestr."
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
 ";
