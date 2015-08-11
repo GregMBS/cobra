@@ -29,26 +29,26 @@ if (!empty($go)) {
     $querymain = "SELECT numero_de_cuenta,nombre_deudor,resumen.cliente,
     status_de_credito,saldo_total,d1.queue,saldo_descuento_2,
     domicilio_deudor,colonia_deudor,ciudad_deudor, estado_deudor,cp_deudor,
-    ejecutivo_asignado_call_center as usuario,fecha_de_asignacion, fecha_ultima_gestion,
-tel_1,(tel_1 in (select c_tele from livelines))*(1-(tel_1 in (select c_tele from deadlines))) as 't1 efectivo',
-tel_2,(tel_2 in (select c_tele from livelines))*(1-(tel_2 in (select c_tele from deadlines))) as 't2 efectivo',
-tel_3,(tel_3 in (select c_tele from livelines))*(1-(tel_3 in (select c_tele from deadlines))) as 't3 efectivo',
-tel_4,(tel_4 in (select c_tele from livelines))*(1-(tel_4 in (select c_tele from deadlines))) as 't4 efectivo',
-tel_1_verif,(tel_1_verif in (select c_tele from livelines))*(1-(tel_1_verif in (select c_tele from deadlines))) as 't1v efectivo',
-tel_2_verif,(tel_2_verif in (select c_tele from livelines))*(1-(tel_2_verif in (select c_tele from deadlines))) as 't2v efectivo',
-tel_3_verif,(tel_3_verif in (select c_tele from livelines))*(1-(tel_3_verif in (select c_tele from deadlines))) as 't3v efectivo',
-tel_4_verif,(tel_4_verif in (select c_tele from livelines))*(1-(tel_4_verif in (select c_tele from deadlines))) as 't4v efectivo',
-tel_1_laboral,(tel_1_laboral in (select c_tele from livelines))*(1-(tel_1_laboral in (select c_tele from deadlines))) as 't1l efectivo',
-tel_2_laboral,(tel_2_laboral in (select c_tele from livelines))*(1-(tel_2_laboral in (select c_tele from deadlines))) as 't2l efectivo',
-tel_1_ref_1,(tel_1_ref_1 in (select c_tele from livelines))*(1-(tel_1_ref_1 in (select c_tele from deadlines))) as 't1r1 efectivo',
-tel_1_ref_2,(tel_1_ref_2 in (select c_tele from livelines))*(1-(tel_1_ref_2 in (select c_tele from deadlines))) as 't1r2 efectivo'
+    ejecutivo_asignado_call_center as usuario,fecha_de_asignacion, fecha_ultima_gestion, 
+    min(d_fech) as fecha_primera_gestion,
+tel_1	,	((exists (select 1 from livelines where livelines.c_tele = tel_1))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_1)))		as		't1 efectivo',
+tel_2	,	((exists (select 1 from livelines where livelines.c_tele = tel_2))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_2)))		as		't2 efectivo',
+tel_3	,	((exists (select 1 from livelines where livelines.c_tele = tel_3))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_3)))		as		't3 efectivo',
+tel_4	,	((exists (select 1 from livelines where livelines.c_tele = tel_4))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_4)))		as		't4 efectivo',
+tel_1_verif	,	((exists (select 1 from livelines where livelines.c_tele = tel_1_verif))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_1_verif)))		as		't1v efectivo',
+tel_2_verif	,	((exists (select 1 from livelines where livelines.c_tele = tel_2_verif))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_2_verif)))		as		't2v efectivo',
+tel_3_verif	,	((exists (select 1 from livelines where livelines.c_tele = tel_3_verif))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_3_verif)))		as		't3v efectivo',
+tel_4_verif	,	((exists (select 1 from livelines where livelines.c_tele = tel_4_verif))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_4_verif)))		as		't4v efectivo',
+tel_1_laboral	,	((exists (select 1 from livelines where livelines.c_tele = tel_1_laboral))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_1_laboral)))		as		't1l efectivo',
+tel_2_laboral	,	((exists (select 1 from livelines where livelines.c_tele = tel_2_laboral))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_2_laboral)))		as		't2l efectivo',
+tel_1_ref_1	,	((exists (select 1 from livelines where livelines.c_tele = tel_1_ref_1))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_1_ref_1)))		as		't1r1 efectivo',
+tel_1_ref_2	,	((exists (select 1 from livelines where livelines.c_tele = tel_1_ref_2))	* (not exists (select 1 from deadlines where deadlines.c_tele = tel_1_ref_2)))		as		't1r2 efectivo'
     from resumen 
 left join dictamenes d1 on status_aarsa=d1.dictamen
-where  
-".$sdctext."
-".$clientestr."
+left join historia on c_cont=id_cuenta
+where ".$sdctext." ".$clientestr."
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
-    ;";
+";
     $std       = $pdo->prepare($querymain);
     if ($cliente != 'todos') {
         $std->bindParam(':cliente', $cliente);
