@@ -49,6 +49,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                         Cambiar Gestor Asignado</button>
                         -->
                         <button onclick="window.location = 'inactivar.php?capt=<?php echo $capt; ?>'">Inactivar Cuentas</button><br>
+                        <button onclick="window.location = 'activar.php?capt=<?php echo $capt; ?>'">Activar Cuentas</button><br>
                     </div>
                     <div id="gen">
                         <h2>Reportes Generales</h2>
