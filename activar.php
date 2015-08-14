@@ -10,10 +10,10 @@ $dataRaw = filter_input(INPUT_POST, 'data');
 
 <html>
     <head>
-        <title>Inactivar Cuentas</title>
+        <title>Activar Cuentas</title>
     </head>
     <body>
-        <form action="inactivar.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
+        <form action="activar.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
             <p>Usa numero de cuenta</p>
             <textarea name='data' rows='20' cols='50'></textarea>
             <input type="hidden" name="capt" value="<?php
@@ -31,8 +31,8 @@ $dataRaw = filter_input(INPUT_POST, 'data');
             $max       = count($data);
             $queryload = '';
             $querydie  = "update resumen
-set status_de_credito=concat(trim(status_de_credito),'-inactivo') 
-where status_de_credito not regexp '-' and numero_de_cuenta=:cta";
+set status_de_credito=substring_index(status_de_credito,'-',1)
+where numero_de_cuenta=:cta";
             $std       = $pdo->prepare($querydie);
             for ($i = 0; $i < $max; $i++) {
                 $std->bindParam(':cta', $data[$i]);
