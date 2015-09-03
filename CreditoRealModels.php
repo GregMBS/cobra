@@ -231,6 +231,7 @@ date_sub(curdate()-1, interval (WEEKDAY(curdate()-5)) day)
     }
 
     private function getFromCobra() {
+        $start = $this->getStartDate();
         $querymain = "SELECT fecha_de_asignacion, d_fech,
             numero_de_credito, numero_de_cuenta, producto, c_accion,
             c_cvst, left(c_obse1,199) as gestion from resumen, historia 
@@ -238,12 +239,13 @@ date_sub(curdate()-1, interval (WEEKDAY(curdate()-5)) day)
     and cliente = 'Credito Real' and d_fech >= :start and d_fech <= curdate()
 ORDER BY d_fech, c_hrin";
         $stm = $this->con->prepare($querymain);
-        $stm->bindParam(':start', $this->getStartDate());
+        $stm->bindParam(':start', $start);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     private function getMonthlyFromCobra() {
+        $start = $this->getStartDate();
         $querymain = "SELECT fecha_de_asignacion, d_fech,
             numero_de_credito, numero_de_cuenta, producto, c_accion,
             c_cvst, left(c_obse1,199) as gestion from resumen, historia 
@@ -251,7 +253,7 @@ ORDER BY d_fech, c_hrin";
     and cliente = 'Credito Real' and d_fech > last_day(curdate() - interval 6 week) and d_fech <= last_day(curdate() - interval 2 week)
 ORDER BY d_fech, c_hrin";
         $stm = $this->con->prepare($querymain);
-        $stm->bindParam(':start', $this->getStartDate());
+        $stm->bindParam(':start', $start);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
