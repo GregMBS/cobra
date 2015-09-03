@@ -1,11 +1,4 @@
 <?php
-//include 'Mobile_Detect.php';
-//$detect = new Mobile_Detect();
-$gets = $_SERVER['QUERY_STRING'];
-parse_str($gets, $get);
-date_default_timezone_set('America/Monterrey');
-setlocale(LC_MONETARY, 'en_US');
-
 function highhist($stat, $visit) {
     $highstr = '';
     if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
@@ -17,10 +10,15 @@ function highhist($stat, $visit) {
     return $highstr;
 }
 
+$get = filter_input_array(INPUT_GET);
+$go = filter_input(INPUT_GET, 'go');
+
 require_once 'usuario_hdr_i.php'; //returns $con
 require_once 'pdoConnect.php';
+
 $pdoc = new pdoConnect();
 $pdo  = $pdoc->dbConnectUser();
+$mytipo = $pdoc->getTipo();
 /*
 if ($detect->isMobile()) {
     header("Location: resumen-mobile.php?capt=" . $capt);
@@ -34,7 +32,6 @@ if (substr($capt, 0, 8) == "practica") {
 if (!empty($mytipo)) {
     $oldgo = '';
 
-    $go = filter_input(INPUT_GET, 'go');
     if ($go == 'ULTIMA') {
         $queryult = "SELECT c_cont FROM historia WHERE c_cvge='" . $capt .
                 "' and c_cont <> '0' ORDER BY d_fech desc, C_hrfi desc LIMIT 1";
