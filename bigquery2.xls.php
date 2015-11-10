@@ -128,7 +128,6 @@ limit 50000
                         <option value="todos" style="font-size:120%;">todos</option>
                         <?php
                         $queryg  = "SELECT distinct c_cvge FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvge
         limit 1000
 	";
@@ -149,7 +148,6 @@ limit 50000
                     ?>
                     <?php
                     $queryc  = "SELECT distinct c_cvba FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvba
         limit 100
 	";
@@ -170,7 +168,6 @@ limit 50000
                     <select name="fecha1">
                         <?php
                         $queryf1  = "SELECT distinct d_fech FROM historia
-        where d_fech>last_day(curdate()-interval 6 month)
         ORDER BY d_fech limit 360";
                         $resultf1 = $pdo->query($queryf1);
                         foreach ($resultf1 as $answerf1) {
@@ -188,7 +185,6 @@ limit 50000
                     <select name="fecha2">
                         <?php
                         $queryf2  = "SELECT distinct d_fech FROM historia
-        where d_fech>last_day(curdate()-interval 6 month)
         ORDER BY d_fech desc limit 60";
                         $resultf2 = $pdo->query($queryf2);
                         foreach ($resultf2 as $answerf2) {
