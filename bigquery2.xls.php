@@ -168,7 +168,7 @@ limit 50000
                     <select name="fecha1">
                         <?php
                         $queryf1  = "SELECT distinct d_fech FROM historia
-        ORDER BY d_fech limit 360";
+        ORDER BY d_fech";
                         $resultf1 = $pdo->query($queryf1);
                         foreach ($resultf1 as $answerf1) {
                             ?>
@@ -185,7 +185,7 @@ limit 50000
                     <select name="fecha2">
                         <?php
                         $queryf2  = "SELECT distinct d_fech FROM historia
-        ORDER BY d_fech desc limit 60";
+        ORDER BY d_fech desc";
                         $resultf2 = $pdo->query($queryf2);
                         foreach ($resultf2 as $answerf2) {
                             ?>
