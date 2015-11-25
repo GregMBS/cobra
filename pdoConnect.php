@@ -95,13 +95,4 @@ class pdoConnect
         $pdo        = $this->dbConnect($querycheck);
         return $pdo;
     }
-
-    /**
-     *
-     * @return string
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
 }
