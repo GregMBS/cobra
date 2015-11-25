@@ -56,6 +56,9 @@ class pdoConnect
         $ticket = filter_input(INPUT_COOKIE, 'auth');
         $capt   = filter_input(INPUT_GET, 'capt');
         if (empty($capt)) {
+            $capt   = filter_input(INPUT_POST, 'capt');
+        }
+        if (empty($capt)) {
             $redirector = "Location: index.php";
             header($redirector);
         }
