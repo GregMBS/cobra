@@ -438,8 +438,16 @@
                     <input type="submit" name="go" value="VISITAS"></form>
                 <form class="buttons" name="rotas" method="get" action=
                       "rotas.php" id="rotas">
-                    <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
+                    <input type="hidden" name="capt" value="<?php echo $capt ?>">
                     <input type="submit" name="go" value="PROMESAS"></form>
+                        <?php
+                if ($hasPic) { ?>
+                    <form action="<?php echo $picFile; ?>">
+                        <input type="submit" value="Foto">
+                    </form>
+                        <?php
+                }
+                    ?>
                 <form class="buttons" name="pagos" method="get" action="pagos.php" id="pagos" target="_blank">
                     <input type="hidden" name="capt" value="<?php
                     if (isset($capt)) {

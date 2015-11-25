@@ -1267,4 +1267,11 @@ foreach ($resultbadno as $answerbadno) {
 $queryCnp = "SELECT status FROM cnp";
 $resultCnp = $pdo->query($queryCnp);
 
+$hasPic = FALSE;
+$picFile = '';
+$path = dirname(__FILE__) . '/pics/'.$numero_de_cuenta.'.jpg';
+if (realpath($path)) {
+    $picFile = $path;
+}
+
 include 'resumenView.php';
