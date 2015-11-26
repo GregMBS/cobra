@@ -25,7 +25,7 @@ if (empty($pdoc)) {
             <p>
                 <input type="hidden" name="capt" id="capt" value="<?php echo $capt ?>" />
                 <label for="file">Filename:</label>
-                <input type="file" name="file" id="file"><br>
+                <input type="file" name="file" id="file" accept="image/jpeg"><br>
                 <label for="cuenta">Cuenta:</label>
                 <input type="text" name="cuenta" id="cuenta"><br>
                 <button type="submit" name="go" value="cargar">Elegir archivo</button>

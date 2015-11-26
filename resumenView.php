@@ -442,7 +442,7 @@
                     <input type="submit" name="go" value="PROMESAS"></form>
                         <?php
                 if ($hasPic) { ?>
-                    <form action="<?php echo $picFile; ?>">
+                    <form action="<?php echo $picFile; ?>" target="_blank">
                         <input type="submit" value="Foto">
                     </form>
                         <?php
