@@ -1272,7 +1272,7 @@ $picFile = '';
 $path = dirname(__FILE__) . '/pics/'.$numero_de_cuenta.'.jpg';
 if (realpath($path)) {
     $hasPic  = TRUE;
-    $picFile = $path;
+    $picFile = 'pics/'.$numero_de_cuenta.'.jpg';
 }
 
 include 'resumenView.php';
