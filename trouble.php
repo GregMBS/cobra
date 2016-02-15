@@ -4,8 +4,8 @@ $pdoc    = new pdoConnect();
 $pdo     = $pdoc->dbConnectUser();
 $capt    = filter_input(INPUT_GET, 'capt');
 $sistema = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
-$get     = filter_input_array(INPUT_GET);
 $go      = filter_input(INPUT_GET, 'go');
+$ccont   = filter_input(INPUT_GET, 'C_CONT');
 if ($go == 'ENVIAR') {
     $fechahora   = date('Y-m-d H:i:s');
     $fuente      = filter_input(INPUT_GET, 'fuente');
@@ -59,7 +59,7 @@ Sin embargo, espero:
 
             </textarea><br>
             <span class="formcap">Error mensajes (texto <em>EXACTO</em>)</span><textarea rows="2" cols="40" name="error_msg"></textarea><br>
-            <input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $go['C_CONT']; ?> /><br>
+            <input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $C_CONT; ?> /><br>
             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> /><br>
             <input type="submit" name="go" value="ENVIAR">
         </form>
