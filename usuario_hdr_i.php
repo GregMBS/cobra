@@ -8,12 +8,11 @@ $con     = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_err
 set_time_limit(300);
 $cookie  = filter_input_array(INPUT_COOKIE);
 $get  = filter_input_array(INPUT_GET);
+$icapt = filter_input(INPUT_GET, 'capt');
 if (isset($cookie['auth'])) {
     $ticket = mysqli_real_escape_string($con, $cookie['auth']);
     $mytipo = '';
-    if (!empty($get['capt'])) {
-        $capt = mysqli_real_escape_string($con, $get['capt']);
-    }
+    $capt = mysqli_real_escape_string($con, $icapt);
     $queryg  = "SELECT usuaria,tipo FROM nombres join grupos on tipo=grupo WHERE iniciales = '".$capt."';";
     $resultg = mysqli_query($con, $queryg) or die("ERROR UHM2 - ".mysqli_error($con));
     while ($answerg = mysqli_fetch_row($resultg)) {
