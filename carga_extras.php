@@ -217,7 +217,7 @@ else {
                     $resultins = mysql_query($queryins) or die(mysql_error());
                 }
             
-            $querydrop = "DROP TABLE IF EXISTS `cobra`.`inftemp`;";
+            $querydrop = "DROP TABLE IF EXISTS `cobra4`.`inftemp`;";
             $resultdrop = mysql_query($querydrop) or die(mysql_error());
             $querydex = "select * from extradex;";
             $resultdex = mysql_query($querydex) or die(mysql_error());
@@ -230,7 +230,7 @@ else {
                 $c++;
                 set_time_limit(300);
             }
-            $querystart = "CREATE TABLE  `cobra`.`inftemp` (";
+            $querystart = "CREATE TABLE  `cobra4`.`inftemp` (";
             $queryend = "`fecha_de_actualizacion` date
 ) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;";
             
@@ -253,7 +253,7 @@ else {
 //            mysql_query($queryindex) or die(mysql_error());
             $filename = str_replace("\\", "/", $filename);
             $quote='"';
-            $queryload = "LOAD DATA LOCAL INFILE '" . $filename . "' INTO TABLE cobra.inftemp FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '".$quote."' LINES TERMINATED BY '\n';";
+            $queryload = "LOAD DATA LOCAL INFILE '" . $filename . "' INTO TABLE cobra4.inftemp FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '".$quote."' LINES TERMINATED BY '\n';";
             $resultload = mysql_query($queryload) or die(mysql_error());
             $queryfcont = "show fields from inftemp 
 where field not regexp '^nousar'

@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pwd = "4sale";
-$db = "cobra";
+$db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = (mysql_connect($host, $user, $pwd)) or die ("Could not connect to MySQL");
 mysql_query("USE $db") or die ("Could not select $db database");
@@ -41,8 +41,8 @@ $fecha=date('Y-m-d',strtotime($data[$i*3+1]));
 $monto=$data[$i*3+2];
 $queryload = "INSERT INTO tempc (cuenta,fecha,monto) VALUES ('".$data[$a]."','".$data[$b]."');";
 mysql_query($queryload) or die(mysql_error());
-$queryload2 = "update cobra.resumen set norobot=0 
-where numero_de_cuenta='".$data[$a]."' and cliente=cobra.q('$msgtag');";
+$queryload2 = "update cobra4.resumen set norobot=0 
+where numero_de_cuenta='".$data[$a]."' and cliente=cobra4.q('$msgtag');";
 mysql_query($queryload2) or die(mysql_error());
 }
             $fields = $_POST['fields'];

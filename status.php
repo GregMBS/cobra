@@ -16,7 +16,7 @@ else {
     $querymain = "show processlist;";
     $result = mysql_query($querymain) or die(mysql_error());
 	$querytab = "SELECT * FROM information_schema.`TABLES` T 
-where table_schema='cobra' 
+where table_schema='cobra4'
 order by data_length desc;";
     $resulttab = mysql_query($querytab) or die(mysql_error());
 ?>

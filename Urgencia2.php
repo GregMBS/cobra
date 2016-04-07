@@ -2,7 +2,7 @@
 $day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");$host = "localhost";
 $user = "root";
 $pswd = "AwRats";
-$db = "cobra";
+$db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = mysql_connect($host,$user,$pswd) or die ("Could not connect to MySQL");
 mysql_select_db($db,$con) or die ("Could not select $db database");

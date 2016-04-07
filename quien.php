@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pwd = "eLaStIx.2oo7";
-$db = "cobra";
+$db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = (mysql_connect($host, $user, $pwd)) or die ("Could not connect to MySQL");
 mysql_query("USE $db") or die ("Could not select $db database");

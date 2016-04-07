@@ -16,7 +16,7 @@ $wherestring=$wherestring.' AND id = "'.$id.'"';
 if (!empty($tel)) {$wherestring=$wherestring.' AND tel="'.$tel.'"';}
 $querydel="UPDATE robot.calllist SET camp=0 WHERE ".$wherestring;
 mysql_query($querydel);
-$querydel2="update cobra.resumen set norobot=1 WHERE ".$wherestring;
+$querydel2="update cobra4.resumen set norobot=1 WHERE ".$wherestring;
 mysql_query($querydel2);
 }
 ?>

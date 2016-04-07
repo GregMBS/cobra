@@ -9,10 +9,10 @@ $conf = array (
       'adapter' => 'mysql',
       'connection' => 
       array (
-        'dsn' => 'mysql:host=localhost;dbname=cobra',
+        'dsn' => 'mysql:host=localhost;dbname=cobra4',
         'user' => 'root',
         'password' => '4sale',
-        'database' => 'cobra',
+        'database' => 'cobra4',
         'settings' => 
         array (
           'charset' => 

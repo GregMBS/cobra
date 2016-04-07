@@ -27,8 +27,8 @@ if (!empty($tels)) {
 foreach ($tels as $tel) {
 $query1="insert into robot.calllist (tel,id,msg,turno) 
 select distinct right(".$tel.",8),numero_de_cuenta,msg,".$fields[$h]." 
-from cobra.resumen 
-left join cobra.historia on ".$tel."=c_tele
+from cobra4.resumen 
+left join cobra4.historia on ".$tel."=c_tele
 join dictamenes on status_aarsa=dictamen 
 join robot.msglist on client=cliente
 where length(".$tel.")=10 and left(".$tel.",2)=81
@@ -44,8 +44,8 @@ mysql_query($query1) or die(mysql_error());
 }
 $query2="insert into robot.calllist (tel,id,msg,turno) 
 select distinct ".$tel.",numero_de_cuenta,msg,".$fields[$h]." 
-from cobra.resumen 
-left join cobra.historia on ".$tel."=c_tele
+from cobra4.resumen 
+left join cobra4.historia on ".$tel."=c_tele
 join dictamenes on status_aarsa=dictamen 
 join robot.msglist on client=cliente
 where length(".$tel.")=10 and left(".$tel.",2)<>81
@@ -62,9 +62,9 @@ mysql_query($query2) or die(mysql_error());
 if ($queue=='ACTUALIZADOS') {
 $query3="insert into robot.calllist (tel,id,msg,turno) 
 select distinct right(tel_1_verif,8),numero_de_cuenta,msg,".$fields[$h]." 
-from cobra.resumen 
-left join cobra.historia on tel_1_verif=c_tele
-join cobra.dictamenes on status_aarsa=dictamen 
+from cobra4.resumen 
+left join cobra4.historia on tel_1_verif=c_tele
+join cobra4.dictamenes on status_aarsa=dictamen 
 join robot.msglist on client=cliente
 where (status_de_credito = '".$sdc."') 
 AND (cliente=client)
@@ -81,9 +81,9 @@ mysql_query($query3) or die(mysql_error());
 }
 $query4="insert into robot.calllist (tel,id,msg,turno) 
 select distinct tel_1_verif,numero_de_cuenta,msg,".$fields[$h]." 
-from cobra.resumen 
-left join cobra.historia on tel_1_verif=c_tele
-join cobra.dictamenes on status_aarsa=dictamen 
+from cobra4.resumen 
+left join cobra4.historia on tel_1_verif=c_tele
+join cobra4.dictamenes on status_aarsa=dictamen 
 join robot.msglist on client=cliente
 where (status_de_credito = '".$sdc."') 
 AND (cliente=client)

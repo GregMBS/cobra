@@ -48,7 +48,7 @@ order by h1.c_cont,pagos.fecha
 	/* Database connection information */
 	$gaSql['user']       = "root";
 	$gaSql['password']   = "AwRats";
-	$gaSql['db']         = "cobra";
+	$gaSql['db']         = "cobra4";
 	$gaSql['server']     = "localhost";
 	
 	

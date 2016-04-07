@@ -244,22 +244,22 @@ where c_cvst='pago total'
 and d_fech>last_day(curdate()-interval 2 month)
 and d_fech<=last_day(curdate()-interval 1 month))";
         mysqli_query($con, $querysa1a) or die("ERROR EM5aa - " . mysqli_error($con));
-        $querysa2 = "update cobra.resumen set status_aarsa='PROMESA INCUMPLIDA' 
-where id_cuenta not in (select c_cont from cobra.historia where n_prom>0 
+        $querysa2 = "update cobra4.resumen set status_aarsa='PROMESA INCUMPLIDA' 
+where id_cuenta not in (select c_cont from cobra4.historia where n_prom>0 
 and d_prom>curdate()) 
-and id_cuenta in (select c_cont from cobra.historia where n_prom>0 
+and id_cuenta in (select c_cont from cobra4.historia where n_prom>0 
 and d_prom<curdate()) and id_cuenta=" . $C_CONT . " 
 and id_cuenta not in 
-(select id_cuenta from cobra.pagos where fecha>last_day(curdate()-interval 1 month)) 
+(select id_cuenta from cobra4.pagos where fecha>last_day(curdate()-interval 1 month)) 
 and (status_aarsa like 'PROM%' or status_aarsa like 'CONFIRMA P%');";
         mysqli_query($con, $querysa2) or die("ERROR EM5b - " . mysqli_error($con));
-        $querysa3 = "update cobra.resumen set status_aarsa='PROPUESTA INCUMPLIDA' 
-where id_cuenta not in (select c_cont from cobra.historia where n_prom>0 
+        $querysa3 = "update cobra4.resumen set status_aarsa='PROPUESTA INCUMPLIDA' 
+where id_cuenta not in (select c_cont from cobra4.historia where n_prom>0 
 and d_prom>curdate())  and id_cuenta=" . $C_CONT . " 
-and id_cuenta in (select c_cont from cobra.historia where n_prom>0 
+and id_cuenta in (select c_cont from cobra4.historia where n_prom>0 
 and d_prom<curdate()) 
 and id_cuenta not in 
-(select id_cuenta from cobra.pagos where fecha>last_day(curdate()-interval 1 month))  
+(select id_cuenta from cobra4.pagos where fecha>last_day(curdate()-interval 1 month))  
 and status_aarsa in ('propuesta de pago','propuesta hoy');";
         mysqli_query($con, $querysa3) or die("ERROR EM5c - " . mysqli_error($con));
         if (!empty($C_NTEL)) {

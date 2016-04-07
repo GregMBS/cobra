@@ -3,7 +3,7 @@ setlocale(LC_ALL, 'es_MX');
 $host = "localhost";
 $user = "root";
 $pwd = "4sale";
-$db = "cobra";
+$db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = (mysql_connect($host, $user, $pwd)) or die ("Could not connect to MySQL");
 mysql_query("USE $db") or die ("Could not select $db database");

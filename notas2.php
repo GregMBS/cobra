@@ -9,7 +9,7 @@
 $host = "localhost";
 $user = "admin";
 $pswd = "AwRats";
-$db = "cobra";
+$db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = mysql_connect($host,$user,$pswd) or die ("Could not connect to MySQL");
 mysql_select_db($db,$con) or die ("Could not select $db database");
@@ -29,10 +29,10 @@ $HORA=mysql_real_escape_string($_GET['HORA']).':00';
 }
 $NOTA=mysql_real_escape_string($_GET['NOTA']);
 $FECHA=mysql_real_escape_string($_GET['FECHA']);
-$querybor = "UPDATE cobra.notas SET borrado=1 
+$querybor = "UPDATE cobra4.notas SET borrado=1 
 WHERE c_cvge='".$capt."' and c_cont='".$C_CONT."'";
 mysql_query($querybor) or die (mysql_error());
-$queryins = "INSERT INTO cobra.notas (C_CVGE,fuente,D_FECH,C_HORA,FECHA,HORA,NOTA,CUENTA,C_CONT) 
+$queryins = "INSERT INTO cobra4.notas (C_CVGE,fuente,D_FECH,C_HORA,FECHA,HORA,NOTA,CUENTA,C_CONT) 
 VALUES ('$capt','$capt',date('$D_FECH'),'$C_HORA','$FECHA','$HORA','$NOTA','0','$C_CONT')";
 mysql_query($queryins) or die (mysql_error());
 $queryfix = "update notas, resumen 
@@ -44,7 +44,7 @@ header($redirector);
 };
 if ($_GET['go']=='BORRAR') {
 $AUTO=mysql_real_escape_string($_GET['which']);
-$queryins = "UPDATE cobra.notas set borrado=1 where AUTO='$AUTO' and C_CVGE='$capt'";
+$queryins = "UPDATE cobra4.notas set borrado=1 where AUTO='$AUTO' and C_CVGE='$capt'";
 mysql_query($queryins) or die (mysql_error());
 $redirector = "Location: notas.php?capt=".$capt."&go=FROMBORRAR";
 header($redirector);

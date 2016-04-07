@@ -241,7 +241,7 @@ enctype="multipart/form-data" name="cargar">
                     $resultins = mysql_query($queryins) or die(mysql_error());
                 }
             }
-            $querydrop = "DROP TABLE IF EXISTS `cobra`.`temp`;";
+            $querydrop = "DROP TABLE IF EXISTS `cobra4`.`temp`;";
             $resultdrop = mysql_query($querydrop) or die(mysql_error());
             $querydex = "select * from cargadex where cliente='" . $cliente . "';";
             $resultdex = mysql_query($querydex) or die(mysql_error());
@@ -254,7 +254,7 @@ enctype="multipart/form-data" name="cargar">
                 $c++;
                 set_time_limit(300);
             }
-            $querystart = "CREATE TABLE  `cobra`.`temp` (";
+            $querystart = "CREATE TABLE  `cobra4`.`temp` (";
             $queryend = "`cliente` varchar(255), `fecha_de_asignacion` date,
 			`fecha_de_actualizacion` date
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;";
@@ -275,7 +275,7 @@ enctype="multipart/form-data" name="cargar">
             $resultcr = mysql_query($querystart . $queryend) or die(mysql_error());
             $filename = str_replace("\\", "/", $filename);
             $quote='"';
-            $queryload = "LOAD DATA LOCAL INFILE '" . $filename . "' INTO TABLE cobra.temp FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '".$quote."' LINES TERMINATED BY '\n';";
+            $queryload = "LOAD DATA LOCAL INFILE '" . $filename . "' INTO TABLE cobra4.temp FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '".$quote."' LINES TERMINATED BY '\n';";
             $resultload = mysql_query($queryload) or die(mysql_error());
             $querycff = "UPDATE temp set cliente='" . $cliente . "',fecha_de_asignacion='" . $fecha_de_asignacion . "',fecha_de_actualizacion='" . $fecha_de_actualizacion . "';";
             $resultcff = mysql_query($querycff) or die(mysql_error());

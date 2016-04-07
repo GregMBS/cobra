@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pwd = "4sale";
-$db = "cobra";
+$db = "cobra4";
 $con = mysql_connect($host,$user,$pwd) or die ("Could not connect to MySQL");
 mysql_select_db($db,$con) or die ("Could not select $db database");
 $C_CONT = mysql_real_escape_string($_REQUEST['C_CONT']);

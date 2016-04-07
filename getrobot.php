@@ -9,7 +9,7 @@ $qfield="'".$field."'";
 $find=mysql_real_escape_string($_REQUEST['find']);
 
 $query="SELECT distinct ".$field." FROM robot.calllist 
-JOIN cobra.rlook on id=numero_de_cuenta
+JOIN cobra4.rlook on id=numero_de_cuenta
 WHERE  ".$field." REGEXP '".$find."' ORDER BY ".$field." LIMIT 10;";
 $result=mysql_query($query);
 while ($row=mysql_fetch_row($result)) {

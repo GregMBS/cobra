@@ -202,7 +202,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                             $resultins = mysql_query($queryins) or die('Load cargadex: '.mysql_error());
                         }
                     }
-                    $querydrop = "DROP TABLE IF EXISTS `cobra`.`temp`;";
+                    $querydrop = "DROP TABLE IF EXISTS `cobra4`.`temp`;";
                     mysql_query($querydrop) or die(mysql_error());
                     $querydex  = "select * from cargadex where cliente='".$cliente."';";
                     $resultdex = mysql_query($querydex) or die(mysql_error());
@@ -214,7 +214,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                         $c++;
                         set_time_limit(300);
                     }
-                    $querystart = "CREATE TABLE  `cobra`.`temp` (";
+                    $querystart = "CREATE TABLE  `cobra4`.`temp` (";
                     $queryend   = "`fecha_de_actualizacion` date,
 `originacion` varchar(255)
 ) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;";
@@ -240,7 +240,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                         while (($data = fgetcsv($handle, 1000, ',', '"')) !== FALSE) {
                             if ($n == 0) {
                                 $header    = $data;
-                                $queryload = "INSERT INTO cobra.temp (".implode(",",
+                                $queryload = "INSERT INTO cobra4.temp (".implode(",",
                                         $header).") VALUES ";
                             }
                             if ($n > 0) {
@@ -325,9 +325,9 @@ and fecha_de_ultimo_pago<fecha_de_actualizacion
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
                     mysql_query($querypagoins) or die(mysql_error());
-                    $queryrlist1  = "truncate cobra.rlook;";
+                    $queryrlist1  = "truncate cobra4.rlook;";
                     mysql_query($queryrlist1) or die(mysql_error());
-                    $queryrlist2  = "insert into cobra.rlook
+                    $queryrlist2  = "insert into cobra4.rlook
 select id_cuenta,numero_de_cuenta,nombre_deudor,cliente,status_de_credito,
 nombre_referencia_1,nombre_referencia_2,nombre_referencia_3,nombre_referencia_4,
 tel_1,tel_2,tel_3,tel_4,
@@ -338,7 +338,7 @@ tel_1_ref_2,tel_2_ref_2,
 tel_1_ref_3,tel_2_ref_3,
 tel_1_ref_4,tel_2_ref_4,
 tel_1_laboral,tel_2_laboral,telefonos_marcados
-from cobra.resumen;
+from cobra4.resumen;
 ";
                     mysql_query($queryrlist2) or die(mysql_error());
                 }

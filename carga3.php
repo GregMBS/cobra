@@ -225,7 +225,7 @@ else {
                     $resultins = mysql_query($queryins) or die(mysql_error());
                 }
             }
-            $querydrop = "DROP TABLE IF EXISTS `cobra`.`temp`;";
+            $querydrop = "DROP TABLE IF EXISTS `cobra4`.`temp`;";
             $resultdrop = mysql_query($querydrop) or die(mysql_error());
             $querydex = "select position,field,type,ktable from cargadex;";
             $resultdex = mysql_query($querydex) or die(mysql_error());
@@ -239,7 +239,7 @@ else {
                 $c++;
                 set_time_limit(300);
             }
-            $querystart = "CREATE TABLE  `cobra`.`temp` (";
+            $querystart = "CREATE TABLE  `cobra4`.`temp` (";
             $queryend = "`fecha_de_actualizacion` date
 ) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;";
             
@@ -262,7 +262,7 @@ else {
             mysql_query($queryindex) or die(mysql_error());
             $filename = str_replace("\\", "/", $filename);
             $quote='"';
-            $queryload = "LOAD DATA LOCAL INFILE '" . $filename . "' INTO TABLE cobra.temp FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '".$quote."' LINES TERMINATED BY '\n';";
+            $queryload = "LOAD DATA LOCAL INFILE '" . $filename . "' INTO TABLE cobra4.temp FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '".$quote."' LINES TERMINATED BY '\n';";
             $resultload = mysql_query($queryload) or die(mysql_error());
             $querycff = "UPDATE temp set fecha_de_actualizacion=curdate();";
             $resultcff = mysql_query($querycff) or die(mysql_error());
@@ -370,9 +370,9 @@ where h2.d_fech>h1.d_fech and h2.c_cont=h1.c_cont and h2.n_prom>0)
 and fecha_de_ultimo_pago<fecha_de_actualizacion 
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)";
 mysql_query($querypagoins) or die(mysql_error());
-            $queryrlist1="truncate cobra.rlook;";
+            $queryrlist1="truncate cobra4.rlook;";
             mysql_query($queryrlist1) or die(mysql_error());
-            $queryrlist2="insert into cobra.rlook
+            $queryrlist2="insert into cobra4.rlook
 select id_cuenta,numero_de_cuenta,nombre_deudor,cliente,status_de_credito,
 nombre_referencia_1,nombre_referencia_2,nombre_referencia_3,nombre_referencia_4,
 tel_1,tel_2,tel_3,tel_4,
@@ -383,7 +383,7 @@ tel_1_ref_2,tel_2_ref_2,
 tel_1_ref_3,tel_2_ref_3,
 tel_1_ref_4,tel_2_ref_4,
 tel_1_laboral,tel_2_laboral,telefonos_marcados
-from cobra.resumen;
+from cobra4.resumen;
 ";
 mysql_query($queryrlist2) or die(mysql_error());        }
     }

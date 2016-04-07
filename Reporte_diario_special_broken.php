@@ -11,8 +11,8 @@ $adjust='';
 //last day saturday	
 $adjust='-interval 1 day';
 
-$querydrop="DROP TABLE IF EXISTS	`cobra`.`gmbtemp`;";
-$querymake="CREATE TABLE `cobra`.`gmbtemp` (
+$querydrop="DROP TABLE IF EXISTS	`cobra4`.`gmbtemp`;";
+$querymake="CREATE TABLE `cobra4`.`gmbtemp` (
   `gestor` varchar(255)  NOT NULL,
   `pagando` decimal(10,2) ,
   `liquidado` decimal(10,2) ,
@@ -32,8 +32,8 @@ $querynames="insert into gmbtemp (gestor) select distinct c_cvge from historia
 where greatest(d_prom1,d_prom2)>last_day(curdate()-interval 1 month)".$adjust." 
 order by c_cvge;";
 $querylist="select gestor from gmbtemp order by gestor;";
-$querydrop2="DROP TABLE IF EXISTS `cobra`.`gmbtemp2`;";
-$querymake2="CREATE TABLE `cobra`.`gmbtemp2` (
+$querydrop2="DROP TABLE IF EXISTS `cobra4`.`gmbtemp2`;";
+$querymake2="CREATE TABLE `cobra4`.`gmbtemp2` (
   `cliente` varchar(255)  NOT NULL,
   `pagando` decimal(10,2) ,
   `liquidado` decimal(10,2) ,
@@ -125,8 +125,8 @@ where h1.c_cont=h2.c_cont and h1.auto<h2.auto and h2.n_prom>0)
 and not exists 
 (select auto from pagos 
 where h1.c_cont=id_cuenta and fecha>last_day(curdate()-interval 1 month)".$adjust." );";
-$querydrop3="DROP TABLE IF EXISTS `cobra`.`gmbtemp3`;";
-$querymake3="CREATE TABLE `cobra`.`gmbtemp3` (
+$querydrop3="DROP TABLE IF EXISTS `cobra4`.`gmbtemp3`;";
+$querymake3="CREATE TABLE `cobra4`.`gmbtemp3` (
   `cliente` varchar(50)  NOT NULL,
   `sdc` varchar(50)  NOT NULL,
   `pagando` decimal(10,2) ,
@@ -149,8 +149,8 @@ where d_fech>last_day(curdate()-interval 1 month)".$adjust."
 and c_cont=id_cuenta
 order by c_cvba,status_de_credito;";
 $querylist3="select cliente,sdc from gmbtemp3 order by cliente,sdc;";
-$querydrop4="DROP TABLE IF EXISTS `cobra`.`gmbtemp4`;";
-$querymake4="CREATE TABLE `cobra`.`gmbtemp4` (
+$querydrop4="DROP TABLE IF EXISTS `cobra4`.`gmbtemp4`;";
+$querymake4="CREATE TABLE `cobra4`.`gmbtemp4` (
   `cliente` varchar(50)  NOT NULL,
   `sdc` varchar(50)  NOT NULL,
   `producto` varchar(50)  NOT NULL,

@@ -9,15 +9,15 @@ if (!empty($_GET['go'])) {
 $wherestr='';
 $cliente=mysql_real_escape_string($_GET['cliente']);
 if (!empty($cliente)) {
-$wherestring=$wherestring.' id IN (select id_cuenta from cobra.resumen where cliente="'.$cliente.'")';
+$wherestring=$wherestring.' id IN (select id_cuenta from cobra4.resumen where cliente="'.$cliente.'")';
 }
 $nombre=mysql_real_escape_string($_GET['nombre']);
 if (!empty($nombre)) {
-$wherestring=$wherestring.' AND id IN (select id_cuenta from cobra.resumen where nombre_deudor="'.$nombre.'")';
+$wherestring=$wherestring.' AND id IN (select id_cuenta from cobra4.resumen where nombre_deudor="'.$nombre.'")';
 }
 $cuenta=mysql_real_escape_string($_GET['cuenta']);
 if (!empty($cuenta)) {
-$wherestring=$wherestring.' AND id IN (select id_cuenta from cobra.resumen where numero_de_cuenta="'.$cuenta.'")';
+$wherestring=$wherestring.' AND id IN (select id_cuenta from cobra4.resumen where numero_de_cuenta="'.$cuenta.'")';
 }
 $tel=mysql_real_escape_string($_GET['tel']);
 if (!empty($tel)) {$wherestring=$wherestring.' AND tel="'.$tel.'"';}
@@ -29,7 +29,7 @@ header($redirector);
 if (empty($_POST['go'])) {
 $i=0;
 $query="select id_cuenta,tel,msg,id,nombre_deudor 
-from robot.calllist join cobra.resumen on id=numero_de_cuenta;";
+from robot.calllist join cobra4.resumen on id=numero_de_cuenta;";
 $result = mysql_query($query) or die(mysql_error());
 while($row = mysql_fetch_row($result)) {
 $cuenta[$i]=$row[3];$nombre[$i]=$row[4];
@@ -62,7 +62,7 @@ $i++;
 <p>Nombre <select name="nombre">
 <?php
 $query = "SELECT DISTINCT nombre_deudor FROM robot.calllist 
-JOIN cobra.resumen on id=id_cuenta ORDER BY nombre_deudor;";
+JOIN cobra4.resumen on id=id_cuenta ORDER BY nombre_deudor;";
 $result = mysql_query($query);
 ?>  
 <option value=""></option>
@@ -78,7 +78,7 @@ $result = mysql_query($query);
 <p>Cuenta <select name="cuenta">
 <?php
 $query = "SELECT DISTINCT numero_de_cuenta FROM robot.calllist 
-JOIN cobra.resumen on id=id_cuenta ORDER BY numero_de_cuenta+0;";
+JOIN cobra4.resumen on id=id_cuenta ORDER BY numero_de_cuenta+0;";
 $result = mysql_query($query);
 ?>  
 <option value=""></option>

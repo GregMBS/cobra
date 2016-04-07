@@ -5,8 +5,8 @@ while ($answercheck=mysql_fetch_row($resultcheck)) {
 if ($answercheck[0]!=1) {}
 else {
 	$now=date("Y-m-d");
-$querydrop="DROP TABLE IF EXISTS	`cobra`.`gmbtemp`;";
-$querymake="CREATE TABLE `cobra`.`gmbtemp` (
+$querydrop="DROP TABLE IF EXISTS	`cobra4`.`gmbtemp`;";
+$querymake="CREATE TABLE `cobra4`.`gmbtemp` (
   `gestor` varchar(255)  NOT NULL,
   `pagando` decimal(10,2) ,
   `liquidado` decimal(10,2) ,
@@ -24,8 +24,8 @@ CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 ";
 $querynames="insert into gmbtemp (gestor) select iniciales from nombres order by iniciales;";
 $querylist="select gestor from gmbtemp order by gestor;";
-$querydrop2="DROP TABLE IF EXISTS `cobra`.`gmbtemp2`;";
-$querymake2="CREATE TABLE `cobra`.`gmbtemp2` (
+$querydrop2="DROP TABLE IF EXISTS `cobra4`.`gmbtemp2`;";
+$querymake2="CREATE TABLE `cobra4`.`gmbtemp2` (
   `cliente` varchar(255)  NOT NULL,
   `pagando` decimal(10,2) ,
   `liquidado` decimal(10,2) ,

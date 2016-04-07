@@ -13,10 +13,10 @@ if (filter_has_var(INPUT_GET, 'go')) {
         $cliente .= ' AND id=:cliente ';
     }
     if (!empty($nombre_deudor)) {
-        $wherestring .= ' AND id IN (select numero_de_cuenta from cobra.resumen where nombre_deudor=:nombre_deudor) ';
+        $wherestring .= ' AND id IN (select numero_de_cuenta from cobra4.resumen where nombre_deudor=:nombre_deudor) ';
     }
     if (!empty($id)) {
-        $wherestring .= ' AND id IN (select numero_de_cuenta from cobra.resumen where numero_de_cuenta=:id) ';
+        $wherestring .= ' AND id IN (select numero_de_cuenta from cobra4.resumen where numero_de_cuenta=:id) ';
     }
     if (!empty($tel)) {
         $wherestring .= ' AND tel=:tel ';

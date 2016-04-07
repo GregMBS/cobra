@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pwd = "4sale";
-$db = "cobra";
+$db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = (mysql_connect($host, $user, $pwd)) or die ("Could not connect to MySQL");
 mysql_query("USE $db") or die ("Could not select $db database");
@@ -100,7 +100,7 @@ CLIENTE:&nbsp;<?php echo $CLIENTE?>
 </table>
 <?php 
 $querysub = "SELECT fecha,monto,confirmado 
-FROM cobra.pagos 
+FROM cobra4.pagos 
 WHERE cuenta='".$CUENTA."' AND cliente='".$CLIENTE."'  
 ORDER BY fecha";
                 $rowsub = mysql_query($querysub);

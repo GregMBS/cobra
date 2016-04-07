@@ -11,14 +11,14 @@ if (!empty($_POST['capt']))
 {
     $capt = mysql_real_escape_string($_POST['capt']);
 }
-            $queryins = "insert into cobra.historia (c_tele, d_fech, c_hrin, c_cont, 
+            $queryins = "insert into cobra4.historia (c_tele, d_fech, c_hrin, c_cont, 
             cuenta,c_cvba,c_cvst,c_obse1,c_cvge,c_accion,d_prom,n_prom,c_camp)
             select tel, DATE_FORMAT(fechahora, '%X-%m-%d'), 
             DATE_FORMAT(fechahora, '%H:%i:%s'), id_cuenta, numero_de_cuenta, client, 
             'MENSAJE EN BUZON',concat_ws(' ','MENSAJE EN BUZON',DATE_FORMAT(fechahora, '%H:%i:%s'),tel,DATE_FORMAT(fechahora, '%X-%m-%d')),
             'Milt','LLAMADA A DOMICILIO','2008-01-01',0,camp 
             from robot.calllog join robot.msglist using (msg) 
-            join cobra.resumen on id=numero_de_cuenta and client=cliente;";
+            join cobra4.resumen on id=numero_de_cuenta and client=cliente;";
             mysql_query($queryins) or die(mysql_error());
             $queryt = "truncate robot.calllog;";
             mysql_query($queryt) or die(mysql_error());

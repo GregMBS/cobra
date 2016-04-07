@@ -71,8 +71,8 @@ $a=$i*2;
 $b=$i*2+1;
 $queryload = "INSERT INTO robot.tempc (id,tel) VALUES ('".$data[$a]."','".$data[$b]."');";
 mysql_query($queryload) or die(mysql_error());
-$queryload2 = "update cobra.resumen set norobot=0 
-where numero_de_cuenta='".$data[$a]."' and cliente=cobra.q('$msgtag');";
+$queryload2 = "update cobra4.resumen set norobot=0 
+where numero_de_cuenta='".$data[$a]."' and cliente=cobra4.q('$msgtag');";
 mysql_query($queryload2) or die(mysql_error());
 }
             $fields = $_POST['fields'];

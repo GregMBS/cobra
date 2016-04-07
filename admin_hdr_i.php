@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pwd = "4sale";
-$db = "cobra";
+$db = "cobra4";
 $con = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_error($con));
 	 set_time_limit(300);
 $ticket=mysqli_real_escape_string($con,$_COOKIE['auth']);

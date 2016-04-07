@@ -96,9 +96,9 @@ where h1.c_cont=h2.c_cont and h1.auto<h2.auto and h2.n_prom>0)
 and not exists 
 (select auto from pagos 
 where h1.c_cont=id_cuenta and fecha>'".$lbd0."');";
-$querydrop="DROP TABLE IF EXISTS `cobra`.`gmbtemp`;";
+$querydrop="DROP TABLE IF EXISTS `cobra4`.`gmbtemp`;";
 mysql_query($querydrop) or die (mysql_error());
-$querymake="CREATE TABLE `cobra`.`gmbtemp` (
+$querymake="CREATE TABLE `cobra4`.`gmbtemp` (
   `gestor` varchar(50)  NOT NULL,
   `cliente` varchar(50)  NOT NULL,
   `sdc` varchar(50)  NOT NULL,

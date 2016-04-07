@@ -9,7 +9,7 @@ $qfield="'".$field."'";
 $find=mysql_real_escape_string($_REQUEST['find']);
 
 $query="SELECT distinct ".$field." FROM robot.calllist 
-JOIN cobra.resumen on id=numero_de_cuenta
+JOIN cobra4.resumen on id=numero_de_cuenta
 WHERE  ".$field." LIKE '".$find."%' LIMIT 10;";
 $result=mysql_query($query);
 echo "<xml>";

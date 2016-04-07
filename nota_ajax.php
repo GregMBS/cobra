@@ -2,13 +2,13 @@
 $host = "localhost";
 $user = "admin";
 $pswd = "AwRats";
-$db = "cobra";
+$db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = mysql_connect($host,$user,$pswd) or die ("Could not connect to MySQL");
 mysql_select_db($db,$con) or die ("Could not select $db database");
 $capt=mysql_real_escape_string($_GET['capt']);
 $query = "SELECT auto,fecha,hora,nota,c_cvge,cuenta,c_cont 
-FROM cobra.notas WHERE (c_cvge='.$capt.' OR c_cvge='todos') AND borrado=0 
+FROM cobra4.notas WHERE (c_cvge='.$capt.' OR c_cvge='todos') AND borrado=0 
 ORDER BY fecha desc,hora desc";
 $result = mysql_query($query);
  

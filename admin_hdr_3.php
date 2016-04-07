@@ -16,6 +16,6 @@ if (!empty($_POST['capt']))
 {
     $capt = mysql_real_escape_string($_POST['capt']);
 }
-$querycheck="SELECT count(1) FROM cobra.nombres WHERE ticket='".$ticket."' AND iniciales='".$capt."' AND tipo='admin';";
+$querycheck="SELECT count(1) FROM cobra4.nombres WHERE ticket='".$ticket."' AND iniciales='".$capt."' AND tipo='admin';";
 $resultcheck=mysql_query($querycheck);
 ?>

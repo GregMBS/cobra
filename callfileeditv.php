@@ -10,7 +10,7 @@ $cliente=mysql_real_escape_string($_GET['cliente']);
 $wherestring=$wherestring.' msg IN (select msg from robot.msglist where client="'.$cliente.'")';
 $nombre=mysql_real_escape_string($_GET['nombre']);
 if (!empty($nombre)) {
-$wherestring=$wherestring.' AND id IN (select numero_de_cuenta from cobra.resumen where nombre_deudor="'.$nombre.'")';
+$wherestring=$wherestring.' AND id IN (select numero_de_cuenta from cobra4.resumen where nombre_deudor="'.$nombre.'")';
 }
 $cuenta=mysql_real_escape_string($_GET['cuenta']);
 if (!empty($cuenta)) {
@@ -54,7 +54,7 @@ mysql_query($querydel);
 <?php
 $queryv = "SELECT DISTINCT nombre_deudor FROM robot.calllist 
 JOIN robot.msglist USING (msg)
-JOIN cobra.resumen on id=numero_de_cuenta and client=cliente
+JOIN cobra4.resumen on id=numero_de_cuenta and client=cliente
 ORDER BY nombre_deudor;";
 $resultv = mysql_query($queryv);
 ?>  

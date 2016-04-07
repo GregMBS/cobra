@@ -12,7 +12,7 @@ $wherestring=$wherestring.' msg IN (select msg from robot.msglist where client="
 $wherestring2=$wherestring2.' cliente="'.$cliente.'")';
 $nombre=mysql_real_escape_string($_GET['nombre']);
 if (!empty($nombre)) {
-$wherestring=$wherestring.' AND id IN (select numero_de_cuenta from cobra.resumen where nombre_deudor="'.$nombre.'")';
+$wherestring=$wherestring.' AND id IN (select numero_de_cuenta from cobra4.resumen where nombre_deudor="'.$nombre.'")';
 $wherestring2=$wherestring2.' AND nombre_deudor="'.$nombre.'"';
 }
 $cuenta=mysql_real_escape_string($_GET['cuenta']);
@@ -24,7 +24,7 @@ $tel=mysql_real_escape_string($_GET['tel']);
 if (!empty($tel)) {$wherestring=$wherestring.' AND tel="'.$tel.'"';}
 $querydel="DELETE FROM robot.calllist WHERE ".$wherestring;
 mysql_query($querydel);
-$querydel2="update cobra.resumen set norobot=1 WHERE ".$wherestring;
+$querydel2="update cobra4.resumen set norobot=1 WHERE ".$wherestring;
 mysql_query($querydel2);
 }
 ?>

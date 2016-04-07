@@ -5,8 +5,8 @@ while ($answercheck=mysql_fetch_row($resultcheck)) {
 if ($answercheck[0]!=1) {}
 else {
 	$now=date("Y-m-d");
-$querydrop="DROP TABLE 	`cobra`.`gmbtemp`;";
-$querymake="CREATE TABLE `cobra`.`gmbtemp` (
+$querydrop="DROP TABLE 	`cobra4`.`gmbtemp`;";
+$querymake="CREATE TABLE `cobra4`.`gmbtemp` (
   `gestor` varchar(255)  NOT NULL,
   `pagando` decimal(10,2) ,
   `liquidado` decimal(10,2) ,
