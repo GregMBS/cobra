@@ -6,7 +6,7 @@ class pdoConnect {
 
     var $dsn = 'mysql:dbname=cobra4;host=localhost';
     var $user = 'root';
-    var $password = '4sale';
+    var $password = 'DeathSta1';
     var $link;
 
     function __construct() {

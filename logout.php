@@ -1,7 +1,7 @@
 <?php 
 $host = "localhost";
 $user = "root";
-$pwd = "4sale";
+$pwd = "DeathSta1";
 $db = "cobra4";
 $con = mysql_connect($host,$user,$pwd) or die ("Could not connect to MySQL");
 //$con = mysql_connect('localhost') or die ("Could not connect to MySQL");

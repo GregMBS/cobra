@@ -1,7 +1,7 @@
 <?php
 $dbhost	 = "localhost";
 $dbuser	 = "root";
-$dbpass	 = "4sale";
+$dbpass	 = "DeathSta1";
 $dbname	 = "robot";
 $output	 = array();
 try {

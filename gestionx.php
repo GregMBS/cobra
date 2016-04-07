@@ -23,7 +23,7 @@ function validate_not_required($value)
 };
 $host = ":/var/run/mysqld/mysqld.sock";
 $user = "root";
-$pwd = "4sale";
+$pwd = "DeathSta1";
 $db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = (mysql_connect($host, $user, $pwd));

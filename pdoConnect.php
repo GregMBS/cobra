@@ -9,7 +9,7 @@ class pdoConnect
 {
     protected $dsn        = 'mysql:dbname=cobra4;host=localhost';
     protected $username   = "root";
-    protected $passwd     = "4sale";
+    protected $passwd     = "DeathSta1";
     /**
      * @var PDO
      */

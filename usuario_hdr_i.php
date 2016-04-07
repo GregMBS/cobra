@@ -2,7 +2,7 @@
 $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
 $host    = "localhost";
 $user    = "root";
-$pwd     = "4sale";
+$pwd     = "DeathSta1";
 $db      = "cobra4";
 $con     = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_error($con));
 set_time_limit(300);

@@ -15,7 +15,7 @@ class PdoClass {
 
     private $dsn = 'mysql:dbname=cobra4;host=localhost';
     private $user = 'root';
-    private $password = '4sale';
+    private $password = 'DeathSta1';
 
     function getDB() {
         try {

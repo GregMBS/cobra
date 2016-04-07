@@ -1,7 +1,7 @@
 <?php 
 $host = "localhost";
 $user = "root";
-$pswd = "4sale";
+$pswd = "DeathSta1";
 $db = "robot";
 $mysqli = new mysqli($host,$user,$pswd,$db);
 if ($mysqli->connect_error) {

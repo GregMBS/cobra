@@ -2,7 +2,7 @@
 setlocale(LC_ALL, 'es_MX');
 $host = "localhost";
 $user = "root";
-$pwd = "4sale";
+$pwd = "DeathSta1";
 $db = "cobra4";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $con = (mysql_connect($host, $user, $pwd)) or die ("Could not connect to MySQL");
