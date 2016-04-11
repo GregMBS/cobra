@@ -3,26 +3,27 @@ $host = "localhost";
 $user = "root";
 $pwd = "DeathSta1";
 $db = "cobra4";
-$con = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_error($con));
-	 set_time_limit(300);
-$ticket=mysqli_real_escape_string($con,$_COOKIE['auth']);
-$mytipo='';
-if (!empty($_REQUEST['capt'])) 
-{
-    $capt=mysqli_real_escape_string($con,$_REQUEST['capt']);
+$con	 = mysqli_connect($host, $user, $pswd, $db) or die("Could not connect to MySQL");
+$ticket	 = $con->real_escape_string(filter_input(INPUT_COOKIE, 'auth'));
+$capt	 = $con->real_escape_string(filter_input(INPUT_GET, 'capt'));
+if (empty($capt)) {
+	$capt	 = $con->real_escape_string(filter_input(INPUT_POST, 'capt'));
 }
-$queryg = "SELECT usuaria,tipo FROM nombres 
-WHERE tipo='admin' 
-AND iniciales = '$capt'
-AND ticket = '$ticket';";
-$resultg = mysqli_query($con,$queryg) or die("ERROR UHM2 - ".mysqli_error($con));
-while($answerg = mysqli_fetch_row($resultg)) {
-	$mynombre=$answerg[0];
-	$mytipo=$answerg[1];
+if (empty($capt)) {
+	print_r(filter_input_array(INPUT_GET));
+	die();
 }
-if ($mytipo=='') {
-	$page="Location: index.php";
-	header($page);
+$querycheck	 = "SELECT count(1) FROM nombres WHERE ticket=? "
+    ."AND iniciales=? AND tipo='admin';";
+$stc		 = $con->stmt_init();
+$stc->prepare($querycheck);
+$stc->bind_param('ss', $ticket, $capt);
+$stc->execute();
+$stc->bind_result($count);
+while ($stc->fetch()) {
+	if ($count != 1) {
+		$redirector = 'Location: index.php';
+		header($redirector);
+	}
 }
-
-
+$mytipo='admin';
