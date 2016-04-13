@@ -144,9 +144,9 @@ group by id_cuenta ORDER BY d_fech,c_hrin
     <html>
         <head>
             <title>Query de las Promesas/Propuestas</title>
-            <link rel="Stylesheet" href="public/bower_resources/jqueryui/themes/redmond/jquery-ui.css" />
-            <script type="text/javascript" charset="utf8" src="public/bower_resources/jquery/dist/jquery.js"></script>
-            <script type="text/javascript" charset="utf8" src="public/bower_resources/jqueryui/jquery-ui.js"></script>
+            <link rel="Stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" />
+            <script type="text/javascript" charset="utf8" src="bower_components/jquery/dist/jquery.js"></script>
+            <script type="text/javascript" charset="utf8" src="bower_components/jqueryui/jquery-ui.js"></script>
         </head>
         <body>
             <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
