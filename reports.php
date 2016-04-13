@@ -66,7 +66,7 @@ while ($answercheck = mysql_fetch_row($resultcheck)) {
                         <button onclick="window.location = 'perfmesv.php?capt=<?php echo $capt; ?>'">Productividad Visit. Mes Ant.</button>
                         <button onclick="window.location = 'horarios_clean2.php?capt=<?php echo $capt; ?>'">Nomina Confidential</button><br>
                         <button onclick="window.location = 'bigquery2.xls.php?capt=<?php echo $capt; ?>'">Query de las Gestiones XLS</button>
-                        <button onclick="window.location = 'bigprom.xls.php?capt=<?php echo $capt; ?>'">Query de las Promesas XLS</button>
+                        <button onclick="window.location = 'bigproms.php?capt=<?php echo $capt; ?>'">Query de las Promesas XLS</button>
                         <button onclick="window.location = 'inventario.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario XLS</button>
                         <button onclick="window.location = 'inventario-rapid.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLS</button>
                         <button onclick="window.location = 'Reporte_diario_special.php?capt=<?php echo $capt; ?>'">Promesas y Pagos autoconfigurado HTML</button>
