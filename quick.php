@@ -1,62 +1,51 @@
 <?php
-/*
-  include 'elastix.conf';
-
-  $cols=array(0,1,2,7,11);
-  $host = $server;
-  $user = $mysql_user;
-  $pwd = $mysql_pass;
-  $db = $mysql_db;
-
-  if ($elastix==1) {
-  $cone = mysql_connect($host,$user,$pwd);
-  if ($cone) {
-  mysql_select_db($db,$cone) or die ("Could not select $db database");
-  $querycell="SELECT sum(billsec)/60 from cdr
-  where dst like '04___________'
-  and date(calldate)>last_day(curdate()-interval 1 month)";
-  $resultcell=mysql_query($querycell);
-  while ($answercell=mysql_fetch_row($resultcell)) {$celltime=$answercell[0];}
-  mysql_close($cone);
-  }
-  }
- */
-require_once 'pdoConnect.php';
-$pdoc = new pdoConnect();
-$pdo  = $pdoc->dbConnectAdmin();
-$capt = filter_input(INPUT_GET, 'capt');
-$get  = filter_input_array(INPUT_GET);
-
+include('pdoConnect.php');
+$pc     = new pdoConnect();
+$pdo    = $pc->dbConnectAdmin();
+$capt   = filter_input(INPUT_GET, 'capt');
 $folios = 0;
 $errors = 0;
 if ($capt == 'gmbs') {
     $querytrouble  = "select count(1) as ct
-        from trouble  
-        where it_guy is null
-        ;";
+from trouble  
+where it_guy is null
+;";
     $resulttrouble = $pdo->query($querytrouble);
     foreach ($resulttrouble as $answertrouble) {
         $errors = $answertrouble['ct'];
     }
 }
-$fout       = 9999;
-$queryfout  = "select count(distinct folio) as folct
-        from folios  
-        where usado = 0 
-        and enviado = 0 
-        and cliente like 'Credito Si%' 
-        ;";
-$resultfout = $pdo->query($queryfout);
-foreach ($resultfout as $answerfout) {
-    $fout = $answerfout['folct'];
-}
+/*
+  $fout       = 9999;
+  $queryfout  = "select count(distinct folio) as ct
+  from folios
+  where usado=0
+  and enviado=0 and cliente like 'Credito Si%'
+  ;";
+  $resultfout = $pdo->query($queryfout);
+  foreach ($resultfout as $answerfout) {
+  $fout = $answerfout['ct'];
+  }
+ */
+include 'quickAhoraClass.php';
+$qa           = new QuickAhoraClass($pdo);
+$resultAhora  = $qa->getAhora();
+include 'quickHoyClass.php';
+$qh           = new QuickHoyClass($pdo);
+$resultHoy    = $qh->getHoy();
+include 'quickBreaksClass.php';
+$qb           = new QuickBreaksClass($pdo);
+$resultBreaks = $qb->getBreaks();
+include 'quickPorHoraClass.php';
+$qp           = new QuickPorHoraClass($pdo);
+$resultPorHora = $qp->getPorHora();
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Quick Performance</title>
+        <title>Tiempo Real</title>
         <meta http-equiv="refresh" content="60"/>
-        <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/jquery.dataTables.css">
         <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
         <script src="bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -64,6 +53,7 @@ foreach ($resultfout as $answerfout) {
         <style>
             tr.odd { background-color: white }
             tr.even { background-color: #dddddd }
+            .alert { background-color: red }
         </style>
     </head>
     <body>
@@ -71,51 +61,6 @@ foreach ($resultfout as $answerfout) {
             $(function () {
                 $("#tab").tabs();
                 $("body").css("font-size", "10pt");
-                $(".rightnow a,#pbx,input[submit],button").button();
-                $('#AHORAtab').dataTable({
-                    "sAjaxSource": "quick_ahora_ajax.php",
-                    "bPaginate": false,
-                    "bLengthChange": false,
-                    "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                        url = 'logout.php?gone=forgot&capt=' + aData[0];
-                        if (aData[10] === aData[0]) {
-                            $('td:eq(10)', nRow).html('<a href=' + url + ' target="_blank">LOGOUT</a>');
-                        }
-                        else {
-                            $('td:eq(10)', nRow).html(aData[10]);
-                        }
-                        if (aData[1]) {
-                            $('td:eq(1)', nRow).html('<a href="resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=' + aData[11] + '&capt=<?php echo $capt; ?>">' + aData[1] + '</a>');
-                        }
-                        if ((aData[6] + 0) > 60) {
-                            $('td:eq(6)', nRow).css('background-color', 'red');
-                        }
-                        return nRow;
-                    },
-                    "bJQueryUI": true});
-                $('#PORHORAtab').dataTable({
-                    "sAjaxSource": "quick_porhora_ajax.php",
-                    "bPaginate": false,
-                    "bLengthChange": false,
-                    "bFilter": false,
-                    "bSort": false,
-                    "bInfo": false,
-                    "bJQueryUI": true});
-                $('#PORDIAtab').dataTable({
-                    "sAjaxSource": "quick_hoy_ajax.php",
-                    "bPaginate": false,
-                    "bLengthChange": false,
-                    "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                        if (aData[6] * 1 > aData[5] * 6) {
-                            $('td:eq(6)', nRow).css('background-color', 'red');
-                        }
-                        return nRow;
-                    },
-                    "bJQueryUI": true});
-                $('#BREAKStab').dataTable({
-                    "sAjaxSource": "quick_breaks_ajax.php",
-                    "bJQueryUI": true
-                });
                 $(".rightnow a,#pbx,#cell,input[submit],button").button();
             });
         </script>
@@ -127,8 +72,8 @@ foreach ($resultfout as $answerfout) {
                 <li><a href="#PORDIA">HOY</a></li>
             </ul>
             <div id='AHORA'>
-                <table summary="right now" id="AHORAtab">
-                    <thead>
+                <table class='ui-widget' id="AHORAtab">
+                    <thead class='ui-widget-header'>
                         <tr>
                             <th>Gestor</th>
                             <th>Cuenta</th>
@@ -143,13 +88,42 @@ foreach ($resultfout as $answerfout) {
                             <th>Logout</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class='ui-widget-content'>
+                        <?php
+                        foreach ($resultAhora as $rowAhora) {
+                            if ($rowAhora['logout'] == $rowAhora['auto']) {
+                                $url    = 'logout.php?gone=forgot&capt='.$rowAhora['gestor'];
+                                $logout = '<a href='.$url.' target="_blank">LOGOUT</a>';
+                            } else {
+                                $logout = $rowAhora['logout'];
+                            }
+                            ?>
+                            <tr<?php
+                            if ($rowAhora['tiempo'] > 60) {
+                                echo ' class="alert"';
+                            }
+                            ?>>
+                                <td><?php echo $rowAhora['gestor']; ?></td>
+                                <td><a href="resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $rowAhora['id_cuenta']; ?>&capt=<?php echo $capt; ?>"><?php echo $rowAhora['cuenta']; ?></a></td>
+                                <td><?php echo $rowAhora['nombre']; ?></td>
+                                <td><?php echo $rowAhora['cliente']; ?></td>
+                                <td><?php echo $rowAhora['camp']; ?></td>
+                                <td><?php echo $rowAhora['status']; ?></td>
+                                <td><?php echo $rowAhora['tiempo']; ?></td>
+                                <td><?php echo $rowAhora['queue']; ?></td>
+                                <td><?php echo $rowAhora['sistema']; ?></td>
+                                <td><?php echo $rowAhora['login']; ?></td>
+                                <td><?php echo $logout; ?></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
             <div id='BREAKS'>
-                <table summary="Braeks" id='BREAKStab'>
-                    <thead>
+                <table class='ui-widget' id='BREAKStab'>
+                    <thead class='ui-widget-header'>
                         <tr>
                             <th>Gestor</th>
                             <th>Tipo</th>
@@ -158,13 +132,26 @@ foreach ($resultfout as $answerfout) {
                             <th>Minutes</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="ui-widget-content">
+                        <?php
+                        foreach ($resultBreaks as $rowBreaks) {
+                            ?>
+                            <tr>
+                                <td><?php echo $rowBreaks['gestor']; ?></td>
+                                <td><?php echo $rowBreaks['tipo']; ?></td>
+                                <td><?php echo $rowBreaks['tiempo']; ?></td>
+                                <td><?php echo $rowBreaks['ntp']; ?></td>
+                                <td><?php echo $rowBreaks['diff']; ?></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
             <div id='PORHORA'>
-                <table summary="Hora" id='PORHORAtab'>
-                    <thead>
+                <table class="ui-widget" id='PORHORAtab'>
+                    <thead class="ui-widget-header">
                         <tr>
                             <th></th>
                             <th>Contactos</th>
@@ -173,13 +160,26 @@ foreach ($resultfout as $answerfout) {
                             <th>% Contactos</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="ui-widget-content">
+                        <?php
+                        foreach ($resultPorHora as $rowPorHora) {
+                            ?>
+                            <tr>
+                                <td><?php echo $rowPorHora['gestor']; ?></td>
+                                <td><?php echo $rowPorHora['contactos']; ?></td>
+                                <td><?php echo $rowPorHora['gestiones']; ?></td>
+                                <td><?php echo $rowPorHora['promesas']; ?></td>
+                                <td><?php echo $rowPorHora['porciento']; ?></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
             <div id='PORDIA'>
-                <table summary="Hoy" id="PORDIAtab">
-                    <thead>
+                <table class="ui-widget" id="PORDIAtab">
+                    <thead class="ui-widget-header">
                         <tr>
                             <th></th>
                             <th>Gestiones</th>
@@ -191,28 +191,31 @@ foreach ($resultfout as $answerfout) {
                             <th>Gestiones por hora</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="ui-widget-content">
+                        <?php
+                        foreach ($resultHoy as $rowHoy) {
+                            ?>
+                            <tr<?php
+                            if ($rowHoy['Horas'] < $rowHoy['Break_min'] * 6) {
+                                echo ' class="alert"';
+                            }
+                            ?>>
+                                <td><?php echo $rowHoy['gestor']; ?></td>
+                                <td><?php echo $rowHoy['Gestiones']; ?></td>
+                                <td><?php echo $rowHoy['Promesas_Hoy']; ?></td>
+                                <td><?php echo $rowHoy['Monto_Promesas_Hoy']; ?></td>
+                                <td><?php echo $rowHoy['Negociaciones']; ?></td>
+                                <td><?php echo $rowHoy['Horas']; ?></td>
+                                <td><?php echo $rowHoy['Break_min']; ?></td>
+                                <td><?php echo $rowHoy['Gestiones_por_hora']; ?></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div>
-            <?php
-            if ($folios > 0) {
-                echo '<p><a class="butt" href="folioadmin.php?capt='.$capt.'#here0">'.$folios.' folios pendiente</a></p>';
-            }
-            if ($fout < 10) {
-                echo '<h4>Solo tenemos '.$fout.'  disponible para Credito Si</h4>';
-            }
-//if ($celltime>0) {echo '<h4>Hemos usado '.ceil($celltime).' minutos de celular este mes</h4>';}
-            ?>
-        </div>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-        <p>
-            <a id='pbx' href='pbxqueues.php?capt=<?php echo $capt; ?>' target='_blank'>
-                Control de PBX</a>
-            <a id='cell' href='cellcall2.php?capt=<?php echo $capt; ?>' target='_blank'>
-                Llamada Celular</a>
-        </p>
     </body>
 </html>
