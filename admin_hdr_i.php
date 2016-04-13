@@ -1,9 +1,9 @@
 <?php 
-$host = "localhost";
-$user = "root";
-$pwd = "DeathSta1";
-$db = "cobra4";
-$con	 = mysqli_connect($host, $user, $pswd, $db) or die("Could not connect to MySQL");
+$host    = "localhost";
+$user    = "root";
+$pwd     = "DeathSta1";
+$db      = "cobra4";
+$con     = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_error($con));
 $ticket	 = $con->real_escape_string(filter_input(INPUT_COOKIE, 'auth'));
 $capt	 = $con->real_escape_string(filter_input(INPUT_GET, 'capt'));
 if (empty($capt)) {
