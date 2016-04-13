@@ -11,14 +11,12 @@ $result = $rc->getRotas($capt, '');
 <html>
     <head>
         <title>Promesas</title>
-        <link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/jquery.dataTables.css">
-        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <link href="public/bower_resources/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="public/bower_resources/datatables/media/css/jquery.dataTables.css">
+        <script src="public/bower_resources/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="public/bower_resources/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="public/bower_resources/jqueryui/jquery-ui.js" type="text/javascript"></script>
         <style>
-            body { font-size: 10pt }
-            #rotasTable th, #rotasTable td { padding: 0 }
             #rotasTable tr.even { background-color: white }
             #rotasTable tr.odd { background-color: #dddddd }
             td { text-align: center }
@@ -32,6 +30,9 @@ $result = $rc->getRotas($capt, '');
                     <th>CUENTA</th>
                     <th>NOMBRE</th>
                     <th>CLIENTE</th>
+                    <th>CAMPA&Ntilde;A</th>
+                    <th>GESTOR</th>
+                    <th>SALDO TOTAL</th>
                     <th>RESULTADOS</th>
                     <th>FECHA PROMESA 1</th>
                     <th>MONTO PROMESA 1</th>
@@ -93,6 +94,9 @@ $result = $rc->getRotas($capt, '');
                             <td><a href='resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
                             <td><?php echo htmlentities($NOMBRE); ?></td>
                             <td><?php echo $CLIENTE; ?></td>
+                            <td><?php echo $STATUS_DE_CREDITO; ?></td>
+                            <td><?php echo $GESTOR; ?></td>
+                            <td class='num'><?php echo number_format($MONTOTOTAL, 0); ?></td>
                             <td><?php echo $STATUS_AARSA; ?></td>
                             <td><?php echo $FECHA_PROMESA1; ?></td>
                             <td class='num'><?php echo number_format($MONTO_PROMESA1, 0); ?></td>
