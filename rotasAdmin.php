@@ -11,11 +11,11 @@ $result = $rc->getRotas($capt, '');
 <html>
     <head>
         <title>Promesas</title>
-        <link href="public/bower_resources/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" type="text/css" href="public/bower_resources/datatables/media/css/jquery.dataTables.css">
-        <script src="public/bower_resources/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="public/bower_resources/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="public/bower_resources/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/jquery.dataTables.css">
+        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
         <style>
             #rotasTable tr.even { background-color: white }
             #rotasTable tr.odd { background-color: #dddddd }
