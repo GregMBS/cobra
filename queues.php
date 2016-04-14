@@ -65,7 +65,7 @@ and sdc=:sdc and status_aarsa=:status;";
     $stbt->execute();
 }
 if ($go == 'DESBLOQUEAR TODOS') {
-    $QUEUE   = mysql_real_escape_string($_REQUEST['queue']);
+    $QUEUE   = filter_input(INPUT_GET, 'queue');
     $querydt = "UPDATE queuelist SET bloqueado=0
 where cliente=:cliente
 and sdc=:sdc and status_aarsa=:status;";
