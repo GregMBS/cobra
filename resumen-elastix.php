@@ -100,13 +100,6 @@ if ($go == 'GUARDAR' && !empty($_GET['C_CVST'])) {
     $D_PROM2 = mysqli_real_escape_string($con, $_GET['D_PROM2']);
     $D_PAGO = mysqli_real_escape_string($con, $_GET['D_PAGO']);
     $N_PAGO = mysqli_real_escape_string($con, $_GET['N_PAGO']);
-    $merci = 0;
-    if (!empty($_GET['MERC'])) {
-        $D_MERC = mysqli_real_escape_string($con, $_GET['D_MERC']);
-        for ($merci = 0; $merci < count($_GET['MERC']); $merci++) {
-            $MERC[$merci] = mysqli_real_escape_string($con, $_GET['MERC'][$merci]);
-        }
-    }
     $C_PROM = mysqli_real_escape_string($con, $_GET['C_PROM']);
     $N_PROM_OLD = mysqli_real_escape_string($con, $_GET['N_PROM_OLD']);
     $N_PROM1 = mysqli_real_escape_string($con, $_GET['N_PROM1']);
@@ -290,27 +283,11 @@ and status_aarsa in ('propuesta de pago','propuesta hoy');";
                 $mmonto = $answerlast[1];
             };
         }
-        if ($merci > 0) {
-            foreach ($MERC as $MERCa) {
-                if (!empty($MERCa)) {
-                    $queryins = "INSERT INTO sdhmerc (ID_CUENTA,MERC,FECHAMERC,FECHACAPT) 
-    VALUES (" . $C_CONT . ",'" . $MERCa . "','" . $D_MERC . "',now())";
-                    mysqli_query($con, $queryins) or die("ERROR EM12 - " . mysqli_error($con));
-                }
-            }
-        }
         if (!empty($_GET['localizar'])) {
             $queryloc = "update resumen set localizar=" . mysqli_real_escape_string($con, $_GET['LOCALIZAR']) . " where id_cuenta='" . $c_cont . "';";
             ;
 //mysqli_query($con,$queryloc) or die ("ERROR EM13 - ".mysqli_error($con));
         }
-        $queryups = "update folios,historia,resumen 
-set enviado=0,fecha=d_fech+interval (time_to_sec(c_hrfi)) second 
-where c_cont=id and n_prom>0 and d_fech>fecha and c_cvst like 'promesa de%'
-and c_cont=id_cuenta and n_prom>=saldo_descuento_2
-and d_fech=curdate() and fecha>last_day(curdate()-interval 1 month);";
-        mysqli_query($con, $queryups) or die("ERROR FM4a - " . mysqli_error($con));
-
         $host = $_SERVER['HTTP_HOST'];
         $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
         if ($find == "/") {
@@ -321,13 +298,6 @@ and d_fech=curdate() and fecha>last_day(curdate()-interval 1 month);";
         };
 //$redirector = "Location: ".$uri."?&capt=".$capt."&go=ULTIMA";
         $redirector = "Location: closeme.html";
-//if ($N_PROM>0) {
-//$redirector="/folios.php?capt=$capt&tipo=$mytipo&CUENTA=$CUENTA&CLIENTE=$C_CVBA&source=resumen-elastix&go=FOLIOS";
-//}
-        if ($C_CVST == "PROMESA DE PAGO TOTAL") {
-            $FC = $C_CVBA;
-            $redirector = "folios.php?capt=$capt&tipo=$mytipo&CUENTA=$CUENTA&CLIENTE=$C_CVBA&source=resumen&go=FOLIOS&fc=$FC";
-        }
     }
     if ($error > 0) {
         $PAGOTXT = '';
@@ -528,19 +498,7 @@ order by d_fech desc, c_hrin desc limit 1";
         $D_PROM1_OLD = $answerprom[3];
         $N_PROM2_OLD = $answerprom[4];
         $D_PROM2_OLD = $answerprom[5];
-    };
-    $folio = "";
-    $nmerc = 0;
-    $nfolio = 0;
-    $queryfolio = "SELECT max(folio) FROM folios WHERE id='" . $id_cuenta . "'
-AND id>0 and mercancia=0 and fecha>last_day(curdate()-interval 1 month) order by fecha desc,folio desc limit 1
-;";
-    $resultfolio = mysqli_query($con, $queryfolio) or die("ERROR EM23 - " . mysqli_error($con));
-    while ($answerfolio = mysqli_fetch_row($resultfolio)) {
-        $folio = $answerfolio[0];
     }
-    $querynmerc = "SELECT min(folio) FROM folios WHERE cliente='" . $cliente . "'
-and usado=0 and mercancia=1;";
     $nproms = 0;
     $querynproms = "SELECT count(1) FROM historia WHERE c_cont=" . $id_cuenta . "
 and n_prom>0;";
@@ -553,16 +511,6 @@ and n_prom>0;";
     $resultnpagos = mysqli_query($con, $querynpagos) or die("ERROR RM48b - " . mysqli_error($con));
     while ($answernpagos = mysqli_fetch_row($resultnpagos)) {
         $npagos = $answernpagos[0];
-    }
-    $resultnmerc = mysqli_query($con, $querynmerc) or die("ERROR EM24 - " . mysqli_error($con));
-    while ($answernmerc = mysqli_fetch_row($resultnmerc)) {
-        $nmerc = $answernmerc[0];
-    }
-    $querynfolio = "SELECT min(folio) FROM folios WHERE cliente='" . $cliente . "'
-and usado=0 and mercancia=0;";
-    $resultnfolio = mysqli_query($con, $querynfolio) or die("ERROR EM25 - " . mysqli_error($con));
-    while ($answernfolio = mysqli_fetch_row($resultnfolio)) {
-        $nfolio = $answernfolio[0];
     }
     $querycheck = "SELECT timelock, locker,time_to_sec(timediff(now(),timelock))/60 from resumen  WHERE id_cuenta='" . $id_cuenta . "';";
     $resultcheck = mysqli_query($con, $querycheck) or die("ERROR EM27 - " . mysqli_error($con));
@@ -894,24 +842,8 @@ if ($lockflag == 1) {
                 <button class="buttons" type="button" value="white" onclick=
                         "window.open('white.php?capt=<?php echo $capt ?>', 'newWin', 'resizable=yes,width=400,height=400,scrollbars=yes');">PAGINAS BLANCAS</button>
                                     <?php
-                                    $CTA = $numero_de_credito;
-                                    if ($cliente != 'Prestamo Relampago') {
-                                        $CTA = $numero_de_cuenta;
-                                    }
-                                    if (($cliente == 'Credito Si B') || ($cliente == 'Credito Si F')) {
-                                        ?>
-                    <form class="buttons" name="folios" method="get" action="folios.php" id="folios" target="_blank">
-                        <input type="hidden" name="capt" value="<?php if (isset($capt)) {
-                                            echo $capt;
-                                        } ?>"> 
-                        <input type="hidden" name="tipo" value="<?php if (isset($mytipo)) {
-                                            echo $mytipo;
-                                        } ?>"> 
-                        <input type="hidden" name="CUENTA" value="<?php echo $CTA; ?>">
-                        <input type="hidden" name="CLIENTE" value="<?php echo $cliente; ?>">
-                        <input type="hidden" name="source" value="resumen-elastix">
-                        <input type="submit" name="go" value="FOLIOS"></form>
-                                    <?php } ?>
+                                    $CTA = $numero_de_cuenta;
+                                    ?>
                 <form class="buttons" name="notas" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
                                                                                                                      name="capt" value="<?php if (isset($capt)) {
                                     echo $capt;
@@ -941,16 +873,7 @@ if ($lockflag == 1) {
                 <span style='font-weight:bold;font-size:120%;'><?php echo $capt; ?></span>
                         <?php if (!empty($cliente)) { ?>
                     <span onmouseover='this.style.visibility = "hidden";'><img style="position:absolute;top:0;right:0" height=50 alt="client logo" src='<?php echo $cliente ?>.jpg'></span>
-                        <?php }
-                        if ($nfolio > 0) {
-                            echo $nfolio;
-                            ?>
-                    &nbsp;es folio sig.
-    <?php } ?>
-    <?php if (($nmerc > 0) and ( $mytipo != 'callcenter')) {
-        echo $nmerc; ?>
-                    &nbsp;es mercancia sig.
-    <?php } ?>
+                        <?php } ?>
                 <form class="buttons" name="trouble" method="get" action="trouble.php" id="trouble" target="_blank">
                     <input type="hidden" name="capt" value="<?php if (isset($capt)) {
         echo $capt;
@@ -1281,21 +1204,7 @@ where credito='" . $numero_de_credito . "'";
                             <td><input type='text' name=numero_de_credito readonly='readonly' value='<?php if (isset($numero_de_credito)) {
                     echo $numero_de_credito;
                 } ?>'></td>
-            <?php if (($cliente != 'GE Capital') && ($cliente != 'CrediClub')) { ?>
-                                <td>Ultimo folio</td>
-                                <td><?php if ($folio != '') { ?>
-                                        <input type='text' name='folio' id='folio' readonly='readonly' value='<?php echo
-            $folio;
-            ?>'></td>
-                            <?php
-                            }
-                        }
-                        if ($cliente == 'GE Capital') {
-                            ?>
-                                <td>Convenio CIE Bancomer</td>
-                                <td style='font-weight:bold'>632236-<?php echo $numero_de_cuenta; ?><br></td>
-                        <?php }
-                        if ($cliente == 'Provident') {
+            <?php if ($cliente == 'Provident') {
                             ?>
                                 <td>BANCO BANAMEX<br>
                                     CUENTA 28552<br>
@@ -1751,48 +1660,6 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                                 </select>
 
                             </td>
-        <?php
-        if ($cliente == 'Surtidor del Hogar') {
-            $merci = 0;
-            $querymerc = "select productos from sdhextras where cuenta='" . $numero_de_cuenta . "';";
-            $resultmerc = mysqli_query($con, $querymerc);
-            while ($answermerc = mysqli_fetch_array($resultmerc, MYSQLI_NUM)) {
-                $merca[$merci] = $answermerc[0];
-                $merci++;
-            }
-            ?>
-                            <tr style="display:none">
-            <?php
-            for ($mercii = 0; $mercii < $merci; $mercii++) {
-                ?>
-                                    <td>Mercancia <?php echo $mercii + 1; ?></td>
-                                    <td><select name="MERC[]">
-                                            <option value="" style="font-size:120%;">&nbsp;</option>
-                <?php foreach ($merca as $merc) { ?>
-                                                <option value="<?php echo $merc; ?>" style="font-size:120%;">
-                    <?php if (isset($merc)) {
-                        echo $merc;
-                    } ?>
-                                                </option>
-                <?php } ?>
-                                        </select></td>
-            <?php } ?>
-                            </tr>
-                            <tr style="display:none">
-                                <td>Fecha Recib&iacute;o
-                                    <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                                        var cala = new CalendarPopup();
-                                        cala.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                        cala.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                        cala.setWeekStartDay(1);
-                                        cala.setTodayText("Hoy");
-                                    </SCRIPT></td>
-                                <td><INPUT TYPE="text" NAME="D_MERC" ID="D_MERC" VALUE="" SIZE=15> 
-                                    <BUTTON onClick="cala.select(document.getElementById('D_MERC'), 'anchora', 'yyyy-MM-dd');
-                    return false;" NAME="anchora" ID="anchora">eligir</BUTTON></td>
-                            </tr>
-            <?php }
-        ?>
                         </tr>
                         <tr id="pagocapt" style="display:none">
                             <td>Monto Pag&oacute;</td>

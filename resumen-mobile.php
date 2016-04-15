@@ -711,16 +711,7 @@ order by d_fech desc, c_hrin desc limit 1";
         $N_PROM2_OLD = $answerprom[4];
         $D_PROM2_OLD = $answerprom[5];
     }
-    $folio       = "";
     $nmerc       = 0;
-    $nfolio      = 0;
-    $queryfolio  = "SELECT max(folio) FROM folios WHERE id='".$id_cuenta."'
-AND id>0 and mercancia=0 and fecha>last_day(curdate()-interval 1 month) order by fecha desc,folio desc limit 1
-;";
-    $resultfolio = mysqli_query($con, $queryfolio) or die("ERROR RM49 - ".mysqli_error($con));
-    while ($answerfolio = mysqli_fetch_row($resultfolio)) {
-        $folio = $answerfolio[0];
-    }
     $querycheck  = "SELECT timelock, locker,time_to_sec(timediff(now(),timelock))/60 from resumen  WHERE id_cuenta='".$id_cuenta."';";
     $resultcheck = mysqli_query($con, $querycheck) or die("ERROR RM50 - ".mysqli_error($con));
     while ($answercheck = mysqli_fetch_row($resultcheck)) {

@@ -82,11 +82,11 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'CreditoRealReport.php'">Reporte Lunes, Miercoles, Viernes para Credito Real</button>
                 <button onclick="window.location = 'CreditoRealFdm.php'">Reporte Mensual</button>
                 <br>
-                <h3>Credito Si</h3>
+<!--                <h3>Credito Si</h3>
                 <button onclick="window.location = 'folioadmin2.php?capt=<?php echo $capt; ?>'">Administrar CS Folios</button>
-                <!--
+                
                 <button onclick="window.location='folioadmins.php?capt=<?php echo $capt; ?>'">Administrar SDH Folios</button><br>
-                -->
+                
                 <button onclick="window.location = 'Layout_carga_de_gestiones_cs_mensual_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 CS Mensual TXT</button>
                 <button onclick="window.location = 'Layout_carga_de_promesas_cs_mensual.txt.php?capt=<?php echo $capt; ?>'">Layout 600 CS Mensual TXT</button><br>
                 <button onclick="window.location = 'Layout_carga_de_gestiones_cs_daily_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 CS Diario TXT</button>
@@ -101,7 +101,7 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <h3>DIMEX</h3>
                 <button onclick="window.location = 'DIMEXReport.php?capt=<?php echo $capt; ?>'">Reporte de DIMEX</button>
                 <h3>Prestamo Familiar</h3>
-                <button onclick="window.location = 'CartasFiniquitos.php?capt=<?php echo $capt; ?>'">Cartas Finiquitos</button>
+                <button onclick="window.location = 'CartasFiniquitos.php?capt=<?php echo $capt; ?>'">Cartas Finiquitos</button>-->
             </div>
             <div id="bot">
                 <h2>Controlar ROBOT y ELASTIX</h2>

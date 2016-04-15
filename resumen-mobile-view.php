@@ -307,35 +307,6 @@ $(document).ready(function() {
                            ?>">
                     <input type="submit" name="go" value="PAGOS"></form>
                            <?php if ($mytipo == 'admin') { ?>
-                    <form class="buttons" name="folios" method="get" action="folios.php" id="folios" target="_blank">
-                        <input type="hidden" name="capt" value="<?php
-                        if (isset($capt)) {
-                            echo $capt;
-                        }
-                        ?>">
-                        <input type="hidden" name="CUENTA" value="<?php
-                    if (isset($numero_de_cuenta)) {
-                        echo $numero_de_cuenta;
-                    }
-                    ?>">
-                        <input type="hidden" name="CLIENTE" value="<?php
-                                                                                                                          if (isset($cliente)) {
-                                                                                                                              echo $cliente;
-                                                                                                                          }
-                                                                                                                          ?>">
-                        <?php
-                        $FC = $cliente;
-                        if ($FC == 'Sales Finance') {
-                            $FC = 'Credito Si';
-                        }
-                        ?>
-                        <input type="hidden" name="FC" value="<?php
-                        if (isset($FC)) {
-                            echo $FC;
-                        }
-                        ?>">
-                        <input type="hidden" name="mytipo" value="admin">
-                        <input type="submit" name="go" value="FOLIOS"></form>
                     <?php
                     }
                     $CTA = $numero_de_credito;
