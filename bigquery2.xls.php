@@ -72,7 +72,6 @@ left join pagos on c_cont=pagos.id_cuenta and d2.queue='PAGOS' and fecha between
 where d_fech between :fecha1 and :fecha2
 ".$gestorstr.$clientestr."
 ORDER BY d_fech,c_hrin
-limit 50000
     ;";
     $stm       = $pdo->prepare($querymain);
     $stm->bindParam(':fecha1', $fecha1);
@@ -92,13 +91,7 @@ limit 50000
         $row['saldo_total']       = (float) $row['saldo_total'];
         $row['saldo_descuento_1'] = (float) $row['saldo_descuento_1'];
         $row['saldo_descuento_2'] = (float) $row['saldo_descuento_2'];
-        $row['N_PROM']            = (float) $row['N_PROM'];
-        $row['N_PROM1']           = (float) $row['N_PROM1'];
-        $row['N_PROM2']           = (float) $row['N_PROM2'];
-        $row['N_PROM3']           = (float) $row['N_PROM3'];
-        $row['N_PROM4']           = (float) $row['N_PROM4'];
-        $row['monto pago']        = (float) $row['monto pago'];
-        $output[]                 = $row;
+        $output[] = $row;
         $i++;
     }
     $writer = WriterFactory::create(Type::XLSX);
@@ -128,6 +121,8 @@ limit 50000
                         <option value="todos" style="font-size:120%;">todos</option>
                         <?php
                         $queryg  = "SELECT distinct c_cvge FROM historia
+        where d_fech>last_day(curdate()-interval 2 month)
+        and c_cvge <> ''
         order by c_cvge
         limit 1000
 	";
@@ -148,6 +143,7 @@ limit 50000
                     ?>
                     <?php
                     $queryc  = "SELECT distinct c_cvba FROM historia
+        where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvba
         limit 100
 	";
@@ -168,7 +164,8 @@ limit 50000
                     <select name="fecha1">
                         <?php
                         $queryf1  = "SELECT distinct d_fech FROM historia
-        ORDER BY d_fech";
+        where d_fech>last_day(curdate()-interval 6 month)
+        ORDER BY d_fech limit 360";
                         $resultf1 = $pdo->query($queryf1);
                         foreach ($resultf1 as $answerf1) {
                             ?>
@@ -185,7 +182,8 @@ limit 50000
                     <select name="fecha2">
                         <?php
                         $queryf2  = "SELECT distinct d_fech FROM historia
-        ORDER BY d_fech desc";
+        where d_fech>last_day(curdate()-interval 6 month)
+        ORDER BY d_fech desc limit 60";
                         $resultf2 = $pdo->query($queryf2);
                         foreach ($resultf2 as $answerf2) {
                             ?>

@@ -72,6 +72,7 @@ left join pagos on c_cont=pagos.id_cuenta and d2.queue='PAGOS' and fecha between
 where d_fech between :fecha1 and :fecha2
 ".$gestorstr.$clientestr."
 ORDER BY d_fech,c_hrin
+limit 50000
     ;";
     $stm       = $pdo->prepare($querymain);
     $stm->bindParam(':fecha1', $fecha1);
@@ -80,21 +81,27 @@ ORDER BY d_fech,c_hrin
         $stm->bindParam(':gestor', $gestor);
     }
     $stm->execute();
-    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-    $filename = "Query_de_gestiones_".$fecha1.'_'.$fecha2.".csv";
+    $filename = "Query_de_gestiones_".$fecha1.'_'.$fecha2.".xlsx";
     $output   = array();
-    $output[] = array_keys($result[0]);
-    foreach ($result as $row) {
-        $row['saldo_total'] = (float) $row['saldo_total'];
+    $i = 0;
+
+    while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+        if ($i==0) {
+            $output[] = array_keys($row);
+        }
+        $row['saldo_total']       = (float) $row['saldo_total'];
         $row['saldo_descuento_1'] = (float) $row['saldo_descuento_1'];
         $row['saldo_descuento_2'] = (float) $row['saldo_descuento_2'];
-        $row['n_prom'] = (float) $row['n_prom'];
-        $row['n_prom1'] = (float) $row['n_prom1'];
-        $row['n_prom2'] = (float) $row['n_prom2'];
-        $output[] = $row;
+        $row['N_PROM']            = (float) $row['N_PROM'];
+        $row['N_PROM1']           = (float) $row['N_PROM1'];
+        $row['N_PROM2']           = (float) $row['N_PROM2'];
+        $row['N_PROM3']           = (float) $row['N_PROM3'];
+        $row['N_PROM4']           = (float) $row['N_PROM4'];
+        $row['monto pago']        = (float) $row['monto pago'];
+        $output[]                 = $row;
+        $i++;
     }
-    $writer = WriterFactory::create(Type::CSV);
+    $writer = WriterFactory::create(Type::XLSX);
     $writer->openToBrowser($filename); // stream data directly to the browser
     $writer->addRows($output); // add multiple rows at a time
     $writer->close();
@@ -121,8 +128,6 @@ ORDER BY d_fech,c_hrin
                         <option value="todos" style="font-size:120%;">todos</option>
                         <?php
                         $queryg  = "SELECT distinct c_cvge FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
-        and c_cvge <> ''
         order by c_cvge
         limit 1000
 	";
@@ -143,7 +148,6 @@ ORDER BY d_fech,c_hrin
                     ?>
                     <?php
                     $queryc  = "SELECT distinct c_cvba FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvba
         limit 100
 	";
@@ -164,8 +168,7 @@ ORDER BY d_fech,c_hrin
                     <select name="fecha1">
                         <?php
                         $queryf1  = "SELECT distinct d_fech FROM historia
-        where d_fech>last_day(curdate()-interval 6 month)
-        ORDER BY d_fech limit 360";
+        ORDER BY d_fech";
                         $resultf1 = $pdo->query($queryf1);
                         foreach ($resultf1 as $answerf1) {
                             ?>
@@ -182,8 +185,7 @@ ORDER BY d_fech,c_hrin
                     <select name="fecha2">
                         <?php
                         $queryf2  = "SELECT distinct d_fech FROM historia
-        where d_fech>last_day(curdate()-interval 6 month)
-        ORDER BY d_fech desc limit 60";
+        ORDER BY d_fech desc";
                         $resultf2 = $pdo->query($queryf2);
                         foreach ($resultf2 as $answerf2) {
                             ?>
