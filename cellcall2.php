@@ -48,7 +48,7 @@ if (!empty($go)) {
     }
     if ($go == 'BORRAR') {
         $querydelall = "update callme set completado=1;";
-        mysql_query($querydelall) or die(mysql_error());
+        $pdo->query($querydelall);
     } else {
         $tele      = filter_input(INPUT_GET, 'tele');
         $cid       = filter_input(INPUT_GET, 'ext');
@@ -126,7 +126,7 @@ order by substring_index(usuario,'.',-1)+1000";
 where completado=0
 group by gestor,tel,cuenta
 order by mt;";
-                $resultq = $pdo->query($queryq) or die(mysql_error());
+                $resultq = $pdo->query($queryq);
                 $fetchq  = $resultq->fetchAll();
                 foreach ($fetchq as $answerq) {
                     $gs = $answerq[0];
