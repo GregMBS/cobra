@@ -104,7 +104,7 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'CartasFiniquitos.php?capt=<?php echo $capt; ?>'">Cartas Finiquitos</button>-->
             </div>
             <div id="bot">
-                <h2>Controlar ROBOT y ELASTIX</h2>
+<!--                <h2>Controlar ROBOT y ELASTIX</h2>
                 <h3>ROBOT</h3>
                 <button onclick="window.location = 'cargatel.php?capt=<?php echo $capt; ?>'">CARGAR ROBOT</button>
                 <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">CONTROLAR ROBOT</button>
@@ -130,7 +130,7 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'cellcall2.php?capt=<?php echo $capt; ?>'">Marca Celulares</button>
                 <h3>OTROS</h3>
                 <button onclick="window.location = 'llamadas_desconocidas.php?capt=<?php echo $capt; ?>'">LLAMADAS DESCONOCIDAS</button>
-                <button onclick="window.location = 'llamadas_desconocidas_ayer.php?capt=<?php echo $capt; ?>'">LLAMADAS DESCONOCIDAS DE AYER</button><br>
+                <button onclick="window.location = 'llamadas_desconocidas_ayer.php?capt=<?php echo $capt; ?>'">LLAMADAS DESCONOCIDAS DE AYER</button><br>-->
             </div>
         </div>
         <p>
