@@ -3,10 +3,6 @@ var components = {
         {
             "name": "jquery",
             "main": "jquery-built.js"
-        },
-        {
-            "name": "jquery-ui",
-            "main": "jquery-ui-built.js"
         }
     ],
     "shim": {

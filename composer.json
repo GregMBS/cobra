@@ -3,6 +3,7 @@
         "phpoffice/phpexcel": "dev-master",
         "components/jqueryui": "dev-master",
         "datatables/datatables": "1.10.3",
-        "box/spout": "v1.1.0"
+        "box/spout": "v1.1.0",
+        "phpmd/phpmd": "^2.4"
     }
 }
