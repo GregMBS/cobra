@@ -33,6 +33,7 @@ $result = $rc->getRotas($capt, '');
                     <th>NOMBRE</th>
                     <th>CLIENTE</th>
                     <th>RESULTADOS</th>
+                    <th>GESTOR</th>
                     <th>FECHA PROMESA 1</th>
                     <th>MONTO PROMESA 1</th>
                     <th>FECHA PROMESA 2</th>
@@ -94,6 +95,7 @@ $result = $rc->getRotas($capt, '');
                             <td><?php echo htmlentities($NOMBRE); ?></td>
                             <td><?php echo $CLIENTE; ?></td>
                             <td><?php echo $STATUS_AARSA; ?></td>
+                            <td><?php echo $GESTOR; ?></td>
                             <td><?php echo $FECHA_PROMESA1; ?></td>
                             <td class='num'><?php echo number_format($MONTO_PROMESA1, 0); ?></td>
                             <td><?php echo $FECHA_PROMESA2; ?></td>
