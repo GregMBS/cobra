@@ -98,4 +98,14 @@ class pdoConnect
         $pdo        = $this->dbConnect($querycheck);
         return $pdo;
     }
+
+    /**
+     * @returns PDO
+     */
+    public function dbConnectNobody()
+    {
+        $pdo        = $this->pdo;
+        return $pdo;
+    }
+
 }
