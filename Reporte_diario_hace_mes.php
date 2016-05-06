@@ -398,7 +398,7 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
     <th>suma pag.</th>
 </tr>
 <?php
-while ($row = mysql_fetch_row($resultVigentes)) {
+while ($row = $resultVigentes->fetch()) {
     if ($row[0] <> $id) {
         echo "<tr>";
         $id = $row[0];
@@ -422,7 +422,7 @@ while ($row = mysql_fetch_row($resultVigentes)) {
     $queryplus  = "select n_prom,0 from historia
 where auto=".$id;
     $resultplus = $pdo->query($queryplus);
-    while ($answerplus = mysql_fetch_row($resultplus)) {
+    while ($answerplus = $resultplus->fetch()) {
         echo "<td>".$answerplus[0]."</td>";
         echo "<td>".$answerplus[1]."</td>";
         echo "<td></td>";
@@ -442,21 +442,23 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
 // analytica
     $pdo->query($querycalc);
     echo "<p>Por Cliente</p>";
-    $querySumCliente        = "select cliente,sum(pago),sum(vigente),sum(vencido)
+    $querySumCliente        = "select cliente, 
+        sum(pago) as pagos, 
+        sum(vigente) as vigentes, 
+        sum(vencido) as vencidos
 from gmbtemp group by cliente;";
     $resultSumCliente       = $pdo->query($querySumCliente);
-    $numberfieldsSumCliente = mysql_num_fields($resultSumCliente);
     echo "<table>";
     echo "<tr>";
-    for ($i = 0; $i < $numberfieldsSumCliente; $i++) {
-        $var = mysql_field_name($resultSumCliente, $i);
-        echo "<th>".$var."</th>";
-    }
+    echo "<th>cliente</th>";
+    echo "<th>pagos</th>";
+    echo "<th>vigentes</th>";
+    echo "<th>vencidos</th>";
     echo "</tr>";
-    while ($row = mysql_fetch_row($resultSumCliente)) {
+    while ($row = $resultSumCliente->fetch()) {
         echo "<tr>";
-        for ($j = 0; $j < $numberfieldsSumCliente; $j++) {
-            echo "<td>".$row[$j]."</td>";
+        foreach ($row as $item) {
+            echo "<td>".$item."</td>";
         }
     }
     echo "</tr>";
@@ -465,58 +467,67 @@ from gmbtemp group by cliente;";
     $querySumGestor        = "select gestor,sum(pago),sum(vigente),sum(vencido)
 from gmbtemp group by gestor;";
     $resultSumGestor       = $pdo->query($querySumGestor);
-    $numberfieldsSumGestor = mysql_num_fields($resultSumGestor);
     echo "<table>";
     echo "<tr>";
-    for ($i = 0; $i < $numberfieldsSumGestor; $i++) {
-        $var = mysql_field_name($resultSumGestor, $i);
-        echo "<th>".$var."</th>";
-    }
+    echo "<th>cliente</th>";
+    echo "<th>pagos</th>";
+    echo "<th>vigentes</th>";
+    echo "<th>vencidos</th>";
     echo "</tr>";
-    while ($row = mysql_fetch_row($resultSumGestor)) {
+    while ($row = $resultSumGestor->fetch()) {
         echo "<tr>";
-        for ($j = 0; $j < $numberfieldsSumGestor; $j++) {
-            echo "<td>".$row[$j]."</td>";
+        foreach ($row as $item) {
+            echo "<td>".$item."</td>";
         }
     }
     echo "</tr>";
     echo "</table>";
     echo "<p>Por Segmento</p>";
-    $querySumStatus        = "select cliente,substring_index(sdc,'-',1),sum(pago),sum(vigente),sum(vencido)
-from gmbtemp group by cliente,substring_index(sdc,'-',1);";
+    $querySumStatus        = "select cliente,
+        substring_index(sdc,'-',1) as segmentos,
+        sum(pago),sum(vigente) as vigentes,
+        sum(vencido) as vencidos
+from gmbtemp group by cliente,segmentos";
     $resultSumStatus       = $pdo->query($querySumStatus);
-    $numberfieldsSumStatus = mysql_num_fields($resultSumStatus);
     echo "<table>";
     echo "<tr>";
-    for ($i = 0; $i < $numberfieldsSumStatus; $i++) {
-        $var = mysql_field_name($resultSumStatus, $i);
-        echo "<th>".$var."</th>";
-    }
+    echo "<th>cliente</th>";
+    echo "<th>segmentos</th>";
+    echo "<th>vigentes</th>";
+    echo "<th>vencidos</th>";
     echo "</tr>";
-    while ($row = mysql_fetch_row($resultSumStatus)) {
+    while ($row = $resultSumStatus->fetch()) {
         echo "<tr>";
-        for ($j = 0; $j < $numberfieldsSumStatus; $j++) {
-            echo "<td>".$row[$j]."</td>";
+        foreach ($row as $item) {
+            echo "<td>".$item."</td>";
         }
     }
     echo "</tr>";
     echo "</table>";
     echo "<p>Por Producto</p>";
-    $querySumProducto        = "select cliente,substring_index(sdc,'-',1),producto,subproducto,sum(pago),sum(vigente),sum(vencido)
-from gmbtemp group by cliente,substring_index(sdc,'-',1),producto,subproducto;";
+    $querySumProducto        = "select cliente,
+        substring_index(sdc,'-',1) as segmentos,
+        producto,
+        subproducto,
+        sum(pago) as pagos,
+        sum(vigente) as vigentes,
+        sum(vencido) as vencidos
+from gmbtemp group by cliente,segmentos,producto,subproducto;";
     $resultSumProducto       = $pdo->query($querySumProducto);
-    $numberfieldsSumProducto = mysql_num_fields($resultSumProducto);
     echo "<table>";
     echo "<tr>";
-    for ($i = 0; $i < $numberfieldsSumProducto; $i++) {
-        $var = mysql_field_name($resultSumProducto, $i);
-        echo "<th>".$var."</th>";
-    }
+    echo "<th>cliente</th>";
+    echo "<th>segmentos</th>";
+    echo "<th>producto</th>";
+    echo "<th>subproducto</th>";
+    echo "<th>pagos</th>";
+    echo "<th>vigentes</th>";
+    echo "<th>vencidos</th>";
     echo "</tr>";
-    while ($row = mysql_fetch_row($resultSumProducto)) {
+    while ($row = $resultSumProducto->fetch()) {
         echo "<tr>";
-        for ($j = 0; $j < $numberfieldsSumProducto; $j++) {
-            echo "<td>".$row[$j]."</td>";
+        foreach ($row as $item) {
+            echo "<td>".$item."</td>";
         }
     }
     echo "</tr>";
