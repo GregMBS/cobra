@@ -24,8 +24,8 @@ $result    = $pdo->query($querymain);
         <script src="bower_components/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
     </head>
     <body>
-        <table summary="Cuentas">
-            <thead>
+        <table id="Cuentas" class="ui-widget">
+            <thead class="ui-widget-header">
                 <tr>
                     <th>CUENTA</th>
                     <th>NOMBRE</th>
@@ -37,7 +37,7 @@ $result    = $pdo->query($querymain);
                     <th>ULT. GESTION</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="ui-widget-content">
                 <?php
                 foreach ($result as $row) {
                     $CUENTA            = $row['numero_de_cuenta'];
