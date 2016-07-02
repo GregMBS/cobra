@@ -7,7 +7,7 @@
  */
 class pdoConnect
 {
-    protected $dsn        = 'mysql:dbname=cobra4;host=localhost';
+    protected $dsn        = 'mysql:dbname=cobrajdlr;host=localhost';
     protected $username   = "root";
     protected $passwd     = "DeathSta1";
     /**

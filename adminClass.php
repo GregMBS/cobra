@@ -12,7 +12,7 @@ class Admin
      *
      * @var string
      */
-    private $user = "cobra4";
+    private $user = "cobrajdlr";
 
     /**
      *
@@ -24,7 +24,7 @@ class Admin
      *
      * @var string
      */
-    private $db   = "cobra4";
+    private $db   = "cobrajdlr";
 
     /**
      *

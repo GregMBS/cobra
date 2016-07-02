@@ -80,7 +80,7 @@ enctype="multipart/form-data" name="cargar">
 <td>
 <select name='cliente'>
 <?php
-    $querycl = "SELECT cliente FROM cobra4.clientes;";
+    $querycl = "SELECT cliente FROM cobrajdlr.clientes;";
     $resultcl = mysql_query($querycl);
     while ($answercl = mysql_fetch_array($resultcl)) 
     {?>

@@ -13,7 +13,7 @@
  */
 class PdoClass {
 
-    private $dsn = 'mysql:dbname=cobra4;host=localhost';
+    private $dsn = 'mysql:dbname=cobrajdlr;host=localhost';
     private $user = 'root';
     private $password = 'DeathSta1';
 

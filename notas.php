@@ -17,13 +17,13 @@ if ($go == 'GUARDAR') {
         $HORA = str_pad($HORA, 2, "0", STR_PAD_LEFT).':'
             .str_pad($MIN, 2, "0", STR_PAD_LEFT).':00';
     }
-    $querybor   = "UPDATE cobra4.notas SET borrado=1
+    $querybor   = "UPDATE cobrajdlr.notas SET borrado=1
 WHERE c_cvge=:capt and c_cont=:C_CONT";
     $stb        = $pdo->prepare($querybor);
     $stb->bindParam(':capt', $capt);
     $stb->bindParam(':C_CONT', $C_CONT);
     $stb->execute();
-    $queryins   = "INSERT INTO cobra4.notas
+    $queryins   = "INSERT INTO cobrajdlr.notas
         (C_CVGE,fuente,D_FECH,C_HORA,FECHA,HORA,NOTA,CUENTA,C_CONT)
 VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
 :CUENTA, :C_CONT)";
@@ -42,7 +42,7 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
 }
 if ($go == 'BORRAR') {
     $AUTO       = (int) filter_input(INPUT_GET, 'which', FILTER_VALIDATE_INT);
-    $querybins  = "UPDATE cobra4.notas set borrado=1 "
+    $querybins  = "UPDATE cobrajdlr.notas set borrado=1 "
         ."where AUTO=:AUTO and C_CVGE=:capt";
     $stbi       = $pdo->prepare($querybins);
     $stbi->bindParam(':capt', $capt);
@@ -75,7 +75,7 @@ if ($go == 'BORRAR') {
                 </thead>
                 <?php
                 $querysub = "SELECT auto,fecha,hora,nota,c_cvge,cuenta "
-                    ."FROM cobra4.notas "
+                    ."FROM cobrajdlr.notas "
                     ."WHERE c_cvge IN (:capt, 'todos') "
                     ."AND borrado=0 ORDER BY fecha desc,hora desc";
                 $sts      = $pdo->prepare($querysub);

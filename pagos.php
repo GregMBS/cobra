@@ -16,7 +16,7 @@ foreach ($resultcc as $answercc) {
     $CLIENTE = $answercc['cliente'];
 }
 $querysub = "SELECT fecha,monto,confirmado
-FROM cobra4.pagos
+FROM cobrajdlr.pagos
 WHERE id_cuenta=:id
 ORDER BY fecha";
 $sts      = $pdo->prepare($querysub);

@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pwd = "DeathSta1";
-$db = "cobra4";
+$db = "cobrajdlr";
 $con = mysql_connect($host,$user,$pwd) or die ("Could not connect to MySQL");
 mysql_select_db($db,$con) or die ("Could not select $db database");
 $fromresume = (empty($_GET['C_RCON']));

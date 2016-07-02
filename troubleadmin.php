@@ -7,7 +7,7 @@ if (!empty($_REQUEST['go'])) {
 if ($_REQUEST['go']=='RESOLVER') {
 $AUTO=mysql_real_escape_string($_REQUEST['which']);
 $reparacion=mysql_real_escape_string($_REQUEST['reparacion']);
-$queryup = "UPDATE cobra4.trouble 
+$queryup = "UPDATE cobrajdlr.trouble 
 set fechacomp=now(),
 it_guy='".$capt."',
 reparacion='".$reparacion."'
