@@ -1,4 +1,45 @@
-<html><body><h1>It works!</h1>
-<p>This is the default web page for this server.</p>
-<p>The web server software is running but no content has been added, yet.</p>
-</body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>COBRA</title>
+<style type="text/css">
+			 body {text-align: center; background-color: #00a0f0; width: 50em; color:#000000;}
+			div.forma {margin-left:4.5cm; font-weight: bold;}
+			 div.logo {text-align:center; font-weight: bold;}
+			 fieldset {width: 21em; background-color: #c0c0c0c0;}
+</style>
+<?php
+} 
+else {
+?>
+<style type="text/css">
+			 body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
+			div.forma {margin-left:5.5cm; font-weight: bold;}
+			 div.logo {text-align:center; font-weight: bold;}
+			 #hidden {display: none;}
+			 
+</style>
+<?php } ?>
+</head>
+<body onload="document.getElementById('hidden').style.display='block';">
+<h1>COBRA</h1>
+<div id='hidden'>
+<a href='index.php'>LOGIN</a>
+</div>
+<NOSCRIPT>
+<div class="forma">
+<p>COBRA necesita JavaScript para funcionar.</p>
+<form action="#" method="get" autocomplete="off">
+<input type="submit" name="go" value="Reintentar" />
+</form>
+</div>
+</NOSCRIPT>
+<!--
+<p><a href="http://www.whatismyip.com/">Direcci&oacute;n IP</a></p>
+-->
+</body>
+</html>
+<?php
+mysql_close();
+?>
