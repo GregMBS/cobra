@@ -10,13 +10,13 @@ set fecha_ultima_gestion = concat(d_fech,' ',c_hrin)
 where id_cuenta=c_cont
 and fecha_ultima_gestion < concat(d_fech,' ',c_hrin)
 and c_msge is null
-and c_visit is null:
+and c_visit is null;
 update resumen,historia
 set fecha_ultima_gestion = concat(d_fech,' ',c_hrin)
 where id_cuenta=c_cont
 and fecha_ultima_gestion < concat(d_fech,' ',c_hrin)
 and c_msge is null
-and c_visit is null:
+and c_visit is null;
 # Unlock yesterday's cuentas
 UPDATE resumen
 set locker=null, timelock=null 
