@@ -279,18 +279,13 @@ order by v_cc LIMIT 1;";
             }
             $querysa = "update resumen set status_aarsa='" . $best . "' where id_cuenta=" . $C_CONT . ";";
             mysqli_query($con, $querysa) or die("ERROR RM15 - " . mysqli_error($con));
-            $querysa3 = "update resumen set status_aarsa='" . $hot . "' 
-where id_cuenta=" . $C_CONT . "
-and cliente not like 'J%' and cliente not like '%JUR';";
-            mysqli_query($con, $querysa3) or die("ERROR RM15c - " . mysqli_error($con));
-            $querysa1 = "update cobra4.resumen set status_aarsa='PROMESA INCUMPLIDA' 
-where id_cuenta not in (select c_cont from cobra4.historia where n_prom>0 
-and d_prom>=curdate()) and cliente not like 'J%' and cliente not like '%JUR'
-and id_cuenta in (select c_cont from cobra4.historia where n_prom>0 
+            $querysa1 = "update cobra.resumen set status_aarsa='PROMESA INCUMPLIDA'
+where id_cuenta not in (select c_cont from cobra.historia where n_prom>0 
+and d_prom>=curdate()) 
+and id_cuenta in (select c_cont from cobra.historia where n_prom>0 
 and d_prom<curdate()) 
-and numero_de_cuenta not in 
-(select cuenta from cobra4.pagos where fecha>last_day(curdate()-interval 1 month)) 
-and status_aarsa not regexp 'rota' and status_aarsa not regexp 'propuesta'
+and id_cuenta not in
+(select id_cuenta from cobra.pagos where fecha>last_day(curdate()-interval 1 month))
 and (status_aarsa like 'PROMESA DE P%' or status_aarsa like 'CONFIRMA P%')
 and id_cuenta=" . $C_CONT . ";";
             mysqli_query($con, $querysa1) or die("ERROR RM15a - " . mysqli_error($con));
