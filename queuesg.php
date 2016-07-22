@@ -76,7 +76,7 @@ $arrays  = rtrim($arrays, ',').']';
 $queryq  = "SELECT distinct status_aarsa,sdc,cliente
 FROM queuelist WHERE gestor = '".$GESTOR."' and bloqueado=0
 ORDER BY cliente,sdc,status_aarsa;";
-$resultq = $con->query($queryq) or die($con->error());
+$resultq = $con->query($queryq) or die($con->error);
 while ($rowq    = $resultq->fetch_row()) {
     $arrayq = $arrayq.'["';
     $arrayq = $arrayq.$rowq[0].'","'.$rowq[1].'","'.$rowq[2].'"],';
