@@ -8,23 +8,23 @@ if (!empty($go)) {
             SET completo='".$con->real_escape_string($get['completo'])."',
             tipo='".$con->real_escape_string($get['tipo'])."'
             WHERE usuaria='".$con->real_escape_string($get['usuaria'])."'";
-        $resultu = $con->query($queryu) or die($con->error());
+        $resultu = $con->query($queryu) or die($con->error);
         $queryp  = "UPDATE nombres
             SET passw=sha('".$con->real_escape_string($get['passw'])."')
             WHERE usuaria='".$con->real_escape_string($get['usuaria'])."'
 	    AND passw <> '".$con->real_escape_string($get['passw'])."'";
-        $resultp = $con->query($queryp) or die($con->error());
+        $resultp = $con->query($queryp) or die($con->error);
     }
 
     if ($go == "BORRAR") {
         $nombre   = $con->real_escape_string($get['usuaria']);
         $queryb   = "DELETE FROM nombres WHERE usuaria='".$nombre."'";
-        $resultb  = $con->query($queryb) or die($con->error());
+        $resultb  = $con->query($queryb) or die($con->error);
         $queryb2  = "DELETE FROM queuelist WHERE gestor='".$nombre."'";
-        $resultb2 = $con->query($queryb2) or die($con->error());
+        $resultb2 = $con->query($queryb2) or die($con->error);
         $queryb3  = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
             WHERE ejecutivo_asignado_call_center='".$nombre."'";
-        $resultb3 = $con->query($queryb3) or die($con->error());
+        $resultb3 = $con->query($queryb3) or die($con->error);
     }
 
     if ($go == "AGREGAR") {
@@ -36,16 +36,16 @@ if (!empty($go)) {
         $queryin        = "INSERT INTO nombres (USUARIA, INICIALES, COMPLETO, PASSW,
             TIPO, CAMP) 
 	VALUES ('".$usuaria."','".$iniciales."','".$completo."',sha('".$passw."'),'".$tipo."', 999999)";
-        $resultin       = $con->query($queryin) or die("nombre insert ".$con->error());
+        $resultin       = $con->query($queryin) or die("nombre insert ".$con->error);
         $querylistin    = "insert ignore into queuelist
 		SELECT distinct null, '".$iniciales."', cliente, status_aarsa, 999999,
 		orden1, updown1, orden2, updown2, orden3, updown3,
 		sdc, bloqueado
 		FROM queuelist;";
-        $resultlistin   = $con->query($querylistin) or die("queuelist insert ".$con->error());
+        $resultlistin   = $con->query($querylistin) or die("queuelist insert ".$con->error);
         $querylistcamp  = "update queuelist
             set camp=auto where camp=999999;";
-        $resultlistcamp = $con->query($querylistcamp) or die("queuelist numbering ".$con->error());
+        $resultlistcamp = $con->query($querylistcamp) or die("queuelist numbering ".$con->error);
         header("Location: gestoradmin.php?capt=".$capt);
     }
 }
@@ -53,7 +53,7 @@ $querymain = "SELECT USUARIA, COMPLETO, TIPO, CAMP, INICIALES, PASSW
     FROM nombres 
     where iniciales <> 'gmbs'
     order by TIPO, USUARIA";
-$result    = $con->query($querymain) or die($con->error());
+$result    = $con->query($querymain) or die($con->error);
 ?>
 <!DOCTYPE html>
 <html>

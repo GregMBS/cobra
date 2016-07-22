@@ -91,7 +91,7 @@ $post = filter_input_array(INPUT_POST);
                 <table summary="Nuevo campos">
                     <?php
                     $querypdex  = "select position from cargadex where cliente='".$cliente."';";
-                    $resultpdex = $con->query($querypdex) or die($con->error());
+                    $resultpdex = $con->query($querypdex) or die($con->error);
                     $numdex     = 0;
 
                     while ($answerpdex = $resultpdex->fetch_row()) {
@@ -114,7 +114,7 @@ $post = filter_input_array(INPUT_POST);
                                             <option value='nousar<?php echo $c ?>'>no usar</option>
                                             <?php
                                             $queryres  = "show columns from resumen";
-                                            $resultres = $con->query($queryres) or die($con->error());
+                                            $resultres = $con->query($queryres) or die($con->error);
                                             $k         = 0;
 
                                             while ($answerres = $resultres->fetch_row()) {
@@ -140,7 +140,7 @@ $post = filter_input_array(INPUT_POST);
                                }
                            } else {
                                $querydex  = "select * from cargadex where cliente='".$cliente."';";
-                               $resultdex = $con->query($querydex) or die($con->error());
+                               $resultdex = $con->query($querydex) or die($con->error);
                                $c         = 0;
 
                                while ($answerdex = $resultdex->fetch_row()) {
@@ -168,7 +168,7 @@ $post = filter_input_array(INPUT_POST);
 
             if (!empty($post['pos0'])) {
                 $queryres  = "show columns from resumen";
-                $resultres = $con->query($queryres) or die($con->error());
+                $resultres = $con->query($queryres) or die($con->error);
                 $k         = 0;
 
                 while ($answerres = $resultres->fetch_row()) {
@@ -194,13 +194,13 @@ $post = filter_input_array(INPUT_POST);
                         $nposition = $pos;
                     }
                     $queryins  = "insert into cargadex (field,type,nullok,position,cliente) values ('$nfield','$ntype','$nnullok','$nposition','$cliente');";
-                    $resultins = $con->query($queryins) or die('Load cargadex: '.$con->error());
+                    $resultins = $con->query($queryins) or die('Load cargadex: '.$con->error);
                 }
             }
             $querydrop = "DROP TABLE IF EXISTS `cobrajdlr`.`temp`;";
-            $con->query($querydrop) or die($con->error());
+            $con->query($querydrop) or die($con->error);
             $querydex  = "select * from cargadex where cliente='".$cliente."';";
-            $resultdex = $con->query($querydex) or die($con->error());
+            $resultdex = $con->query($querydex) or die($con->error);
             $c         = 0;
 
             while ($answerdex = $resultdex->fetch_row()) {
@@ -224,13 +224,13 @@ $post = filter_input_array(INPUT_POST);
                 $querystart = $querystart.$qline;
             }
 //            die($querystart.$queryend);
-            $con->query($querystart.$queryend) or die('Load temp: '.$con->error());
+            $con->query($querystart.$queryend) or die('Load temp: '.$con->error);
             $queryindex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50));";
-            $con->query($queryindex) or die($con->error());
+            $con->query($queryindex) or die($con->error);
             $filename2  = $con->real_escape_string($post['filename']);
             $n          = 0;
             $querytrans = "START TRANSACTION";
-            $con->query($querytrans) or die('Start transaction:'.$con->error());
+            $con->query($querytrans) or die('Start transaction:'.$con->error);
             if (($handle     = fopen($filename2, "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ',', '"')) !== FALSE) {
                     if ($n == 0) {
@@ -246,10 +246,10 @@ $post = filter_input_array(INPUT_POST);
                     $n++;
                 }
                 $queryloadtrim = rtrim($queryload, ",");
-                $con->query($queryloadtrim) or die('Load temp 2:'.$con->error());
+                $con->query($queryloadtrim) or die('Load temp 2:'.$con->error);
             }
             $querycommit = "COMMIT";
-            $con->query($querycommit) or die('Commit:'.$con->error());
+            $con->query($querycommit) or die('Commit:'.$con->error);
             if ($cliente == 'CrediClub') {
                 $querycff = "UPDATE temp
 		set cliente='CrediClub',
@@ -262,11 +262,11 @@ $post = filter_input_array(INPUT_POST);
                 fecha_de_actualizacion=curdate(),
                 originacion = '';";
             }
-            $con->query($querycff) or die($con->error());
+            $con->query($querycff) or die($con->error);
             $queryfcont  = "show fields from temp
 where field not regexp '^nousar'
 and field not regexp '_cuenta$';";
-            $resultfcont = $con->query($queryfcont) or die($con->error());
+            $resultfcont = $con->query($queryfcont) or die($con->error);
             $fieldlistu  = '';
             $sepu        = '';
 
@@ -283,12 +283,12 @@ and field not regexp '_cuenta$';";
             if ($cliente == 'CrediClub') {
                 $queryupd2 = $queryupd2.' and temp.nombre_deudor = resumen.nombre_deudor';
             }
-            $con->query($queryupd2) or die($con->error().' UPDATE');
+            $con->query($queryupd2) or die($con->error.' UPDATE');
 //            die(htmlentities($queryupd2));
 
             echo "Old fields updated.";
             $queryfused  = "show fields from temp where field not regexp 'nousar';";
-            $resultfused = $con->query($queryfused) or die($con->error());
+            $resultfused = $con->query($queryfused) or die($con->error);
             $fieldlist   = '';
             $sep         = '';
 
@@ -303,9 +303,9 @@ and field not regexp '_cuenta$';";
             //die(htmlentities($queryins));
 //die("ready to INSERT to resumen");                    
             $queryins     = "insert ignore into resumen (".$fieldlist.") select ".$fieldlist." from temp;";
-            $resultins    = $con->query($queryins) or die('Load resumen: '.$con->error());
+            $resultins    = $con->query($queryins) or die('Load resumen: '.$con->error);
             $querycli     = "insert ignore into clientes values ('".$cliente."');";
-            $con->query($querycli) or die('Load clientes: '.$con->error());
+            $con->query($querycli) or die('Load clientes: '.$con->error);
             echo "New fields inserted.";
             $querypagoins = "insert ignore into pagos (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta)
 select numero_de_cuenta, fecha_de_ultimo_pago, 
@@ -319,9 +319,9 @@ where h2.d_fech>h1.d_fech and h2.c_cont=h1.c_cont and h2.n_prom>0)
 and fecha_de_ultimo_pago<fecha_de_actualizacion 
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
-            $con->query($querypagoins) or die($con->error());
+            $con->query($querypagoins) or die($con->error);
             $queryrlist1  = "truncate cobrajdlr.rlook;";
-            $con->query($queryrlist1) or die($con->error());
+            $con->query($queryrlist1) or die($con->error);
             $queryrlist2  = "insert into cobrajdlr.rlook
 select id_cuenta,numero_de_cuenta,nombre_deudor,cliente,status_de_credito,
 nombre_referencia_1,nombre_referencia_2,nombre_referencia_3,nombre_referencia_4,
@@ -335,7 +335,7 @@ tel_1_ref_4,tel_2_ref_4,
 tel_1_laboral,tel_2_laboral,telefonos_marcados
 from cobrajdlr.resumen;
 ";
-            $con->query($queryrlist2) or die($con->error());
+            $con->query($queryrlist2) or die($con->error);
         }
     }
 
