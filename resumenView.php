@@ -555,7 +555,7 @@
 
                 <span style='font-weight:bold;font-size:120%;'><?php echo $capt; ?></span>
                 <?php if (!empty($cliente)) { ?>
-                    <span onmouseover='this.style.visibility = "hidden";'><img style="position:absolute;top:0;right:0" height=50 alt="client logo" src='<?php
+                    <span onmouseover='this.style.visibility = "hidden";'><img style="position:absolute;top:0;right:0" height=50 alt="client logo" src='/logos/<?php
                         echo
                         $cliente;
                         ?>.jpg'></span>

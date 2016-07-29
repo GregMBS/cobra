@@ -68,8 +68,6 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'bigproms.php?capt=<?php echo $capt; ?>'">Query de las Promesas XLS</button>
                 <button onclick="window.location = 'inventario.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario XLS</button>
                 <button onclick="window.location = 'inventario-rapid.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLS</button>
-                <button onclick="window.location = 'Reporte_diario_special.php?capt=<?php echo $capt; ?>'">Promesas y Pagos autoconfigurado HTML</button>
-                <button onclick="window.location = 'Reporte_diario_hace_mes.php?capt=<?php echo $capt; ?>'">Promesas y Pagos hace un mes HTML</button>
                 <button onclick="window.location = 'comparativo.php?capt=<?php echo $capt; ?>'">Comparativo de 3 meses HTML</button><br>
                 <button onclick="window.location = 'tels_contactados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Contactados XLS</button>
                 <button onclick="window.location = 'tels_marcados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Marcados XLS</button>
@@ -82,55 +80,8 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'CreditoRealReport.php'">Reporte Lunes, Miercoles, Viernes para Credito Real</button>
                 <button onclick="window.location = 'CreditoRealFdm.php'">Reporte Mensual</button>
                 <br>
-<!--                <h3>Credito Si</h3>
-                <button onclick="window.location = 'folioadmin2.php?capt=<?php echo $capt; ?>'">Administrar CS Folios</button>
-                
-                <button onclick="window.location='folioadmins.php?capt=<?php echo $capt; ?>'">Administrar SDH Folios</button><br>
-                
-                <button onclick="window.location = 'Layout_carga_de_gestiones_cs_mensual_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 CS Mensual TXT</button>
-                <button onclick="window.location = 'Layout_carga_de_promesas_cs_mensual.txt.php?capt=<?php echo $capt; ?>'">Layout 600 CS Mensual TXT</button><br>
-                <button onclick="window.location = 'Layout_carga_de_gestiones_cs_daily_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 CS Diario TXT</button>
-                <button onclick="window.location = 'Layout_carga_de_promesas_cs_daily.txt.php?capt=<?php echo $capt; ?>'">Layout 600 CS Diario TXT</button><br>
-                <button onclick="window.location = 'Layout_carga_de_gestiones_sdh_mensual_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 SDH Mensual TXT</button>
-                <button onclick="window.location = 'Layout_carga_de_promesas_sdh_mensual.txt.php?capt=<?php echo $capt; ?>'">Layout 600 SDH Mensual TXT</button><br>
-                <button onclick="window.location = 'Layout_carga_de_gestiones_sdh_daily_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 SDH Diario TXT</button>
-                <button onclick="window.location = 'Layout_carga_de_promesas_sdh_daily.txt.php?capt=<?php echo $capt; ?>'">Layout 600 SDH Diario TXT</button><br>
-                <button onclick="window.location = 'Productividad_CS.php?capt=<?php echo $capt; ?>'">Productividad</button>
-                <button onclick="window.location = 'fdm-cs.php?capt=<?php echo $capt; ?>'">Fin del Mes</button>
-                <button onclick="window.open('CS_daily.php?capt=<?php echo $capt; ?>', 'Credito Si Auditario', 'width=400,height=200,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes')">Credito Si Auditario</button><br>
-                <h3>DIMEX</h3>
-                <button onclick="window.location = 'DIMEXReport.php?capt=<?php echo $capt; ?>'">Reporte de DIMEX</button>
-                <h3>Prestamo Familiar</h3>
-                <button onclick="window.location = 'CartasFiniquitos.php?capt=<?php echo $capt; ?>'">Cartas Finiquitos</button>-->
             </div>
             <div id="bot">
-<!--                <h2>Controlar ROBOT y ELASTIX</h2>
-                <h3>ROBOT</h3>
-                <button onclick="window.location = 'cargatel.php?capt=<?php echo $capt; ?>'">CARGAR ROBOT</button>
-                <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">CONTROLAR ROBOT</button>
-                <button onclick="window.location = 'callfileedit.php?capt=<?php echo $capt; ?>'">QUITAR de ROBOT</button>
-                <button onclick="window.location = 'robot_contactos.php?capt=<?php echo $capt; ?>'">CONTACTOS para ROBOT</button>
-                <button onclick="window.location = 'robot_sin_contactos.php?capt=<?php echo $capt; ?>'">SIN CONTACTOS para ROBOT</button>
-                <button onclick="window.location = 'robot_negociaciones.php?capt=<?php echo $capt; ?>'">NEGOCIACIONES para ROBOT</button><br>
-                <h3>ELASTIX</h3>
-                <button onclick="window.location = 'pbxqueues.php?capt=<?php echo $capt; ?>'">PBX Rapido</button>
-                <button onclick="window.location = 'elasticount.php?capt=<?php echo $capt; ?>'">ELASTIX Rapido</button>
-                <button onclick="window.location = 'elastix_all.php?capt=<?php echo $capt; ?>'">TODAS ACTIVAS para ELASTIX</button>
-                <button onclick="window.location = 'elastix-history.php?capt=<?php echo $capt; ?>'">ELECCI&Oacute; CONFIGURABLE para ELASTIX</button>
-                <button onclick="window.location = 'elastix.php?capt=<?php echo $capt; ?>'">CONTACTOS para ELASTIX 90 D&Iacute;AS</button>
-                <button onclick="window.location = 'elastix_fresh.php?capt=<?php echo $capt; ?>'">CONTACTOS para ELASTIX MES ACTUAL</button>
-                <button onclick="window.location = 'elastix2.php?capt=<?php echo $capt; ?>'">SIN GESTIONES para ELASTIX</button>
-                <button onclick="window.location = 'elastix_cnp.php?capt=<?php echo $capt; ?>'">NEGOCIACIONES y PROMESAS para ELASTIX</button>
-                <button onclick="window.location = 'elastix_msg.php?capt=<?php echo $capt; ?>'">MENSAJES para ELASTIX</button>
-                <button onclick="window.location = 'elastix_sc.php?capt=<?php echo $capt; ?>'">SIN CONTACTOS para ELASTIX</button>
-                <button onclick="window.location = 'elastix_tcasa.php?capt=<?php echo $capt; ?>'">TEL CASA sin marcarpara ELASTIX</button>
-                <button onclick="window.location = 'elastix_tlab.php?capt=<?php echo $capt; ?>'">TEL LABOTAL sin marcarpara ELASTIX</button>
-                <button onclick="window.location = 'elastix_tref.php?capt=<?php echo $capt; ?>'">TEL REF sin marcar para ELASTIX</button>
-                <button onclick="window.location = 'elastikill.php?capt=<?php echo $capt; ?>'">QUITAR de ELASTIX</button>
-                <button onclick="window.location = 'cellcall2.php?capt=<?php echo $capt; ?>'">Marca Celulares</button>
-                <h3>OTROS</h3>
-                <button onclick="window.location = 'llamadas_desconocidas.php?capt=<?php echo $capt; ?>'">LLAMADAS DESCONOCIDAS</button>
-                <button onclick="window.location = 'llamadas_desconocidas_ayer.php?capt=<?php echo $capt; ?>'">LLAMADAS DESCONOCIDAS DE AYER</button><br>-->
             </div>
         </div>
         <p>
