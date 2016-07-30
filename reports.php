@@ -14,36 +14,34 @@ $capt = filter_input(INPUT_GET, 'capt');
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     </head>
     <body>
-        <div data-role="page" id='Administracion'>
-            <div data-role="header">
-                <div data-role="navbar">
-                    <UL>
-                        <LI><A href="#Administracion" class="ui-btn-active">Administraci&oacute;n</A></LI>
-                        <LI><A href="#Generales">Reportes Generales</A></LI>
-                    </UL>
-                </div>
+        <div data-role="header">
+            <div data-role="navbar">
+                <UL>
+                    <LI><A href="#Administracion" class="ui-btn-active">Administraci&oacute;n</A></LI>
+                    <LI><A href="#Generales">Reportes Generales</A></LI>
+                </UL>
             </div>
-            <div data-role="page" id="Administracion">
-                <div data-role="collapsible">
-                    <h2>Cargar</h2>
-                    <button onclick="window.location = 'carga2.php?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
-                    <button onclick="window.location = 'pagobulk.php?capt=<?php echo $capt; ?>'">Cargar Pagos Confirmados</button>
-                </div>
-                <div data-role="collapsible">
-                    <h2>Visitar</h2>
-                    <button onclick="window.location = 'checkout.php?capt=<?php echo $capt; ?>'">Asignar Visitas</button>
-                    <button onclick="window.location = 'checkin.php?capt=<?php echo $capt; ?>'">Recibir Visitas</button>
-                </div>
-                <div data-role="collapsible">
-                    <h2>Administrar</h2>
-                    <button onclick="window.location = 'gestoradmin.php?capt=<?php echo $capt; ?>'">Administrar Acesso</button>
-                    <button onclick="window.location = 'breakadmin.php?capt=<?php echo $capt; ?>'">Administrar Breaks</button>
-                    <button onclick="window.location = 'queues.php?capt=<?php echo $capt; ?>'">Administrar Queues</button>
-                    <button onclick="window.location = 'notadmin.php?capt=<?php echo $capt; ?>'">Administrar Notas</button>
-                    <button onclick="window.location = 'segmentadmin.php?capt=<?php echo $capt; ?>'">Administrar Segmetos</button>
-                    <button onclick="window.location = 'changest.php?capt=<?php echo $capt; ?>'">Cambiar Status de Credito</button>
-                    <button onclick="window.location = 'inactivar.php?capt=<?php echo $capt; ?>'">Inactivar Cuentas</button>
-                </div>
+        </div>
+        <div data-role="page" id="Administracion">
+            <div data-role="collapsible">
+                <h2>Cargar</h2>
+                <button onclick="window.location = 'carga2.php?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
+                <button onclick="window.location = 'pagobulk.php?capt=<?php echo $capt; ?>'">Cargar Pagos Confirmados</button>
+            </div>
+            <div data-role="collapsible">
+                <h2>Visitar</h2>
+                <button onclick="window.location = 'checkout.php?capt=<?php echo $capt; ?>'">Asignar Visitas</button>
+                <button onclick="window.location = 'checkin.php?capt=<?php echo $capt; ?>'">Recibir Visitas</button>
+            </div>
+            <div data-role="collapsible">
+                <h2>Administrar</h2>
+                <button onclick="window.location = 'gestoradmin.php?capt=<?php echo $capt; ?>'">Administrar Acesso</button>
+                <button onclick="window.location = 'breakadmin.php?capt=<?php echo $capt; ?>'">Administrar Breaks</button>
+                <button onclick="window.location = 'queues.php?capt=<?php echo $capt; ?>'">Administrar Queues</button>
+                <button onclick="window.location = 'notadmin.php?capt=<?php echo $capt; ?>'">Administrar Notas</button>
+                <button onclick="window.location = 'segmentadmin.php?capt=<?php echo $capt; ?>'">Administrar Segmetos</button>
+                <button onclick="window.location = 'changest.php?capt=<?php echo $capt; ?>'">Cambiar Status de Credito</button>
+                <button onclick="window.location = 'inactivar.php?capt=<?php echo $capt; ?>'">Inactivar Cuentas</button>
             </div>
         </div>
         <div data-role="page" id="Generales">
@@ -80,11 +78,10 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'tels_marcados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Marcados XLS</button>
             </div>
         </div>
-    </div>
-    <div data-role="footer">
-        <button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
-        <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
-        <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button><br>
-    </div>
-</body>
+        <div data-role="footer">
+            <button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
+            <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
+            <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button><br>
+        </div>
+    </body>
 </html>
