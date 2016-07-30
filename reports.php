@@ -14,6 +14,7 @@ $capt = filter_input(INPUT_GET, 'capt');
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     </head>
     <body>
+        <div data-role="page" id='Administracion'>
         <div data-role="header">
             <div data-role="navbar">
                 <UL>
@@ -22,7 +23,6 @@ $capt = filter_input(INPUT_GET, 'capt');
                 </UL>
             </div>
         </div>
-        <div data-role="page" id="Administracion">
             <div data-role="collapsible">
                 <h2>Cargar</h2>
                 <button onclick="window.location = 'carga2.php?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
@@ -43,8 +43,23 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'changest.php?capt=<?php echo $capt; ?>'">Cambiar Status de Credito</button>
                 <button onclick="window.location = 'inactivar.php?capt=<?php echo $capt; ?>'">Inactivar Cuentas</button>
             </div>
+	    <div data-role="footer">
+		<button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
+		<button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
+		<button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button>
         </div>
-        <div data-role="page" id="Generales">
+        </div>
+        <div data-role="page" id='Generales'>
+	    <div data-role="header">
+		<div data-role="navbar">
+		    <UL>
+			<LI><A href="#Administracion">Administraci&oacute;n</A></LI>
+			<LI><A href="#Generales" class="ui-btn-active">Reportes Generales</A></LI>
+			<LI><A href="#Specializados">DEMOS</A></LI>
+			<LI><A href="#ROBOT-ELASTIX">ROBOT y ELASTIX</A></LI>
+		    </UL>
+		</div>
+	    </div>
             <div data-role="collapsible">
                 <h2>Estatus de cuentas</h2>
                 <button onclick="window.location = 'queuesqc.php?capt=<?php echo $capt; ?>'">Queues por Cliente</button>
