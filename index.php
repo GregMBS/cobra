@@ -112,7 +112,7 @@ if (!empty($go)) {
     </head>
     <body>
         <h1><?php echo $msg; ?></h1>
-        <em>versi&oacute;n configurado para Jurídico de la Rosa</em>
+        <em>versi&oacute;n configurado para Servicios Automáticos en Linea SA</em>
         <div class="forma">
             <form action="index.php" method="post" autocomplete="off">
                 <fieldset>
