@@ -41,7 +41,7 @@ if ($go == 'RECIBIR') {
 <!DOCTYPE html>
 <html>
     <head>
-	<title>COBRA Visitador Asignaciones y Recepciones</title>
+	<title>CobraMas Visitador Asignaciones y Recepciones</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
         <script src="bower_components/jquery/jquery.js" type="text/javascript"></script>

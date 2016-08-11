@@ -13,8 +13,8 @@ $objPHPExcel = new PHPExcel();
 $objPHPExcel->getProperties()->setCreator("CDM");
 $objPHPExcel->getProperties()->setLastModifiedBy("Greg Blumenthal");
 $objPHPExcel->getProperties()->setTitle("Reporte_de_DIMEX");
-$objPHPExcel->getProperties()->setSubject("COBRA Reporte_de_DIMEX");
-$objPHPExcel->getProperties()->setDescription("COBRA Reporte_de_DIMEX");
+$objPHPExcel->getProperties()->setSubject("CobraMas Reporte_de_DIMEX");
+$objPHPExcel->getProperties()->setDescription("CobraMas Reporte_de_DIMEX");
 $objPHPExcel->setActiveSheetIndex(0);
 $i = 0;
 foreach ($result['headers'] as $var) {

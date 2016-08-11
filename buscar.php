@@ -102,7 +102,7 @@ if (isset($querymain)) {
 <!DOCTYPE html>
         <html>
             <head>
-                <title>COBRA - Buscar</title>
+                <title>CobraMas - Buscar</title>
         <meta charset="utf-8">
 	<link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
 	<link href="bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>

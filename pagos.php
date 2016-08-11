@@ -27,7 +27,7 @@ $rowsub   = $sts->fetchAll(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>COBRA Pagos</title>
+        <title>CobraMas Pagos</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <link href="bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>

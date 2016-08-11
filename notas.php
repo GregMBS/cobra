@@ -55,7 +55,7 @@ if ($go == 'BORRAR') {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>COBRA Notas</title>
+        <title>CobraMas Notas</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="vendor/bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>

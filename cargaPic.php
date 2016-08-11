@@ -10,7 +10,7 @@ if (empty($pdoc)) {
 
 <html>
     <head>
-        <title>COBRA Carga Foto</title>
+        <title>CobraMas Carga Foto</title>
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>

@@ -20,7 +20,7 @@ function reader($filename){
 
 <html>
     <head>
-        <title>COBRA Carga</title>
+        <title>CobraMas Carga</title>
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>

@@ -65,13 +65,13 @@ if ($go != "") {
 <!DOCTYPE html>
 <html>
     <head>
-	<title>LOGOUT de COBRA</title>
+	<title>LOGOUT de CobraMas</title>
 	<link href="public/bower_resources/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <script src="public/bower_resources/jquery/dist/jquery.js" type="text/javascript"></script>
         <script src="public/bower_resources/jqueryui/jquery-ui.js" type="text/javascript"></script>
     </head>
     <body>
-	<h1>COBRA - LOGOUT</h1>
+	<h1>CobraMas - LOGOUT</h1>
 	<div class="forma">
 	    <form action='logout.php' method='get'>
 		<input type='hidden' name='capt' value='<?php echo $capt ?>'>

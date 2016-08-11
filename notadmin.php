@@ -48,7 +48,7 @@ if (!empty($go)) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>COBRA Nota Admin</title>
+        <title>CobraMas Nota Admin</title>
         <link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
         <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>

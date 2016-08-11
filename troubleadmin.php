@@ -24,7 +24,7 @@ if (!empty($go)) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>COBRA Trouble Admin</title>
+        <title>CobraMas Trouble Admin</title>
         <meta http-equiv="refresh" content="60"/>
         <link href="public/bower_resources/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <script src="public/bower_resources/jquery/dist/jquery.js" type="text/javascript"></script>

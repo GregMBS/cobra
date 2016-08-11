@@ -26,7 +26,7 @@ VALUES (:sistema, :capt, now(), :fuente, :descripcion, :error_msg)";
 <!DOCTYPE html>
 <html>
     <head>
-        <title>COBRA Trouble</title>
+        <title>CobraMas Trouble</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
@@ -40,7 +40,7 @@ VALUES (:sistema, :capt, now(), :fuente, :descripcion, :error_msg)";
     <body>
         <form action="trouble.php" method="get" name="trouble">
             <span class="formcap">Fuente de problema</span><select name='fuente'>
-                <option value='COBRA'>COBRA</option>
+                <option value='CobraMas'>CobraMas</option>
                 <option value='SIPCLIENT'>SFLPHONE</option>
                 <option value='PBX'>CONMUTADOR</option>
                 <option value='DIADEMA'>DIADEMA</option>

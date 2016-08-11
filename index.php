@@ -99,9 +99,9 @@ if (!empty($go)) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>COBRA</title>
+        <title>CobraMas</title>
         <?php
-        $msg = 'COBRA';
+        $msg = 'CobraMas';
         ?>
         <style type="text/css">
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
