@@ -1,7 +1,7 @@
 <?php
 require_once 'pdoConnect.php';
 $pc     = new pdoConnect();
-$pdo    = $pc->dbConnectUser();
+$pdo    = $pc->dbConnectAdmin();
 require_once 'rotasClass.php';
 $rc     = new rotasClass($pdo);
 $capt   = filter_input(INPUT_GET, 'capt');
