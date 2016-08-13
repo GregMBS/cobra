@@ -312,7 +312,7 @@ and id_cuenta=" . $C_CONT . ";";
     }
 } else {
     $flagmsg = "Acceso sin autorizaci&oacute;n";
-    include 'resumenErrorView.php';
+    include 'views/resumenErrorView.php';
 }
 if ($go == 'NUEVOS') {
     $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
@@ -686,7 +686,7 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
         }
         header($redirector);
     } else {
-        include 'resumenErrorView.php';
+        include 'views/resumenErrorView.php';
     }
 }
 if (substr($capt, 0, 8) == "practica") {
@@ -1262,4 +1262,4 @@ if (realpath($path)) {
     $picFile = 'pics/'.$numero_de_cuenta.'.jpg';
 }
 
-include 'resumenView.php';
+include 'views/resumenView.php';

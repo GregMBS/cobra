@@ -60,4 +60,4 @@ if ($go != "") {
 	}
 	header($page);
 }
-include 'logoutView.php';
+include 'views/logoutView.php';

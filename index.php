@@ -95,4 +95,4 @@ if (!empty($go)) {
     }
 }
 
-include 'indexView.php';
+include 'views/indexView.php';

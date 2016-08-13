@@ -773,5 +773,5 @@ $resultothers = mysqli_query($con, $queryothers) or die("ERROR RMothers - ".mysq
 while ($rowothers    = mysqli_fetch_row($resultothers)) {
     $others = $rowothers[0];
 }
-require_once 'resumen-mobile-view.php';
+require_once 'views/resumen-mobile-view.php';
 mysqli_close($con);
