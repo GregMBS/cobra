@@ -1,5 +1,5 @@
 <?php
-require_once 'pdoConnect.php';
+require_once 'classes/pdoConnect.php';
 if (empty($pdoc)) {
     $pdoc = new pdoConnect();
     $pdo  = $pdoc->dbConnectAdmin();

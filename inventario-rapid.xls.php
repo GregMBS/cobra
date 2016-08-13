@@ -1,6 +1,6 @@
 <?php
 set_time_limit(300);
-require_once 'pdoConnect.php';
+require_once 'classes/pdoConnect.php';
 $pdoc    = new pdoConnect();
 $pdo     = $pdoc->dbConnectAdmin();
 $capt    = filter_input(INPUT_GET, 'capt');

@@ -1,5 +1,5 @@
 <?php
-require_once 'pdoConnect.php';
+require_once 'classes/pdoConnect.php';
 $pc     = new pdoConnect();
 $pdo    = $pc->dbConnectAdmin();
 require_once 'rotasClass.php';

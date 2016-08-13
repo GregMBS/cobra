@@ -1,5 +1,5 @@
 <?php
-require_once 'pdoConnect.php'; // returns $pdo
+require_once 'classes/pdoConnect.php'; // returns $pdo
 $pdoc		 = new pdoConnect();
 $pdo		 = $pdoc->dbConnectUser();
 $capt		 = filter_input(INPUT_GET, 'capt');
