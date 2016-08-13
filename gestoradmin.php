@@ -1,5 +1,5 @@
 <?php
-include('admin_hdr_i.php');
+require_once 'admin_hdr_i.php';
 $go  = filter_input(INPUT_GET, 'go');
 $get = filter_input_array(INPUT_GET);
 if (!empty($go)) {

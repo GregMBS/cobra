@@ -1,5 +1,5 @@
 <?php
-include('admin_hdr_i.php');
+require_once 'admin_hdr_i.php';
 require_once 'vendor/autoload.php';
 use Box\Spout\Reader\ReaderFactory;
 $post = filter_input_array(INPUT_POST);

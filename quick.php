@@ -1,5 +1,5 @@
 <?php
-include('pdoConnect.php');
+require_once 'pdoConnect.php';
 $pc     = new pdoConnect();
 $pdo    = $pc->dbConnectAdmin();
 $capt   = filter_input(INPUT_GET, 'capt');
@@ -27,16 +27,16 @@ where it_guy is null
   $fout = $answerfout['ct'];
   }
  */
-include 'quickAhoraClass.php';
+require_once 'quickAhoraClass.php';
 $qa           = new QuickAhoraClass($pdo);
 $resultAhora  = $qa->getAhora();
-include 'quickHoyClass.php';
+require_once 'quickHoyClass.php';
 $qh           = new QuickHoyClass($pdo);
 $resultHoy    = $qh->getHoy();
-include 'quickBreaksClass.php';
+require_once 'quickBreaksClass.php';
 $qb           = new QuickBreaksClass($pdo);
 $resultBreaks = $qb->getBreaks();
-include 'quickPorHoraClass.php';
+require_once 'quickPorHoraClass.php';
 $qp           = new QuickPorHoraClass($pdo);
 $resultPorHora = $qp->getPorHora();
 ?>

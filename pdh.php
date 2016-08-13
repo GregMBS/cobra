@@ -1,8 +1,8 @@
 <?php
-include('pdoConnect.php');
+require_once 'pdoConnect.php';
 $pc     = new pdoConnect();
 $pdo    = $pc->dbConnectAdmin();
-include('DhClass.php');
+require_once 'DhClass.php';
 $dc     = new DhClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $gestor = filter_input(INPUT_GET, 'gestor');

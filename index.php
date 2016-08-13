@@ -95,4 +95,4 @@ if (!empty($go)) {
     }
 }
 
-include 'views/indexView.php';
+require_once 'views/indexView.php';

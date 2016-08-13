@@ -17,7 +17,7 @@ function highhist($stat, $visit)
     }
     return $highstr;
 }
-include('usuario_hdr_i.php');
+require_once 'usuario_hdr_i.php';
 $tcapt  = $capt;
 $C_CVGE = $capt;
 if (substr($capt, 0, 8) == "practica") {

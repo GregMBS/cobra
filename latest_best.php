@@ -5,10 +5,10 @@ require_once 'vendor/autoload.php';
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
-include('pdoConnect.php');
+require_once 'pdoConnect.php';
 $pc        = new pdoConnect();
 $pdo       = $pc->dbConnectAdmin();
-include('BestClass.php');
+require_once 'BestClass.php';
 $bc        = new BestClass($pdo);
 $resultpre = $bc->getResumenData();
 $filename  = "Ultimo_y_mejor_".date('ymd').".xlsx";

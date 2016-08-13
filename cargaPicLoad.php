@@ -10,4 +10,4 @@ if ($_FILES["file"]["error"] == 0) {
     $result  = TRUE;
 }
 
-include 'cargaPic.php';
+require_once 'cargaPic.php';

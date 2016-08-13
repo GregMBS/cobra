@@ -1,5 +1,5 @@
 <?php
-include('usuario_hdr_i.php');
+require_once 'usuario_hdr_i.php';
 $go     = filter_input(INPUT_GET, 'go');
 $capt   = filter_input(INPUT_GET, 'capt');
 $GESTOR = mysqli_real_escape_string($con, filter_input(INPUT_GET, 'capt'));
