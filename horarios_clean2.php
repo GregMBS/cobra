@@ -3,7 +3,7 @@ $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
 require_once 'classes/pdoConnect.php';
 $pc      = new pdoConnect();
 $pdo     = $pc->dbConnectAdmin();
-require_once 'HorariosClass.php';
+require_once 'classes/HorariosClass.php';
 $hc      = new HorariosClass($pdo);
 $yr      = date('Y');
 $mes     = date('m');

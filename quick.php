@@ -27,16 +27,16 @@ where it_guy is null
   $fout = $answerfout['ct'];
   }
  */
-require_once 'quickAhoraClass.php';
+require_once 'classes/quickAhoraClass.php';
 $qa           = new QuickAhoraClass($pdo);
 $resultAhora  = $qa->getAhora();
-require_once 'quickHoyClass.php';
+require_once 'classes/quickHoyClass.php';
 $qh           = new QuickHoyClass($pdo);
 $resultHoy    = $qh->getHoy();
-require_once 'quickBreaksClass.php';
+require_once 'classes/quickBreaksClass.php';
 $qb           = new QuickBreaksClass($pdo);
 $resultBreaks = $qb->getBreaks();
-require_once 'quickPorHoraClass.php';
+require_once 'classes/quickPorHoraClass.php';
 $qp           = new QuickPorHoraClass($pdo);
 $resultPorHora = $qp->getPorHora();
 ?>

@@ -2,7 +2,7 @@
 require_once 'classes/pdoConnect.php';
 $pc     = new pdoConnect();
 $pdo    = $pc->dbConnectAdmin();
-require_once 'DhClass.php';
+require_once 'classes/DhClass.php';
 $dc     = new DhClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $gestor = filter_input(INPUT_GET, 'gestor');

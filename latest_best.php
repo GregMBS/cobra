@@ -8,7 +8,7 @@ use Box\Spout\Common\Type;
 require_once 'classes/pdoConnect.php';
 $pc        = new pdoConnect();
 $pdo       = $pc->dbConnectAdmin();
-require_once 'BestClass.php';
+require_once 'classes/BestClass.php';
 $bc        = new BestClass($pdo);
 $resultpre = $bc->getResumenData();
 $filename  = "Ultimo_y_mejor_".date('ymd').".xlsx";

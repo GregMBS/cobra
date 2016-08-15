@@ -1,6 +1,6 @@
 <?php
 $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-require_once 'adminClass.php';
+require_once 'classes/adminClass.php';
 $login   = new Admin();
 $con     = $login->getCon();
 $capt    = $login->getCapt();

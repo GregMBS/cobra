@@ -1,6 +1,4 @@
 <?php
-//require_once 'Mobile_Detect.php';
-//$detect = new Mobile_Detect();
 $gets = $_SERVER['QUERY_STRING'];
 parse_str($gets, $get);
 date_default_timezone_set('America/Monterrey');
@@ -697,7 +695,7 @@ if (substr($capt, 0, 8) == "practica") {
 $mynombre = '';
 $queryg = "SELECT usuaria,tipo,camp FROM nombres WHERE iniciales='" . $capt . "';";
 if (empty($con)) {
-    require('usuario_hdr_i.php');
+    require 'usuario_hdr_i.php';
 }
 $resultg = mysqli_query($con, $queryg) or die("ERROR RM37 - " . mysqli_error($con));
 while ($answerg = mysqli_fetch_row($resultg)) {
