@@ -1,52 +1,41 @@
 <?php
-require_once 'usuario_hdr_i.php';
-$go     = filter_input(INPUT_GET, 'go');
-$capt   = filter_input(INPUT_GET, 'capt');
-$GESTOR = mysqli_real_escape_string($con, filter_input(INPUT_GET, 'capt'));
-if (empty($GESTOR)) {
-    $GESTOR = '';
-}
-$msg = "";
+require_once 'pdoConnect.php';
+$pdoc = new pdoConnect();
+$pdo  = $pdoc->dbConnectUser();
+$capt = filter_input(INPUT_GET, 'capt');
+$go   = filter_input(INPUT_GET, 'go');
+$msg  = "";
 if ($go == 'INTRO') {
-    $camp    = -1;
-    $cliente = mysqli_real_escape_string($con,
-        filter_input(INPUT_GET, 'cliente'));
-    $sdc     = mysqli_real_escape_string($con,
-        filter_input(INPUT_GET, 'segmento'));
-    if (empty($sdc)) {
-        $sdc = '';
-    }
-    $queue      = mysqli_real_escape_string($con,
-        filter_input(INPUT_GET, 'queue'));
-    $queryqueue = "select camp from queuelist
-where cliente=?
-and status_aarsa=?
-and sdc=?
-and gestor=?
+    $cliente     = filter_input(INPUT_GET, 'cliente');
+    $sdc         = filter_input(INPUT_GET, 'sdc');
+    $queue       = filter_input(INPUT_GET, 'queue');
+    $queryqueue  = "select camp from queuelist
+where cliente=:cliente
+and status_aarsa=:queue
+and sdc=:sdc
+and gestor=:capt
 and bloqueado=0 limit 1
 ";
-    $stq        = $con->prepare($queryqueue);
-    if ($stq) {
-        $stq->bind_param('ssss', $cliente, $queue, $sdc, $GESTOR);
-        $stq->execute();
-        $stq->bind_result($camp);
-        $stq->fetch();
+    $stq         = $pdo->prepare($queryqueue);
+    $stq->bindParam(':cliente', $cliente);
+    $stq->bindParam(':queue', $queue);
+    $stq->bindParam(':sdc', $sdc);
+    $stq->bindParam(':capt', $capt);
+    $stq->execute();
+    $resultqueue = $stq->fetch(PDO::FETCH_ASSOC);
+    if ($resultqueue) {
+        $camp = $resultqueue['camp'];
     } else {
-        die($con->error);
+        $camp = -1;
     }
-    $stq->close();
     if ($camp >= 0) {
-        $queryupd = "UPDATE nombres SET camp=? "
-            ."where iniciales=?;";
-        $stu      = $con->prepare($queryupd);
-        if ($stu) {
-            $stu->bind_param('is', $camp, $GESTOR);
-            $stu->execute();
-        } else {
-            die($con->error);
-        }
-        $stu->close();
-        $msg = "<h2>Se elige queue ".$cliente." ".$sdc." ".$queue."</h2>";
+        $queryupd = "UPDATE nombres SET camp=:camp "
+            . "where iniciales=:capt;";
+        $stu = $pdo->prepare($queryupd);
+        $stu->bindParam(':camp', $camp);
+        $stu->bindParam(':capt', $capt);
+        $stu->execute();
+        $msg      = "<h2>Se elige queue ".$cliente." ".$sdc." ".$queue."</h2>";
     }
 } else {
     $msg = "<h2>Se elige queue bloqueado o equivocado.</h2>";
@@ -58,28 +47,37 @@ $arrayq  = '[';
 $queryc  = "SELECT distinct cliente
 FROM queuelist where cliente<>''
 ORDER BY cliente;";
-$resultc = $con->query($queryc);
-while ($rowc    = mysqli_fetch_assoc($resultc)) {
+$resultc = $pdo->query($queryc);
+foreach ($resultc as $rowc) {
     $arrayc = $arrayc.'"';
     $arrayc = $arrayc.$rowc['cliente'].'",';
 }
 $arrayc  = $arrayc.']';
 $querys  = "SELECT distinct sdc,cliente
-FROM queuelist WHERE gestor = '".$GESTOR."' and bloqueado=0 and cliente<>''
+FROM queuelist WHERE gestor = :capt and bloqueado=0 and cliente<>''
 ORDER BY cliente,sdc,status_aarsa;";
-$results = mysqli_query($con, $querys) or die(mysqli_error($con));
-while ($rows    = mysqli_fetch_assoc($results)) {
+        $sts = $pdo->prepare($querys);
+        $sts->bindParam(':capt', $capt);
+        $sts->execute();
+        $results=$sts->fetchAll(PDO::FETCH_ASSOC);
+foreach ($results as $rows) {
     $arrays = $arrays.'["';
     $arrays = $arrays.$rows['sdc'].'","'.$rows['cliente'].'"],';
 }
 $arrays  = rtrim($arrays, ',').']';
-$queryq  = "SELECT distinct status_aarsa,sdc,cliente
-FROM queuelist WHERE gestor = '".$GESTOR."' and bloqueado=0
+$querysa  = "SELECT distinct status_aarsa,sdc,cliente
+FROM queuelist WHERE gestor = :capt and bloqueado=0
 ORDER BY cliente,sdc,status_aarsa;";
-$resultq = $con->query($queryq) or die($con->error);
-while ($rowq    = $resultq->fetch_row()) {
+        $stsa = $pdo->prepare($querysa);
+        $stsa->bindParam(':capt', $capt);
+        $stsa->execute();
+        $resultsa=$stsa->fetchAll(PDO::FETCH_ASSOC);
+foreach ($resultsa as $rowsa) {
     $arrayq = $arrayq.'["';
-    $arrayq = $arrayq.$rowq[0].'","'.$rowq[1].'","'.$rowq[2].'"],';
+    $arrayq = $arrayq
+        . $rowsa['status_aarsa'].'","'
+        . $rowsa['sdc'].'","'
+        . $rowsa['cliente'].'"],';
 }
 $arrayq = rtrim($arrayq, ',').']';
 ?>
@@ -88,67 +86,67 @@ $arrayq = rtrim($arrayq, ',').']';
     <head>
         <title>Sus queues</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-        <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
-        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
-        <script src="bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="public/bower_resources/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <script src="public/bower_resources/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="public/bower_resources/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <script src="public/bower_resources/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
     </head>
     <body>
         <script>
-	    $(function () {
-		    $("button").button();
-		    $("#intro").button();
-		    $("#cliente").empty();
-		    $("#segmento").empty();
-		    $("#queue").empty();
-		    $("body").css("font-size", "10pt");
-		    $("body").css("text-align", "center");
-		    $("#cliente").css("text-align", "left");
-		    $("div").css("float", "left");
-		    $(".introb").css("clear", "left");
-		    $.each(<?php echo $arrayc; ?>, function (index, value) {
-			    var data = '<div class="column"><input class="columnc" type="radio" name="cliente" value="' + value + '" />' + value + '</div>';
-			    $('#cliente').append(data);
-		    });
-		    $("#cliente").change(function () {
-			    $("#segmento").empty();
-			    $("#queue").empty();
-			    var data2 = $('input[name=cliente]:checked').val();
-			    $.each(<?php echo $arrays; ?>, function (index, sdc) {
-				    if (sdc[1] === data2) {
-					    var st = sdc[0];
-					    if (st === '') {
-						    st = 'TODOS';
-					    }
-					    data3 = '<div class="column"><input class="columns" type="radio" name="segmento" value="' + sdc[0] + '" />' + st + '</div>';
-					    $('#segmento').append(data3);
-				    }
-			    });
-			    $("#segmento").css("text-align", "left");
-		    });
-		    $("#segmento").change(function () {
-			    $("#queue").empty();
-			    var data2 = $('input[name=cliente]:checked').val();
-			    var data4 = $('input[name=segmento]:checked').val();
-			    $.each(<?php echo $arrayq; ?>, function (index, que) {
-				    if ((que[1] + que[2]) === (data4 + data2)) {
-					    var qt = que[0];
-					    if (qt === '') {
-						    qt = 'TODOS';
-					    }
-					    data5 = '<div class="column"><input class="columnq" type="radio" name="queue" value="' + que[0] + '" />' + qt + '</div>';
-					    $('#queue').append(data5);
-				    }
-			    });
-			    $("#queue").css("text-align", "left");
-		    });
-	    });
+            $(function () {
+                $("button").button();
+                $("#intro").button();
+                $("#cliente").empty();
+                $("#segmento").empty();
+                $("#queue").empty();
+                $("body").css("font-size", "10pt");
+                $("body").css("text-align", "center");
+                $("#cliente").css("text-align", "left");
+                $("div").css("float", "left");
+                $(".introb").css("clear", "left");
+                $.each(<?php echo $arrayc; ?>, function (index, value) {
+                    var data = '<div class="column"><input class="columnc" type="radio" name="cliente" value="' + value + '" />' + value + '</div>';
+                    $('#cliente').append(data);
+                });
+                $("#cliente").change(function () {
+                    $("#segmento").empty();
+                    $("#queue").empty();
+                    var data2 = $('input[name=cliente]:checked').val();
+                    $.each(<?php echo $arrays; ?>, function (index, sdc) {
+                        if (sdc[1] === data2) {
+                            var st = sdc[0];
+                            if (st === '') {
+                                st = 'TODOS';
+                            }
+                            data3 = '<div class="column"><input class="columns" type="radio" name="segmento" value="' + sdc[0] + '" />' + st + '</div>';
+                            $('#segmento').append(data3);
+                        }
+                    });
+                    $("#segmento").css("text-align", "left");
+                });
+                $("#segmento").change(function () {
+                    $("#queue").empty();
+                    var data2 = $('input[name=cliente]:checked').val();
+                    var data4 = $('input[name=segmento]:checked').val();
+                    $.each(<?php echo $arrayq; ?>, function (index, que) {
+                        if ((que[1] + que[2]) === (data4 + data2)) {
+                            var qt = que[0];
+                            if (qt === '') {
+                                qt = 'TODOS';
+                            }
+                            data5 = '<div class="column"><input class="columnq" type="radio" name="queue" value="' + que[0] + '" />' + qt + '</div>';
+                            $('#queue').append(data5);
+                        }
+                    });
+                    $("#queue").css("text-align", "left");
+                });
+            });
         </script>
         <?php echo $msg; ?>
         <div>
-            <form method='get' action='#' name='<?php echo $GESTOR; ?>'>
+            <form method='get' action='#' name='queueform'>
                 <div>
-                    <input name='gestor' type='text' readonly='readonly' value='<?php echo $GESTOR; ?>'>
+                    <input name='gestor' type='text' readonly='readonly' value='<?php echo $capt; ?>'>
                 </div>
                 <div>
                     <br>
