@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$user = "root";
+$user = "cobramas";
 $pwd = "DeathSta1";
 $db = "cobramas_cobra";
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
