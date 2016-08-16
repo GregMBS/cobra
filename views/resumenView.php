@@ -376,8 +376,8 @@
             document.getElementById("C_TELE").options[pos].style.backgroundColor="#00FF00";
             }
         </SCRIPT>
-        <script type="text/javascript" src="depuracion.js"></script>
-        <script type="text/javascript" src="depuracionv.js"></script>
+        <script type="text/javascript" src="js/depuracion.js"></script>
+        <script type="text/javascript" src="js/depuracionv.js"></script>
         <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
     </head>
     <body onLoad="alerttxt = new String('');
