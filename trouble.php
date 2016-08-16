@@ -11,7 +11,7 @@ if ($go == 'ENVIAR') {
     $fuente      = filter_input(INPUT_GET, 'fuente');
     $descripcion = filter_input(INPUT_GET, 'descripcion');
     $error_msg   = filter_input(INPUT_GET, 'error_msg');
-    $queryins    = "INSERT INTO cobrajdlr.trouble (sistema,usuario,fechahora,fuente,descripcion,error_msg)
+    $queryins    = "INSERT INTO cobramas_cobra.trouble (sistema,usuario,fechahora,fuente,descripcion,error_msg)
 VALUES (:sistema, :capt, now(), :fuente, :descripcion, :error_msg)";
     $sti         = $pdo->prepare($queryins);
     $sti->bindParam(':sistema', $sistema);

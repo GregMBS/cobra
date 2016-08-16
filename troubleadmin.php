@@ -8,7 +8,7 @@ if (!empty($go)) {
     if ($go == 'RESOLVER') {
         $auto = filter_input(INPUT_GET, 'which', FILTER_VALIDATE_INT);
         $reparacion = filter_input(INPUT_GET, 'reparacion');
-        $queryup = "UPDATE cobra.trouble
+        $queryup = "UPDATE cobramas_cobra.trouble
             set fechacomp=now(),
             it_guy=:capt,
             reparacion=:reparacion

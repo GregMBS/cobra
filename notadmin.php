@@ -18,7 +18,7 @@ if (!empty($go)) {
         $day        = filter_input(INPUT_GET, 'formDay', FILTER_VALIDATE_REGEXP,
             array("options" => array("regexp" => "/0-9/")));
         $FECHA      = date($year.'-'.$month.'-'.$day);
-        $queryins   = "INSERT INTO cobrajdlr.notas
+        $queryins   = "INSERT INTO cobramas_cobra.notas
             (C_CVGE, fuente, D_FECH, C_HORA, FECHA, HORA, NOTA)
             VALUES
             (:target, :capt, curdate(), curtime(), :fecha, :hora, :nota)";
@@ -34,7 +34,7 @@ if (!empty($go)) {
     }
     if ($go == 'BORRAR') {
         $AUTO       = filter_input(INPUT_GET, 'which', FILTER_VALIDATE_INT);
-        $queryupd   = "UPDATE cobrajdlr.notas "
+        $queryupd   = "UPDATE cobramas_cobra.notas "
             ."SET borrado=1 "
             ."WHERE auto=:auto";
         $stu        = $pdo->prepare($queryupd);
