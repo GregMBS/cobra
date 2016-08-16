@@ -1,5 +1,5 @@
 <?php
-$user  = "cobramas";
+$user  = "cobramas_root";
 $pwd   = "DeathSta1";
 $dsn   = 'mysql:dbname=cobramas_cobra;host=localhost';
 $pdo   = new PDO($dsn, $user, $pwd);

@@ -1,6 +1,6 @@
 <?php 
 $host    = "localhost";
-$user    = "cobramas";
+$user    = "cobramas_root";
 $pwd     = "DeathSta1";
 $db      = "cobramas_cobra";
 $con     = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_error($con));
