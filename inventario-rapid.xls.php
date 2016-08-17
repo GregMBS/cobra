@@ -1,17 +1,16 @@
 <?php
 set_time_limit(300);
 require_once 'classes/pdoConnect.php';
-$pdoc    = new pdoConnect();
-$pdo     = $pdoc->dbConnectAdmin();
-$capt    = filter_input(INPUT_GET, 'capt');
-$go      = filter_input(INPUT_GET, 'go');
+$pdoc = new pdoConnect();
+$pdo = $pdoc->dbConnectAdmin();
+$capt = filter_input(INPUT_GET, 'capt');
+$go = filter_input(INPUT_GET, 'go');
 $cliente = filter_input(INPUT_GET, 'cliente');
 
 /**
  *  outputCSV creates a line of CSV and outputs it to browser    
  */
-function outputCSV($array)
-{
+function outputCSV($array) {
     $fp = fopen('php://output', 'w'); // this file actual writes to php output
     fputcsv($fp, $array);
     fclose($fp);
@@ -20,23 +19,22 @@ function outputCSV($array)
 /**
  *  getCSV creates a line of CSV and returns it. 
  */
-function getCSV($array)
-{
+function getCSV($array) {
     ob_start(); // buffer the output ...
     outputCSV($array);
     return ob_get_clean(); // ... then return it as a string!
 }
 
 //require_once 'Spreadsheet/Excel/Writer.php';
-function MesNom($n)
-{
+function MesNom($n) {
     $timestamp = mktime(0, 0, 0, $n, 1, 2005);
 
     return date("M", $timestamp);
 }
+
 if (!empty($go)) {
     //$gestorstr=" and ejecutivo_asignado_call_center not regexp '-' ";
-    $gestorstr  = '';
+    $gestorstr = '';
     $clientestr = '';
     if ($cliente != 'todos') {
         $clientestr = " and cliente=:cliente ";
@@ -54,11 +52,11 @@ left join dictamenes d1 on status_aarsa=d1.dictamen
 left join historia on id_cuenta=c_cont
 and d_fech>curdate() - interval 6 month
 where status_de_credito not like '%inactivo' 
-".$clientestr." 
+" . $clientestr . " 
 group by id_cuenta
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
     ;";
-    $stm       = $pdo->prepare($querymain);
+    $stm = $pdo->prepare($querymain);
     if ($cliente != 'todos') {
         $stm->bindParam(':cliente', $cliente);
     }
@@ -68,18 +66,18 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
 // Creating a workbook
 //$workbook = new Spreadsheet_Excel_Writer();
 
-    $filename = "Query_de_inventario_".trim(date('ymd')).".csv";
+    $filename = "Query_de_inventario_" . trim(date('ymd')) . ".csv";
 // sending HTTP headers
 //$workbook->send($filename);
     header('Content-type: application/xls');
-    header('Content-Disposition: attachment; filename="'.$filename.'"');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
 
 // Creating a worksheet
 //$worksheet =& $workbook->addWorksheet('Reporte CS');
 //$worksheet->setInputEncoding('ISO-8859-1');
 
 
-    $afield       = array();
+    $afield = array();
     $i = 0;
     foreach ($result[0] as $var => $value) {
         if ($var == 'numero_de_cuenta') {
@@ -103,44 +101,10 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
     }
 //$workbook->close();
 } else {
-    ?>
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <title>Query de las Promesas/Propuestas</title>
-
-            <style type="text/css">
-                body {font-family: arial, helvetica, sans-serif; font-size: 8pt; background-color: #00a0f0; color:#000000;}
-                table {border: 1pt solid #000000;background-color: #c0c0c0;}
-                tr:hover {background-color: #ff0000;}
-                th {border: 1pt solid #000000;background-color: #c0c0c0;}
-                .loud {text-align:center; font-weight:bold; color:red;}
-                .num {text-align:right;}
-            </style>
-        </head>
-        <body>
-            <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-            <form action="inventario-rapid.xls.php" method="get" name="queryparms">
-                <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                <p>
-                    <select name="cliente">
-                        <option value="todos" style="font-size:120%;">todos</option>
-    <?php
-    $queryc  = "SELECT distinct cliente FROM clientes
+    $queryc = "SELECT distinct cliente FROM clientes
         order by cliente
 	";
     $resultc = $pdo->query($queryc);
-    foreach ($resultc as $answerc) {
-        ?>
-                            <option value="<?php echo $answerc['cliente']; ?>" style="font-size:120%;">
-        <?php echo $answerc['cliente']; ?></option>
-        <?php }
-    ?>
-                    </select>
-                </p>
-                <input type='submit' name='go' value='Query Inventario'>
-            </form>
-        </body>
-    </html>
-<?php
+    $here = $_SERVER['PHP_SELF'];
+    require_once 'views/inventarioView.php';
 } 
