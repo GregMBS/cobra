@@ -66,5 +66,6 @@ where status_de_credito not like "%ivo"
 
     $interval = new DateInterval('P1D');
     $daterange = new DatePeriod($begin, $interval, $end);
-    require_once 'views/tels_contactadosView.php';
+    $here = $_SERVER['PHP_SELF'];
+    require_once 'views/tels_View.php';
 }

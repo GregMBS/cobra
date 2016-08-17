@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Query de las Promesas/Propuestas</title>
+        <title>Query de las Tels</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
@@ -9,7 +9,7 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-        <form action="tels_contactados.php" method="get" name="queryparms">
+        <form action="<?php echo $here; ?>" method="get" name="queryparms">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <p>HECHO de:
                 <select name="fecha1">

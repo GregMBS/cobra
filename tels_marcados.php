@@ -69,5 +69,6 @@ order by cliente,numero_de_cuenta
 
     $interval = new DateInterval('P1D');
     $daterange = new DatePeriod($begin, $interval, $end);
-    require_once 'views/tels_marcadosView.php';
+    $here = $_SERVER['PHP_SELF'];
+    require_once 'views/tels_View.php';
 }
