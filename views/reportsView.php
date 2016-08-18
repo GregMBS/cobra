@@ -20,7 +20,6 @@
             <div data-role="collapsible">
                 <h2>Cargar</h2>
                 <button onclick="window.location = 'carga2.php?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
-<!--                <button onclick="window.location = 'pagobulk.php?capt=<?php echo $capt; ?>'">Cargar Pagos Confirmados</button>-->
             </div>
             <div data-role="collapsible">
                 <h2>Visitar</h2>
