@@ -1,13 +1,12 @@
 <?php
-$user  = "root";
-$pwd   = "DeathSta1";
-$dsn   = 'mysql:dbname=cobrademo;host=localhost';
-$pdo   = new PDO($dsn, $user, $pwd);
 $local = $_SERVER['REMOTE_ADDR'];
 $go    = filter_input(INPUT_POST, 'go');
 $capt  = filter_input(INPUT_POST, 'capt');
 $pw    = filter_input(INPUT_POST, 'pwd');
 if (!empty($go)) {
+    require_once 'classes/pdoConnect.php';
+    $pdoc = new pdoConnect();
+    $pdo  = $pdoc->dbConnectNobody(); 
     $mynombre = '';
     $field    = '';
     $tipo     = '';
