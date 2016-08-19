@@ -1,8 +1,8 @@
 <?php 
 $host    = "localhost";
-$user    = "cobramas_root";
+$user    = "root";
 $pwd     = "DeathSta1";
-$db      = "cobramas_cobra";
+$db      = "cobra";
 $con     = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_error($con));
 $ticket	 = $con->real_escape_string(filter_input(INPUT_COOKIE, 'auth'));
 $capt	 = $con->real_escape_string(filter_input(INPUT_GET, 'capt'));

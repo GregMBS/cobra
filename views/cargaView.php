@@ -160,7 +160,7 @@
                 $resultins = $con->query($queryins) or die('Load cargadex: ' . $con->error);
             }
         }
-        $querydrop = "DROP TABLE IF EXISTS `cobramas_cobra`.`temp`;";
+        $querydrop = "DROP TABLE IF EXISTS `cobra`.`temp`;";
         $con->query($querydrop) or die($con->error);
         $querydex = "select * from cargadex where cliente='" . $cliente . "';";
         $resultdex = $con->query($querydex) or die($con->error);
@@ -172,7 +172,7 @@
             $c++;
             set_time_limit(300);
         }
-        $querystart = "CREATE TABLE  `cobramas_cobra`.`temp` (";
+        $querystart = "CREATE TABLE  `cobra`.`temp` (";
         $queryend = "`fecha_de_actualizacion` date,
 `originacion` varchar(255)
 ) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;";
@@ -198,7 +198,7 @@
             while (($data = fgetcsv($handle, 1000, ',', '"')) !== FALSE) {
                 if ($n == 0) {
                     $header = $data;
-                    $queryload = "INSERT INTO cobramas_cobra.temp (" . implode(",", $header) . ") VALUES ";
+                    $queryload = "INSERT INTO cobra.temp (" . implode(",", $header) . ") VALUES ";
                 }
                 if ($n > 0) {
                     $limpio = str_replace("'", "", $data);
@@ -282,9 +282,9 @@ and fecha_de_ultimo_pago<fecha_de_actualizacion
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
         $con->query($querypagoins) or die($con->error);
-        $queryrlist1 = "truncate cobramas_cobra.rlook;";
+        $queryrlist1 = "truncate cobra.rlook;";
         $con->query($queryrlist1) or die($con->error);
-        $queryrlist2 = "insert into cobramas_cobra.rlook
+        $queryrlist2 = "insert into cobra.rlook
 select id_cuenta,numero_de_cuenta,nombre_deudor,cliente,status_de_credito,
 nombre_referencia_1,nombre_referencia_2,nombre_referencia_3,nombre_referencia_4,
 tel_1,tel_2,tel_3,tel_4,
@@ -295,7 +295,7 @@ tel_1_ref_2,tel_2_ref_2,
 tel_1_ref_3,tel_2_ref_3,
 tel_1_ref_4,tel_2_ref_4,
 tel_1_laboral,tel_2_laboral,telefonos_marcados
-from cobramas_cobra.resumen;
+from cobra.resumen;
 ";
         $con->query($queryrlist2) or die($con->error);
     }

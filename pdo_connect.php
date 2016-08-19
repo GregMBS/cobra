@@ -4,8 +4,8 @@
 
 class pdoConnect {
 
-    var $dsn = 'mysql:dbname=cobramas_cobra;host=localhost';
-    var $user = 'cobramas_root';
+    var $dsn = 'mysql:dbname=cobra;host=localhost';
+    var $user = 'root';
     var $password = 'DeathSta1';
     var $link;
 

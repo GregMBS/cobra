@@ -1,7 +1,7 @@
 <?php
-$user  = "cobramas_root";
+$user  = "root";
 $pwd   = "DeathSta1";
-$dsn   = 'mysql:dbname=cobramas_cobra;host=localhost';
+$dsn   = 'mysql:dbname=cobra;host=localhost';
 $pdo   = new PDO($dsn, $user, $pwd);
 $local = $_SERVER['REMOTE_ADDR'];
 $go    = filter_input(INPUT_POST, 'go');

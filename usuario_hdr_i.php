@@ -1,9 +1,9 @@
 <?php
 $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
 $host    = "localhost";
-$user    = "cobramas_root";
+$user    = "root";
 $pwd     = "DeathSta1";
-$db      = "cobramas_cobra";
+$db      = "cobra";
 $con     = new mysqli($host, $user, $pwd, $db) or die("ERROR UHM1 - ".mysqli_error($con));
 set_time_limit(300);
 $cookie  = filter_input_array(INPUT_COOKIE);
