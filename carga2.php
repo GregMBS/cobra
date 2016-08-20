@@ -29,6 +29,8 @@ if ($go == 'cargar') {
     $dbNames = $cc->getDBColumnNames();
     $oops = array_diff($dataNames, $dbNames);
     if (empty($oops)) {
+        var_dump($dataNames);
+        die();
         $cc->prepareTemp($dataNames);
         echo "<p>Preparada para cargar datos.</p>";
         $cc->loadData($pdo, $filename, $dataNames);
