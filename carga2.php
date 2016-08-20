@@ -5,6 +5,9 @@ $pdoc = new pdoConnect();
 $pdo = $pdoc->dbConnectAdmin();
 $cc = new CargaClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
+if (empty($capt)) {
+    $capt = filter_input(INPUT_POST, 'capt');
+}
 $post = filter_input_array(INPUT_POST);
 $go = filter_input(INPUT_POST, 'go');
 $cliente = filter_input(INPUT_POST, 'cliente');
