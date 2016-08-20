@@ -33,7 +33,7 @@ if ($go == 'cargar') {
         echo "<p>Preparada para cargar datos.</p>";
         $cc->loadData($pdo, $filename, $dataNames);
         echo "<p>Datos cargados.</p>";
-        $fieldlist = $cc->prepareUpdate($columnNames);
+        $fieldlist = $cc->prepareUpdate($dataNames);
         var_dump($fieldlist);
         die();
         $cc->updateResumen($pdo, $fieldlist);
