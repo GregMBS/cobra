@@ -107,6 +107,23 @@ class CargaClass {
         $columnArray = $this->pdo->query($query);
         return $columnArray;
     }
+    
+    /**
+     * 
+     * @param array $datanames
+     * @param array $dbnames
+     * @return array
+     */
+    function nameCheck($datanames, $dbnames) {
+        $oops = array();
+        foreach ($datanames as $name) {
+            $match = in_array($name, $dbnames);
+            if (!$match) {
+                $oops[] = $name;
+            }
+        }
+        return $oops;
+    }
 
     /**
      * 

@@ -27,9 +27,7 @@ if ($go == 'cargar') {
     $num = count($header);
     $dataNames = $cc->getDataColumnNames($header);
     $dbNames = $cc->getDBColumnNames();
-    $oops = array_diff($dataNames, $dbNames);
-    var_dump($oops);
-    die();
+    $oops = $cc->nameCheck($dataNames, $dbNames);
     if (empty($oops)) {
         $cc->prepareTemp($dataNames);
         echo "<p>Preparada para cargar datos.</p>";
