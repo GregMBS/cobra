@@ -1,11 +1,11 @@
 <?php
 $day_esp	 = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-include('pdoConnect.php');
+require_once 'classes/pdoConnect.php';
 $pc		 = new pdoConnect();
 $pdo		 = $pc->dbConnectAdmin();
-require_once 'HorariosClass.php';
+require_once 'classes/HorariosClass.php';
 $hc		 = new HorariosClass($pdo);
-require_once 'HorariosAllClass.php';
+require_once 'classes/HorariosAllClass.php';
 $hac		 = new HorariosAllClass($pdo);
 $yr		 = date('Y');
 $mes		 = date('m');

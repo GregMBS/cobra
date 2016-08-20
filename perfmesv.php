@@ -1,11 +1,11 @@
 <?php
 $day_esp	 = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-include('pdoConnect.php');
+require_once 'classes/pdoConnect.php';
 $pdac		 = new pdoConnect();
 $pdo		 = $pdac->dbConnectAdmin();
-require_once 'PerfmesClass.php';
+require_once 'classes/PerfmesClass.php';
 $pc		 = new PerfmesClass($pdo);
-require_once 'PerfmesAllClass.php';
+require_once 'classes/PerfmesAllClass.php';
 $pac		 = new PerfmesAllClass($pdo);
 $yr		 = date('Y', strtotime('last day of previous month'));
 $mes		 = date('m', strtotime('last day of previous month'));

@@ -41,7 +41,7 @@ if ($go == 'cargar') {
         echo "<p>Pagos actualizados.</p>";
         $cc->createLookupTable($pdo);
         echo "<p>Table 'lookup' actualizada.</p>";
-        echo "<p><a href='segmentoadmin.php?capt=$capt'>Actialuzar segmentos.</a></p>";
+        echo "<p><a href='segmentadmin.php?capt=$capt'>Actialuzar segmentos.</a></p>";
     } else {
         require_once 'views/badNamesView.php';
         die();
