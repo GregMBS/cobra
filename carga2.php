@@ -33,12 +33,9 @@ if ($go == 'cargar') {
         echo "<p>Preparada para cargar datos.</p>";
         $cc->loadData($pdo, $filename, $dataNames);
         echo "<p>Datos cargados.</p>";
-        $fieldlist = $cc->prepareUpdate($dataNames);
-        var_dump($fieldlist);
-        die();
         $cc->updateResumen($pdo, $fieldlist);
         echo "<p>Cuentas actualizadas.</p>";
-        $cc->insertIntoResumen($pdo, $fieldlist);
+        $cc->insertIntoResumen($pdo, $dataNames);
         echo "<p>Cuentas nuevas instaladas.</p>";
         $cc->updateClientes($pdo);
         echo "<p>Tabla de clientes actualizada.</p>";
