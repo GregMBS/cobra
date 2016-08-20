@@ -31,18 +31,20 @@ if ($go == 'cargar') {
     if (empty($oops)) {
         $cc->prepareTemp($dataNames);
         echo "<p>Preparada para cargar datos.</p>";
-        $cc->loadData($pdo, $filename, $dataNames);
+        $cc->loadData($filename, $dataNames);
         echo "<p>Datos cargados.</p>";
         $fieldlist = $cc->prepareUpdate($sataNames);
-        $cc->updateResumen($pdo, $fieldlist);
+        var_dump($fieldlist);
+        die();
+        $cc->updateResumen($fieldlist);
         echo "<p>Cuentas actualizadas.</p>";
-        $cc->insertIntoResumen($pdo, $dataNames);
+        $cc->insertIntoResumen($dataNames);
         echo "<p>Cuentas nuevas instaladas.</p>";
-        $cc->updateClientes($pdo);
+        $cc->updateClientes();
         echo "<p>Tabla de clientes actualizada.</p>";
-        $cc->updatePagos($pdo);
+        $cc->updatePagos();
         echo "<p>Pagos actualizados.</p>";
-        $cc->createLookupTable($pdo);
+        $cc->createLookupTable();
         echo "<p>Table 'lookup' actualizada.</p>";
         echo "<p><a href='segmentadmin.php?capt=$capt'>Actialuzar segmentos.</a></p>";
     } else {
