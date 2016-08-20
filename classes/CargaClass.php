@@ -124,7 +124,7 @@ class CargaClass {
     function loadData($pdo, $filename, $columnNames) {
         $data = $this->getCsvData($filename, false);
         $n = 0;
-        $queryload = "INSERT INTO cobra.temp (" . implode(",", $columnNames) . ") VALUES ";
+        $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
         foreach ($data as $row) {
             if ($n > 0) {
                 $limpio = str_replace("'", "", $row);
