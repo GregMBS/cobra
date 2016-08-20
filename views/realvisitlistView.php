@@ -3,7 +3,7 @@
         <head>
             <title>Visitas</title>
             <meta charset="utf-8">
-            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
             <style>
                 th {width: 9em;}
                 th.gestion {width: 32em;}

@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Listado por Gestor y Status</title>
-        <link href="https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>

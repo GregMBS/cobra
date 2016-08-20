@@ -3,7 +3,7 @@
     <head>
         <title>Sus queues</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <script src="public/https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>

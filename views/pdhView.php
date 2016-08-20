@@ -3,7 +3,7 @@
     <head>
         <title>Cuentas gestionado por <?php echo $gestor; ?> en <?php echo $fecha; ?></title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="vendor/https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="vendor/https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
