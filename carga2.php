@@ -10,6 +10,7 @@ $go = filter_input(INPUT_POST, 'go');
 $cliente = filter_input(INPUT_POST, 'cliente');
 $fecha_de_actualizacion = filter_input(INPUT_POST, 'fecha_de_actualizacion');
 $flag = ($_FILES["file"]["error"] == 0);
+require_once 'views/cargaView.php';
 if ($go == 'cargar') {
     if ($flag) {
         $filename = $cc->moveLoadedFile();
