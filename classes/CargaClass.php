@@ -115,6 +115,9 @@ class CargaClass {
      * @return array
      */
     function nameCheck($datanames, $dbnames) {
+        var_dump($datanames);
+        var_dump($dbnames);
+        die();
         $oops = array();
         foreach ($datanames as $name) {
             $match = in_array($name, $dbnames);
