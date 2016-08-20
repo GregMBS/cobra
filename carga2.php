@@ -34,8 +34,6 @@ if ($go == 'cargar') {
         $cc->loadData($filename, $dataNames);
         echo "<p>Datos cargados.</p>";
         $fieldlist = $cc->prepareUpdate($dataNames);
-        var_dump($fieldlist);
-        die();
         $cc->updateResumen($fieldlist);
         echo "<p>Cuentas actualizadas.</p>";
         $cc->insertIntoResumen($dataNames);
