@@ -136,7 +136,7 @@ class CargaClass {
         $ok = $pdo->query($queryloadtrim);
         if (!$ok) {
             var_dump($pdo->errorInfo());
-            die();
+            die(htmlentities($queryload));
         }
     }
 
