@@ -107,7 +107,7 @@ class CargaClass {
         $query = "SHOW COLUMNS FROM resumen";
         $result = $this->pdo->query($query);
         foreach ($result as $row) {
-            $columnArray[] = $row['field'];
+            $columnArray[] = $row['Field'];
         }
         return $columnArray;
     }
