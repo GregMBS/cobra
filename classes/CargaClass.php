@@ -51,7 +51,7 @@ class CargaClass {
      * @param boolean $header
      * @return array
      */
-    function getCsvData($filename,$header) {
+    function getCsvData($filename, $header) {
         $handle = fopen($filename, "r");
         if ($header) {
             $data = fgetcsv($handle, 0, ",");
@@ -61,7 +61,7 @@ class CargaClass {
                 $data[] = $row;
             }
         }
-        
+
         fclose($handle);
         return $data;
     }
@@ -133,7 +133,11 @@ class CargaClass {
             $n++;
         }
         $queryloadtrim = rtrim($queryload, ",");
-        $pdo->query($queryloadtrim) or die($pdo->errorInfo());
+        $ok = $pdo->query($queryloadtrim);
+        if (!$ok) {
+            var_dump($pdo->errorInfo());
+            die();
+        }
     }
 
     /**
