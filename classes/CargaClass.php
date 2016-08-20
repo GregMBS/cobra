@@ -64,7 +64,7 @@ class CargaClass {
      */
     function getDataColumnNames($data) {
         $columnArray = array();
-        $row = $data[0];
+        $row = $data;
         var_dump($row);
         die();
         foreach ($row as $columnName) {
