@@ -37,13 +37,12 @@ class CargaClass {
 
     /**
      * 
-     * @param PDO $pdo
      * @param boolean $result
      * @param string $query
      */
-    function dbErrorCheck($pdo, $result, $query) {
+    function dbErrorCheck($result, $query) {
         if (!$result) {
-            var_dump($pdo->errorInfo());
+            var_dump($this->pdo->errorInfo());
             die(htmlentities($query));
         }        
     }
@@ -116,7 +115,7 @@ class CargaClass {
     function prepareTemp($columnNames) {
         $querydrop = "DROP TABLE IF EXISTS temp;";
         $resultdrop = $this->pdo->query($querydrop);
-        $this->dbErrorCheck($this->pdo, $resultdrop, $querydrop);
+        $this->dbErrorCheck($resultdrop, $querydrop);
         $querystart = "CREATE TABLE temp "
                 . "ENGINE=INNODB AUTO_INCREMENT=10 "
                 . "DEFAULT CHARSET=utf8 "
@@ -125,19 +124,18 @@ class CargaClass {
                 . implode(',', $columnNames)
                 . " FROM resumen LIMIT 0";
         $resultstart = $this->pdo->query($querystart);
-        $this->dbErrorCheck($this->pdo, $resultstart, $querystart);
+        $this->dbErrorCheck($resultstart, $querystart);
         $queryindex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50));";
         $resultindex = $this->pdo->query($queryindex);
-        $this->dbErrorCheck($this->pdo, $resultindex, $queryindex);
+        $this->dbErrorCheck($resultindex, $queryindex);
     }
 
     /**
      * 
-     * @param PDO $pdo
      * @param string $filename
      * @param string $columnNames
      */
-    function loadData($pdo, $filename, $columnNames) {
+    function loadData($filename, $columnNames) {
         $data = $this->getCsvData($filename, false);
         $n = 0;
         $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
@@ -149,8 +147,8 @@ class CargaClass {
             $n++;
         }
         $queryloadtrim = rtrim($queryload, ",");
-        $ok = $pdo->query($queryloadtrim);
-        $this->dbErrorCheck($pdo, $ok, $queryloadtrim);
+        $ok = $this->pdo->query($queryloadtrim);
+        $this->dbErrorCheck($ok, $queryloadtrim);
     }
 
     /**
@@ -168,47 +166,43 @@ class CargaClass {
 
     /**
      * 
-     * @param PDO $pdo
      * @param array $fieldlist
      */
-    function updateResumen($pdo, $fieldlist) {
+    function updateResumen($fieldlist) {
         $fl = implode(',', $fieldlist);
         $queryupd = "UPDATE temp, resumen
             SET " . $fl . " 
             where temp.numero_de_cuenta=resumen.numero_de_cuenta
             and temp.cliente=resumen.cliente";
-        $ok = $pdo->query($queryupd);
-        $this->dbErrorCheck($pdo, $ok, $queryupd);
+        $ok = $this->pdo->query($queryupd);
+        $this->dbErrorCheck($ok, $queryupd);
     }
 
     /**
      * 
-     * @param PDO $pdo
      * @param array $fieldlist
      */
-    function insertIntoResumen($pdo, $fieldlist) {
+    function insertIntoResumen($fieldlist) {
         $fl = implode(',', $fieldlist);
         $queryins = "insert ignore into resumen (" . $fl . ") select " . $fl . " from temp";
-        $ok = $pdo->query($queryins);
-        $this->dbErrorCheck($pdo, $ok, $queryins);
+        $ok = $this->pdo->query($queryins);
+        $this->dbErrorCheck($ok, $queryins);
     }
 
     /**
      * 
-     * @param PDO $pdo
      */
-    function updateClientes($pdo) {
+    function updateClientes() {
 
         $query = "INSERT IGNORE INTO clientes "
                 . "SELECT cliente FROM resumen";
-        $pdo->query($query);
+        $this->pdo->query($query);
     }
 
     /**
      * 
-     * @param PDO $pdo
      */
-    function updatePagos($pdo) {
+    function updatePagos() {
         $querypagoins = "insert ignore into pagos (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta)
 select numero_de_cuenta, fecha_de_ultimo_pago, 
 monto_ultimo_pago, cliente, c_cvge, 1, id_cuenta 
@@ -221,16 +215,15 @@ where h2.d_fech>h1.d_fech and h2.c_cont=h1.c_cont and h2.n_prom>0)
 and fecha_de_ultimo_pago<fecha_de_actualizacion 
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
-        $pdo->query($querypagoins);
+        $this->pdo->query($querypagoins);
     }
 
     /**
      * 
-     * @param PDO $pdo
      */
-    function createLookupTable($pdo) {
+    function createLookupTable() {
         $queryrlist1 = "truncate cobra.rlook";
-        $pdo->query($queryrlist1);
+        $this->pdo->query($queryrlist1);
         $queryrlist2 = "insert into cobra.rlook
 select id_cuenta,numero_de_cuenta,nombre_deudor,cliente,status_de_credito,
 nombre_referencia_1,nombre_referencia_2,nombre_referencia_3,nombre_referencia_4,
@@ -244,7 +237,7 @@ tel_1_ref_4,tel_2_ref_4,
 tel_1_laboral,tel_2_laboral,telefonos_marcados
 from cobra.resumen;
 ";
-        $pdo->query($queryrlist2);
+        $this->pdo->query($queryrlist2);
     }
 
 }
