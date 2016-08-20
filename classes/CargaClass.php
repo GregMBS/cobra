@@ -123,7 +123,7 @@ class CargaClass {
                 . "COLLATE=utf8_spanish_ci "
                 . "SELECT "
                 . implode(',', $columnNames)
-                . "FROM resumen LIMIT 0";
+                . " FROM resumen LIMIT 0";
         $resultstart = $this->pdo->query($querystart);
         $this->dbErrorCheck($this->pdo, $resultstart, $querystart);
         $queryindex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50));";
