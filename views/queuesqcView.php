@@ -3,11 +3,11 @@
     <head>
         <title>Reporte de los queues por cliente</title>
         <meta http-equiv="refresh" content="60"/>
-        <link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/jquery.dataTables.css">
-        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <link href="https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <style>
             body { font-size: 75%; }
             tr.odd { background-color: #dddddd }

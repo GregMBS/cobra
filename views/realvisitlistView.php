@@ -3,7 +3,7 @@
         <head>
             <title>Visitas</title>
             <meta charset="utf-8">
-            <link rel="stylesheet" href="public/bower_resources/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" type="text/css" media="all" />
             <style>
                 th {width: 9em;}
                 th.gestion {width: 32em;}
@@ -18,8 +18,8 @@
                 td.telefono {width: 8em;}
                 td.chico {width: 5em;}
             </style>
-            <script src="public/bower_resources/jquery/dist/jquery.js" type="text/javascript"></script>
-            <script src="public/bower_resources/jqueryui/jquery-ui.js" type="text/javascript"></script>
+            <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+            <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         </head>
         <body>
             <div id="historybox">

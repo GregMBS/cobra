@@ -3,9 +3,9 @@
     <head>
         <title>Horarios mes anterior</title>
         <meta charset="utf-8" />
-        <link href="bower_components/jqueryui/themes/redmond/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
-        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <link href="https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <style type="text/css">
             tr:hover {background-color: #ffff00;}
             .heavy {font-weight:bold;font-size:10pt;}

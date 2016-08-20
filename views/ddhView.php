@@ -2,11 +2,11 @@
 <html>
     <head>
         <title>Cuentas gestionado por <?php echo $gestor; ?> en <?php echo $fecha; ?></title>
-        <link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link href="bower_components/datatables/media/bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
-        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
-        <script src="bower_components/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+        <link href="https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/datatables/media/https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script>
             $(function () {
                 $('table').dataTable({

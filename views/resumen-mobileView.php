@@ -5,7 +5,7 @@
         <title>Resumen Mob&iacute;l</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-        <script type="text/JavaScript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/JavaScript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script type="text/JavaScript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <SCRIPT TYPE="text/JavaScript">
             function npromChange(thisform)

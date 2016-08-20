@@ -2,9 +2,9 @@
 <html>
     <head>
         <title>Query de las Promesas/Propuestas</title>
-        <link rel="Stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" />
-        <script type="text/javascript" charset="utf8" src="bower_components/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" charset="utf8" src="bower_components/jqueryui/jquery-ui.js"></script>
+        <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.4/themes/redmond/jquery-ui.css" />
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
