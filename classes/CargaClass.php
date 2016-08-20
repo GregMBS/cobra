@@ -60,8 +60,6 @@ class CargaClass {
             while ($row = fgetcsv($handle)) {
                 $data[] = $row;
             }
-            var_dump($data);
-            die();
         }
         
         fclose($handle);
@@ -135,7 +133,7 @@ class CargaClass {
             $n++;
         }
         $queryloadtrim = rtrim($queryload, ",");
-        $pdo->query($queryloadtrim);
+        $pdo->query($queryloadtrim) or die($pdo->errorInfo());
     }
 
     /**
