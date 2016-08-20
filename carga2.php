@@ -25,7 +25,7 @@ if ($go == 'cargar') {
     }
     $data = $cc->getCsvData($filename);
     $num = count($data);
-    $dataNames = $cc->getCsvData($data);
+    $dataNames = $cc->getDataColumnNames($data);
     $dbNames = $cc->getDBColumnNames();
     $oops = array_diff($dataNames, $dbNames);
     if (empty($oops)) {
