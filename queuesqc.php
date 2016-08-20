@@ -23,8 +23,7 @@ function getSegmentoCount($pdo, $CLIENTE, $SDC) {
                                 WHERE status_de_credito = '" . $SDC . "'
                                 and cliente='" . $CLIENTE . "';";
     }
-    $stc = $pdo->query($queryc);
-    $resultc = $stc->fetchAll(PDO::FETCH_ASSOC);
+    $resultc = $pdo->query($queryc);
     return $resultc;
 }
 
