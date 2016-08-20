@@ -37,6 +37,19 @@ class CargaClass {
 
     /**
      * 
+     * @param PDO $pdo
+     * @param boolean $result
+     * @param string $query
+     */
+    function dbErrorCheck($pdo, $result, $query) {
+        if (!$result) {
+            var_dump($pdo->errorInfo());
+            die(htmlentities($query));
+        }        
+    }
+    
+    /**
+     * 
      * @return string
      */
     function moveLoadedFile() {
@@ -102,7 +115,8 @@ class CargaClass {
      */
     function prepareTemp($columnNames) {
         $querydrop = "DROP TABLE IF EXISTS temp;";
-        $this->pdo->query($querydrop);
+        $resultdrop = $this->pdo->query($querydrop);
+        $this->dbErrorCheck($this->pdo, $resultdrop, $querydrop);
         $querystart = "CREATE TABLE temp "
                 . "ENGINE=INNODB AUTO_INCREMENT=10 "
                 . "DEFAULT CHARSET=utf8 "
@@ -110,9 +124,11 @@ class CargaClass {
                 . "SELECT "
                 . implode(',', $columnNames)
                 . "FROM resumen LIMIT 0";
-        $this->pdo->query($querystart);
+        $resultstart = $this->pdo->query($querystart);
+        $this->dbErrorCheck($this->pdo, $resultstart, $querystart);
         $queryindex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50));";
-        $this->pdo->query($queryindex);
+        $resultindex = $this->pdo->query($queryindex);
+        $this->dbErrorCheck($this->pdo, $resultindex, $queryindex);
     }
 
     /**
@@ -134,10 +150,7 @@ class CargaClass {
         }
         $queryloadtrim = rtrim($queryload, ",");
         $ok = $pdo->query($queryloadtrim);
-        if (!$ok) {
-            var_dump($pdo->errorInfo());
-            die(htmlentities($queryloadtrim));
-        }
+        $this->dbErrorCheck($pdo, $ok, $queryloadtrim);
     }
 
     /**
