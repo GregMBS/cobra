@@ -34,6 +34,8 @@ if ($go == 'cargar') {
         $cc->loadData($pdo, $filename, $dataNames);
         echo "<p>Datos cardados.</p>";
         $fieldlist = $cc->prepareUpdate($columnNames);
+        var_dump($fieldlist);
+        die();
         $cc->updateResumen($pdo, $fieldlist);
         echo "<p>Cuentas actualizadas.</p>";
         $cc->insertIntoResumen($pdo, $fieldlist);
