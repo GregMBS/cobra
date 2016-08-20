@@ -54,8 +54,6 @@ class CargaClass {
         $handle = fopen($filename, "r");
         $data = fgetcsv($handle, 0, ",");
         fclose($handle);
-        var_dump($data);
-        die();
         return $data;
     }
 
@@ -82,6 +80,8 @@ class CargaClass {
                 $firstRule = false;
             }
         }
+        var_dump($columnArray);
+        die();
         return $columnArray;
     }
 
