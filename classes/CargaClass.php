@@ -103,8 +103,12 @@ class CargaClass {
      * @return array
      */
     function getDBColumnNames() {
+        $columnArray = array();
         $query = "SHOW COLUMNS FROM resumen";
-        $columnArray = $this->pdo->query($query);
+        $result = $this->pdo->query($query);
+        foreach ($result as $row) {
+            $columnArray[] = $row['field'];
+        }
         return $columnArray;
     }
     
