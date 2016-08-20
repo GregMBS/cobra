@@ -184,7 +184,8 @@ class CargaClass {
             SET " . $fl . " 
             where temp.numero_de_cuenta=resumen.numero_de_cuenta
             and temp.cliente=resumen.cliente";
-        $pdo->query($queryupd);
+        $ok = $pdo->query($queryupd);
+        $this->dbErrorCheck($pdo, $ok, $queryupd);
     }
 
     /**
@@ -194,8 +195,9 @@ class CargaClass {
      */
     function insertIntoResumen($pdo, $fieldlist) {
         $fl = implode(',', $fieldlist);
-        $queryins = "insert ignore into resumen (" . $fl . ") select " . $fl . " from temp;";
-        $pdo->query($queryins);
+        $queryins = "insert ignore into resumen (" . $fl . ") select " . $fl . " from temp";
+        $ok = $pdo->query($queryins);
+        $this->dbErrorCheck($pdo, $ok, $queryins);
     }
 
     /**
