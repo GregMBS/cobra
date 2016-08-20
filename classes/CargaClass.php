@@ -60,6 +60,8 @@ class CargaClass {
             while ($row = fgetcsv($handle)) {
                 $data[] = $row;
             }
+            var_dump($data);
+            die();
         }
         
         fclose($handle);
