@@ -48,25 +48,31 @@ class CargaClass {
     /**
      * 
      * @param string $filename
+     * @param boolean $header
      * @return array
      */
-    function getCsvData($filename) {
+    function getCsvData($filename,$header) {
         $handle = fopen($filename, "r");
-        $data = fgetcsv($handle, 0, ",");
+        if ($header) {
+            $data = fgetcsv($handle, 0, ",");
+        } else {
+            $data = array();
+            while ($row = fgetcsv($handle)) {
+                $data[] = $row;
+            }
+        }
+        
         fclose($handle);
         return $data;
     }
 
     /**
      * 
-     * @param array $data
+     * @param array $row
      * @return array
      */
-    function getDataColumnNames($data) {
+    function getDataColumnNames($row) {
         $columnArray = array();
-        $row = $data;
-        var_dump($row);
-        die();
         foreach ($row as $columnName) {
             $cn = $columnName;
             if ($columnName == '') {
@@ -112,10 +118,11 @@ class CargaClass {
     /**
      * 
      * @param PDO $pdo
-     * @param array $data
+     * @param string $filename
      * @param string $columnNames
      */
-    function loadData($pdo, $data, $columnNames) {
+    function loadData($pdo, $filename, $columnNames) {
+        $data = $this->getCsvData($filename, false);
         $n = 0;
         $queryload = "INSERT INTO cobra.temp (" . implode(",", $columnNames) . ") VALUES ";
         foreach ($data as $row) {

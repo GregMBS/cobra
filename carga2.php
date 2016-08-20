@@ -23,15 +23,15 @@ if ($go == 'cargar') {
         <p>Error: <?php echo $_FILES["file"]["error"]; ?></p>
         <?php
     }
-    $data = $cc->getCsvData($filename);
-    $num = count($data);
-    $dataNames = $cc->getDataColumnNames($data);
+    $header = $cc->getCsvData($filename, true);
+    $num = count($header);
+    $dataNames = $cc->getDataColumnNames($header);
     $dbNames = $cc->getDBColumnNames();
     $oops = array_diff($dataNames, $dbNames);
     if (empty($oops)) {
         $cc->prepareTemp($dataNames);
         echo "<p>Preparada para cargar datos.</p>";
-        $cc->loadData($pdo, $data, $dataNames);
+        $cc->loadData($pdo, $filename, $dataNames);
         echo "<p>Datos cardados.</p>";
         $fieldlist = $cc->prepareUpdate($columnNames);
         $cc->updateResumen($pdo, $fieldlist);
