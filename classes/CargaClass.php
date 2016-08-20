@@ -155,21 +155,14 @@ class CargaClass {
 
     /**
      * 
-     * @param string $name
-     * @return string
-     */
-    function prepareOne($name) {
-        $output = 'resumen.' . $name . '=temp.' . $name;
-        return $output;
-    }
-
-    /**
-     * 
      * @param array $columnNames
      * @return array
      */
     function prepareUpdate($columnNames) {
-        $output = array_map(array($this, 'prepareOne'), $columnNames);
+        $output = array();
+        foreach ($columnNames as $name) {
+            $output[] = 'resumen.' . $name . '=temp.' . $name;
+        }
         return $output;
     }
 
