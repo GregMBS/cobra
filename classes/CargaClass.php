@@ -101,9 +101,9 @@ class CargaClass {
      * @param array $columnNames
      */
     function prepareTemp($columnNames) {
-        $querydrop = "DROP TABLE IF EXISTS `cobra`.`temp`;";
+        $querydrop = "DROP TABLE IF EXISTS temp;";
         $this->pdo->query($querydrop);
-        $querystart = "CREATE TABLE  `cobra`.`temp` "
+        $querystart = "CREATE TABLE temp "
                 . "ENGINE=INNODB AUTO_INCREMENT=10 "
                 . "DEFAULT CHARSET=utf8 "
                 . "COLLATE=utf8_spanish_ci "
