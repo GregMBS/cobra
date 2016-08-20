@@ -64,21 +64,16 @@ class CargaClass {
      */
     function getDataColumnNames($data) {
         $columnArray = array();
-        $firstRule = true;
-        foreach ($data as $row) {
-            if ($firstRule) {
-                foreach ($row as $columnName) {
-                    $cn = $columnName;
-                    if ($columnName == '') {
-                        $cn = 'vacio';
-                    }
-                    if (in_array($cn, $this->internal)) {
-                        $cn = $columName . '_solo_internal';
-                    }
-                    $columnArray[] = $cn;
-                }
-                $firstRule = false;
+        $row = $data[0];
+        foreach ($row as $columnName) {
+            $cn = $columnName;
+            if ($columnName == '') {
+                $cn = 'vacio';
             }
+            if (in_array($cn, $this->internal)) {
+                $cn = $columnName . '_solo_internal';
+            }
+            $columnArray[] = $cn;
         }
         var_dump($columnArray);
         die();
@@ -140,10 +135,10 @@ class CargaClass {
      * @return string
      */
     function prepareOne($name) {
-        $output = 'resumen.'.$name.'=temp.'.$name;
+        $output = 'resumen.' . $name . '=temp.' . $name;
         return $output;
     }
-    
+
     /**
      * 
      * @param array $columnNames
@@ -153,7 +148,7 @@ class CargaClass {
         $output = array_map(array($this, 'prepareOne'), $columnNames);
         return $output;
     }
-    
+
     /**
      * 
      * @param PDO $pdo
@@ -167,7 +162,7 @@ class CargaClass {
             and temp.cliente=resumen.cliente";
         $pdo->query($queryupd);
     }
-    
+
     /**
      * 
      * @param PDO $pdo
@@ -178,18 +173,18 @@ class CargaClass {
         $queryins = "insert ignore into resumen (" . $fl . ") select " . $fl . " from temp;";
         $pdo->query($queryins);
     }
-    
+
     /**
      * 
      * @param PDO $pdo
      */
     function updateClientes($pdo) {
-        
+
         $query = "INSERT IGNORE INTO clientes "
                 . "SELECT cliente FROM resumen";
         $pdo->query($query);
     }
-    
+
     /**
      * 
      * @param PDO $pdo
@@ -209,7 +204,7 @@ group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
         $pdo->query($querypagoins);
     }
-    
+
     /**
      * 
      * @param PDO $pdo
@@ -232,4 +227,5 @@ from cobra.resumen;
 ";
         $pdo->query($queryrlist2);
     }
+
 }
