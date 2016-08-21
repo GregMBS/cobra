@@ -1,5 +1,6 @@
 <?php
 require_once 'classes/pdoConnect.php';
+require_once 'vendor/autoload.php';
 require_once 'classes/CargaClass.php';
 $pdoc = new pdoConnect();
 $pdo = $pdoc->dbConnectAdmin();

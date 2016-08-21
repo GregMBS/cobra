@@ -1,5 +1,8 @@
 <?php
 
+use Box\Spout\Reader;
+use Box\Spout\Common\Type;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
