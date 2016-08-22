@@ -3,10 +3,13 @@
     <head>
         <title>Sus queues</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet"
+              href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
+              type="text/css" media="all" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-        <script src="public/https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
+        type="text/javascript"></script>
     </head>
     <body>
         <script>
@@ -22,7 +25,9 @@
                 $("div").css("float", "left");
                 $(".introb").css("clear", "left");
                 $.each(<?php echo $arrayc; ?>, function (index, value) {
-                    var data = '<div class="column"><input class="columnc" type="radio" name="cliente" value="' + value + '" />' + value + '</div>';
+                    var data = '<div class="column"><input class="columnc" '
+                            +'type="radio" name="cliente" value="' + value 
+                            + '" />' + value + '</div>';
                     $('#cliente').append(data);
                 });
                 $("#cliente").change(function () {
@@ -35,7 +40,9 @@
                             if (st === '') {
                                 st = 'TODOS';
                             }
-                            data3 = '<div class="column"><input class="columns" type="radio" name="segmento" value="' + sdc[0] + '" />' + st + '</div>';
+                            data3 = '<div class="column"><input class="columns" '
+                                    +'type="radio" name="segmento" value="' 
+                                    + sdc[0] + '" />' + st + '</div>';
                             $('#segmento').append(data3);
                         }
                     });
@@ -51,7 +58,9 @@
                             if (qt === '') {
                                 qt = 'TODOS';
                             }
-                            data5 = '<div class="column"><input class="columnq" type="radio" name="queue" value="' + que[0] + '" />' + qt + '</div>';
+                            data5 = '<div class="column"><input class="columnq" '
+                                    +'type="radio" name="queue" value="' 
+                                    + que[0] + '" />' + qt + '</div>';
                             $('#queue').append(data5);
                         }
                     });
