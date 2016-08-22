@@ -18,22 +18,23 @@
             <p>HECHO de:
                 <select name="fecha1">
                     <?php
-                    foreach ($daterange as $date) {
+foreach ($daterange as $date) {
                         ?>
                         <option value="<?php echo $date->format('Y-m-d'); ?>" style="font-size:120%;">
                             <?php echo $date->format('Y-m-d'); ?></option>
                         <?php
-                    }
+}
                     ?>
                 </select>
                 a:
                 <select name="fecha2">
                     <?php
-                    foreach ($daterange as $date) {
+foreach ($daterange as $date) {
                         ?>
                         <option value="<?php echo $date->format('Y-m-d'); ?>" style="font-size:120%;">
                             <?php echo $date->format('Y-m-d'); ?></option>
-                            <?php }
+                            <?php 
+}
                         ?>
                 </select>
             </p>

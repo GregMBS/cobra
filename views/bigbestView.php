@@ -42,21 +42,23 @@ foreach ($resultc as $answerc) {
 
                 <select name="fecha1">
                     <?php
-                    foreach ($resultfechastart as $answerma) {
+foreach ($resultfechastart as $answerma) {
                         ?>
                         <option value="<?php echo $answerma[0]; ?>" style="font-size:120%;">
                             <?php echo $answerma[0]; ?></option>
-                    <?php } ?>
+                    <?php 
+} ?>
                 </select>
                 a:
 
                 <select name="fecha2">
                     <?php
-                    foreach ($resultma as $answerma) {
+foreach ($resultma as $answerma) {
                         ?>
                         <option value="<?php echo $answerma[0]; ?>" style="font-size:120%;">
                             <?php echo $answerma[0]; ?></option>
-                        <?php } ?>
+                        <?php 
+} ?>
                 </select>
             </p>
             <input type='submit' name='go' value='Query Gestiones'>
