@@ -1,10 +1,10 @@
+<?php
+$msg = 'CobraMas';
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>CobraMas</title>
-        <?php
-        $msg = 'CobraMas';
-        ?>
         <style type="text/css">
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
@@ -19,7 +19,10 @@
             <form action="index.php" method="post" autocomplete="off">
                 <fieldset>
                     <div class="username">
-                        <span class="formcap">Usuario:</span><input type="password" name="capt" value="" onchange="this.value = this.value.replace(/ /g, '');" /><br>
+                        <span class="formcap">Usuario:</span>
+                        <input type="password" name="capt" value="" 
+                               onchange="this.value = this.value.replace(/ /g, '');" />
+                        <br>
                     </div>
                     <div class="contrasena">
                         <span class="formcap">Contrase&ntilde;a:</span><input type="password" name="pwd" value=""/><br>

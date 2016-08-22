@@ -23,7 +23,7 @@ class BigClass
         $this->pdo = $pdo;
     }
 
-    function getGestorStr($gestor)
+    private function getGestorStr($gestor)
     {
         if ($gestor != 'todos') {
             $gestorstr = " and c_cvge = :gestor ";
@@ -33,7 +33,7 @@ class BigClass
         return $gestorstr;
     }
 
-    function getClienteStr($cliente)
+    private function getClienteStr($cliente)
     {
         if ($cliente != 'todos') {
             $clientestr = " and cliente = :cliente ";
@@ -43,8 +43,9 @@ class BigClass
         return $clientestr;
     }
 
-    public function getHistoria($queryFront, $queryBack, $fecha1, $fecha2,
-                                $gestor, $cliente)
+    public function getHistoria(
+            $queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente
+            )
     {
         $gestorstr  = $this->getGestorStr($gestor);
         $clientestr = $this->getClienteStr($cliente);
@@ -82,8 +83,13 @@ and pagos.fecha between :fecha1 and :fecha2
 ";
         $queryBack  = "and status_de_credito not like '%tivo' and c_cniv is null
 group by resumen.id_cuenta ORDER BY d_fech,c_hrin;";
-        $data       = $this->getHistoria($queryFront, $queryBack, $fecha1,
-            $fecha2, $gestor, $cliente);
+        $data       = $this->getHistoria(
+                $queryFront, 
+                $queryBack, 
+                $fecha1,
+                $fecha2, 
+                $gestor, 
+                $cliente);
         return $data;
     }
 

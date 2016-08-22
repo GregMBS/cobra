@@ -12,11 +12,11 @@
  */
 class DownloadClass {
 
-    function __construct() {
+    private function __construct() {
         require_once 'vendor/autoload.php';
     }
 
-    function sendToOutput($output, $filename) {
+    private function sendToOutput($output, $filename) {
         $workbook = new PHPExcel();
         $workbook->setActiveSheetIndex(0);
 //        $workbook->getActiveSheet()->fromArray(array_keys($output[0]), NULL, 'A1');
@@ -29,7 +29,7 @@ class DownloadClass {
         $objWriter->save('php://output');
     }
 
-    function sendToCSV($header, $data, $filename) {
+    private function sendToCSV($header, $data, $filename) {
 
 	header('Content-Type: application/csv');
 	header('Content-Disposition: attachment; filename='.$filename.'.csv');

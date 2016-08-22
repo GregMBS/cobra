@@ -13,7 +13,9 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php
+        echo $capt;
+        ?>'">Regressar a la plantilla administrativa</button><br>
         <form action="<?php echo $here; ?>" method="get" name="queryparms">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <p>Cliente: 

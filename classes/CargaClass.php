@@ -34,7 +34,7 @@ class CargaClass {
         'timelock'
     );
 
-    function __construct($pdo) {
+    private function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
@@ -43,7 +43,7 @@ class CargaClass {
      * @param boolean $result
      * @param string $query
      */
-    function dbErrorCheck($result, $query) {
+    private function dbErrorCheck($result, $query) {
         if (!$result) {
             var_dump($this->pdo->errorInfo());
             die(htmlentities($query));
@@ -54,7 +54,7 @@ class CargaClass {
      * 
      * @return string
      */
-    function moveLoadedFile() {
+    private function moveLoadedFile() {
         $deststr = "/tmp/" . $_FILES['file']['name'];
         move_uploaded_file($_FILES["file"]["tmp_name"], $deststr);
         return $deststr;
@@ -66,7 +66,7 @@ class CargaClass {
      * @param boolean $header
      * @return array
      */
-    function getCsvData($filename, $header) {
+    private function getCsvData($filename, $header) {
         $handle = fopen($filename, "r");
         if ($header) {
             $data = fgetcsv($handle, 0, ",");
@@ -86,7 +86,7 @@ class CargaClass {
      * @param array $row
      * @return array
      */
-    function getDataColumnNames($row) {
+    private function getDataColumnNames($row) {
         $columnArray = array();
         foreach ($row as $columnName) {
             $cn = $columnName;
@@ -105,7 +105,7 @@ class CargaClass {
      * 
      * @return array
      */
-    function getDBColumnNames() {
+    private function getDBColumnNames() {
         $columnArray = array();
         $query = "SHOW COLUMNS FROM resumen";
         $result = $this->pdo->query($query);
@@ -121,7 +121,7 @@ class CargaClass {
      * @param array $dbnames
      * @return array
      */
-    function nameCheck($datanames, $dbnames) {
+    private function nameCheck($datanames, $dbnames) {
         $oops = array();
         foreach ($datanames as $name) {
             $match = in_array($name, $dbnames);
@@ -136,7 +136,7 @@ class CargaClass {
      * 
      * @param array $columnNames
      */
-    function prepareTemp($columnNames) {
+    private function prepareTemp($columnNames) {
         $querydrop = "DROP TABLE IF EXISTS temp;";
         $resultdrop = $this->pdo->query($querydrop);
         $this->dbErrorCheck($resultdrop, $querydrop);
@@ -159,7 +159,7 @@ class CargaClass {
      * @param string $filename
      * @param string $columnNames
      */
-    function loadData($filename, $columnNames) {
+    private function loadData($filename, $columnNames) {
         $data = $this->getCsvData($filename, false);
         $n = 0;
         $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
@@ -180,7 +180,7 @@ class CargaClass {
      * @param array $columnNames
      * @return array
      */
-    function prepareUpdate($columnNames) {
+    private function prepareUpdate($columnNames) {
         $output = array();
         foreach ($columnNames as $name) {
             $output[] = 'resumen.' . $name . '=temp.' . $name;
@@ -192,7 +192,7 @@ class CargaClass {
      * 
      * @param array $fieldlist
      */
-    function updateResumen($fieldlist) {
+    private function updateResumen($fieldlist) {
         $fl = implode(',', $fieldlist);
         $queryupd = "UPDATE temp, resumen
             SET " . $fl . " 
@@ -206,7 +206,7 @@ class CargaClass {
      * 
      * @param array $fieldlist
      */
-    function insertIntoResumen($fieldlist) {
+    private function insertIntoResumen($fieldlist) {
         $fl = implode(',', $fieldlist);
         $queryins = "insert ignore into resumen (" . $fl . ") select " . $fl . " from temp";
         $ok = $this->pdo->query($queryins);
@@ -216,7 +216,7 @@ class CargaClass {
     /**
      * 
      */
-    function updateClientes() {
+    private function updateClientes() {
 
         $query = "INSERT IGNORE INTO clientes "
                 . "SELECT cliente FROM resumen";
@@ -226,7 +226,7 @@ class CargaClass {
     /**
      * 
      */
-    function updatePagos() {
+    private function updatePagos() {
         $querypagoins = "insert ignore into pagos (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta)
 select numero_de_cuenta, fecha_de_ultimo_pago, 
 monto_ultimo_pago, cliente, c_cvge, 1, id_cuenta 
@@ -245,7 +245,7 @@ group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
     /**
      * 
      */
-    function createLookupTable() {
+    private function createLookupTable() {
         $queryrlist1 = "truncate cobra.rlook";
         $this->pdo->query($queryrlist1);
         $queryrlist2 = "insert into cobra.rlook

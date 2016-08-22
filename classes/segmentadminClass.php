@@ -26,7 +26,7 @@ class segmentadminClass {
      * @param string $cliente
      * @param string $segmento
      */
-    function borrarSegmento(string $cliente, string $segmento) {
+    private function borrarSegmento(string $cliente, string $segmento) {
         $queryborrar = "DELETE FROM queuelist
             WHERE cliente=:cliente
             AND sdc=:segmento;";
@@ -41,7 +41,7 @@ class segmentadminClass {
      * @param string $cliente
      * @param string $segmento
      */
-    function agregarSegmento(string $cliente, string $segmento) {
+    private function agregarSegmento(string $cliente, string $segmento) {
         $querylistin = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
@@ -60,7 +60,7 @@ class segmentadminClass {
     /**
      * 
      */
-    function addAllSegmentos() {
+    private function addAllSegmentos() {
         $querycliseg = "SELECT DISTINCT cliente, status_de_credito "
                 . "FROM resumen "
                 . "WHERE status_de_credito NOT REGEXP '-'";
@@ -86,7 +86,7 @@ class segmentadminClass {
      * 
      * @return array
      */
-    function listQueuedSegmentos() {
+    private function listQueuedSegmentos() {
         $querytempr = "create temporary table csdcr
 select cliente, status_de_credito, count(id_cuenta) as cnt from resumen
 where status_de_credito not regexp '-'
@@ -107,7 +107,7 @@ group by cliente, status_de_credito";
      * 
      * @return array
      */
-    function listUnqueuedSegments() {
+    private function listUnqueuedSegments() {
         $querytemp = "create temporary table csdc
 select distinct cliente,sdc from queuelist";
         $this->pdo->query($querytemp);

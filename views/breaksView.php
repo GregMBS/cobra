@@ -31,22 +31,22 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($resultp as $answerp) {
-                    $AUTO = $answerp['auto'];
-                    $GESTOR = $answerp['c_cvge'];
-                    $TIPO = $answerp['c_cvst'];
-                    $TIEMPO = $answerp['c_hrin'];
-                    $DIFF = $answerp['diff'];
-                    $formatstr = ' class="late"';
-                    $NTP = date('H:i:s');
-                    $resultq = getTimes($pdo, $formatstr, $queryp);
-                    foreach ($resultq as $answerq) {
-                        if (!empty($answerq['diff'])) {
-                            $DIFF = $answerq['diff'];
-                            $NTP = $answerq['minhr'];
-                            $formatstr = '';
-                        }
-                    }
+foreach ($resultp as $answerp) {
+    $AUTO = $answerp['auto'];
+    $GESTOR = $answerp['c_cvge'];
+    $TIPO = $answerp['c_cvst'];
+    $TIEMPO = $answerp['c_hrin'];
+    $DIFF = $answerp['diff'];
+    $formatstr = ' class="late"';
+    $NTP = date('H:i:s');
+    $resultq = getTimes($pdo, $formatstr, $queryp);
+    foreach ($resultq as $answerq) {
+        if (!empty($answerq['diff'])) {
+            $DIFF = $answerq['diff'];
+            $NTP = $answerq['minhr'];
+            $formatstr = '';
+        }
+    }
                     ?>
                     <tr<?php echo $formatstr; ?>>
                         <td><?php echo $GESTOR; ?></td>
@@ -56,7 +56,7 @@
                         <td><?php echo round($DIFF / 60); ?></td>
                     </tr>
                     <?php
-                }
+}
                 ?>
             </tbody>
         </table>
