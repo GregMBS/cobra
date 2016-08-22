@@ -45,7 +45,7 @@ class CargaClass {
      */
     private function dbErrorCheck($result, $query) {
         if (!$result) {
-            var_dump($this->pdo->errorInfo());
+            print_r($this->pdo->errorInfo());
             die(htmlentities($query));
         }        
     }
@@ -161,14 +161,14 @@ class CargaClass {
      */
     private function loadData($filename, $columnNames) {
         $data = $this->getCsvData($filename, false);
-        $n = 0;
+        $count = 0;
         $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
         foreach ($data as $row) {
-            if ($n > 0) {
+            if ($count > 0) {
                 $limpio = str_replace("'", "", $row);
                 $queryload .= "('" . implode("','", $limpio) . "'),";
             }
-            $n++;
+            $count++;
         }
         $queryloadtrim = rtrim($queryload, ",");
         $ok = $this->pdo->query($queryloadtrim);

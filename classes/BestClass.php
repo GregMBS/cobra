@@ -1,12 +1,15 @@
 <?php
 
+namespace cobra_salsa;
+
 /**
  * Database Queries for 'best' reports
  *
  * @author gmbs
  *
  */
-class BestClass {
+class BestClass
+{
 
     /**
      * @var PDO $pdo
@@ -49,5 +52,4 @@ order by v_cc limit 1";
         $result = $stq->fetchAll();
         return $result;
     }
-
 }
