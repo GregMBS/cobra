@@ -3,13 +3,18 @@
     <head>
         <title>CobraMas Trouble</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" 
+              href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" 
+              type="text/css" media="all" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <SCRIPT>
-<?php if ($go == 'ENVIAR') { ?>
+<?php 
+if ($go == 'ENVIAR') { ?>
                 alert('<?php echo $message; ?>');
-<?php } ?>
+    <?php 
+}
+    ?>
         </SCRIPT>
     </head>
     <body>
@@ -33,7 +38,8 @@ Veo:
 Sin embargo, espero:
 
             </textarea><br>
-            <span class="formcap">Error mensajes (texto <em>EXACTO</em>)</span><textarea rows="2" cols="40" name="error_msg"></textarea><br>
+            <span class="formcap">Error mensajes (texto <em>EXACTO</em>)</span>
+            <textarea rows="2" cols="40" name="error_msg"></textarea><br>
             <input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $C_CONT; ?> /><br>
             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> /><br>
             <input type="submit" name="go" value="ENVIAR">

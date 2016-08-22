@@ -29,11 +29,12 @@ foreach ($resultgestor as $answerc) {
                 <select name="cliente">
                     <option value="todos" style="font-size:120%;">todos</option>
                     <?php
-                    foreach ($resultc as $answerc) {
+foreach ($resultc as $answerc) {
                         ?>
                         <option value="<?php echo $answerc[0]; ?>" style="font-size:120%;">
                             <?php echo $answerc[0]; ?></option>
-                    <?php }
+                    <?php 
+}
                     ?>
                 </select>
             </p>

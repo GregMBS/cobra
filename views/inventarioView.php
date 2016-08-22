@@ -23,11 +23,12 @@
                     <option value="todos" style="font-size:120%;">todos</option>
                     <option value="actives" style="font-size:120%;">todos activos</option>
                     <?php
-                    foreach ($resultc as $answerc) {
+foreach ($resultc as $answerc) {
                         ?>
                         <option value="<?php echo $answerc['cliente']; ?>" style="font-size:120%;">
                             <?php echo $answerc['cliente']; ?></option>
-                        <?php }
+                        <?php
+}
                         ?>
                 </select>
             </p>

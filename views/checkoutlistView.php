@@ -3,7 +3,9 @@
     <head>
         <title>CobraMas Visitador Checklist</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" 
+              href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" 
+              type="text/css" media="all" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
     </head>
@@ -28,21 +30,21 @@
             </thead>
             <tbody class="ui-widget-content">
                 <?php
-                $sc = 0;
-                $sm = 0;
-                if ($result) {
-                    foreach ($result as $answer) {
-                        $GESTOR = $answer['gestor'];
-                        $ID_CUENTA = $answer['id_cuenta'];
-                        $CUENTA = $answer['cuenta'];
-                        $ST = $answer['saldo_total'];
-                        $CLIENTE = $answer['cliente'];
-                        $QUEUE = $answer['queue'];
-                        $NOMBRE = $answer['nombre'];
-                        $FECHAOUT = $answer['fechaout'];
-                        $FECHAIN = $answer['fechain'];
-                        $sc = $sc + 1;
-                        $sm = $sm + $ST;
+$sc = 0;
+$sm = 0;
+if ($result) {
+    foreach ($result as $answer) {
+        $GESTOR = $answer['gestor'];
+        $ID_CUENTA = $answer['id_cuenta'];
+        $CUENTA = $answer['cuenta'];
+        $ST = $answer['saldo_total'];
+        $CLIENTE = $answer['cliente'];
+        $QUEUE = $answer['queue'];
+        $NOMBRE = $answer['nombre'];
+        $FECHAOUT = $answer['fechaout'];
+        $FECHAIN = $answer['fechain'];
+        $sc = $sc + 1;
+        $sm = $sm + $ST;
                         ?>
                         <tr>
                             <td><?php echo $ID_CUENTA; ?></td>
@@ -56,8 +58,8 @@
                             <td><?php echo $FECHAIN; ?></td>
                         </tr>
                         <?php
-                    }
-                }
+    }
+}
                 ?>
                 <tr>
                     <td><?php echo $sc; ?> cuentas</td>
@@ -67,6 +69,8 @@
             </tbody>
         </table>
     </div>
-    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+    <button onclick="window.location = 'reports.php?capt=<?php 
+    echo $capt;
+    ?>'">Regressar a la plantilla administrativa</button><br>
 </body>
 </html> 

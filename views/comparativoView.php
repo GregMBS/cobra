@@ -3,7 +3,9 @@
     <head>
         <title>Comparativo de 3 Meses</title>
 
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" 
+              href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" 
+              type="text/css" media="all" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -22,7 +24,9 @@
             });
         </script>
         <h1>COMPARATIVO</h1>
-        <button onClick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar al administraci&oacute;n</button>
+        <button onClick="window.location = 'reports.php?capt=<?php 
+        echo $capt;
+        ?>'">Regresar al administraci&oacute;n</button>
         <table summary="Cuentas" id='buscartab' class='ui-widget'>
             <thead class='ui-widget-header'>
                 <tr>
@@ -39,19 +43,19 @@
             </thead>
             <tbody class='ui-widget-content'>
                 <?php
-                $class     = array('now', 'odd', 'even');
-                $i         = 0;
-                foreach ($result as $answer) {
-                    $i         = ($i + 1) % 3;
-                    $cliente   = $answer['c_cvba'];
-                    $mes       = $answer['mdf'];
-                    $gestiones = $answer['sg'];
-                    $contactos = $answer['sc'];
-                    $pc        = round($contactos / $gestiones * 100);
-                    $promesas  = $answer['sp'];
-                    $pp        = round($promesas / $contactos * 100);
-                    $gestores  = $answer['cg'];
-                    $manhours  = $answer['ch'];
+$class     = array('now', 'odd', 'even');
+$i         = 0;
+foreach ($result as $answer) {
+    $i         = ($i + 1) % 3;
+    $cliente   = $answer['c_cvba'];
+    $mes       = $answer['mdf'];
+    $gestiones = $answer['sg'];
+    $contactos = $answer['sc'];
+    $pc        = round($contactos / $gestiones * 100);
+    $promesas  = $answer['sp'];
+    $pp        = round($promesas / $contactos * 100);
+    $gestores  = $answer['cg'];
+    $manhours  = $answer['ch'];
                     ?>
                     <tr class='<?php echo $class[$i]; ?>'>
                         <td><?php echo $cliente; ?></td>
@@ -64,7 +68,10 @@
                         <td><?php echo $gestores; ?></td>
                         <td><?php echo $manhours; ?></td>
                     </tr>
-                <?php } ?>
+                <?php 
+                
+}
+?>
             </tbody>
         </table>
     </body>
