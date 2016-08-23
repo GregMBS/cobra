@@ -46,7 +46,7 @@
                         $QUEUES = str_replace('+', '%2B', $QUEUE);
                         $SDC = $answer['sdc'];
                         $SDCS = str_replace('+', '%2B', $SDC);
-                        $resultc = getSegmentoCount($pdo, $querymainq, $SDC);
+                        $resultc = $qc->getSegmentoCount($CLIENTE, $SDC);
                         foreach ($resultc as $answerc) {
                             $ASIGNADOS = $answerc['ct'];
                             $DINERO = $answerc['sst'];
