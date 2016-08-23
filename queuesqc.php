@@ -7,29 +7,6 @@ $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 
-/**
- * 
- * @param PDO $pdo
- * @param string $CLIENTE
- * @param string $SDC
- * @return array
- */
-function getSegmentoCount($pdo, $CLIENTE, $SDC) {
-    $queryc = "SELECT count(1) as ct, sum(saldo_total) as sst
-                            FROM resumen
-                            WHERE status_de_credito not regexp '-'
-                            AND cliente='" . $CLIENTE . "';";
-    if ($SDC <> '') {
-        $queryc = "SELECT count(1) as ct, sum(saldo_total) as sst
-                                FROM resumen
-                                WHERE status_de_credito = '" . $SDC . "'
-                                and cliente='" . $CLIENTE . "';";
-    }
-    $resultc = $pdo->query($queryc);
-    return $resultc;
-}
-
-function getQueueCounts($pdo, $CLIENTE, $SDC, $QUEUE) {
     $querysub = "select count(1),
 sum(fecha_ultima_gestion>curdate()),
 sum(fecha_ultima_gestion>curdate() - interval 6 day),
@@ -63,7 +40,7 @@ and queue='" . $QUEUE . "'
     $stb = $pdo->query($querysub);
     $resultsub = $stb->fetchAll(PDO::FETCH_ASSOC);
     return $resultsub;
-}
+
 
 $querymainq = "select distinct cliente, status_aarsa, sdc
 from queuelist
