@@ -51,7 +51,7 @@
                             $ASIGNADOS = $answerc['ct'];
                             $DINERO = $answerc['sst'];
                         }
-                        $resultsub = getQueueCounts($pdo, $CLIENTE, $SDC, $QUEUE);
+                        $resultsub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
                         foreach ($resultsub as $answersub) {
                             $count = $answersub['ctt'];
                             $countd = $answersub['ctd'];
