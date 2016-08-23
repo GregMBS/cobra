@@ -41,7 +41,7 @@
                     $CLIENTE = $answerstart['cliente'];
                     $ID_CUENTA = $answerstart['id_cuenta'];
                     $S_D = $answerstart['saldo_descuento_1'];
-                    $resultp = getPagos($pdo, $query, $CLIENTE);
+                    $resultp = $gc->getPagos($CUENTA, $CLIENTE);
                     $MONTO = 0;
                     $FECHA = '';
                     foreach ($resultp as $answerp) {
