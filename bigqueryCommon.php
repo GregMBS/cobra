@@ -11,12 +11,6 @@ $pdo  = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $get  = filter_input_array(INPUT_GET);
 
-function mesNom($monthNum)
-{
-    $timestamp = mktime(0, 0, 0, $monthNum, 1, 2005);
-
-    return date("M", $timestamp);
-}
 if (isset($get['fecha1'])) {
     $go     = $get['go'];
     $gestor = $get['gestor'];

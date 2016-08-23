@@ -25,13 +25,6 @@ function getCSV($array) {
     return ob_get_clean(); // ... then return it as a string!
 }
 
-//require_once 'Spreadsheet/Excel/Writer.php';
-function mesNom($monthNum) {
-    $timestamp = mktime(0, 0, 0, $monthNum, 1, 2005);
-
-    return date("M", $timestamp);
-}
-
 if (!empty($go)) {
     //$gestorstr=" and ejecutivo_asignado_call_center not regexp '-' ";
     $gestorstr = '';
