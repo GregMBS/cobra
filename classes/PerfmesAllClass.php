@@ -16,7 +16,7 @@ namespace cobra_salsa;
 class PerfmesAllClass
 {
     /**
-     * @var PDO $pdo
+     * @var \PDO $pdo
      */
     protected $pdo;
 
@@ -39,9 +39,9 @@ class PerfmesAllClass
             and D_FECH=last_day(curdate() - interval 2 month) + interval :dom day
             group by D_FECH";
         $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
+        return $stq->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function getPagos($dom)
@@ -49,9 +49,9 @@ class PerfmesAllClass
         $query = "select count(1) as ct from pagos
             where fecha=last_day(curdate() - interval 2 month) + interval :dom day";
         $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
+        return $stq->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function countAccounts()
@@ -64,7 +64,7 @@ class PerfmesAllClass
             and D_FECH<=last_day(curdate() - interval 1 month)";
         $stq   = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetch(PDO::FETCH_ASSOC);
+        $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result['ct'];
     }
 
@@ -76,9 +76,9 @@ class PerfmesAllClass
             and c_cniv is null and c_msge is null
             and D_FECH=last_day(curdate() - interval 2 month) + interval :dom day";
         $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetch(PDO::FETCH_ASSOC);
+        $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result['ct'];
     }
 }

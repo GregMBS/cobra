@@ -48,7 +48,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
         $std->bindParam(':cliente', $cliente);
     }
     $std->execute();
-    $result = $std->fetchAll(PDO::FETCH_ASSOC);
+    $result = $std->fetchAll(\PDO::FETCH_ASSOC);
 // Creating a workbook
 //$workbook = new Spreadsheet_Excel_Writer();
 

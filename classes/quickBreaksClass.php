@@ -51,7 +51,7 @@ where tipo<>'junta' group by gestor;";
         $this->pdo->query($this->dropBreaktemp);
         $this->pdo->query($this->createBreaktemp);
         $sta    = $this->pdo->query($this->queryBreaktab);
-        $result = $sta->fetchAll(PDO::FETCH_ASSOC);
+        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 }

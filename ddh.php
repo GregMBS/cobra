@@ -23,5 +23,5 @@ $stm       = $pdo->prepare($querymain);
 $stm->bindParam(':gestor', $gestor);
 $stm->bindParam(':fecha', $fecha);
 $stm->execute();
-$result    = $stm->fetchAll(PDO::FETCH_ASSOC);
+$result    = $stm->fetchAll(\PDO::FETCH_ASSOC);
 require_once 'views/ddhView.php';

@@ -94,7 +94,7 @@ $stm = $pdo->prepare($querymain);
 $stm->bindParam(':find', $find);
 $stm->bindParam(':cliente', $CLIENTE);
 $stm->execute();
-$result = $stm->fetchAll(PDO::FETCH_ASSOC);
+$result = $stm->fetchAll(\PDO::FETCH_ASSOC);
 $querycl = "SELECT cliente FROM clientes";
 $resultcl = $pdo->query($querycl);
 require_once 'views/changestView.php';

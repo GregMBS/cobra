@@ -23,7 +23,7 @@ if (!empty($go)) {
     $stg->bindParam(':pw', $pw);
     $stg->bindParam(':capt', $capt);
     $stg->execute();
-    $resultg  = $stg->fetchAll(PDO::FETCH_ASSOC);
+    $resultg  = $stg->fetchAll(\PDO::FETCH_ASSOC);
     foreach ($resultg as $answerg) {
         $mynombre = $answerg['iniciales'];
         $enlace   = $answerg['enlace'];

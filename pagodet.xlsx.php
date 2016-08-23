@@ -25,7 +25,7 @@ if (!$std) {
     var_dump($pdo->errorInfo());
     die();
 }
-$result = $std->fetchAll(PDO::FETCH_ASSOC);
+$result = $std->fetchAll(\PDO::FETCH_ASSOC);
 $filename = "Pagos_".trim(date('ym')).".xlsx";
 $output   = array();
 $output[] = array_keys($result[0]);

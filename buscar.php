@@ -96,8 +96,8 @@ if (isset($querymain)) {
             $stm->bindParam(':cliente', $CLIENTE);
         }
         $stm->execute();
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
+        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
         die($e->getMessage());
     }
 }

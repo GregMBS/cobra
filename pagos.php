@@ -13,7 +13,7 @@ WHERE id_cuenta=:id";
 $stc       = $pdo->prepare($querycc);
 $stc->bindParam(':id', $ID_CUENTA);
 $stc->execute();
-$resultcc  = $stc->fetchAll(PDO::FETCH_ASSOC);
+$resultcc  = $stc->fetchAll(\PDO::FETCH_ASSOC);
 foreach ($resultcc as $answercc) {
     $CUENTA  = $answercc['numero_de_cuenta'];
     $CLIENTE = $answercc['cliente'];
@@ -25,5 +25,5 @@ ORDER BY fecha";
 $sts      = $pdo->prepare($querysub);
 $sts->bindParam(':id', $ID_CUENTA);
 $sts->execute();
-$rowsub   = $sts->fetchAll(PDO::FETCH_ASSOC);
+$rowsub   = $sts->fetchAll(\PDO::FETCH_ASSOC);
 require_once 'views/pagosView.php';

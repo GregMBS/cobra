@@ -33,7 +33,7 @@ class UserCheckClass
         $stc->bindParam(':ticket', $ticket);
         $stc->bindParam(':capt', $capt);
         $stc->execute();
-        $results=$stc->fetch(PDO::FETCH_ASSOC);
+        $results=$stc->fetch(\PDO::FETCH_ASSOC);
         if ($results['check']==0) {
             $redirect = 'location: index.php';
             header($redirect);

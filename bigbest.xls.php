@@ -57,7 +57,7 @@ ORDER BY d_fech,c_hrin
         $stm->bindParam(':cliente', $cliente);
     }
     $stm->execute();
-    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+    $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
 
     $filename = "Query_de_gestiones_" . date('ymd', strtotime($fecha1)) . "_" . date('ymd', strtotime($fecha2)) . ".xlsx";
     $output = array();

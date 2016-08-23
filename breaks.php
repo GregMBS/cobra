@@ -12,7 +12,7 @@ $capt = filter_input(INPUT_GET, 'capt');
 
 /**
  * 
- * @param PDO $pdo
+ * @param \PDO $pdo
  * @param string $TIEMPO
  * @param string $GESTOR
  * @return array

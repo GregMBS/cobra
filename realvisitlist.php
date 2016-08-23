@@ -16,7 +16,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
 $sts = $pdo->prepare($querysub);
 $sts->bindParam(':id_cuenta', $ID_CUENTA);
 $sts->execute();
-$rowsub = $sts->fetchAll(PDO::FETCH_ASSOC);
+$rowsub = $sts->fetchAll(\PDO::FETCH_ASSOC);
 $fields = array("c_cvst", "fh", "gestor", "short", "Gestion");
 $fieldnames = array("Status", "Fecha/Hora", "Visitador", "Gestion", "Gestion");
 $fieldsize = array("status", "timestamp", "chico", "gestion", "hidebox");

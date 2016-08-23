@@ -16,7 +16,7 @@ namespace cobra_salsa;
 class HorariosClass
 {
 	/**
-	 * @var PDO $pdo
+	 * @var \PDO $pdo
 	 */
 	protected $pdo;
 
@@ -83,9 +83,9 @@ order by usuaria;';
             group by D_FECH";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':gestor', $gestor);
-		$stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(PDO::FETCH_ASSOC);
+		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -109,9 +109,9 @@ order by usuaria;';
             group by D_FECH";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':gestor', $gestor);
-		$stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(PDO::FETCH_ASSOC);
+		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -135,9 +135,9 @@ order by usuaria;';
             group by D_FECH";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':visitador', $visitador);
-		$stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(PDO::FETCH_ASSOC);
+		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -158,10 +158,10 @@ order by usuaria;';
             order by c_cvge,c_cvst,c_hrin";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':gestor', $gestor);
-		$stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->bindParam(':tipo', $tipo);
 		$stq->execute();
-		return $stq->fetchAll(PDO::FETCH_ASSOC);
+		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -181,10 +181,10 @@ order by usuaria;';
             and c_hrin>:tiempo";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':gestor', $gestor);
-		$stq->bindParam(':dow', $dow, PDO::PARAM_INT);
+		$stq->bindParam(':dow', $dow, \PDO::PARAM_INT);
 		$stq->bindParam(':tiempo', $tiempo);
 		$stq->execute();
-		return $stq->fetchAll(PDO::FETCH_ASSOC);
+		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -200,9 +200,9 @@ order by usuaria;';
             and fecha=last_day(curdate() - interval 1 month) + interval :dom day";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':gestor', $gestor);
-		$stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(PDO::FETCH_ASSOC);
+		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -221,9 +221,9 @@ order by usuaria;';
 			and day(fecha) = :dom";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':visitador', $visitador);
-		$stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(PDO::FETCH_ASSOC);
+		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -242,9 +242,9 @@ order by usuaria;';
 			and day(fechaout) = :dom";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':visitador', $visitador);
-		$stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetch(PDO::FETCH_ASSOC);
+		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -262,7 +262,7 @@ order by usuaria;';
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':gestor', $gestor);
 		$stq->execute();
-		return $stq->fetchAll(PDO::FETCH_ASSOC);
+		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	/**

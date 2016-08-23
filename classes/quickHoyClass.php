@@ -54,7 +54,7 @@ class QuickHoyClass
         $this->pdo->query($this->insertHoy);
         $this->pdo->query($this->updateHoyBreaktemp);
         $sta    = $this->pdo->query($this->queryHoy);
-        $result = $sta->fetchAll(PDO::FETCH_ASSOC);
+        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 }

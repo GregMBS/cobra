@@ -17,5 +17,5 @@ and ejecutivo_asignado_call_center = :capt
 $stm       = $pdo->prepare($querymain);
 $stm->bindParam(':capt', $capt);
 $stm->execute();
-$result    = $stm->fetchAll(PDO::FETCH_ASSOC);
+$result    = $stm->fetchAll(\PDO::FETCH_ASSOC);
 require_once 'views/migoView.php';

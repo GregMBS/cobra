@@ -29,7 +29,7 @@ if ($go != "") {
 		$stl		 = $pdo->prepare($queryldt);
 		$stl->bindParam(':capt', $capt);
 		$stl->execute();
-		$resultldt	 = $stl->fetchAll(PDO::FETCH_ASSOC);
+		$resultldt	 = $stl->fetchAll(\PDO::FETCH_ASSOC);
 		foreach ($resultldt as $answerldt) {
 			$date	 = $answerldt['d_fech'];
 			$time	 = $answerldt['c_hrin'];

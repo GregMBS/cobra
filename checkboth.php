@@ -23,7 +23,7 @@ and status_de_credito=who(status_de_credito);";
         $stcc->bindParam(':cuenta', $CUENTA);
         $stcc->execute();
 
-        $resultcc = $stcc->fetchAll(PDO::FETCH_ASSOC);
+        $resultcc = $stcc->fetchAll(\PDO::FETCH_ASSOC);
         foreach ($resultcc as $answercc) {
             $ID_CUENTA = $answercc['id_cuenta'];
         }

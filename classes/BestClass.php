@@ -12,7 +12,7 @@ class BestClass
 {
 
     /**
-     * @var PDO $pdo
+     * @var \PDO $pdo
      */
     protected $pdo;
 

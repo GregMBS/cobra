@@ -75,5 +75,5 @@ ORDER BY d_fech,c_hrin
         $stm->bindParam(':gestor', $gestor);
     }
     $stm->execute();
-    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+    $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
 }

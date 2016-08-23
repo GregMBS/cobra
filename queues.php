@@ -14,7 +14,7 @@ if ($go == 'INTRO') {
     $queryupd = "UPDATE nombres SET camp=:camp "
             . "where iniciales=:gestor;";
     $stu = $pdo->prepare($queryupd);
-    $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
+    $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
     $stu->bindParam(':gestor', $GESTOR);
     $stu->execute();
 }
@@ -23,7 +23,7 @@ if ($go == 'BLOQUEAR') {
 WHERE gestor=:gestor
 AND camp=:camp;";
     $stb = $pdo->prepare($queryblock);
-    $stb->bindParam(':camp', $CAMP, PDO::PARAM_INT);
+    $stb->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
     $stb->bindParam(':gestor', $GESTOR);
     $stb->execute();
 }
@@ -32,7 +32,7 @@ if ($go == 'DESBLOQUEAR') {
 WHERE gestor=:gestor
 AND camp=:camp;";
     $std = $pdo->prepare($querydes);
-    $std->bindParam(':camp', $CAMP, PDO::PARAM_INT);
+    $std->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
     $std->bindParam(':gestor', $GESTOR);
     $std->execute();
 }

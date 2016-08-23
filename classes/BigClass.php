@@ -17,7 +17,7 @@ namespace cobra_salsa;
 class BigClass
 {
     /**
-     * @var PDO $pdo
+     * @var \PDO $pdo
      */
     protected $pdo;
 
@@ -63,7 +63,7 @@ class BigClass
             $stq->bindParam(':cliente', $cliente);
         }
         $stq->execute();
-        $data = $stq->fetchAll(PDO::FETCH_ASSOC);
+        $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
     }
 

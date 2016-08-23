@@ -26,7 +26,7 @@ if ($go == 'RECIBIR') {
         $stc = $pdo->prepare($querycc);
         $stc->bindParam(':cuenta', $CUENTA);
         $stc->execute();
-        $resultcc = $stc->fetchAll(PDO::FETCH_ASSOC);
+        $resultcc = $stc->fetchAll(\PDO::FETCH_ASSOC);
         foreach ($resultcc as $answercc) {
             $C_CONT = $answercc['id_cuenta'];
             $CTA = $answercc['numero_de_cuenta'];
@@ -54,7 +54,7 @@ $querycount = "select sum(fechaout>curdate()) as asig,
 $stn = $pdo->prepare($querycount);
 $stn->bindParam(':gestor', $gestor);
 $stn->execute();
-$resultcount = $stn->fetchAll(PDO::FETCH_ASSOC);
+$resultcount = $stn->fetchAll(\PDO::FETCH_ASSOC);
 $querycc = "select id_cuenta, numero_de_cuenta as cuenta,
 				    nombre_deudor as nombre, resumen.cliente,
 				    saldo_total, q(status_aarsa) as queue,
@@ -66,5 +66,5 @@ order by fechain desc";
 $stm = $pdo->prepare($querycc);
 $stm->bindParam(':gestor', $gestor);
 $stm->execute();
-$resultcc = $stm->fetchAll(PDO::FETCH_ASSOC);
+$resultcc = $stm->fetchAll(\PDO::FETCH_ASSOC);
 require_once 'views/checkinView.php';

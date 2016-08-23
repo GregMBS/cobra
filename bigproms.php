@@ -89,7 +89,7 @@ group by id_cuenta ORDER BY d_fech,c_hrin
         $stm->bindParam(':cliente', $cliente);
     }
     $stm->execute();
-    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+    $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
 
     $filename = "Query_de_promesas_".$fecha3.'_'.$fecha4.".xlsx";
     $output   = array();

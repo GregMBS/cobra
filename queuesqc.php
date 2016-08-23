@@ -38,7 +38,7 @@ and queue='" . $QUEUE . "'
 ";
     }
     $stb = $pdo->query($querysub);
-    $resultsub = $stb->fetchAll(PDO::FETCH_ASSOC);
+    $resultsub = $stb->fetchAll(\PDO::FETCH_ASSOC);
     return $resultsub;
 
 
@@ -50,7 +50,7 @@ and sdc <> ''
 order by cliente, sdc, status_aarsa limit 1000
 ";
 $stq = $pdo->query($querymainq);
-$resultq = $stq->fetchAll(PDO::FETCH_ASSOC);
+$resultq = $stq->fetchAll(\PDO::FETCH_ASSOC);
 $querymain = "select cliente,
 status_de_credito,count(1),sum(saldo_total),
 sum(fecha_ultima_gestion<=last_day(curdate()-interval 1 month)+interval 1 day) as ecount,
@@ -60,5 +60,5 @@ where status_de_credito not regexp '[dv]o$'
 group by cliente,status_de_credito
 ";
 $stm = $pdo->query($querymain);
-$result = $stm->fetchAll(PDO::FETCH_NUM);
+$result = $stm->fetchAll(\PDO::FETCH_NUM);
 require_once 'views/queuesqcView.php';

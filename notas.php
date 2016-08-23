@@ -38,7 +38,7 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
     $sti->bindParam(':HORA', $HORA);
     $sti->bindParam(':NOTA', $NOTA);
     $sti->bindParam(':CUENTA', $CUENTA);
-    $sti->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
+    $sti->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
     $sti->execute();
     $redirector = "Location: notas.php?capt='" . $capt . "'&go=FROMGUARDAR";
     header($redirector);
@@ -49,7 +49,7 @@ if ($go == 'BORRAR') {
             . "where AUTO=:AUTO and C_CVGE=:capt";
     $stbi = $pdo->prepare($querybins);
     $stbi->bindParam(':capt', $capt);
-    $stbi->bindParam(':AUTO', $AUTO, PDO::PARAM_INT);
+    $stbi->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
     $stbi->execute();
     $redirector = "Location: notas.php?capt=" . $capt . "&go=FROMBORRAR";
     header($redirector);
@@ -61,5 +61,5 @@ $querysub = "SELECT auto,fecha,hora,nota,c_cvge,cuenta "
 $sts = $pdo->prepare($querysub);
 $sts->bindParam(':capt', $capt);
 $sts->execute();
-$result = $sts->fetchAll(PDO::FETCH_ASSOC);
+$result = $sts->fetchAll(\PDO::FETCH_ASSOC);
 require_once 'views/notasView.php';

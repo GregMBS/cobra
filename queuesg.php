@@ -25,7 +25,7 @@ and bloqueado=0 limit 1
     $stq->bindParam(':sdc', $sdc);
     $stq->bindParam(':capt', $capt);
     $stq->execute();
-    $resultqueue = $stq->fetch(PDO::FETCH_ASSOC);
+    $resultqueue = $stq->fetch(\PDO::FETCH_ASSOC);
     if ($resultqueue) {
         $camp = $resultqueue['camp'];
     } else {
@@ -62,7 +62,7 @@ ORDER BY cliente,sdc,status_aarsa;";
         $sts = $pdo->prepare($querys);
         $sts->bindParam(':capt', $capt);
         $sts->execute();
-        $results=$sts->fetchAll(PDO::FETCH_ASSOC);
+        $results=$sts->fetchAll(\PDO::FETCH_ASSOC);
 foreach ($results as $rows) {
     $arrays = $arrays.'["';
     $arrays = $arrays.$rows['sdc'].'","'.$rows['cliente'].'"],';
@@ -74,7 +74,7 @@ ORDER BY cliente,sdc,status_aarsa;";
         $stsa = $pdo->prepare($querysa);
         $stsa->bindParam(':capt', $capt);
         $stsa->execute();
-        $resultsa=$stsa->fetchAll(PDO::FETCH_ASSOC);
+        $resultsa=$stsa->fetchAll(\PDO::FETCH_ASSOC);
 foreach ($resultsa as $rowsa) {
     $arrayq = $arrayq.'["';
     $arrayq = $arrayq

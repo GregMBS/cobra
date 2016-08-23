@@ -36,7 +36,7 @@ if (!empty($go)) {
                 . "SET borrado=1 "
                 . "WHERE auto=:auto";
         $stu = $pdo->prepare($queryupd);
-        $stu->bindParam(':auto', $AUTO, PDO::PARAM_INT);
+        $stu->bindParam(':auto', $AUTO, \PDO::PARAM_INT);
         $stu->execute();
         $redirector = "Location: notadmin.php?capt=" . $capt;
         header($redirector);

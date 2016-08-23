@@ -24,7 +24,7 @@ if ($go == "CAMBIAR") {
             termina=:termina
             WHERE auto=:auto";
     $stu = $pdo->prepare($queryu);
-    $stu->bindParam(':auto', $auto, PDO::PARAM_INT);
+    $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
     $stu->bindParam(':tipo', $tipo);
     $stu->bindParam(':empieza', $auto);
     $stu->bindParam(':termina', $auto);
@@ -34,7 +34,7 @@ if ($go == "CAMBIAR") {
 if ($go == "BORRAR") {
     $queryb = "DELETE FROM breaks WHERE auto=:auto";
     $stb = $pdo->prepare($queryb);
-    $stb->bindParam(':auto', $auto, PDO::PARAM_INT);
+    $stb->bindParam(':auto', $auto, \PDO::PARAM_INT);
     $stb->execute();
 }
 

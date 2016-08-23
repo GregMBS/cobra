@@ -5,7 +5,7 @@ if (isset($get['fecha1'])) {
     $output   = array();
     $i = 0;
 
-    while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
         if ($i==0) {
             $output[] = array_keys($row);
         }

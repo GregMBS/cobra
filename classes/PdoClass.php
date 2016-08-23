@@ -13,7 +13,7 @@ class PdoClass
     protected $username   = "root";
     protected $passwd     = "DeathSta1";
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected $pdo;
 
@@ -47,10 +47,10 @@ class PdoClass
 
     public function __construct()
     {
-        $this->pdo = new PDO($this->dsn, $this->username, $this->passwd);
+        $this->pdo = new \PDO($this->dsn, $this->username, $this->passwd);
     }
     /**
-     * @returns PDO
+     * @returns \PDO
      */
 
     private function dbConnect($querycheck)
@@ -82,7 +82,7 @@ class PdoClass
         return $this->pdo;
     }
     /**
-     * @returns PDO
+     * @returns \PDO
      */
     public function dbConnectAdmin()
     {
@@ -92,7 +92,7 @@ class PdoClass
     }
 
     /**
-     * @returns PDO
+     * @returns \PDO
      */
     public function dbConnectUser()
     {
@@ -102,7 +102,7 @@ class PdoClass
     }
 
     /**
-     * @returns PDO
+     * @returns \PDO
      */
     public function dbConnectNobody()
     {

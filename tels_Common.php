@@ -1,7 +1,7 @@
 <?php
 if (!empty($get['fecha1'])) {
     $statement = $pdo->query($querymain);
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
     $filename = "Query_de_telefonos_" . date('ymd') . ".xlsx";
     $output = array();
     $output[] = array_keys($result[0]);

@@ -16,7 +16,7 @@ limit 1;";
     $stn = $pdo->prepare($queryn);
     $stn->bindParam(':vst', $vst);
     $stn->execute();
-    $resultn = $stn->fetch(PDO::FETCH_ASSOC);
+    $resultn = $stn->fetch(\PDO::FETCH_ASSOC);
     if ($resultn) {
         $visitador = $resultn['completo'];
         $visitstr = " and gestor=:vst ";
@@ -36,5 +36,5 @@ if ($visitador != 'TODOS') {
     $stm->bindParam(':vst', $vst);
 }
 $stm->execute();
-$result = $stm->fetchAll(PDO::FETCH_ASSOC);
+$result = $stm->fetchAll(\PDO::FETCH_ASSOC);
 require_once 'views/checkoutlistView.php';

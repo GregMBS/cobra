@@ -73,7 +73,7 @@ order by c_cvge,sum(monto),d_prom
             $stq->bindParam(':dprom', $d_prom);
         }
         $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 }

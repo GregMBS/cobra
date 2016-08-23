@@ -32,7 +32,7 @@ if ($go == 'ASIGNAR') {
         $C_CONT = 0;
         $stc->bindParam(':cuenta', $CUENTA);
         $stc->execute();
-        $resultcc = $stc->fetchAll(PDO::FETCH_ASSOC);
+        $resultcc = $stc->fetchAll(\PDO::FETCH_ASSOC);
         foreach ($resultcc as $answercc) {
             $C_CONT = $answercc['id_cuenta'];
             $CTA = $answercc['numero_de_cuenta'];
@@ -64,7 +64,7 @@ $querycount = "select sum(fechaout>curdate()) as asig,
 $stn = $pdo->prepare($querycount);
 $stn->bindParam(':gestor', $gestor);
 $stn->execute();
-$resultcount = $stn->fetchAll(PDO::FETCH_ASSOC);
+$resultcount = $stn->fetchAll(\PDO::FETCH_ASSOC);
 $gstring = 'and fechaout>=curdate()';
 if (!empty($gestor)) {
     $gstring = " and gestor = :gestor order by fechaout desc";
@@ -79,5 +79,5 @@ if (!empty($gestor)) {
     $stm->bindParam(':gestor', $gestor);
 }
 $stm->execute();
-$resultcc = $stm->fetchAll(PDO::FETCH_ASSOC);
+$resultcc = $stm->fetchAll(\PDO::FETCH_ASSOC);
 require_once 'views/checkoutView.php';

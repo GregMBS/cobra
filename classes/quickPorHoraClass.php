@@ -42,7 +42,7 @@ group by C_CVGE;";
         $this->pdo->query($this->createPorHora);
         $this->pdo->query($this->insertPorHora);
         $sta    = $this->pdo->query($this->queryPorHora);
-        $result = $sta->fetchAll(PDO::FETCH_ASSOC);
+        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 }
