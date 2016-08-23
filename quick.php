@@ -1,4 +1,11 @@
 <?php
+
+use cobra_salsa\PdoClass;
+use cobra_salsa\QuickAhoraClass;
+use cobra_salsa\QuickBreaksClass;
+use cobra_salsa\QuickHoyClass;
+use cobra_salsa\QuickPorHoraClass;
+
 require_once 'classes/PdoClass.php';
 $pc     = new PdoClass();
 $pdo    = $pc->dbConnectAdmin();

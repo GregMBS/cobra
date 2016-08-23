@@ -1,4 +1,7 @@
 <?php
+
+use cobra_salsa\PdoClass;
+
 set_time_limit(300);
 require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();

@@ -1,4 +1,9 @@
 <?php
+
+use cobra_salsa\PdoClass;
+use cobra_salsa\PerfmesClass;
+use cobra_salsa\PerfmesAllClass;
+
 $day_esp	 = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
 require_once 'classes/PdoClass.php';
 $pdac		 = new PdoClass();

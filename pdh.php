@@ -1,4 +1,8 @@
 <?php
+
+use cobra_salsa\PdoClass;
+use cobra_salsa\DhClass;
+
 require_once 'classes/PdoClass.php';
 $pc     = new PdoClass();
 $pdo    = $pc->dbConnectAdmin();

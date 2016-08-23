@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 
+use cobra_salsa\PdoClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 

@@ -1,4 +1,7 @@
 <?php
+
+use cobra_salsa\PdoClass;
+
 $gets = $_SERVER['QUERY_STRING'];
 parse_str($gets, $get);
 date_default_timezone_set('America/Monterrey');

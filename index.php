@@ -1,4 +1,7 @@
 <?php
+
+use cobra_salsa\PdoClass;
+
 $local = $_SERVER['REMOTE_ADDR'];
 $go    = filter_input(INPUT_POST, 'go');
 $capt  = filter_input(INPUT_POST, 'capt');

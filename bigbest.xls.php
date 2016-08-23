@@ -1,10 +1,10 @@
 <?php
-require_once 'vendor/autoload.php';
 
 use cobra_salsa\PdoClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
+require_once 'vendor/autoload.php';
 require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();

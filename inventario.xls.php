@@ -2,6 +2,7 @@
 set_time_limit(300);
 require_once 'vendor/autoload.php';
 
+use cobra_salsa\PdoClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
