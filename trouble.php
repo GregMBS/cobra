@@ -1,6 +1,6 @@
 <?php
-require_once 'classes/pdoConnect.php';
-$pdoc    = new pdoConnect();
+require_once 'classes/PdoClass.php';
+$pdoc    = new PdoClass();
 $pdo     = $pdoc->dbConnectUser();
 $capt    = filter_input(INPUT_GET, 'capt');
 $sistema = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);

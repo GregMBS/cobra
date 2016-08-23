@@ -1,7 +1,7 @@
 <?php
 $day_esp	 = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-require_once 'classes/pdoConnect.php';
-$pdac		 = new pdoConnect();
+require_once 'classes/PdoClass.php';
+$pdac		 = new PdoClass();
 $pdo		 = $pdac->dbConnectAdmin();
 require_once 'classes/PerfmesClass.php';
 $pc		 = new PerfmesClass($pdo);

@@ -1,8 +1,8 @@
 <?php
-require_once 'classes/pdoConnect.php';
+require_once 'classes/PdoClass.php';
 require_once 'vendor/autoload.php';
 require_once 'classes/CargaClass.php';
-$pdoc = new pdoConnect();
+$pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
 $cc = new CargaClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');

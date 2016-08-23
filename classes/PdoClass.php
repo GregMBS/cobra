@@ -1,11 +1,13 @@
 <?php
 
+namespace cobra_salsa;
+
 /**
- * Description of pdoConnect
+ * Description of PdoClass
  *
  * @author gmbs
  */
-class pdoConnect
+class PdoClass
 {
     protected $dsn        = 'mysql:dbname=cobrademo;host=localhost';
     protected $username   = "root";

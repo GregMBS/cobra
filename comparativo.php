@@ -1,6 +1,6 @@
 <?php
-require_once 'classes/pdoConnect.php';
-$pdoc      = new pdoConnect();
+require_once 'classes/PdoClass.php';
+$pdoc      = new PdoClass();
 $pdo       = $pdoc->dbConnectAdmin();
 $capt      = filter_input(INPUT_GET, 'capt');
 $querymain = "select c_cvba, mdf, sum(gest) as sg, sum(contact) as sc,

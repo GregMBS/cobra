@@ -5,8 +5,8 @@ require_once 'vendor/autoload.php';
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
-require_once 'classes/pdoConnect.php';
-$pc        = new pdoConnect();
+require_once 'classes/PdoClass.php';
+$pc        = new PdoClass();
 $pdo       = $pc->dbConnectAdmin();
 require_once 'classes/BestClass.php';
 $bc        = new BestClass($pdo);

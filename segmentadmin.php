@@ -1,7 +1,7 @@
 <?php
-require_once 'classes/pdoConnect.php';
+require_once 'classes/PdoClass.php';
 require_once 'classes/segmentadminClass.php';
-$pc   = new pdoConnect();
+$pc   = new PdoClass();
 $pdo  = $pc->dbConnectAdmin();
 $sc   = new segmentadminClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');

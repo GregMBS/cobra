@@ -1,6 +1,6 @@
 <?php
-require_once 'classes/pdoConnect.php';
-$pdoc = new pdoConnect();
+require_once 'classes/PdoClass.php';
+$pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $get = filter_input_array(INPUT_GET);

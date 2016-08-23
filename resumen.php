@@ -16,8 +16,8 @@ function highhist($stat, $visit) {
 }
 
 require_once 'usuario_hdr_i.php'; //returns $con
-require_once 'classes/pdoConnect.php';
-$pdoc = new pdoConnect();
+require_once 'classes/PdoClass.php';
+$pdoc = new PdoClass();
 $pdo  = $pdoc->dbConnectUser();
 /*
 if ($detect->isMobile()) {

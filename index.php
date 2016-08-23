@@ -4,8 +4,8 @@ $go    = filter_input(INPUT_POST, 'go');
 $capt  = filter_input(INPUT_POST, 'capt');
 $pw    = filter_input(INPUT_POST, 'pwd');
 if (!empty($go)) {
-    require_once 'classes/pdoConnect.php';
-    $pdoc = new pdoConnect();
+    require_once 'classes/PdoClass.php';
+    $pdoc = new PdoClass();
     $pdo  = $pdoc->dbConnectNobody(); 
     $mynombre = '';
     $field    = '';

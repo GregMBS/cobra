@@ -1,7 +1,7 @@
 <?php
 set_time_limit(300);
-require_once 'classes/pdoConnect.php';
-$pdoc = new pdoConnect();
+require_once 'classes/PdoClass.php';
+$pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');
