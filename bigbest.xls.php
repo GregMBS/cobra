@@ -11,8 +11,8 @@ $pdo = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $get = filter_input_array(INPUT_GET);
 
-function MesNom($n) {
-    $timestamp = mktime(0, 0, 0, $n, 1, 2005);
+function MesNom($monthNum) {
+    $timestamp = mktime(0, 0, 0, $monthNum, 1, 2005);
 
     return date("M", $timestamp);
 }

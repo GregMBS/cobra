@@ -1,5 +1,7 @@
 <?php
 
+namespace cobra_salsa;
+
 use Box\Spout\Reader;
 use Box\Spout\Common\Type;
 
@@ -34,27 +36,15 @@ class CargaClass {
         'timelock'
     );
 
-    private function __construct($pdo) {
+    protected function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
     /**
      * 
-     * @param boolean $result
-     * @param string $query
-     */
-    private function dbErrorCheck($result, $query) {
-        if (!$result) {
-            print_r($this->pdo->errorInfo());
-            die(htmlentities($query));
-        }        
-    }
-    
-    /**
-     * 
      * @return string
      */
-    private function moveLoadedFile() {
+    protected function moveLoadedFile() {
         $deststr = "/tmp/" . $_FILES['file']['name'];
         move_uploaded_file($_FILES["file"]["tmp_name"], $deststr);
         return $deststr;
@@ -66,7 +56,7 @@ class CargaClass {
      * @param boolean $header
      * @return array
      */
-    private function getCsvData($filename, $header) {
+    protected function getCsvData($filename, $header) {
         $handle = fopen($filename, "r");
         if ($header) {
             $data = fgetcsv($handle, 0, ",");
@@ -86,7 +76,7 @@ class CargaClass {
      * @param array $row
      * @return array
      */
-    private function getDataColumnNames($row) {
+    protected function getDataColumnNames($row) {
         $columnArray = array();
         foreach ($row as $columnName) {
             $cn = $columnName;
@@ -105,7 +95,7 @@ class CargaClass {
      * 
      * @return array
      */
-    private function getDBColumnNames() {
+    protected function getDBColumnNames() {
         $columnArray = array();
         $query = "SHOW COLUMNS FROM resumen";
         $result = $this->pdo->query($query);
@@ -114,14 +104,14 @@ class CargaClass {
         }
         return $columnArray;
     }
-    
+
     /**
      * 
      * @param array $datanames
      * @param array $dbnames
      * @return array
      */
-    private function nameCheck($datanames, $dbnames) {
+    protected function nameCheck($datanames, $dbnames) {
         $oops = array();
         foreach ($datanames as $name) {
             $match = in_array($name, $dbnames);
@@ -136,10 +126,13 @@ class CargaClass {
      * 
      * @param array $columnNames
      */
-    private function prepareTemp($columnNames) {
+    protected function prepareTemp($columnNames) {
         $querydrop = "DROP TABLE IF EXISTS temp;";
-        $resultdrop = $this->pdo->query($querydrop);
-        $this->dbErrorCheck($resultdrop, $querydrop);
+        try {
+            $this->pdo->query($querydrop);
+        } catch (PDOException $Exception) {
+            throw new Exception($Exception->getMessage(), $Exception->getCode());
+        }
         $querystart = "CREATE TABLE temp "
                 . "ENGINE=INNODB AUTO_INCREMENT=10 "
                 . "DEFAULT CHARSET=utf8 "
@@ -147,11 +140,17 @@ class CargaClass {
                 . "SELECT "
                 . implode(',', $columnNames)
                 . " FROM resumen LIMIT 0";
-        $resultstart = $this->pdo->query($querystart);
-        $this->dbErrorCheck($resultstart, $querystart);
+        try {
+            $this->pdo->query($querystart);
+        } catch (PDOException $Exception) {
+            throw new Exception($Exception->getMessage(), $Exception->getCode());
+        }
         $queryindex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50));";
-        $resultindex = $this->pdo->query($queryindex);
-        $this->dbErrorCheck($resultindex, $queryindex);
+        try {
+            $this->pdo->query($queryindex);
+        } catch (PDOException $Exception) {
+            throw new Exception($Exception->getMessage(), $Exception->getCode());
+        }
     }
 
     /**
@@ -159,7 +158,7 @@ class CargaClass {
      * @param string $filename
      * @param string $columnNames
      */
-    private function loadData($filename, $columnNames) {
+    protected function loadData($filename, $columnNames) {
         $data = $this->getCsvData($filename, false);
         $count = 0;
         $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
@@ -171,8 +170,11 @@ class CargaClass {
             $count++;
         }
         $queryloadtrim = rtrim($queryload, ",");
-        $ok = $this->pdo->query($queryloadtrim);
-        $this->dbErrorCheck($ok, $queryloadtrim);
+        try {
+            $this->pdo->query($queryloadtrim);
+        } catch (PDOException $Exception) {
+            throw new Exception($Exception->getMessage(), $Exception->getCode());
+        }
     }
 
     /**
@@ -180,7 +182,7 @@ class CargaClass {
      * @param array $columnNames
      * @return array
      */
-    private function prepareUpdate($columnNames) {
+    protected function prepareUpdate($columnNames) {
         $output = array();
         foreach ($columnNames as $name) {
             $output[] = 'resumen.' . $name . '=temp.' . $name;
@@ -192,31 +194,38 @@ class CargaClass {
      * 
      * @param array $fieldlist
      */
-    private function updateResumen($fieldlist) {
-        $fl = implode(',', $fieldlist);
+    protected function updateResumen($fieldlist) {
+        $fields = implode(',', $fieldlist);
         $queryupd = "UPDATE temp, resumen
-            SET " . $fl . " 
+            SET " . $fields . " 
             where temp.numero_de_cuenta=resumen.numero_de_cuenta
             and temp.cliente=resumen.cliente";
-        $ok = $this->pdo->query($queryupd);
-        $this->dbErrorCheck($ok, $queryupd);
+        try {
+            $this->pdo->query($queryupd);
+        } catch (PDOException $Exception) {
+            throw new Exception($Exception->getMessage(), $Exception->getCode());
+        }
     }
 
     /**
      * 
      * @param array $fieldlist
      */
-    private function insertIntoResumen($fieldlist) {
-        $fl = implode(',', $fieldlist);
-        $queryins = "insert ignore into resumen (" . $fl . ") select " . $fl . " from temp";
-        $ok = $this->pdo->query($queryins);
-        $this->dbErrorCheck($ok, $queryins);
+    protected function insertIntoResumen($fieldlist) {
+        $fields = implode(',', $fieldlist);
+        $queryins = "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
+
+        try {
+            $this->pdo->query($queryins);
+        } catch (PDOException $Exception) {
+            throw new Exception($Exception->getMessage(), $Exception->getCode());
+        }
     }
 
     /**
      * 
      */
-    private function updateClientes() {
+    protected function updateClientes() {
 
         $query = "INSERT IGNORE INTO clientes "
                 . "SELECT cliente FROM resumen";
@@ -226,7 +235,7 @@ class CargaClass {
     /**
      * 
      */
-    private function updatePagos() {
+    protected function updatePagos() {
         $querypagoins = "insert ignore into pagos (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta)
 select numero_de_cuenta, fecha_de_ultimo_pago, 
 monto_ultimo_pago, cliente, c_cvge, 1, id_cuenta 
@@ -245,7 +254,7 @@ group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
     /**
      * 
      */
-    private function createLookupTable() {
+    protected function createLookupTable() {
         $queryrlist1 = "truncate cobra.rlook";
         $this->pdo->query($queryrlist1);
         $queryrlist2 = "insert into cobra.rlook

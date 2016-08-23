@@ -11,9 +11,9 @@ $cliente = filter_input(INPUT_GET, 'cliente');
  *  outputCSV creates a line of CSV and outputs it to browser    
  */
 function outputCSV($array) {
-    $fp = fopen('php://output', 'w'); // this file actual writes to php output
-    fputcsv($fp, $array);
-    fclose($fp);
+    $file = fopen('php://output', 'w'); // this file actual writes to php output
+    fputcsv($file, $array);
+    fclose($file);
 }
 
 /**
@@ -26,8 +26,8 @@ function getCSV($array) {
 }
 
 //require_once 'Spreadsheet/Excel/Writer.php';
-function MesNom($n) {
-    $timestamp = mktime(0, 0, 0, $n, 1, 2005);
+function MesNom($monthNum) {
+    $timestamp = mktime(0, 0, 0, $monthNum, 1, 2005);
 
     return date("M", $timestamp);
 }
