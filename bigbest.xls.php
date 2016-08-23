@@ -1,7 +1,7 @@
 <?php
-set_time_limit(300);
 require_once 'vendor/autoload.php';
 
+use cobra_salsa\PdoClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
@@ -11,9 +11,8 @@ $pdo = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $get = filter_input_array(INPUT_GET);
 
-function MesNom($monthNum) {
+function mesNom($monthNum) {
     $timestamp = mktime(0, 0, 0, $monthNum, 1, 2005);
-
     return date("M", $timestamp);
 }
 

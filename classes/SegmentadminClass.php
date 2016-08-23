@@ -7,7 +7,7 @@ namespace cobra_salsa;
  *
  * @author gmbs
  */
-class segmentadminClass {
+class SegmentadminClass {
 
     /**
      *

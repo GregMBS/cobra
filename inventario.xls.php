@@ -10,7 +10,7 @@ $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 
-function MesNom($monthNum) {
+function mesNom($monthNum) {
     $timestamp = mktime(0, 0, 0, $monthNum, 1, 2005);
 
     return date("M", $timestamp);

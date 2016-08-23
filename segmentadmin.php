@@ -1,9 +1,12 @@
 <?php
+
+use cobra_salsa\SegmentadminClass;
+
 require_once 'classes/PdoClass.php';
-require_once 'classes/segmentadminClass.php';
+require_once 'classes/SegmentadminClass.php';
 $pc   = new PdoClass();
 $pdo  = $pc->dbConnectAdmin();
-$sc   = new segmentadminClass($pdo);
+$sc   = new SegmentadminClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go   = filter_input(INPUT_GET, 'go');
 if (!empty($go)) {

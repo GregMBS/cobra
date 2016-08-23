@@ -26,7 +26,7 @@ function getCSV($array) {
 }
 
 //require_once 'Spreadsheet/Excel/Writer.php';
-function MesNom($monthNum) {
+function mesNom($monthNum) {
     $timestamp = mktime(0, 0, 0, $monthNum, 1, 2005);
 
     return date("M", $timestamp);
