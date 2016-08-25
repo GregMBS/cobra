@@ -28,7 +28,7 @@ order by c_cvge,c_cvst,c_hrin;";
 select gestor,tiempo,min(c_hrin) as mntp from historia,breaktab
 where d_fech=curdate() and gestor=c_cvge and c_hrin>tiempo
 group by gestor,tiempo;";
-    protected $updateBreaktabGiff    = "update breaktab,ntpdiff set ntp=mntp,
+    protected $updateBreaktabDiff    = "update breaktab,ntpdiff set ntp=mntp,
 diff=(time_to_sec(mntp)-time_to_sec(ntpdiff.tiempo))/60
 where ntpdiff.gestor=breaktab.gestor and ntpdiff.tiempo=breaktab.tiempo;";
     protected $dropBreaktemp        = "drop table if exists breaktemp;";
