@@ -308,6 +308,7 @@ and id_cuenta=" . $C_CONT . ";";
 } else {
     $flagmsg = "Acceso sin autorizaci&oacute;n";
     include 'resumenErrorView.php';
+    exit();
 }
 if ($go == 'NUEVOS') {
     $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
