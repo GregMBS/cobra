@@ -13,6 +13,10 @@ if (isset($cookie['auth'])) {
     $ticket = mysqli_real_escape_string($con, $cookie['auth']);
     $mytipo = '';
     $capt = mysqli_real_escape_string($con, $icapt);
+    if (empty($capt)) {
+        $page = "Location: index.php";
+        header($page);
+    }
     $queryg  = "SELECT usuaria,tipo FROM nombres join grupos on tipo=grupo WHERE iniciales = '".$capt."';";
     $resultg = mysqli_query($con, $queryg) or die("ERROR UHM2 - ".mysqli_error($con));
     while ($answerg = mysqli_fetch_row($resultg)) {
