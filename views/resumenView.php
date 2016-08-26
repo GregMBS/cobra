@@ -74,16 +74,11 @@
             .buttons {float:left;width:auto}
             .buttons input {float:left}
             .buttons button {float:left;width:auto}
-            <?php if ($notalert > 0) { ?> 
+            <?php if ($nota['alert'] > 0) { ?> 
                 #notasq input {background-color: #ff0000;}
                 <?php
             }
-            if ($pagalert > 0) {
-                ?> 
-                #pagos input {background-color: #ff0000;}
-                <?php
-            }
-            if ((preg_match('/[dv]o$/', $status_de_credito)) && ($mytipo <> 'admin')) {
+             if ((preg_match('/[dv]o$/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 ?> 
                 #GUARDbutt {display:none;}
             <?php } ?>
@@ -176,10 +171,13 @@
             }
             if ($notalert == 1) {
                 ?>
-                var goalert = confirm("Tiene alerta pendiente <?php echo $notalertt; ?> para cuenta <?php echo $alertcuenta; ?> Quiere verlo?");
+                var goalert = confirm("Tiene alerta pendiente <?php echo $nota['fechahora']; ?> "
+                        +"para cuenta <?php echo $nota['cuenta']; ?> Quiere verlo?");
                 if(goalert==true)
                 {
-                window.location="resumen.php?find=<?php echo $alertcuenta; ?>&field=numero_de_cuenta&capt=<?php echo $capt; ?>&go=FROMALERT&from=resumen.php&go1=FROMALERT";
+                window.location="resumen.php?find=<?php echo $nota['cuenta']; ?>"
+                        +"&field=numero_de_cuenta&capt=<?php echo $capt; ?>"
+                        +"&go=FROMALERT&from=resumen.php&go1=FROMALERT";
                 }
                 <?php
             }
@@ -407,7 +405,7 @@
                       echo 'admin';
                   }
                   ?>.php" id="migo">
-                <input type="hidden" name="find" value="<?php echo $tcapt ?>"> 
+                <input type="hidden" name="find" value="<?php echo $capt ?>"> 
                 <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
                 <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                 <input type="submit" name="go" value="CUENTAS"></form>
@@ -1733,7 +1731,7 @@
                                 $timestamp = utf8_encode($answer['fecha']);
                                 $stat = utf8_encode($answer['c_cvst']);
                                 ?>
-                                <tr<?php echo highhist($stat, $visit); ?>><?php
+                                <tr<?php echo $rc->highhist($stat, $visit); ?>><?php
                                     for ($k = 0; $k < 5; $k++) {
                                         $anku = utf8_encode($answer[$k]);
                                         if (is_null($anku)) {
@@ -1825,25 +1823,24 @@
                                 <option value=''>Nuevo Tel. 2</option>
                                 <?php
                                 if (isset($tel_1)) {
-                                    ?><option <?php echo $t1; ?>value='<?php echo $tel_1 ?>'>TEL Casa - <?php echo $tel_1 ?></option><?php } ?>
-                                <?php if (isset($tel_1_laboral)) { ?><option <?php echo $t1l; ?>value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1 - <?php echo $empresa . ' - ' . $tel_1_laboral; ?></option><?php } ?>
-                                <?php if (isset($tel_1_ref_1)) { ?><option <?php echo $t1r1; ?>value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1 - <?php echo $nombre_referencia_1 . ' - ' . $tel_1_ref_1; ?></option><?php } ?>
-                                <?php if (isset($tel_1_ref_2)) { ?><option <?php echo $t1r2; ?>value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2 - <?php echo $nombre_referencia_2 . ' - ' . $tel_1_ref_2; ?></option><?php } ?>
-                                <?php if (isset($tel_1_ref_3)) { ?><option <?php echo $t1r3; ?>value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3 - <?php echo $nombre_referencia_3 . ' - ' . $tel_1_ref_3; ?></option><?php } ?>
-                                <?php if (isset($tel_1_ref_4)) { ?><option <?php echo $t1r4; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4 - <?php echo $nombre_referencia_4 . ' - ' . $tel_1_ref_4; ?></option><?php } ?>
-                                <?php if (isset($tel_1_verif)) { ?><option class='verif' <?php echo $t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF - <?php echo $tel_1_verif; ?></option><?php } ?>
-                                <?php if (isset($tel_2)) { ?><option <?php echo $t2; ?>value='<?php echo $tel_2; ?>'>CELULAR - <?php echo $tel_2; ?></option><?php } ?>
-                                <?php if (isset($tel_2_laboral)) { ?><option <?php echo $t2l; ?>value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2 - <?php echo $empresa . ' - ' . $tel_2_laboral; ?></option><?php } ?>
-                                <?php if (isset($tel_2_ref_1)) { ?><option <?php echo $t2r1; ?>value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1 - <?php echo $nombre_referencia_1 . ' - ' . $tel_2_ref_1; ?></option><?php } ?>
-                                <?php if (isset($tel_2_ref_2)) { ?><option <?php echo $t2r2; ?>value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2 - <?php echo $nombre_referencia_2 . ' - ' . $tel_2_ref_2; ?></option><?php } ?>
-                                <?php if (isset($tel_2_ref_3)) { ?><option <?php echo $t2r3; ?>value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3 - <?php echo $nombre_referencia_3 . ' - ' . $tel_2_ref_3; ?></option><?php } ?>
-                                <?php if (isset($tel_2_ref_4)) { ?><option <?php echo $t2r4; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4 - <?php echo $nombre_referencia_4 . ' - ' . $tel_2_ref_4; ?></option><?php } ?>
-                                <?php if (isset($tel_2_verif)) { ?><option class='verif' <?php echo $t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF - <?php echo $tel_2_verif; ?></option><?php } ?>
-                                <?php if (isset($tel_3)) { ?><option <?php echo $t3; ?>value='<?php echo $tel_3; ?>'>TEL 3 - <?php echo $tel_3; ?></option><?php } ?>
-                                <?php if (isset($tel_3_verif)) { ?><option class='verif' <?php echo $t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF - <?php echo $tel_3_verif; ?></option><?php } ?>
-                                <?php if (isset($tel_4)) { ?><option <?php echo $t4; ?>value='<?php echo $tel_4; ?>'>TEL 4 - <?php echo $tel_4; ?></option><?php } ?>
-                                <?php if (isset($tel_4_verif)) { ?><option class='verif' <?php echo $t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF - <?php echo $tel_4_verif; ?></option><?php } ?>
-                                <?php if (isset($telefono_de_ultimo_contacto)) { ?><option <?php echo $tuc; ?>value='<?php echo $telefono_de_ultimo_contacto; ?>'>TEL DE ULT. CONT. - <?php echo $telefono_de_ultimo_contacto; ?></option><?php } ?>
+                                    ?><option <?php echo $bad['t1']; ?>value='<?php echo $tel_1 ?>'>TEL Casa - <?php echo $tel_1 ?></option><?php } ?>
+                                <?php if (isset($tel_1_laboral)) { ?><option <?php echo $bad['t1l']; ?>value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1 - <?php echo $empresa . ' - ' . $tel_1_laboral; ?></option><?php } ?>
+                                <?php if (isset($tel_1_ref_1)) { ?><option <?php echo $bad['t1r1']; ?>value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1 - <?php echo $nombre_referencia_1 . ' - ' . $tel_1_ref_1; ?></option><?php } ?>
+                                <?php if (isset($tel_1_ref_2)) { ?><option <?php echo $bad['t1r2']; ?>value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2 - <?php echo $nombre_referencia_2 . ' - ' . $tel_1_ref_2; ?></option><?php } ?>
+                                <?php if (isset($tel_1_ref_3)) { ?><option <?php echo $bad['t1r3']; ?>value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3 - <?php echo $nombre_referencia_3 . ' - ' . $tel_1_ref_3; ?></option><?php } ?>
+                                <?php if (isset($tel_1_ref_4)) { ?><option <?php echo $bad['t1r4']; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4 - <?php echo $nombre_referencia_4 . ' - ' . $tel_1_ref_4; ?></option><?php } ?>
+                                <?php if (isset($tel_1_verif)) { ?><option class='verif' <?php echo $bad['t1v']; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF - <?php echo $tel_1_verif; ?></option><?php } ?>
+                                <?php if (isset($tel_2)) { ?><option <?php echo $bad['t2']; ?>value='<?php echo $tel_2; ?>'>CELULAR - <?php echo $tel_2; ?></option><?php } ?>
+                                <?php if (isset($tel_2_laboral)) { ?><option <?php echo $bad['t2l']; ?>value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2 - <?php echo $empresa . ' - ' . $tel_2_laboral; ?></option><?php } ?>
+                                <?php if (isset($tel_2_ref_1)) { ?><option <?php echo $bad['t2r1']; ?>value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1 - <?php echo $nombre_referencia_1 . ' - ' . $tel_2_ref_1; ?></option><?php } ?>
+                                <?php if (isset($tel_2_ref_2)) { ?><option <?php echo $bad['t2r2']; ?>value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2 - <?php echo $nombre_referencia_2 . ' - ' . $tel_2_ref_2; ?></option><?php } ?>
+                                <?php if (isset($tel_2_ref_3)) { ?><option <?php echo $bad['t2r3']; ?>value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3 - <?php echo $nombre_referencia_3 . ' - ' . $tel_2_ref_3; ?></option><?php } ?>
+                                <?php if (isset($tel_2_ref_4)) { ?><option <?php echo $bad['t2r4']; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4 - <?php echo $nombre_referencia_4 . ' - ' . $tel_2_ref_4; ?></option><?php } ?>
+                                <?php if (isset($tel_2_verif)) { ?><option class='verif' <?php echo $bad['t2v']; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF - <?php echo $tel_2_verif; ?></option><?php } ?>
+                                <?php if (isset($tel_3)) { ?><option <?php echo $bad['t3']; ?>value='<?php echo $tel_3; ?>'>TEL 3 - <?php echo $tel_3; ?></option><?php } ?>
+                                <?php if (isset($tel_3_verif)) { ?><option class='verif' <?php echo $bad['t3v']; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF - <?php echo $tel_3_verif; ?></option><?php } ?>
+                                <?php if (isset($tel_4)) { ?><option <?php echo $bad['t4']; ?>value='<?php echo $tel_4; ?>'>TEL 4 - <?php echo $tel_4; ?></option><?php } ?>
+                                <?php if (isset($tel_4_verif)) { ?><option class='verif' <?php echo $bad['t4v']; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF - <?php echo $tel_4_verif; ?></option><?php } ?>
                             </select> 
                         </td>
                     </tr>
