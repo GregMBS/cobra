@@ -2,6 +2,7 @@
 
 use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenClass;
+use cobra_salsa\GestionClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
@@ -9,9 +10,11 @@ setlocale(LC_MONETARY, 'en_US');
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/ResumenClass.php';
+require_once 'classes/GestionClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectUser();
 $rc = new ResumenClass($pdo);
+$gc = new GestionClass($pdo);
 $mytipo = $pdoc->tipo;
 
 /*
@@ -35,7 +38,9 @@ if (empty($mytipo)) {
     }
     if ($go == 'ULTIMA') {
         $find = $rc->lastGestion($capt);
-        $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FROMULTIMA";
+        $redirector = "Location: resumen.php?capt=".$capt.
+                "&find=".$find.
+                "&field=id_cuenta&go=FROMULTIMA";
         header($redirector);
     }
     if (filter_has_var(INPUT_GET, 'find')) {
@@ -50,11 +55,18 @@ if (empty($mytipo)) {
         }
     }
     
+    $C_CONT = filter_input(INPUT_GET, 'C_CONT', FILTER_SANITIZE_NUMBER_INT);
     $C_CVST = filter_input(INPUT_GET, 'C_CVST');
     $C_CVGE = filter_input(INPUT_GET, 'C_CVGE');
-    $N_PROM = str_replace('$', '', str_replace(',', '', filter_input(INPUT_GET, 'N_PROM')));
+    $N_PROM = $rc->demonitize(filter_input(INPUT_GET, 'N_PROM'));
     $D_PROM = filter_input(INPUT_GET, 'D_PROM');
+    $N_PAGO = $rc->demonitize(filter_input(INPUT_GET, 'N_PAGO'));
+    $D_PAGO = filter_input(INPUT_GET, 'D_PAGO');
     $D_FECH = filter_input(INPUT_GET, 'D_FECH');
+    $C_NTEL = filter_input(INPUT_GET, 'C_NTEL', FILTER_SANITIZE_NUMBER_INT);
+    $C_OBSE2 = filter_input(INPUT_GET, 'C_OBSE2', FILTER_SANITIZE_NUMBER_INT);
+    $C_EMAIL = filter_input(INPUT_GET, 'C_EMAIL', FILTER_SANITIZE_EMAIL);
+    $C_NDIR = filter_input(INPUT_GET, 'C_NDIR');
     $gestion = $get;
     if (!empty($C_CVST)) {
         $gestion['C_OBSE1'] = utf8_decode($get['C_OBSE1']);
@@ -64,99 +76,33 @@ if (empty($mytipo)) {
         $gestion['N_PROM'] = $N_PROM;
     }
     if (($go == 'CAPTURADO') && (!empty($C_CVST))) {
-        $checkerrorsv = $rc->countVisitErrors($gestion);
+        $checkerrorsv = $gc->countVisitErrors($gestion);
         $errorv = $checkerrorsv['errorsv'];
         $flagmsgv = $checkerrorsv['flagmsgv'];
-        if ($errorv < 9000) {
-            $auto = $rc->insertVisit($gestion);
-            $rc->addHistdate($auto);
-            $rc->addHistgest($auto, $C_CVGE);
+        if ($errorv < 10) {
+            $auto = $gc->insertVisit($gestion);
+            $gc->addHistdate($auto);
+            $gc->addHistgest($auto, $C_CVGE);
             if (!empty($C_NTEL)) {
-                $queryntel = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_NTEL . " WHERE id_cuenta='" . $C_CONT . "'";
-                mysqli_query($con, $queryntel) or die("ERROR RM7 - " . mysqli_error($con));
+                $gc->addNewTel($C_CONT, $C_NTEL);
+            }
+            if (!empty($C_OBSE2)) {
+                $gc->addNewTel($C_CONT, $C_OBSE2);
             }
             if (!empty($C_NDIR)) {
-                $queryndir = "UPDATE resumen SET direccion_nueva='" . $C_NDIR . "' WHERE id_cuenta='" . $C_CONT . "'";
-                mysqli_query($con, $queryndir) or die("ERROR RM7a - " . mysqli_error($con));
+                $gc->updateAddress($C_CONT, $C_NDIR);
             }
             if (!empty($C_EMAIL)) {
-                $queryndir = "UPDATE resumen SET email_deudor='" . $C_EMAIL . "' WHERE id_cuenta='" . $C_CONT . "'";
-                mysqli_query($con, $queryndir) or die("ERROR RM8 - " . mysqli_error($con));
-            }
-            if (!empty($C_OBSE2) && ($C_OBSE2 == $C_OBSE2 + 0)) {
-                $querymemo = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_OBSE2 . " WHERE id_cuenta='" . $C_CONT . "'";
-                mysqli_query($con, $querymemo) or die("ERROR RM9 - " . mysqli_error($con));
+                $gc->updateEmail($C_CONT, $C_EMAIL);
             }
             if ($N_PAGO > 0) {
-                $who = $capt;
-                $queryd = "select c_cvge from historia where n_prom>0 and c_cvge like 'PRO%'
-    and c_cont=" . $C_CONT . " order by d_fech desc, c_hrin desc limit 1;";
-                $rowd = mysqli_query($con, $queryd) or die("ERROR RM10 - " . mysqli_error($con));
-                while ($rowd = mysqli_fetch_row($resultd)) {
-                    $who = $rowd[0];
-                }
-                $queryins = "INSERT INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
-    SELECT numero_de_cuenta,'$D_PAGO','$N_PAGO',cliente,'$who',numero_de_credito,id_cuenta 
-    FROM resumen WHERE id_cuenta=$C_CONT and (numero_de_cuenta,'$D_PAGO','$N_PAGO') not in (select cuenta,fecha,monto from pagos)";
-                mysqli_query($con, $queryins) or die("ERROR RM11 - " . mysqli_error($con));
+                $who = $gc->attributePayment($field, $C_CONT);
+                $gc->addPago($C_CONT, $D_PAGO, $N_PAGO, $who);
+            }
+            $gc->updateAllUltimoPagos();
 
-                $querylast = "select fecha,monto from pagos where (cuenta,cliente,fecha) in (select cuenta,cliente,max(fecha) from pagos where cuenta='" . $CUENTA . "' and cliente='" . $C_CVBA . "' group by cliente,cuenta);";
-                $resultlast = mysqli_query($con, $querylast) or die("ERROR RM12 - " . mysqli_error($con));
-                while ($answerlast = mysqli_fetch_row($resultlast)) {
-                    $mfecha = $answerlast[0];
-                    $mmonto = $answerlast[1];
-                }
-            }
-            $querypup = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
-where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
-            mysqli_query($con, $querypup) or die("ERROR RM10a - " . mysqli_error($con));
-
-            $best = $C_CVST;
-            $querybest = "select c_cvst,v_cc from historia,dictamenes 
-where c_cvst=dictamen and c_cont=" . $C_CONT . " and left(c_cvba,2)=left('" . $C_CVBA . "',2) 
-and d_fech>last_day(curdate()-interval 90 day)
-order by v_cc LIMIT 1;";
-            $resultbest = mysqli_query($con, $querybest) or die("ERROR RM14 - " . mysqli_error($con));
-            while ($answerbest = mysqli_fetch_row($resultbest)) {
-                $best = $answerbest[0];
-            }
-            $queryhot = "select c_cvst,v_cc from historia,dictamenes 
-where c_cvst=dictamen and c_cont=" . $C_CONT . " and left(c_cvba,2)=left('" . $C_CVBA . "',2) 
-and d_fech>last_day(curdate()-interval 1 month - interval 2 day)
-order by v_cc LIMIT 1;";
-            $resulthot = mysqli_query($con, $queryhot) or die("ERROR RM14a - " . mysqli_error($con));
-            while ($answerhot = mysqli_fetch_row($resulthot)) {
-                $hot = $answerhot[0];
-            }
-            $querysa = "update resumen set status_aarsa='" . $best . "' where id_cuenta=" . $C_CONT . ";";
-            mysqli_query($con, $querysa) or die("ERROR RM15 - " . mysqli_error($con));
-            $querysa3 = "update resumen set status_aarsa='" . $hot . "' 
-where id_cuenta=" . $C_CONT . "
-and cliente not like 'J%' and cliente not like '%JUR';";
-            mysqli_query($con, $querysa3) or die("ERROR RM15c - " . mysqli_error($con));
-            $querysa1 = "update cobra.resumen set status_aarsa='PROMESA INCUMPLIDA' 
-where id_cuenta not in (select c_cont from cobra.historia where n_prom>0 
-and d_prom>=curdate()) and cliente not like 'J%' and cliente not like '%JUR'
-and id_cuenta in (select c_cont from cobra.historia where n_prom>0 
-and d_prom<curdate()) 
-and numero_de_cuenta not in 
-(select cuenta from cobra.pagos where fecha>last_day(curdate()-interval 1 month)) 
-and status_aarsa not regexp 'rota' and status_aarsa not regexp 'propuesta'
-and (status_aarsa like 'PROMESA DE P%' or status_aarsa like 'CONFIRMA P%')
-and id_cuenta=" . $C_CONT . ";";
-            mysqli_query($con, $querysa1) or die("ERROR RM15a - " . mysqli_error($con));
-            $querysa2 = "update resumen,dictamenes
-set status_aarsa='PAGO DEL MES ANTERIOR' 
-where status_aarsa=dictamen and cliente not like 'J%' and cliente not like '%JUR'
-and queue='pagos'
-and id_cuenta not in (
-select c_cont from historia,dictamenes where c_cvst=dictamen
-and queue='PAGOS'
-and d_fech>last_day(curdate()-interval 1 month))
-and id_cuenta not in (
-select id_cuenta from pagos where fecha>last_day(curdate()-interval 1 month))
-and id_cuenta=" . $C_CONT . ";";
-            mysqli_query($con, $querysa2) or die("ERROR RM15b - " . mysqli_error($con));
+            $best = $gc->getBest($C_CVST, $C_CONT);
+            $gc->resumenStatusUpdate($C_CONT);
             $redirector = "Location: resumen.php?capt=" . $capt . "&go=FROMBUSCAR&i=0&field=id_cuenta&find=" . $C_CONT;
             header($redirector);
         }
@@ -509,13 +455,6 @@ and id_cuenta=" . $C_CONT . ";";
             $queryins = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,ID_CUENTA) 
     VALUES ('$CUENTA','$D_PAGO',$N_PAGO,'$C_CVBA','$who',$C_CONT)";
             mysqli_query($con, $queryins) or die("ERROR RM31 - " . mysqli_error($con));
-
-            $querylast = "select fecha,monto from pagos where (cuenta,cliente,fecha) in (select cuenta,cliente,max(fecha) from pagos where id_cuenta=" . $C_CONT . " group by id_cuenta);";
-            $resultlast = mysqli_query($con, $querylast) or die("ERROR RM32 - " . mysqli_error($con));
-            while ($answerlast = mysqli_fetch_row($resultlast)) {
-                $mfecha = $answerlast[0];
-                $mmonto = $answerlast[1];
-            }
         }
         $querypup = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
 where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
