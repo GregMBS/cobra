@@ -108,6 +108,17 @@ if(tel_4_verif in (select * from deadlines),' class=\"badno\" ','') as t4v
 from resumen
 where id_cuenta=:id_cuenta LIMIT 1";
 
+    private $visitInsertQuery = "INSERT INTO historia (C_CVGE,C_CVBA,C_CONT,C_CVST,D_FECH,C_HRIN,
+C_HRFI,C_TELE,CUENTA,C_OBSE1,C_CONTAN,C_ATTE,C_CARG,C_RCON,C_NSE,C_CNIV,C_CFAC,
+C_CPTA,C_CTIPO,C_COWN,C_CSTAT,C_VISIT,D_PROM,N_PROM,D_PROM1,N_PROM1,C_PROM,C_FREQ,C_ACCION,C_MOTIV,
+C_CREJ,C_CPAT,C_CALLE1,C_CALLE2,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE) 
+VALUES (:C_CVGE, :C_CVBA, :C_CONT, :C_CVST, :D_FECH, :C_HRIN, :C_HRFI, 
+:C_TELE, :CUENTA, :C_OBSE1, :C_CONTAN, :C_ATTE, :C_CARG, :C_RCON, :C_NSE,
+:C_CNIV, :C_CFAC, :C_CPTA, :C_CTIPO, :C_COWN, :C_CSTAT, :C_VISIT, :D_PROM,
+:N_PROM, :D_PROM,
+:N_PROM, :C_PROM, :C_FREQ, :ACCION, :C_MOTIV, :C_CREJ, :C_CPAT, :C_CALLE1, :C_CALLE2,
+:C_NTEL, :C_NDIR, :C_EMAIL, :C_OBSE2, :C_EJE)";
+    
     /**
      * 
      * @param \PDO $pdo
@@ -466,4 +477,116 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $result = $std->fetch(\PDO::FETCH_ASSOC);
         return $result['ct'];
     }
+    
+    /**
+     * 
+     * @param array $gestion
+     * @return array
+     */
+    public function countVisitErrors($gestion) {
+        $errorv = 0;
+        $flagmsgv = "";
+        $dupcount = $this->countDup($gestion);
+        if ($dupcount > 0) {
+            $errorv = $errorv + $dupcount;
+            $flagmsgv .= "DOBLE ENTRANTE";
+        }
+        if (($gestion['N_PROM'] == 0) && ($gestion['C_CVST'] == 'PROMESA DE PAGO TOTAL')) {
+            $errorv = $errorv + 1;
+            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
+        }
+        if (($gestion['N_PROM'] == 0) && ($gestion['C_CVST'] == 'PROMESA DE PAGO PARCIAL')) {
+            $errorv = $errorv + 1;
+            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
+        }
+        if (($gestion['N_PROM'] > 0) && ($gestion['D_PROM'] == '0000-00-00')) {
+            $errorv = $errorv + 1;
+            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA FECHA";
+        }
+        if (($gestion['N_PROM'] == 0) && ($gestion['D_PROM'] >= $gestion['D_FECH'])) {
+            $errorv = $errorv + 1;
+            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
+        }
+        if ($gestion['C_VISIT'] == '') {
+            $errorv = $errorv + 1;
+            $flagmsgv = $flagmsgv . '<BR>' . "GESTION NECESITA VISITADOR";
+        }
+        $output = array(
+            'errorv' => $errorv,
+            'flagmsgv' => $flagmsgv
+        );
+        return $output;
+    }
+    
+    /**
+     * 
+     * @param array $gestion
+     * @return int
+     */
+    public function insertVisit($gestion) {
+        $sti = $this->pdo->prepare($this->visitInsertQuery);
+        $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
+        $sti->bindParam(':C_CVBA', $gestion['C_CVBA']);
+        $sti->bindParam(':C_CONT', $gestion['C_CONT'], \PDO::PARAM_INT);
+        $sti->bindParam(':C_CVST', $gestion['C_CVST']);
+        $sti->bindParam(':D_FECH', $gestion['D_FECH']);
+        $sti->bindParam(':C_HRIN', $gestion['C_HRIN']);
+        $sti->bindParam(':C_HRFI', $gestion['C_HRFI']);
+        $sti->bindParam(':C_TELE', $gestion['C_TELE']);
+        $sti->bindParam(':CUENTA', $gestion['CUENTA']);
+        $sti->bindParam(':C_CONTAN', $gestion['C_CONTAN']);
+        $sti->bindParam(':C_ATTE', $gestion['C_ATTE']);
+        $sti->bindParam(':C_CARG', $gestion['C_CARG']);
+        $sti->bindParam(':C_RCON', $gestion['C_RCON']);
+        $sti->bindParam(':C_NSE', $gestion['C_NSE']);
+        $sti->bindParam(':C_CNIV', $gestion['C_CNIV']);
+        $sti->bindParam(':C_CFAC', $gestion['C_CFAC']);
+        $sti->bindParam(':C_CPTA', $gestion['C_CPTA']);
+        $sti->bindParam(':C_CTIPO', $gestion['C_CTIPO']);
+        $sti->bindParam(':C_COWN', $gestion['C_COWN']);
+        $sti->bindParam(':C_CSTAT', $gestion['C_CSTAT']);
+        $sti->bindParam(':C_VISIT', $gestion['C_VISIT']);
+        $sti->bindParam(':D_PROM', $gestion['D_PROM']);
+        $sti->bindParam(':N_PROM', $gestion['N_PROM']);
+        $sti->bindParam(':C_PROM', $gestion['C_PROM']);
+        $sti->bindParam(':C_FREQ', $gestion['C_FREQ']);
+        $sti->bindParam(':ACCION', $gestion['ACCION']);
+        $sti->bindParam(':C_MOTIV', $gestion['C_MOTIV']);
+        $sti->bindParam(':C_CREJ', $gestion['C_CREJ']);
+        $sti->bindParam(':C_CPAT', $gestion['C_CPAT']);
+        $sti->bindParam(':C_CALLE1', $gestion['C_CALLE1']);
+        $sti->bindParam(':C_CALLE2', $gestion['C_CALLE2']);
+        $sti->bindParam(':C_NTEL', $gestion['C_NTEL']);
+        $sti->bindParam(':C_NDIR', $gestion['C_NDIR']);
+        $sti->bindParam(':C_EMAIL', $gestion['C_EMAIL']);
+        $sti->bindParam(':C_OBSE2', $gestion['C_OBSE2']);
+        $sti->bindParam(':C_EJE', $gestion['C_EJE']);
+        $sti->execute();
+        $auto = $this->pdo->lastInsertId();
+        return $auto;
+    }
+    
+    /**
+     * 
+     * @param int $auto
+     */
+    public function addHistdate($auto) {
+        $query = "INSERT IGNORE INTO histdate VALUES (:auto, CURDATE())";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stq->execute();
+    }
+    
+    /**
+     * 
+     * @param int $auto
+     */
+    public function addHistgest($auto, $c_cvge) {
+        $query = "INSERT IGNORE INTO histgest VALUES (:auto, :c_cvge)";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stq->bindParam(':c_cvge', $c_cvge, \PDO::PARAM_INT);
+        $stq->execute();
+    }
+    
 }

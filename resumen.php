@@ -51,68 +51,26 @@ if (empty($mytipo)) {
     }
     
     $C_CVST = filter_input(INPUT_GET, 'C_CVST');
+    $C_CVGE = filter_input(INPUT_GET, 'C_CVGE');
+    $N_PROM = str_replace('$', '', str_replace(',', '', filter_input(INPUT_GET, 'N_PROM')));
+    $D_PROM = filter_input(INPUT_GET, 'D_PROM');
+    $D_FECH = filter_input(INPUT_GET, 'D_FECH');
     $gestion = $get;
     if (!empty($C_CVST)) {
         $gestion['C_OBSE1'] = utf8_decode($get['C_OBSE1']);
         $gestion['C_HRFI'] = date('H:i:s');
-        $gestion['C_NDIR'] = trim($gestion['C_NDIR']);
-        $gestion['C_EMAIL'] = trim($gestion['C_EMAIL']);
-        $gestion['N_PROM'] = str_replace('$', '', str_replace(',', '', $gestion['N_PROM']));
+        $gestion['C_NDIR'] = trim($get['C_NDIR']);
+        $gestion['C_EMAIL'] = trim($get['C_EMAIL']);
+        $gestion['N_PROM'] = $N_PROM;
     }
     if (($go == 'CAPTURADO') && (!empty($C_CVST))) {
-        $queryins = "INSERT INTO historia (C_CVGE,C_CVBA,C_CONT,C_CVST,D_FECH,C_HRIN,
-C_HRFI,C_TELE,CUENTA,C_OBSE1,C_CONTAN,C_ATTE,C_CARG,C_RCON,C_NSE,C_CNIV,C_CFAC,
-C_CPTA,C_CTIPO,C_COWN,C_CSTAT,C_VISIT,D_PROM,N_PROM,D_PROM1,N_PROM1,C_PROM,C_FREQ,C_ACCION,C_MOTIV,
-C_CREJ,C_CPAT,C_CALLE1,C_CALLE2,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE) 
-VALUES ('$C_CVGE','$C_CVBA','$C_CONT','$C_CVST','$D_FECH','$C_HRIN','$C_HRFI',
-'$C_TELE','$CUENTA','$C_OBSE1','$C_CONTAN','$C_ATTE','$C_CARG','$C_RCON','$C_NSE',
-'$C_CNIV','$C_CFAC','$C_CPTA','$C_CTIPO','$C_COWN','$C_CSTAT','$C_VISIT','$D_PROM',
-'$N_PROM','$D_PROM',
-'$N_PROM','$C_PROM','$C_FREQ','$ACCION','$C_MOTIV','$C_CREJ','$C_CPAT','$C_CALLE1','$C_CALLE2',
-'$C_NTEL','$C_NDIR','$C_EMAIL','$C_OBSE2','$C_EJE')";
-        $errorv = 0;
-        $flagmsgv = "";
-        $dupcount = $rc->countDup($gestion);
-        if ($dupcount > 0) {
-            $errorv = $errorv + $dupcount;
-            $flagmsgv = "DOBLE ENTRANTE";
-        }
-        if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO TOTAL')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO PARCIAL')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if (($N_PROM > 0) && ($D_PROM == '0000-00-00')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA FECHA";
-        }
-        if (($N_PROM == 0) && ($D_PROM >= $D_FECH)) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if ($C_VISIT == '') {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "GESTION NECESITA VISITADOR";
-        }
+        $checkerrorsv = $rc->countVisitErrors($gestion);
+        $errorv = $checkerrorsv['errorsv'];
+        $flagmsgv = $checkerrorsv['flagmsgv'];
         if ($errorv < 9000) {
-            mysqli_query($con, $queryins) or die("ERROR RM5 - " . mysqli_error($con));
-            $queryfech = "INSERT INTO histdate (auto,d_fech) SELECT auto,curdate() 
-FROM historia 
-WHERE c_cont=" . $C_CONT . " AND d_fech='" . $D_FECH . "'
-AND c_hrin='" . $C_HRIN . "' AND c_hrfi='" . $C_HRFI . "'
-AND auto NOT IN (SELECT auto FROM histdate)
-;";
-            mysqli_query($con, $queryfech) or die("ERROR RM6 - " . mysqli_error($con));
-            $querygest = "INSERT INTO histgest (auto,c_cvge) SELECT auto,'" . $C_CVGE . "' 
-FROM historia 
-WHERE c_cont=" . $C_CONT . " AND d_fech='" . $D_FECH . "'
-AND c_hrin='" . $C_HRIN . "' AND c_hrfi='" . $C_HRFI . "'
-AND auto NOT IN (SELECT auto FROM histgest)
-;";
-            mysqli_query($con, $querygest) or die("ERROR RM6a - " . mysqli_error($con));
+            $auto = $rc->insertVisit($gestion);
+            $rc->addHistdate($auto);
+            $rc->addHistgest($auto, $C_CVGE);
             if (!empty($C_NTEL)) {
                 $queryntel = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_NTEL . " WHERE id_cuenta='" . $C_CONT . "'";
                 mysqli_query($con, $queryntel) or die("ERROR RM7 - " . mysqli_error($con));
