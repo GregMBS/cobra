@@ -552,14 +552,6 @@
                 <LI><A onClick="paging('LABORAL')">LABORAL</A></LI>
                 <LI><A onClick="paging('CONTABLES')">CONTABLES</A></LI>
                 <LI><A onClick="paging('MISCELANEA')">MISCELANEA</A></LI>
-                <?php
-                if ($others > 1) {
-                    ?>
-                    <LI><A onClick="paging('EXTRAS');">OTRAS CUENTAS</A></LI>
-                <?php } ?>
-                <?php if ($cliente == 'Surtidor del Hogar') { ?>
-                    <LI><A onClick="paging('EXTRAS');">PRODUCTOS</A></LI>
-                <?php } ?>
                 <LI><A onClick="paging('VISITA')">CAPTURA VISITA</A></LI>
                 <LI><A onClick="paging('HISTORIA')">HISTORIA</A></LI>
             </UL>

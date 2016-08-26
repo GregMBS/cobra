@@ -410,4 +410,60 @@ AND c_cont <> 0
         return $resultng;
     }
 
+    /**
+     * 
+     * @param string $capt
+     * @return array
+     */
+    public function getQueueList($capt) {
+        $queryfilt = "SELECT cliente,sdc,queue FROM queuelist 
+WHERE gestor = :capt 
+ORDER BY cliente,sdc,queue";
+        $stf = $this->pdo->prepare($queryfilt);
+        $stf->bindParam(':capt', $capt);
+        $stf->execute();
+        $resultfilt = $stf->fetchAll();
+        return $resultfilt;
+    }
+
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return string
+     */
+    public function getTimelock($id_cuenta) {
+        $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') as tl
+            FROM resumen 
+            WHERE id_cuenta = :id_cuenta";
+        $sts = $this->pdo->prepare($querytlock);
+        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->execute();
+        $result = $sts->fetch(\PDO::FETCH_ASSOC);
+        if ($result) {
+            $tl = $result['tl'];
+        }
+        return $tl;
+    }
+
+    /**
+     * 
+     * @param array $gestion
+     * @return int
+     */
+    public function countDup($gestion) {
+        $querydup = "SELECT count(1) as ct FROM historia 
+WHERE c_cont = :c_cont and d_fech = :d_fech 
+and c_hrin = :c_hrin and c_cvst = :c_cvst 
+and c_cvge = :c_cvge and c_obse1 = :c_obse1";
+        $std = $this->pdo->prepare($querydup);
+        $std->bindParam(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
+        $std->bindParam(':d_fech', $gestion['D_FECH']);
+        $std->bindParam(':c_hrin', $gestion['C_HRIN']);
+        $std->bindParam(':c_cvst', $gestion['C_CVST']);
+        $std->bindParam(':c_cvge', $gestion['C_CVGE']);
+        $std->bindParam(':c_obse1', $gestion['C:OBSE1']);
+        $std->execute();
+        $result = $std->fetch(\PDO::FETCH_ASSOC);
+        return $result['ct'];
+    }
 }
