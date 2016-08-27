@@ -149,6 +149,65 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     /**
      * 
      * @param array $gestion
+     * @return array
+     */
+    public function countGestionErrors($gestion) {
+        $error = 0;
+        $flagmsg = "";
+        $dupcount = $this->countDup($gestion);
+        if ($dupcount > 0) {
+            $error = $error + $dupcount;
+            $flagmsg .= "DOBLE ENTRANTE";
+        }
+        $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO PARCIAL');
+        $promised = array('PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO PARCIAL');
+        if (($gestion['N_PAGO'] == 0) && (in_array($gestion['C_CVST'], $paid))) {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
+        }
+        if ((substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON') && ($gestion['C_CARG'] == '')) {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<BR>' . "MENSAJE NECESITA PARENTESCO/CARGO";
+        }
+        if (($gestion['N_PROM'] == 0) && (in_array($gestion['C_CVST'], $promised))) {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
+        }
+        if (($gestion['N_PROM'] > 0) && ($gestion['D_PROM'] == '0000-00-00')) {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA FECHA";
+        }
+        if (($gestion['N_PAGO'] > 0) && ($gestion['D_PAGO'] == '0000-00-00')) {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<BR>' . "PAGO NECESITA FECHA";
+        }
+        if (($gestion['N_PROM'] > 0) && ($gestion['D_PROM'] == '')) {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA FECHA";
+        }
+        if (($gestion['N_PROM'] == 0) && ($gestion['D_PROM'] >= $gestion['D_FECH'])) {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
+        }
+        if (($gestion['N_PROM1'] == 0) && ($gestion['N_PROM2'] > 0)) {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
+        }
+        if ($gestion['C_TELE'] == '') {
+            $error = $error + 1;
+            $flagmsg = $flagmsg . '<BR>' . "GESTION NECESITA TELEFONO";
+        }
+
+        $output = array(
+            'error' => $error,
+            'flagmsg' => $flagmsg
+        );
+        return $output;
+    }
+
+    /**
+     * 
+     * @param array $gestion
      * @return int
      */
     public function insertVisit($gestion) {
