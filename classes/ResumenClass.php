@@ -73,6 +73,7 @@ if(tel_3_verif in (select * from deadlines),' class=\"badno\" ','') as t3v,
 if(tel_4_verif in (select * from deadlines),' class=\"badno\" ','') as t4v
 from resumen
 where id_cuenta=:id_cuenta LIMIT 1";
+
     /**
      * 
      * @param \PDO $pdo
@@ -384,6 +385,7 @@ ORDER BY cliente,sdc,queue";
         }
         return $tl;
     }
+
     /**
      * 
      * @param string $string
@@ -393,7 +395,7 @@ ORDER BY cliente,sdc,queue";
         $number = str_replace('$', '', str_replace(',', '', $string));
         return $number;
     }
-    
+
     /**
      * 90 days
      * 
@@ -402,11 +404,11 @@ ORDER BY cliente,sdc,queue";
      * @return string
      */
     public function getBest($C_CVST, $C_CONT) {
-            $best = $C_CVST;
-            $querybest = "select c_cvst,v_cc from historia,dictamenes"
-                    . " where c_cvst=dictamen and c_cont = :C_CONT"
-                    . " and d_fech>last_day(curdate()-interval 90 day)"
-                    . " order by v_cc LIMIT 1";
+        $best = $C_CVST;
+        $querybest = "select c_cvst,v_cc from historia,dictamenes"
+                . " where c_cvst=dictamen and c_cont = :C_CONT"
+                . " and d_fech>last_day(curdate()-interval 90 day)"
+                . " order by v_cc LIMIT 1";
         $stb = $this->pdo->prepare($querybest);
         $stb->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $result = $stb->fetch(\PDO::FETCH_ASSOC);
@@ -415,4 +417,19 @@ ORDER BY cliente,sdc,queue";
         }
         return $best;
     }
+
+    /**
+     * 
+     * @param string $capt
+     * @return array
+     */
+    public function getUserData($capt) {
+        $queryg = "SELECT usuaria,tipo,camp FROM nombres WHERE iniciales = :capt LIMIT 1";
+        $stg = $this->pdo->prepare($queryg);
+        $stg->bindParam(':capt', $capt);
+        $stg->execute();
+        $result = $stg->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 }

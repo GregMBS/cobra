@@ -21,6 +21,18 @@ class GestionClass {
      */
     private $pdo;
 
+    private $gestionInsertQuery = "INSERT INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
+C_TELE,CUANDO,CUENTA,C_OBSE1,C_ATTE,C_CARG,D_PROM,N_PROM,C_PROM,
+D_PROM1,N_PROM1,D_PROM2,N_PROM2,
+D_PROM3,N_PROM3,D_PROM4,N_PROM4,
+C_CONTAN,C_ACCION,C_CNP,C_MOTIV,C_CAMP,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE,AUTH) 
+VALUES (:C_CVBA, :C_CVGE, :C_CONT, :C_CVST,date(:D_FECH),
+:C_HRIN, :C_HRFI, :C_TELE, :CUANDO, :CUENTA, :C_OBSE1, :C_ATTE, :C_CARG, :D_PROM, 
+:N_PROM, :C_PROM, :D_PROM1, :N_PROM1, :D_PROM2, :N_PROM2, :D_PROM3, :N_PROM3, 
+:D_PROM4, :N_PROM4, :C_CONTAN, :ACCION, :C_CNP, :C_MOTIV, :C_CAMP, :C_NTEL, :C_NDIR, 
+:C_EMAIL, :C_OBSE2, :C_EJE, :AUTH)";
+
+
     /**
      *
      * @var string
@@ -221,6 +233,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $sti->bindParam(':C_HRFI', $gestion['C_HRFI']);
         $sti->bindParam(':C_TELE', $gestion['C_TELE']);
         $sti->bindParam(':CUENTA', $gestion['CUENTA']);
+        $sti->bindParam(':C_OBSE1', $gestion['C_OBSE1']);
         $sti->bindParam(':C_CONTAN', $gestion['C_CONTAN']);
         $sti->bindParam(':C_ATTE', $gestion['C_ATTE']);
         $sti->bindParam(':C_CARG', $gestion['C_CARG']);
@@ -405,4 +418,58 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $stp->execute();
     }
 
+    /**
+     * 
+     * @param array $gestion
+     * @return int
+     */
+    public function insertGestion($gestion) {
+        $sti = $this->pdo->prepare($this->gestionInsertQuery);
+        $sti->bindParam(':C_CVBA', $gestion['C_CVBA']);
+        $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
+        $sti->bindParam(':C_CONT', $gestion['C_CONT'], \PDO::PARAM_INT);
+        $sti->bindParam(':C_CVST', $gestion['C_CVST']);
+        $sti->bindParam(':D_FECH', $gestion['D_FECH']);
+        $sti->bindParam(':C_HRIN', $gestion['C_HRIN']);
+        $sti->bindParam(':C_HRFI', date('H:i:s'));
+        $sti->bindParam(':C_TELE', $gestion['C_TELE']);
+        $sti->bindParam(':CUANDO', $gestion['CUANDO']);
+        $sti->bindParam(':CUENTA', $gestion['CUENTA']);
+        $sti->bindParam(':C_OBSE1', $gestion['C_OBSE1']);
+        $sti->bindParam(':C_ATTE', $gestion['C_ATTE']);
+        $sti->bindParam(':C_CARG', $gestion['C_CARG']);
+        $sti->bindParam(':D_PROM', $gestion['D_PROM']);
+        $sti->bindParam(':N_PROM', $gestion['N_PROM']);
+        $sti->bindParam(':C_PROM', $gestion['C_PROM']);
+        $sti->bindParam(':D_PROM1', $gestion['D_PROM1']);
+        $sti->bindParam(':N_PROM1', $gestion['N_PROM1']);
+        $sti->bindParam(':D_PROM2', $gestion['D_PROM2']);
+        $sti->bindParam(':N_PROM2', $gestion['N_PROM2']);
+        $sti->bindParam(':D_PROM3', $gestion['D_PROM3']);
+        $sti->bindParam(':N_PROM3', $gestion['N_PROM3']);
+        $sti->bindParam(':D_PROM4', $gestion['D_PROM4']);
+        $sti->bindParam(':N_PROM4', $gestion['N_PROM4']);
+        $sti->bindParam(':C_CONTAN', $gestion['C_CONTAN']);
+        $sti->bindParam(':ACCION', $gestion['ACCION']);
+        $sti->bindParam(':C_CNP', $gestion['C_CNP']);
+        $sti->bindParam(':C_MOTIV', $gestion['C_MOTIV']);
+        $sti->bindParam(':C_CAMP', $gestion['C_CAMP']);
+        $sti->bindParam(':C_NTEL', $gestion['C_NTEL']);
+        $sti->bindParam(':C_NDIR', $gestion['C_NDIR']);
+        $sti->bindParam(':C_EMAIL', $gestion['C_EMAIL']);
+        $sti->bindParam(':C_OBSE2', $gestion['C_OBSE2']);
+        $sti->bindParam(':C_EJE', $gestion['C_EJE']);
+        $sti->bindParam(':AUTH', $gestion['AUTH']);
+        $sti->execute();
+        $auto = $this->pdo->lastInsertId();
+        return $auto;
+    }
+
+    public function beginTransaction() {
+        $this->pdo->beginTransaction();
+    }
+
+    public function commitTransaction() {
+        $this->pdo->commit();
+    }
 }
