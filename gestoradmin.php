@@ -82,6 +82,7 @@ $querymain = "SELECT USUARIA, COMPLETO, TIPO, CAMP, INICIALES, PASSW
 $result = $pdo->query($querymain);
 
 $queryg = "SELECT grupo FROM grupos";
-$groups = $pdo->query($queryg);
+$resultg = $pdo->query($queryg) or die($pdo->error);
+$grupos = $resultg->fetchAll(PDO::FETCH_ASSOC);
 var_dump($groups); die();
 require_once 'views/gestoradminView.php';
