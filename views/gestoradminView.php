@@ -93,16 +93,17 @@
                         <select name="tipo">
                             <option value=""></option>
                             <?php
-                            foreach ($groups as $gr) {
+                            foreach ($groups as $g) {
+                                    $group = $g['grupo'];
                                 ?>
                                 <option value="<?php
-                                if (isset($gr)) {
-                                    echo $gr;
+                                if (isset($group)) {
+                                    echo $group;
                                 }
                                 ?>" style="font-size:120%;">
                                     <?php
-                                    if (isset($gr)) {
-                                        echo $gr;
+                                    if (isset($group)) {
+                                        echo $group;
                                     }
                                     ?></option>
                             <?php }
