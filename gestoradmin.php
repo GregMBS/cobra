@@ -31,6 +31,7 @@ if (!empty($go)) {
         $stp->bindParam(':passw', $passw);
         $stp->bindParam(':usuaria', $usuaria);
         $stp->execute();
+        header("Location: gestoradmin.php?capt=" . $capt);
     }
 
     if ($go == "BORRAR") {
@@ -47,6 +48,7 @@ if (!empty($go)) {
         $stb3 = $pdo->prepare($queryb3);
         $stb3->bindParam(':usuaria', $usuaria);
         $stb3->execute();
+        header("Location: gestoradmin.php?capt=" . $capt);
     }
 
     if ($go == "AGREGAR") {
