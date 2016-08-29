@@ -52,7 +52,7 @@
                                 <option value=""></option>
                                 <?php
                                 foreach ($groups as $g) {
-                                    $group = $g['grupo'];
+                                    $group = $g;
                                     ?>
                                     <option value="<?php
                                     if (isset($group)) {
