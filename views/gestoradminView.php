@@ -52,19 +52,20 @@
                                 <option value=""></option>
                                 <?php
                                 foreach ($groups as $g) {
+                                    $group = $g['grupo'];
                                     ?>
                                     <option value="<?php
-                                    if (isset($g)) {
-                                        echo $g;
+                                    if (isset($group)) {
+                                        echo $group;
                                     }
                                     ?>" style="font-size:120%;" <?php
-                                            if (strtolower($g) == strtolower($tipo)) {
+                                            if (strtolower($group) == strtolower($tipo)) {
                                                 echo "selected='selected'";
                                             }
                                             ?>>
                                                 <?php
-                                                if (isset($g)) {
-                                                    echo $g;
+                                                if (isset($group)) {
+                                                    echo $group;
                                                 }
                                                 ?></option>
                                 <?php }
