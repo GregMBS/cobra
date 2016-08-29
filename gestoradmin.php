@@ -11,6 +11,7 @@ $completo = filter_input(INPUT_GET, 'completo');
 $tipo = filter_input(INPUT_GET, 'tipo');
 $usuaria = filter_input(INPUT_GET, 'usuaria');
 $passw = filter_input(INPUT_GET, 'passw');
+$capt = filter_input(INPUT_GET, 'capt');
 
 if (!empty($go)) {
     if ($go == "GUARDAR") {
