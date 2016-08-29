@@ -83,4 +83,5 @@ $result = $pdo->query($querymain);
 
 $queryg = "SELECT grupo FROM grupos";
 $groups = $pdo->query($queryg);
+var_dump($groups); die();
 require_once 'views/gestoradminView.php';
