@@ -172,14 +172,22 @@ where id_cuenta=:id_cuenta LIMIT 1";
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
         if (isset($result['alert'])) {
             $notaData = $this->notaData($capt, $result['fechahora']);
+            $output = array(
+                'notalert' => $result['alert'],
+                'notalertt' => $result['fechahora'],
+                'cuenta' => $notaData['cuenta'],
+                'nota' => $notaData['nota'],
+                'fuente' => $notaData['fuente']
+            ); 
+        } else {
+            $output = array(
+                'notalert' => '',
+                'notalertt' => '',
+                'cuenta' => '',
+                'nota' => '',
+                'fuente' => ''
+            ); 
         }
-        $output = array(
-            'notalert' => $result['alert'],
-            'notalertt' => $result['fechahora'],
-            'cuenta' => $notaData['cuenta'],
-            'nota' => $notaData['nota'],
-            'fuente' => $notaData['fuente']
-        );
         return $output;
     }
 
