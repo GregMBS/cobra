@@ -205,11 +205,11 @@ if (empty($mytipo)) {
         header($redirector);
     }
     $resultg = $rc->getUserData($capt);
-    var_dump($resultg);die();
     if (isset($resultg['tipo'])) {
         $mynombre = $resultg['usuaria'];
         $mytipo = $resultg['tipo'];
         $camp = $resultg['camp'];
+        die($camp);
     } else {
         $redirector = "Location: index.php";
         header($redirector);
