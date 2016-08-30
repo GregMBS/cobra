@@ -46,10 +46,10 @@ and queue = :queue ";
 sum(fecha_ultima_gestion>curdate()) as ctd,
 sum(fecha_ultima_gestion>curdate() - interval 6 day) as ctw,
 sum(fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day) as ctm,
-sum(saldo_total) as stt,
-sum(saldo_total*(fecha_ultima_gestion>curdate())) as std,
-sum(saldo_total*(fecha_ultima_gestion>curdate() - interval 6 day)) as stw,
-sum(saldo_total*(fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day)) as stm
+sum(saldo_total) as mtt,
+sum(saldo_total*(fecha_ultima_gestion>curdate())) as mtd,
+sum(saldo_total*(fecha_ultima_gestion>curdate() - interval 6 day)) as mtw,
+sum(saldo_total*(fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day)) as mtm
 from resumen
 join dictamenes on status_aarsa=dictamen
 where cliente = :cliente
