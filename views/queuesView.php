@@ -23,22 +23,18 @@
                         <select name='queue'>
                             <?php
                             foreach ($resultq->fetchAll(PDO::FETCH_ASSOC) as $rowq) {
-                                $CLIENTE = $rowq['cliente'];
-                                $SDC = $rowq['sdc'];
                                 $CR = $rowq['status_aarsa'];
                                 if ($CR == '.') {
                                     $CR = 'todos';
                                 }
-                                $bloqueado = $rowq['bloqueado'];
-                                $campsel = '';
                                 ?>
                                 <option value='<?php
-                                echo $CLIENTE . ',' . $SDC . ',' . $CR;
+                                echo $rowq['cliente'] . ',' . $rowq['sdc'] . ',' . $CR;
                                 ?>' <?php
-                                        if ($bloqueado == 1) {
+                                        if ($rowq['bloqueado'] == 1) {
                                             echo "class='blocked'";
                                         }
-                                        ?>><?php echo $CLIENTE . '-' . $SDC . '-' . $CR; ?></option>
+                                        ?>><?php echo $rowq['cliente'] . '-' . $rowq['sdc'] . '-' . $CR; ?></option>
                                     <?php } ?>
                         </select>
                     </div>
@@ -54,68 +50,38 @@
         <div>
             <?php
             foreach ($resultlist->fetchAll(PDO::FETCH_ASSOC) as $rowlist) {
-                $GESTOR = $rowlist['gestor'];
-                $tipo = $rowlist['tipo'];
-                $campnow = $rowlist['campnow'];
                 ?>
                 <div style='clear:both;border:1pt black solid'>
-                    <form method='get' action='queues.php' name='<?php echo $GESTOR; ?>'>
+                    <form method='get' action='queues.php' name='<?php echo $rowlist['gestor']; ?>'>
                         <div style='float:left;width:25%'>
                             <input name='gestor' type='text' readonly='readonly' value='<?php echo $GESTOR; ?>'>
                         </div>
                         <div style='float:left;width:40%'>
                             <?php
-                            $queryqc = "SELECT cliente, sdc, status_aarsa, 
-                                nombres.camp as campnow
-                                FROM queuelist, nombres 
-                                WHERE gestor = :gestor and gestor=iniciales 
-                                and nombres.camp=queuelist.camp
-                                and cliente<>''
-                                ORDER BY cliente,sdc,status_aarsa;";
-                            $stqc = $pdo->prepare($queryqc);
-                            $stqc->bindParam(':gestor', $GESTOR);
-                            $stqc->execute();
-                            $resultqc = $stqc->fetchAll(PDO::FETCH_ASSOC);
-                            foreach ($resultqc as $rowqc) {
-                                $CLIENTEc = $rowqc['cliente'];
-                                $SDCc = $rowqc['sdc'];
+                            $rowqc = $qc->getMyQueue($rowlist['gestor']);
+                            if (is_array($rowqc)) {
                                 $CRc = $rowqc['status_aarsa'];
                                 if ($CRc == '.') {
                                     $CRc = 'todos';
                                 }
-                                $CAMPc = $rowqc['campnow'];
-                                echo $CLIENTEc . '-' . $SDCc . '-' . $CRc;
+                                echo $rowqc['cliente'] . '-' . $rowqc['sdc'] . '-' . $CRc;
                             }
                             ?>
                             <br>
                             <select name='camp'>
                                 <?php
-                                $queryqa = "SELECT cliente, sdc, status_aarsa,
-                                    camp, bloqueado
-                                    FROM queuelist
-                                    WHERE gestor = :gestor
-                                    and cliente<>''
-                                    ORDER BY cliente,sdc,camp;";
-                                $stqa = $pdo->prepare($queryqa);
-                                $stqa->bindParam(':gestor', $GESTOR);
-                                $stqa->execute();
-                                $resultqa = $stqa->fetchAll(PDO::FETCH_ASSOC);
+                                $resultqa = $qc->getMyQueuelist($rowlist['gestor']);
                                 foreach ($resultqa as $rowq) {
-                                    $CLIENTE = $rowq['cliente'];
-                                    $SDC = $rowq['sdc'];
                                     $CR = $rowq['status_aarsa'];
                                     if ($CR == '.') {
                                         $CR = 'todos';
                                     }
-                                    $CAMP = $rowq['camp'];
-                                    $bloqueado = $rowq['bloqueado'];
-                                    $campsel = '';
                                     ?>
-                                    <option value='<?php echo $CAMP; ?>' <?php
-                                    if ($bloqueado == 1) {
+                                    <option value='<?php echo $rowq['camp']; ?>' <?php
+                                    if ($rowq['bloqueado'] == 1) {
                                         echo "class='blocked'";
                                     }
-                                    ?>><?php echo $CLIENTE . '-' . $SDC . '-' . $CR; ?></option>
+                                    ?>><?php echo $rowq['cliente'] . '-' . $rowq['sdc'] . '-' . $CR; ?></option>
                                         <?php } ?>
                             </select>
                         </div>

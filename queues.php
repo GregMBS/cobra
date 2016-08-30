@@ -1,93 +1,41 @@
 <?php
 
 use cobra_salsa\PdoClass;
+use cobra_salsa\QueuesClass;
 
 require_once 'classes/PdoClass.php';
+require_once 'classes/QueuesClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectUser();
+$qc = new QueuesClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');
-$searchstr = '';
 $CAMP = filter_input(INPUT_GET, 'camp', FILTER_VALIDATE_INT);
 $GESTOR = filter_input(INPUT_GET, 'gestor');
+$QUEUE = filter_input(INPUT_GET, 'queue');
+$QUEUES = explode(',', $QUEUE);
+if (is_array($QUEUES)) {
+    list($cliente, $sdc, $status) = $QUEUES;
+}
 if ($go == 'INTRO') {
-    $queryupd = "UPDATE nombres SET camp=:camp "
-            . "where iniciales=:gestor;";
-    $stu = $pdo->prepare($queryupd);
-    $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
-    $stu->bindParam(':gestor', $GESTOR);
-    $stu->execute();
+    $qc->updateQueue($CAMP, $GESTOR);
 }
 if ($go == 'BLOQUEAR') {
-    $queryblock = "UPDATE queuelist SET bloqueado=1
-WHERE gestor=:gestor
-AND camp=:camp;";
-    $stb = $pdo->prepare($queryblock);
-    $stb->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
-    $stb->bindParam(':gestor', $GESTOR);
-    $stb->execute();
+    $qc->blockQueue($CAMP, $GESTOR);
 }
 if ($go == 'DESBLOQUEAR') {
-    $querydes = "UPDATE queuelist SET bloqueado=0
-WHERE gestor=:gestor
-AND camp=:camp;";
-    $std = $pdo->prepare($querydes);
-    $std->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
-    $std->bindParam(':gestor', $GESTOR);
-    $std->execute();
+    $qc->unblockQueue($CAMP, $GESTOR);
 }
 if ($go == 'INTRO TODOS') {
-    $QUEUE = filter_input(INPUT_GET, 'queue');
-    $QUEUES = explode(',', $QUEUE);
-    if ($QUEUES[1] == "") {
-        $queryqueue = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
-where iniciales=gestor and cliente=:cliente
-and status_aarsa=:status;";
-        $stq = $pdo->prepare($queryqueue);
-    } else {
-        $queryqueue = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
-where iniciales=gestor and cliente=:cliente
-and sdc=:sdc and status_aarsa=:status;";
-        $stq = $pdo->prepare($queryqueue);
-        $stq->bindParam(':sdc', $QUEUES[1]);
-    }
-    $stq->bindParam(':cliente', $QUEUES[0]);
-    $stq->bindParam(':status', $QUEUES[2]);
-    $stq->execute();
+    $qc->updateQueueAll($cliente, $sdc, $status);
 }
 if ($go == 'BLOQUEAR TODOS') {
-    $QUEUE = filter_input(INPUT_GET, 'queue');
-    $QUEUES = explode(',', $QUEUE);
-    $querybt = "UPDATE queuelist SET bloqueado=1
-where cliente=:cliente
-and sdc=:sdc and status_aarsa=:status;";
-    $stbt = $pdo->prepare($querybt);
-    $stbt->bindParam(':cliente', $QUEUES[0]);
-    $stbt->bindParam(':sdc', $QUEUES[1]);
-    $stbt->bindParam(':status', $QUEUES[2]);
-    $stbt->execute();
+    $qc->blockQueueAll($cliente, $sdc, $status);
 }
 if ($go == 'DESBLOQUEAR TODOS') {
-    $QUEUE = filter_input(INPUT_GET, 'queue');
-    $querydt = "UPDATE queuelist SET bloqueado=0
-where cliente=:cliente
-and sdc=:sdc and status_aarsa=:status;";
-    $stdt = $pdo->prepare($querydt);
-    $stdt->bindParam(':cliente', $QUEUES[0]);
-    $stdt->bindParam(':sdc', $QUEUES[1]);
-    $stdt->bindParam(':status', $QUEUES[2]);
-    $stdt->execute();
+    $qc->unblockQueueAll($cliente, $sdc, $status);
 }
-$oldgestor = '';
-$querylist = "SELECT distinct gestor,tipo,nombres.camp as campnow
-    FROM queuelist
-JOIN nombres ON gestor=iniciales 
-WHERE tipo <> ''
-ORDER BY gestor";
-$resultlist = $pdo->query($querylist);
-$queryq = "SELECT distinct cliente,sdc,status_aarsa,bloqueado
-FROM queuelist
-WHERE cliente<> ''
-ORDER BY cliente,sdc,status_aarsa;";
-$resultq = $pdo->query($queryq);
+
+$resultlist = $qc->getGestores();
+$resultq = $qc->getQueues();
 require_once 'views/queuesView.php';
