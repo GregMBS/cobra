@@ -36,11 +36,6 @@ $mytipo = $pdoc->tipo;
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');
 
-/*
-  if ($detect->isMobile()) {
-  header("Location: resumen-mobile.php?capt=" . $capt);
-  }
- */
 $C_CVGE = $capt;
 if (empty($mytipo)) {
     $redirector = "Location: index.php";
