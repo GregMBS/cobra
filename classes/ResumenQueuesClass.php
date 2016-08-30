@@ -99,11 +99,11 @@ $crStr
 ORDER BY fecha_ultima_gestion LIMIT 1";
 
         if ($cr == 'SIN GESTION') {
-            $querymain = "SELECT * FROM resumen ".
-                "WHERE locker is null ".
- $clientStr.$sdcStr.
-" AND ((status_aarsa='') or (status_aarsa is null)) ".
-" ORDER BY saldo_total desc LIMIT 1";
+            $querymain = "SELECT * FROM resumen " .
+                    "WHERE locker is null " .
+                    $clientStr . $sdcStr .
+                    " AND ((status_aarsa='') or (status_aarsa is null)) " .
+                    " ORDER BY saldo_total desc LIMIT 1";
         }
 
         if (($cr == 'INICIAL')) {
@@ -176,8 +176,13 @@ order by fecha_ultima_gestion  LIMIT 1
      * @return array
      */
     public function runResumenMain($stm) {
-       $stm->execute();
-       $result = $stm->fetch(\PDO::FETCH_ASSOC);
-       return $result;
+        try {
+            $stm->execute();
+            $result = $stm->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (Exception $e) {
+            die($e->message);
+        }
     }
+
 }
