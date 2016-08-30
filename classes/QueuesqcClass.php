@@ -110,6 +110,7 @@ and queue = :queue";
         }
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        var_dump($result);die();
         return $result;
     }
 
