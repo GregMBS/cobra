@@ -17,7 +17,7 @@
                 $("button").button();
                 $("#intro").button();
                 $("#cliente").empty();
-                $("#segmento").empty();
+                $("#sdc").empty();
                 $("#queue").empty();
                 $("body").css("font-size", "10pt");
                 $("body").css("text-align", "center");
@@ -31,7 +31,7 @@
                     $('#cliente').append(data);
                 });
                 $("#cliente").change(function () {
-                    $("#segmento").empty();
+                    $("#sdc").empty();
                     $("#queue").empty();
                     var data2 = $('input[name=cliente]:checked').val();
                     $.each(<?php echo $arrays; ?>, function (index, sdc) {
@@ -41,17 +41,17 @@
                                 st = 'TODOS';
                             }
                             data3 = '<div class="column"><input class="columns" '
-                                    +'type="radio" name="segmento" value="' 
+                                    +'type="radio" name="sdc" value="' 
                                     + sdc[0] + '" />' + st + '</div>';
-                            $('#segmento').append(data3);
+                            $('#sdc').append(data3);
                         }
                     });
-                    $("#segmento").css("text-align", "left");
+                    $("#sdc").css("text-align", "left");
                 });
-                $("#segmento").change(function () {
+                $("#sdc").change(function () {
                     $("#queue").empty();
                     var data2 = $('input[name=cliente]:checked').val();
-                    var data4 = $('input[name=segmento]:checked').val();
+                    var data4 = $('input[name=sdc]:checked').val();
                     $.each(<?php echo $arrayq; ?>, function (index, que) {
                         if ((que[1] + que[2]) === (data4 + data2)) {
                             var qt = que[0];
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div>SEGMENTO<BR>
-                        <div id='segmento'>
+                        <div id='sdc'>
                         </div>
                     </div>
                     <div>QUEUE<BR>
