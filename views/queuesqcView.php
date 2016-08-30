@@ -52,21 +52,9 @@
                             $DINERO = $answerc['sst'];
                         }
                         $resultsub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
-                        if ($CLIENTE == 'PRESTAMO RELAMPAGO') {
-                        var_dump($resultsub);die();
-                        }
-                        foreach ($resultsub as $answersub) {
-                            $count = $answersub['ctt'];
-                            $countd = $answersub['ctd'];
-                            $counts = $answersub['ctw'];
-                            $countm = $answersub['ctm'];
-                            $monto = $answersub['stt'];
-                            $montod = $answersub['std'];
-                            $montos = $answersub['stw'];
-                            $montom = $answersub['stm'];
-                        }
-                        $pcc = number_format($count / ($ASIGNADOS + 0.001) * 100, 0);
-                        $pcd = number_format($countd / ($count + 0.001) * 100, 0);
+                        extract($resultsub);
+                        $pcc = number_format($ctt / ($ASIGNADOS + 0.001) * 100, 0);
+                        $pcd = number_format($ctd / ($ctt + 0.001) * 100, 0);
                         $empd = "class='good'";
                         if ($pcd < 80) {
                             $empd = "class='fair'";
@@ -74,7 +62,7 @@
                         if ($pcd < 40) {
                             $empd = "class='bad'";
                         }
-                        $pcs = number_format($counts / ($count + 0.001) * 100, 0);
+                        $pcs = number_format($ctw / ($ctt + 0.001) * 100, 0);
                         $emps = "class='good'";
                         if ($pcs < 80) {
                             $emps = "class='fair'";
@@ -82,7 +70,7 @@
                         if ($pcs < 40) {
                             $emps = "class='bad'";
                         }
-                        $pcm = number_format($countm / ($count + 0.001) * 100, 0);
+                        $pcm = number_format($ctm / ($ctt + 0.001) * 100, 0);
                         $empm = "class='good'";
                         if ($pcm < 80) {
                             $empm = "class='fair'";
@@ -90,10 +78,10 @@
                         if ($pcm < 40) {
                             $empm = "class='bad'";
                         }
-                        $pcmc = number_format($monto / ($DINERO + 0.001) * 100, 0);
-                        $pcmd = number_format($montod / ($monto + 0.001) * 100, 0);
-                        $pcms = number_format($montos / ($monto + 0.001) * 100, 0);
-                        $pcmm = number_format($montom / ($monto + 0.001) * 100, 0);
+                        $pcmc = number_format($mtt / ($DINERO + 0.001) * 100, 0);
+                        $pcmd = number_format($mtd / ($mtt + 0.001) * 100, 0);
+                        $pcms = number_format($mtw / ($mtt + 0.001) * 100, 0);
+                        $pcmm = number_format($mtm / ($mtt + 0.001) * 100, 0);
                         ?>
                         <tr>
                             <td>
@@ -118,8 +106,8 @@
                                                       ?>&status_de_credito=<?php
                                                       echo $SDCS
                                                       ?>&rato=total"><?php
-                                                          echo $count
-                                                          . '<br>' . number_format($monto, 0);
+                                                          echo $ctt
+                                                          . '<br>' . number_format($mtt, 0);
                                                           ?></a>
                             </td>
                             <td><?php echo $pcc . '%<br>' . number_format($pcmc, 0) . "%"; ?>
@@ -129,7 +117,7 @@
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=diario
-                                                       "><?php echo $countd . '<br>' . number_format($montod, 0);
+                                                       "><?php echo $ctd . '<br>' . number_format($mtd, 0);
                                                           ?></a>
                             </td>
                             <td <?php echo $empd ?>><?php echo $pcd . '%<br>' . number_format($pcmd, 0) . "%";
@@ -140,7 +128,7 @@
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=semanal
-                                                       "><?php echo $counts . '<br>' . number_format($montos, 0);
+                                                       "><?php echo $ctw . '<br>' . number_format($mtw, 0);
                                                           ?></a>
                             </td>
                             <td <?php echo $emps ?>><?php echo $pcs . '%<br>' . number_format($pcms, 0) . "%";
@@ -151,7 +139,7 @@
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=mensual
-                                                       "><?php echo $countm . '<br>' . number_format($montom, 0);
+                                                       "><?php echo $ctm . '<br>' . number_format($mm, 0);
                                                           ?></a>
                             </td>
                             <td <?php echo $empm ?>><?php echo $pcm . '%<br>' . number_format($pcmm, 0) . "%";
