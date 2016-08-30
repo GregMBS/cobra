@@ -18,13 +18,6 @@
                 <select name="gestor">
                     <option value="todos" style="font-size:120%;">todos</option>
                     <?php
-                    $queryg = "SELECT distinct c_cvge FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
-        and c_cvge <> ''
-        order by c_cvge
-        limit 1000
-	";
-                    $resultg = $pdo->query($queryg);
                     foreach ($resultg as $answerg) {
                         ?>
                         <option value="<?php echo $answerg['c_cvge']; ?>" style="font-size:120%;">
@@ -40,12 +33,6 @@
                 }
                 ?>
                 <?php
-                $queryc = "SELECT distinct c_cvba FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
-        order by c_cvba
-        limit 100
-	";
-                $resultc = $pdo->query($queryc);
                 foreach ($resultc as $answerc) {
                     ?>
                     <input type="checkbox" name="cliente[]" value="<?php echo $answerc['c_cvba']; ?>" />
