@@ -38,7 +38,6 @@ class QueuesgClass {
      * @return int
      */
     public function getCamp($cliente, $queue, $sdc, $capt) {
-        $array = array($cliente, $queue, $sdc, $capt); 
         $queryqueue  = "select camp from queuelist
     where cliente=:cliente
     and status_aarsa=:queue

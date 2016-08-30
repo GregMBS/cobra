@@ -16,7 +16,6 @@ if ($go == 'INTRO') {
     $sdc         = filter_input(INPUT_GET, 'sdc');
     $queue       = filter_input(INPUT_GET, 'queue');
     $camp = $qc->getCamp($cliente, $queue, $sdc, $capt);
-    die($camp);
     if (empty($camp)) {
         $camp = -1;
     }
