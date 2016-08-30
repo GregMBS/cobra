@@ -52,7 +52,7 @@
                             $DINERO = $answerc['sst'];
                         }
                         $resultsub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
-                        extract($resultsub);
+                        extract($resultsub, EXTR_OVERWRITE);
                         $pcc = number_format($ctt / ($ASIGNADOS + 0.001) * 100, 0);
                         $pcd = number_format($ctd / ($ctt + 0.001) * 100, 0);
                         $empd = "class='good'";
