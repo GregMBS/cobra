@@ -137,7 +137,7 @@ if (empty($mytipo)) {
     if ($go == 'GUARDAR' && !empty($C_CVST)) {
         $oldgo = filter_input(INPUT_GET, 'oldgo');
         $flag = filter_input(INPUT_GET, 'error');
-        $AUTH = mysqli_real_escape_string($con, $get['AUTH']);
+        $AUTH = filter_input(INPUT_GET, 'AUTH');
         if ($C_CVGE != $capt) {
             $AUTH = $capt;
         }
