@@ -109,7 +109,7 @@ and queue = :queue";
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 
