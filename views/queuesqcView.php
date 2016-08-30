@@ -52,6 +52,7 @@
                             $DINERO = $answerc['sst'];
                         }
                         $resultsub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
+                        var_dump($resultsub);die();
                         foreach ($resultsub as $answersub) {
                             $count = $answersub['ctt'];
                             $countd = $answersub['ctd'];
