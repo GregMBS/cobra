@@ -42,18 +42,18 @@ and queue = :queue ";
      *
      * @var string
      */
-    private $reportsubhead = "select count(1),
-sum(fecha_ultima_gestion>curdate()),
-sum(fecha_ultima_gestion>curdate() - interval 6 day),
-sum(fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day),
-sum(saldo_total),
-sum(saldo_total*(fecha_ultima_gestion>curdate())),
-sum(saldo_total*(fecha_ultima_gestion>curdate() - interval 6 day)),
-sum(saldo_total*(fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day))
+    private $reportsubhead = "select count(1) as ctt,
+sum(fecha_ultima_gestion>curdate()) as ctd,
+sum(fecha_ultima_gestion>curdate() - interval 6 day) as ctw,
+sum(fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day) as ctm,
+sum(saldo_total) as stt,
+sum(saldo_total*(fecha_ultima_gestion>curdate())) as std,
+sum(saldo_total*(fecha_ultima_gestion>curdate() - interval 6 day)) as stw,
+sum(saldo_total*(fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day)) as stm
 from resumen
 join dictamenes on status_aarsa=dictamen
 where cliente = :cliente
-and queue = :queue";
+and queue = :queue ";
 
     /**
      * 
@@ -110,7 +110,6 @@ and queue = :queue";
         }
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);
-        var_dump($result);die();
         return $result;
     }
 
@@ -133,7 +132,7 @@ and queue = :queue";
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 
