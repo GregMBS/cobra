@@ -235,8 +235,8 @@ if (empty($mytipo)) {
             $stm = $qc->bindResumenMain($stp, $capt, $cliente, $sdc, $cr);
         }
     }
-    var_dump($stm);die();
     $row = $qc->runResumenMain($stm);
+    var_dump($row);die();
     if ($row) {
         extract($row);
         if (empty($status_de_credito)) {
