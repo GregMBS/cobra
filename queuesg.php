@@ -1,10 +1,13 @@
 <?php
 
 use cobra_salsa\PdoClass;
+use cobra_salsa\QueuesgClass;
 
 require_once 'classes/PdoClass.php';
+require_once 'classes/QueuesgClass.php';
 $pdoc = new PdoClass();
 $pdo  = $pdoc->dbConnectUser();
+$qc = new QueuesgClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go   = filter_input(INPUT_GET, 'go');
 $msg  = "";
@@ -12,23 +15,8 @@ if ($go == 'INTRO') {
     $cliente     = filter_input(INPUT_GET, 'cliente');
     $sdc         = filter_input(INPUT_GET, 'sdc');
     $queue       = filter_input(INPUT_GET, 'queue');
-    $queryqueue  = "select camp from queuelist
-where cliente=:cliente
-and status_aarsa=:queue
-and sdc=:sdc
-and gestor=:capt
-and bloqueado=0 limit 1
-";
-    $stq         = $pdo->prepare($queryqueue);
-    $stq->bindParam(':cliente', $cliente);
-    $stq->bindParam(':queue', $queue);
-    $stq->bindParam(':sdc', $sdc);
-    $stq->bindParam(':capt', $capt);
-    $stq->execute();
-    $resultqueue = $stq->fetch(\PDO::FETCH_ASSOC);
-    if ($resultqueue) {
-        $camp = $resultqueue['camp'];
-    } else {
+    $camp = $qc->getCamp($cliente, $queue, $sdc, $capt);
+    if (empty($camp)) {
         $camp = -1;
     }
     if ($camp >= 0) {
