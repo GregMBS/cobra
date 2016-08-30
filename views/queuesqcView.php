@@ -52,7 +52,9 @@
                             $DINERO = $answerc['sst'];
                         }
                         $resultsub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
+                        if ($CLIENTE == 'PRESTAMO RELAMPAGO') {
                         var_dump($resultsub);die();
+                        }
                         foreach ($resultsub as $answersub) {
                             $count = $answersub['ctt'];
                             $countd = $answersub['ctd'];
