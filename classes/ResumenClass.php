@@ -428,7 +428,7 @@ ORDER BY cliente,sdc,queue";
         $stg = $this->pdo->prepare($queryg);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
-        $result = $stg->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stg->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 

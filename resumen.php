@@ -209,7 +209,6 @@ if (empty($mytipo)) {
         $mynombre = $resultg['usuaria'];
         $mytipo = $resultg['tipo'];
         $camp = $resultg['camp'];
-        die($camp);
     } else {
         $redirector = "Location: index.php";
         header($redirector);
