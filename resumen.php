@@ -34,6 +34,7 @@ $gc = new GestionClass($pdo);
 $qc = new ResumenQueuesClass($pdo);
 $mytipo = $pdoc->tipo;
 $capt = filter_input(INPUT_GET, 'capt');
+$go = filter_input(INPUT_GET, 'go');
 
 /*
   if ($detect->isMobile()) {
@@ -45,8 +46,6 @@ if (empty($mytipo)) {
     $redirector = "Location: index.php";
     header($redirector);
 } else {
-    $oldgo = '';
-    $go = filter_input(INPUT_GET, 'go');
     if (filter_has_var(INPUT_GET, 'elastix')) {
         $redirector = "Location: resumen.php?shutup=yes&capt=" . $capt;
     }
