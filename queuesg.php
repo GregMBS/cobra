@@ -16,6 +16,7 @@ if ($go == 'INTRO') {
     $sdc         = filter_input(INPUT_GET, 'sdc');
     $queue       = filter_input(INPUT_GET, 'queue');
     $camp = $qc->getCamp($cliente, $queue, $sdc, $capt);
+    die($camp);
     if (empty($camp)) {
         $camp = -1;
     }
@@ -35,38 +36,19 @@ if ($go == 'INTRO') {
 $arrayc  = '[';
 $arrays  = '[';
 $arrayq  = '[';
-$queryc  = "SELECT distinct cliente
-FROM queuelist where cliente<>''
-ORDER BY cliente;";
-$resultc = $pdo->query($queryc);
+$resultc = $qc->getClients();
 foreach ($resultc as $rowc) {
-    $arrayc = $arrayc.'"';
-    $arrayc = $arrayc.$rowc['cliente'].'",';
+    $arrayc .= '"'.$rowc['cliente'].'",';
 }
 $arrayc  = $arrayc.']';
-$querys  = "SELECT distinct sdc,cliente
-FROM queuelist WHERE gestor = :capt and bloqueado=0 and cliente<>''
-ORDER BY cliente,sdc,status_aarsa;";
-        $sts = $pdo->prepare($querys);
-        $sts->bindParam(':capt', $capt);
-        $sts->execute();
-        $results=$sts->fetchAll(\PDO::FETCH_ASSOC);
+$results = $qc->getSdcClients($capt);
 foreach ($results as $rows) {
-    $arrays = $arrays.'["';
-    $arrays = $arrays.$rows['sdc'].'","'.$rows['cliente'].'"],';
+    $arrays .= '["'.$rows['sdc'].'","'.$rows['cliente'].'"],';
 }
 $arrays  = rtrim($arrays, ',').']';
-$querysa  = "SELECT distinct status_aarsa,sdc,cliente
-FROM queuelist WHERE gestor = :capt and bloqueado=0
-ORDER BY cliente,sdc,status_aarsa;";
-        $stsa = $pdo->prepare($querysa);
-        $stsa->bindParam(':capt', $capt);
-        $stsa->execute();
-        $resultsa=$stsa->fetchAll(\PDO::FETCH_ASSOC);
+$resultsa= $qc->getQueueSdcClients($capt);
 foreach ($resultsa as $rowsa) {
-    $arrayq = $arrayq.'["';
-    $arrayq = $arrayq
-        . $rowsa['status_aarsa'].'","'
+    $arrayq .= '["'. $rowsa['status_aarsa'].'","'
         . $rowsa['sdc'].'","'
         . $rowsa['cliente'].'"],';
 }
