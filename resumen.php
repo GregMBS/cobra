@@ -264,7 +264,9 @@ if (empty($mytipo)) {
         extract($promesas);
     }
     $timecheck = $rc->getTimeCheck($id_cuenta);
-    extract($timecheck);
+    if (is_array($timecheck)) {
+        extract($timecheck);
+    }
 }
 $tl = date('r');
 if ($mytipo != 'admin') {

@@ -78,7 +78,7 @@
                 #notasq input {background-color: #ff0000;}
                 <?php
             }
-             if ((preg_match('/[dv]o$/', $status_de_credito)) && ($mytipo <> 'admin')) {
+            if ((preg_match('/[dv]o$/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 ?> 
                 #GUARDbutt {display:none;}
             <?php } ?>
@@ -172,12 +172,12 @@
             if ($notalert == 1) {
                 ?>
                 var goalert = confirm("Tiene alerta pendiente <?php echo $nota['fechahora']; ?> "
-                        +"para cuenta <?php echo $nota['cuenta']; ?> Quiere verlo?");
+                +"para cuenta <?php echo $nota['cuenta']; ?> Quiere verlo?");
                 if(goalert==true)
                 {
                 window.location="resumen.php?find=<?php echo $nota['cuenta']; ?>"
-                        +"&field=numero_de_cuenta&capt=<?php echo $capt; ?>"
-                        +"&go=FROMALERT&from=resumen.php&go1=FROMALERT";
+                +"&field=numero_de_cuenta&capt=<?php echo $capt; ?>"
+                +"&go=FROMALERT&from=resumen.php&go1=FROMALERT";
                 }
                 <?php
             }
@@ -379,9 +379,9 @@
         <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
     </head>
     <body onLoad="alerttxt = new String('');
-    paging('HISTORIA');
-    openSearch();
-    aviso();" id="todos">
+            paging('HISTORIA');
+            openSearch();
+            aviso();" id="todos">
         <div id="buttonbox">
             <?php if (($go == 'FROMULTIMA') || ($go == 'FROMBUSCAR')) { ?>
                 <form class="buttons" name="seg" method="get" action=
@@ -982,18 +982,22 @@
                         <th>Saldo descuento</th>
                     </tr>
                     <?php
-                    foreach ($resultextra as $answerextra) {
-                        ?>
-                        <tr>
-                            <td><?php echo $answerextra['cliente']; ?></td>
-                            <td><?php echo $answerextra['status_de_credito']; ?></td>
-                            <td><?php echo $answerextra['status_aarsa']; ?></td>
-                            <td><?php echo $answerextra['numero_de_cuenta']; ?></td>
-                            <td><?php echo $answerextra['productos']; ?></td>
-                            <td><?php echo number_format($answerextra['sd'], 2); ?></td>
-                            <td><?php echo number_format($answerextra['sdd'], 2); ?></td>
-                        </tr>
-                    <?php } ?>
+                    if (is_array($resultextra)) {
+                        foreach ($resultextra as $answerextra) {
+                            ?>
+                            <tr>
+                                <td><?php echo $answerextra['cliente']; ?></td>
+                                <td><?php echo $answerextra['status_de_credito']; ?></td>
+                                <td><?php echo $answerextra['status_aarsa']; ?></td>
+                                <td><?php echo $answerextra['numero_de_cuenta']; ?></td>
+                                <td><?php echo $answerextra['productos']; ?></td>
+                                <td><?php echo number_format($answerextra['sd'], 2); ?></td>
+                                <td><?php echo number_format($answerextra['sdd'], 2); ?></td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                    ?>
                 </table>
             </div>
 
