@@ -106,13 +106,18 @@
                             <td>
                                 <?php echo $QUEUE; ?>
                             </td>
-                            <td class='legibility'><a href="speclistqc.php?capt=<?php echo $capt ?>
-                                                      &cliente=<?php echo $CLIENTE ?>
-                                                      &queue=<?php echo $QUEUES ?>
-                                                      &status_de_credito=<?php echo $SDCS ?>
-                                                      &rato=total
-                                                      "><?php echo $count . '<br>' . number_format($monto, 0);
-                                ?></a>
+                            <td class='legibility'><a href="speclistqc.php?capt=<?php
+                                echo $capt
+                                ?>&cliente=<?php
+                                                      echo $CLIENTE
+                                                      ?>&queue=<?php
+                                                      echo $QUEUES
+                                                      ?>&status_de_credito=<?php
+                                                      echo $SDCS
+                                                      ?>&rato=total"><?php
+                                                          echo $count
+                                                          . '<br>' . number_format($monto, 0);
+                                                          ?></a>
                             </td>
                             <td><?php echo $pcc . '%<br>' . number_format($pcmc, 0) . "%"; ?>
                             </td>
@@ -122,10 +127,10 @@
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=diario
                                                        "><?php echo $countd . '<br>' . number_format($montod, 0);
-                                ?></a>
+                                                          ?></a>
                             </td>
                             <td <?php echo $empd ?>><?php echo $pcd . '%<br>' . number_format($pcmd, 0) . "%";
-                                ?>
+                                                          ?>
                             </td>
                             <td <?php echo $emps ?>><a href="speclistqc.php?capt=<?php echo $capt ?>
                                                        &cliente=<?php echo $CLIENTE ?>
@@ -133,10 +138,10 @@
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=semanal
                                                        "><?php echo $counts . '<br>' . number_format($montos, 0);
-                                ?></a>
+                                                          ?></a>
                             </td>
                             <td <?php echo $emps ?>><?php echo $pcs . '%<br>' . number_format($pcms, 0) . "%";
-                                ?>
+                                                          ?>
                             </td>
                             <td <?php echo $empm ?>><a href="speclistqc.php?capt=<?php echo $capt ?>
                                                        &cliente=<?php echo $CLIENTE ?>
@@ -144,10 +149,10 @@
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=mensual
                                                        "><?php echo $countm . '<br>' . number_format($montom, 0);
-                                ?></a>
+                                                          ?></a>
                             </td>
                             <td <?php echo $empm ?>><?php echo $pcm . '%<br>' . number_format($pcmm, 0) . "%";
-                                ?>
+                                                          ?>
                             </td>
                         </tr>
                     <?php } ?>
