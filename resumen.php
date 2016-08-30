@@ -235,7 +235,7 @@ if (empty($mytipo)) {
             $stm = $qc->bindResumenMain($stp, $capt, $cliente, $sdc, $cr);
         }
     }
-
+    var_dump($stm);die();
     $row = $qc->runResumenMain($stm);
     if ($row) {
         extract($row);
