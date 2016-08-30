@@ -102,7 +102,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
             $querymain = "SELECT * FROM resumen ".
                 "WHERE locker is null ".
  $clientStr.$sdcStr.
-" AND ((status_aarsa='') or (status_aarsa is null))) ".
+" AND ((status_aarsa='') or (status_aarsa is null)) ".
 " ORDER BY saldo_total desc LIMIT 1";
         }
 
@@ -178,7 +178,6 @@ order by fecha_ultima_gestion  LIMIT 1
     public function runResumenMain($stm) {
        $stm->execute();
        $result = $stm->fetch(\PDO::FETCH_ASSOC);
-       var_dump($stm);die();
        return $result;
     }
 }
