@@ -139,7 +139,7 @@
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=mensual
-                                                       "><?php echo $ctm . '<br>' . number_format($mm, 0);
+                                                       "><?php echo $ctm . '<br>' . number_format($mtm, 0);
                                                           ?></a>
                             </td>
                             <td <?php echo $empm ?>><?php echo $pcm . '%<br>' . number_format($pcmm, 0) . "%";
