@@ -33,6 +33,7 @@ $rc = new ResumenClass($pdo);
 $gc = new GestionClass($pdo);
 $qc = new ResumenQueuesClass($pdo);
 $mytipo = $pdoc->tipo;
+$capt = filter_input(INPUT_GET, 'capt');
 
 /*
   if ($detect->isMobile()) {
