@@ -177,8 +177,9 @@ order by fecha_ultima_gestion  LIMIT 1
      * @return array
      */
     public function runResumenMain($stm) {
-       $stm->execute();
+       $stm->execute() or die($stm->error);
        $result = $stm->fetch(\PDO::FETCH_ASSOC);
+       if (!$result) {die($stm->error);}
        return $result;
     }
 }
