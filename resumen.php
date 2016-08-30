@@ -252,115 +252,49 @@ if (empty($mytipo)) {
     if (empty($id_cuenta)) {
         $id_cuenta = 0;
     } else {
-        $qsliced = "delete from rslice where user='" . $capt . "';";
-        mysqli_query($con, $qsliced) or die("ERROR RM55 - " . mysqli_error($con));
-        $qslice = "replace into rslice select *, '" . $capt . "', now() from resumen where id_cuenta=" . $id_cuenta;
-        mysqli_query($con, $qslice) or die("ERROR RM55 - " . mysqli_error($con));
+        $rc->setSlice($capt, $id_cuenta);
 
-        $C_OBSE2 = '';
-        $CUANDO = '';
-        $querycom = "select c_obse2,c_cvst,cuando from historia where c_cont='" . $id_cuenta . "' order by d_fech desc, c_hrin desc limit 1";
-        $resultcom = mysqli_query($con, $querycom) or die("ERROR RM41 - " . mysqli_error($con));
-        while ($answercom = mysqli_fetch_row($resultcom)) {
-            $C_OBSE2 = $answercom[0];
-            $ultimo_status_de_la_gestion = $answercom[1];
-            $CUANDO = $answercom[2];
+        $lastGest = $rc->getLastStatus($id_cuenta);
+        if (!empty($lastGest)) {
+            $ultimo_status_de_la_gestion = $lastGest['c_cvst'];
+            $CUANDO = $lastGest['cuando'];
         }
+        $promesas = $rc->getPromData($id_cuenta);
+        extract($promesas);
     }
-    if ($id_cuenta == 0) {
-        $newcamp = 3;
-        $querycamp = "SELECT queuelist.camp FROM nombres,queuelist 
-WHERE gestor=iniciales and status_aarsa<>'' and queuelist.camp>nombres.camp
-AND gestor='" . $capt . "' AND bloqueado=0
-ORDER BY queuelist.camp LIMIT 1";
-        $resultcamp = mysqli_query($con, $querycamp) or die("ERROR RM42 - " . mysqli_error($con));
-        while ($answercamp = mysqli_fetch_row($resultcamp)) {
-            $newcamp = $answercamp[0];
-        }
-        $queryccamp = "UPDATE nombres SET camp=" . $newcamp . " WHERE iniciales='" . $capt . "';";
-        mysqli_query($con, $queryccamp) or die("ERROR RM43 - " . mysqli_error($con));
-
-        $queryprom = "select n_prom,d_prom,
-    n_prom1,d_prom1,n_prom2,d_prom2,
-    n_prom3,d_prom3,n_prom4,d_prom4,
-    c_freq 
-from historia 
-where c_cont=" . $id_cuenta . " and n_prom>0 
-and c_cvst like 'PROM%DE%'
-order by d_fech desc, c_hrin desc limit 1";
-        $resultprom = mysqli_query($con, $queryprom) or die("ERROR RM45 - " . mysqli_error($con));
-        while ($answerprom = mysqli_fetch_row($resultprom)) {
-            $N_PROM_OLD = $answerprom[0];
-            $D_PROM_OLD = $answerprom[1];
-            $N_PROM1_OLD = $answerprom[2];
-            $D_PROM1_OLD = $answerprom[3];
-            $N_PROM2_OLD = $answerprom[4];
-            $D_PROM2_OLD = $answerprom[5];
-            $N_PROM3_OLD = $answerprom[6];
-            $D_PROM3_OLD = $answerprom[7];
-            $N_PROM4_OLD = $answerprom[8];
-            $D_PROM4_OLD = $answerprom[9];
-        }
-        $nmerc = 0;
-        $querycheck = "SELECT timelock, locker,time_to_sec(timediff(now(),timelock))/60 from resumen  WHERE id_cuenta='" . $id_cuenta . "';";
-        $resultcheck = mysqli_query($con, $querycheck) or die("ERROR RM50 - " . mysqli_error($con));
-        while ($answercheck = mysqli_fetch_row($resultcheck)) {
-            $timelock = $answercheck[0];
-            $locker = $answercheck[1];
-            $sofar = $answercheck[2];
-        }
-    }
-    $tl = date('r');
-    if ($mytipo != 'admin') {
-        if (!(empty($locker)) && ($locker != $capt)) {
-            $lockflag = 1;
-        } else {
-            $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL 
-WHERE locker='" . $capt . "';";
-            $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-            if ($cliente == 'Surtidor del Hogar') {
-                $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
-            }
-            if ($mytipo == 'admin') {
-                $querylock = "SELECT 1;";
-            }
-            $queryunlock2 = "UPDATE rslice SET timelock=NULL, locker=NULL 
-WHERE locker='" . $capt . "';";
-            $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-            if ($cliente == 'Surtidor del Hogar') {
-                $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
-            }
-            mysqli_autocommit($con, false);
-            mysqli_query($con, $queryunlock) or die("ERROR RM51 - " . mysqli_error($con));
-            mysqli_query($con, $querylock) or die("ERROR RM52 - " . mysqli_error($con));
-            mysqli_query($con, $queryunlock2) or die("ERROR RM51 - " . mysqli_error($con));
-            mysqli_query($con, $querylock2) or die("ERROR RM52 - " . mysqli_error($con));
-            mysqli_commit($con);
-            $tl = $rc->getTimelock($id_cuenta);
-        }
-    }
-
-    $dday = date('Y-m-d', strtotime('last day of next month'));
-    $dday2 = $dday;
-    $CD = date("Y-m-d");
-    $CT = date("H:i:s");
-
-    $resultfilt = $rc->getQueueList($capt);
-    $resultng = $rc->getNumGests($capt);
-    $resultcl = $rc->getClientList();
-    $resultAccion = $rc->getAccion();
-    $resultMotiv = $rc->getMotiv();
-    $resultDictamen = $rc->getDict($mytipo);
-    $resultAccionV = $rc->getAccionV();
-    $resultDictamenV = $rc->getDictV();
-    $resultMotivV = $rc->getMotivV();
-    $resultGestorV = $rc->getVisitadorList();
-    $resultGestor = $rc->getGestorList();
-    if ($id_cuenta > 0) {
-        $rowsub = $rc->getHistory($id_cuenta);
-    }
-    $bad = $rc->getBadNo($id_cuenta);
-    $resultCnp = $rc->getCnp();
-    $nota = $rc->notAlert($capt);
-    require_once 'views/resumenView.php';
+    $timecheck = $rc->getTimeCheck($id_cuenta);
+    extract($timecheck);
 }
+$tl = date('r');
+if ($mytipo != 'admin') {
+    if (!(empty($locker)) && ($locker != $capt)) {
+        $lockflag = 1;
+    } else {
+        $rc->setLocks($capt, $id_cuenta, $mytipo);
+        $tl = $rc->getTimelock($id_cuenta);
+    }
+}
+
+$dday = date('Y-m-d', strtotime('last day of next month'));
+$dday2 = $dday;
+$CD = date("Y-m-d");
+$CT = date("H:i:s");
+
+$resultfilt = $rc->getQueueList($capt);
+$resultng = $rc->getNumGests($capt);
+$resultcl = $rc->getClientList();
+$resultAccion = $rc->getAccion();
+$resultMotiv = $rc->getMotiv();
+$resultDictamen = $rc->getDict($mytipo);
+$resultAccionV = $rc->getAccionV();
+$resultDictamenV = $rc->getDictV();
+$resultMotivV = $rc->getMotivV();
+$resultGestorV = $rc->getVisitadorList();
+$resultGestor = $rc->getGestorList();
+if ($id_cuenta > 0) {
+    $rowsub = $rc->getHistory($id_cuenta);
+}
+$bad = $rc->getBadNo($id_cuenta);
+$resultCnp = $rc->getCnp();
+$nota = $rc->notAlert($capt);
+require_once 'views/resumenView.php';

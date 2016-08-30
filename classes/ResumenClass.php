@@ -432,4 +432,112 @@ ORDER BY cliente,sdc,queue";
         return $result;
     }
 
+    /**
+     * 
+     * @param string $capt
+     * @param int $id_cuenta
+     */
+    public function setSlice($capt, $id_cuenta) {
+        $qsliced = "delete from rslice where user = :capt";
+        $std = $this->pdo->prepare($qsliced);
+        $std->bindParam(':capt', $capt);
+        $std->execute();
+
+        $qslice = "replace into rslice select *, :capt, now() from resumen "
+                . "where id_cuenta = :id_cuenta";
+        $sts = $this->pdo->prepare($qslice);
+        $sts->bindParam(':capt', $capt);
+        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->execute();
+    }
+
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return array
+     */
+    public function getLastStatus($id_cuenta) {
+        $querycom = "select c_cvst,cuando from historia where c_cont = :id_cuenta "
+                . "order by d_fech desc, c_hrin desc limit 1";
+        $stl = $this->pdo->prepare($querycom);
+        $stl->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stl->execute();
+        $result = $stl->fetch(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return array
+     */
+    public function getPromData($id_cuenta) {
+        $queryprom = "select n_prom as N_PROM_OLD, d_prom as D_PROM_OLD,
+    n_prom1 as N_PROM1_OLD, d_prom1 as D_PROM1_OLD,
+    n_prom2 as N_PROM2_OLD, d_prom2 as D_PROM2_OLD,
+    n_prom3 as N_PROM3_OLD, d_prom1 as D_PROM1_OLD,
+    n_prom1 as N_PROM1_OLD, d_prom1 as D_PROM1_OLD
+from historia 
+where c_cont = :id_cuenta 
+and n_prom>0 
+and c_cvst like 'PROMESA DE%'
+order by d_fech desc, c_hrin desc limit 1";
+        $stp = $this->pdo->prepare($queryprom);
+        $stp->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stp->execute();
+        $result = $stp->fetch(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return array
+     */
+    public function getTimeCheck($id_cuenta) {
+        $querycheck = "SELECT timelock, locker, time_to_sec(timediff(now(),timelock))/60 as sofar "
+                . "FROM resumen "
+                . "WHERE id_cuenta = :id_cuenta";
+        $stc = $this->pdo->prepare($querycheck);
+        $stc->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stc->execute();
+        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    /**
+     * 
+     * @param string $capt
+     * @param int $id_cuenta
+     * @param string $mytipo
+     */
+    public function setLocks($capt, $id_cuenta, $mytipo) {
+        $queryunlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
+                . "WHERE locker = :capt";
+        $stu = $this->pdo->prepare($queryunlock);
+        $stu->bindParam(':capt', $capt);
+        $querylock = "UPDATE resumen SET timelock = now(), locker = :capt "
+                . "WHERE id_cuenta = :id_cuenta";
+        if ($mytipo == 'admin') {
+            $querylock = "SELECT :capt, :id_cuenta";
+        }
+        $stl = $this->pdo->prepare($querylock);
+        $stl->bindParam(':capt', $capt);
+        $stl->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $queryunlockslice = "UPDATE rslice SET timelock = NULL, locker = NULL "
+                . "WHERE locker = :capt";
+        $stus = $this->pdo->prepare($queryunlockslice);
+        $stus->bindParam(':capt', $capt);
+        $querylockslice = "UPDATE rslice SET timelock = now(), locker = :capt "
+                . "WHERE id_cuenta= :id_cuenta";
+        $stls = $this->pdo->prepare($querylockslice);
+        $stls->bindParam(':capt', $capt);
+        $stls->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $this->pdo->beginTransaction();
+        $stu->execute();
+        $stl->execute();
+        $stus->execute();
+        $stls->execute();
+        $this->pdo->commit();
+    }
 }
