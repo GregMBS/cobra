@@ -13,6 +13,20 @@ $pdo = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $get = filter_input_array(INPUT_GET);
 
+$queryg = "SELECT distinct c_cvge FROM historia
+        where d_fech>last_day(curdate()-interval 2 month)
+        and c_cvge <> ''
+        order by c_cvge
+        limit 1000
+	";
+$resultg = $pdo->query($queryg);
+$queryc = "SELECT distinct c_cvba FROM historia
+        where d_fech>last_day(curdate()-interval 2 month)
+        order by c_cvba
+        limit 100
+	";
+$resultc = $pdo->query($queryc);
+
 if (isset($get['fecha1'])) {
     $go = $get['go'];
     $gestor = $get['gestor'];
@@ -75,17 +89,4 @@ ORDER BY d_fech,c_hrin
     }
     $stm->execute();
     $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
-    $queryg = "SELECT distinct c_cvge FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
-        and c_cvge <> ''
-        order by c_cvge
-        limit 1000
-	";
-    $resultg = $pdo->query($queryg);
-    $queryc = "SELECT distinct c_cvba FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
-        order by c_cvba
-        limit 100
-	";
-    $resultc = $pdo->query($queryc);
 }
