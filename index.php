@@ -14,6 +14,7 @@ if (!empty($go)) {
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
+                var_dump($userData);die();
     if (isset($userData['tipo'])) {
         switch ($userData['tipo']) {
             case "callcenter":
@@ -29,7 +30,6 @@ if (!empty($go)) {
                 break;
 
             default:
-                var_dump($userData);die();
                 break;
         }
         $cpw = $capt . sha1($pw) . date('U');
