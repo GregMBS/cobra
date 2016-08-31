@@ -38,7 +38,7 @@ class LoginClass {
         $stg->bindParam(':pw', $pw);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
-        $resultg = $stg->fetchAll(\PDO::FETCH_ASSOC);
+        $resultg = $stg->fetch(\PDO::FETCH_ASSOC);
         return $resultg;
     }
 
