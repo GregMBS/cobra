@@ -21,7 +21,6 @@ $queryg = "SELECT distinct c_cvge FROM historia
 	";
 $resultg = $pdo->query($queryg);
 $queryc = "SELECT distinct c_cvba FROM historia
-        where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvba
         limit 100
 	";
