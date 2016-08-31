@@ -16,7 +16,7 @@ if (!empty($go)) {
 
     if ($go == 'cargar') {
         $data = preg_split("/[\s,]+/", $dataRaw, 0, PREG_SPLIT_NO_EMPTY);
-        $ac->activateCuentas($data);
+        $ac->inactivateCuentas($data);
         $msg = '<p>Cuentas est&aacute;n inactivadas</p>';
     }
 }
