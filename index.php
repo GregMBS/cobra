@@ -14,7 +14,6 @@ if (!empty($go)) {
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
-    var_dump($userData);die();
     extract($userData);
     if (isset($tipo)) {
         switch ($tipo) {
@@ -33,8 +32,8 @@ if (!empty($go)) {
             default:
                 break;
         }
-        $cpw = $mynombre . sha1($pw) . date('U');
-        if ($mynombre == "gmbs") {
+        $cpw = $iniciales . sha1($pw) . date('U');
+        if ($iniciales == "gmbs") {
             setcookie('auth', $cpw, time() + 60 * 60 * 24);
         } else {
             setcookie('auth', $cpw, time() + 60 * 60 * 11);
