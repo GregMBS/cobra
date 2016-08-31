@@ -14,10 +14,8 @@ if (!empty($go)) {
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
-    extract($userData);
-    die($tipo);
-    if (isset($tipo)) {
-        switch ($tipo) {
+    if (isset($userData['tipo'])) {
+        switch ($userData['tipo']) {
             case "callcenter":
                 $field = "ejecutivo_asignado_call_center";
                 break;
@@ -33,18 +31,18 @@ if (!empty($go)) {
             default:
                 break;
         }
-        $cpw = $iniciales . sha1($pw) . date('U');
-        if ($iniciales == "gmbs") {
+        $cpw = $capt . sha1($pw) . date('U');
+        if ($capt == "gmbs") {
             setcookie('auth', $cpw, time() + 60 * 60 * 24);
         } else {
             setcookie('auth', $cpw, time() + 60 * 60 * 11);
         }
-        $lc->setTicket($cpw, $capt, $tipo);
+        $lc->setTicket($cpw, $capt, $userData['tipo']);
         $lc->setInitialQueue($capt);
         $lc->setUserlog($capt, $local);
         $lc->insertPermalog($capt, $local);
         $lc->insertHistoria($capt);
-
+        $enlace = $userData['enlace'];
         $page = "Location: $enlace?find=$capt&field=$field&i=0&capt=$capt&go=ABINICIO";
         header($page);
     }
