@@ -15,6 +15,7 @@ if (!empty($go)) {
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
     extract($userData);
+    die($tipo);
     if (isset($tipo)) {
         switch ($tipo) {
             case "callcenter":
@@ -33,7 +34,6 @@ if (!empty($go)) {
                 break;
         }
         $cpw = $iniciales . sha1($pw) . date('U');
-        die($cpw);
         if ($iniciales == "gmbs") {
             setcookie('auth', $cpw, time() + 60 * 60 * 24);
         } else {
