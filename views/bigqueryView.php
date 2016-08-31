@@ -48,10 +48,6 @@
                 ?>
                 <select name="fecha1">
                     <?php
-                    $queryf1 = "SELECT distinct d_fech FROM historia
-        where d_fech>last_day(curdate()-interval 6 month)
-        ORDER BY d_fech limit 360";
-                    $resultf1 = $pdo->query($queryf1);
                     foreach ($resultf1 as $answerf1) {
                         ?>
                         <option value="<?php echo $answerf1[0]; ?>" style="font-size:120%;">
@@ -66,10 +62,6 @@
                 ?>
                 <select name="fecha2">
                     <?php
-                    $queryf2 = "SELECT distinct d_fech FROM historia
-        where d_fech>last_day(curdate()-interval 6 month)
-        ORDER BY d_fech desc limit 60";
-                    $resultf2 = $pdo->query($queryf2);
                     foreach ($resultf2 as $answerf2) {
                         ?>
                         <option value="<?php echo $answerf2[0]; ?>" style="font-size:120%;">

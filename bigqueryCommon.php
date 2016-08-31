@@ -11,6 +11,14 @@ $queryc = "SELECT distinct c_cvba FROM historia
         limit 100
 	";
 $resultc = $pdo->query($queryc);
+$queryf1 = "SELECT distinct d_fech FROM historia
+        where d_fech>last_day(curdate()-interval 12 month)
+        ORDER BY d_fech limit 360";
+$resultf1 = $pdo->query($queryf1);
+$queryf2 = "SELECT distinct d_fech FROM historia
+        where d_fech>last_day(curdate()-interval 12 month)
+        ORDER BY d_fech desc limit 60";
+$resultf2 = $pdo->query($queryf2);
 
 if (isset($get['fecha1'])) {
     $go = $get['go'];
