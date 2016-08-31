@@ -1,8 +1,12 @@
 <?php
+set_time_limit(300);
+
 use cobra_salsa\PdoClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
+require_once 'vendor/autoload.php';
+require_once 'classes/PdoClass.php';
 require_once 'bigqueryCommon.php';
 if (isset($get['fecha1'])) {
     $filename = "Query_de_gestiones_".$fecha1.'_'.$fecha2.".xlsx";
