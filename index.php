@@ -14,6 +14,7 @@ if (!empty($go)) {
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
+    var_dump($userData);die();
     extract($userData);
     if (isset($tipo)) {
         switch ($tipo) {
