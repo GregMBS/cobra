@@ -7,6 +7,11 @@ use Box\Spout\Common\Type;
 
 require_once 'vendor/autoload.php';
 require_once 'classes/PdoClass.php';
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectAdmin();
+$capt = filter_input(INPUT_GET, 'capt');
+$get = filter_input_array(INPUT_GET);
+
 require_once 'bigqueryCommon.php';
 if (isset($get['fecha1'])) {
     $filename = "Query_de_gestiones_".$fecha1.'_'.$fecha2.".xlsx";

@@ -1,10 +1,5 @@
 <?php
 
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
-$capt = filter_input(INPUT_GET, 'capt');
-$get = filter_input_array(INPUT_GET);
-
 $queryg = "SELECT distinct c_cvge FROM historia
         where c_cvge <> ''
         order by c_cvge
