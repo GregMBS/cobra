@@ -29,6 +29,7 @@ if (!empty($go)) {
                 break;
 
             default:
+                var_dump($userData);die();
                 break;
         }
         $cpw = $capt . sha1($pw) . date('U');
