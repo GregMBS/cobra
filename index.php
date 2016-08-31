@@ -33,6 +33,7 @@ if (!empty($go)) {
                 break;
         }
         $cpw = $iniciales . sha1($pw) . date('U');
+        die($cpw);
         if ($iniciales == "gmbs") {
             setcookie('auth', $cpw, time() + 60 * 60 * 24);
         } else {
