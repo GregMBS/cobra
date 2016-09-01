@@ -24,7 +24,7 @@
                         ?>
                         <option value="<?php echo $answer['usuaria']; ?>" <?php
                         if ($gestor == $answer['usuaria']) {
-                            ?> selected='selected'<?php } ?>><?php echo htmlentities($answer[1]); ?>
+                            ?> selected='selected'<?php } ?>><?php echo htmlentities($answer['completo']); ?>
                         </option>
                     <?php }
                     ?>
@@ -47,42 +47,46 @@
             </form>
             <p>Asignado: <?php echo $resultcount['countOut']; ?><br>
                 Recibido: <?php echo $resultcount['countIn']; ?></p>
-            <table>
-                <tr>
-                    <th>ID_CUENTA</th>
-                    <th>CUENTA</th>
-                    <th>NOMBRE</th>
-                    <th>CLIENTE</th>
-                    <th>SALDO TOTAL</th>
-                    <th>QUEUE</th>
-                    <th>GESTOR</th>
-                    <th>ASIG.</th>
-                    <th>RECIB.</th>
-                </tr>
-                <?php
-                 foreach ($resultmain as $answermain) {
-                    $ID_CUENTA = $answermain[0];
-                    $CUENTA = $answermain[1];
-                    $NOMBRE = $answermain[2];
-                    $CLIENTE = $answermain[3];
-                    $ST = $answermain[4];
-                    $QUEUE = $answermain[5];
-                    $GESTOR = $answermain[6];
-                    $FECHAOUT = $answermain[7];
-                    $FECHAIN = $answermain[8];
-                    ?>
+            <table class="ui-widget">
+                <thead class="ui-widget-header">
                     <tr>
-                        <td><?php echo $ID_CUENTA; ?></td>
-                        <td><?php echo $CUENTA; ?></td>
-                        <td><?php echo $NOMBRE; ?></td>
-                        <td><?php echo $CLIENTE; ?></td>
-                        <td><?php echo number_format($ST, 0); ?></td>
-                        <td><?php echo $QUEUE; ?></td>
-                        <td><?php echo $GESTOR; ?></td>
-                        <td><?php echo $FECHAOUT; ?></td>
-                        <td><?php echo $FECHAIN; ?></td>
+                        <th>ID_CUENTA</th>
+                        <th>CUENTA</th>
+                        <th>NOMBRE</th>
+                        <th>CLIENTE</th>
+                        <th>SALDO TOTAL</th>
+                        <th>QUEUE</th>
+                        <th>GESTOR</th>
+                        <th>ASIG.</th>
+                        <th>RECIB.</th>
                     </tr>
-                <?php } ?>
+                </thead>
+                <tbody class="ui-widget-content">
+                    <?php
+                    foreach ($resultmain as $answermain) {
+                        $ID_CUENTA = $answermain['id_cuenta'];
+                        $CUENTA = $answermain['numero_de_cuenta'];
+                        $NOMBRE = $answermain['nombre_deudor'];
+                        $CLIENTE = $answermain['cliente'];
+                        $ST = $answermain['saldo_total'];
+                        $QUEUE = $answermain['queue'];
+                        $GESTOR = $answermain['completo'];
+                        $FECHAOUT = $answermain['fechaout'];
+                        $FECHAIN = $answermain['fechain'];
+                        ?>
+                        <tr>
+                            <td><?php echo $ID_CUENTA; ?></td>
+                            <td><?php echo $CUENTA; ?></td>
+                            <td><?php echo $NOMBRE; ?></td>
+                            <td><?php echo $CLIENTE; ?></td>
+                            <td><?php echo number_format($ST, 0); ?></td>
+                            <td><?php echo $QUEUE; ?></td>
+                            <td><?php echo $GESTOR; ?></td>
+                            <td><?php echo $FECHAOUT; ?></td>
+                            <td><?php echo $FECHAIN; ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
             </table>
         </div>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
