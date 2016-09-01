@@ -29,30 +29,10 @@
                     $ID_CUENTA = $row['id_cuenta'];
                     $STATUS = $row['status_de_credito'];
                     $STATUSC = $row['status_aarsa'];
-                    if (preg_match('/activo$/', $STATUS)) {
+                    if (preg_match('/-/', $STATUS)) {
                         $INACTIVO = 1;
                     } else {
                         $INACTIVO = 0;
-                    }
-                    if (preg_match('/quidado$/', $STATUS)) {
-                        $LIQUIDADO = 1;
-                    } else {
-                        $LIQUIDADO = 0;
-                    }
-                    if (preg_match('/quita$/', $STATUS)) {
-                        $QUITA = 1;
-                    } else {
-                        $QUITA = 0;
-                    }
-                    if (preg_match('/reestructura$/', $STATUS)) {
-                        $REESTRUCTURA = 1;
-                    } else {
-                        $REESTRUCTURA = 0;
-                    }
-                    if (preg_match('/regularizada$/', $STATUS)) {
-                        $REGULARIZADA = 1;
-                    } else {
-                        $REGULARIZADA = 0;
                     }
                     ?>
                     <tr>
@@ -63,18 +43,6 @@
                             <form method='get' action='changest.php' name='<?php echo $ID_CUENTA; ?>'>
                                 INACTIVO<input type="checkbox" name="inactivo" value="inactivo"<?php
                                 if ($INACTIVO == 1) {
-                                    ?> checked=checked<?php } ?>><br>
-                                LIQUIDADO<input type="checkbox" name="liquidado" value="liquidado"<?php
-                                if ($LIQUIDADO == 1) {
-                                    ?> checked=checked<?php } ?>><br>
-                                QUITA<input type="checkbox" name="quita" value="quita"<?php
-                                if ($QUITA == 1) {
-                                    ?> checked=checked<?php } ?>><br>
-                                REESTRUCTURA<input type="checkbox" name="reestructura" value="reestructura"<?php
-                                if ($REESTRUCTURA == 1) {
-                                    ?> checked=checked<?php } ?>><br>
-                                REGULARIZADA<input type="checkbox" name="regularizada" value="regularizada"<?php
-                                if ($REGULARIZADA == 1) {
                                     ?> checked=checked<?php } ?>><br>
                                 <input type="hidden" name="C_CONT" value="<?php echo $ID_CUENTA; ?>">
                                 <input type="hidden" name="CLIENTE" value="<?php echo $CLIENTE; ?>">
