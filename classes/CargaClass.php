@@ -36,7 +36,7 @@ class CargaClass {
         'timelock'
     );
 
-    protected function __construct($pdo) {
+    public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
