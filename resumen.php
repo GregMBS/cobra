@@ -209,7 +209,10 @@ if (empty($mytipo)) {
     }
 
     $resultquery = $qc->getMyQueue($capt, $camp);
-    extract($resultquery);
+    if ($resultquery) {
+        extract($resultquery);
+    }
+    
     if (isset($cr)) {
         $codres = ' AND queue="' . $cr . '" ';
     } else {
