@@ -18,12 +18,9 @@
                         <th>BORRAR</th>
                     </tr>
                 </thead>
-
-                <?php
-                if ($rowsub) {
-                    ?>
-                    <tbody class="ui-widget-content">
-                        <?php
+                <tbody class="ui-widget-content">
+                    <?php
+                    if ($rowsub) {
                         $i = 0;
                         foreach ($rowsub as $answer) {
                             $i++;
@@ -48,17 +45,21 @@
 
                             </tr>
 
-                        <?php } ?>
+                            <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
-        <?php } ?>
+            <?php
+        }
+        ?>
         <form action="<?php echo $page ?>" method="get" name="notas">
             <span class="formcap">Gestor</span><SELECT NAME="target">
                 <OPTION VALUE='todos'>todos</option>
-                <?php
-                foreach ($rowt as $answert) {
-                    ?>
+<?php
+foreach ($rowt as $answert) {
+    ?>
                     <option value='<?php echo $answert['iniciales']; ?>'><?php echo $answert[0]; ?></option>
                 <?php } ?>
             </SELECT><br>

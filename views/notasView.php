@@ -19,11 +19,10 @@
                         <th>BORRAR</th>
                     </tr>
                 </thead>
-                <?php
-                if ($result) {
-                    ?>
-                    <tbody class="ui-widget-content">
-                        <?php foreach ($result as $answer) { ?>
+                <tbody class="ui-widget-content"><?php
+                    if ($result) {
+                        foreach ($result as $answer) {
+                            ?>
                             <tr>
                                 <td><?php echo $answer['fecha']; ?></td>
                                 <td><?php echo $answer['hora']; ?></td>
@@ -35,15 +34,19 @@
                                             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> />
                                             <input type="submit" name="go" value="BORRAR">
                                         </form>
-                                    <?php } ?>
+                                        <?php
+                                    }
+                                    ?>
                                 </td>
                             </tr>
 
-                        <?php } ?>
+                            <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
-        <?php } ?>
+<?php } ?>
         <form action="notas.php" method="get" name="notas">
             <label for='FECHA'>Fecha</label>
             <INPUT TYPE="text" NAME="FECHA" ID="FECHA" VALUE="" SIZE=15 /><br>
