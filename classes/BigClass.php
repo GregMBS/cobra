@@ -41,7 +41,7 @@ class BigClass {
         }
         return $direction;
     }
-    
+
     /**
      * 
      * @param string $gestor
@@ -284,19 +284,59 @@ ORDER BY d_fech,c_hrin
 
     /**
      * 
+     * @param array $dates
+     * @return array
+     */
+    private function alignDates($dates) {
+        $output = $dates;
+        if ($dates[1] < $dates[0]) {
+            $output[1] = $dates[0];
+            $output[0] = $dates[1];
+        }
+        if ($dates[3] < $dates[2]) {
+            $output[3] = $dates[2];
+            $output[2] = $dates[3];
+        }
+        return $output;
+    }
+
+    /**
+     * 
+     * @param string $tipo
+     * @return string
+     */
+    private function getTipoStr($tipo) {
+        switch ($tipo) {
+            case 'visits':
+                $tipostr = " and c_visit <> '' and c_msge is null ";
+                break;
+            case 'telef':
+                $tipostr = " and c_visit IS NULL and c_msge is null ";
+                break;
+            case 'admin':
+                $tipostr = " and c_msge <> '' ";
+                break;
+            case 'noadmin':
+                $tipostr = " and c_msge IS NULL ";
+                break;
+            default :
+                $tipostr = " ";
+                break;
+        }
+        return $tipostr;
+    }
+    
+    /**
+     * 
      * @param array $get
      * @return array
      */
     public function getProms($get) {
         extract($get);
+        $dates = $this->alignDates(array($fecha1, $fecha2, $fecha3, $fecha4));
+        list($fecha1, $fecha2, $fecha3, $fecha4) = $dates;
         if (!isset($tipo)) {
             $tipo = '';
-        }
-        if ($fecha2 < $fecha1) {
-            list($fecha1, $fecha2) = array($fecha2, $fecha1);
-        }
-        if ($fecha4 < $fecha3) {
-            list($fecha3, $fecha4) = array($fecha4, $fecha3);
         }
 //$gestorstr=" and ejecutivo_asignado_call_center not regexp '-' ";
         $gestorstr = '';
@@ -304,23 +344,9 @@ ORDER BY d_fech,c_hrin
         if ($gestor != 'todos') {
             $gestorstr = " and c_cvge=:gestor ";
         }
+        $gestorstr .= $this->getTipoStr($tipo);
         if ($cliente != 'todos') {
             $clientestr = " and c_cvba=:cliente ";
-        }
-        if ($tipo == 'visits') {
-            $gestorstr .= " and c_visit <> '' and c_msge is null ";
-        }
-        if ($tipo == 'telef') {
-            $gestorstr .= " and c_visit IS NULL and c_msge is null ";
-        }
-        if ($tipo == 'admin') {
-            $gestorstr .= " and c_msge <> '' ";
-        }
-        if ($tipo == 'noadmin') {
-            $gestorstr .= " and c_msge IS NULL ";
-        }
-        if ($tipo == 'todos') {
-            $gestorstr .= " ";
         }
         $querymain = "select Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
