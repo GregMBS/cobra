@@ -1,29 +1,19 @@
 <?php
 
 use cobra_salsa\PdoClass;
+use cobra_salsa\PagosClass;
 
 require_once 'classes/PdoClass.php';
+require_once 'classes/PagosClass.php';
 $pdoc      = new PdoClass();
 $pdo       = $pdoc->dbConnectUser();
+$pc = new PagosClass($pdo);
 $capt      = filter_input(INPUT_GET, 'capt');
 $ID_CUENTA = filter_input(INPUT_GET, 'id_cuenta');
-$querycc   = "SELECT numero_de_cuenta, cliente
-FROM resumen 
-WHERE id_cuenta=:id";
-$stc       = $pdo->prepare($querycc);
-$stc->bindParam(':id', $ID_CUENTA);
-$stc->execute();
-$resultcc  = $stc->fetchAll(\PDO::FETCH_ASSOC);
-foreach ($resultcc as $answercc) {
-    $CUENTA  = $answercc['numero_de_cuenta'];
-    $CLIENTE = $answercc['cliente'];
+$resultcc  = $pc->getCuentaClienteFromID($ID_CUENTA);
+if ($resultcc) {
+    $CUENTA  = $resultcc['numero_de_cuenta'];
+    $CLIENTE = $resultcc['cliente'];
 }
-$querysub = "SELECT fecha,monto,confirmado
-FROM cobra.pagos
-WHERE id_cuenta=:id
-ORDER BY fecha";
-$sts      = $pdo->prepare($querysub);
-$sts->bindParam(':id', $ID_CUENTA);
-$sts->execute();
-$rowsub   = $sts->fetchAll(\PDO::FETCH_ASSOC);
+$rowsub   = $pc->listPagos($ID_CUENTA);
 require_once 'views/pagosView.php';

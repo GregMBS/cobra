@@ -115,4 +115,37 @@ order by cliente,gestor,fecha";
         return $resultAntDet;
     }
 
+    /**
+     * 
+     * @param int $ID_CUENTA
+     * @return array
+     */
+    public function getCuentaClienteFromID($ID_CUENTA) {
+        $querycc = "SELECT numero_de_cuenta, cliente
+FROM resumen 
+WHERE id_cuenta=:id";
+        $stc = $this->pdo->prepare($querycc);
+        $stc->bindParam(':id', $ID_CUENTA, \PDO::PARAM_INT);
+        $stc->execute();
+        $resultcc = $stc->fetch(\PDO::FETCH_ASSOC);
+        return $resultcc;
+    }
+
+    /**
+     * 
+     * @param int $ID_CUENTA
+     * @return array
+     */
+    public function listPagos($ID_CUENTA) {
+        $querysub = "SELECT fecha,monto,confirmado
+FROM cobra.pagos
+WHERE id_cuenta=:id
+ORDER BY fecha";
+        $sts = $this->pdo->prepare($querysub);
+        $sts->bindParam(':id', $ID_CUENTA);
+        $sts->execute();
+        $rowsub = $sts->fetchAll(\PDO::FETCH_ASSOC);
+        return $rowsub;
+    }
+
 }
