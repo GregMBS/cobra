@@ -22,8 +22,8 @@
                     <?php
                     foreach ($result as $answer) {
                         ?>
-                        <option value="<?php echo $answer[0]; ?>" <?php
-                        if ($gestor == $answer[0]) {
+                        <option value="<?php echo $answer['usuaria']; ?>" <?php
+                        if ($gestor == $answer['usuaria']) {
                             ?> selected='selected'<?php } ?>><?php echo htmlentities($answer[1]); ?>
                         </option>
                     <?php }
@@ -34,9 +34,9 @@
                     <?php
                     foreach ($resultd as $answerd) {
                         ?>
-                        <option value="<?php echo $answerd[0]; ?>" <?php
-                        if ($fechaout == $answerd[0]) {
-                            ?> selected='selected'<?php } ?>><?php echo $answerd[0]; ?>
+                        <option value="<?php echo $answerd; ?>" <?php
+                        if ($fechaout == $answerd) {
+                            ?> selected='selected'<?php } ?>><?php echo $answerd; ?>
                         </option>
                     <?php }
                     ?>
@@ -45,14 +45,8 @@
                 <input type="hidden" name="capt" value="<?php echo $capt; ?>">
                 <input type="submit" name="go" value="RECIBIR">
             </form>
-            <?php
-            foreach ($resultcount as $answercount) {
-                $ASIG = $answercount[0];
-                $RECIB = $answercount[1];
-            }
-            ?>
-            <p>Asignado: <?php echo $ASIG; ?><br>
-                Recibido: <?php echo $RECIB; ?></p>
+            <p>Asignado: <?php echo $resultcount['countOut']; ?><br>
+                Recibido: <?php echo $resultcount['countIn']; ?></p>
             <table>
                 <tr>
                     <th>ID_CUENTA</th>
@@ -66,11 +60,7 @@
                     <th>RECIB.</th>
                 </tr>
                 <?php
-                $gstring = '';
-                if (!empty($gestor)) {
-                    $gstring = " where gestor = :gestor order by fechain desc";
-                }
-                foreach ($resultmain as $answermain) {
+                 foreach ($resultmain as $answermain) {
                     $ID_CUENTA = $answermain[0];
                     $CUENTA = $answermain[1];
                     $NOMBRE = $answermain[2];

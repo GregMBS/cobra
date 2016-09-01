@@ -28,13 +28,5 @@ if ($go == 'RECIBIR') {
 $result = $cc->getVisitadores();
 $resultd = $cc->getOneMonth();
 $resultcount = $cc->countInOut($gestor);
-$querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
-q(status_aarsa),completo, fechaout, fechain
-from resumen join vasign on id_cuenta=c_cont join nombres on iniciales=gestor " . $gstring;
-$stm = $pdo->query($querymain);
-if (!empty($gestor)) {
-    $stm->bindParam(':gestor', $gestor);
-}
-$stm->execute();
-$resultmain = $stm->fetchAll();
+$resultmain = $cc->listVasign($gestor);
 require_once 'views/checkbothView.php';

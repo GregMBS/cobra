@@ -114,4 +114,32 @@ where gestor=:gestor";
         return $resultcount;
     }
 
+    /**
+     * 
+     * @param string $gestor
+     * @return array
+     */
+    public function listVasign($gestor) {
+        if (!empty($gestor)) {
+            $gstring = "WHERE gestor = :gestor "
+                    . "ORDER BY fechain DESC";
+        } else {
+            $gstring = '';
+        }
+
+        $querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
+queue, completo, fechaout, fechain
+from resumen 
+join vasign on id_cuenta=c_cont 
+join nombres on iniciales=gestor 
+join dictamenes on dictamen = status_aarsa " . $gstring;
+        $stm = $this->pdo->query($querymain);
+        if (!empty($gestor)) {
+            $stm->bindParam(':gestor', $gestor);
+        }
+        $stm->execute();
+        $resultmain = $stm->fetchAll();
+        return $resultmain;
+    }
+
 }
