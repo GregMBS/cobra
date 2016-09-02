@@ -181,7 +181,7 @@ order by fecha_ultima_gestion  LIMIT 1
             $result = $stm->fetch(\PDO::FETCH_ASSOC);
             return $result;
         } catch (Exception $e) {
-            die($e->message);
+            return array();
         }
     }
 
