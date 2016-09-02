@@ -147,7 +147,7 @@ telefonos_marcados regexp :find)";
             $stm->execute();
             $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            die($e->getMessage());
+            $result = array();
         }
 
         return $result;
