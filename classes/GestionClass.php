@@ -95,134 +95,12 @@ and id_cuenta = :c_cont";
         $this->pdo = $pdo;
     }
 
-
     /**
      * 
      * @param array $gestion
      * @return int
      */
-    public function countDup($gestion) {
-        $querydup = "SELECT count(1) as ct FROM historia 
-WHERE c_cont = :c_cont and d_fech = :d_fech 
-and c_hrin = :c_hrin and c_cvst = :c_cvst 
-and c_cvge = :c_cvge and c_obse1 = :c_obse1";
-        $std = $this->pdo->prepare($querydup);
-        $std->bindParam(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
-        $std->bindParam(':d_fech', $gestion['D_FECH']);
-        $std->bindParam(':c_hrin', $gestion['C_HRIN']);
-        $std->bindParam(':c_cvst', $gestion['C_CVST']);
-        $std->bindParam(':c_cvge', $gestion['C_CVGE']);
-        $std->bindParam(':c_obse1', $gestion['C:OBSE1']);
-        $std->execute();
-        $result = $std->fetch(\PDO::FETCH_ASSOC);
-        return $result['ct'];
-    }
-
-    /**
-     * 
-     * @param array $gestion
-     * @return array
-     */
-    public function countVisitErrors($gestion) {
-        $errorv = 0;
-        $flagmsgv = "";
-        $dupcount = $this->countDup($gestion);
-        if ($dupcount > 0) {
-            $errorv = $errorv + $dupcount;
-            $flagmsgv .= "DOBLE ENTRANTE";
-        }
-        if (($gestion['N_PROM'] == 0) && ($gestion['C_CVST'] == 'PROMESA DE PAGO TOTAL')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if (($gestion['N_PROM'] == 0) && ($gestion['C_CVST'] == 'PROMESA DE PAGO PARCIAL')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if (($gestion['N_PROM'] > 0) && ($gestion['D_PROM'] == '0000-00-00')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA FECHA";
-        }
-        if (($gestion['N_PROM'] == 0) && ($gestion['D_PROM'] >= $gestion['D_FECH'])) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if ($gestion['C_VISIT'] == '') {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "GESTION NECESITA VISITADOR";
-        }
-        $output = array(
-            'errorv' => $errorv,
-            'flagmsgv' => $flagmsgv
-        );
-        return $output;
-    }
-
-    /**
-     * 
-     * @param array $gestion
-     * @return array
-     */
-    public function countGestionErrors($gestion) {
-        $error = 0;
-        $flagmsg = "";
-        $dupcount = $this->countDup($gestion);
-        if ($dupcount > 0) {
-            $error = $error + $dupcount;
-            $flagmsg .= "DOBLE ENTRANTE";
-        }
-        $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO PARCIAL');
-        $promised = array('PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO PARCIAL');
-        if (($gestion['N_PAGO'] == 0) && (in_array($gestion['C_CVST'], $paid))) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-        }
-        if ((substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON') && ($gestion['C_CARG'] == '')) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "MENSAJE NECESITA PARENTESCO/CARGO";
-        }
-        if (($gestion['N_PROM'] == 0) && (in_array($gestion['C_CVST'], $promised))) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if (($gestion['N_PROM'] > 0) && ($gestion['D_PROM'] == '0000-00-00')) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA FECHA";
-        }
-        if (($gestion['N_PAGO'] > 0) && ($gestion['D_PAGO'] == '0000-00-00')) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "PAGO NECESITA FECHA";
-        }
-        if (($gestion['N_PROM'] > 0) && ($gestion['D_PROM'] == '')) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA FECHA";
-        }
-        if (($gestion['N_PROM'] == 0) && ($gestion['D_PROM'] >= $gestion['D_FECH'])) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if (($gestion['N_PROM1'] == 0) && ($gestion['N_PROM2'] > 0)) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
-        }
-        if ($gestion['C_TELE'] == '') {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "GESTION NECESITA TELEFONO";
-        }
-
-        $output = array(
-            'error' => $error,
-            'flagmsg' => $flagmsg
-        );
-        return $output;
-    }
-
-    /**
-     * 
-     * @param array $gestion
-     * @return int
-     */
-    public function insertVisit($gestion) {
+    private function insertVisit($gestion) {
         $sti = $this->pdo->prepare($this->visitInsertQuery);
         $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
         $sti->bindParam(':C_CVBA', $gestion['C_CVBA']);
@@ -270,7 +148,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
      * 
      * @param int $auto
      */
-    public function addHistdate($auto) {
+    private function addHistdate($auto) {
         $query = "INSERT IGNORE INTO histdate VALUES (:auto, CURDATE())";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, \PDO::PARAM_INT);
@@ -340,7 +218,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
      * @param int $C_CONT
      * @return string
      */
-    public function attributePayment($capt, $C_CONT) {
+    private function attributePayment($capt, $C_CONT) {
         $who = $capt;
         $queryd = "select c_cvge "
                 . "from historia "
@@ -390,7 +268,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     /**
      * 
      */
-    public function resumenUpdatePagos() {
+    private function resumenUpdatePagos() {
         $querypup = "update resumen,pagos
             set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto
             where fecha_de_ultimo_pago<fecha
@@ -403,7 +281,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
      * @param int $C_CONT
      * @param string $best
      */
-    public function resumenStatusUpdate($C_CONT, $best) {
+    private function resumenStatusUpdate($C_CONT, $best) {
         $querysa = "update resumen set status_aarsa = :best where id_cuenta = :C_CONT";
         $stb = $this->pdo->prepare($$querysa);
         $stb->bindParam(':c_cont', $C_CONT, \PDO::PARAM_INT);
@@ -423,7 +301,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
      * @param array $gestion
      * @return int
      */
-    public function insertGestion($gestion) {
+    private function insertGestion($gestion) {
         $sti = $this->pdo->prepare($this->gestionInsertQuery);
         $sti->bindParam(':C_CVBA', $gestion['C_CVBA']);
         $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
@@ -465,11 +343,64 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         return $auto;
     }
 
-    public function beginTransaction() {
+    private function beginTransaction() {
         $this->pdo->beginTransaction();
     }
 
-    public function commitTransaction() {
+    private function commitTransaction() {
         $this->pdo->commit();
+    }
+    
+    public function doVisit($gestion) {
+            $auto = $this->insertVisit($gestion);
+            $this->addHistdate($auto);
+            $this->addHistgest($auto, $gestion['C_CVGE']);
+            if (!empty($gestion['C_NTEL'])) {
+                $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
+            }
+            if (!empty($gestion['C_OBSE2'])) {
+                $this->addNewTel($gestion['C_CONT'], $gestion['C_OBSE2']);
+            }
+            if (!empty($gestion['C_NDIR'])) {
+                $this->updateAddress($gestion['C_CONT'], $gestion['C_NDIR']);
+            }
+            if (!empty($gestion['C_EMAIL'])) {
+                $this->updateEmail($gestion['C_CONT'], $gestion['C_EMAIL']);
+            }
+            if ($gestion['N_PAGO'] > 0) {
+                $who = $this->attributePayment($gestion['C_CVGE'], $gestion['C_CONT']);
+                $this->addPago($gestion['C_CONT'], $gestion['D_PAGO'], $gestion['N_PAGO'], $who);
+            }
+            $this->updateAllUltimoPagos();
+
+            $best = $this->getBest($gestion['C_CVST'], $gestion['C_CONT']);
+            $this->resumenStatusUpdate($gestion['C_CONT'], $best);
+    }
+    
+    public function doGestion($gestion) {
+            $this->beginTransaction();
+            $this->insertGestion($gestion);
+            $this->addHistgest($gestion['auto'], $gestion['C_CVGE']);
+            if (!empty($gestion['C_NTEL'])) {
+                $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
+            }
+            if (!empty($gestion['C_OBSE2'])) {
+                $this->addNewTel($gestion['C_CONT'], $gestion['C_OBSE2']);
+            }
+            if (!empty($gestion['C_NDIR'])) {
+                $this->updateAddress($gestion['C_CONT'], $gestion['C_NDIR']);
+            }
+            if (!empty($gestion['C_EMAIL'])) {
+                $this->updateEmail($gestion['C_CONT'], $gestion['C_EMAIL']);
+            }
+            if ($gestion['N_PAGO'] > 0) {
+                $who = $this->attributePayment($gestion['C_CVGE'], $gestion['C_CONT']);
+                $this->addPago($gestion['C_CONT'], $gestion['D_PAGO'], $gestion['N_PAGO'], $who);
+            }
+            $this->updateAllUltimoPagos();
+
+            $best = $this->getBest($gestion['C_CVST'], $gestion['C_CONT']);
+            $this->resumenStatusUpdate($gestion['C_CONT'], $best);
+            $this->commitTransaction();
     }
 }

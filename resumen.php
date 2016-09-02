@@ -18,6 +18,7 @@ use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenClass;
 use cobra_salsa\GestionClass;
 use cobra_salsa\ResumenQueuesClass;
+use cobra_salsa\ValidationClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
@@ -27,11 +28,13 @@ require_once 'classes/PdoClass.php';
 require_once 'classes/ResumenClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenQueuesClass.php';
+require_once 'classes/ValidationClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectUser();
 $rc = new ResumenClass($pdo);
 $gc = new GestionClass($pdo);
 $qc = new ResumenQueuesClass($pdo);
+$vc = new ValidationClass($pdo);
 $mytipo = $pdoc->tipo;
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');
@@ -88,33 +91,11 @@ if (empty($mytipo)) {
         $gestion['N_PROM'] = $N_PROM;
     }
     if (($go == 'CAPTURADO') && (!empty($C_CVST))) {
-        $checkerrorsv = $gc->countVisitErrors($gestion);
+        $checkerrorsv = $vc->countVisitErrors($gestion);
         $errorv = $checkerrorsv['errorsv'];
         $flagmsgv = $checkerrorsv['flagmsgv'];
         if ($errorv < 10) {
-            $auto = $gc->insertVisit($gestion);
-            $gc->addHistdate($auto);
-            $gc->addHistgest($auto, $C_CVGE);
-            if (!empty($C_NTEL)) {
-                $gc->addNewTel($C_CONT, $C_NTEL);
-            }
-            if (!empty($C_OBSE2)) {
-                $gc->addNewTel($C_CONT, $C_OBSE2);
-            }
-            if (!empty($C_NDIR)) {
-                $gc->updateAddress($C_CONT, $C_NDIR);
-            }
-            if (!empty($C_EMAIL)) {
-                $gc->updateEmail($C_CONT, $C_EMAIL);
-            }
-            if ($N_PAGO > 0) {
-                $who = $gc->attributePayment($field, $C_CONT);
-                $gc->addPago($C_CONT, $D_PAGO, $N_PAGO, $who);
-            }
-            $gc->updateAllUltimoPagos();
-
-            $best = $gc->getBest($C_CVST, $C_CONT);
-            $gc->resumenStatusUpdate($C_CONT, $best);
+            $gc->doVisit($gestion);
             $redirector = "Location: resumen.php?capt=" . $capt . "&go=FROMBUSCAR&i=0&field=id_cuenta&find=" . $C_CONT;
             header($redirector);
         }
@@ -150,35 +131,12 @@ if (empty($mytipo)) {
         $C_HRFI = date('H:i:s');
         $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
         $D_PROM = $D_PROM1;
-        $checkerrors = $gc->countGestionErrors($gestion);
+        $checkerrors = $vc->countGestionErrors($gestion);
         $error = $checkerrors['errors'];
         $flagmsg = $checkerrors['flagmsg'];
 
         if ($error == 0) {
-            $gc->beginTransaction();
-            $gc->insertGestion($gestion);
-            $gc->addHistgest($auto, $c_cvge);
-            if (!empty($C_NTEL)) {
-                $gc->addNewTel($C_CONT, $C_NTEL);
-            }
-            if (!empty($C_OBSE2)) {
-                $gc->addNewTel($C_CONT, $C_OBSE2);
-            }
-            if (!empty($C_NDIR)) {
-                $gc->updateAddress($C_CONT, $C_NDIR);
-            }
-            if (!empty($C_EMAIL)) {
-                $gc->updateEmail($C_CONT, $C_EMAIL);
-            }
-            if ($N_PAGO > 0) {
-                $who = $gc->attributePayment($field, $C_CONT);
-                $gc->addPago($C_CONT, $D_PAGO, $N_PAGO, $who);
-            }
-            $gc->updateAllUltimoPagos();
-
-            $best = $gc->getBest($C_CVST, $C_CONT);
-            $gc->resumenStatusUpdate($C_CONT, $best);
-            $gc->commitTransaction();
+            $gc->doGestion($gestion);
 
             if ($find == "/") {
                 $find = null;
