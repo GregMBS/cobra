@@ -2,30 +2,20 @@
 require_once 'vendor/autoload.php';
 
 use cobra_salsa\PdoClass;
+use cobra_salsa\PagosClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
 require_once 'classes/PdoClass.php';
+require_once 'classes/PagosClass.php';
 $pdoc      = new PdoClass();
 $pdo       = $pdoc->dbConnectAdmin();
+$pc = new PagosClass($pdo);
 $capt      = filter_input(INPUT_GET, 'capt');
 $go        = filter_input(INPUT_GET, 'go');
 $thismonth = strftime("%B %Y");
 $lastmonth = strftime("%B %Y", strtotime("last month"));
-$queryDA   = "select cuenta, fecha, monto,
-                    pagos.cliente as 'cliente',
-                    status_de_credito as 'sdc',
-                    gestor, confirmado
-from pagos, resumen
-where fecha>last_day(curdate()-interval 5 week)
-and pagos.id_cuenta=resumen.id_cuenta
-order by cliente,gestor,fecha";
-$std   = $pdo->query($queryDA);
-if (!$std) {
-    var_dump($pdo->errorInfo());
-    die();
-}
-$result = $std->fetchAll(\PDO::FETCH_ASSOC);
+$result = $pc->querySheet();
 $filename = "Pagos_".trim(date('ym')).".xlsx";
 $output   = array();
 $output[] = array_keys($result[0]);
