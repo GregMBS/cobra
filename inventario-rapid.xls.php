@@ -57,10 +57,7 @@ if (!empty($go)) {
     }
 //$workbook->close();
 } else {
-    $queryc = "SELECT distinct cliente FROM clientes
-        order by cliente
-	";
-    $resultc = $pdo->query($queryc);
+    $resultc = $ic->listClients();
     $here = $_SERVER['PHP_SELF'];
     require_once 'views/inventarioView.php';
 } 

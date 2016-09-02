@@ -39,7 +39,7 @@ left join historia on id_cuenta=c_cont
 and d_fech>curdate() - interval 6 month
 where status_de_credito not regexp '-' 
 ";
-    
+
     /**
      *
      * @var string 
@@ -47,7 +47,7 @@ where status_de_credito not regexp '-'
     private $querymainend = " 
 group by id_cuenta
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
-    
+
     /**
      * 
      * @param \PDO $pdo
@@ -56,7 +56,12 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
         $this->pdo = $pdo;
     }
 
-    function getInventarioReport($cliente) {
+    /**
+     * 
+     * @param string $cliente
+     * @return array
+     */
+    public function getInventarioReport($cliente) {
         $clientestr = '';
         if ($cliente != 'todos') {
             $clientestr = " and cliente=:cliente ";
@@ -69,6 +74,16 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function listClients() {
+        $queryc = "SELECT cliente FROM clientes";
+        $resultc = $this->pdo->query($queryc);
+        return $resultc;
     }
 
 }
