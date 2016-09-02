@@ -20,12 +20,7 @@ if ($go == 'INTRO') {
         $camp = -1;
     }
     if ($camp >= 0) {
-        $queryupd = "UPDATE nombres SET camp=:camp "
-            . "where iniciales=:capt;";
-        $stu = $pdo->prepare($queryupd);
-        $stu->bindParam(':camp', $camp);
-        $stu->bindParam(':capt', $capt);
-        $stu->execute();
+        $qc->setCamp($camp, $capt);
         $msg      = "<h2>Se elige queue ".$cliente." ".$sdc." ".$queue."</h2>";
     }
 } else {
