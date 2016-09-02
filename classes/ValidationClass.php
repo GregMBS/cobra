@@ -14,13 +14,13 @@ namespace cobra_salsa;
  * @author gmbs
  */
 class ValidationClass {
-    
+
     /**
      *
      * @var \PDO
      */
     private $pdo;
-    
+
     /**
      *
      * @var string
@@ -30,6 +30,25 @@ WHERE c_cont = :c_cont and d_fech = :d_fech
 and c_hrin = :c_hrin and c_cvst = :c_cvst 
 and c_cvge = :c_cvge and c_obse1 = :c_obse1";
 
+    /**
+     *
+     * @var array
+     */
+    private $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO PARCIAL');
+
+    /**
+     *
+     * @var array
+     */
+    private $proms = array('PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO PARCIAL');
+
+    /**
+     *
+     * @var array
+     */
+    private $blankDates = array('', '0000-00-00');
+
+    
     /**
      * 
      * @param \PDO $pdo
@@ -62,65 +81,47 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
             $output['message'] = '';
         }
         return $output;
-    }    
-    
+    }
+
     /**
      * 
-     * @param float $monto
-     * @param string $status
-     * @param string $checkstatus
+     * @param boolean $fieldcond
      * @param string $message
      * @return array
      */
-    private function checkPromesaMonto($monto, $status, $checkstatus, $message) {
+    private function checkRequired($fieldcond, $message) {
         $output = array(
             'value' => 0,
             'message' => ''
         );
-        if (($monto == 0) && ($checkstatus == $status)) {
+        if ($fieldcond) {
             $output['value'] = 1;
             $output['message'] = $message;
         }
         return $output;
     }
-    
+
     /**
      * 
-     * @param float $monto
-     * @param string $fecha
+     * @param boolean $fieldcond
+     * @param boolean $condition
      * @param string $message
      * @return array
      */
-    private function checkMontoFecha($monto, $fecha, $message) {
+    private function checkRequiredConditional($fieldcond, $condition, $message) {
         $output = array(
             'value' => 0,
             'message' => ''
         );
-        if (($monto > 0) && (in_array($fecha, array('0000-00-00', '')))) {
-            $output['value'] = 1;
-            $output['message'] = $message;
+        if ($condition) {
+            if ($fieldcond) {
+                $output['value'] = 1;
+                $output['message'] = $message;
+            }
         }
-        return $output;        
+        return $output;
     }
-    
-    /**
-     * 
-     * @param string $field
-     * @param string $message
-     * @return array
-     */
-    private function checkRequired($field, $message) {
-        $output = array(
-            'value' => 0,
-            'message' => ''
-        );
-        if (empty($field)) {
-            $output['value'] = 1;
-            $output['message'] = $message;
-        }
-        return $output;        
-    }
-    
+
     /**
      * 
      * @param array $gestion
@@ -130,34 +131,36 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $errorv = 0;
         $flagmsgv = "";
 
+        $requiredArray = array(
+            array($gestion['C_CVST'], '<BR>RESUELTO ES NECESARIO'),
+            array($gestion['C_VISIT'], '<BR>VISITADOR ES NECESARIO'),
+            array($gestion['ACCION'], '<BR>ACCION ES NECESARIO'),
+        );
+        $conditionalArray = array(
+            array(($gestion['N_PAGO'] == 0), (in_array($gestion['C_CVST'], $this->paid)), '<br>pago necesita monto'),
+            array(($gestion['N_PROM'] == 0), (in_array($gestion['C_CVST'], $this->proms)), '<br>promesa necesita monto'),
+            array(($gestion['N_PAGO'] > 0), (in_array($gestion['D_PAGO'], $this->blankDates)), '<br>pago necesita fecha'),
+            array(($gestion['N_PROM'] > 0), (in_array($gestion['D_PROM'], $this->blankDates)), '<br>promesa necesita fecha'),
+            array((substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON'), ($gestion['C_CARG'] == ''), "<BR>MENSAJE NECESITA PARENTESCO/CARGO"),
+            array(($gestion['N_PROM'] == 0), ($gestion['D_PROM'] >= $gestion['D_FECH']), "<BR>PROMESA NECESITA MONTO"),
+            array(($gestion['N_PROM1'] == 0), ($gestion['N_PROM2'] > 0), "<BR>USA PROMESA INICIAL ANTES PROMESA TERMINAL")
+        );
+
+        foreach ($requiredArray as $required) {
+            $test = $this->checkRequired($required[0], $required[1]);
+            $errorv += $test['value'];
+            $flagmsgv .= $test['message'];
+        }
+
+        foreach ($conditionalArray as $conditional) {
+            $test = $this->checkRequired($conditional[0], $conditional[1], $conditional[2]);
+            $errorv += $test['value'];
+            $flagmsgv .= $test['message'];
+        }
+
         $dupcount = $this->countDup($gestion, "DOBLE ENTRANTE");
         $errorv += $dupcount['value'];
         $flagmsgv .= $dupcount['message'];
-
-        $promesaMontoT = $this->checkPromesaMonto($gestion['N_PROM'], $gestion['C_CVST'], 'PROMESA DE PAGO TOTAL', "<BR>PROMESA NECESITA MONTO");
-        $errorv += $promesaMontoT['value'];
-        $flagmsgv .= $promesaMontoT['message'];
-
-        $promesaMontoP = $this->checkPromesaMonto($gestion['N_PROM'], $gestion['C_CVST'], 'PROMESA DE PAGO PARCIAL', "<BR>PROMESA NECESITA MONTO");
-        $errorv += $promesaMontoP['value'];
-        $flagmsgv .= $promesaMontoP['message'];
-
-        $montoFechaProm = $this->checkMontoFecha($gestion['N_PROM'], $gestion['D_PROM'], "<BR>PROMESA NECESITA FECHA");
-        $errorv += $montoFechaProm['value'];
-        $flagmsgv .= $montoFechaProm['message'];
-
-        $montoFechaPago = $this->checkMontoFecha($gestion['N_PAGO'], $gestion['D_PAGO'], "<BR>PAGO NECESITA FECHA");
-        $errorv += $montoFechaPago['value'];
-        $flagmsgv .= $montoFechaPago['message'];
-
-        if (($gestion['N_PROM'] == 0) && ($gestion['D_PROM'] >= $gestion['D_FECH'])) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-
-        $visitRequired = $this->checkRequired($gestion['C_VISIT'], '<BR>VISITADOR ES NECESARIO');
-        $errorv += $visitRequired['value'];
-        $flagmsgv .= $visitRequired['message'];
 
         $output = array(
             'errorv' => $errorv,
@@ -174,53 +177,43 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     public function countGestionErrors($gestion) {
         $error = 0;
         $flagmsg = "";
+
+        $requiredArray = array(
+            array($gestion['C_CVST'], '<BR>RESUELTO ES NECESARIO'),
+            array($gestion['C_TELE'], '<BR>TELEFONO ES NECESARIO'),
+            array($gestion['ACCION'], '<BR>ACCION ES NECESARIO'),
+        );
+        $conditionalArray = array(
+            array(($gestion['N_PAGO'] == 0), (in_array($gestion['C_CVST'], $this->paid)), '<br>pago necesita monto'),
+            array(($gestion['N_PROM'] == 0), (in_array($gestion['C_CVST'], $this->proms)), '<br>promesa necesita monto'),
+            array(($gestion['N_PAGO'] > 0), (in_array($gestion['D_PAGO'], $this->blankDates)), '<br>pago necesita fecha'),
+            array(($gestion['N_PROM'] > 0), (in_array($gestion['D_PROM'], $this->blankDates)), '<br>promesa necesita fecha'),
+            array((substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON'), ($gestion['C_CARG'] == ''), "<BR>MENSAJE NECESITA PARENTESCO/CARGO"),
+            array(($gestion['N_PROM'] == 0), ($gestion['D_PROM'] >= $gestion['D_FECH']), "<BR>PROMESA NECESITA MONTO"),
+            array(($gestion['N_PROM1'] == 0), ($gestion['N_PROM2'] > 0), "<BR>USA PROMESA INICIAL ANTES PROMESA TERMINAL")
+        );
+
+        foreach ($requiredArray as $required) {
+            $test = $this->checkRequired($required[0], $required[1]);
+            $error += $test['value'];
+            $flagmsg .= $test['message'];
+        }
+
+        foreach ($conditionalArray as $conditional) {
+            $test = $this->checkRequired($conditional[0], $conditional[1], $conditional[2]);
+            $error += $test['value'];
+            $flagmsg .= $test['message'];
+        }
+
         $dupcount = $this->countDup($gestion, "DOBLE ENTRANTE");
         $error += $dupcount['value'];
         $flagmsg .= $dupcount['message'];
-        $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO PARCIAL');
-        if (($gestion['N_PAGO'] == 0) && (in_array($gestion['C_CVST'], $paid))) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-        }
-        if ((substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON') && ($gestion['C_CARG'] == '')) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "MENSAJE NECESITA PARENTESCO/CARGO";
-        }
 
-        $promesaMontoT = $this->checkPromesaMonto($gestion['N_PROM'], 'PROMESA DE PAGO TOTAL', "<BR>PROMESA NECESITA MONTO");
-        $error += $promesaMontoT['value'];
-        $flagmsg .= $promesaMontoT['message'];
-
-        $promesaMontoP = $this->checkPromesaMonto($gestion['N_PROM'], 'PROMESA DE PAGO PARCIAL', "<BR>PROMESA NECESITA MONTO");
-        $error += $promesaMontoP['value'];
-        $flagmsg .= $promesaMontoP['message'];
-
-        $montoFechaProm = $this->checkMontoFecha($gestion['N_PROM'], $gestion['D_PROM'], "<BR>PROMESA NECESITA FECHA");
-        $error += $montoFechaProm['value'];
-        $flagmsg .= $montoFechaProm['message'];
-
-        $montoFechaPago = $this->checkMontoFecha($gestion['N_PAGO'], $gestion['D_PAGO'], "<BR>PAGO NECESITA FECHA");
-        $error += $montoFechaPago['value'];
-        $flagmsg .= $montoFechaPago['message'];
-
-        if (($gestion['N_PROM'] == 0) && ($gestion['D_PROM'] >= $gestion['D_FECH'])) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        
-        if (($gestion['N_PROM1'] == 0) && ($gestion['N_PROM2'] > 0)) {
-            $error = $error + 1;
-            $flagmsg = $flagmsg . '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
-        }
-        
-        $telRequired = $this->checkRequired($gestion['C_TELE'], '<BR>TELEFONO ES NECESARIO');
-        $error += $telRequired['value'];
-        $flagmsg .= $telRequired['message'];
-
-        $output = array(
+         $output = array(
             'error' => $error,
             'flagmsg' => $flagmsg
         );
         return $output;
     }
+
 }

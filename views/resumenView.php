@@ -1628,12 +1628,12 @@
                                 cal7.setWeekStartDay(1);
                                 cal7.setTodayText("Hoy");
                             </SCRIPT>
-                            <INPUT TYPE="text" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15>
+                            <INPUT TYPE="text" NAME="D_PROM" ID="D_PROMv" VALUE="" SIZE=15>
                             <BUTTON onClick="cal7.select(document.getElementById('D_PROMv'), 'anchor7', 'yyyy-MM-dd');
                                     return false;" NAME="anchor7" ID="anchor7">eligir</BUTTON>
                             <br>
                             <span class="formcap">Cantidad de pago prometido</span>
-                            $<input type="text" name="N_PROMv" value=""><br>
+                            $<input type="text" name="N_PROM" value=""><br>
                         </td>
                         <td id='pagocaptv'> <span class="formcap">Fecha ya pag&oacute;</span>
                             <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
@@ -1643,12 +1643,12 @@
                                 cal8.setWeekStartDay(1);
                                 cal8.setTodayText("Hoy");
                             </SCRIPT>
-                            <INPUT TYPE="text" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15>
+                            <INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOv" VALUE="" SIZE=15>
                             <BUTTON onClick="cal8.select(document.getElementById('D_PAGOv'), 'anchor8', 'yyyy-MM-dd');
                                     return false;" NAME="anchor8" ID="anchor8">eligir</BUTTON>
                             <br>
                             <span class="formcap">Cantidad de ya pag&oacute;</span>
-                            $<input type="text" name="N_PAGOv" value=""><br>
+                            $<input type="text" name="N_PAGO" value=""><br>
                         </td>
                     </tr>
                 </table>
