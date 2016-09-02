@@ -340,9 +340,12 @@ and id_cuenta = :c_cont";
         $this->pdo->commit();
     }
     
-    public function doVisit($gestion) {
-            $auto = $this->insertVisit($gestion);
-            $this->addHistdate($auto);
+    /**
+     * 
+     * @param int $auto
+     * @param array $gestion
+     */
+    private function doCommon($auto, $gestion) {
             $this->addHistgest($auto, $gestion['C_CVGE']);
             if (!empty($gestion['C_NTEL'])) {
                 $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
@@ -366,30 +369,16 @@ and id_cuenta = :c_cont";
             $this->resumenStatusUpdate($gestion['C_CONT'], $best);
     }
     
+    public function doVisit($gestion) {
+            $auto = $this->insertVisit($gestion);
+            $this->addHistdate($auto);
+            $this->doCommon($auto, $gestion);
+    }
+    
     public function doGestion($gestion) {
             $this->beginTransaction();
-            $this->insertGestion($gestion);
-            $this->addHistgest($gestion['auto'], $gestion['C_CVGE']);
-            if (!empty($gestion['C_NTEL'])) {
-                $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
-            }
-            if (!empty($gestion['C_OBSE2'])) {
-                $this->addNewTel($gestion['C_CONT'], $gestion['C_OBSE2']);
-            }
-            if (!empty($gestion['C_NDIR'])) {
-                $this->updateAddress($gestion['C_CONT'], $gestion['C_NDIR']);
-            }
-            if (!empty($gestion['C_EMAIL'])) {
-                $this->updateEmail($gestion['C_CONT'], $gestion['C_EMAIL']);
-            }
-            if ($gestion['N_PAGO'] > 0) {
-                $who = $this->attributePayment($gestion['C_CVGE'], $gestion['C_CONT']);
-                $this->addPago($gestion['C_CONT'], $gestion['D_PAGO'], $gestion['N_PAGO'], $who);
-            }
-            $this->updateAllUltimoPagos();
-
-            $best = $this->getBest($gestion['C_CVST'], $gestion['C_CONT']);
-            $this->resumenStatusUpdate($gestion['C_CONT'], $best);
+            $auto = $this->insertGestion($gestion);
+            $this->doCommon($auto, $gestion);
             $this->commitTransaction();
     }
 }
