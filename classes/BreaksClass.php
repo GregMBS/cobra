@@ -82,4 +82,75 @@ order by c_cvge,c_cvst,c_hrin";
         return $resultp;
     }
 
+    /**
+     * 
+     * @param int $auto
+     * @param string $tipo
+     * @param string $empieza
+     * @param string $termina
+     */
+    public function updateBreak($auto, $tipo, $empieza, $termina) {
+        $queryu = "UPDATE breaks
+            SET tipo=:tipo,
+            empieza=:empieza,
+            termina=:termina
+            WHERE auto=:auto";
+        $stu = $this->pdo->prepare($queryu);
+        $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stu->bindParam(':tipo', $tipo);
+        $stu->bindParam(':empieza', $empieza);
+        $stu->bindParam(':termina', $termina);
+        $stu->execute();
+    }
+
+    /**
+     * 
+     * @param int $auto
+     */
+    public function deleteBreak($auto) {
+        $queryb = "DELETE FROM breaks WHERE auto=:auto";
+        $stb = $this->pdo->prepare($queryb);
+        $stb->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stb->execute();
+    }
+
+    /**
+     * 
+     * @param string $gestor
+     * @param string $tipo
+     * @param string $empieza
+     * @param string $termina
+     */
+    public function insertBreak($gestor, $tipo, $empieza, $termina) {
+        $queryin = "INSERT INTO breaks (gestor, tipo, empieza, termina)
+	VALUES (:gestor,:tipo,:empieza,:termina)";
+        $sta = $this->pdo->prepare($queryin);
+        $sta->bindParam(':gestor', $gestor);
+        $sta->bindParam(':tipo', $tipo);
+        $sta->bindParam(':empieza', $empieza);
+        $sta->bindParam(':termina', $termina);
+        $sta->execute();
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function listBreaks() {
+        $querymain = "SELECT auto, gestor, tipo, empieza, termina FROM breaks 
+    order by gestor,empieza";
+        $result = $this->pdo->query($querymain);
+        return $result;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function listUsuarias() {
+        $query = "SELECT iniciales FROM nombres "
+                . "WHERE tipo <> ''";
+        $result = $this->pdo->query($query);
+        return $result;
+    }
 }
