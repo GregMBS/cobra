@@ -132,9 +132,11 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $flagmsgv = "";
 
         $requiredArray = array(
-            array($gestion['C_CVST'], '<BR>RESUELTO ES NECESARIO'),
-            array($gestion['C_VISIT'], '<BR>VISITADOR ES NECESARIO'),
-            array($gestion['ACCION'], '<BR>ACCION ES NECESARIO'),
+            array(empty($gestion['C_CVST']), '<BR>RESUELTO ES NECESARIO'),
+            array(empty($gestion['C_VISIT']), '<BR>VISITADOR ES NECESARIO'),
+            array(empty($gestion['ACCION']), '<BR>ACCION ES NECESARIO'),
+            array(str_word_count($gestion['C_OBSE!']) < 3, "COMENTARIO INCOMPLETO"),
+            array(strlen($gestion['C_OBSE!']) >250, "COMENTARIO DEMASIADO LARGO"),
         );
         $conditionalArray = array(
             array(($gestion['N_PAGO'] == 0), (in_array($gestion['C_CVST'], $this->paid)), '<br>pago necesita monto'),
@@ -179,15 +181,21 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $flagmsg = "";
 
         $requiredArray = array(
-            array($gestion['C_CVST'], '<BR>RESUELTO ES NECESARIO'),
-            array($gestion['C_TELE'], '<BR>TELEFONO ES NECESARIO'),
-            array($gestion['ACCION'], '<BR>ACCION ES NECESARIO'),
+            array(empty($gestion['C_CVST']), '<BR>RESUELTO ES NECESARIO'),
+            array(empty($gestion['C_TELE']), '<BR>TELEFONO ES NECESARIO'),
+            array(empty($gestion['ACCION']), '<BR>ACCION ES NECESARIO'),
+            array(str_word_count($gestion['C_OBSE!']) < 3, "COMENTARIO INCOMPLETO"),
+            array(strlen($gestion['C_OBSE!']) >250, "COMENTARIO DEMASIADO LARGO"),
         );
         $conditionalArray = array(
             array(($gestion['N_PAGO'] == 0), (in_array($gestion['C_CVST'], $this->paid)), '<br>pago necesita monto'),
             array(($gestion['N_PROM'] == 0), (in_array($gestion['C_CVST'], $this->proms)), '<br>promesa necesita monto'),
             array(($gestion['N_PAGO'] > 0), (in_array($gestion['D_PAGO'], $this->blankDates)), '<br>pago necesita fecha'),
             array(($gestion['N_PROM'] > 0), (in_array($gestion['D_PROM'], $this->blankDates)), '<br>promesa necesita fecha'),
+            array(($gestion['N_PROM1'] > 0), (in_array($gestion['D_PROM1'], $this->blankDates)), '<br>promesa necesita fecha'),
+            array(($gestion['N_PROM2'] > 0), (in_array($gestion['D_PROM2'], $this->blankDates)), '<br>promesa necesita fecha'),
+            array(($gestion['N_PROM3'] > 0), (in_array($gestion['D_PROM3'], $this->blankDates)), '<br>promesa necesita fecha'),
+            array(($gestion['N_PROM4'] > 0), (in_array($gestion['D_PROM4'], $this->blankDates)), '<br>promesa necesita fecha'),
             array((substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON'), ($gestion['C_CARG'] == ''), "<BR>MENSAJE NECESITA PARENTESCO/CARGO"),
             array(($gestion['N_PROM'] == 0), ($gestion['D_PROM'] >= $gestion['D_FECH']), "<BR>PROMESA NECESITA MONTO"),
             array(($gestion['N_PROM1'] == 0), ($gestion['N_PROM2'] > 0), "<BR>USA PROMESA INICIAL ANTES PROMESA TERMINAL")
