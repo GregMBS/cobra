@@ -1,18 +1,14 @@
 <?php
 
 use cobra_salsa\PdoClass;
+use cobra_salsa\MigoClass;
 
 require_once 'classes/PdoClass.php';
+require_once 'classes/MigoClass.php';
 $pdoc = new PdoClass();
-$pdo  = $pdoc->dbConnectAdmin();
+$pdo = $pdoc->dbConnectAdmin();
+$mc = new MigoClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
-$go   = filter_input(INPUT_GET, 'go');
-
-$querymain = "SELECT numero_de_cuenta, nombre_deudor, saldo_total,
-status_de_credito, cliente, status_aarsa,
-saldo_descuento_2, id_cuenta,
-fecha_ultima_gestion
-FROM resumen
-where status_de_credito not regexp '-'";
-$result    = $pdo->query($querymain);
+$go = filter_input(INPUT_GET, 'go');
+$result = $mc->adminReport();
 require_once 'views/migoView.php';
