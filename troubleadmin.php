@@ -1,28 +1,21 @@
 <?php
 
 use cobra_salsa\PdoClass;
+use cobra_salsa\TroubleClass;
 
 require_once 'classes/PdoClass.php';
-$pc = new PdoClass();
-$pdo = $pc->dbConnectAdmin();
+require_once 'classes/TroubleClass.php';
+$pdoc    = new PdoClass();
+$pdo     = $pdoc->dbConnectAdmin();
+$tc = new TroubleClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');
 if (!empty($go)) {
     if ($go == 'RESOLVER') {
         $auto = filter_input(INPUT_GET, 'which', FILTER_VALIDATE_INT);
         $reparacion = filter_input(INPUT_GET, 'reparacion');
-        $queryup = "UPDATE cobra.trouble
-            set fechacomp=now(),
-            it_guy=:capt,
-            reparacion=:reparacion
-            where auto=:auto;";
-        $stu = $pdo->prepare($queryup);
-        $stu->bindParam(':capt', $capt);
-        $stu->bindParam(':reparacion', $reparacion);
-        $stu->bindParam(':auto', $auto);
-        $stu->execute();
+        $tc->updateTrouble($capt, $reparacion, $auto);
     }
 }
-$querysub = "SELECT * FROM trouble ORDER BY fechahora desc";
-$rowsub = $pdo->query($querysub);
+$rowsub = $tc->listTrouble();
 require_once 'views/troubleadminView.php';
