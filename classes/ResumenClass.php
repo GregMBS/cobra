@@ -178,7 +178,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
                 'cuenta' => $notaData['cuenta'],
                 'nota' => $notaData['nota'],
                 'fuente' => $notaData['fuente']
-            ); 
+            );
         } else {
             $output = array(
                 'notalert' => '',
@@ -186,7 +186,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
                 'cuenta' => '',
                 'nota' => '',
                 'fuente' => ''
-            ); 
+            );
         }
         return $output;
     }
@@ -548,4 +548,24 @@ order by d_fech desc, c_hrin desc limit 1";
         $stls->execute();
         $this->pdo->commit();
     }
+
+    /**
+     * 
+     * @param int $ID_CUENTA
+     * @return array
+     */
+    public function listVisits($ID_CUENTA) {
+        $querysub = "SELECT c_cvst, concat(d_fech,' ',c_hrin) as fh,
+	if(c_visit is null,c_cvge,c_visit) as gestor,
+	left(c_obse1,50) as short, c_obse1, auto
+	FROM historia
+WHERE (historia.C_CONT=:id_cuenta) AND (c_visit <> '')
+ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
+        $sts = $this->pdo->prepare($querysub);
+        $sts->bindParam(':id_cuenta', $ID_CUENTA, \PDO::PARAM_INT);
+        $sts->execute();
+        $rowsub = $sts->fetchAll(\PDO::FETCH_ASSOC);
+        return $rowsub;
+    }
+
 }
