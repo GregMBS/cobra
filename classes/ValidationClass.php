@@ -155,7 +155,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         }
 
         foreach ($conditionalArray as $conditional) {
-            $test = $this->checkRequired($conditional[0], $conditional[1], $conditional[2]);
+            $test = $this->checkRequiredConditional($conditional[0], $conditional[1], $conditional[2]);
             $errorv += $test['value'];
             $flagmsgv .= $test['message'];
         }
@@ -208,7 +208,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         }
 
         foreach ($conditionalArray as $conditional) {
-            $test = $this->checkRequired($conditional[0], $conditional[1], $conditional[2]);
+            $test = $this->checkRequiredConditional($conditional[0], $conditional[1], $conditional[2]);
             $error += $test['value'];
             $flagmsg .= $test['message'];
         }

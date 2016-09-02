@@ -204,7 +204,7 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $email
      */
-    public function updateEmail($C_CONT, $email) {
+    private function updateEmail($C_CONT, $email) {
         $queryndir = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($queryndir);
         $stn->bindParam(':email', $email);
@@ -258,24 +258,13 @@ and id_cuenta = :c_cont";
     /**
      * 
      */
-    public function updateAllUltimoPagos() {
+    private function updateAllUltimoPagos() {
             $querypup = "update resumen,pagos 
                 set fecha_de_ultimo_pago = fecha, monto_ultimo_pago = monto 
                 where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
             $this->pdo->query($querypup);
     }
     
-    /**
-     * 
-     */
-    private function resumenUpdatePagos() {
-        $querypup = "update resumen,pagos
-            set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto
-            where fecha_de_ultimo_pago<fecha
-            and pagos.id_cuenta=resumen.id_cuenta;";
-        $this->pdo->query($querypup);
-    }
-
     /**
      * 
      * @param int $C_CONT
