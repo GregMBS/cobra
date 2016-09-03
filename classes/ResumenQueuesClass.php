@@ -134,7 +134,7 @@ and status_aarsa not in (
 	where queue in ('PAGOS','PROMESAS','ACLARACION')
 	)
 and especial > 0
-order by (ejecutivo_asignado_call_center='".$capt."') desc, especial, saldo_descuento_1 desc limit 1";
+order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_1 desc limit 1";
     }        
         $stm = $this->pdo->prepare($querymain);
         return $stm;
@@ -150,7 +150,7 @@ order by (ejecutivo_asignado_call_center='".$capt."') desc, especial, saldo_desc
      * @return \PDOStatement
      */
     public function bindResumenMain($stm, $capt, $cliente, $sdc, $cr) {
-        if (($cr == 'INICIAL')) {
+        if (in_array($cr, array('MANUAL','INICIAL'))) {
             $stm->bindParam(':capt', $capt);
             return $stm;
         }
