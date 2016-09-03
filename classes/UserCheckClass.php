@@ -27,7 +27,7 @@ class UserCheckClass
         $capt = filter_input(INPUT_GET, 'capt');
         $ticket = filter_input(INPUT_COOKIE, 'auth');
         $querycheck="SELECT count(1) as 'check', max(tipo) as 'mytipo'"
-            . "FROM cobrajdlr.nombres "
+            . "FROM nombres "
             . "WHERE ticket=:ticket AND iniciales=:capt;";
         $stc = $this->pdo->prepare($querycheck);
         $stc->bindParam(':ticket', $ticket);

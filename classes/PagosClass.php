@@ -138,7 +138,7 @@ WHERE id_cuenta=:id";
      */
     public function listPagos($ID_CUENTA) {
         $querysub = "SELECT fecha,monto,confirmado
-FROM cobra.pagos
+FROM pagos
 WHERE id_cuenta=:id
 ORDER BY fecha";
         $sts = $this->pdo->prepare($querysub);

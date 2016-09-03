@@ -255,9 +255,9 @@ group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
      * 
      */
     protected function createLookupTable() {
-        $queryrlist1 = "truncate cobra.rlook";
+        $queryrlist1 = "truncate rlook";
         $this->pdo->query($queryrlist1);
-        $queryrlist2 = "insert into cobra.rlook
+        $queryrlist2 = "insert into rlook
 select id_cuenta,numero_de_cuenta,nombre_deudor,cliente,status_de_credito,
 nombre_referencia_1,nombre_referencia_2,nombre_referencia_3,nombre_referencia_4,
 tel_1,tel_2,tel_3,tel_4,
@@ -268,7 +268,7 @@ tel_1_ref_2,tel_2_ref_2,
 tel_1_ref_3,tel_2_ref_3,
 tel_1_ref_4,tel_2_ref_4,
 tel_1_laboral,tel_2_laboral,telefonos_marcados
-from cobra.resumen;
+from resumen;
 ";
         $this->pdo->query($queryrlist2);
     }

@@ -52,18 +52,18 @@ VALUES (:C_CVGE, :C_CVBA, :C_CONT, :C_CVST, :D_FECH, :C_HRIN, :C_HRFI,
      *
      * @var string
      */
-    private $setPromesaIncumplida = "update cobra.resumen
+    private $setPromesaIncumplida = "update resumen
 		set status_aarsa='PROMESA INCUMPLIDA'
 		where id_cuenta not in (
-			select c_cont from cobra.historia
+			select c_cont from historia
 			where n_prom>0
 			and d_prom>=curdate())
 		and id_cuenta in (
-			select c_cont from cobra.historia
+			select c_cont from historia
 			where n_prom>0
 			and d_prom<curdate())
 		and numero_de_cuenta not in (
-			select cuenta from cobra.pagos
+			select cuenta from pagos
 			where fecha>last_day(curdate()-interval 1 month))
 		and status_aarsa IN (
 			'PROMESA DE PAGO PARCIAL',
