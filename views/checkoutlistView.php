@@ -17,7 +17,7 @@
         <table class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
-                    <th>ID CUENTA</th>
+                        <th>ID_CUENTA</th>
                     <th>CUENTA</th>
                     <th>NOMBRE</th>
                     <th>CLIENTE</th>
@@ -36,11 +36,11 @@ if ($result) {
     foreach ($result as $answer) {
         $GESTOR = $answer['gestor'];
         $ID_CUENTA = $answer['id_cuenta'];
-        $CUENTA = $answer['cuenta'];
+        $CUENTA = $answer['numero_de_cuenta'];
         $ST = $answer['saldo_total'];
         $CLIENTE = $answer['cliente'];
         $QUEUE = $answer['queue'];
-        $NOMBRE = $answer['nombre'];
+        $NOMBRE = $answer['nombre_deudor'];
         $FECHAOUT = $answer['fechaout'];
         $FECHAIN = $answer['fechain'];
         $sc = $sc + 1;

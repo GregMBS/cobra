@@ -13,21 +13,7 @@ namespace cobra_salsa;
  *
  * @author gmbs
  */
-class CheckClass {
-
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
-
-    /**
-     * 
-     * @param \PDO $pdo
-     */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
+class CheckClass extends BaseClass {
 
     /**
      * 
@@ -124,11 +110,11 @@ where gestor=:gestor";
             $gstring = "WHERE gestor = :gestor "
                     . "ORDER BY fechain DESC";
         } else {
-            $gstring = '';
+            $gstring = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
         }
 
         $querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
-queue, completo, fechaout, fechain
+queue, completo, fechaout, fechain, gestor
 from resumen 
 join vasign on id_cuenta=c_cont 
 join nombres on iniciales=gestor 
@@ -140,6 +126,22 @@ join dictamenes on dictamen = status_aarsa " . $gstring;
         $stm->execute();
         $resultmain = $stm->fetchAll();
         return $resultmain;
+    }
+
+    /**
+     * 
+     * @param string $vst
+     * @return array
+     */
+    public function getCompleto($vst) {
+        $queryn = "SELECT completo FROM nombres
+where iniciales=:vst
+limit 1;";
+        $stn = $this->pdo->prepare($queryn);
+        $stn->bindParam(':vst', $vst);
+        $stn->execute();
+        $resultn = $stn->fetch(\PDO::FETCH_ASSOC);
+        return $resultn;
     }
 
 }
