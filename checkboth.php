@@ -19,7 +19,7 @@ if ($go == 'RECIBIR') {
     if (!empty($CUENTA)) {
         $ID_CUENTA = $cc->getIdCuentafromCuenta($CUENTA);
         if ($ID_CUENTA > 0) {
-            $cc->insertVasign($CUENTA, $gestor, $fechaout, $ID_CUENTA);
+            $cc->insertVasignBoth($CUENTA, $gestor, $fechaout, $ID_CUENTA);
         } else {
             $message = 'No se guard&oacute;';
         }

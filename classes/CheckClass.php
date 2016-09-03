@@ -38,18 +38,57 @@ and status_de_creditonot regexp '-' LIMIT 1";
 
     /**
      * 
+     * @param int $id_cuenta
+     * @return string
+     */
+    public function getCuentafromIdCuenta($id_cuenta) {
+        $querycc = "select numero_de_cuenta from resumen
+where id_cuenta=:id_cuenta 
+and status_de_creditonot regexp '-' LIMIT 1";
+        $stcc = $this->pdo->prepare($querycc);
+        $stcc->bindParam(':id_cuenta', $id_cuenta);
+        $stcc->execute();
+        $resultcc = $stcc->fetch(\PDO::FETCH_ASSOC);
+        if (isset($resultcc['numero_de_cuenta'])) {
+            $numero_de_cuenta = $resultcc['numero_de__cuenta'];
+        } else {
+            $numero_de_cuenta = '';
+        }
+        return $numero_de_cuenta;
+    }
+
+    /**
+     * 
      * @param string $CUENTA
      * @param string $gestor
      * @param string $fechaout
      * @param int $ID_CUENTA
      */
-    public function insertVasign($CUENTA, $gestor, $fechaout, $ID_CUENTA) {
+    public function insertVasignBoth($CUENTA, $gestor, $fechaout, $ID_CUENTA) {
         $queryins = "INSERT INTO vasign (cuenta, gestor, fechaout, fechain,c_cont)
-VALUES (:cuenta, :gestor, :fechaout, now(), :idc);";
+VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
         $sti = $this->pdo->prepare($queryins);
         $sti->bindParam(':cuenta', $CUENTA);
         $sti->bindParam(':gestor', $gestor);
         $sti->bindParam(':fechaout', $fechaout);
+        $sti->bindParam(':id_cuenta', $ID_CUENTA);
+        $sti->execute();
+    }
+
+    /**
+     * 
+     * @param string $CUENTA
+     * @param string $gestor
+     * @param int $ID_CUENTA
+     */
+    public function insertVasign($CUENTA, $gestor, $ID_CUENTA) {
+        $queryins = "INSERT INTO vasign
+			(cuenta, gestor, fechaout,c_cont)
+			VALUES 
+			(:cuenta, :gestor, now(), :id_cuenta)";
+        $sti = $this->pdo->prepare($queryins);
+        $sti->bindParam(':cuenta', $CUENTA);
+        $sti->bindParam(':gestor', $gestor);
         $sti->bindParam(':id_cuenta', $ID_CUENTA);
         $sti->execute();
     }

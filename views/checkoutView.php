@@ -37,9 +37,9 @@
             </form>
             <button onclick="window.location = 'checkoutlist.php?capt=<?php echo $capt; ?>&visitador=<?php echo $gestor; ?>'">CHECKLIST</button>
             <?php
-            foreach ($resultcount as $answercount) {
-                $ASIG = $answercount['asig'];
-                $RECIB = $answercount['recib'];
+            if ($resultcount) {
+                $ASIG = $resultcount['asig'];
+                $RECIB = $resultcount['recib'];
             }
             ?>
             <p>Asignado: <?php echo $ASIG; ?><br>
@@ -60,14 +60,15 @@
                 </thead>
                 <tbody class="ui-widget-content">
                     <?php
+                    if (!empty($gestor)) {
                     foreach ($resultcc as $answer) {
                         $GESTOR = $answer['gestor'];
                         $ID_CUENTA = $answer['id_cuenta'];
-                        $CUENTA = $answer['cuenta'];
+                            $CUENTA = $answer['numero_de_cuenta'];
                         $ST = $answer['saldo_total'];
                         $CLIENTE = $answer['cliente'];
                         $QUEUE = $answer['queue'];
-                        $NOMBRE = $answer['nombre'];
+                            $NOMBRE = $answer['nombre_deudor'];
                         $FECHAOUT = $answer['fechaout'];
                         $FECHAIN = $answer['fechain'];
                         ?>
@@ -82,7 +83,10 @@
                             <td><?php echo $FECHAOUT; ?></td>
                             <td><?php echo $FECHAIN; ?></td>
                         </tr>
-                    <?php } ?>
+                            <?php
+                        }
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

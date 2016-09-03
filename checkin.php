@@ -26,16 +26,5 @@ if ($go == 'RECIBIR') {
 }
 $result = $cc->getVisitadores();
 $resultcount = $cc->countInOut($gestor);
-$querycc = "select id_cuenta, numero_de_cuenta as cuenta,
-				    nombre_deudor as nombre, resumen.cliente,
-				    saldo_total, q(status_aarsa) as queue,
-				    completo as gestor, fechaout, fechain
-from resumen join vasign on c_cont=id_cuenta 
-join nombres on iniciales=gestor 
-where gestor = :gestor 
-order by fechain desc";
-$stm = $pdo->prepare($querycc);
-$stm->bindParam(':gestor', $gestor);
-$stm->execute();
-$resultcc = $stm->fetchAll(\PDO::FETCH_ASSOC);
+$resultcc = $cc->listVasign($gestor);
 require_once 'views/checkinView.php';
