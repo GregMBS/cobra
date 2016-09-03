@@ -20,25 +20,25 @@
                     <?php
                     foreach ($resultg as $answerg) {
                         ?>
-                        <option value="<?php echo $answerg['c_cvge']; ?>" style="font-size:120%;">
-                            <?php echo $answerg['c_cvge']; ?></option>
-                    <?php }
+                        <option value="<?php echo $answerg[0]; ?>" style="font-size:120%;">
+                            <?php echo $answerg[0]; ?></option>
+                        <?php
+                    }
                     ?>
                 </select>
             </p>
-            <h2>Cliente:</h2>
-            <p><?php
-                if (isset($cliente)) {
-                    echo $cliente;
-                }
-                ?>
-                <?php
-                foreach ($resultc as $answerc) {
+            <p>Cliente:
+                <select name="cliente">
+                    <option value="todos" style="font-size:120%;">todos</option>
+                    <?php
+                    foreach ($resultc as $answerc) {
+                        ?>
+                        <option value="<?php echo $answerc[0]; ?>" style="font-size:120%;">
+                            <?php echo $answerc[0]; ?></option>
+                        <?php
+                    }
                     ?>
-                    <input type="checkbox" name="cliente[]" value="<?php echo $answerc['c_cvba']; ?>" />
-                    <?php echo $answerc['c_cvba']; ?><br>
-                <?php }
-                ?>
+                </select>
             </p>
             <p>HECHO de:
                 <?php
@@ -48,20 +48,22 @@
                 ?>
                 <select name="fecha1">
                     <?php
-                    foreach ($resultf1 as $answerf1) {
+                    foreach ($resultdf as $answerdf) {
                         ?>
-                        <option value="<?php echo $answerf1[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerf1[0]; ?></option>
-                    <?php } ?>
+                        <option value="<?php echo $answerdf[0]; ?>" style="font-size:120%;">
+                            <?php echo $answerdf[0]; ?></option>
+                        <?php }
+                    ?>
                 </select>
                 a:
-                <?php
-                if (isset($fecha2)) {
-                    echo $fecha2;
-                }
-                ?>
                 <select name="fecha2">
                     <?php
+                    foreach ($resultfd as $answerfd) {
+                        ?>
+                        <option value="<?php echo $answerfd[0]; ?>" style="font-size:120%;">
+                            <?php echo $answerfd[0]; ?></option>
+                        <?php
+                    }
                     foreach ($resultf2 as $answerf2) {
                         ?>
                         <option value="<?php echo $answerf2[0]; ?>" style="font-size:120%;">
@@ -73,10 +75,6 @@
             <input type='radio' name='tipo' id='visits' value='visits' /><br>
             <label for='telef'>Telefonica</label>
             <input type='radio' name='tipo' id='telef' value='telef' /><br>
-            <label for='admin'>Visitas y Telefonica</label>
-            <input type='radio' name='tipo' id='noadmin' value='noadmin' /><br>
-            <label for='admin'>ROBOT/Carteo</label>
-            <input type='radio' name='tipo' id='admin' value='admin' /><br>
             <label for='todos'>Todos</label>
             <input type='radio' name='tipo' id='todos' value='todos' /><br>
             <input type='submit' name='go' value='Query Gestiones'>
