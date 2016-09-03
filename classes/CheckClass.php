@@ -144,4 +144,30 @@ limit 1;";
         return $resultn;
     }
 
+    /**
+     * 
+     * @param string $tipo
+     * @param string $CUENTA
+     */
+    public function updateVasign($tipo, $CUENTA) {
+        if ($tipo == 'id_cuenta') {
+            $querycta = "select id_cuenta from resumen where id_cuenta = :cuenta";
+        } else {
+            $querycta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
+        }
+        $stc = $this->pdo->prepare($querycta);
+        $stc->bindParam(':cuenta', $CUENTA);
+        $stc->execute();
+        $resultcc = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($resultcc as $answercc) {
+            $C_CONT = $answercc['id_cuenta'];
+        }
+        $queryins = "update vasign set fechain=now()
+	where c_cont = :id_cuenta
+	and fechain is null
+	limit 1";
+        $sti = $this->pdo->prepare($queryins);
+        $sti->bindParam(':id_cuenta', $C_CONT);
+        $sti->execute();
+    }
 }

@@ -1,10 +1,14 @@
 <?php
 
+
 use cobra_salsa\PdoClass;
+use cobra_salsa\CheckClass;
 
 require_once 'classes/PdoClass.php';
+require_once 'classes/CheckClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
+$cc = new CheckClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $tipo = filter_input(INPUT_GET, 'tipo');
 $get = filter_input_array(INPUT_GET);
@@ -16,45 +20,12 @@ if (empty($tipo)) {
 $message = '';
 $go = filter_input(INPUT_GET, 'go');
 if ($go == 'RECIBIR') {
-    $CUENTA = trim(filter_input(INPUT_GET, 'cuenta'));
     if (!empty($CUENTA)) {
-        if ($tipo == 'id_cuenta') {
-            $querycta = "select id_cuenta from resumen where id_cuenta = :cuenta";
-        } else {
-            $querycta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
-        }
-        $stc = $pdo->prepare($querycc);
-        $stc->bindParam(':cuenta', $CUENTA);
-        $stc->execute();
-        $resultcc = $stc->fetchAll(\PDO::FETCH_ASSOC);
-        foreach ($resultcc as $answercc) {
-            $C_CONT = $answercc['id_cuenta'];
-            $CTA = $answercc['numero_de_cuenta'];
-        }
-        $queryins = "update vasign set fechain=now()
-	where c_cont = :id_cuenta
-	and fechain is null
-	limit 1";
-        $sti = $pdo->prepare($queryins);
-        $sti->bindParam(':id_cuenta', $C_CONT);
-        $sti->execute();
+        $cc->updateVasign($tipo, $CUENTA);
     }
 }
-$query = "SELECT usuaria,completo
-			    FROM nombres
-			    where usuaria in
-				(select gestor from vasign
-				where fechain is null)
-			    order by usuaria";
-$result = $pdo->query($query);
-$querycount = "select sum(fechaout>curdate()) as asig,
-		    sum(fechain>curdate()) as recib
-		    from vasign
-		    where gestor = :gestor;";
-$stn = $pdo->prepare($querycount);
-$stn->bindParam(':gestor', $gestor);
-$stn->execute();
-$resultcount = $stn->fetchAll(\PDO::FETCH_ASSOC);
+$result = $cc->getVisitadores();
+$resultcount = $cc->countInOut($gestor);
 $querycc = "select id_cuenta, numero_de_cuenta as cuenta,
 				    nombre_deudor as nombre, resumen.cliente,
 				    saldo_total, q(status_aarsa) as queue,

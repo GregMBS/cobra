@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+require_once '/classes/BaseClass.php';
+
 /**
  * Description of PdoClass
  *
