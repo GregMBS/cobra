@@ -27,7 +27,6 @@ if ($go == 'ASIGNAR') {
         $CTA = $CUENTA;
         $C_CONT = $cc->getIdCuentafromCuenta($CUENTA);
     }
-    $stc = $pdo->prepare($querycc);
     if (!empty($CUENTA)) {
         if ($C_CONT > 0) {
             $cc->insertVasign($CTA, $gestor, $C_CONT);
