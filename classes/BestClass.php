@@ -8,21 +8,8 @@ namespace cobra_salsa;
  * @author gmbs
  *
  */
-class BestClass
+class BestClass extends BaseClass
 {
-
-    /**
-     * @var \PDO $pdo
-     */
-    protected $pdo;
-
-    /**
-     * 
-     * @param \PDO $pdo
-     */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
 
     public function getResumenData() {
         $query = "select id_cuenta,numero_de_cuenta,status_de_credito,

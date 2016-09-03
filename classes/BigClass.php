@@ -14,20 +14,7 @@ namespace cobra_salsa;
  * @author gmbs
  *
  */
-class BigClass {
-
-    /**
-     * @var \PDO $pdo
-     */
-    protected $pdo;
-
-    /**
-     * 
-     * @param \PDO $pdo
-     */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
+class BigClass extends BaseClass {
 
     /**
      * 
@@ -80,7 +67,7 @@ class BigClass {
      * @param string $cliente
      * @return array
      */
-    public function getHistoria(
+    private function getHistoria(
     $queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente
     ) {
         $gestorstr = $this->getGestorStr($gestor);
@@ -125,7 +112,7 @@ where (n_prom>0 or n_prom is null)
 and pagos.fecha between :fecha1 and :fecha2
 ";
         $queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
-group by resumen.id_cuenta ORDER BY d_fech,c_hrin;";
+group by resumen.id_cuenta ORDER BY d_fech,c_hrin";
         $data = $this->getHistoria(
                 $queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
         return $data;
@@ -155,7 +142,7 @@ left join pagos on c_cont=pagos.id_cuenta and d2.queue='PAGOS' and fecha between
 where d_fech between :fecha1 and :fecha2
 ";
 
-        $queryBack = ";";
+        $queryBack = "";
         $data = $this->getHistoria($queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
         return $data;
     }
@@ -177,8 +164,7 @@ where d_fech between :fecha1 and :fecha2
 ";
 
         $queryBack = "and status_de_credito not like '%tivo'
-ORDER BY d_fech,c_hrin
-    ;";
+ORDER BY d_fech,c_hrin";
         $data = $this->getHistoria($queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
         return $data;
     }
@@ -332,9 +318,11 @@ ORDER BY d_fech,c_hrin
      * @return array
      */
     public function getProms($get) {
-        extract($get);
-        $dates = $this->alignDates(array($fecha1, $fecha2, $fecha3, $fecha4));
+        $dates = $this->alignDates(array($get['fecha1'], $get['fecha2'], $get['fecha3'], $get['fecha4']));
         list($fecha1, $fecha2, $fecha3, $fecha4) = $dates;
+        $tipo = $get['tipo'];
+        $gestor = $get['gestor'];
+        $cliente = $get['cliente'];
         if (!isset($tipo)) {
             $tipo = '';
         }

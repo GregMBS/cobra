@@ -13,20 +13,7 @@ namespace cobra_salsa;
  *
  * @author gmbs
  */
-class ActivarClass {
-
-    /**
-     * @var \PDO $pdo
-     */
-    protected $pdo;
-
-    /**
-     * 
-     * @param \PDO $pdo
-     */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
+class ActivarClass extends BaseClass {
 
     /**
      * 

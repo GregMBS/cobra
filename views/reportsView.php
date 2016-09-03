@@ -9,14 +9,14 @@
     </head>
     <body>
         <div data-role="page" id='Administracion'>
-        <div data-role="header">
-            <div data-role="navbar">
-                <UL>
-                    <LI><A href="#Administracion" class="ui-btn-active">Administraci&oacute;n</A></LI>
-                    <LI><A href="#Generales">Reportes Generales</A></LI>
-                </UL>
+            <div data-role="header">
+                <div data-role="navbar">
+                    <UL>
+                        <LI><A href="#Administracion" class="ui-btn-active">Administraci&oacute;n</A></LI>
+                        <LI><A href="#Generales">Reportes Generales</A></LI>
+                    </UL>
+                </div>
             </div>
-        </div>
             <div data-role="collapsible">
                 <h2>Cargar</h2>
                 <button onclick="window.location = 'carga2.php?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
@@ -35,24 +35,26 @@
                 <button onclick="window.location = 'segmentadmin.php?capt=<?php echo $capt; ?>'">Administrar Segmetos</button>
                 <button onclick="window.location = 'changest.php?capt=<?php echo $capt; ?>'">Cambiar Status de Credito</button>
                 <button onclick="window.location = 'inactivar.php?capt=<?php echo $capt; ?>'">Inactivar Cuentas</button>
+                <button onclick="window.location = 'queuemanual.php?capt=<?php echo $capt; ?>'">Cargar Queue MANUAL</button>
+                <button onclick="window.location = 'reporteManual.php?capt=<?php echo $capt; ?>'">Reporte Queue MANUAL</button>
             </div>
-	    <div data-role="footer">
-		<button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
-		<button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
-		<button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button>
-        </div>
+            <div data-role="footer">
+                <button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
+                <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
+                <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button>
+            </div>
         </div>
         <div data-role="page" id='Generales'>
-	    <div data-role="header">
-		<div data-role="navbar">
-		    <UL>
-			<LI><A href="#Administracion">Administraci&oacute;n</A></LI>
-			<LI><A href="#Generales" class="ui-btn-active">Reportes Generales</A></LI>
-			<LI><A href="#Specializados">DEMOS</A></LI>
-			<LI><A href="#ROBOT-ELASTIX">ROBOT y ELASTIX</A></LI>
-		    </UL>
-		</div>
-	    </div>
+            <div data-role="header">
+                <div data-role="navbar">
+                    <UL>
+                        <LI><A href="#Administracion">Administraci&oacute;n</A></LI>
+                        <LI><A href="#Generales" class="ui-btn-active">Reportes Generales</A></LI>
+                        <LI><A href="#Specializados">DEMOS</A></LI>
+                        <LI><A href="#ROBOT-ELASTIX">ROBOT y ELASTIX</A></LI>
+                    </UL>
+                </div>
+            </div>
             <div data-role="collapsible">
                 <h2>Estatus de cuentas</h2>
                 <button onclick="window.location = 'queuesqc.php?capt=<?php echo $capt; ?>'">Queues por Cliente</button>
