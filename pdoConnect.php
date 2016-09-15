@@ -70,7 +70,7 @@ class pdoConnect
         }
         $stc   = $this->pdo->prepare($querycheck);
         $stc->bindParam(':ticket', $ticket);
-        $stc->bindParam(':capt', $capt);
+        $stc->bindParam(':capt', $this->capt);
         $stc->execute();
         $count = $stc->fetch();
         if ($count[0] != 1) {
@@ -79,7 +79,7 @@ class pdoConnect
         }
         $stt   = $this->pdo->prepare($this->querytipo);
         $stt->bindParam(':ticket', $ticket);
-        $stt->bindParam(':capt', $capt);
+        $stt->bindParam(':capt', $this->capt);
         $stt->execute();
         $tipo = $stt->fetch();
         $this->tipo=$tipo['tipo'];
