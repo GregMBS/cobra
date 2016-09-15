@@ -34,6 +34,12 @@ class pdoConnect
      *
      * @var string
      */
+    public $capt;
+
+    /**
+     *
+     * @var string
+     */
     public $tipo;
 
     /**
@@ -54,11 +60,11 @@ class pdoConnect
     private function dbConnect($querycheck)
     {
         $ticket = filter_input(INPUT_COOKIE, 'auth');
-        $capt   = filter_input(INPUT_GET, 'capt');
-        if (empty($capt)) {
-            $capt   = filter_input(INPUT_POST, 'capt');
+        $this->capt   = filter_input(INPUT_GET, 'capt');
+        if (empty($this->capt)) {
+            $this->capt   = filter_input(INPUT_POST, 'capt');
         }
-        if (empty($capt)) {
+        if (empty($this->capt)) {
             $redirector = "Location: index.php";
             header($redirector);
         }
