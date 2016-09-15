@@ -21,7 +21,10 @@ require_once 'usuario_hdr_i.php'; //returns $con
 require_once 'pdoConnect.php';
 $pdoc = new pdoConnect();
 $pdo  = $pdoc->dbConnectUser();
-$capt = $pdoc->capt;
+if (empty($capt)) {
+    $capt = $pdoc->capt;
+}
+
 /*
 if ($detect->isMobile()) {
     header("Location: resumen-mobile.php?capt=" . $capt);
