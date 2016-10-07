@@ -35,3 +35,4 @@ if (!empty($auto)) {
 }
 $resulta = $rc->getReport();
 $result = $rc->getMessageList();
+require_once 'roboconView.php';
