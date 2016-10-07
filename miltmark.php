@@ -2,7 +2,7 @@
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "DeathSta1";
-$dbname = "robot";
+$dbname = "robotcsi";
 
 try {
     $dbh = new PDO("mysql:".$dbname.":".$dbhost,$dbuser,$dbpass);
@@ -10,9 +10,9 @@ try {
     echo 'Connection failed: ' . $e->getMessage();
 }
 
-$id = $_GET['id'];
+$id = filter_input(INPUT_GET, 'id');
 
-$botup = "UPDATE robot.calllist SET turno=turno+1 WHERE auto = :id;";
+$botup = "UPDATE calllist SET turno=turno+1 WHERE auto = :id";
 try {
     $sth = $dbh -> prepare($botup);
 } catch (PDOException $e) {

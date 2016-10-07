@@ -1,17 +1,18 @@
 <?php
+
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "DeathSta1";
-$dbname = "robot";
+$dbname = "robotcsi";
 $output = array();
 try {
-    $dbh = new PDO("mysql:".$dbname.":".$dbhost,$dbuser,$dbpass);
+    $dbh = new PDO("mysql:" . $dbname . ":" . $dbhost, $dbuser, $dbpass);
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
     die(json_encode(''));
 }
 
-$q0 = "SELECT distinct auto, msg, lineas FROM robot.msglist;";
+$q0 = "SELECT distinct auto, msg, lineas FROM msglist";
 try {
     $sth = $dbh->query($q0);
 } catch (PDOException $e) {
@@ -20,29 +21,31 @@ try {
 $result0 = $sth->fetchAll();
 foreach ($result0 as $row0) {
 
-$msg=$row0['msg'];
-$lim=$row0['lineas'];
-if ($lim>100) {$lim=100;}
+    $msg = $row0['msg'];
+    $lim = $row0['lineas'];
+    if ($lim > 100) {
+        $lim = 100;
+    }
 
-$q1 = "SELECT auto,id,tel,turno FROM robot.calllist " .
-"WHERE msg = :msg ".
-"AND id <> '' AND tel <> '' ".
-"AND turno = 0 ".
-"ORDER BY turno LIMIT ".$lim.";";
-try {
-    $sth1 = $dbh->prepare($q1);
-} catch (PDOException $e) {
-    echo 'Prepare failed: ' . $e->getMessage();
-}
-$sth1->bindParam(':msg', $msg);
-$sth1->execute(); 
-$result = $sth1->fetchAll();
-foreach ($result as $row) {
-$tt = $row[2];
-$auto=$row[0];
-$cta=$row[1];
-$output[] = array('id' => $auto, 'cuenta' => $cta, 'tel' => $tt, 'msg' => $msg);
-}
+    $q1 = "SELECT auto,id,tel,turno FROM calllist " .
+            "WHERE msg = :msg " .
+            "AND id <> '' AND tel <> '' " .
+            "AND turno = 0 " .
+            "ORDER BY turno LIMIT " . $lim . ";";
+    try {
+        $sth1 = $dbh->prepare($q1);
+    } catch (PDOException $e) {
+        echo 'Prepare failed: ' . $e->getMessage();
+    }
+    $sth1->bindParam(':msg', $msg);
+    $sth1->execute();
+    $result = $sth1->fetchAll();
+    foreach ($result as $row) {
+        $tt = $row[2];
+        $auto = $row[0];
+        $cta = $row[1];
+        $output[] = array('id' => $auto, 'cuenta' => $cta, 'tel' => $tt, 'msg' => $msg);
+    }
 }
 echo json_encode($output);
 
