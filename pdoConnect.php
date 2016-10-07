@@ -8,6 +8,7 @@
 class pdoConnect
 {
     protected $dsn        = 'mysql:dbname=cobra4;host=localhost';
+    protected $dsnRobot   = 'mysql:dbname=robotcsi;host=localhost';
     protected $username   = "root";
     protected $passwd     = "DeathSta1";
     /**
@@ -111,6 +112,15 @@ class pdoConnect
     public function dbConnectNobody()
     {
         $pdo        = $this->pdo;
+        return $pdo;
+    }
+
+    /**
+     * @returns PDO
+     */
+    public function dbConnectRobot()
+    {
+        $pdo        = new PDO($this->dsnRobot, $this->username, $this->passwd);;
         return $pdo;
     }
 
