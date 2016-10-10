@@ -14,7 +14,7 @@ $resultcl = $rc->getMessageList();
 if (!empty($go)) {
 
     if ($go == 'cargar') {
-        $rc->loadRobot($msg, $msgtag);
+        $rc->loadRobot($datastring, $msgtag);
         $msg = "<p>Llamadas est&aacute;n cargadas</p>";
     }
 }
