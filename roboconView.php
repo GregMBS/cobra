@@ -62,10 +62,10 @@
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
                 <input type='submit' name='cleanslate' value='VACIAR LISTA'>
             </form>
-            <form action='roboclean.php' method='get' name='prepare'>
+<!--            <form action='roboclean.php' method='get' name='prepare'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
                 <input type='submit' name='prepares' value='PREPARAR LISTA'>
-            </form>
+            </form>-->
             <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">RECARGA PAGINA</button>
         </div>
         <div>

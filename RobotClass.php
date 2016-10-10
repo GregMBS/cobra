@@ -145,7 +145,7 @@ SET turno=0";
     public function getReport() {
         $queryk = "select rc.msg as 'msg', count(distinct trim(id)) as 'countid',
             count(distinct tel) as 'counttel', lineas, 
-            sum(turno>0)/count(1)*100 as percent, sum(1), as total
+            sum(turno>0)/count(1)*100 as percent, sum(1) as total
 from calllist rc 
 join msglist rm 
 on rc.msg regexp rm.msg

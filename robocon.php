@@ -34,5 +34,5 @@ if (!empty($auto)) {
     }
 }
 $resulta = $rc->getReport();
-$result = $rc->getMessageList();
+$result = $rc->getQueues();
 require_once 'roboconView.php';
