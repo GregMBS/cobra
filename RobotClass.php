@@ -162,17 +162,19 @@ group by rc.msg";
      */
     private function calcTiempo($array) {
         $output = array();
-        foreach ($array as $row) {
-            $temp = $row;
-            if ($row['lineas'] > 0) {
-                $rest = (100 - $row['percent']) / 100 * $row['total'] / 60 / $row['lineas'];
-                $resth = floor($rest);
-                $restm = sprintf('%02d', round(($rest - $resth) * 60));
-                $temp['tiempo'] = $resth . ":" . $restm;
-            } else {
-                $temp['tiempo'] = 'N/A';
+        if (is_array($array)) {
+            foreach ($array as $row) {
+                $temp = $row;
+                if ($row['lineas'] > 0) {
+                    $rest = (100 - $row['percent']) / 100 * $row['total'] / 60 / $row['lineas'];
+                    $resth = floor($rest);
+                    $restm = sprintf('%02d', round(($rest - $resth) * 60));
+                    $temp['tiempo'] = $resth . ":" . $restm;
+                } else {
+                    $temp['tiempo'] = 'N/A';
+                }
+                $output[] = $temp;
             }
-            $output[] = $temp;
         }
         return $output;
     }
