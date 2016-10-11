@@ -33,14 +33,13 @@ try {
 }
 if ($result0) {
     foreach ($result0 as $row0) {
-        var_dump($row0);die();
         $msg = $row0['msg'];
         $lim = $row0['lineas'];
         if ($lim > 100) {
             $lim = 100;
         }
 
-        $q1 = "SELECT auto,id,tel,turno FROM calllist " .
+        $q1 = "SELECT auto,id,tel,turno FROM $dbname.calllist " .
                 "WHERE msg = :msg " .
                 "AND id <> '' AND tel <> '' " .
                 "AND turno = 0 " .
