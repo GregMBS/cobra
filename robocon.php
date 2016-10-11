@@ -6,14 +6,12 @@ $pdo = $pdoc->dbConnectAdmin();
 require_once 'RobotClass.php';
 $rc = new RobotClass($pdoc);
 $capt = filter_input(INPUT_GET, 'capt');
-if (empty($capt)) {
-    $capt = filter_input(INPUT_POST, 'capt');
-}
-$go = filter_input(INPUT_POST, 'go');
-$killall = filter_input(INPUT_POST, 'killall');
-$cleanslate = filter_input(INPUT_POST, 'cleanslate');
-$countreset = filter_input(INPUT_POST, 'countreset');
-$auto = filter_input(INPUT_POST, 'auto');
+$go = filter_input(INPUT_GET, 'go');
+$killall = filter_input(INPUT_GET, 'killall');
+$cleanslate = filter_input(INPUT_GET, 'cleanslate');
+$countreset = filter_input(INPUT_GET, 'countreset');
+$auto = filter_input(INPUT_GET, 'auto');
+$lineas = filter_input(INPUT_GET, 'lineas');
 if (!empty($killall)) {
     $rc->stopAllQueues();
 }
