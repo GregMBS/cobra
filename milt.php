@@ -14,12 +14,11 @@ try {
 
 $q0 = "SELECT distinct auto, msg, lineas FROM msglist";
 try {
-    $sth = $dbh->query($q0);
+    $result0 = $dbh->query($q0);
 } catch (PDOException $e) {
     echo 'Query failed: ' . $e->getMessage();
 }
-if ($sth) {
-    $result0 = $sth->fetchAll();
+if ($result0) {
     foreach ($result0 as $row0) {
 
         $msg = $row0['msg'];
@@ -40,11 +39,11 @@ if ($sth) {
         }
         $sth1->bindParam(':msg', $msg);
         $sth1->execute();
-        $result = $sth1->fetchAll();
+        $result = $sth1->fetchAll(PDO::FETCH_ASSOC);
         foreach ($result as $row) {
-            $tt = $row[2];
-            $auto = $row[0];
-            $cta = $row[1];
+            $tt = $row['tel'];
+            $auto = $row['auto'];
+            $cta = $row['id'];
             $output[] = array('id' => $auto, 'cuenta' => $cta, 'tel' => $tt, 'msg' => $msg);
         }
     }
