@@ -33,7 +33,7 @@ try {
 }
 if ($result0) {
     foreach ($result0 as $row0) {
-
+        var_dump($row0);die();
         $msg = $row0['msg'];
         $lim = $row0['lineas'];
         if ($lim > 100) {
