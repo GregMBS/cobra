@@ -14,7 +14,6 @@ $killall = filter_input(INPUT_POST, 'killall');
 $cleanslate = filter_input(INPUT_POST, 'cleanslate');
 $countreset = filter_input(INPUT_POST, 'countreset');
 $auto = filter_input(INPUT_POST, 'auto');
-$lines = filter_input(INPUT_POST, 'lines');
 if (!empty($killall)) {
     $rc->stopAllQueues();
 }
@@ -25,11 +24,10 @@ if (!empty($countreset)) {
     $rc->resetCounter();
 }
 if (!empty($auto)) {
-    $process = $lines;
-    if ($process == 'CAMBIAR') {
+    if ($go == 'CAMBIAR') {
         $rc->changeLineCount($auto, $lineas);
     }
-    if ($process == 'BORRAR') {
+    if ($go == 'BORRAR') {
         $rc->eraseOneQueue($auto);
     }
 }

@@ -50,15 +50,15 @@
         <div>
             <form action='#' method='get' name='kills'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
-                <input type='submit' name='killall' value='PARAR TODOS'>
+                <input type='submit' name='go' value='PARAR TODOS'>
             </form>
             <form action='#' method='get' name='resets'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
-                <input type='submit' name='countreset' value='CERO CONTADORES'>
+                <input type='submit' name='go' value='CERO CONTADORES'>
             </form>
             <form action='#' method='get' name='cleans'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
-                <input type='submit' name='cleanslate' value='VACIAR LISTA'>
+                <input type='submit' name='go' value='VACIAR LISTA'>
             </form>
 <!--            <form action='roboclean.php' method='get' name='prepare'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
@@ -78,8 +78,8 @@
                             <?php
                             foreach ($result as $row) {
                                 $msg = $row['msg'];
-                                $lineas = $row['lineas'];
-                                $auto = $row['auto'];
+                                $lineas = (int) $row['lineas'];
+                                $auto = (int) $row['auto'];
                                 ?>
                                 <form action='#' method='get' name='<?php echo $msg; ?>'>
                                     <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
@@ -92,7 +92,7 @@
                                                 for ($i = 0; $i < 15; $i++) {
                                                     ?>
                                                     <option value="<?php echo $i; ?>" style="font-size:120%;" <?php
-                                                            if ($i == strtolower($lineas)) {
+                                                            if ($i == $lineas) {
                                                                 echo "selected='selected'";
                                                             }
                                                             ?>>
@@ -102,8 +102,8 @@
                                                             ?></option>
                                             </select>
                                         </td>
-                                        <td><input type='submit' name='lines' value='CAMBIAR'></td>
-                                        <td><input type='submit' name='lines' value='BORRAR'></td>
+                                        <td><input type='submit' name='go' value='CAMBIAR'></td>
+                                        <td><input type='submit' name='go' value='BORRAR'></td>
                                     </tr>
                                 </form>
 <?php } ?>
