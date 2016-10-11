@@ -18,6 +18,7 @@ try {
 } catch (PDOException $e) {
     echo 'Query failed: ' . $e->getMessage();
 }
+var_dump($result0);die();
 if ($result0) {
     foreach ($result0 as $row0) {
 
