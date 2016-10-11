@@ -14,12 +14,23 @@ try {
 
 $q0 = "SELECT distinct auto, msg, lineas FROM $dbname.msglist";
 try {
-    $result0 = $dbh->query($q0);
+    $sth = $dbh->prepare($q0);
 } catch (PDOException $e) {
     echo 'Query failed: ' . $e->getMessage();
     die();
 }
-var_dump($result0);die();
+try {
+    $sth->execute();
+} catch (PDOException $e) {
+    echo 'Query failed: ' . $e->getMessage();
+    die();
+}
+try {
+    $result0 = $sth->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo 'Query failed: ' . $e->getMessage();
+    die();
+}
 if ($result0) {
     foreach ($result0 as $row0) {
 
