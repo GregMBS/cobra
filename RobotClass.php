@@ -128,7 +128,6 @@ SET turno=0";
         $stq->bindParam(':lineas', $lineas, PDO::PARAM_INT);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stq->execute();
-        var_dump($stq);die();
     }
 
     /**
