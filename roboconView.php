@@ -50,15 +50,15 @@
         <div>
             <form action='#' method='get' name='kills'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
-                <input type='submit' name='go' value='PARAR TODOS'>
+                <input type='submit' name='killall' value='PARAR TODOS'>
             </form>
             <form action='#' method='get' name='resets'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
-                <input type='submit' name='go' value='CERO CONTADORES'>
+                <input type='submit' name='countreset' value='CERO CONTADORES'>
             </form>
             <form action='#' method='get' name='cleans'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
-                <input type='submit' name='go' value='VACIAR LISTA'>
+                <input type='submit' name='cleanslate' value='VACIAR LISTA'>
             </form>
 <!--            <form action='roboclean.php' method='get' name='prepare'>
                 <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
