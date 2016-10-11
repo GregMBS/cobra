@@ -12,7 +12,7 @@ try {
     die(json_encode(''));
 }
 
-$q0 = "SELECT distinct auto, msg, lineas FROM msglist";
+$q0 = "SELECT distinct auto, msg, lineas FROM $dbname.msglist";
 try {
     $result0 = $dbh->query($q0);
 } catch (PDOException $e) {
