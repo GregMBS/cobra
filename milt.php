@@ -17,6 +17,7 @@ try {
     $result0 = $dbh->query($q0);
 } catch (PDOException $e) {
     echo 'Query failed: ' . $e->getMessage();
+    die();
 }
 var_dump($result0);die();
 if ($result0) {
