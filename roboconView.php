@@ -22,7 +22,6 @@
                         <th>Registros</th>
                         <th>Lineas</th>
                         <th>% Marcado</th>
-                        <th>Horas rest.</th>
                     </tr>
                 </thead>
                 <tbody class="ui-widget-content">
@@ -34,7 +33,7 @@
                         $lins = $rowa['lineas'];
                         $regs = $rowa['total'];
                         $pc = $rowa['percent'] . "%";
-                        $tiempo = $rowa['tiempo'];
+//                        $tiempo = $rowa['tiempo'];
                         ?>
                         <tr>
                             <td><?php echo $client; ?></td>
@@ -42,8 +41,7 @@
                             <td class="num"><?php echo $tels; ?></td>
                             <td class="num"><?php echo $regs; ?></td>
                             <td class="num"><?php echo $lins; ?></td>
-                            <td class="num"><?php echo $pc; ?></td>
-                            <td class="num"><?php echo $tiempo; ?></td>
+                            <td class="num"><?php echo $pc; ?></td>->
                         </tr>
                     <?php } ?>
                 </tbody>
