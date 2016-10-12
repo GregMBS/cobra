@@ -12,7 +12,7 @@ try {
 
 $id = filter_input(INPUT_GET, 'id');
 
-$botup = "UPDATE calllist SET turno=turno+1 WHERE auto = :id";
+$botup = "UPDATE $dbname.calllist SET turno=turno+1 WHERE auto = :id";
 try {
     $sth = $dbh -> prepare($botup);
 } catch (PDOException $e) {
