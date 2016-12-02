@@ -47,6 +47,7 @@ $dst = '';
 		    $tsumpp[$i]	 = 0;
 		    $tsump[$i]	 = 0;
 		    $tsumw[$i]	 = 0;
+		    $tsumci[$i]	 = 0;
 	    }
 	    $resultnom = $pc->listVisitadores();
 	    foreach ($resultnom as $answernom) {
