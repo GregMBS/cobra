@@ -1005,26 +1005,39 @@ ORDER BY queuelist.camp LIMIT 1";
     $queryccamp = "UPDATE nombres SET camp=" . $newcamp . " WHERE iniciales='" . $capt . "';";
     mysqli_query($con, $queryccamp) or die("ERROR RM43 - " . mysqli_error($con));
 }
-$queryprom = "select n_prom,d_prom,
-    n_prom1,d_prom1,n_prom2,d_prom2,
-    n_prom3,d_prom3,n_prom4,d_prom4,
-    c_freq 
-from historia 
-where c_cont=" . $id_cuenta . " and n_prom>0 
-and c_cvst like 'PROM%DE%'
-order by d_fech desc, c_hrin desc limit 1";
-$resultprom = mysqli_query($con, $queryprom) or die("ERROR RM45 - " . mysqli_error($con));
-while ($answerprom = mysqli_fetch_row($resultprom)) {
-    $N_PROM_OLD = $answerprom[0];
-    $D_PROM_OLD = $answerprom[1];
-    $N_PROM1_OLD = $answerprom[2];
-    $D_PROM1_OLD = $answerprom[3];
-    $N_PROM2_OLD = $answerprom[4];
-    $D_PROM2_OLD = $answerprom[5];
-    $N_PROM3_OLD = $answerprom[6];
-    $D_PROM3_OLD = $answerprom[7];
-    $N_PROM4_OLD = $answerprom[8];
-    $D_PROM4_OLD = $answerprom[9];
+if ($id_cuenta > 0) {
+    $queryprom = "select n_prom,d_prom,
+        n_prom1,d_prom1,n_prom2,d_prom2,
+        n_prom3,d_prom3,n_prom4,d_prom4,
+        c_freq 
+    from historia 
+    where c_cont=" . $id_cuenta . " and n_prom>0 
+    and c_cvst like 'PROM%DE%'
+    order by d_fech desc, c_hrin desc limit 1";
+    $resultprom = mysqli_query($con, $queryprom) or die("ERROR RM45 - " . mysqli_error($con));
+    while ($answerprom = mysqli_fetch_row($resultprom)) {
+        $N_PROM_OLD = $answerprom[0];
+        $D_PROM_OLD = $answerprom[1];
+        $N_PROM1_OLD = $answerprom[2];
+        $D_PROM1_OLD = $answerprom[3];
+        $N_PROM2_OLD = $answerprom[4];
+        $D_PROM2_OLD = $answerprom[5];
+        $N_PROM3_OLD = $answerprom[6];
+        $D_PROM3_OLD = $answerprom[7];
+        $N_PROM4_OLD = $answerprom[8];
+        $D_PROM4_OLD = $answerprom[9];
+    }
+} else {
+    $N_PROM_OLD = '';
+    $D_PROM_OLD = '';
+    $N_PROM1_OLD = '';
+    $D_PROM1_OLD = '';
+    $N_PROM2_OLD = '';
+    $D_PROM2_OLD = '';
+    $N_PROM3_OLD = '';
+    $D_PROM3_OLD = '';
+    $N_PROM4_OLD = '';
+    $D_PROM4_OLD = '';
 }
 $nmerc = 0;
 $querycheck = "SELECT timelock, locker,time_to_sec(timediff(now(),timelock))/60 from resumen  WHERE id_cuenta='" . $id_cuenta . "';";
