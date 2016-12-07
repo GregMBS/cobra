@@ -104,9 +104,7 @@ where status_de_credito not regexp '-'";
      */
     public function createMarcados($fecha1, $fecha2) {
         $querycreate = "CREATE TEMPORARY TABLE marcados
-SELECT c_tele FROM historia LIMIT 0";
-        $this->pdo->query($querycreate);
-        $queryfill = "insert into marcados select distinct c_tele
+SELECT distinct c_tele
 from historia,resumen,dictamenes
 where c_cont=id_cuenta and dictamen=c_cvst
 and status_de_credito not regexp '-'
@@ -114,7 +112,7 @@ and c_msge is null
 and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
-        $stf = $this->pdo->prepare($queryfill);
+        $stf = $this->pdo->prepare($querycreate);
         $stf->bindParam(':fecha1', $fecha1);
         $stf->bindParam(':fecha2', $fecha2);
         $stf->execute();
