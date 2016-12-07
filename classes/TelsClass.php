@@ -148,7 +148,8 @@ order by c_tele";
      */
     public function getMercadosReport() {
         try {
-            $statement = $this->pdo->query($this->mercadosReportQuery);
+            $statement = $this->pdo->prepare($this->mercadosReportQuery);
+            $statement->execute();
         } catch (\PDOException $exc) {
             die($exc->getTraceAsString());
         }
