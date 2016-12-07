@@ -38,6 +38,12 @@ class PdoClass
      *
      * @var string
      */
+    public $capt;
+
+    /**
+     *
+     * @var string
+     */
     public $tipo;
 
     /**
@@ -66,6 +72,7 @@ class PdoClass
             $redirector = "Location: index.php";
             header($redirector);
         }
+        $this->capt = $capt;
         $stc   = $this->pdo->prepare($querycheck);
         $stc->bindParam(':ticket', $ticket);
         $stc->bindParam(':capt', $capt);
