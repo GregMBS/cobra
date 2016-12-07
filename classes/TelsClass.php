@@ -147,7 +147,11 @@ order by c_tele";
      * @return array
      */
     public function getMercadosReport() {
-        $statement = $this->pdo->query($this->mercadosReportQuery);
+        try {
+            $statement = $this->pdo->query($this->mercadosReportQuery);
+        } catch (\PDOException $exc) {
+            die($exc->getTraceAsString());
+        }
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
