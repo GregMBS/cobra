@@ -24,7 +24,7 @@ class TelsClass {
      * @var \PDO $pdo
      */
     protected $pdo;
-    
+
     /**
      *
      * @var string
@@ -83,16 +83,18 @@ where status_de_credito not regexp '-'";
      * @param array $result
      */
     public function outputDocument($result) {
-        $filename = "Query_de_telefonos_" . date('ymd') . ".xlsx";
-        $output = array();
-        $output[] = array_keys($result[0]);
-        foreach ($result as $row) {
-            $output[] = $row;
+        if (!empty($result)) {
+            $filename = "Query_de_telefonos_" . date('ymd') . ".xlsx";
+            $output = array();
+            $output[] = array_keys($result[0]);
+            foreach ($result as $row) {
+                $output[] = $row;
+            }
+            $writer = WriterFactory::create(Type::XLSX);
+            $writer->openToBrowser($filename); // stream data directly to the browser
+            $writer->addRows($output); // add multiple rows at a time
+            $writer->close();
         }
-        $writer = WriterFactory::create(Type::XLSX);
-        $writer->openToBrowser($filename); // stream data directly to the browser
-        $writer->addRows($output); // add multiple rows at a time
-        $writer->close();
     }
 
     /**
