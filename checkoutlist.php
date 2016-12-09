@@ -41,8 +41,8 @@ $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         <title>COBRA Visitador Checklist</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" />
-        <script src="bower_components/jquery/jquery.js" type="text/javascript"></script>
-        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="vtable">

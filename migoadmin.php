@@ -17,11 +17,11 @@ $result    = $pdo->query($querymain);
 <html>
     <head>
         <title>Cuentas Migo</title>
-        <link href="bower_components/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link href="bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
-        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
-        <script src="bower_components/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.jqueryui.min.js" type="text/javascript"></script>
     </head>
     <body>
         <table id="Cuentas" class="ui-widget">

@@ -66,9 +66,9 @@ if ($go != "") {
 <html>
     <head>
 	<title>LOGOUT de COBRA</title>
-	<link href="public/bower_resources/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <script src="public/bower_resources/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="public/bower_resources/jqueryui/jquery-ui.js" type="text/javascript"></script>
+	<link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
     </head>
     <body>
 	<h1>COBRA - LOGOUT</h1>

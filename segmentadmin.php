@@ -67,9 +67,9 @@ $result2	 = $pdo->query($querymain2);
 <html>
     <head>
 	<title>Administraci&oacute;n de las segmentos</title>
-	<link rel="stylesheet" href="bower_components/jqueryui/themes/vader/jquery-ui.css" type="text/css" media="all" />
-	<script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
-	<script src="bower_components/jqueryui/jquery-ui.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/vader/jquery-ui.css" type="text/css" media="all" />
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
 	<style>
 	    tr:hover {background-color: yellow;}
 	</style>

@@ -14,9 +14,9 @@
                 padding-right: 1em;
             }
         </style>
-        <script src="public/bower_resources/jquery/dist/jquery.js" type="text/javascript"></script>
-        <script src="public/bower_resources/jqueryui/jquery-ui.js" type="text/javascript"></script>
-        <script src="public/bower_resources/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
     </head>
     <body>
         <button onclick="window.location = 'reporteManual.php?capt=<?php echo $capt; ?>'">Regressar al Reporte de los Queues MANUAL</button><br>

@@ -50,9 +50,9 @@ $params = array('server' => '192.168.0.102', 'port' => '5038');
 <html>
 <head>
 <title>ROBOT Control</title>
-			<link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" /> 
-			<script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script> 
-			<script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script> 
+			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" /> 
+			<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script> 
+			<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script> 
 <style>
 	div {float:left;}
 </style>
