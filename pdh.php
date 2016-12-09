@@ -15,7 +15,7 @@ $result = $dc->getPromesas($gestor, $fecha);
     <head>
         <title>Cuentas gestionado por <?php echo $gestor; ?> en <?php echo $fecha; ?></title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="vendor/bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/jquery.dataTables.css">
         <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
         <script src="bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>

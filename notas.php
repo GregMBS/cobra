@@ -57,7 +57,7 @@ if ($go == 'BORRAR') {
     <head>
         <title>COBRA Notas</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="vendor/bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
         <script src="bower_components/jqueryui/jquery-ui.js" type="text/javascript"></script>
     </head>

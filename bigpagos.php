@@ -23,7 +23,7 @@ if (!empty($get['go'])) {
 <html>
     <head>
         <title>Query de las Pagos</title>
-        <link rel="stylesheet" href="vendor/bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="bower_components/jqueryui/themes/redmond/jquery-ui.css" type="text/css" media="all" />
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
