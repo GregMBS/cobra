@@ -181,8 +181,8 @@ values ('" . $row['c_cvge'] . "','" . $row['cliente'] . "','" . $row['status_de_
             $queryplus = "select if(d_prom2<(curdate()),n_prom,n_prom1),
 if(d_prom2>=(curdate()),n_prom2,0) from historia 
 where auto=" . $id;
-            $resultplus = $con->query($queryplus);
-            while ($answerplus = $resultplus->fetch_row()) {
+            $resultplus = $pdo->query($queryplus);
+            foreach ($resultplus as $answerplus) {
                 echo "<td>" . $answerplus[1] . "</td>";
                 echo "<td>" . $answerplus[0] . "</td>";
                 echo "<td></td>";
@@ -191,7 +191,7 @@ where auto=" . $id;
 values ('" . $row['gestor'] . "','" . $row['cliente'] . "','" . $row['campa&ntilde;a'] .
                         "','" . $row['producto'] . "','" . $row['subproducto'] .
                         "'," . $answerplus[1] . "," . $answerplus[0] . ",0)";
-                $con->query($qi) or die($con->error);
+                $pdo->query($qi);
             }
         }
 ?>
