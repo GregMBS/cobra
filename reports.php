@@ -108,29 +108,6 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <h3>ROBOT</h3>
                 <button onclick="window.location = 'cargatel.php?capt=<?php echo $capt; ?>'">CARGAR ROBOT</button>
                 <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">CONTROLAR ROBOT</button>
-<!--                <button onclick="window.location = 'callfileedit.php?capt=<?php echo $capt; ?>'">QUITAR de ROBOT</button>
-                <button onclick="window.location = 'robot_contactos.php?capt=<?php echo $capt; ?>'">CONTACTOS para ROBOT</button>
-                <button onclick="window.location = 'robot_sin_contactos.php?capt=<?php echo $capt; ?>'">SIN CONTACTOS para ROBOT</button>
-                <button onclick="window.location = 'robot_negociaciones.php?capt=<?php echo $capt; ?>'">NEGOCIACIONES para ROBOT</button><br>
-                <h3>ELASTIX</h3>
-                <button onclick="window.location = 'pbxqueues.php?capt=<?php echo $capt; ?>'">PBX Rapido</button>
-                <button onclick="window.location = 'elasticount.php?capt=<?php echo $capt; ?>'">ELASTIX Rapido</button>
-                <button onclick="window.location = 'elastix_all.php?capt=<?php echo $capt; ?>'">TODAS ACTIVAS para ELASTIX</button>
-                <button onclick="window.location = 'elastix-history.php?capt=<?php echo $capt; ?>'">ELECCI&Oacute; CONFIGURABLE para ELASTIX</button>
-                <button onclick="window.location = 'elastix.php?capt=<?php echo $capt; ?>'">CONTACTOS para ELASTIX 90 D&Iacute;AS</button>
-                <button onclick="window.location = 'elastix_fresh.php?capt=<?php echo $capt; ?>'">CONTACTOS para ELASTIX MES ACTUAL</button>
-                <button onclick="window.location = 'elastix2.php?capt=<?php echo $capt; ?>'">SIN GESTIONES para ELASTIX</button>
-                <button onclick="window.location = 'elastix_cnp.php?capt=<?php echo $capt; ?>'">NEGOCIACIONES y PROMESAS para ELASTIX</button>
-                <button onclick="window.location = 'elastix_msg.php?capt=<?php echo $capt; ?>'">MENSAJES para ELASTIX</button>
-                <button onclick="window.location = 'elastix_sc.php?capt=<?php echo $capt; ?>'">SIN CONTACTOS para ELASTIX</button>
-                <button onclick="window.location = 'elastix_tcasa.php?capt=<?php echo $capt; ?>'">TEL CASA sin marcarpara ELASTIX</button>
-                <button onclick="window.location = 'elastix_tlab.php?capt=<?php echo $capt; ?>'">TEL LABOTAL sin marcarpara ELASTIX</button>
-                <button onclick="window.location = 'elastix_tref.php?capt=<?php echo $capt; ?>'">TEL REF sin marcar para ELASTIX</button>
-                <button onclick="window.location = 'elastikill.php?capt=<?php echo $capt; ?>'">QUITAR de ELASTIX</button>
-                <button onclick="window.location = 'cellcall2.php?capt=<?php echo $capt; ?>'">Marca Celulares</button>
-                <h3>OTROS</h3>
-                <button onclick="window.location = 'llamadas_desconocidas.php?capt=<?php echo $capt; ?>'">LLAMADAS DESCONOCIDAS</button>
-                <button onclick="window.location = 'llamadas_desconocidas_ayer.php?capt=<?php echo $capt; ?>'">LLAMADAS DESCONOCIDAS DE AYER</button><br>-->
             </div>
         </div>
         <p>
