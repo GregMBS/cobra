@@ -84,7 +84,7 @@ $gestion=utf8_encode($answer[4]);
                     if ($fieldsize[$k]=="gestion") {
 											$jscode1=" onClick='alert(";
 											$jscode2=")'";
-											$jscode=$jscode1.'"'.ereg_replace("[\n\r]", " ", $gestion).'"'.$jscode2;
+											$jscode=$jscode1.'"'.preg_replace("[\n\r]", " ", $gestion).'"'.$jscode2;
 											}
 										?>
                     <td<?php if ($c==1) {echo " style='background-color:#dddddd'";}; echo ' class="'.$fieldsize[$k].'"'.$jscode;?>>

@@ -59,7 +59,7 @@
                                     if ($field == "short") {
                                         $jscode1 = " onClick='alert(";
                                         $jscode2 = ")'";
-                                        $jscode = $jscode1 . '"' . ereg_replace("[\n\r]", " ", $gestion) . '"' . $jscode2;
+                                        $jscode = $jscode1 . '"' . preg_replace("[\n\r]", " ", $gestion) . '"' . $jscode2;
                                     }
                                     ?>
                                     <td<?php

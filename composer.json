@@ -5,7 +5,6 @@
         "datatables/datatables": "1.10.3",
         "box/spout": "v1.1.0",
         "phpmd/phpmd": "^2.4",
-        "fabpot/php-cs-fixer": "^1.11",
         "instaclick/php-code-sniffer": "^1.4"
     }
 }

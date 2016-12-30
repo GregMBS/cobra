@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
     'PHPMD\\' => array($vendorDir . '/phpmd/phpmd/src/main/php'),
     'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
     'ComponentInstaller' => array($vendorDir . '/robloach/component-installer/src'),

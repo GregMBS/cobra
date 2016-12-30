@@ -1471,7 +1471,7 @@ if (!empty($rowsub)) {
                                         if ($fieldsize[$k] == "gestion") {
                                             $jscode1 = " onClick='alert(";
                                             $jscode2 = ")'";
-                                            $jscode = $jscode1 . '"' . ereg_replace("[\n\r]", " ", $timestamp . ': ' . $gestion) . '"' . $jscode2;
+                                            $jscode = $jscode1 . '"' . preg_replace("[\n\r]", " ", $timestamp . ': ' . $gestion) . '"' . $jscode2;
                                         }
                                         ?>
                                             <td<?php
