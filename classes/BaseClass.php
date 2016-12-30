@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+require_once 'config.php';
+
 /**
  * Description of ActivarClass
  *
@@ -19,12 +21,18 @@ class BaseClass {
      * @var \PDO $pdo
      */
     protected $pdo;
-
+    
+    /**
+     * @var \ConfigClass $config
+     */
+    public $config;
+    
     /**
      * 
      * @param \PDO $pdo
      */
     public function __construct($pdo) {
+        $this->config = new \ConfigClass();
         $this->pdo = $pdo;
     }
 }

@@ -55,6 +55,8 @@ class PdoClass
 
     public function __construct()
     {
+        $config = new \ConfigClass();
+        $this->dsn = 'mysql:dbname='.$config->dbName.';host=localhost';
         $this->pdo = new \PDO($this->dsn, $this->username, $this->passwd);
     }
     /**
