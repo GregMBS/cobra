@@ -11,11 +11,6 @@ $capt	 = filter_input(INPUT_GET, 'capt');
 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
     </head>
     <body>
-	<div style="clear:both">
-	    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-	    <a id='cell' href='cellcall2.php?capt=<?php echo $capt; ?>' target='_blank'>
-		Llamada Celular</a>
-	</div>
 	<?php
 	require "AsteriskManager.php";
 	$params	 = array('server' => '192.168.0.102', 'port' => '5038');
