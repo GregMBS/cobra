@@ -1,8 +1,11 @@
 <?php
 
-class CreditoRealModels {
+namespace cobra_salsa;
 
-    private $con;
+use cobra_salsa\BaseClass;
+
+class CreditoRealClass extends BaseClass {
+
     private $keys = array('fecha_de_asignacion', 'd_fech', 'despacho',
         'numero_de_credito', 'numero_de_cuenta', 'producto',
         'actCode', 'actDesc', 'class', 'classDesc',
@@ -188,12 +191,6 @@ class CreditoRealModels {
         'HR' => 'Herramientas'
     );
 
-    function __construct() {
-        require_once 'PdoClass.php';
-        $db = new PdoClass();
-        $this->con = $db->getDB();
-    }
-
     private function getAccionCode($act) {
         return $this->actCode[$act];
     }
@@ -219,13 +216,13 @@ class CreditoRealModels {
     }
 
     private function getStartDate() {
-        $startDate = "select greatest(
-date_sub(curdate()-1, interval (WEEKDAY(curdate()-1)) day),
-date_sub(curdate()-1, interval (WEEKDAY(curdate()-3)) day),
-date_sub(curdate()-1, interval (WEEKDAY(curdate()-5)) day)
-)";
-        $std = $this->con->query($startDate);
-        $result = $std->fetch();
+//        $startDate = "select greatest(
+//date_sub(curdate()-1, interval (WEEKDAY(curdate()-1)) day),
+//date_sub(curdate()-1, interval (WEEKDAY(curdate()-3)) day),
+//date_sub(curdate()-1, interval (WEEKDAY(curdate()-5)) day)
+//)";
+//        $std = $this->pdo->query($startDate);
+//        $result = $std->fetch();
 //        return $result[0];
 	return date('Y-m-01');
     }
@@ -238,7 +235,7 @@ date_sub(curdate()-1, interval (WEEKDAY(curdate()-5)) day)
     where id_cuenta=c_cont and status_de_credito not like '%inactivo' 
     and cliente = 'Credito Real' and d_fech >= :start and d_fech <= curdate()
 ORDER BY d_fech, c_hrin";
-        $stm = $this->con->prepare($querymain);
+        $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':start', $start);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -252,7 +249,7 @@ ORDER BY d_fech, c_hrin";
     where id_cuenta=c_cont and status_de_credito not like '%inactivo' 
     and cliente = 'Credito Real' and d_fech > last_day(curdate() - interval 6 week) and d_fech <= last_day(curdate() - interval 2 week)
 ORDER BY d_fech, c_hrin";
-        $stm = $this->con->prepare($querymain);
+        $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':start', $start);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);

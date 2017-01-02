@@ -1,8 +1,11 @@
 <?php
 
-class DIMEXModels
-{
-    private $con;
+namespace cobra_salsa;
+
+use cobra_salsa\BaseClass;
+
+class DIMEXClass extends BaseClass {
+
     private $columnNames = array(
         'Núm. De Crédito',
         'Nombre',
@@ -40,13 +43,6 @@ class DIMEXModels
         'TERCERO NO CONOCE DEUDOR' => '*TERCERO DICE NO CONOCER A CLIENTE'
     );
 
-    public function __construct()
-    {
-        require_once 'PdoClass.php';
-        $db        = new PdoClass();
-        $this->con = $db->getDB();
-    }
-
     private function getStatusCode($key)
     {
         if (isset($this->statusCode[$key])) {
@@ -69,7 +65,7 @@ class DIMEXModels
             and cliente = 'DIMEX'
             and d_fech > curdate() - interval 5 week;
             ";
-        $stm       = $this->con->prepare($querymain);
+        $stm       = $this->pdo->prepare($querymain);
         $stm->execute();
         $result    = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
