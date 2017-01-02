@@ -14,11 +14,11 @@ use Box\Spout\Common\Type;
 require_once 'vendor/autoload.php';
 
 /**
- * Description of CsvClass
+ * Description of OutputClass
  *
  * @author gmbs
  */
-class CsvClass {
+class OutputClass {
 
     /**
      * 
@@ -34,26 +34,42 @@ class CsvClass {
     /**
      * 
      * @param string $filename
-     */
-    private function setHeaders($filename) {
-        header('Content-type: application/xls');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
-    }
-
-    /**
-     * 
-     * @param string $filename
      * @param array $data
      * @param array $headers
      */
     public function writeCSVFile($filename, $data, $headers) {
-        $this->setHeaders($filename);
         $array = array();
         if (!empty($headers)) {
             $array[] = $headers;
         }
         $array[] = $data;
         $this->outputCSV($filename, $array);
+    }
+
+    /**
+     * 
+     * @param array $array
+     */
+    private function outputXLSX($filename, $array) {
+        $writer = WriterFactory::create(Type::XLSX); // for CSV files
+        $writer->openToBrowser($filename); // stream data directly to the browser
+        $writer->addRows($array); // add multiple rows at a time
+        $writer->close();
+    }
+    
+    /**
+     * 
+     * @param string $filename
+     * @param array $data
+     * @param array $headers
+     */
+    public function writeXLSXFile($filename, $data, $headers) {
+        $array = array();
+        if (!empty($headers)) {
+            $array[] = $headers;
+        }
+        $array[] = $data;
+        $this->outputXLSX($filename, $array);
     }
 
 }
