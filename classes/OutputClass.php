@@ -37,12 +37,7 @@ class OutputClass {
      * @param array $data
      * @param array $headers
      */
-    public function writeCSVFile($filename, $data, $headers) {
-        $array = array();
-        if (!empty($headers)) {
-            $array[] = $headers;
-        }
-        $array[] = $data;
+    public function writeCSVFile($filename, $array) {
         $this->outputCSV($filename, $array);
     }
 
