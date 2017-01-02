@@ -6,7 +6,7 @@ use cobra_salsa\OutputClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/InventarioClass.php';
-require_once 'vendor/autoload.php';
+require_once 'classes/OutputClass.php';
 
 set_time_limit(300);
 
