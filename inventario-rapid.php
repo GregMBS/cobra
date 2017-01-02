@@ -21,7 +21,7 @@ if (!empty($go)) {
     $filename = "Query_de_inventario_" . trim(date('ymd')) . ".csv";
     $headers = array_keys($result[0]);
     $data = $result;
-    $oc->writeCSVFile($filename, $data);
+    $oc->writeCSVFile($filename, $data, $headers);
 } else {
     $resultc = $ic->listClients();
     $here = 'inventario-rapid.php';
