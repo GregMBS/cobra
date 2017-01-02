@@ -1,17 +1,15 @@
 <?php
+
+use cobra_salsa\OutputClass;
+
 require_once 'pdoConnect.php';
 $pdoc = new pdoConnect();
 $pdo  = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 require_once 'vendor/autoload.php';
+$oc   = new OutputClass();
 set_time_limit(180);
 
-function MesNom($n)
-{
-    $timestamp = mktime(0, 0, 0, $n, 1, 2005);
-
-    return date("M", $timestamp);
-}
 $go = filter_input(INPUT_GET, 'go');
 if (!empty($go)) {
     $cliente    = filter_input(INPUT_GET, 'cliente');
@@ -53,58 +51,9 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta
     }
     $std->execute();
     $result = $std->fetchAll(PDO::FETCH_ASSOC);
-// Creating a workbook
-//$workbook = new Spreadsheet_Excel_Writer();
-
     $filename = "Query_de_inventario_".date('ymd').".xlsx";
-
-    $objPHPExcel = new PHPExcel();
-
-// Set properties
-    $objPHPExcel->getProperties()->setCreator("Cobranza Integral");
-    $objPHPExcel->getProperties()->setLastModifiedBy("Eduardo Pantoja");
-    $objPHPExcel->getProperties()->setTitle("Query_de_inventario");
-    $objPHPExcel->getProperties()->setSubject("COBRA Inventario");
-    $objPHPExcel->getProperties()->setDescription("COBRA Inventario");
-    $objPHPExcel->setActiveSheetIndex(0);
-
-    $ii       = 0;
-    $i        = 0;
-    $colnames = $result[0];
-    foreach ($colnames as $key => $value) {
-                if ($i<26) {
-                    $letter = chr(ord("A") + $i);
-                } else {
-                    $top = floor($i/26);
-                    $bottom = $i % 26;
-                    $letter = chr(ord("A") + $top) . chr(ord("A") + $bottom);
-                }
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, 1, $key);
-        $objPHPExcel->getActiveSheet()->getColumnDimension($letter)->setAutoSize(true);
-        $i++;
-    }
-
-    $row = 2; // 1-based index
-    foreach ($result as $row_data) {
-        $col = 0;
-        foreach ($row_data as $key => $value) {
-            $pad = "";
-            if ($col == 0) {
-                $pad = " ";
-            }
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col,
-                $row, $value.$pad);
-            $col++;
-        }
-        $row++;
-    }
-    $objPHPExcel->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
-    header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    header('Content-Disposition: attachment; filename="'.$filename.'"');
-    header("Cache-Control: max-age=0");
-
-    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
-    $objWriter->save("php://output");
+    $headers  = array_keys($result);
+    $oc->writeXLSXFile($filename, $result, $headers);
 } else {
     ?>
     <!DOCTYPE html>

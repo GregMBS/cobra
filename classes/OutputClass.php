@@ -45,10 +45,12 @@ class OutputClass {
     /**
      * 
      * @param array $array
+     * @param array $headers
      */
-    private function outputXLSX($filename, $array) {
+    private function outputXLSX($filename, $array, $headers) {
         $writer = WriterFactory::create(Type::XLSX); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
+        $writer->addRow($headers);
         $writer->addRows($array); // add multiple rows at a time
         $writer->close();
     }
@@ -60,9 +62,7 @@ class OutputClass {
      * @param array $headers
      */
     public function writeXLSXFile($filename, $data, $headers) {
-        $array = array();
-        $array[] = $data;
-        $this->outputXLSX($filename, $array);
+        $this->outputXLSX($filename, $data, $headers);
     }
 
 }
