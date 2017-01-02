@@ -79,8 +79,8 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'folios_new.php?capt=<?php echo $capt; ?>'">Carga Folios</button><br>
                 <br>
                 <h3>Credito Real</h3>
-                <button onclick="window.location = 'CreditoRealReport.php'">Reporte Lunes, Miercoles, Viernes para Credito Real</button>
-                <button onclick="window.location = 'CreditoRealFdm.php'">Reporte Mensual</button>
+                <button onclick="window.location = 'CreditoRealReport.php?capt=<?php echo $capt; ?>'">Reporte Lunes, Miercoles, Viernes para Credito Real</button>
+                <button onclick="window.location = 'CreditoRealFdm.php?capt=<?php echo $capt; ?>'">Reporte Mensual</button>
                 <br>
 <!--                <h3>Credito Si</h3>
                 <button onclick="window.location = 'folioadmin2.php?capt=<?php echo $capt; ?>'">Administrar CS Folios</button>
