@@ -24,9 +24,10 @@ class OutputClass {
      * 
      * @param array $array
      */
-    private function outputCSV($filename, $array) {
+    private function outputCSV($filename, $array, $headers) {
         $writer = WriterFactory::create(Type::CSV); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
+        $writer->addRow($headers);
         $writer->addRows($array); // add multiple rows at a time
         $writer->close();
     }
@@ -37,8 +38,8 @@ class OutputClass {
      * @param array $data
      * @param array $headers
      */
-    public function writeCSVFile($filename, $array) {
-        $this->outputCSV($filename, $array);
+    public function writeCSVFile($filename, $data, $headers) {
+        $this->outputCSV($filename, $data, $headers);
     }
 
     /**
