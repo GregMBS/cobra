@@ -238,7 +238,7 @@ ORDER BY d_fech, c_hrin";
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':start', $start);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     private function getMonthlyFromCobra() {
@@ -252,7 +252,7 @@ ORDER BY d_fech, c_hrin";
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':start', $start);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     private function addSpecialData($data) {

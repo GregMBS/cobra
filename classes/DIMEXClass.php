@@ -67,7 +67,7 @@ class DIMEXClass extends BaseClass {
             ";
         $stm       = $this->pdo->prepare($querymain);
         $stm->execute();
-        $result    = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $result    = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 
