@@ -22,7 +22,7 @@ if (!empty($go)) {
     $cliente    = filter_input(INPUT_GET, 'cliente');
     $result = $ic->getInventarioReport($cliente);
     $filename = "Query_de_inventario_".date('ymd').".xlsx";
-    $headers  = array_keys($result);
+    $headers  = array_keys($result[0]);
     $oc->writeXLSXFile($filename, $result, $headers);
 } else {
     $resultc = $ic->listClients();
