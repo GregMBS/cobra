@@ -67,7 +67,7 @@ $capt = filter_input(INPUT_GET, 'capt');
                 <button onclick="window.location = 'bigquery2.xls.php?capt=<?php echo $capt; ?>'">Query de las Gestiones XLS</button>
                 <button onclick="window.location = 'bigproms.php?capt=<?php echo $capt; ?>'">Query de las Promesas XLS</button>
                 <button onclick="window.location = 'inventario.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario XLS</button>
-                <button onclick="window.location = 'inventario-rapid.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLS</button>
+                <button onclick="window.location = 'inventario-rapid.php?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLS</button>
                 <button onclick="window.location = 'Reporte_diario_special.php?capt=<?php echo $capt; ?>'">Promesas y Pagos autoconfigurado HTML</button>
                 <button onclick="window.location = 'Reporte_diario_hace_mes.php?capt=<?php echo $capt; ?>'">Promesas y Pagos hace un mes HTML</button>
                 <button onclick="window.location = 'comparativo.php?capt=<?php echo $capt; ?>'">Comparativo de 3 meses HTML</button><br>
