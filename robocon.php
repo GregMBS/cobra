@@ -1,11 +1,14 @@
 <?php
 
-require_once 'pdoConnect.php';
-$pdoc = new pdoConnect();
+use cobra_salsa\PdoClass;
+use cobra_salsa\RobotClass;
+
+require_once 'classes/PdoClass.php';
+require_once 'classes/RobotClass.php';
+$pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
-require_once 'RobotClass.php';
-$rc = new RobotClass($pdoc);
-$capt = filter_input(INPUT_GET, 'capt');
+$rc = new RobotClass($pdo);
+$capt = $pdoc->capt;
 $go = filter_input(INPUT_GET, 'go');
 $killall = filter_input(INPUT_GET, 'killall');
 $cleanslate = filter_input(INPUT_GET, 'cleanslate');

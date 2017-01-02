@@ -1,29 +1,31 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace cobra_salsa;
+
+use cobra_salsa\BaseClass;
+
+require_once 'classes/BaseClass.php';
 
 /**
  * Description of RobotClass
  *
  * @author gmbs
  */
-class RobotClass {
+class RobotClass extends BaseClass {
 
     /**
-     * @var PDO $pdo
+     *
+     * @var string
      */
-    protected $pdo;
-
+    private $changeDb = "use robot";
+    
     /**
      * 
-     * @param pdoConnect $pdoc
+     * @param \PDO $pdo
      */
-    public function __construct($pdoc) {
-        $this->pdo = $pdoc->dbConnectRobot();
+    public function __construct($pdo) {
+        parent::__construct($pdo);
+        $pdo->query($this->changeDb);
     }
 
     /**
