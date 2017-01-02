@@ -25,7 +25,6 @@ class OutputClass {
      * @param array $array
      */
     private function outputCSV($filename, $array) {
-        var_dump($array);die();
         $writer = WriterFactory::create(Type::CSV); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
         $writer->addRows($array); // add multiple rows at a time
@@ -66,9 +65,6 @@ class OutputClass {
      */
     public function writeXLSXFile($filename, $data, $headers) {
         $array = array();
-        if (!empty($headers)) {
-            $array[] = $headers;
-        }
         $array[] = $data;
         $this->outputXLSX($filename, $array);
     }
