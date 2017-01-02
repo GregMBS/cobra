@@ -19,10 +19,19 @@ class CsvClass {
      * 
      * @param array $array
      */
-    public function outputCSV($array) {
+    private function outputCSV($array) {
         $file = fopen('php://output', 'w'); // this file actual writes to php output
         fputcsv($file, $array);
         fclose($file);
+    }
+    
+    /**
+     * 
+     * @param string $filename
+     */
+    private function setHeaders($filename) {
+        header('Content-type: application/xls');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
     }
 
     /**
@@ -30,7 +39,13 @@ class CsvClass {
      * @param array $array
      * @return string
      */
-    public function getCSV($array) {
+    public function writeCSVFile($filename, $data, $headers = '') {
+        $this->setHeaders($filename);
+        $array = array();
+        if (!empty($headers)) {
+            $array[] = $headers;
+        }
+        $array[] = $data;
         ob_start(); // buffer the output ...
         $this->outputCSV($array);
         return ob_get_clean(); // ... then return it as a string!
