@@ -1,7 +1,13 @@
 <?php
-require_once 'pdoConnect.php';
-$pdoc    = new pdoConnect();
+
+use cobra_salsa\PdoClass;
+use cobra_salsa\TroubleClass;
+
+require_once 'classes/PdoClass.php';
+require_once 'classes/TroubleClass.php';
+$pdoc    = new PdoClass();
 $pdo     = $pdoc->dbConnectUser();
+$tc = new TroubleClass($pdo);
 $capt    = filter_input(INPUT_GET, 'capt');
 $sistema = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
 $go      = filter_input(INPUT_GET, 'go');
@@ -11,58 +17,7 @@ if ($go == 'ENVIAR') {
     $fuente      = filter_input(INPUT_GET, 'fuente');
     $descripcion = filter_input(INPUT_GET, 'descripcion');
     $error_msg   = filter_input(INPUT_GET, 'error_msg');
-    $queryins    = "INSERT INTO cobra4.trouble (sistema,usuario,fechahora,fuente,descripcion,error_msg)
-VALUES (:sistema, :capt, now(), :fuente, :descripcion, :error_msg)";
-    $sti         = $pdo->prepare($queryins);
-    $sti->bindParam(':sistema', $sistema);
-    $sti->bindParam(':capt', $capt);
-    $sti->bindParam(':fuente', $fuente);
-    $sti->bindParam(':descripcion', $descripcion);
-    $sti->bindParam(':error_msg', $error_msg);
-    $sti->exeute();
+    $tc->insertTrouble($sistema, $capt, $fuente, $descripcion, $error_msg);
     $message     = 'Error en '.$fuente.' de sistema '.$sistema.' y usuario '.$usuario.' enviado '.$fechahora;
 }
-?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>COBRA Trouble</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
-        <SCRIPT>
-<?php if ($go == 'ENVIAR') { ?>
-                alert('<?php echo $message; ?>');
-<?php } ?>
-        </SCRIPT>
-    </head>
-    <body>
-        <form action="trouble.php" method="get" name="trouble">
-            <span class="formcap">Fuente de problema</span><select name='fuente'>
-                <option value='COBRA'>COBRA</option>
-                <option value='SIPCLIENT'>SFLPHONE</option>
-                <option value='PBX'>CONMUTADOR</option>
-                <option value='DIADEMA'>DIADEMA</option>
-                <option value='COMPUTADORA'>COMPUTADORA</option>
-                <option value='MONITOR'>MONITOR</option>
-                <option value='TECLADO'>TECLADO</option>
-                <option value='RATON'>RATON</option>
-                <option value='otro'>otro</option>
-            </select>
-            <br>
-            <span class="formcap">Descripción</span><textarea rows="6" cols="60" name="descripcion">Cuando yo:
-
-Veo:
-
-Sin embargo, espero:
-
-            </textarea><br>
-            <span class="formcap">Error mensajes (texto <em>EXACTO</em>)</span><textarea rows="2" cols="40" name="error_msg"></textarea><br>
-            <input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $C_CONT; ?> /><br>
-            <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> /><br>
-            <input type="submit" name="go" value="ENVIAR">
-        </form>
-        <button onClick='window.close()'>CIERRA</button>
-    </body>
-</html> 
+require_once 'views/troubleView.php';
