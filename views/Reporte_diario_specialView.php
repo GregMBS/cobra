@@ -57,8 +57,6 @@
                     <thead class="ui-widget-header">
                         <tr>
                             <?php
-                            var_dump($resultVencidos);
-                            die();
                             foreach ($resultVencidos[0] as $key => $value) {
                                 echo "<th>" . $key . "</th>";
                             }
