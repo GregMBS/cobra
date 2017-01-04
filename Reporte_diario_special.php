@@ -12,6 +12,8 @@ $capt = $pdoc->capt;
 $rd = new ReporteDiarioClass($pdo);
 
 $rd->buildReport();
+var_dump($rd);
+die();
 $resultPagos = $rd->resultPagos;
 $resultVencidos = $rd->resultVencidos;
 $resultVigentes = $rd->resultVigentes;
