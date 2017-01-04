@@ -76,11 +76,6 @@
                         $temprow['sumavig'] = 0;
                         $temprow['sumavenc'] = 0;
 			$temprow['sumapag'] = 0;
-                        $qi = "insert into gmbtemp (gestor,cliente,sdc,producto,subproducto,vigente,vencido,pago)
-values ('" . $row['c_cvge'] . "','" . $row['cliente'] . "','" . $row['status_de_credito'] .
-                                "','" . $row['producto'] . "','" . $row['subproducto'] .
-                                "',0,0," . $row['monto'] . ")";
-                        $pdo->query($qi);
                         if ($row['hauto'] != $temprow['hauto']) {
                             if ($temprow['hauto'] > 0) {
                                 echo '<tr>';
@@ -133,9 +128,8 @@ values ('" . $row['c_cvge'] . "','" . $row['cliente'] . "','" . $row['status_de_
                     <thead class="ui-widget-header">
                         <tr>
                             <?php
-                            for ($i = 0; $i < $numberfieldsVencidos; $i++) {
-                                $var = $resultVencidos->getColumnMeta($i);
-                                echo "<th>" . $var['name'] . "</th>";
+                            foreach ($resultVencidos[0] as $key => $value) {
+                                echo "<th>" . $key . "</th>";
                             }
                             ?>   
                             <th>monto1</th>
@@ -182,11 +176,6 @@ where auto=" . $id;
                 echo "<td>" . $answerplus[0] . "</td>";
                 echo "<td></td>";
                 echo "</tr>";
-                $qi = "insert into gmbtemp (gestor,cliente,sdc,producto,subproducto,vigente,vencido,pago)
-values ('" . $row['gestor'] . "','" . $row['cliente'] . "','" . $row['campa&ntilde;a'] .
-                        "','" . $row['producto'] . "','" . $row['subproducto'] .
-                        "'," . $answerplus[1] . "," . $answerplus[0] . ",0)";
-                $pdo->query($qi);
             }
         }
 ?>
@@ -198,10 +187,9 @@ values ('" . $row['gestor'] . "','" . $row['cliente'] . "','" . $row['campa&ntil
                     <thead class="ui-widget-header">
                         <tr>
                             <?php
-                            for ($i = 0; $i < $numberfieldsVigentes; $i++) {
-                                $var = $resultVigentes->getColumnMeta($i);
-                                echo "<th>" . $var['name'] . "</th>";
-                            }
+                            foreach ($resultVigentes as $key => $value) {
+                                echo "<th>" . $key . "</th>";
+                            } 
                             ?>   
                             <th>pmt1</th>
                             <th>fpmt1</th>
