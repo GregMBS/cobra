@@ -152,19 +152,19 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
 
     /**
      *
-     * @var PDOStatement
+     * @var array
      */
     public $resultPagos;
 
     /**
      *
-     * @var PDOStatement
+     * @var array
      */
     public $resultVencidos;
 
     /**
      *
-     * @var PDOStatement
+     * @var array
      */
     public $resultVigentes;
 
