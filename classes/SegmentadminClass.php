@@ -66,7 +66,7 @@ class SegmentadminClass {
         $querycliseg = "SELECT DISTINCT cliente, status_de_credito "
                 . "FROM resumen "
                 . "WHERE status_de_credito NOT REGEXP '-'";
-        $result = $$this->pdo->query($querycliseg);
+        $result = $this->pdo->query($querycliseg);
         $querylistin = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
