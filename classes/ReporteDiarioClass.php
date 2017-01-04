@@ -100,12 +100,26 @@ where h1.c_cont=id_cuenta and fecha>:lbd)";
      *
      * @var string
      */
-    protected $queryvigente = "select h1.auto,concat(h1.CUENTA,' ') as 'numero_de_cuenta',resumen.cliente,
-status_de_credito as 'campa&ntilde;a',producto,subproducto,q(status_aarsa) as 'queue',status_aarsa,
-nombre_deudor,n_prom as 'Imp. Neg.',
-n_prom1 as 'pp1',d_prom1 as 'fpp1',n_prom2 as 'pp2',d_prom2 as 'fpp2',
-n_prom3 as 'pp3',d_prom3 as 'fpp3',n_prom4 as 'pp4',d_prom4 as 'fpp4',
-folio,c_cvge as 'gestor'
+    protected $queryvigente = "select h1.auto,
+        concat(h1.CUENTA,' ') as 'numero_de_cuenta',
+        resumen.cliente,
+        status_de_credito as 'campa&ntilde;a',
+        producto,
+        subproducto,
+        q(status_aarsa) as 'queue',
+        status_aarsa as 'status',
+        nombre_deudor,
+        n_prom as 'Imp. Neg.',
+        n_prom1 as 'pp1',
+        d_prom1 as 'fpp1',
+        n_prom2 as 'pp2',
+        d_prom2 as 'fpp2',
+        n_prom3 as 'pp3',
+        d_prom3 as 'fpp3',
+        n_prom4 as 'pp4',
+        d_prom4 as 'fpp4',
+        folio,
+        c_cvge as 'gestor'
 from historia h1 join resumen on c_cont=id_cuenta 
 left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio<f2.folio)
 where n_prom>0 and d_fech>last_day(curdate()-interval 1 month) and status_de_credito not like '%inactivo'
@@ -255,6 +269,8 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
 
         $sti = $this->pdo->query($this->queryvigente);
         $this->resultVigentes = $sti->fetchAll(\PDO::FETCH_ASSOC);
+        var_dump($this->resultVigentes);
+        die();
     }
 
 }
