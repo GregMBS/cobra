@@ -66,59 +66,18 @@
                 <tbody>
                     <?php
                     foreach ($resultPagos as $row) {
-			$temprow = $row;
-                        $temprow['monto2'] = 0;
-                        $temprow['fecha2'] = '';
-                        $temprow['monto3'] = 0;
-                        $temprow['fecha3'] = '';
-                        $temprow['monto4'] = 0;
-                        $temprow['fecha4'] = '';
-                        $temprow['sumavig'] = 0;
-                        $temprow['sumavenc'] = 0;
-			$temprow['sumapag'] = 0;
-                        if ($row['hauto'] != $temprow['hauto']) {
-                            if ($temprow['hauto'] > 0) {
-                                echo '<tr>';
-                                foreach ($temprow as $data) {
-                                    echo "<td>" . $data . "</td>";
+                        ?>
+                    <tr>
+                        <td>
+                            <?php 
+                                foreach ($row as $value) {
+                                   echo '<td>'.$value.'</td>';
                                 }
-                                echo '</tr>';
-                            }
-                            $kk = 0;
-                            $temprow['sumapag'] = $row['monto'];
-                            if ($temprow['sumapag'] >= $temprow['tprom']) {
-                                $temprow['sumavig'] = 0;
-                                $temprow['sumavenc'] = 0;
-                            } else {
-                                $leftover = max($temprow['n_prom1'] - $temprow['sumapag'], 0);
-                                $temprow['sumavig'] = $temprow['tprom'] - $temprow['sumapag'] - $leftover;
-                                $temprow['sumavenc'] = $leftover;
-                            }
-                        } else {
-                            $temprow['sumapag'] = $temprow['sumapag'] + $row['monto'];
-                            if ($temprow['monto2']>0) {
-                                $temprow['monto2'] = $row['monto'];
-                                $temprow['fecha2'] = $row['fecha'];
-                            } else {
-                                if ($temprow['monto3']>0) {
-                                    $temprow['monto3'] = $row['monto'];
-                                    $temprow['fecha3'] = $row['fecha'];
-                                } else {
-                                if ($temprow['monto4']>0) {
-                                    $temprow['monto4'] = $row['monto'];
-                                    $temprow['fecha4'] = $row['fecha'];
-                                }
-                            }
-                        }
+                            ?>
+                        </td>
+                    </tr>
+                    <?php
                     }
-                    if ($temprow['hauto'] > 0) {
-                        echo '<tr>';
-                        foreach ($temprow as $data) {
-                            echo "<td>" . $data . "</td>";
-                        }
-                        echo '</tr>';
-                    }
-}
                     ?>
                 </tbody>
                 </table>
