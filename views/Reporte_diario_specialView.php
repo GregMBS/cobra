@@ -30,37 +30,11 @@
                 <table class="ui-widget">
                     <thead class="ui-widget-header">
                         <tr>
-                            <th>auto</th>
-                            <th>numero_de_cuenta</th>
-                            <th>cliente</th>
-                            <th>campa&ntilde;a</th>
-                            <th>producto</th>
-                            <th>subproducto</th>
-                            <th>queue</th>
-                            <th>status_aarsa</th>
-                            <th>nombre_deudor</th>
-                            <th>Imp. Neg.</th>
-                            <th>pp1</th>
-                            <th>fpp1</th>
-                            <th>pp2</th>
-                            <th>fpp2</th>
-                            <th>pp3</th>
-                            <th>fpp3</th>
-                            <th>pp4</th>
-                            <th>fpp4</th>
-                            <th>folio</th>
-                            <th>gestor</th>
-                            <th>pmt1</th>
-                            <th>fpmt1</th>
-                            <th>pmt2</th>
-                            <th>fpmt2</th>
-                            <th>pmt3</th>
-                            <th>fpmt3</th>
-                            <th>pmt4</th>
-                            <th>fpmt4</th>
-                            <th>suma vig.</th>
-                            <th>suma venc.</th>
-                            <th>suma pag.</th>
+                            <?php
+                            foreach ($resultPagos[0] as $key => $value) {
+                                echo "<th>" . $key . "</th>";
+                            }
+                            ?>
                         </tr>
                     </thead>
                 <tbody>
