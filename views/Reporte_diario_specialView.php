@@ -8,7 +8,7 @@
     </head>
     <body>
         <script>
-            $(function() {
+            $(function () {
                 $("#tabs").tabs();
             });
         </script>
@@ -39,23 +39,25 @@
                             ?>
                         </tr>
                     </thead>
-                <tbody>
-                    <?php
-                    foreach ($resultPagos as $row) {
-                        ?>
-                    <tr>
-                        <td>
-                            <?php 
-                                foreach ($row as $value) {
-                                   echo '<td>'.$value.'</td>';
-                                }
+                    <tbody>
+                        <?php
+                        foreach ($resultPagos as $row) {
                             ?>
-                        </td>
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
+                            <tr>
+                                <td>
+                                    <?php
+                                    foreach ($row as $key => $value) {
+                                        if ($key != 'hauto') {
+                                            echo "<td>" . $key . "</td>";
+                                        }
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
             <div id='vencidos'>
@@ -82,39 +84,39 @@
                     </thead>
                     <tbody class="ui-widget-content>">
                         <?php
-        foreach ($resultVencidos as $row) {
-            if ($row['auto'] <> $id) {
-                $id = $row['auto'];
-                foreach ($row as $data) {
-                    echo "<td>" . $data . "</td>";
-                }
-            } else {
-                echo "<td>" . $row['monto'] . "</td>";
-                echo "<td>" . $row['fecha'] . "</td>";
-            }
-            ?>   
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <?php
-            $queryplus = "select if(d_prom2<(curdate()),n_prom,n_prom1),
+                        foreach ($resultVencidos as $row) {
+                            if ($row['auto'] <> $id) {
+                                $id = $row['auto'];
+                                foreach ($row as $data) {
+                                    echo "<td>" . $data . "</td>";
+                                }
+                            } else {
+                                echo "<td>" . $row['monto'] . "</td>";
+                                echo "<td>" . $row['fecha'] . "</td>";
+                            }
+                            ?>   
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <?php
+                        $queryplus = "select if(d_prom2<(curdate()),n_prom,n_prom1),
 if(d_prom2>=(curdate()),n_prom2,0) from historia 
 where auto=" . $id;
-            $resultplus = $pdo->query($queryplus);
-            foreach ($resultplus as $answerplus) {
-                echo "<td>" . $answerplus[1] . "</td>";
-                echo "<td>" . $answerplus[0] . "</td>";
-                echo "<td></td>";
-                echo "</tr>";
-            }
-        }
-?>
-                </tbody>
+                        $resultplus = $pdo->query($queryplus);
+                        foreach ($resultplus as $answerplus) {
+                            echo "<td>" . $answerplus[1] . "</td>";
+                            echo "<td>" . $answerplus[0] . "</td>";
+                            echo "<td></td>";
+                            echo "</tr>";
+                        }
+                    }
+                    ?>
+                    </tbody>
                 </table>
             </div>
             <div id='vigentes'>
@@ -124,7 +126,7 @@ where auto=" . $id;
                             <?php
                             foreach ($resultVigentes as $key => $value) {
                                 echo "<th>" . $key . "</th>";
-                            } 
+                            }
                             ?>   
                             <th>pmt1</th>
                             <th>fpmt1</th>
@@ -232,7 +234,7 @@ from gmbtemp group by gestor;";
                     </thead>
                     <tbody class="ui-widget-content">
                         <?php
-                            foreach ($resultGestor as $row) {
+                        foreach ($resultGestor as $row) {
                             echo "<tr>";
                             for ($j = 0; $j < $numberfieldsGestor; $j++) {
                                 echo "<td>" . $row[$j] . "</td>";
