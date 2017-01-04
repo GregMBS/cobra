@@ -27,7 +27,6 @@
                             <?php
                             foreach ($resultPagos[0] as $key => $value) {
                                 echo "<th>" . $key . "</th>";
-                                
                             }
                             ?>
                         </tr>
@@ -58,57 +57,22 @@
                     <thead class="ui-widget-header">
                         <tr>
                             <?php
+                            var_dump($resultVencidos);
+                            die();
                             foreach ($resultVencidos[0] as $key => $value) {
                                 echo "<th>" . $key . "</th>";
                             }
-                            ?>   
-                            <th>monto1</th>
-                            <th>fecha1</th>
-                            <th>monto2</th>
-                            <th>fecha2</th>
-                            <th>monto3</th>
-                            <th>fecha3</th>
-                            <th>monto4</th>
-                            <th>fecha4</th>
-                            <th>suma vig.</th>
-                            <th>suma venc.</th>
-                            <th>suma pag.</th>
+                            ?>
                         </tr>
                     </thead>
                     <tbody class="ui-widget-content>">
                         <?php
                         foreach ($resultVencidos as $row) {
-                            if ($row['auto'] <> $id) {
-                                $id = $row['auto'];
-                                foreach ($row as $data) {
-                                    echo "<td>" . $data . "</td>";
-                                }
-                            } else {
-                                echo "<td>" . $row['monto'] . "</td>";
-                                echo "<td>" . $row['fecha'] . "</td>";
+                            foreach ($row as $key => $value) {
+                                echo "<td>" . $value . "</td>";
                             }
-                            ?>   
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <?php
-                        $queryplus = "select if(d_prom2<(curdate()),n_prom,n_prom1),
-if(d_prom2>=(curdate()),n_prom2,0) from historia 
-where auto=" . $id;
-                        $resultplus = $pdo->query($queryplus);
-                        foreach ($resultplus as $answerplus) {
-                            echo "<td>" . $answerplus[1] . "</td>";
-                            echo "<td>" . $answerplus[0] . "</td>";
-                            echo "<td></td>";
-                            echo "</tr>";
                         }
-                    }
-                    ?>
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -268,18 +232,18 @@ from gmbtemp group by cliente,substring_index(sdc,'-',1);";
                     </tbody>
                 </table>
             </div>
-        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-        <script>
-            $(function () {
-                $("#tabs").tabs();
-                $('#pagotab').DataTable({
-                    "bPaginate": false,
-                    "bJQueryUI": true
+            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+            <script>
+                $(function () {
+                    $("#tabs").tabs();
+                    $('#pagotab').DataTable({
+                        "bPaginate": false,
+                        "bJQueryUI": true
+                    });
                 });
-            });
-        </script>
+            </script>
 
     </body>
 </html>
