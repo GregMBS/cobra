@@ -79,7 +79,7 @@
                     <thead class="ui-widget-header">
                         <tr>
                             <?php
-                            foreach ($resultVigentes as $key => $value) {
+                            foreach ($resultVigentes[0] as $key => $value) {
                                 echo "<th>" . $key . "</th>";
                             }
                             ?>
