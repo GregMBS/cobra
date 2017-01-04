@@ -82,56 +82,16 @@
                             foreach ($resultVigentes as $key => $value) {
                                 echo "<th>" . $key . "</th>";
                             }
-                            ?>   
-                            <th>pmt1</th>
-                            <th>fpmt1</th>
-                            <th>pmt2</th>
-                            <th>fpmt2</th>
-                            <th>pmt3</th>
-                            <th>fpmt3</th>
-                            <th>suma vig.</th>
-                            <th>suma venc.</th>
-                            <th>suma pag.</th>
+                            ?>
                         </tr>
                     </thead>
                     <tbody class="ui-widget-content">
                         <?php
                         foreach ($resultVigentes as $row) {
-                            if ($row[0] <> $id) {
-                                echo "<tr>";
-                                $id = $row[0];
-                                for ($j = 0; $j < $numberfieldsVigentes; $j++) {
-                                    echo "<td>" . $row[$j] . "</td>";
-                                }
-                                $k = $j;
-                            } else {
-                                echo "<td>" . $row[$j - 2] . "</td>";
-                                echo "<td>" . $row[$j - 1] . "</td>";
-                                $k + $k + 2;
+                            foreach ($row as $key => $value) {
+                                echo "<td>" . $value . "</td>";
                             }
-                            ?>   
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <?php
-                        $queryplus = "select n_prom from historia 
-where auto=" . $id;
-                        $resultplus = $pdo->query($queryplus);
-                        foreach ($resultplus as $answerplus) {
-                            echo "<td>" . $answerplus['n_prom'] . "</td>";
-                            echo "<td>0</td>";
-                            echo "<td></td>";
-                            echo "</tr>";
-                            $qi = "insert into gmbtemp (gestor,cliente,sdc,producto,subproducto,vigente,vencido,pago)
-values ('" . $row[15] . "','" . $row[2] . "','" . $row[3] .
-                                    "','" . $row[4] . "','" . $row[5] .
-                                    "'," . $answerplus[0] . "," . $answerplus[1] . ",0)";
-                            $pdo->query($qi);
                         }
-                    }
                     ?>
                     </tbody>
                 </table>
@@ -234,13 +194,13 @@ from gmbtemp group by cliente,substring_index(sdc,'-',1);";
             <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
             <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
             <script>
-                $(function () {
-                    $("#tabs").tabs();
-                    $('#pagotab').DataTable({
-                        "bPaginate": false,
-                        "bJQueryUI": true
-                    });
+            $(function () {
+                $("#tabs").tabs();
+                $('#pagotab').DataTable({
+                    "bPaginate": false,
+                    "bJQueryUI": true
                 });
+            });
             </script>
 
     </body>
