@@ -32,7 +32,9 @@
                         <tr>
                             <?php
                             foreach ($resultPagos[0] as $key => $value) {
-                                echo "<th>" . $key . "</th>";
+                                if ($key != 'hauto') {
+                                    echo "<th>" . $key . "</th>";
+                                }
                             }
                             ?>
                         </tr>
