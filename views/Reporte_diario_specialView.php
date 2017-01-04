@@ -3,15 +3,9 @@
     <head>
         <title>Promesas y Pagos</title>
         <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />
-        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <script>
-            $(function () {
-                $("#tabs").tabs();
-            });
-        </script>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">
             Regressar a la plantilla administrativa
         </button><br>
@@ -27,7 +21,7 @@
 // pagos
                 $id = 0;
                 ?>
-                <table class="ui-widget">
+                <table id="pagotab" class="ui-widget">
                     <thead class="ui-widget-header">
                         <tr>
                             <?php
@@ -274,5 +268,18 @@ from gmbtemp group by cliente,substring_index(sdc,'-',1);";
                     </tbody>
                 </table>
             </div>
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                $("#tabs").tabs();
+                $('#pagotab').DataTable({
+                    "bPaginate": false,
+                    "bJQueryUI": true
+                });
+            });
+        </script>
+
     </body>
 </html>
