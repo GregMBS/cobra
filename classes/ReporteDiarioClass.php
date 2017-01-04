@@ -263,17 +263,19 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
         $this->updateMultiples();
         $this->createAnalysis();
 
-        $this->resultPagos = $this->pdo->query($this->queryparcial);
-        $this->numberfieldsPagos = count($this->resultPagos[0]);
+        $stp = $this->pdo->query($this->queryparcial);
+        $this->resultPagos = $stp->fetchAll(\PDO::FETCH_ASSOC);
+        $this->numberfieldsPagos = $stp->columnCount();
 
         $stv = $this->pdo->prepare($this->queryvencido);
         $stv->bindParam(':lbd', $lbd);
         $stv->execute();
         $this->resultVencidos = $stv->fetchAll(\PDO::FETCH_ASSOC);
-        $this->numberfieldsVencidos = count($this->resultVencidos[0]);
+        $this->numberfieldsVencidos = $stv->columnCount();
 
-        $this->resultVigentes = $this->pdo->query($this->queryvigente);
-        $this->numberfieldsVigentes = count($this->resultVigentes[0]);
+        $sti = $this->pdo->query($this->queryvigente);
+        $this->resultVigentes = $sti->fetchAll(\PDO::FETCH_ASSOC);
+        $this->numberfieldsVigentes = $sti->columnCount();
     }
 
 }
