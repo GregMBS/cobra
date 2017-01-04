@@ -13,12 +13,7 @@ $rd = new ReporteDiarioClass($pdo);
 
 $rd->buildReport();
 $resultPagos = $rd->resultPagos;
-$numberfieldsPagos = $rd->numberfieldsPagos;
-
 $resultVencidos = $rd->resultVencidos;
-$numberfieldsVencidos = $rd->numberfieldsVencidos;
-
 $resultVigentes = $rd->resultVigentes;
-$numberfieldsVigentes = $rd->numberfieldsVigentes;
 
 include 'views/Reporte_diario_specialView.php';
