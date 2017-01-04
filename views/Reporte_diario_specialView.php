@@ -10,11 +10,6 @@
         <script>
             $(function() {
                 $("#tabs").tabs();
-                $("button").button();
-                $("button").css("vertical-align", "bottom");
-                $("button").width("4cm");
-                $("button").height("1.6cm");
-                $("body").css("font-size", "8pt");
             });
         </script>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">
