@@ -3,8 +3,8 @@
 use cobra_salsa\PdoClass;
 use cobra_salsa\ReporteDiarioClass;
 
-require_once 'class/PdoClass.php';
-require_once 'class/ReporteDiarioClass.php';
+require_once 'classes/PdoClass.php';
+require_once 'classes/ReporteDiarioClass.php';
 
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
