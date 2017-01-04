@@ -15,5 +15,7 @@ $rd->buildReport();
 $resultPagos = $rd->resultPagos;
 $resultVencidos = $rd->resultVencidos;
 $resultVigentes = $rd->resultVigentes;
+var_dump($resultVigentes);
+die();
 
 include 'views/Reporte_diario_specialView.php';

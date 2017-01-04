@@ -269,8 +269,6 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
 
         $sti = $this->pdo->query($this->queryvigente);
         $this->resultVigentes = $sti->fetchAll(\PDO::FETCH_ASSOC);
-        var_dump($this->resultVigentes);
-        die();
     }
 
 }
