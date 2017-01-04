@@ -269,7 +269,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
         $stv = $this->pdo->prepare($this->queryvencido);
         $stv->bindParam(':lbd', $lbd);
         $stv->execute();
-        $this->resultVencidos = $stv->fetchAll(PDO::FETCH_ASSOC);
+        $this->resultVencidos = $stv->fetchAll(\PDO::FETCH_ASSOC);
         $this->numberfieldsVencidos = $this->resultVencidos->columnCount();
 
         $this->resultVigentes = $this->pdo->query($this->queryvigente);
