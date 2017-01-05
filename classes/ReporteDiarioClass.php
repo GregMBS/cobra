@@ -66,7 +66,7 @@ where r.id_cuenta=x.id_cuenta and r.hauto is null";
      */
     protected $queryparcial = "select hauto as 'hauto', numero_de_cuenta,
         rrotas.cliente, status_de_credito as 'campa&ntilde;a', producto, 
-        subproducto, q(status_aarsa) as 'queue', status_aarsa as ''status', 
+        subproducto, q(status_aarsa) as 'queue', status_aarsa as 'status', 
         nombre_deudor, n_prom1+n_prom2+n_prom3+n_prom4 as 'Imp. Neg.', 
         n_prom1, d_prom1, n_prom2, d_prom2, 
         n_prom3, d_prom3, n_prom4, d_prom4, 
