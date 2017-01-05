@@ -64,16 +64,16 @@ where r.id_cuenta=x.id_cuenta and r.hauto is null";
      *
      * @var string
      */
-    protected $queryparcial = "select hauto,numero_de_cuenta,rrotas.cliente,
-status_de_credito,producto,subproducto,q(status_aarsa) as 'queue',
-status_aarsa,nombre_deudor,n_prom1+n_prom2+n_prom3+n_prom4 as 'tprom',
-n_prom1,d_prom1,n_prom2,d_prom2,
-n_prom3,d_prom3,n_prom4,d_prom4,
-max(folio)as 'mfolio',c_cvge,monto,rrotas.fecha 
-from rrotas
-left join folios on rrotas.cliente like 'credito%' and cuenta=numero_de_cuenta
-group by hauto,rrotas.cliente,numero_de_cuenta,monto,rrotas.fecha
-order by rrotas.cliente,status_de_credito,numero_de_cuenta";
+    protected $queryparcial = "select hauto as 'hauto', numero_de_cuenta,
+        rrotas.cliente, status_de_credito as 'campa&ntilde;a', producto, 
+        subproducto, q(status_aarsa) as 'queue', status_aarsa as ''status', 
+        nombre_deudor, n_prom1+n_prom2+n_prom3+n_prom4 as 'Imp. Neg.', 
+        n_prom1, d_prom1, n_prom2, d_prom2, 
+        n_prom3, d_prom3, n_prom4, d_prom4, 
+        c_cvge as 'gestor', monto, rrotas.fecha 
+    from rrotas
+    group by hauto,rrotas.cliente,numero_de_cuenta,monto,rrotas.fecha
+    order by rrotas.cliente,status_de_credito,numero_de_cuenta";
     
     /**
      *
