@@ -1,6 +1,7 @@
 <th>
     <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a></th>
 <?php
+$day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
 for ($i = 1; $i <= $dhoy; $i++) {
     $start[$i] = ' ';
     $stop[$i] = ' ';
