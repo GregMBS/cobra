@@ -17,6 +17,12 @@ $go      = filter_input(INPUT_GET, 'go');
 $c_cvge  = filter_input(INPUT_GET, 'gestor');
 $gestor  = $c_cvge;
 $dst     = '';
+$hours_all       = array_fill(1, $dhoy, 0);
+$gestiones_all   = array_fill(1, $dhoy, 0);
+$contactos_all   = array_fill(1, $dhoy, 0);
+$nocontactos_all = array_fill(1, $dhoy, 0);
+$promesas_all    = array_fill(1, $dhoy, 0);
+$pagos_all       = array_fill(1, $dhoy, 0);
 if ($gestor == 'total') {
     $redirect = 'Location: horarios_clean.php?capt='.$capt;
     header($redirect);
