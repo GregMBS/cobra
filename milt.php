@@ -31,6 +31,7 @@ try {
     echo 'Query failed: ' . $e->getMessage();
     die();
 }
+var_dump($result0);die();
 if ($result0) {
     foreach ($result0 as $row0) {
         $msg = $row0['msg'];
