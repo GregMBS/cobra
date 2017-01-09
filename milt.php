@@ -6,7 +6,7 @@ $dbpass = "DeathSta1";
 $dbname = "robotcsi";
 $output = array();
 try {
-    $dbh = new PDO("mysql:" . $dbname . ":" . $dbhost, $dbuser, $dbpass);
+    $dbh = new PDO('mysql:host=localhost;dbname='.$dbname, $dbuser, $dbpass);
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
     die(json_encode(''));
