@@ -15,18 +15,13 @@ require_once 'classes/BaseClass.php';
 class RobotClass extends BaseClass {
 
     /**
-     *
-     * @var string
-     */
-    private $changeDb = "use robotcsi";
-    
-    /**
      * 
      * @param \PDO $pdo
      */
     public function __construct($pdo) {
         parent::__construct($pdo);
-        $pdo->query($this->changeDb);
+        $config = new \ConfigClass();
+        $pdo->query('use '.$config->robotDb);
     }
 
     /**

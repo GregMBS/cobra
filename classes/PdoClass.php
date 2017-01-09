@@ -12,7 +12,6 @@ require_once __DIR__.'/BaseClass.php';
 class PdoClass
 {
     protected $dsn        = 'mysql:dbname=cobra4;host=localhost';
-    protected $dsnr       = 'mysql:dbname=robot;host=localhost';
     protected $username   = "root";
     protected $passwd     = "DeathSta1";
     /**

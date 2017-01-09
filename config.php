@@ -11,4 +11,10 @@ class ConfigClass
      * @var string
      */
     public $dbName = 'cobra4';
+    
+    /**
+     *
+     * @var string
+     */
+    public $robotDb = 'robotcsi';
 }
