@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 require_once 'config.php';
 
 /**
@@ -43,7 +45,7 @@ class MiltClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $dbh;
 
@@ -67,7 +69,7 @@ class MiltClass {
 
     /**
      * 
-     * @return \PDO
+     * @return PDO
      */
     private function getDb() {
         try {
