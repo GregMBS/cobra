@@ -18,7 +18,7 @@ class RobotClass extends BaseClass {
      *
      * @var string
      */
-    private $changeDb = "use robot";
+    private $changeDb = "use robotcsi";
     
     /**
      * 
