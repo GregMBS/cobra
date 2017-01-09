@@ -40,11 +40,11 @@ if ($result0) {
             $lim = 100;
         }
 
-        $q1 = "SELECT auto,id,tel,turno FROM calllist " .
-                "WHERE msg = :msg " .
-                "AND id <> '' AND tel <> '' " .
-                "AND turno = 0 " .
-                "ORDER BY turno LIMIT " . $lim . ";";
+        $q1 = "SELECT auto,id,tel,turno FROM calllist 
+                WHERE msg = :msg 
+                AND id <> '' AND tel <> '' 
+                AND turno = 0 
+                ORDER BY turno LIMIT 10";
         try {
             $sth1 = $dbh->prepare($q1);
         } catch (PDOException $e) {
