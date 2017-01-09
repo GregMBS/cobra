@@ -12,7 +12,7 @@ try {
     die(json_encode(''));
 }
 
-$q0 = "SELECT distinct auto, msg, lineas FROM $dbname.msglist";
+$q0 = "SELECT distinct auto, msg, lineas FROM msglist";
 try {
     $sth = $dbh->prepare($q0);
 } catch (PDOException $e) {
@@ -39,7 +39,7 @@ if ($result0) {
             $lim = 100;
         }
 
-        $q1 = "SELECT auto,id,tel,turno FROM $dbname.calllist " .
+        $q1 = "SELECT auto,id,tel,turno FROM calllist " .
                 "WHERE msg = :msg " .
                 "AND id <> '' AND tel <> '' " .
                 "AND turno = 0 " .
