@@ -17,12 +17,15 @@ function highhist($stat, $visit)
     }
     return $highstr;
 }
-include('usuario_hdr_i.php');
-$tcapt  = $capt;
+require_once 'classes/PdoClass';
+$pdoc = new PdoClass();
+$pdo  = $pdoc->dbConnectUser();
+$con  = $pdoc->dbConnectUserMysqli();
+$capt = $pdoc->capt;
+$mytipo = $pdoc->tipo;
+
 $C_CVGE = $capt;
-if (substr($capt, 0, 8) == "practica") {
-    $tcapt = "practica";
-}
+
 $get = filter_input_array(INPUT_GET);
 if (!empty($mytipo)) {
     setlocale(LC_MONETARY, 'en_US');

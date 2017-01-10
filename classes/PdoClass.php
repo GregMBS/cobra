@@ -133,13 +133,25 @@ class PdoClass {
      */
     public function dbConnectAdminMysqli() {
 
-        $querycheck = $this->queryadmin;
-        if ($this->dbConnect($querycheck)) {
-            $con = new \mysqli('localhost', $this->username, $this->passwd, $this->db);
+        if ($this->dbConnectAdmin()) {
+            $this->con = new \mysqli('localhost', $this->username, $this->passwd, $this->db);
         } else {
-            $con = false;
+            $this->con = false;
         }
-        return $con;
+        return $this->con;
+    }
+
+    /**
+     * @returns mysqli
+     */
+    public function dbConnectUserMysqli() {
+
+        if ($this->dbConnectUser()) {
+            $this->con = new \mysqli('localhost', $this->username, $this->passwd, $this->db);
+        } else {
+            $this->con = false;
+        }
+        return $this->con;
     }
 
     /**
