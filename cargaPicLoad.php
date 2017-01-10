@@ -1,8 +1,11 @@
 <?php
-require_once 'pdoConnect.php';
-$pdoc   = new pdoConnect();
-$pdo    = $pdoc->dbConnectAdmin();
-$capt   = filter_input(INPUT_POST, 'capt');
+
+use cobra_salsa\PdoClass;
+
+require_once 'classes/PdoClass.php';
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectUser();
+$capt = $pdoc->capt;
 $cuenta = filter_input(INPUT_POST, 'cuenta');
 if ($_FILES["file"]["error"] == 0) {
     $deststr = "/var/www/pics/".$cuenta.'.jpg';
