@@ -18,7 +18,7 @@ function highhist($stat, $visit) {
     return $highstr;
 }
 
-require_once 'classes/PdoClass';
+require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();
 $pdo  = $pdoc->dbConnectUser();
 $con  = $pdoc->dbConnectUserMysqli();
