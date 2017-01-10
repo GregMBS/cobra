@@ -1,6 +1,7 @@
 <?php
-//include 'Mobile_Detect.php';
-//$detect = new Mobile_Detect();
+
+use cobra_salsa\PdoClass;
+
 $gets = $_SERVER['QUERY_STRING'];
 parse_str($gets, $get);
 date_default_timezone_set('America/Monterrey');
@@ -18,8 +19,8 @@ function highhist($stat, $visit) {
 }
 
 require_once 'usuario_hdr_i.php'; //returns $con
-require_once 'pdoConnect.php';
-$pdoc = new pdoConnect();
+require_once 'classes/PdoClass';
+$pdoc = new PdoClass();
 $pdo  = $pdoc->dbConnectUser();
 if (empty($capt)) {
     $capt = $pdoc->capt;

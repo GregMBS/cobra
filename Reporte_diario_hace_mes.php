@@ -1,8 +1,11 @@
 <?php
-require_once 'pdoConnect.php';
-$pdoc = new pdoConnect();
+
+use cobra_salsa\PdoClass;
+
+require_once 'classes/PdoClass.php';
+$pdoc = new PdoClass();
 $pdo  = $pdoc->dbConnectAdmin();
-$capt = filter_input(INPUT_GET, 'capt');
+$capt = $pdoc->capt;
 
 function last_business_day($year, $month)
 {
