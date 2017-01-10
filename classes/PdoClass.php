@@ -2,22 +2,50 @@
 
 namespace cobra_salsa;
 
-require_once __DIR__.'/BaseClass.php';
+use mysqli;
+
+require_once __DIR__ . '/BaseClass.php';
 
 /**
  * Description of PdoClass
  *
  * @author gmbs
  */
-class PdoClass
-{
-    protected $dsn        = 'mysql:dbname=cobra4;host=localhost';
-    protected $username   = "root";
-    protected $passwd     = "DeathSta1";
+class PdoClass {
+
+    /**
+     *
+     * @var string
+     */
+    protected $dsn = 'mysql:dbname=cobra4;host=localhost';
+
+    /**
+     *
+     * @var string
+     */
+    protected $db = 'cobra4';
+
+    /**
+     *
+     * @var string
+     */
+    protected $username = "root";
+
+    /**
+     *
+     * @var string
+     */
+    protected $passwd = "DeathSta1";
+
     /**
      * @var \PDO
      */
     protected $pdo;
+
+    /**
+     * @var mysqli
+     */
+    protected $con;
 
     /**
      *
@@ -26,12 +54,11 @@ class PdoClass
     protected $queryadmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt AND tipo='admin'";
 
-
     /**
      *
      * @var string
      */
-    protected $queryuser  = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+    protected $queryuser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt";
 
     /**
@@ -53,29 +80,28 @@ class PdoClass
     protected $querytipo = 'SELECT tipo FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt limit 1';
 
-    public function __construct()
-    {
+    public function __construct() {
         $config = new \ConfigClass();
-        $this->dsn = 'mysql:dbname='.$config->dbName.';host=localhost';
+        $this->db = $config->dbName;
+        $this->dsn = 'mysql:dbname=' . $this->db . ';host=localhost';
         $this->pdo = new \PDO($this->dsn, $this->username, $this->passwd);
     }
+
     /**
      * @returns \PDO
      */
-
-    private function dbConnect($querycheck)
-    {
+    private function dbConnect($querycheck) {
         $ticket = filter_input(INPUT_COOKIE, 'auth');
-        $capt   = filter_input(INPUT_GET, 'capt');
+        $capt = filter_input(INPUT_GET, 'capt');
         if (empty($capt)) {
-            $capt   = filter_input(INPUT_POST, 'capt');
+            $capt = filter_input(INPUT_POST, 'capt');
         }
         if (empty($capt)) {
             $redirector = "Location: index.php";
             header($redirector);
         }
         $this->capt = $capt;
-        $stc   = $this->pdo->prepare($querycheck);
+        $stc = $this->pdo->prepare($querycheck);
         $stc->bindParam(':ticket', $ticket);
         $stc->bindParam(':capt', $capt);
         $stc->execute();
@@ -84,40 +110,52 @@ class PdoClass
             $redirector = 'Location: index.php';
             header($redirector);
         }
-        $stt   = $this->pdo->prepare($this->querytipo);
+        $stt = $this->pdo->prepare($this->querytipo);
         $stt->bindParam(':ticket', $ticket);
         $stt->bindParam(':capt', $capt);
         $stt->execute();
         $tipo = $stt->fetch();
-        $this->tipo=$tipo['tipo'];
+        $this->tipo = $tipo['tipo'];
         return $this->pdo;
     }
+
     /**
      * @returns \PDO
      */
-    public function dbConnectAdmin()
-    {
+    public function dbConnectAdmin() {
         $querycheck = $this->queryadmin;
-        $pdo        = $this->dbConnect($querycheck);
+        $pdo = $this->dbConnect($querycheck);
         return $pdo;
+    }
+
+    /**
+     * @returns mysqli
+     */
+    public function dbConnectAdminMysqli() {
+
+        $querycheck = $this->queryadmin;
+        if ($this->dbConnect($querycheck)) {
+            $con = new \mysqli('localhost', $this->username, $this->passwd, $this->db);
+        } else {
+            $con = false;
+        }
+        return $con;
     }
 
     /**
      * @returns \PDO
      */
-    public function dbConnectUser()
-    {
+    public function dbConnectUser() {
         $querycheck = $this->queryuser;
-        $pdo        = $this->dbConnect($querycheck);
+        $pdo = $this->dbConnect($querycheck);
         return $pdo;
     }
 
     /**
      * @returns \PDO
      */
-    public function dbConnectNobody()
-    {
-        $pdo        = $this->pdo;
+    public function dbConnectNobody() {
+        $pdo = $this->pdo;
         return $pdo;
     }
 

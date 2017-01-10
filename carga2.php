@@ -1,5 +1,11 @@
 <?php
-include('admin_hdr_i.php');
+
+use cobra_salsa\PdoClass;
+
+require_once 'classes/PdoClass.php';
+$pdoc    = new PdoClass();
+$con     = $pdoc->dbConnectAdminMysqli();
+$capt    = $pdoc->capt;
 $post = filter_input_array(INPUT_POST);
 ?>
 <!DOCTYPE HTML>
