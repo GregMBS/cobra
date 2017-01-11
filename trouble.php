@@ -11,7 +11,7 @@ $tc = new TroubleClass($pdo);
 $capt    = filter_input(INPUT_GET, 'capt');
 $sistema = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
 $go      = filter_input(INPUT_GET, 'go');
-$ccont   = filter_input(INPUT_GET, 'C_CONT');
+$C_CONT  = filter_input(INPUT_GET, 'C_CONT');
 if ($go == 'ENVIAR') {
     $fechahora   = date('Y-m-d H:i:s');
     $fuente      = filter_input(INPUT_GET, 'fuente');
