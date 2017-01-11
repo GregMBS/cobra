@@ -2,8 +2,7 @@
 
 use cobra_salsa\PdoClass;
 
-$gets = $_SERVER['QUERY_STRING'];
-parse_str($gets, $get);
+$get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
 setlocale(LC_MONETARY, 'en_US');
 
@@ -39,11 +38,15 @@ if (!empty($mytipo)) {
 
     $go = filter_input(INPUT_GET, 'go');
     if ($go == 'ULTIMA') {
-        $queryult = "SELECT c_cont FROM historia WHERE c_cvge='" . $capt .
-                "' and c_cont <> '0' ORDER BY d_fech desc, C_hrfi desc LIMIT 1";
-        $resultult = mysqli_query($con, $queryult) or die("ERROR RM4 - " . mysqli_error($con));
-        while ($answerult = mysqli_fetch_row($resultult)) {
-            $find = $answerult[0];
+        $find = 0;
+        $queryult = "SELECT c_cont FROM historia WHERE c_cvge = :capt "
+                . "and c_cont <> '0' ORDER BY d_fech desc, c_hrfi desc LIMIT 1";
+        $stu = $pdo->prepare($queryult);
+        $stu->bindParam(':capt', $capt);
+        $stu->execute();
+        $resultult = $stu->fetch(PDO::FETCH_ASSOC);
+        if ($resultult) {
+            $find = $resultult['c_cont'];
         }
         $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FROMULTIMA";
         header($redirector);
