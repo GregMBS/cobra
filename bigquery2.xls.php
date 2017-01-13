@@ -31,8 +31,6 @@ if (!empty($fecha1)) {
             $output[] = array_keys($row);
         }
         $row['saldo_total']       = (float) $row['saldo_total'];
-        $row['saldo_descuento_1'] = (float) $row['saldo_descuento_1'];
-        $row['saldo_descuento_2'] = (float) $row['saldo_descuento_2'];
         $output[] = $row;
         $i++;
     }
