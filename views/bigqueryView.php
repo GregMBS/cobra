@@ -58,10 +58,9 @@
             <input type='radio' name='tipo' id='todos' value='todos' /><br>
             <input type='submit' name='go' value='Query Gestiones'>
         </form>
+        <script src="/js/datepicker_mx.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
-                $.datepicker.setDefaults($.datepicker.regional('mx'));
-                $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd'});
                 $('#fecha1').datepicker();
                 $('#fecha2').datepicker();
             });
