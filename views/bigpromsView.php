@@ -71,6 +71,8 @@ if (isset($fecha1)) {
                 $.datepicker.setDefaults(getMx());
                 $('#fecha1').datepicker();
                 $('#fecha2').datepicker();
+                $('#fecha3').datepicker();
+                $('#fecha4').datepicker();
             });
         </script>
     </body>
