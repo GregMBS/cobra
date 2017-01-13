@@ -46,9 +46,9 @@
                     echo $fecha1;
                 }
                 ?>
-                <input name="fecha1" id="fecha1" />
+                <input name="fecha1" id="fecha1" readonly="readonly" />
                 a:
-                <input name="fecha2" id="fecha2" />
+                <input name="fecha2" id="fecha2" readonly="readonly" />
             </p>
             <label for='visits'>Visitas</label>
             <input type='radio' name='tipo' id='visits' value='visits' /><br>
