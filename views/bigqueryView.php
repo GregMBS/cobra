@@ -46,30 +46,9 @@
                     echo $fecha1;
                 }
                 ?>
-                <select name="fecha1">
-                    <?php
-                    foreach ($resultdf as $answerdf) {
-                        ?>
-                        <option value="<?php echo $answerdf[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerdf[0]; ?></option>
-                        <?php }
-                    ?>
-                </select>
+                <input name="fecha1" id="fecha1" />
                 a:
-                <select name="fecha2">
-                    <?php
-                    foreach ($resultfd as $answerfd) {
-                        ?>
-                        <option value="<?php echo $answerfd[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerfd[0]; ?></option>
-                        <?php
-                    }
-                    foreach ($resultf2 as $answerf2) {
-                        ?>
-                        <option value="<?php echo $answerf2[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerf2[0]; ?></option>
-                    <?php } ?>
-                </select>
+                <input name="fecha2" id="fecha2" />
             </p>
             <label for='visits'>Visitas</label>
             <input type='radio' name='tipo' id='visits' value='visits' /><br>
@@ -79,5 +58,13 @@
             <input type='radio' name='tipo' id='todos' value='todos' /><br>
             <input type='submit' name='go' value='Query Gestiones'>
         </form>
+        <script>
+            $(document).ready(function () {
+                $.datepicker.setDefaults($.datepicker.regional('mx'));
+                $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd'});
+                $('#fecha1').datepicker();
+                $('#fecha2').datepicker();
+            });
+        </script>
     </body>
 </html>
