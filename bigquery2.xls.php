@@ -34,6 +34,7 @@ if (!empty($fecha1)) {
         $row['saldo_descuento_1'] = (float) $row['saldo_descuento_1'];
         $row['saldo_descuento_2'] = (float) $row['saldo_descuento_2'];
         $output[] = $row;
+        $i++;
     }
     $writer = WriterFactory::create(Type::XLSX);
     $writer->openToBrowser($filename); // stream data directly to the browser
