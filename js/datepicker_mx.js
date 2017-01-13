@@ -1,4 +1,4 @@
-$(document).ready(function (datepicker) {
+$(document).ready(function () {
     var mx = {
         closeText: "Cerrar",
         prevText: "&#x3C;Ant",
@@ -17,5 +17,5 @@ $(document).ready(function (datepicker) {
         isRTL: false,
         showMonthAfterYear: false,
         yearSuffix: ""};
-    datepicker.setDefaults(mx);
+    return mx;
 });

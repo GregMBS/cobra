@@ -61,6 +61,7 @@
         <script src="/js/datepicker_mx.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
+                $.datepicker.setDefaults(mx);
                 $('#fecha1').datepicker();
                 $('#fecha2').datepicker();
             });
