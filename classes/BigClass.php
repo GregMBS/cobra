@@ -50,7 +50,7 @@ class BigClass extends BaseClass {
      */
     private function getClienteStr($cliente) {
         if ($cliente != 'todos') {
-            $clientestr = " and cliente = :cliente ";
+            $clientestr = " and resumen.cliente = :cliente ";
         } else {
             $clientestr = "";
         }
@@ -83,9 +83,6 @@ class BigClass extends BaseClass {
             $stq->bindParam(':cliente', $cliente);
         }
         $stq->execute();
-        if ($cliente != 'todos') {
-            var_dump($stq);die();
-        }        
         $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
     }
