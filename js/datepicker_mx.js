@@ -1,5 +1,5 @@
 $(document).ready(function (datepicker) {
-    datepicker.regional.mx = {
+    var mx = {
         closeText: "Cerrar",
         prevText: "&#x3C;Ant",
         nextText: "Sig&#x3E;",
@@ -17,7 +17,5 @@ $(document).ready(function (datepicker) {
         isRTL: false,
         showMonthAfterYear: false,
         yearSuffix: ""};
-    datepicker.setDefaults(datepicker.regional.mx);
-
-    return datepicker.regional.mx;
+    datepicker.setDefaults(mx);
 });
