@@ -131,7 +131,7 @@ if (!empty($go)) {
         -->
         <p>&nbsp;</p>
         <a href="licencia.txt">
-            <cite>&#169;Gregory Miles Blumenthal Scharf 2016</cite>
+            <cite>&#169;Gregory Miles Blumenthal Scharf 2017</cite>
         </a>
     </body>
 </html>
