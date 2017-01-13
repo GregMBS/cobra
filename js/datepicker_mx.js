@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function getMx() {
     var mx = {
         closeText: "Cerrar",
         prevText: "&#x3C;Ant",
@@ -18,4 +18,4 @@ $(document).ready(function () {
         showMonthAfterYear: false,
         yearSuffix: ""};
     return mx;
-});
+};
