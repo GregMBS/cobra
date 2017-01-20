@@ -447,6 +447,7 @@
                     </form>
                         <?php
                 }
+                if ($id_cuenta > 0) {
                     ?>
                 <form class="buttons" name="pagos" method="get" action="pagos.php" id="pagos" target="_blank">
                     <input type="hidden" name="capt" value="<?php
@@ -455,11 +456,10 @@
                     }
                     ?>">
                     <input type="hidden" name="id_cuenta" value="<?php
-                    if (isset($id_cuenta)) {
                         echo $id_cuenta;
-                    }
                     ?>">
                     <input type="submit" name="go" value="PAGOS"></form>
+                <?php } ?>
                 <form class="buttons" name="white" method="get" action="white.php" id="white" target="_blank">
                     <input type="hidden" name="capt" value="<?php
                     if (isset($capt)) {
