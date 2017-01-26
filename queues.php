@@ -40,5 +40,6 @@ if ($go == 'DESBLOQUEAR TODOS') {
 }
 
 $resultlist = $qc->getGestores();
+var_dump($resultlist);die();
 $resultq = $qc->getQueues();
 require_once 'views/queuesView.php';
