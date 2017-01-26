@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of QueuesClass
  *
