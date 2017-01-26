@@ -49,7 +49,7 @@
         </div>
         <div>
             <?php
-            foreach ($resultlist->fetchAll(PDO::FETCH_ASSOC) as $rowlist) {
+            foreach ($resultlist as $rowlist) {
                 ?>
                 <div style='clear:both;border:1pt black solid'>
                     <form method='get' action='queues.php' name='<?php echo $rowlist['gestor']; ?>'>
