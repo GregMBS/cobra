@@ -50,6 +50,7 @@
         <div>
             <?php
             foreach ($resultlist as $rowlist) {
+                var_dump($rowlist);die();
                 ?>
                 <div style='clear:both;border:1pt black solid'>
                     <form method='get' action='queues.php' name='<?php echo $rowlist['gestor']; ?>'>
