@@ -131,7 +131,9 @@ and sdc=:sdc and status_aarsa=:status";
         JOIN nombres ON gestor=iniciales 
         WHERE tipo <> ''
         ORDER BY gestor";
-        $resultlist = $this->pdo->query($querylist);
+        $stl = $this->pdo->prepare($querylist);
+        $stl->execute();
+        $resultlist = $stl->fetchAll(PDO::FETCH_ASSOC);
         return $resultlist;
     }
 
