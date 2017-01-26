@@ -15,6 +15,8 @@ $GESTOR = filter_input(INPUT_GET, 'gestor');
 $QUEUE = filter_input(INPUT_GET, 'queue');
 $QUEUES = explode(',', $QUEUE);
 if (is_array($QUEUES)) {
+    var_dump($QUEUES);
+    die();
     list($cliente, $sdc, $status) = $QUEUES;
 }
 if ($go == 'INTRO') {

@@ -13,20 +13,7 @@ namespace cobra_salsa;
  *
  * @author gmbs
  */
-class QueuesClass {
-
-    /**
-     * @var \PDO $pdo
-     */
-    protected $pdo;
-
-    /**
-     * 
-     * @param \PDO $pdo
-     */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
+class QueuesClass extends BaseClass {
 
     /**
      * 
