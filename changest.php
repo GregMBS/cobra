@@ -13,7 +13,7 @@ $go = filter_input(INPUT_GET, 'go');
 $field = filter_input(INPUT_GET, 'field');
 $find = filter_input(INPUT_GET, 'find');
 $C_CONT = filter_input(INPUT_GET, 'C_CONT');
-$CLIENTE = filter_input(INPUT_GET, 'CLIENTE');
+$cliente = filter_input(INPUT_GET, 'cliente');
 $SDC = filter_input(INPUT_GET, 'SDC');
 $INACTIVO = filter_input(INPUT_GET, 'inactivo');
 
@@ -30,6 +30,6 @@ if ($go == 'CAMBIAR') {
     $cc->updateResumen($TAGS, $C_CONT);
     $cc->updateRlook($TAGS, $C_CONT);
 }
-$result = $cc->getReport($field, $find, $CLIENTE);
+$result = $cc->getReport($field, $find, $cliente);
 $resultcl = $cc->listClientes();
 require_once 'views/changestView.php';
