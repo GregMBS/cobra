@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use cobra_salsa\BigInputObject;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,6 +18,18 @@ namespace cobra_salsa;
  */
 class BigClass extends BaseClass {
 
+    /**
+     *
+     * @var string
+     */
+    private $queryFront;
+    
+    /**
+     *
+     * @var string
+     */
+    private $queryBack;
+    
     /**
      * 
      * @param string $direction
@@ -67,12 +81,11 @@ class BigClass extends BaseClass {
      * @param string $cliente
      * @return array
      */
-    private function getHistoria(
-    $queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente
-    ) {
-        $gestorstr = $this->getGestorStr($gestor);
-        $clientestr = $this->getClienteStr($cliente);
-        $query = $queryFront . $gestorstr . $clientestr . $queryBack;
+    private function getHistoria($fecha1, $fecha2, $gestor, $cliente) {
+        $query = $this->queryFront 
+                . $this->getGestorStr($gestor) 
+                . $this->getClienteStr($cliente) 
+                . $this->queryBack;
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':fecha1', $fecha1);
         $stq->bindParam(':fecha2', $fecha2);
@@ -96,7 +109,7 @@ class BigClass extends BaseClass {
      * @return array
      */
     public function getAllPagos($fecha1, $fecha2, $gestor, $cliente) {
-        $queryFront = "select Status_aarsa AS 'STATUS',ejecutivo_asignado_call_center AS 'GESTOR',
+        $this->queryFront = "select Status_aarsa AS 'STATUS',ejecutivo_asignado_call_center AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
     saldo_descuento_1 as 'SALDO CAPITAL s/i',saldo_total as 'SALDO TOTAL',
     pagos_vencidos*30 as 'MORA',n_prom as 'TOTAL PROMESA',
@@ -111,10 +124,9 @@ join pagos on numero_de_cuenta=pagos.cuenta and c_cvba=pagos.cliente
 where (n_prom>0 or n_prom is null)
 and pagos.fecha between :fecha1 and :fecha2
 ";
-        $queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
+        $this->queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
 group by resumen.id_cuenta ORDER BY d_fech,c_hrin";
-        $data = $this->getHistoria(
-                $queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
+        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
         return $data;
     }
 
@@ -127,7 +139,7 @@ group by resumen.id_cuenta ORDER BY d_fech,c_hrin";
      * @return array
      */
     public function getBigGestiones($fecha1, $fecha2, $gestor, $cliente) {
-        $queryFront = "SELECT numero_de_cuenta as 'cuenta',
+        $this->queryFront = "SELECT numero_de_cuenta as 'cuenta',
         nombre_deudor as 'nombre',
     resumen.cliente as 'cliente',status_de_credito as 'segmento',
     saldo_total,status_aarsa as 'mejor status',h1.*,d2.
@@ -142,8 +154,8 @@ left join pagos on c_cont=pagos.id_cuenta and d2.queue='PAGOS' and fecha between
 where d_fech between :fecha1 and :fecha2
 ";
 
-        $queryBack = "";
-        $data = $this->getHistoria($queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
+        $this->queryBack = "";
+        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
         return $data;
     }
 
@@ -156,16 +168,16 @@ where d_fech between :fecha1 and :fecha2
      * @return array
      */
     public function getAllGestiones($fecha1, $fecha2, $gestor, $cliente) {
-        $queryFront = "SELECT numero_de_cuenta,nombre_deudor,
+        $this->queryFront = "SELECT numero_de_cuenta,nombre_deudor,
             resumen.cliente,status_de_credito,saldo_total,queue,h1.*
     from resumen join historia h1 on c_cont=id_cuenta
 join dictamenes on status_aarsa=dictamen
 where d_fech between :fecha1 and :fecha2
 ";
 
-        $queryBack = "and status_de_credito not like '%tivo'
+        $this->queryBack = "and status_de_credito not like '%tivo'
 ORDER BY d_fech,c_hrin";
-        $data = $this->getHistoria($queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
+        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
         return $data;
     }
 
@@ -270,72 +282,10 @@ ORDER BY d_fech,c_hrin";
 
     /**
      * 
-     * @param array $dates
-     * @return array
-     */
-    private function alignDates($dates) {
-        $output = $dates;
-        if ($dates[1] < $dates[0]) {
-            $output[1] = $dates[0];
-            $output[0] = $dates[1];
-        }
-        if ($dates[3] < $dates[2]) {
-            $output[3] = $dates[2];
-            $output[2] = $dates[3];
-        }
-        return $output;
-    }
-
-    /**
-     * 
-     * @param string $tipo
-     * @return string
-     */
-    private function getTipoStr($tipo) {
-        switch ($tipo) {
-            case 'visits':
-                $tipostr = " and c_visit <> '' and c_msge is null ";
-                break;
-            case 'telef':
-                $tipostr = " and c_visit IS NULL and c_msge is null ";
-                break;
-            case 'admin':
-                $tipostr = " and c_msge <> '' ";
-                break;
-            case 'noadmin':
-                $tipostr = " and c_msge IS NULL ";
-                break;
-            default :
-                $tipostr = " ";
-                break;
-        }
-        return $tipostr;
-    }
-    
-    /**
-     * 
      * @param array $get
      * @return array
      */
-    public function getProms($get) {
-        $dates = $this->alignDates(array($get['fecha1'], $get['fecha2'], $get['fecha3'], $get['fecha4']));
-        list($fecha1, $fecha2, $fecha3, $fecha4) = $dates;
-        $tipo = $get['tipo'];
-        $gestor = $get['gestor'];
-        $cliente = $get['cliente'];
-        if (!isset($tipo)) {
-            $tipo = '';
-        }
-//$gestorstr=" and ejecutivo_asignado_call_center not regexp '-' ";
-        $gestorstr = '';
-        $clientestr = '';
-        if ($gestor != 'todos') {
-            $gestorstr = " and c_cvge=:gestor ";
-        }
-        $gestorstr .= $this->getTipoStr($tipo);
-        if ($cliente != 'todos') {
-            $clientestr = " and c_cvba=:cliente ";
-        }
+    public function getProms(BigInputObject $bio) {
         $querymain = "select Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
     saldo_descuento_1 as 'SALDO CAPITAL s/i',saldo_total as 'SALDO TOTAL',
@@ -354,20 +304,20 @@ and d_fech between :fecha1 and :fecha2
 and d_prom between :fecha3 and :fecha4
 and not exists (select * from historia h2 where h1.c_cont=h2.c_cont
 and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
-" . $gestorstr . $clientestr . "
+" . $bio->getGestorStr() . $bio->getClienteStr() . "
 and status_de_credito not like '%tivo' and c_cniv is null
 group by id_cuenta ORDER BY d_fech,c_hrin
     ;";
         $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':fecha1', $fecha1);
-        $stm->bindParam(':fecha2', $fecha2);
-        $stm->bindParam(':fecha3', $fecha3);
-        $stm->bindParam(':fecha4', $fecha4);
-        if ($gestor != 'todos') {
-            $stm->bindParam(':gestor', $gestor);
+        $stm->bindParam(':fecha1', $bio->getFecha1());
+        $stm->bindParam(':fecha2', $bio->getFecha2());
+        $stm->bindParam(':fecha3', $bio->getFecha3());
+        $stm->bindParam(':fecha4', $bio->getFecha4());
+        if ($bio->hasGestor()) {
+            $stm->bindParam(':gestor', $bio->getGestor());
         }
-        if ($cliente != 'todos') {
-            $stm->bindParam(':cliente', $cliente);
+        if ($bio->hasCliente()) {
+            $stm->bindParam(':cliente', $bio->getCliente());
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
