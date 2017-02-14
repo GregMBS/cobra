@@ -23,13 +23,13 @@ class BigClass extends BaseClass {
      * @var string
      */
     private $queryFront;
-    
+
     /**
      *
      * @var string
      */
     private $queryBack;
-    
+
     /**
      * 
      * @param string $direction
@@ -82,9 +82,9 @@ class BigClass extends BaseClass {
      * @return array
      */
     private function getHistoria($fecha1, $fecha2, $gestor, $cliente) {
-        $query = $this->queryFront 
-                . $this->getGestorStr($gestor) 
-                . $this->getClienteStr($cliente) 
+        $query = $this->queryFront
+                . $this->getGestorStr($gestor)
+                . $this->getClienteStr($cliente)
                 . $this->queryBack;
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':fecha1', $fecha1);
@@ -286,7 +286,7 @@ ORDER BY d_fech,c_hrin";
      * @return array
      */
     public function getProms(BigInputObject $bio) {
-        $querymain = "select Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
+        $this->queryFront = "select Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
     saldo_descuento_1 as 'SALDO CAPITAL s/i',saldo_total as 'SALDO TOTAL',
     pagos_vencidos*30 as 'MORA',n_prom as 'TOTAL PROMESA',
@@ -304,11 +304,15 @@ and d_fech between :fecha1 and :fecha2
 and d_prom between :fecha3 and :fecha4
 and not exists (select * from historia h2 where h1.c_cont=h2.c_cont
 and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
-" . $bio->getGestorStr() . $bio->getClienteStr() . "
-and status_de_credito not like '%tivo' and c_cniv is null
-group by id_cuenta ORDER BY d_fech,c_hrin
-    ;";
-        $stm = $this->pdo->prepare($querymain);
+";
+        $this->queryBack = " and status_de_credito not like '%tivo' and c_cniv is null
+group by id_cuenta ORDER BY d_fech,c_hrin";
+        $query = $this->queryFront
+                . $bio->getGestorStr()
+                . $bio->getClienteStr()
+                . $this->queryBack;
+        die(htmlentities($query));
+        $stm = $this->pdo->prepare($query);
         $stm->bindParam(':fecha1', $bio->getFecha1());
         $stm->bindParam(':fecha2', $bio->getFecha2());
         $stm->bindParam(':fecha3', $bio->getFecha3());
