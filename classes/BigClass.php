@@ -326,6 +326,8 @@ ORDER BY d_fech,c_hrin";
                 . $bio->getGestorStr()
                 . $bio->getClienteStr()
                 . $this->queryBack;
+        var_dump($bio);
+        die(htmlentities($query));
         $stm = $this->pdo->prepare($query);
         $stm->bindParam(':fecha1', $bio->getFecha1());
         $stm->bindParam(':fecha2', $bio->getFecha2());
