@@ -282,7 +282,7 @@ ORDER BY d_fech,c_hrin";
 
     /**
      * 
-     * @param array $get
+     * @param BigInputObject $bio
      * @return array
      */
     public function getProms(BigInputObject $bio) {
