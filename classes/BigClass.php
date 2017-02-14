@@ -286,32 +286,46 @@ ORDER BY d_fech,c_hrin";
      * @return array
      */
     public function getProms(BigInputObject $bio) {
-        $this->queryFront = "select Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
-    numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
-    saldo_descuento_1 as 'SALDO CAPITAL s/i',saldo_total as 'SALDO TOTAL',
-    pagos_vencidos*30 as 'MORA',n_prom as 'TOTAL PROMESA',
-    d_prom1 as 'FECHA PROMESA 1',n_prom1 as 'MONTO PROMESA 1',
-    d_prom2 as 'FECHA PROMESA 2',n_prom2 as 'MONTO PROMESA 2',
-    max(folio) AS 'FOLIO',c_motiv AS 'MOTIVADOR',c_cnp AS 'CAUSA NO PAGO',
-    resumen.cliente AS 'CLIENTE',
-    status_de_credito AS 'CAMPANA',d_fech AS 'FECHA GESTION',
-    max(pagos.fecha) AS 'FECHA PAGO',sum(monto) AS 'MONTO PAGO',max(confirmado) as 'CONFIRMADO'
-from resumen join historia h1 on c_cont=id_cuenta
-left join folios on id=id_cuenta and fecha>=d_fech
-left join pagos using (id_cuenta)
-where n_prom>0
-and d_fech between :fecha1 and :fecha2
-and d_prom between :fecha3 and :fecha4
-and not exists (select * from historia h2 where h1.c_cont=h2.c_cont
-and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
-";
-        $this->queryBack = " and status_de_credito not like '%tivo' and c_cniv is null
-group by id_cuenta ORDER BY d_fech,c_hrin";
+        $this->queryFront = "select status_aarsa AS 'STATUS',
+            c_cvge AS 'GESTOR',
+            numero_de_cuenta as 'CUENTA',
+            nombre_deudor as 'NOMBRE',
+            saldo_descuento_1 as 'SALDO CAPITAL s/i',
+            saldo_total as 'SALDO TOTAL',
+            pagos_vencidos*30 as 'MORA',
+            n_prom as 'TOTAL PROMESA',
+            d_prom1 as 'FECHA PROMESA 1',n_prom1 as 'MONTO PROMESA 1',
+            d_prom2 as 'FECHA PROMESA 2',n_prom2 as 'MONTO PROMESA 2',
+            max(folio) AS 'FOLIO',
+            c_motiv AS 'MOTIVADOR',
+            c_cnp AS 'CAUSA NO PAGO',
+            resumen.cliente AS 'CLIENTE',
+            status_de_credito AS 'CAMPANA',
+            d_fech AS 'FECHA GESTION',
+            max(pagos.fecha) AS 'FECHA PAGO',
+            sum(monto) AS 'MONTO PAGO',
+            max(confirmado) as 'CONFIRMADO'
+        from resumen 
+            join historia h1 on c_cont=id_cuenta
+            left join folios on id=id_cuenta and fecha>=d_fech
+            left join pagos using (id_cuenta)
+        where n_prom>0
+            and d_fech between :fecha1 and :fecha2
+            and d_prom between :fecha3 and :fecha4
+            and not exists (
+                select * from historia h2 
+                    where h1.c_cont=h2.c_cont
+                    and n_prom>0 
+                    and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi)
+            )";
+        $this->queryBack = " and status_de_credito not REGEXP '-' 
+            and c_cniv is null 
+            group by id_cuenta 
+            ORDER BY d_fech,c_hrin";
         $query = $this->queryFront
                 . $bio->getGestorStr()
                 . $bio->getClienteStr()
                 . $this->queryBack;
-        die(htmlentities($query));
         $stm = $this->pdo->prepare($query);
         $stm->bindParam(':fecha1', $bio->getFecha1());
         $stm->bindParam(':fecha2', $bio->getFecha2());

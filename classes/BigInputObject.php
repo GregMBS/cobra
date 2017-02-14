@@ -58,6 +58,18 @@ class BigInputObject {
     protected $cliente;
 
     /**
+     *
+     * @var string
+     */
+    protected $minDate = '2007-10-17';
+
+    /**
+     *
+     * @var string
+     */
+    protected $maxDate;
+
+    /**
      * 
      * @param string $fecha1
      * @param string $fecha2
@@ -70,10 +82,11 @@ class BigInputObject {
     public function __construct(
     $fecha1, $fecha2, $gestor, $cliente, $fecha3 = "", $fecha4 = "", $tipo = ""
     ) {
-        $this->fecha1 = $fecha1;
-        $this->fecha2 = $fecha2;
-        $this->fecha3 = $fecha3;
-        $this->fecha4 = $fecha4;
+        $this->maxDate = date("Y-m-d");
+        $this->fecha1 = $this->fixDate($fecha1, $this->minDate);
+        $this->fecha2 = $this->fixDate($fecha2, $this->maxDate);
+        $this->fecha3 = $this->fixDate($fecha3, $this->minDate);
+        $this->fecha4 = $this->fixDate($fecha4, $this->maxDate);
         $this->gestor = $gestor;
         $this->cliente = $cliente;
         $this->tipo = $tipo;
@@ -88,7 +101,6 @@ class BigInputObject {
         return $this->fecha1;
     }
 
-
     /**
      * 
      * @return string
@@ -96,7 +108,6 @@ class BigInputObject {
     public function getFecha2() {
         return $this->fecha2;
     }
-
 
     /**
      * 
@@ -106,7 +117,6 @@ class BigInputObject {
         return $this->fecha3;
     }
 
-
     /**
      * 
      * @return string
@@ -114,7 +124,6 @@ class BigInputObject {
     public function getFecha4() {
         return $this->fecha4;
     }
-
 
     /**
      * 
@@ -124,7 +133,6 @@ class BigInputObject {
         return $this->gestor;
     }
 
-
     /**
      * 
      * @return string
@@ -133,7 +141,6 @@ class BigInputObject {
         return $this->cliente;
     }
 
-
     /**
      * 
      * @return string
@@ -141,7 +148,7 @@ class BigInputObject {
     public function getTipo() {
         return $this->tipo;
     }
-    
+
     /**
      * 
      * @return boolean
@@ -150,7 +157,7 @@ class BigInputObject {
         $test = ($this->gestor != 'todos');
         return $test;
     }
-    
+
     /**
      * 
      * @return boolean
@@ -159,7 +166,7 @@ class BigInputObject {
         $test = ($this->cliente != 'todos');
         return $test;
     }
-    
+
     /**
      * 
      * @return array
@@ -172,7 +179,7 @@ class BigInputObject {
             list($this->fecha3, $this->fecha4) = array($this->fecha4, $this->fecha3);
         }
     }
-    
+
     /**
      * 
      * @return string
@@ -184,9 +191,8 @@ class BigInputObject {
             $str = "";
         }
         $tipoStr = $this->getTipoStr();
-        return $str.$tipoStr;
+        return $str . $tipoStr;
     }
-
 
     /**
      * 
@@ -224,6 +230,33 @@ class BigInputObject {
                 break;
         }
         return $tipostr;
+    }
+
+    /**
+     * 
+     * @param string $date
+     * @return boolean
+     */
+    private function validDate($date) {
+        if (preg_match('/^(\d{4})-(\d{2})-(\d{2})', $date) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 
+     * @param string $date
+     * @param string $default
+     * @return string
+     */
+    private function fixDate($date, $default) {
+        if ($this->validDate($date)) {
+            return $date;
+        } else {
+            return $default;
+        }
     }
 
 }
