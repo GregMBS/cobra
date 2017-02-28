@@ -33,9 +33,6 @@ $mytipo = $pdoc->tipo;
  */
 $tcapt = $capt;
 $C_CVGE = $capt;
-if (substr($capt, 0, 8) == "practica") {
-    $tcapt = "practica";
-}
 if (!empty($mytipo)) {
     $oldgo = '';
 
@@ -162,9 +159,7 @@ AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
         }
         $N_PROM = str_replace('$', '', $N_PROM0);
         $C_FREQ = filter_input(INPUT_GET, 'C_FREQ');
-        for ($merciv = 0; $merciv < count($get['MERCv']); $merciv++) {
-            $MERCv[$merciv] = mysqli_real_escape_string($con, $get['MERCv'][$merciv]);
-        }
+        $MERCv = filter_input(INPUT_GET, 'MERCv', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
         $gc->doVisit($get);
     }
 } else {
