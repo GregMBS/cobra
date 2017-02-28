@@ -16,7 +16,7 @@ $output = array();
 $fromModel = $cr->outputReport();
 $headers = $fromModel['headers'];
 $data = $fromModel['data'];
-$filename = 'CreditoRealReport';
+$filename = 'CreditoRealReport.csv';
 
 if ($data) {
     $cc->writeCSVFile($filename, $data, $headers);
