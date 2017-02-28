@@ -1,6 +1,7 @@
 <?php
 
 use cobra_salsa\PdoClass;
+use cobra_salsa\GestionClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
@@ -19,15 +20,16 @@ function highhist($stat, $visit) {
 
 require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();
-$pdo  = $pdoc->dbConnectUser();
-$con  = $pdoc->dbConnectUserMysqli();
+$pdo = $pdoc->dbConnectUser();
+$con = $pdoc->dbConnectUserMysqli();
+$gc = new GestionClass($pdo);
 $capt = $pdoc->capt;
 $mytipo = $pdoc->tipo;
 /*
-if ($detect->isMobile()) {
-    header("Location: resumen-mobile.php?capt=" . $capt);
-}
-*/
+  if ($detect->isMobile()) {
+  header("Location: resumen-mobile.php?capt=" . $capt);
+  }
+ */
 $tcapt = $capt;
 $C_CVGE = $capt;
 if (substr($capt, 0, 8) == "practica") {
@@ -116,200 +118,53 @@ AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
     }
 
     if (($go == 'CAPTURADO') && (!empty($get['C_CVST']))) {
-        $C_CVGE = mysqli_real_escape_string($con, $get['C_CVGE']);
-        $C_CVBA = mysqli_real_escape_string($con, $get['C_CVBA']);
-        $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
-        $C_CONTAN = mysqli_real_escape_string($con, $get['C_CONTAN']);
-        $C_CTIPO = mysqli_real_escape_string($con, $get['C_CTIPO']);
-        $C_COWN = mysqli_real_escape_string($con, $get['C_COWN']);
-        $C_CSTAT = mysqli_real_escape_string($con, $get['C_CSTAT']);
-        $CUENTA = mysqli_real_escape_string($con, $get['CUENTA']);
-        $C_OBSE1 = utf8_decode(mysqli_real_escape_string($con, $get['C_OBSE1']));
-        $C_CALLE1 = mysqli_real_escape_string($con, $get['C_CALLE1']);
-        $C_CALLE2 = mysqli_real_escape_string($con, $get['C_CALLE2']);
-        $C_ATTE = mysqli_real_escape_string($con, $get['C_ATTE']);
-        $C_CARG = mysqli_real_escape_string($con, $get['C_CARG']);
-        $C_TELE = mysqli_real_escape_string($con, $get['C_TELE']);
-        $C_RCON = mysqli_real_escape_string($con, $get['C_RCON']);
-        $C_NSE = mysqli_real_escape_string($con, $get['C_NSE']);
-        $C_CNIV = mysqli_real_escape_string($con, $get['C_CNIV']);
-        $C_CFAC = mysqli_real_escape_string($con, $get['C_CFAC']);
-        $C_CPTA = mysqli_real_escape_string($con, $get['C_CPTA']);
-        $C_CREJ = mysqli_real_escape_string($con, $get['C_CREJ']);
-        $C_CPAT = mysqli_real_escape_string($con, $get['C_CPAT']);
-        $C_VISIT = mysqli_real_escape_string($con, $get['C_VISIT']);
-        $C_CVST = mysqli_real_escape_string($con, $get['C_CVST']);
-        $ACCION = mysqli_real_escape_string($con, $get['ACCION']);
-        $C_MOTIV = mysqli_real_escape_string($con, $get['C_MOTIV']);
         $C_HRIN = mysqli_real_escape_string($con, $get['C_VH']) . ':' . mysqli_real_escape_string($con, $get['C_VMN']);
         $C_HRFI = date('H:i:s');
-        $D_FECH = mysqli_real_escape_string($con, $get['C_VD']);
-        $D_PROM = mysqli_real_escape_string($con, $get['D_PROMv']);
-        $N_PROM0 = mysqli_real_escape_string($con, $get['N_PROMv']);
-        $D_PAGO = mysqli_real_escape_string($con, $get['D_PAGOv']);
-        $N_PAGO = mysqli_real_escape_string($con, $get['N_PAGOv']);
-        $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
-        $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
-        $C_NDIR = trim(mysqli_real_escape_string($con, $get['C_NDIR']));
-        $C_EMAIL = trim(mysqli_real_escape_string($con, $get['C_EMAIL']));
-        $C_OBSE2 = mysqli_real_escape_string($con, $get['C_OBSE2']);
-        $C_EJE = mysqli_real_escape_string($con, $get['C_EJE']);
+        $C_CVGE = filter_input(INPUT_GET, 'C_CVGE');
+        $C_CVBA = filter_input(INPUT_GET, 'C_CVBA');
+        $C_CONT = filter_input(INPUT_GET, 'C_CONT');
+        $C_CONTAN = filter_input(INPUT_GET, 'C_CONTAN');
+        $C_CTIPO = filter_input(INPUT_GET, 'C_CTIPO');
+        $C_COWN = filter_input(INPUT_GET, 'C_COWN');
+        $C_CSTAT = filter_input(INPUT_GET, 'C_CSTAT');
+        $CUENTA = filter_input(INPUT_GET, 'CUENTA');
+        $C_OBSE1 = filter_input(INPUT_GET, 'C_OBSE1');
+        $C_CALLE1 = filter_input(INPUT_GET, 'C_CALLE1');
+        $C_CALLE2 = filter_input(INPUT_GET, 'C_CALLE2');
+        $C_ATTE = filter_input(INPUT_GET, 'C_ATTE');
+        $C_CARG = filter_input(INPUT_GET, 'C_CARG');
+        $C_TELE = filter_input(INPUT_GET, 'C_TELE');
+        $C_RCON = filter_input(INPUT_GET, 'C_RCON');
+        $C_NSE = filter_input(INPUT_GET, 'C_NSE');
+        $C_CNIV = filter_input(INPUT_GET, 'C_CNIV');
+        $C_CFAC = filter_input(INPUT_GET, 'C_CFAC');
+        $C_CPTA = filter_input(INPUT_GET, 'C_CPTA');
+        $C_CREJ = filter_input(INPUT_GET, 'C_CREJ');
+        $C_CPAT = filter_input(INPUT_GET, 'C_CPAT');
+        $C_VISIT = filter_input(INPUT_GET, 'C_VISIT');
+        $C_CVST = filter_input(INPUT_GET, 'C_CVST');
+        $ACCION = filter_input(INPUT_GET, 'ACCION');
+        $C_MOTIV = filter_input(INPUT_GET, 'C_MOTIV');
+        $D_FECH = filter_input(INPUT_GET, 'C_VD');
+        $D_PROM = filter_input(INPUT_GET, 'D_PROMv');
+        $N_PROM0 = filter_input(INPUT_GET, 'N_PROMv');
+        $D_PAGO = filter_input(INPUT_GET, 'D_PAGOv');
+        $N_PAGO = filter_input(INPUT_GET, 'N_PAGOv');
+        $C_PROM = filter_input(INPUT_GET, 'C_PROM');
+        $C_NTEL = filter_input(INPUT_GET, 'C_NTEL');
+        $C_NDIR = filter_input(INPUT_GET, 'C_NDIR');
+        $C_EMAIL = filter_input(INPUT_GET, 'C_EMAIL');
+        $C_OBSE2 = filter_input(INPUT_GET, 'C_OBSE2');
+        $C_EJE = filter_input(INPUT_GET, 'C_EJE');
         if (empty($N_PROM0)) {
             $N_PROM0 = 0;
         }
         $N_PROM = str_replace('$', '', $N_PROM0);
-        $C_FREQ = mysqli_real_escape_string($con, $get['C_FREQ']);
+        $C_FREQ = filter_input(INPUT_GET, 'C_FREQ');
         for ($merciv = 0; $merciv < count($get['MERCv']); $merciv++) {
             $MERCv[$merciv] = mysqli_real_escape_string($con, $get['MERCv'][$merciv]);
         }
-
-        $queryins = "INSERT INTO historia (C_CVGE,C_CVBA,C_CONT,C_CVST,D_FECH,C_HRIN,
-C_HRFI,C_TELE,CUENTA,C_OBSE1,C_CONTAN,C_ATTE,C_CARG,C_RCON,C_NSE,C_CNIV,C_CFAC,
-C_CPTA,C_CTIPO,C_COWN,C_CSTAT,C_VISIT,D_PROM,N_PROM,D_PROM1,N_PROM1,C_PROM,C_FREQ,C_ACCION,C_MOTIV,
-C_CREJ,C_CPAT,C_CALLE1,C_CALLE2,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE) 
-VALUES ('$C_CVGE','$C_CVBA','$C_CONT','$C_CVST','$D_FECH','$C_HRIN','$C_HRFI',
-'$C_TELE','$CUENTA','$C_OBSE1','$C_CONTAN','$C_ATTE','$C_CARG','$C_RCON','$C_NSE',
-'$C_CNIV','$C_CFAC','$C_CPTA','$C_CTIPO','$C_COWN','$C_CSTAT','$C_VISIT','$D_PROM',
-'$N_PROM','$D_PROM',
-'$N_PROM','$C_PROM','$C_FREQ','$ACCION','$C_MOTIV','$C_CREJ','$C_CPAT','$C_CALLE1','$C_CALLE2',
-'$C_NTEL','$C_NDIR','$C_EMAIL','$C_OBSE2','$C_EJE')";
-        $errorv = 0;
-        $flagmsgv = "";
-        $querydup = "SELECT count(1) FROM historia 
-WHERE c_cont=" . $C_CONT . " and d_fech='" . $D_FECH . "' 
-and c_hrin='" . $C_HRIN . "' and c_cvst='" . $C_CVST . "' 
-and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
-        $resultdup = mysqli_query($con, $querydup) or die("ERROR RM23 - " . mysqli_error($con));
-        while ($answerdup = mysqli_fetch_row($resultdup)) {
-            $errorv = $errorv + $answerdup[0];
-            $flagmsgv = "DOBLE ENTRANTE";
-        }
-        if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO TOTAL')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO PARCIAL')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        if (($N_PROM > 0) && ($D_PROM == '0000-00-00')) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA FECHA";
-        }
-        if (($N_PROM == 0) && ($D_PROM >= $D_FECH)) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "PROMESA NECESITA MONTO";
-        }
-        /*
-        if (($N_PROM1 == 0) && ($N_PROM2 > 0)) {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
-        }
-        */
-        if ($C_VISIT == '') {
-            $errorv = $errorv + 1;
-            $flagmsgv = $flagmsgv . '<BR>' . "GESTION NECESITA VISITADOR";
-        }
-        if ($errorv < 9000) {
-            mysqli_query($con, $queryins) or die("ERROR RM5 - " . mysqli_error($con));
-            $queryfech = "INSERT INTO histdate (auto,d_fech) SELECT auto,curdate() 
-FROM historia 
-WHERE c_cont=" . $C_CONT . " AND d_fech='" . $D_FECH . "'
-AND c_hrin='" . $C_HRIN . "' AND c_hrfi='" . $C_HRFI . "'
-AND auto NOT IN (SELECT auto FROM histdate)
-;";
-            mysqli_query($con, $queryfech) or die("ERROR RM6 - " . mysqli_error($con));
-            $querygest = "INSERT INTO histgest (auto,c_cvge) SELECT auto,'" . $C_CVGE . "' 
-FROM historia 
-WHERE c_cont=" . $C_CONT . " AND d_fech='" . $D_FECH . "'
-AND c_hrin='" . $C_HRIN . "' AND c_hrfi='" . $C_HRFI . "'
-AND auto NOT IN (SELECT auto FROM histgest)
-;";
-            mysqli_query($con, $querygest) or die("ERROR RM6a - " . mysqli_error($con));
-            if (!empty($C_NTEL)) {
-                $queryntel = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_NTEL . " WHERE id_cuenta='" . $C_CONT . "'";
-                mysqli_query($con, $queryntel) or die("ERROR RM7 - " . mysqli_error($con));
-            }
-            if (!empty($C_NDIR)) {
-                $queryndir = "UPDATE resumen SET direccion_nueva='" . $C_NDIR . "' WHERE id_cuenta='" . $C_CONT . "'";
-                mysqli_query($con, $queryndir) or die("ERROR RM7a - " . mysqli_error($con));
-            }
-            if (!empty($C_EMAIL)) {
-                $queryndir = "UPDATE resumen SET email_deudor='" . $C_EMAIL . "' WHERE id_cuenta='" . $C_CONT . "'";
-                mysqli_query($con, $queryndir) or die("ERROR RM8 - " . mysqli_error($con));
-            }
-            if (!empty($C_OBSE2) && ($C_OBSE2 == $C_OBSE2 + 0)) {
-                $querymemo = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_OBSE2 . " WHERE id_cuenta='" . $C_CONT . "'";
-                mysqli_query($con, $querymemo) or die("ERROR RM9 - " . mysqli_error($con));
-            }
-            if ($N_PAGO > 0) {
-                $who = $capt;
-                $queryd = "select c_cvge from historia where n_prom>0 and c_cvge like 'PRO%'
-    and c_cont=" . $C_CONT . " order by d_fech desc, c_hrin desc limit 1;";
-                $rowd = mysqli_query($con, $queryd) or die("ERROR RM10 - " . mysqli_error($con));
-                while ($rowd = mysqli_fetch_row($resultd)) {
-                    $who = $rowd[0];
-                }
-                $queryins = "INSERT INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
-    SELECT numero_de_cuenta,'$D_PAGO','$N_PAGO',cliente,'$who',numero_de_credito,id_cuenta 
-    FROM resumen WHERE id_cuenta=$C_CONT and (numero_de_cuenta,'$D_PAGO','$N_PAGO') not in (select cuenta,fecha,monto from pagos)";
-                mysqli_query($con, $queryins) or die("ERROR RM11 - " . mysqli_error($con));
-
-                $querylast = "select fecha,monto from pagos where (cuenta,cliente,fecha) in (select cuenta,cliente,max(fecha) from pagos where cuenta='" . $CUENTA . "' and cliente='" . $C_CVBA . "' group by cliente,cuenta);";
-                $resultlast = mysqli_query($con, $querylast) or die("ERROR RM12 - " . mysqli_error($con));
-                while ($answerlast = mysqli_fetch_row($resultlast)) {
-                    $mfecha = $answerlast[0];
-                    $mmonto = $answerlast[1];
-                }
-            }
-            $querypup = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
-where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
-            mysqli_query($con, $querypup) or die("ERROR RM10a - " . mysqli_error($con));
-
-            $best = $C_CVST;
-            $querybest = "select c_cvst,v_cc from historia,dictamenes 
-where c_cvst=dictamen and c_cont=" . $C_CONT . " and left(c_cvba,2)=left('" . $C_CVBA . "',2) 
-and d_fech>last_day(curdate()-interval 90 day)
-order by v_cc LIMIT 1;";
-            $resultbest = mysqli_query($con, $querybest) or die("ERROR RM14 - " . mysqli_error($con));
-            while ($answerbest = mysqli_fetch_row($resultbest)) {
-                $best = $answerbest[0];
-            }
-            $queryhot = "select c_cvst,v_cc from historia,dictamenes 
-where c_cvst=dictamen and c_cont=" . $C_CONT . " and left(c_cvba,2)=left('" . $C_CVBA . "',2) 
-and d_fech>last_day(curdate()-interval 1 month - interval 2 day)
-order by v_cc LIMIT 1;";
-            $resulthot = mysqli_query($con, $queryhot) or die("ERROR RM14a - " . mysqli_error($con));
-            while ($answerhot = mysqli_fetch_row($resulthot)) {
-                $hot = $answerhot[0];
-            }
-            $querysa = "update resumen set status_aarsa='" . $best . "' where id_cuenta=" . $C_CONT . ";";
-            mysqli_query($con, $querysa) or die("ERROR RM15 - " . mysqli_error($con));
-            $querysa1 = "update cobra.resumen set status_aarsa='PROMESA INCUMPLIDA'
-where id_cuenta not in (select c_cont from cobra.historia where n_prom>0 
-and d_prom>=curdate()) 
-and id_cuenta in (select c_cont from cobra.historia where n_prom>0 
-and d_prom<curdate()) 
-and id_cuenta not in
-(select id_cuenta from cobra.pagos where fecha>last_day(curdate()-interval 1 month))
-and (status_aarsa like 'PROMESA DE P%' or status_aarsa like 'CONFIRMA P%')
-and id_cuenta=" . $C_CONT . ";";
-            mysqli_query($con, $querysa1) or die("ERROR RM15a - " . mysqli_error($con));
-            $querysa2 = "update resumen,dictamenes
-set status_aarsa='PAGO DEL MES ANTERIOR' 
-where status_aarsa=dictamen and cliente not like 'J%' and cliente not like '%JUR'
-and queue='pagos'
-and id_cuenta not in (
-select c_cont from historia,dictamenes where c_cvst=dictamen
-and queue='PAGOS'
-and d_fech>last_day(curdate()-interval 1 month))
-and id_cuenta not in (
-select id_cuenta from pagos where fecha>last_day(curdate()-interval 1 month))
-and id_cuenta=" . $C_CONT . ";";
-            mysqli_query($con, $querysa2) or die("ERROR RM15b - " . mysqli_error($con));
-            $redirector = "Location: resumen.php?capt=" . $capt . "&go=FROMBUSCAR&i=0&field=id_cuenta&find=" . $C_CONT;
-            header($redirector);
-        }
+        $gc->doVisit($get);
     }
 } else {
     $flagmsg = "Acceso sin autorizaci&oacute;n";
@@ -1268,10 +1123,10 @@ $resultCnp = $pdo->query($queryCnp);
 
 $hasPic = FALSE;
 $picFile = '';
-$path = dirname(__FILE__) . '/pics/'.$numero_de_cuenta.'.jpg';
+$path = dirname(__FILE__) . '/pics/' . $numero_de_cuenta . '.jpg';
 if (realpath($path)) {
-    $hasPic  = TRUE;
-    $picFile = 'pics/'.$numero_de_cuenta.'.jpg';
+    $hasPic = TRUE;
+    $picFile = 'pics/' . $numero_de_cuenta . '.jpg';
 }
 
 include 'resumenView.php';
