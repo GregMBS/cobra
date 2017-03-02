@@ -246,7 +246,7 @@ ORDER BY d_fech, c_hrin";
         $querymain = "SELECT fecha_de_asignacion, d_fech,
             numero_de_credito, numero_de_cuenta, producto, c_accion,
             c_cvst, left(c_obse1,199) as gestion from resumen, historia 
-    where id_cuenta=c_cont and status_de_credito not like '%inactivo' 
+    where id_cuenta=c_cont  
     and cliente = 'Credito Real' and d_fech > last_day(curdate() - interval 6 week) and d_fech <= last_day(curdate() - interval 2 week)
 ORDER BY d_fech, c_hrin";
         $stm = $this->pdo->prepare($querymain);
