@@ -73,7 +73,7 @@ class SegmentadminClass {
             SELECT distinct gestor, :cliente, status_aarsa, updown1,
             orden1, 9999999, :segmento, 0
             FROM queuelist";
-        $stl = $$this->pdo->prepare($querylistin);
+        $stl = $this->pdo->prepare($querylistin);
         foreach ($result as $row) {
             $stl->bindParam(':cliente', $row['cliente']);
             $stl->bindParam(':segmento', $row['status_de_credito']);
