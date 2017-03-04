@@ -135,7 +135,7 @@ where h1.c_cont=id_cuenta and fecha>d_fech)";
      *
      * @var string
      */
-    protected $querymake = "CREATE TABLE `cobra4`.`gmbtemp` (
+    protected $querymake = "CREATE TABLE `cobracsi`.`gmbtemp` (
   `gestor` varchar(50)  NOT NULL,
   `cliente` varchar(50)  NOT NULL,
   `sdc` varchar(50)  NOT NULL,
@@ -245,7 +245,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
     }
 
     protected function createAnalysis() {
-        $querydrop = "DROP TABLE IF EXISTS `cobra4`.`gmbtemp`;";
+        $querydrop = "DROP TABLE IF EXISTS `cobracsi`.`gmbtemp`;";
         $this->pdo->query($querydrop);
         $this->pdo->query($this->querymake);
         $this->pdo->query($this->querycalc);

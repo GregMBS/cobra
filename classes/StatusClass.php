@@ -14,7 +14,7 @@ class StatusClass
      *
      * @var string
      */
-    private $dbName = 'cobra4';
+    private $dbName = 'cobracsi';
         
     /**
      * 
