@@ -18,10 +18,16 @@ $fecha1 = filter_input(INPUT_GET, 'fecha1');
 $fecha2 = filter_input(INPUT_GET, 'fecha2');
 $gestor = filter_input(INPUT_GET, 'gestor');
 $cliente = filter_input(INPUT_GET, 'cliente');
+$tipo = filter_input(INPUT_GET, 'tipo');
 $get = filter_input_array(INPUT_GET);
 
 if (!empty($fecha1)) {
-    $result = $bc->getBigGestiones($fecha1, $fecha2, $gestor, $cliente);
+    if ($tipo == 'visits') {
+        $result = $bc->getBigVisitas($fecha1, $fecha2, $gestor, $cliente);
+    } else {
+        $result = $bc->getBigGestiones($fecha1, $fecha2, $gestor, $cliente);
+    }
+    
     $filename = "Query_de_gestiones_".$fecha1.'_'.$fecha2.".xlsx";
     $output   = array();
     $i = 0;
