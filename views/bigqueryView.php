@@ -50,12 +50,12 @@
                 a:
                 <input name="fecha2" id="fecha2" readonly="readonly" />
             </p>
-            <label for='visits'>Visitas</label>
+<!--            <label for='visits'>Visitas</label>
             <input type='radio' name='tipo' id='visits' value='visits' /><br>
             <label for='telef'>Telefonica</label>
             <input type='radio' name='tipo' id='telef' value='telef' /><br>
             <label for='todos'>Todos</label>
-            <input type='radio' name='tipo' id='todos' value='todos' /><br>
+            <input type='radio' name='tipo' id='todos' value='todos' /><br>-->
             <input type='submit' name='go' value='Query Gestiones'>
         </form>
         <script src="/js/datepicker_mx.js" type="text/javascript"></script>

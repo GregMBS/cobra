@@ -22,11 +22,8 @@ $tipo = filter_input(INPUT_GET, 'tipo');
 $get = filter_input_array(INPUT_GET);
 
 if (!empty($fecha1)) {
-    if ($tipo == 'visits') {
-        $result = $bc->getBigVisitas($fecha1, $fecha2, $gestor, $cliente);
-    } else {
-        $result = $bc->getBigGestiones($fecha1, $fecha2, $gestor, $cliente);
-    }
+    $result = $bc->getBigGestiones($fecha1, $fecha2, $gestor, $cliente);
+    
     
     $filename = "Query_de_gestiones_".$fecha1.'_'.$fecha2.".xlsx";
     $output   = array();
