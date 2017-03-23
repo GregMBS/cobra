@@ -54,14 +54,14 @@ class LogoutClass {
     /**
      * 
      * @param string $capt
-     * @param string $go
+     * @param string $status
      * @return array
      */
-    public function getLogoutDatetime($capt, $go) {
+    public function getLogoutDatetime($capt, $status) {
         $date = date('Y-m-d');
         $time = date('H:i:s');
-        if ($go == 'forgot') {
-            $go = 'salir';
+        if ($status == 'forgot') {
+            $status = 'salir';
             $stl = $this->pdo->prepare($this->queryldt);
             $stl->bindParam(':capt', $capt);
             $stl->execute();
