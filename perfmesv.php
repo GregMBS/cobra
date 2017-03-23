@@ -1,8 +1,8 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\PerfmesClass;
-use cobra_salsa\PerfmesAllClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\PerfmesClass;
+use gregmbs\cobra\PerfmesAllClass;
 
 $day_esp	 = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
 require_once 'classes/PdoClass.php';

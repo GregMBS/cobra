@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\ResumenClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\ResumenClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/ResumenClass.php';

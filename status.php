@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\StatusClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\StatusClass;
 
 require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();

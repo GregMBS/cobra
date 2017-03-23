@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\RobotClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\RobotClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/RobotClass.php';

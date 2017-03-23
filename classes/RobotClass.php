@@ -1,8 +1,8 @@
 <?php
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
-use cobra_salsa\BaseClass;
+use gregmbs\cobra\BaseClass;
 use PDO;
 
 require_once 'classes/BaseClass.php';

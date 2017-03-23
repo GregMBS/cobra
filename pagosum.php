@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\PagosClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\PagosClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/PagosClass.php';

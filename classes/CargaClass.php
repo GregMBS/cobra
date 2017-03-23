@@ -1,6 +1,6 @@
 <?php
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 use Box\Spout\Reader;
 use Box\Spout\Common\Type;

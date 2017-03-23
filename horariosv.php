@@ -1,8 +1,8 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\HorariosClass;
-use cobra_salsa\HorariosAllClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\HorariosClass;
+use gregmbs\cobra\HorariosAllClass;
 
 require_once 'classes/PdoClass.php';
 $pc		 = new PdoClass();

@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\GestoradminClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\GestoradminClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestoradminClass.php';

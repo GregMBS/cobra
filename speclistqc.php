@@ -1,8 +1,8 @@
 <?php
 set_time_limit(300);
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\SpeclistqcClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\SpeclistqcClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/SpeclistqcClass.php';

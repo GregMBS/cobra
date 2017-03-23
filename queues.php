@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\QueuesClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\QueuesClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/QueuesClass.php';

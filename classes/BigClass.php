@@ -1,8 +1,8 @@
 <?php
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
-use cobra_salsa\BigInputObject;
+use gregmbs\cobra\BigInputObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

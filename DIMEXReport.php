@@ -1,8 +1,8 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\DIMEXClass;
-use cobra_salsa\OutputClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\DIMEXClass;
+use gregmbs\cobra\OutputClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/DIMEXClass.php';

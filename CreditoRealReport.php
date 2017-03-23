@@ -1,8 +1,8 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\OutputClass;
-use cobra_salsa\CreditoRealClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\OutputClass;
+use gregmbs\cobra\CreditoRealClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/CreditoRealClass.php';

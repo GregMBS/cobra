@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\BuscarClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\BuscarClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BuscarClass.php';

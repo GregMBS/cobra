@@ -1,6 +1,6 @@
 <?php
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

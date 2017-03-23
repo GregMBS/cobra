@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\ReporteDiarioClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\ReporteDiarioClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/ReporteDiarioClass.php';

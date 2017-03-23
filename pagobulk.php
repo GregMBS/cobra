@@ -1,6 +1,6 @@
 <?php
-use cobra_salsa\PdoClass;
-use cobra_salsa\PagobulkClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\PagobulkClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/PagobulkClass.php';

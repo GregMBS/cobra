@@ -3,8 +3,8 @@ set_time_limit(300);
 require_once 'vendor/autoload.php';
 
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\TelsClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\TelsClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/TelsClass.php';

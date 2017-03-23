@@ -1,8 +1,8 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\OutputClass;
-use cobra_salsa\InventarioClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\OutputClass;
+use gregmbs\cobra\InventarioClass;
 
 set_time_limit(300);
 require_once 'classes/PdoClass.php';

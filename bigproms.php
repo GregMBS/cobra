@@ -5,9 +5,9 @@ require_once 'vendor/autoload.php';
 
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\WriterFactory;
-use cobra_salsa\BigClass;
-use cobra_salsa\BigInputObject;
-use cobra_salsa\PdoClass;
+use gregmbs\cobra\BigClass;
+use gregmbs\cobra\BigInputObject;
+use gregmbs\cobra\PdoClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BigClass.php';

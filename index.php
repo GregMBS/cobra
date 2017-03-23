@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\LoginClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\LoginClass;
 
 $local = $_SERVER['REMOTE_ADDR'];
 $go = filter_input(INPUT_POST, 'go');

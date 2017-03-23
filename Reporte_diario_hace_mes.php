@@ -1,6 +1,6 @@
 <?php
 
-use cobra_salsa\PdoClass;
+use gregmbs\cobra\PdoClass;
 
 require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();
