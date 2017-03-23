@@ -24,7 +24,6 @@
                 <h2>Cargas</h2>
                 <button onclick="window.location = 'carga2.php?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
                 <button onclick="window.location = 'pagobulk.php?capt=<?php echo $capt; ?>'">Cargar Pagos Confirmados</button>
-                <button onclick="window.location = 'cargaPic.php?capt=<?php echo $capt; ?>'">Cargar Foto (FAMSA)</button><br>
                 <h2>Visitas</h2>
                 <button onclick="window.location = 'checkout.php?capt=<?php echo $capt; ?>'">Asignar Visitas</button>
                 <button onclick="window.location = 'checkin.php?capt=<?php echo $capt; ?>'">Recibir Visitas</button>
@@ -98,10 +97,10 @@
                 <button onclick="window.location = 'CartasFiniquitos.php?capt=<?php echo $capt; ?>'">Cartas Finiquitos</button>-->
             </div>
             <div id="bot">
-                <h2>Controlar ROBOT y ELASTIX</h2>
+                <h2>Controlar ROBOT</h2>
                 <h3>ROBOT</h3>
-                <button onclick="window.location = 'cargatel.php?capt=<?php echo $capt; ?>'">CARGAR ROBOT</button>
-                <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">CONTROLAR ROBOT</button>
+<!--                <button onclick="window.location = 'cargatel.php?capt=<?php echo $capt; ?>'">CARGAR ROBOT</button>
+                <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">CONTROLAR ROBOT</button>-->
             </div>
         </div>
         <p>
