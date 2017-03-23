@@ -149,7 +149,7 @@ join msglist rm
 on rc.msg regexp rm.msg
 group by rc.msg";
         $result = $this->pdo->query($queryk);
-        $output = $this->calcTiempo($result);
+//        $output = $this->calcTiempo($result);
         return $result;
     }
 

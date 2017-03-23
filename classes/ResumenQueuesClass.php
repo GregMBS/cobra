@@ -70,10 +70,10 @@ class ResumenQueuesClass {
      * 
      * @param string $cliente
      * @param string $sdc
-     * @param string $cr
+     * @param string $codigo
      * @return \PDOStatement
      */
-    public function prepareResumenMain($cliente, $sdc, $cr) {
+    public function prepareResumenMain($cliente, $sdc, $codigo) {
         if (empty($cliente)) {
             $clientStr = '';
         } else {
@@ -84,7 +84,7 @@ class ResumenQueuesClass {
         } else {
             $sdcStr = " AND status_de_credito = :sdc ";
         }
-        if (empty($cr)) {
+        if (empty($codigo)) {
             $crStr = " AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION') ";
         } else {
             $crStr = " AND queue = :cr ";
@@ -98,7 +98,7 @@ $sdcStr
 $crStr
 ORDER BY fecha_ultima_gestion LIMIT 1";
 
-        if ($cr == 'SIN GESTION') {
+        if ($codigo == 'SIN GESTION') {
             $querymain = "SELECT * FROM resumen " .
                     "WHERE locker is null " .
                     $clientStr . $sdcStr .
@@ -106,7 +106,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
                     " ORDER BY saldo_total desc LIMIT 1";
         }
 
-        if (($cr == 'INICIAL')) {
+        if (($codigo == 'INICIAL')) {
             $querymain = "SELECT * FROM resumen
 WHERE status_de_credito not regexp '-' 
 AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION')
@@ -115,7 +115,7 @@ AND locker is null
 and fecha_ultima_gestion < curdate()
 order by fecha_ultima_gestion  LIMIT 1";
         }
-        if ($cr == 'ESPECIAL') {
+        if ($codigo == 'ESPECIAL') {
             $querymain = "SELECT * FROM resumen
 WHERE locker is null
  $clientStr
@@ -124,8 +124,8 @@ AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
 order by fecha_ultima_gestion  LIMIT 1
 ";
         }
-    if ($cr == 'MANUAL') {
-        $querymain = "select * from resumen
+        if ($codigo == 'MANUAL') {
+            $querymain = "select * from resumen
 where locker is null
 $clientStr
 $sdcStr
@@ -135,7 +135,7 @@ and status_aarsa not in (
 	)
 and especial > 0
 order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_1 desc limit 1";
-    }        
+        }
         $stm = $this->pdo->prepare($querymain);
         return $stm;
     }
@@ -146,11 +146,11 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
      * @param string $capt
      * @param string $cliente
      * @param string $sdc
-     * @param string $cr
+     * @param string $codigo
      * @return \PDOStatement
      */
-    public function bindResumenMain($stm, $capt, $cliente, $sdc, $cr) {
-        if (in_array($cr, array('MANUAL','INICIAL'))) {
+    public function bindResumenMain($stm, $capt, $cliente, $sdc, $codigo) {
+        if (in_array($codigo, array('MANUAL', 'INICIAL'))) {
             $stm->bindParam(':capt', $capt);
             return $stm;
         }
@@ -160,13 +160,13 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
         if (!empty($sdc)) {
             $stm->bindParam(':sdc', $sdc);
         }
-        if (in_array($cr, array('ESPECIAL', 'SIN GESTION'))) {
+        if (in_array($codigo, array('ESPECIAL', 'SIN GESTION'))) {
             return $stm;
         }
-        if (empty($cr)) {
+        if (empty($codigo)) {
             return $stm;
         }
-        $stm->bindParam(':cr', $cr);
+        $stm->bindParam(':cr', $codigo);
         return $stm;
     }
 
@@ -192,7 +192,7 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
             $stm->execute();
             $result = $stm->fetch(\PDO::FETCH_ASSOC);
             return $result;
-        } catch (Exception $e) {
+        } catch (Exception $exc) {
             return array();
         }
     }

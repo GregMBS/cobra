@@ -187,9 +187,9 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
      * @return string
      */
     protected function last_business_day() {
-        $lm = strtotime("-31 day");
-        $month = date("n", $lm);
-        $year = date("Y", $lm);
+        $lastm = strtotime("-31 day");
+        $month = date("n", $lastm);
+        $year = date("Y", $lastm);
         $lbdg = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $wday = date("N", strtotime("$year-$month-$lbdg"));
         if ($wday == 7) {
@@ -259,8 +259,8 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
         $this->updateMultiples();
         $this->createAnalysis();
 
-        $stp = $this->pdo->query($this->queryparcial);
-        $rawResultPagos = $stp->fetchAll(\PDO::FETCH_ASSOC);
+//        $stp = $this->pdo->query($this->queryparcial);
+//        $rawResultPagos = $stp->fetchAll(\PDO::FETCH_ASSOC);
 
         $stv = $this->pdo->prepare($this->queryvencido);
         $stv->bindParam(':lbd', $lbd);

@@ -69,32 +69,6 @@
             </div>
             <div id="spec">
                 <h2>Reportes Specializados</h2>
-                <button onclick="window.location = 'folios_new.php?capt=<?php echo $capt; ?>'">Carga Folios</button><br>
-                <br>
-                <h3>Credito Real</h3>
-                <button onclick="window.location = 'CreditoRealReport.php?capt=<?php echo $capt; ?>'">Reporte Lunes, Miercoles, Viernes para Credito Real</button>
-                <button onclick="window.location = 'CreditoRealFdm.php?capt=<?php echo $capt; ?>'">Reporte Mensual</button>
-                <br>
-<!--                <h3>Credito Si</h3>
-                <button onclick="window.location = 'folioadmin2.php?capt=<?php echo $capt; ?>'">Administrar CS Folios</button>
-                
-                <button onclick="window.location='folioadmins.php?capt=<?php echo $capt; ?>'">Administrar SDH Folios</button><br>
-                
-                <button onclick="window.location = 'Layout_carga_de_gestiones_cs_mensual_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 CS Mensual TXT</button>
-                <button onclick="window.location = 'Layout_carga_de_promesas_cs_mensual.txt.php?capt=<?php echo $capt; ?>'">Layout 600 CS Mensual TXT</button><br>
-                <button onclick="window.location = 'Layout_carga_de_gestiones_cs_daily_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 CS Diario TXT</button>
-                <button onclick="window.location = 'Layout_carga_de_promesas_cs_daily.txt.php?capt=<?php echo $capt; ?>'">Layout 600 CS Diario TXT</button><br>
-                <button onclick="window.location = 'Layout_carga_de_gestiones_sdh_mensual_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 SDH Mensual TXT</button>
-                <button onclick="window.location = 'Layout_carga_de_promesas_sdh_mensual.txt.php?capt=<?php echo $capt; ?>'">Layout 600 SDH Mensual TXT</button><br>
-                <button onclick="window.location = 'Layout_carga_de_gestiones_sdh_daily_new.txt.php?capt=<?php echo $capt; ?>'">Layout 200 SDH Diario TXT</button>
-                <button onclick="window.location = 'Layout_carga_de_promesas_sdh_daily.txt.php?capt=<?php echo $capt; ?>'">Layout 600 SDH Diario TXT</button><br>
-                <button onclick="window.location = 'Productividad_CS.php?capt=<?php echo $capt; ?>'">Productividad</button>
-                <button onclick="window.location = 'fdm-cs.php?capt=<?php echo $capt; ?>'">Fin del Mes</button>
-                <button onclick="window.open('CS_daily.php?capt=<?php echo $capt; ?>', 'Credito Si Auditario', 'width=400,height=200,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes')">Credito Si Auditario</button><br>
-                <h3>DIMEX</h3>
-                <button onclick="window.location = 'DIMEXReport.php?capt=<?php echo $capt; ?>'">Reporte de DIMEX</button>
-                <h3>Prestamo Familiar</h3>
-                <button onclick="window.location = 'CartasFiniquitos.php?capt=<?php echo $capt; ?>'">Cartas Finiquitos</button>-->
             </div>
             <div id="bot">
                 <h2>Controlar ROBOT</h2>

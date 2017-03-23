@@ -81,18 +81,18 @@ class LogoutClass {
     /**
      * 
      * @param string $capt
-     * @param string $go
+     * @param string $status
      * @param string $date
      * @param string $time
      */
-    public function insertHistoria($capt, $go, $date, $time) {
+    public function insertHistoria($capt, $status, $date, $time) {
 	$queryins	 = "INSERT INTO historia
 		(C_CVGE, C_CVBA, C_CONT, CUENTA, C_CVST, D_FECH, C_HRIN, C_HRFI)
 		VALUES
 		(:capt,'', 0, 0, :go, :date, :timein, :timeout)";
 	$sti		 = $this->pdo->prepare($queryins);
 	$sti->bindParam(':capt', $capt);
-	$sti->bindParam(':go', $go);
+	$sti->bindParam(':go', $status);
 	$sti->bindParam(':date', $date);
 	$sti->bindParam(':timein', $time);
 	$sti->bindParam(':timeout', $time);

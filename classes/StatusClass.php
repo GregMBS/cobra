@@ -11,12 +11,6 @@ class StatusClass
     protected $pdo;
     
     /**
-     *
-     * @var string
-     */
-    private $dbName = 'cobracsi';
-        
-    /**
      * 
      * @param \PDO $pdo
      */
@@ -27,10 +21,10 @@ class StatusClass
     
     /**
      * 
-     * @param int $id
+     * @param int $procid
      */
-    public function killProc($id) {
-        $idi = (int) $id;
+    public function killProc($procid) {
+        $idi = (int) $procid;
         $queryu = "KILL $idi";
         $this->pdo->query($queryu);
     }
