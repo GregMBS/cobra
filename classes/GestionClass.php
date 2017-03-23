@@ -99,13 +99,14 @@ and id_cuenta = :c_cont";
      * @return int
      */
     private function insertVisit($gestion) {
+        $hora = $gestion['C_VH'].':'.$gestion['C_VMN'];
         $sti = $this->pdo->prepare($this->visitInsertQuery);
         $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
         $sti->bindParam(':C_CVBA', $gestion['C_CVBA']);
         $sti->bindParam(':C_CONT', $gestion['C_CONT'], \PDO::PARAM_INT);
         $sti->bindParam(':C_CVST', $gestion['C_CVST']);
         $sti->bindParam(':D_FECH', $gestion['C_VD']);
-        $sti->bindParam(':C_HRIN', $gestion['C_VH'].':'.$gestion['C_VMN']);
+        $sti->bindParam(':C_HRIN', $hora);
         $sti->bindParam(':C_HRFI', $gestion['C_HRFI']);
         $sti->bindParam(':C_TELE', $gestion['C_TELE']);
         $sti->bindParam(':CUENTA', $gestion['CUENTA']);
