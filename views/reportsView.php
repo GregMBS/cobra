@@ -99,8 +99,6 @@
             <div id="bot">
                 <h2>Controlar ROBOT</h2>
                 <h3>ROBOT</h3>
-<!--                <button onclick="window.location = 'cargatel.php?capt=<?php echo $capt; ?>'">CARGAR ROBOT</button>
-                <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">CONTROLAR ROBOT</button>-->
             </div>
         </div>
         <p>
