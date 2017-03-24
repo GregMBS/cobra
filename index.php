@@ -32,7 +32,7 @@ if (!empty($go)) {
             default:
                 break;
         }
-        $cpw = $capt . sha1($pw) . date('U');
+        $cpw = sha1($capt . $pw);
         if ($capt == "gmbs") {
             setcookie('auth', $cpw, time() + 60 * 60 * 24, "/", "demo.gmbs-consulting.com", 0, 1);
         } else {
