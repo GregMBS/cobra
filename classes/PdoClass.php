@@ -121,9 +121,9 @@ class PdoClass {
         $stt->bindParam(':ticket', $ticket);
         $stt->bindParam(':capt', $this->capt);
         $stt->execute();
-        var_dump($this);die();
         $tipo = $stt->fetch(\PDO::FETCH_ASSOC);
         $this->tipo = $tipo['tipo'];
+        var_dump($this);die();
         return $this->pdo;
     }
 
