@@ -51,15 +51,14 @@ class PdoClass {
      *
      * @var string
      */
-    private $queryadmin = "SELECT count(1) as ct FROM nombres WHERE ticket=:ticket
-            AND iniciales=:capt AND tipo='admin'";
+    private $queryadmin = "SELECT ticket FROM nombres WHERE iniciales=:capt "
+            . "AND tipo='admin'";
 
     /**
      *
      * @var string
      */
-    private $queryuser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
-            AND iniciales=:capt";
+    private $queryuser = "SELECT ticket FROM nombres WHERE iniciales=:capt";
 
     /**
      *
@@ -128,13 +127,11 @@ class PdoClass {
         $ticket = filter_input(INPUT_COOKIE, 'auth');
         $this->setCapt();
         $stc = $this->pdo->prepare($querycheck);
-        $stc->bindParam(':ticket', $ticket);
         $stc->bindParam(':capt', $this->capt);
         $stc->execute();
-        $count = $stc->fetch();
-        var_dump($count);die();
-        if ($count[0] != 1) {
-            $this->startOver();
+        $user = $stc->fetch(\PDO::FETCH_ASSOC);        
+        if ($user['ticket'] != $ticket) {
+            var_dump($user);die($ticket);
         }
         $this->setTipo($ticket);
         return $this->pdo;
