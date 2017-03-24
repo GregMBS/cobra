@@ -109,7 +109,7 @@ class PdoClass {
     private function dbConnect($querycheck) {
         $ticket = filter_input(INPUT_COOKIE, 'auth');
         $this->setCapt();
-        var_dump($this);
+        var_dump($this);die();
         $stc = $this->pdo->prepare($querycheck);
         $stc->bindParam(':ticket', $ticket);
         $stc->bindParam(':capt', $this->capt);
