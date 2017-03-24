@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 /**
  * Description of LoginClass
@@ -28,14 +28,20 @@ class LoginClass {
         $this->pdo = $pdo;
     }
 
-    public function getUserData($capt, $pw) {
+    /**
+     * 
+     * @param string $capt
+     * @param string $passw
+     * @return array
+     */
+    public function getUserData($capt, $passw) {
         $queryg = "SELECT iniciales, enlace, tipo "
                 . "FROM nombres JOIN grupos ON grupo=tipo "
                 . "WHERE passw = sha(:pw) "
                 . "AND LOWER(iniciales) = LOWER(:capt) "
                 . "LIMIT 1";
         $stg = $this->pdo->prepare($queryg);
-        $stg->bindParam(':pw', $pw);
+        $stg->bindParam(':pw', $passw);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
         $resultg = $stg->fetch(\PDO::FETCH_ASSOC);

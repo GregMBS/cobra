@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 /**
  * Description of QueuesqcClass
@@ -146,6 +146,11 @@ from queuelist
 where status_aarsa not like 'PLASTIC%'
 and cliente <> ''
 and sdc <> ''
+and (cliente, sdc, status_aarsa) IN (
+select cliente, status_de_credito, queue
+from resumen, dictamenes
+where status_aarsa = dictamen
+)
 order by cliente, sdc, status_aarsa limit 1000
 ";
         $result = $this->pdo->query($querymainq);

@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 /**
  * Description of LogoutClass
@@ -54,14 +54,14 @@ class LogoutClass {
     /**
      * 
      * @param string $capt
-     * @param string $go
+     * @param string $status
      * @return array
      */
-    public function getLogoutDatetime($capt, $go) {
+    public function getLogoutDatetime($capt, $status) {
         $date = date('Y-m-d');
         $time = date('H:i:s');
-        if ($go == 'forgot') {
-            $go = 'salir';
+        if ($status == 'forgot') {
+            $status = 'salir';
             $stl = $this->pdo->prepare($this->queryldt);
             $stl->bindParam(':capt', $capt);
             $stl->execute();
@@ -81,18 +81,18 @@ class LogoutClass {
     /**
      * 
      * @param string $capt
-     * @param string $go
+     * @param string $status
      * @param string $date
      * @param string $time
      */
-    public function insertHistoria($capt, $go, $date, $time) {
+    public function insertHistoria($capt, $status, $date, $time) {
 	$queryins	 = "INSERT INTO historia
 		(C_CVGE, C_CVBA, C_CONT, CUENTA, C_CVST, D_FECH, C_HRIN, C_HRFI)
 		VALUES
 		(:capt,'', 0, 0, :go, :date, :timein, :timeout)";
 	$sti		 = $this->pdo->prepare($queryins);
 	$sti->bindParam(':capt', $capt);
-	$sti->bindParam(':go', $go);
+	$sti->bindParam(':go', $status);
 	$sti->bindParam(':date', $date);
 	$sti->bindParam(':timein', $time);
 	$sti->bindParam(':timeout', $time);

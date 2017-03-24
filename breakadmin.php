@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\BreaksClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\BreaksClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BreaksClass.php';

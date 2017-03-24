@@ -3,8 +3,8 @@ set_time_limit(300);
 require_once 'vendor/autoload.php';
 
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\TelsClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\TelsClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/TelsClass.php';
@@ -13,8 +13,8 @@ $pdo = $pdoc->dbConnectAdmin();
 $tc = new TelsClass($pdo);
 $fecha1 = filter_input(INPUT_GET, 'fecha1');
 $fecha2 = filter_input(INPUT_GET, 'fecha2');
-$capt = $get['capt'];
-if (!empty($get['fecha1'])) {
+$capt = $pdoc->capt;
+if (!empty($fecha1)) {
     $tc->createMarcados($fecha1, $fecha2);
     $result = $tc->getMercadosReport();
 }

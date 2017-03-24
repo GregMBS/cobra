@@ -1,6 +1,6 @@
 <?php
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 /**
  * Description of segmentadminClass
@@ -66,14 +66,14 @@ class SegmentadminClass {
         $querycliseg = "SELECT DISTINCT cliente, status_de_credito "
                 . "FROM resumen "
                 . "WHERE status_de_credito NOT REGEXP '-'";
-        $result = $$this->pdo->query($querycliseg);
+        $result = $this->pdo->query($querycliseg);
         $querylistin = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
             SELECT distinct gestor, :cliente, status_aarsa, updown1,
             orden1, 9999999, :segmento, 0
             FROM queuelist";
-        $stl = $$this->pdo->prepare($querylistin);
+        $stl = $this->pdo->prepare($querylistin);
         foreach ($result as $row) {
             $stl->bindParam(':cliente', $row['cliente']);
             $stl->bindParam(':segmento', $row['status_de_credito']);

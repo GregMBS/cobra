@@ -6,7 +6,9 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
+
+require_once 'config.php';
 
 /**
  * Description of ActivarClass
@@ -19,12 +21,18 @@ class BaseClass {
      * @var \PDO $pdo
      */
     protected $pdo;
-
+    
+    /**
+     * @var \ConfigClass $config
+     */
+    public $config;
+    
     /**
      * 
      * @param \PDO $pdo
      */
     public function __construct($pdo) {
+        $this->config = new \ConfigClass();
         $this->pdo = $pdo;
     }
 }

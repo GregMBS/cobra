@@ -1,6 +1,6 @@
 <?php
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -45,7 +45,7 @@ class HorariosClass
 	{
 		$query	 = 'select distinct c_cvge from historia
             where d_fech>last_day(curdate() - interval 1 month)
-            order by c_cvge limit 1000;';
+            order by c_cvge limit 1000';
 		$result	 = $this->pdo->query($query);
 		return $result;
 	}

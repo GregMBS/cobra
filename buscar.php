@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\BuscarClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\BuscarClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BuscarClass.php';
@@ -23,6 +23,6 @@ $CLIENTE = filter_input(INPUT_GET, 'cliente');
   $querymain	 = "SELECT SQL_NO_CACHE numero_de_cuenta,nombre_deudor,cliente,
   id_cuenta,status_de_credito from resumen where ".$field." like '%".$find."%'";
  */
-$result = $bc->searchAccounts($result, $find, $CLIENTE);
+$result = $bc->searchAccounts($field, $find, $CLIENTE);
 $resultcl = $bc->listClients();
 require_once 'views/buscarView.php';

@@ -49,12 +49,12 @@
         </div>
         <div>
             <?php
-            foreach ($resultlist->fetchAll(PDO::FETCH_ASSOC) as $rowlist) {
+            foreach ($resultlist as $rowlist) {
                 ?>
                 <div style='clear:both;border:1pt black solid'>
                     <form method='get' action='queues.php' name='<?php echo $rowlist['gestor']; ?>'>
                         <div style='float:left;width:25%'>
-                            <input name='gestor' type='text' readonly='readonly' value='<?php echo $GESTOR; ?>'>
+                            <input name='gestor' type='text' readonly='readonly' value='<?php echo $rowlist['gestor']; ?>'>
                         </div>
                         <div style='float:left;width:40%'>
                             <?php

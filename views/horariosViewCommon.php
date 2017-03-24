@@ -1,5 +1,7 @@
-<th><a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $c_cvge); ?>'><?php echo $gestor; ?></a></th>
+<th>
+    <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a></th>
 <?php
+$day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
 for ($i = 1; $i <= $dhoy; $i++) {
     $start[$i] = ' ';
     $stop[$i] = ' ';
@@ -31,7 +33,7 @@ for ($i = 1; $i <= $dhoy; $i++) {
                 foreach ($resultq as $answerq) {
                     $DIFF = $answerq['diff'];
                     $NTP = $answerq['ntp'];
-                    $break[$i]+=$DIFF;
+                    $break[$i] += $DIFF;
                 }
             }
         }
@@ -45,7 +47,7 @@ for ($i = 1; $i <= $dhoy; $i++) {
                 foreach ($resultq as $answerq) {
                     $DIFF = $answerq['diff'];
                     $NTP = $answerq['ntp'];
-                    $bano[$i]+=$DIFF;
+                    $bano[$i] += $DIFF;
                 }
             }
         }
@@ -118,6 +120,7 @@ for ($i = 1; $i <= $dhoy; $i++) {
             <?php
             $sumt = $sumt + $diff[$i];
             $tsumt[$i] = $tsumt[$i] + $diff[$i];
+            $hours_all[$i] = $hours_all[$i] + $diff[$i];
         }
         ?>
         <td class="heavy"><?php

@@ -4,7 +4,10 @@ $msg = 'CobraMas';
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CobraMas</title>
+        <title>COBRA</title>
+        <?php
+        $msg = 'COBRA';
+        ?>
         <style type="text/css">
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
@@ -14,7 +17,7 @@ $msg = 'CobraMas';
     </head>
     <body>
         <h1><?php echo $msg; ?></h1>
-        <em>versi&oacute;n configurado para Servicios Automáticos en Linea SA</em>
+        <em>versi&oacute;n configurado para Consultoría PAVE</em>
         <div class="forma">
             <form action="index.php" method="post" autocomplete="off">
                 <fieldset>
@@ -33,7 +36,7 @@ $msg = 'CobraMas';
         </div>
         <p>&nbsp;</p>
         <a href="licencia.txt">
-            <cite>&#169;Gregory Miles Blumenthal Scharf 2016</cite>
+            <cite>&#169;Gregory Miles Blumenthal Scharf 2017</cite>
         </a>
     </body>
 </html>

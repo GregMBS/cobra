@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\SegmentadminClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\SegmentadminClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/SegmentadminClass.php';

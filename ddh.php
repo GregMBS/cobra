@@ -1,10 +1,10 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\DhClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\DhClass;
 
 require_once 'classes/PdoClass.php';
-require_once 'classes/DhClass';
+require_once 'classes/DhClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
 $dc = new DhClass($pdo);

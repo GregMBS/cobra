@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\CheckClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\CheckClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/CheckClass.php';

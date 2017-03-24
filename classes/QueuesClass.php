@@ -6,27 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
+
+use PDO;
 
 /**
  * Description of QueuesClass
  *
  * @author gmbs
  */
-class QueuesClass {
-
-    /**
-     * @var \PDO $pdo
-     */
-    protected $pdo;
-
-    /**
-     * 
-     * @param \PDO $pdo
-     */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
+class QueuesClass extends BaseClass {
 
     /**
      * 
@@ -142,7 +131,9 @@ and sdc=:sdc and status_aarsa=:status";
         JOIN nombres ON gestor=iniciales 
         WHERE tipo <> ''
         ORDER BY gestor";
-        $resultlist = $this->pdo->query($querylist);
+        $stl = $this->pdo->prepare($querylist);
+        $stl->execute();
+        $resultlist = $stl->fetchAll(PDO::FETCH_ASSOC);
         return $resultlist;
     }
 

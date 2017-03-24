@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\LoginClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\LoginClass;
 
 $local = $_SERVER['REMOTE_ADDR'];
 $go = filter_input(INPUT_POST, 'go');
@@ -17,15 +17,15 @@ if (!empty($go)) {
     if (isset($userData['tipo'])) {
         switch ($userData['tipo']) {
             case "callcenter":
-                $field = "ejecutivo_asignado_call_center";
+            $field = "ejecutivo_asignado_call_center";
                 break;
 
             case "visitador":
-                $field = "ejecutivo_asignado_domiciliario";
+            $field = "ejecutivo_asignado_domiciliario";
                 break;
 
             case "admin":
-                $field = "ejecutivo_asignado_call_center";
+            $field = "ejecutivo_asignado_call_center";
                 break;
 
             default:
@@ -47,5 +47,4 @@ if (!empty($go)) {
         header($page);
     }
 }
-
 require_once 'views/indexView.php';

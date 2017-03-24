@@ -1,8 +1,8 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\HorariosClass;
-use cobra_salsa\HorariosAllClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\HorariosClass;
+use gregmbs\cobra\HorariosAllClass;
 
 require_once 'classes/PdoClass.php';
 $pc              = new PdoClass();
@@ -23,5 +23,6 @@ $contactos_all   = array_fill(1, $dhoy, 0);
 $nocontactos_all = array_fill(1, $dhoy, 0);
 $promesas_all    = array_fill(1, $dhoy, 0);
 $pagos_all       = array_fill(1, $dhoy, 0);
-$resultnom       = $hc->listGestores();
+            $resultnom       = $hc->listGestores();
+$day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
 require_once 'views/horariosView.php';

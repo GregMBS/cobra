@@ -39,7 +39,7 @@ foreach ($resultp as $answerp) {
     $DIFF = $answerp['diff'];
     $formatstr = ' class="late"';
     $NTP = date('H:i:s');
-    $resultq = $bc->getTimes($formatstr, $queryp);
+    $resultq = $bc->getTimes($TIEMPO, $GESTOR);
     foreach ($resultq as $answerq) {
         if (!empty($answerq['diff'])) {
             $DIFF = $answerq['diff'];

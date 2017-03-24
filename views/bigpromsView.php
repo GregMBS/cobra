@@ -48,46 +48,14 @@ if (isset($fecha1)) {
     echo $fecha1;
 }
                 ?>
-                <select name="fecha1">
-                    <?php
-foreach ($resultdf as $answerdf) {
-                        ?>
-                        <option value="<?php echo $answerdf[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerdf[0]; ?></option>
-                    <?php 
-} ?>
-                </select>
+                <input name="fecha1" id="fecha1" readonly="readonly" />
                 a:
-                <select name="fecha2">
-                    <?php
-foreach ($resultfd as $answerfd) {
-                        ?>
-                        <option value="<?php echo $answerfd[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerfd[0]; ?></option>
-                    <?php 
-} ?>
-                </select>
+                <input name="fecha2" id="fecha2" readonly="readonly" />
             </p>
             <p>VENCIDO de:
-                <select name="fecha3">
-                    <?php
-foreach ($resultdp as $answerdp) {
-                        ?>
-                        <option value="<?php echo $answerdp[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerdp[0]; ?></option>
-                    <?php 
-} ?>
-                </select>
+                <input name="fecha3" id="fecha3" readonly="readonly" />
                 a:
-                <select name="fecha4">
-                    <?php
-foreach ($resultpd as $answerpd) {
-                        ?>
-                        <option value="<?php echo $answerpd[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerpd[0]; ?></option>
-                    <?php 
-} ?>
-                </select>
+                <input name="fecha4" id="fecha4" readonly="readonly" />
             </p>
             <label for='visits'>Visitas</label>
             <input type='radio' name='tipo' id='visits' value='visits' /><br>
@@ -97,5 +65,15 @@ foreach ($resultpd as $answerpd) {
             <input type='radio' name='tipo' id='todos' value='todos' /><br>
             <input type='submit' name='go' value='Query Prom'>
         </form>
+        <script src="/js/datepicker_mx.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                $.datepicker.setDefaults(getMx());
+                $('#fecha1').datepicker();
+                $('#fecha2').datepicker();
+                $('#fecha3').datepicker();
+                $('#fecha4').datepicker();
+            });
+        </script>
     </body>
 </html>

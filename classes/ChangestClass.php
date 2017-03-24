@@ -6,20 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 /**
  * Description of ChangestClass
  *
  * @author gmbs
  */
-class ChangestClass {
-
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
+class ChangestClass extends BaseClass {
 
     /**
      *
@@ -27,14 +21,6 @@ class ChangestClass {
      */
     private $reporthead = "SELECT SQL_NO_CACHE numero_de_cuenta,nombre_deudor,cliente,
 id_cuenta,status_de_credito,status_aarsa from resumen";
-
-    /**
-     * 
-     * @param \PDO $pdo
-     */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
 
     /**
      * 
@@ -74,7 +60,7 @@ WHERE id_cuenta=:C_CONT";
     private function getClientString($CLIENTE) {
         if (empty($CLIENTE)) {
             $CLIENTE = '';
-            $querymain = $querymain . " and :cliente<>'AA'";
+            $clientStr = " and :cliente<>'AA'";
         } else {
             if (strlen($CLIENTE) > 1) {
                 $clientStr = " and cliente=:cliente";

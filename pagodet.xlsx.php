@@ -1,8 +1,8 @@
 <?php
 require_once 'vendor/autoload.php';
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\PagosClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\PagosClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 

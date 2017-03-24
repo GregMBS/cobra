@@ -3,8 +3,8 @@
 set_time_limit(300);
 require_once 'vendor/autoload.php';
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\BigClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\BigClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
@@ -18,10 +18,13 @@ $fecha1 = filter_input(INPUT_GET, 'fecha1');
 $fecha2 = filter_input(INPUT_GET, 'fecha2');
 $gestor = filter_input(INPUT_GET, 'gestor');
 $cliente = filter_input(INPUT_GET, 'cliente');
+$tipo = filter_input(INPUT_GET, 'tipo');
 $get = filter_input_array(INPUT_GET);
 
 if (!empty($fecha1)) {
     $result = $bc->getBigGestiones($fecha1, $fecha2, $gestor, $cliente);
+    
+    
     $filename = "Query_de_gestiones_".$fecha1.'_'.$fecha2.".xlsx";
     $output   = array();
     $i = 0;
@@ -31,8 +34,6 @@ if (!empty($fecha1)) {
             $output[] = array_keys($row);
         }
         $row['saldo_total']       = (float) $row['saldo_total'];
-        $row['saldo_descuento_1'] = (float) $row['saldo_descuento_1'];
-        $row['saldo_descuento_2'] = (float) $row['saldo_descuento_2'];
         $output[] = $row;
     }
     $writer = WriterFactory::create(Type::XLSX);

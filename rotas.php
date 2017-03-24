@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\RotasClass;
+use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\RotasClass;
 
 require_once 'classes/PdoClass.php';
 $pc     = new PdoClass();

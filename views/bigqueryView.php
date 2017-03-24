@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Query de las Promesas/Propuestas</title>
+        <title>Query de las Gestiones</title>
         <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
@@ -46,38 +46,25 @@
                     echo $fecha1;
                 }
                 ?>
-                <select name="fecha1">
-                    <?php
-                    foreach ($resultdf as $answerdf) {
-                        ?>
-                        <option value="<?php echo $answerdf[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerdf[0]; ?></option>
-                        <?php }
-                    ?>
-                </select>
+                <input name="fecha1" id="fecha1" readonly="readonly" />
                 a:
-                <select name="fecha2">
-                    <?php
-                    foreach ($resultfd as $answerfd) {
-                        ?>
-                        <option value="<?php echo $answerfd[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerfd[0]; ?></option>
-                        <?php
-                    }
-                    foreach ($resultf2 as $answerf2) {
-                        ?>
-                        <option value="<?php echo $answerf2[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerf2[0]; ?></option>
-                    <?php } ?>
-                </select>
+                <input name="fecha2" id="fecha2" readonly="readonly" />
             </p>
-            <label for='visits'>Visitas</label>
+<!--            <label for='visits'>Visitas</label>
             <input type='radio' name='tipo' id='visits' value='visits' /><br>
             <label for='telef'>Telefonica</label>
             <input type='radio' name='tipo' id='telef' value='telef' /><br>
             <label for='todos'>Todos</label>
-            <input type='radio' name='tipo' id='todos' value='todos' /><br>
+            <input type='radio' name='tipo' id='todos' value='todos' /><br>-->
             <input type='submit' name='go' value='Query Gestiones'>
         </form>
+        <script src="/js/datepicker_mx.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                $.datepicker.setDefaults(getMx());
+                $('#fecha1').datepicker();
+                $('#fecha2').datepicker();
+            });
+        </script>
     </body>
 </html>

@@ -38,7 +38,7 @@
                     <thead class="ui-widget-header">
                         <tr>
                             <?php
-                            require_once 'horariosViewCommon.php';
+                            require 'horariosViewCommon.php';
                             ?>
                             <td class="heavy"><?php echo $sumct; ?></td>
                         </tr>

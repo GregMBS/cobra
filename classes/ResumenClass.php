@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
 /**
  * Description of ResumenClass
@@ -109,7 +109,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
                 . " AND c_cont <> 0"
                 . " ORDER BY d_fech DESC, c_hrfi DESC LIMIT 1";
         $stu = $this->pdo->prepare($queryult);
-        $stu->bindParam(':camp', $capt);
+        $stu->bindParam(':capt', $capt);
         $stu->execute();
         $result = $stu->fetch(\PDO::FETCH_ASSOC);
         $find = $result['c_cont'];
@@ -137,7 +137,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
         $valid = false;
         $q = $this->pdo->query("SHOW FIELDS FROM resumen");
         foreach ($q as $row) {
-            if ($row->Field == $field) {
+            if ($row['Field'] == $field) {
                 $valid = true;
                 break;
             }
