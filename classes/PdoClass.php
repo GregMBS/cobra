@@ -113,7 +113,6 @@ class PdoClass {
             $stt->bindParam(':ticket', $ticket);
             $stt->bindParam(':capt', $this->capt);
             $stt->execute();
-            var_dump($stt);die();
             $tipo = $stt->fetch(\PDO::FETCH_ASSOC);
             $this->tipo = $tipo['tipo'];
         } catch (\PDOException $exc) {
@@ -133,6 +132,7 @@ class PdoClass {
         $stc->bindParam(':capt', $this->capt);
         $stc->execute();
         $count = $stc->fetch();
+        var_dump($count);die();
         if ($count[0] != 1) {
             $this->startOver();
         }
