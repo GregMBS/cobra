@@ -16,5 +16,5 @@ class ConfigClass
      *
      * @var string
      */
-    public $robotDb = 'robotcsi';
+    public $robotDb = 'robotdemo';
 }
