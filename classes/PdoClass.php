@@ -17,48 +17,48 @@ class PdoClass {
      *
      * @var string
      */
-    protected $dsn = 'mysql:dbname=cobrademo;host=localhost';
+    private $dsn = 'mysql:dbname=cobrademo;host=localhost';
 
     /**
      *
      * @var string
      */
-    protected $db = 'cobrademo';
+    private $db = 'cobrademo';
 
     /**
      *
      * @var string
      */
-    protected $username = "root";
+    private $username = "root";
 
     /**
      *
      * @var string
      */
-    protected $passwd = "DeathSta1";
+    private $passwd = "DeathSta1";
 
     /**
      * @var \PDO
      */
-    protected $pdo;
+    private $pdo;
 
     /**
      * @var mysqli
      */
-    protected $con;
+    private $con;
 
     /**
      *
      * @var string
      */
-    protected $queryadmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+    private $queryadmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt AND tipo='admin'";
 
     /**
      *
      * @var string
      */
-    protected $queryuser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+    private $queryuser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt";
 
     /**
@@ -131,8 +131,8 @@ class PdoClass {
      */
     public function dbConnectAdmin() {
         $querycheck = $this->queryadmin;
-        $this->pdo = $this->dbConnect($querycheck);
-        return $this->pdo;
+        $pdo = $this->dbConnect($querycheck);
+        return $pdo;
     }
 
     /**
@@ -166,8 +166,8 @@ class PdoClass {
      */
     public function dbConnectUser() {
         $querycheck = $this->queryuser;
-        $this->pdo = $this->dbConnect($querycheck);
-        return $this->pdo;
+        $pdo = $this->dbConnect($querycheck);
+        return $pdo;
     }
 
     /**

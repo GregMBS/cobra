@@ -40,12 +40,16 @@ class LoginClass {
                 . "WHERE passw = sha(:pw) "
                 . "AND LOWER(iniciales) = LOWER(:capt) "
                 . "LIMIT 1";
-        $stg = $this->pdo->prepare($queryg);
-        $stg->bindParam(':pw', $passw);
-        $stg->bindParam(':capt', $capt);
-        $stg->execute();
-        $resultg = $stg->fetch(\PDO::FETCH_ASSOC);
-        return $resultg;
+        try {
+            $stg = $this->pdo->prepare($queryg);
+            $stg->bindParam(':pw', $passw);
+            $stg->bindParam(':capt', $capt);
+            $stg->execute();
+            $resultg = $stg->fetch(\PDO::FETCH_ASSOC);
+            return $resultg;
+        } catch (\PDOException $exc) {
+            die($exc->getMessage());
+        }
     }
 
     /**
@@ -65,7 +69,7 @@ class LoginClass {
         $stc->bindParam(':tipo', $tipo);
         $stc->execute();
     }
-    
+
     /**
      * 
      * @param string $capt
@@ -81,7 +85,7 @@ class LoginClass {
         $stq->bindParam(':capt', $capt);
         $stq->execute();
     }
-    
+
     /**
      * 
      * @param string $capt
@@ -100,7 +104,7 @@ class LoginClass {
         $stlu->bindParam(':local', $local);
         $stlu->execute();
     }
-    
+
     /**
      * 
      * @param string $capt
@@ -115,7 +119,7 @@ class LoginClass {
         $stlp->bindParam(':local', $local);
         $stlp->execute();
     }
-    
+
     /**
      * 
      * @param string $capt
@@ -128,4 +132,5 @@ class LoginClass {
         $stih->bindParam(':capt', $capt);
         $stih->execute();
     }
+
 }
