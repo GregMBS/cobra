@@ -92,7 +92,7 @@ class PdoClass {
             header($redirector);
     }
     
-    private function getCapt() {
+    private function setCapt() {
         $capt = filter_input(INPUT_GET, 'capt');
         if (empty($capt)) {
             $capt = filter_input(INPUT_POST, 'capt');
@@ -108,7 +108,8 @@ class PdoClass {
      */
     private function dbConnect($querycheck) {
         $ticket = filter_input(INPUT_COOKIE, 'auth');
-        $this->getCapt();
+        $this->setCapt();
+        var_dump($this);
         $stc = $this->pdo->prepare($querycheck);
         $stc->bindParam(':ticket', $ticket);
         $stc->bindParam(':capt', $this->capt);
