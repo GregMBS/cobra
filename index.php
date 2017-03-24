@@ -41,6 +41,7 @@ if (!empty($go)) {
         $lc->doLogin($cpw, $field, $tipo, $local);
         $enlace = $userData['enlace'];
         $page = "Location: $enlace?find=$capt&field=$field&i=0&capt=$capt&go=ABINICIO";
+        die(htmlentities($page));
         header($page);
     }
 }
