@@ -109,7 +109,6 @@ class PdoClass {
     private function dbConnect($querycheck) {
         $ticket = filter_input(INPUT_COOKIE, 'auth');
         $this->setCapt();
-        var_dump($this);die();
         $stc = $this->pdo->prepare($querycheck);
         $stc->bindParam(':ticket', $ticket);
         $stc->bindParam(':capt', $this->capt);
@@ -122,7 +121,8 @@ class PdoClass {
         $stt->bindParam(':ticket', $ticket);
         $stt->bindParam(':capt', $this->capt);
         $stt->execute();
-        $tipo = $stt->fetch();
+        var_dump($this);die();
+        $tipo = $stt->fetch(\PDO::FETCH_ASSOC);
         $this->tipo = $tipo['tipo'];
         return $this->pdo;
     }
