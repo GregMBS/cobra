@@ -8,10 +8,10 @@
     </head>
     <body id="demos">
         <script>
-	    $(function () {
-		    $("#tabs").tabs();
-		    $("button").button();
-	    });
+            $(function () {
+                $("#tabs").tabs();
+                $("button").button();
+            });
         </script>
         <div id="tabs">
             <ul>
@@ -60,5 +60,10 @@
                 <button onclick="window.location = 'tels_contactados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Contactados XLS</button>
                 <button onclick="window.location = 'tels_marcados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Marcados XLS</button>
             </div>
+            <p>
+                <button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
+                <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
+                <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button><br>
+            </p>
     </body>
 </html>
