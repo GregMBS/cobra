@@ -51,7 +51,7 @@ class PdoClass {
      *
      * @var string
      */
-    private $queryadmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+    private $queryadmin = "SELECT count(1) as ct FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt AND tipo='admin'";
 
     /**
