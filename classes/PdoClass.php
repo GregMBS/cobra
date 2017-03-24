@@ -1,23 +1,51 @@
 <?php
 
-namespace cobra_salsa;
+namespace gregmbs\cobra;
 
-require_once __DIR__.'/BaseClass.php';
+use mysqli;
+
+require_once __DIR__ . '/BaseClass.php';
 
 /**
  * Description of PdoClass
  *
  * @author gmbs
  */
-class PdoClass
-{
-    protected $dsn        = 'mysql:dbname=cobrademo;host=localhost';
-    protected $username   = "root";
-    protected $passwd     = "DeathSta1";
+class PdoClass {
+
+    /**
+     *
+     * @var string
+     */
+    protected $dsn = 'mysql:dbname=cobrademo;host=localhost';
+
+    /**
+     *
+     * @var string
+     */
+    protected $db = 'cobrademo';
+
+    /**
+     *
+     * @var string
+     */
+    protected $username = "root";
+
+    /**
+     *
+     * @var string
+     */
+    protected $passwd = "DeathSta1";
+
     /**
      * @var \PDO
      */
     protected $pdo;
+
+    /**
+     * @var mysqli
+     */
+    protected $con;
 
     /**
      *
@@ -26,13 +54,18 @@ class PdoClass
     protected $queryadmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt AND tipo='admin'";
 
+    /**
+     *
+     * @var string
+     */
+    protected $queryuser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+            AND iniciales=:capt";
 
     /**
      *
      * @var string
      */
-    protected $queryuser  = "SELECT count(1) FROM nombres WHERE ticket=:ticket
-            AND iniciales=:capt";
+    public $capt;
 
     /**
      *
@@ -47,68 +80,101 @@ class PdoClass
     protected $querytipo = 'SELECT tipo FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt limit 1';
 
-    public function __construct()
-    {
+    public function __construct() {
+        $config = new \ConfigClass();
+        $this->db = $config->dbName;
+        $this->dsn = 'mysql:dbname=' . $this->db . ';host=localhost';
         $this->pdo = new \PDO($this->dsn, $this->username, $this->passwd);
     }
+
+    private function startOver() {
+            $redirector = "Location: index.php";
+            header($redirector);
+    }
+    
+    private function getCapt() {
+        $capt = filter_input(INPUT_GET, 'capt');
+        if (empty($capt)) {
+            $capt = filter_input(INPUT_POST, 'capt');
+        }
+        if (empty($capt)) {
+            $this->startOver();
+        }
+        $this->capt = $capt;
+    }
+    
     /**
      * @returns \PDO
      */
-
-    private function dbConnect($querycheck)
-    {
+    private function dbConnect($querycheck) {
         $ticket = filter_input(INPUT_COOKIE, 'auth');
-        $capt   = filter_input(INPUT_GET, 'capt');
-        if (empty($capt)) {
-            $capt   = filter_input(INPUT_POST, 'capt');
-        }
-        if (empty($capt)) {
-            $redirector = "Location: index.php";
-            header($redirector);
-        }
-        $stc   = $this->pdo->prepare($querycheck);
+        $this->getCapt();
+        $stc = $this->pdo->prepare($querycheck);
         $stc->bindParam(':ticket', $ticket);
-        $stc->bindParam(':capt', $capt);
+        $stc->bindParam(':capt', $this->capt);
         $stc->execute();
         $count = $stc->fetch();
         if ($count[0] != 1) {
-            $redirector = 'Location: index.php';
-            header($redirector);
+            $this->startOver();
         }
-        $stt   = $this->pdo->prepare($this->querytipo);
+        $stt = $this->pdo->prepare($this->querytipo);
         $stt->bindParam(':ticket', $ticket);
-        $stt->bindParam(':capt', $capt);
+        $stt->bindParam(':capt', $this->capt);
         $stt->execute();
         $tipo = $stt->fetch();
-        $this->tipo=$tipo['tipo'];
+        $this->tipo = $tipo['tipo'];
         return $this->pdo;
     }
+
     /**
      * @returns \PDO
      */
-    public function dbConnectAdmin()
-    {
+    public function dbConnectAdmin() {
         $querycheck = $this->queryadmin;
-        $pdo        = $this->dbConnect($querycheck);
+        $pdo = $this->dbConnect($querycheck);
         return $pdo;
+    }
+
+    /**
+     * @returns mysqli
+     */
+    public function dbConnectAdminMysqli() {
+
+        if ($this->dbConnectAdmin()) {
+            $this->con = new \mysqli('localhost', $this->username, $this->passwd, $this->db);
+        } else {
+            $this->con = false;
+        }
+        return $this->con;
+    }
+
+    /**
+     * @returns mysqli
+     */
+    public function dbConnectUserMysqli() {
+
+        if ($this->dbConnectUser()) {
+            $this->con = new \mysqli('localhost', $this->username, $this->passwd, $this->db);
+        } else {
+            $this->con = false;
+        }
+        return $this->con;
     }
 
     /**
      * @returns \PDO
      */
-    public function dbConnectUser()
-    {
+    public function dbConnectUser() {
         $querycheck = $this->queryuser;
-        $pdo        = $this->dbConnect($querycheck);
+        $pdo = $this->dbConnect($querycheck);
         return $pdo;
     }
 
     /**
      * @returns \PDO
      */
-    public function dbConnectNobody()
-    {
-        $pdo        = $this->pdo;
+    public function dbConnectNobody() {
+        $pdo = $this->pdo;
         return $pdo;
     }
 

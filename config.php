@@ -10,7 +10,7 @@ class ConfigClass
      *
      * @var string
      */
-    public $dbName = 'cobracsi';
+    public $dbName = 'cobrademo';
     
     /**
      *
