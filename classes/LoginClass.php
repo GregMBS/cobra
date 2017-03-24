@@ -35,20 +35,24 @@ class LoginClass {
      * @return array
      */
     public function getUserData($capt, $passw) {
-        $queryg = "SELECT iniciales, enlace, tipo "
-                . "FROM nombres JOIN grupos ON grupo=tipo "
-                . "WHERE passw = sha(:pw) "
-                . "AND LOWER(iniciales) = LOWER(:capt) "
-                . "LIMIT 1";
+        $queryg = "SELECT iniciales, enlace, tipo                                
+                FROM nombres JOIN grupos ON grupo=tipo  
+                WHERE passw = sha(:pw)  
+                AND LOWER(iniciales) = LOWER(:capt)  
+                LIMIT 1";
         try {
             $stg = $this->pdo->prepare($queryg);
             $stg->bindParam(':pw', $passw);
             $stg->bindParam(':capt', $capt);
             $stg->execute();
             $resultg = $stg->fetch(\PDO::FETCH_ASSOC);
-            return $resultg;
         } catch (\PDOException $exc) {
             die($exc->getMessage());
+        }
+        if ($resultg) {
+            return $resultg;
+        } else {
+            die($queryg.' '.$capt.' '.$passw);
         }
     }
 
