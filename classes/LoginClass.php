@@ -62,7 +62,7 @@ class LoginClass {
      * @param string $capt
      * @param string $tipo
      */
-    public function setTicket($cpw, $capt, $tipo) {
+    private function setTicket($cpw, $capt, $tipo) {
         $queryc = "update nombres "
                 . "set ticket = :cpw "
                 . "where iniciales = :capt "
@@ -78,7 +78,7 @@ class LoginClass {
      * 
      * @param string $capt
      */
-    public function setInitialQueue($capt) {
+    private function setInitialQueue($capt) {
         $queryq = "update nombres n, queuelist qu
 			set n.camp = qu.camp
 			where iniciales = gestor
@@ -95,7 +95,7 @@ class LoginClass {
      * @param string $capt
      * @param string $local
      */
-    public function setUserlog($capt, $local) {
+    private function setUserlog($capt, $local) {
         $queryu = "delete from userlog "
                 . "where gestor = :capt ";
         $stdu = $this->pdo->prepare($queryu);
@@ -114,7 +114,7 @@ class LoginClass {
      * @param string $capt
      * @param string $local
      */
-    public function insertPermalog($capt, $local) {
+    private function insertPermalog($capt, $local) {
         $querypl = "insert into permalog "
                 . "(usuario,tipo,fechahora,gestor) "
                 . "values (:local, 'login', now(), :capt)";
@@ -128,7 +128,7 @@ class LoginClass {
      * 
      * @param string $capt
      */
-    public function insertHistoria($capt) {
+    private function insertHistoria($capt) {
         $queryins = "INSERT INTO historia
 			(C_CVGE,C_CVBA,C_CONT,CUENTA,C_CVST,D_FECH,C_HRIN,C_HRFI)
 			VALUES (:capt, '', 0, 0, 'login', curdate(), curtime(), curtime())";
@@ -137,4 +137,18 @@ class LoginClass {
         $stih->execute();
     }
 
+    /**
+     * 
+     * @param string $cpw
+     * @param string $capt
+     * @param string $tipo
+     * @param string $local
+     */
+    public function doLogin($cpw, $capt, $tipo, $local) {
+        $this->setTicket($cpw, $capt, $tipo);
+        $this->setInitialQueue($capt);
+        $this->setUserlog($capt, $local);
+        $this->insertPermalog($capt, $local);
+        $this->insertHistoria($capt);
+    }
 }

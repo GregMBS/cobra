@@ -14,9 +14,9 @@ if (!empty($go)) {
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
-    var_dump($userData);die();
-    if (isset($userData['tipo'])) {
-        switch ($userData['tipo']) {
+    $tipo = $userData['tipo'];
+    if (isset($tipo)) {
+        switch ($tipo) {
             case "callcenter":
             $field = "ejecutivo_asignado_call_center";
                 break;
@@ -38,12 +38,9 @@ if (!empty($go)) {
         } else {
             setcookie('auth', $cpw, time() + 60 * 60 * 11, "/", "demo.gmbs-consulting.com", 0, 1);
         }
-        $lc->setTicket($cpw, $capt, $userData['tipo']);
-        $lc->setInitialQueue($capt);
-        $lc->setUserlog($capt, $local);
-        $lc->insertPermalog($capt, $local);
-        $lc->insertHistoria($capt);
+        $lc->doLogin($cpw, $field, $tipo, $local);
         $enlace = $userData['enlace'];
+        die($enlace);
         $page = "Location: $enlace?find=$capt&field=$field&i=0&capt=$capt&go=ABINICIO";
         header($page);
     }
