@@ -1,5 +1,5 @@
 <?php
-$msg = 'CobraMas';
+$msg = 'COBRA';
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@ $msg = 'CobraMas';
     </head>
     <body>
         <h1><?php echo $msg; ?></h1>
-        <em>versi&oacute;n configurado para Consultoría PAVE</em>
+        <em>versi&oacute;n 4.0 configurado para NoIP Solutions</em>
         <div class="forma">
             <form action="index.php" method="post" autocomplete="off">
                 <fieldset>

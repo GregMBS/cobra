@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CobraMas Trouble Admin</title>
+        <title>COBRA Trouble Admin</title>
         <meta http-equiv="refresh" content="60"/>
         <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>

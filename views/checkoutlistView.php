@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CobraMas Visitador Checklist</title>
+        <title>COBRA Visitador Checklist</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" 
               href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" 

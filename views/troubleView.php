@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CobraMas Trouble</title>
+        <title>COBRA Trouble</title>
         <meta charset="utf-8">
         <link rel="stylesheet" 
               href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" 
@@ -20,7 +20,7 @@ if ($go == 'ENVIAR') { ?>
     <body>
         <form action="trouble.php" method="get" name="trouble">
             <span class="formcap">Fuente de problema</span><select name='fuente'>
-                <option value='CobraMas'>CobraMas</option>
+                <option value='COBRA'>COBRA</option>
                 <option value='SIPCLIENT'>SFLPHONE</option>
                 <option value='PBX'>CONMUTADOR</option>
                 <option value='DIADEMA'>DIADEMA</option>

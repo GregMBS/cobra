@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>CobraMas Carga</title>
+        <title>COBRA Carga</title>
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php 
