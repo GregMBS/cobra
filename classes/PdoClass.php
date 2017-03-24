@@ -131,12 +131,12 @@ class PdoClass {
      */
     public function dbConnectAdmin() {
         $querycheck = $this->queryadmin;
-        $pdo = $this->dbConnect($querycheck);
-        return $pdo;
+        $this->pdo = $this->dbConnect($querycheck);
+        return $this->pdo;
     }
 
     /**
-     * @returns mysqli
+     * @returns \mysqli
      */
     public function dbConnectAdminMysqli() {
 
@@ -149,7 +149,7 @@ class PdoClass {
     }
 
     /**
-     * @returns mysqli
+     * @returns \mysqli
      */
     public function dbConnectUserMysqli() {
 
@@ -166,16 +166,15 @@ class PdoClass {
      */
     public function dbConnectUser() {
         $querycheck = $this->queryuser;
-        $pdo = $this->dbConnect($querycheck);
-        return $pdo;
+        $this->pdo = $this->dbConnect($querycheck);
+        return $this->pdo;
     }
 
     /**
      * @returns \PDO
      */
     public function dbConnectNobody() {
-        $pdo = $this->pdo;
-        return $pdo;
+        return $this->pdo;
     }
 
 }
