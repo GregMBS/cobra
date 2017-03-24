@@ -14,6 +14,7 @@ if (!empty($go)) {
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
+    var_dump($userData);die();
     if (isset($userData['tipo'])) {
         switch ($userData['tipo']) {
             case "callcenter":

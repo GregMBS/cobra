@@ -50,7 +50,6 @@ class LoginClass {
             die($exc->getMessage());
         }
         if ($resultg) {
-            var_dump($resultg);die();
             return $resultg;
         } else {
             die($queryg.' '.$capt.' '.$passw);
