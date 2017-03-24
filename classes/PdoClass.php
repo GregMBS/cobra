@@ -88,10 +88,10 @@ class PdoClass {
     }
 
     private function startOver() {
-            $redirector = "Location: index.php";
-            header($redirector);
+        $redirector = "Location: index.php";
+        header($redirector);
     }
-    
+
     private function setCapt() {
         $capt = filter_input(INPUT_GET, 'capt');
         if (empty($capt)) {
@@ -102,7 +102,25 @@ class PdoClass {
         }
         $this->capt = $capt;
     }
-    
+
+    /**
+     * 
+     * @param string $ticket
+     */
+    private function setTipo($ticket) {
+        try {
+            $stt = $this->pdo->prepare($this->querytipo);
+            $stt->bindParam(':ticket', $ticket);
+            $stt->bindParam(':capt', $this->capt);
+            $stt->execute();
+            $tipo = $stt->fetch(\PDO::FETCH_ASSOC);
+            $this->tipo = $tipo['tipo'];
+        } catch (\PDOException $exc) {
+            var_dump($exc->getTraceAsString());
+            die();
+        }
+    }
+
     /**
      * @returns \PDO
      */
@@ -117,13 +135,7 @@ class PdoClass {
         if ($count[0] != 1) {
             $this->startOver();
         }
-        $stt = $this->pdo->prepare($this->querytipo);
-        $stt->bindParam(':ticket', $ticket);
-        $stt->bindParam(':capt', $this->capt);
-        $stt->execute();
-        $tipo = $stt->fetch(\PDO::FETCH_ASSOC);
-        $this->tipo = $tipo['tipo'];
-        var_dump($this);die();
+        $this->setTipo($ticket);
         return $this->pdo;
     }
 
