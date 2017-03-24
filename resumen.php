@@ -2,6 +2,9 @@
 
 use gregmbs\cobra\PdoClass;
 use gregmbs\cobra\GestionClass;
+use gregmbs\cobra\ResumenClass;
+use gregmbs\cobra\ValidationClass;
+use gregmbs\cobra\ResumenQueuesClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
@@ -19,17 +22,9 @@ $gc = new GestionClass($pdo);
 $qc = new ResumenQueuesClass($pdo);
 $vc = new ValidationClass($pdo);
 $mytipo = $pdoc->tipo;
-$capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');
-
-require_once 'classes/PdoClass.php';
-require_once 'classes/GestionClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
-$gc = new GestionClass($pdo);
 $capt = $pdoc->capt;
-$mytipo = $pdoc->tipo;
 /*
   if ($detect->isMobile()) {
   header("Location: resumen-mobile.php?capt=" . $capt);
