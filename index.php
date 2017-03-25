@@ -13,7 +13,7 @@ if (!empty($go)) {
     $pdoc = new PdoClass();
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
-    $lc->doLogin($cpw, $field, $local);
+    $lc->doLogin($cpw, $capt, $local);
     $userData = $lc->getUserData($capt, $pw);
     $tipo = $userData['tipo'];
     if (isset($tipo)) {
