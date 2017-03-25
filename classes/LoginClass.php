@@ -93,7 +93,7 @@ class LoginClass {
         } catch (PDO $exc) {
             die($exc->getTraceAsString());
         }
-        $test = $result['ticket'] == $cpw;
+        $test = $result['ticket'] != $cpw;
         return $test;
     }
 
