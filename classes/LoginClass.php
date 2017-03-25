@@ -52,7 +52,7 @@ class LoginClass {
         if ($resultg) {
             return $resultg;
         } else {
-            die($queryg.' '.$capt.' '.$passw);
+            die($queryg . ' ' . $capt . ' ' . $passw);
         }
     }
 
@@ -65,10 +65,14 @@ class LoginClass {
         $queryc = "update nombres "
                 . "set ticket = :cpw "
                 . "where iniciales = :capt";
-        $stc = $this->pdo->prepare($queryc);
-        $stc->bindParam(':cpw', $cpw);
-        $stc->bindParam(':capt', $capt);
-        $stc->execute();
+        try {
+            $stc = $this->pdo->prepare($queryc);
+            $stc->bindParam(':cpw', $cpw);
+            $stc->bindParam(':capt', $capt);
+            $stc->execute();
+        } catch (PDO $exc) {
+            die($exc->getTraceAsString());
+        }
     }
 
     /**
@@ -147,4 +151,5 @@ class LoginClass {
         $this->insertPermalog($capt, $local);
         $this->insertHistoria($capt);
     }
+
 }
