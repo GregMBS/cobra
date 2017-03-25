@@ -5,9 +5,9 @@ use gregmbs\cobra\LoginClass;
 
 $local = $_SERVER['REMOTE_ADDR'];
 $go = filter_input(INPUT_POST, 'go');
-$capt = filter_input(INPUT_POST, 'capt');
-$pw = filter_input(INPUT_POST, 'pwd');
 if (!empty($go)) {
+    $capt = filter_input(INPUT_POST, 'capt');
+    $pw = filter_input(INPUT_POST, 'pwd');
     require_once 'classes/PdoClass.php';
     require_once 'classes/LoginClass.php';
     $pdoc = new PdoClass();
