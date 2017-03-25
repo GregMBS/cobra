@@ -12,8 +12,8 @@ if (!empty($go)) {
     require_once 'classes/LoginClass.php';
     $pdoc = new PdoClass();
     $pdo = $pdoc->dbConnectNobody();
-    $lc->doLogin($cpw, $field, $local);
     $lc = new LoginClass($pdo);
+    $lc->doLogin($cpw, $field, $local);
     $userData = $lc->getUserData($capt, $pw);
     $tipo = $userData['tipo'];
     if (isset($tipo)) {
