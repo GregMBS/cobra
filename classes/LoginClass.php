@@ -68,8 +68,8 @@ class LoginClass {
         die($queryc.' '.$cpw);
         try {
             $stc = $this->pdo->prepare($queryc);
-            $stc->bindParam(':cpw', $cpw);
-            $stc->bindParam(':capt', $capt);
+            $stc->bindParam(':cpw', $cpw, \PDO::PARAM_STR);
+            $stc->bindParam(':capt', $capt, \PDO::PARAM_STR);
             $stc->execute();
         } catch (PDO $exc) {
             die($exc->getTraceAsString());
