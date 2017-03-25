@@ -77,6 +77,28 @@ class LoginClass {
 
     /**
      * 
+     * @param string $cpw
+     * @param string $capt
+     * @return boolean
+     */
+    private function testTicket($cpw, $capt) {
+        $queryc = "select ticket "
+                . "from nombres "
+                . "where iniciales = :capt";
+        try {
+            $stc = $this->pdo->prepare($queryc);
+            $stc->bindParam(':capt', $capt);
+            $stc->execute();
+            $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        } catch (PDO $exc) {
+            die($exc->getTraceAsString());
+        }
+        $test = $result['ticket'] == $cpw;
+        return $test;
+    }
+
+    /**
+     * 
      * @param string $capt
      */
     private function setInitialQueue($capt) {
@@ -145,7 +167,9 @@ class LoginClass {
      * @param string $local
      */
     public function doLogin($cpw, $capt, $local) {
-        $this->setTicket($cpw, $capt);
+        while ($this->testTicket($cpw, $capt)) {
+            $this->setTicket($cpw, $capt);
+        }
         $this->setInitialQueue($capt);
         $this->setUserlog($capt, $local);
         $this->insertPermalog($capt, $local);
