@@ -65,6 +65,7 @@ class LoginClass {
         $queryc = "update nombres "
                 . "set ticket = :cpw "
                 . "where iniciales = :capt";
+        die($queryc.' '.$cpw);
         try {
             $stc = $this->pdo->prepare($queryc);
             $stc->bindParam(':cpw', $cpw);
