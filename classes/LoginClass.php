@@ -165,6 +165,7 @@ class LoginClass {
      * @param string $cpw
      * @param string $capt
      * @param string $local
+     * @return boolean
      */
     public function doLogin($cpw, $capt, $local) {
         $this->setTicket($cpw, $capt);
@@ -172,6 +173,7 @@ class LoginClass {
         $this->setUserlog($capt, $local);
         $this->insertPermalog($capt, $local);
         $this->insertHistoria($capt);
+        return $this->testTicket($cpw, $capt);
     }
 
 }

@@ -13,35 +13,38 @@ if (!empty($go)) {
     $pdoc = new PdoClass();
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
-    $lc->doLogin($cpw, $capt, $local);
-    $userData = $lc->getUserData($capt, $pw);
-    $tipo = $userData['tipo'];
-    if (isset($tipo)) {
-        switch ($tipo) {
-            case "callcenter":
-            $field = "ejecutivo_asignado_call_center";
-                break;
+    if ($lc->doLogin($cpw, $capt, $local)) {
+        die($cpw . ' ' . $capt . ' ' . $local);
+    } else {
+        $userData = $lc->getUserData($capt, $pw);
+        $tipo = $userData['tipo'];
+        if (isset($tipo)) {
+            switch ($tipo) {
+                case "callcenter":
+                    $field = "ejecutivo_asignado_call_center";
+                    break;
 
-            case "visitador":
-            $field = "ejecutivo_asignado_domiciliario";
-                break;
+                case "visitador":
+                    $field = "ejecutivo_asignado_domiciliario";
+                    break;
 
-            case "admin":
-            $field = "ejecutivo_asignado_call_center";
-                break;
+                case "admin":
+                    $field = "ejecutivo_asignado_call_center";
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
+            $cpw = sha1($capt . $pw);
+            if ($capt == "gmbs") {
+                setcookie('auth', $cpw, time() + 60 * 60 * 24, "/", "demo.gmbs-consulting.com", 0, 1);
+            } else {
+                setcookie('auth', $cpw, time() + 60 * 60 * 11, "/", "demo.gmbs-consulting.com", 0, 1);
+            }
+            $enlace = $userData['enlace'];
+            $page = "Location: $enlace?find=$capt&field=$field&i=0&capt=$capt&go=ABINICIO";
+            header($page);
         }
-        $cpw = sha1($capt . $pw);
-        if ($capt == "gmbs") {
-            setcookie('auth', $cpw, time() + 60 * 60 * 24, "/", "demo.gmbs-consulting.com", 0, 1);
-        } else {
-            setcookie('auth', $cpw, time() + 60 * 60 * 11, "/", "demo.gmbs-consulting.com", 0, 1);
-        }
-        $enlace = $userData['enlace'];
-        $page = "Location: $enlace?find=$capt&field=$field&i=0&capt=$capt&go=ABINICIO";
-        header($page);
     }
+    require_once 'views/indexView.php';
 }
-require_once 'views/indexView.php';
