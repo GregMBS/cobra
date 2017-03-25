@@ -38,7 +38,7 @@ if (!empty($go)) {
         } else {
             setcookie('auth', $cpw, time() + 60 * 60 * 11, "/", "demo.gmbs-consulting.com", 0, 1);
         }
-        $lc->doLogin($cpw, $field, $tipo, $local);
+        $lc->doLogin($cpw, $field, $local);
         $enlace = $userData['enlace'];
         $page = "Location: $enlace?find=$capt&field=$field&i=0&capt=$capt&go=ABINICIO";
         header($page);

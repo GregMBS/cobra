@@ -60,17 +60,14 @@ class LoginClass {
      * 
      * @param string $cpw
      * @param string $capt
-     * @param string $tipo
      */
-    private function setTicket($cpw, $capt, $tipo) {
+    private function setTicket($cpw, $capt) {
         $queryc = "update nombres "
                 . "set ticket = :cpw "
-                . "where iniciales = :capt "
-                . "and tipo = :tipo";
+                . "where iniciales = :capt";
         $stc = $this->pdo->prepare($queryc);
         $stc->bindParam(':cpw', $cpw);
         $stc->bindParam(':capt', $capt);
-        $stc->bindParam(':tipo', $tipo);
         $stc->execute();
     }
 
@@ -141,11 +138,10 @@ class LoginClass {
      * 
      * @param string $cpw
      * @param string $capt
-     * @param string $tipo
      * @param string $local
      */
-    public function doLogin($cpw, $capt, $tipo, $local) {
-        $this->setTicket($cpw, $capt, $tipo);
+    public function doLogin($cpw, $capt, $local) {
+        $this->setTicket($cpw, $capt);
         $this->setInitialQueue($capt);
         $this->setUserlog($capt, $local);
         $this->insertPermalog($capt, $local);
