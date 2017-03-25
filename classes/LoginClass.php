@@ -167,9 +167,7 @@ class LoginClass {
      * @param string $local
      */
     public function doLogin($cpw, $capt, $local) {
-        while ($this->testTicket($cpw, $capt)) {
-            $this->setTicket($cpw, $capt);
-        }
+        $this->setTicket($cpw, $capt);
         $this->setInitialQueue($capt);
         $this->setUserlog($capt, $local);
         $this->insertPermalog($capt, $local);
