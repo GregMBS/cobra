@@ -23,8 +23,7 @@ $msg = 'COBRA';
                 <fieldset>
                     <div class="username">
                         <span class="formcap">Usuario:</span>
-                        <input type="password" name="capt" value="" 
-                               onchange="this.value = this.value.replace(/ /g, '');" />
+                        <input type="password" name="capt" value="" />
                         <br>
                     </div>
                     <div class="contrasena">
