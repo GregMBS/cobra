@@ -15,7 +15,8 @@ if (!empty($go)) {
     $lc = new LoginClass($pdo);
     $cpw = sha1($capt . $pw);
     if ($lc->doLogin($cpw, $capt, $local)) {
-        die($cpw . ' ' . $capt . ' ' . $local);
+        $page = "Location: index.php";
+        header($page);
     } else {
         $userData = $lc->getUserData($capt, $pw);
         $tipo = $userData['tipo'];
