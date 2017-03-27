@@ -52,7 +52,8 @@ class LoginClass {
         if ($resultg) {
             return $resultg;
         } else {
-            die($queryg . ' ' . $capt . ' ' . $passw);
+            $page = "Location: index.php";
+            header($page);
         }
     }
 
