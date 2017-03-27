@@ -46,5 +46,5 @@ if (!empty($go)) {
             header($page);
         }
     }
-    require_once 'views/indexView.php';
 }
+require_once 'views/indexView.php';
