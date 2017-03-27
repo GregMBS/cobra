@@ -37,9 +37,9 @@ if (!empty($go)) {
                     break;
             }
             if ($capt == "gmbs") {
-                setcookie('auth', $cpw, time() + 60 * 60 * 24, "/", "demo.gmbs-consulting.com", 0, 1);
+                setcookie('auth', $cpw, time() + 60 * 60 * 24, "/", "demo.gmbs-consulting.com", 1, 1);
             } else {
-                setcookie('auth', $cpw, time() + 60 * 60 * 11, "/", "demo.gmbs-consulting.com", 0, 1);
+                setcookie('auth', $cpw, time() + 60 * 60 * 11, "/", "demo.gmbs-consulting.com", 1, 1);
             }
             $enlace = $userData['enlace'];
             $page = "Location: $enlace?find=$capt&field=$field&i=0&capt=$capt&go=ABINICIO";
