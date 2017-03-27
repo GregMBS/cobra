@@ -13,6 +13,7 @@ if (!empty($go)) {
     $pdoc = new PdoClass();
     $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
+    $cpw = sha1($capt . $pw);
     if ($lc->doLogin($cpw, $capt, $local)) {
         die($cpw . ' ' . $capt . ' ' . $local);
     } else {
@@ -35,7 +36,6 @@ if (!empty($go)) {
                 default:
                     break;
             }
-            $cpw = sha1($capt . $pw);
             if ($capt == "gmbs") {
                 setcookie('auth', $cpw, time() + 60 * 60 * 24, "/", "demo.gmbs-consulting.com", 0, 1);
             } else {
