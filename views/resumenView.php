@@ -1285,7 +1285,6 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                     </div>
                 <?php } ?>
             </div>
-            <div id="GESTION">
                 <form action="resumen.php" method="get" id="gestionform" 
                       onSubmit="return validate_form(this, event,<?php
                       echo $saldo_descuento_2 + 0;
@@ -1299,6 +1298,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                           echo 0;
                       }
                       ?>, ' ');">
+            <div id="GESTION">
                     <table id="databox">
                         <?php
                         if ($mytipo == 'admin' || $mytipo == 'supervisor') {
