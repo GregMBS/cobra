@@ -1113,5 +1113,27 @@ if (realpath($path)) {
     $hasPic = TRUE;
     $picFile = 'pics/' . $numero_de_cuenta . '.jpg';
 }
-
+    $colors = array(                    
+        "Amarilla",
+        "Azul",
+        "Beige",
+        "Blanca",
+        "Cafe",
+        "Cantera",
+        "Celeste",
+        "Crema",
+        "Forja",
+        "Gris",
+        "Ladrillo",
+        "Madera",
+        "Melon",
+        "Metalica",
+        "Morada",
+        "Naranja",
+        "Negra",
+        "Roja",
+        "Rosa",
+        "Verde"
+);
+    
 include 'views/resumenView.php';
