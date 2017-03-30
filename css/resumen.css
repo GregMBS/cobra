@@ -1,0 +1,330 @@
+body {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 10pt;
+    background-color: #ffffff;
+    color: #000000;
+}
+.hidebox {
+    display: none
+}
+div {
+    clear: both
+}
+span.formcap {
+    display: block;
+    width: 20em;
+    float: left;
+    font-size: 100%;
+    font-weight: bold;
+}
+span.formcapa {
+    display: block;
+    width: 13em;
+    float: left;
+    font-size: 100%;
+    font-weight: bold;
+}
+span.formcaps {
+    display: block;
+    width: 6em;
+    float: left;
+    font-size: 100%;
+    font-weight: bold;
+}
+#deudor {
+    width: 7em;
+}
+#domicilio {
+    width: 7em;
+}
+span.formtit {
+    display: block;
+    width: 24em;
+    float: left;
+    font-size: 100%;
+    font-weight: bold;
+}
+span.formfirst {
+    display: block;
+    width: 24em;
+    float: left;
+}
+select,
+input,
+button {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 100%
+}
+input {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+}
+#GESTION input {
+    font-size: 80%;
+    width: auto
+}
+#GENERAL textarea {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 90%;
+    width: 9cm;
+    font-weight: normal;
+}
+#GENERAL table {
+    width: 100%
+}
+#GENERAL td {
+    border: 0
+}
+#CONTABLES table {
+    width: 100%
+}
+#CONTABLES td {
+    border: 0;
+    font-weight: normal;
+    font-size: 90%;
+}
+#GESTION table {
+    width: 100%;
+    background-color: #ddffdd
+}
+#GESTION tr {
+    background-color: #ddffdd
+}
+#GESTION td {
+    border: 0;
+    font-weight: bold;
+    font-size: 80%;
+    background-color: #ddffdd
+}
+#VISITA table {
+    width: 100%
+}
+#VISITA td {
+    border: 0;
+    font-weight: normal;
+    font-size: 90%;
+}
+a:link {
+    color: blue;
+}
+a:visited {
+    color: green;
+}
+a:hover {
+    color: red;
+}
+a:active {
+    color: yellow;
+}
+#telefono2 {
+    font-weight: bold;
+}
+#telbox span.formcap {
+    display: block;
+    width: 14em;
+    float: left;
+}
+div {
+    border: 1pt black solid;
+    background-color: #ffffff;
+}
+#demobox {
+    float: left;
+}
+.telbox {
+    float: left;
+}
+.verif {
+    font-weight: bold;
+    background-color: #00ff00;
+}
+.badnoold {
+    font-weight: normal;
+    font-style: italic;
+    background-color: #ff0000;
+}
+#descbox {
+    float: left;
+}
+#gestionbox {
+    clear: right;
+}
+#capturabox {
+    float: left;
+}
+#guardbox {
+    float: left;
+    width: 42em;
+}
+#captresbox {
+    float: left;
+}
+#notabox {
+    float: left;
+}
+.clearbox {
+    clear: both;
+    text-align: center;
+}
+table {
+    color: #000000;
+}
+tr {
+    height: 2em;
+}
+th {
+    width: 9em;
+}
+th.gestion {
+    width: 32em;
+}
+th.status {
+    width: 16em;
+}
+th.timestamp {
+    width: 8em;
+}
+th.telefono {
+    width: 8em;
+}
+th.chico {
+    width: 5em;
+}
+td {
+    border: 1pt solid #000000;
+    background-color: #ffffff;
+    width: 10em;
+}
+td.gestion {
+    width: 32em;
+    height: 1em;
+    overflow: hidden;
+}
+td.status {
+    width: 16em;
+}
+td.timestamp {
+    width: 8em;
+}
+td.telefono {
+    width: 8em;
+}
+td.chico {
+    width: 5em;
+}
+#tableContainer {
+    height: 4cm;
+    overflow: scroll;
+}
+.noshow {
+    display: none;
+    width: 0;
+}
+#searchbox {
+    z-index: 98;
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 30%;
+    color: #000000;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 1em;
+    border: 2px black solid;
+}
+#searchbox input {
+    color: #000000;
+    background-color: #ffffff;
+}
+#quicksearchbox {
+    z-index: 98;
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 30%;
+    color: #000000;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 1em;
+    border: 2px black solid;
+}
+#quicksearchbox input {
+    color: #000000;
+    background-color: #ffffff;
+}
+#calm {
+    z-index: 98;
+    position: absolute;
+    left: 30%;
+    top: 30%;
+    color: #000000;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 1em;
+    border: 2px black solid;
+}
+#calm input {
+    color: #000000;
+    background-color: #ffffff;
+}
+#pagocapt td {
+    background-color: #ffffff;
+}
+#pagocapt2 td {
+    background-color: #ffffff;
+}
+.visitable td {
+    border: 0;
+    background-color: transparent;
+    width: auto;
+}
+#buttonbox form {
+    float: left
+}
+.buttons {
+    float: left;
+    width: auto
+}
+.buttons input {
+    float: left
+}
+.buttons button {
+    float: left;
+    width: auto
+}
+.deudor {
+    color: #ff0000;
+}
+.visit {
+    color: #00aa00;
+}
+#avalbox input {
+    font-size: 85%
+}
+#avalbox .shortinp {
+    width: 5em;
+}
+ul.tabs {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+ul.tabs li {
+    float: left;
+    padding: 0;
+    margin: 0;
+    padding-top: 0;
+    background: url(tab_right.png) no-repeat right top;
+    margin-right: 1px;
+}
+ul.tabs li a {
+    display: block;
+    padding: 0px 10px;
+    color: #fff;
+    text-decoration: none;
+    background: url(tab_left.png) no-repeat left top;
+}
+ul.tabs li a:hover {
+    color: #ff0;
+}
