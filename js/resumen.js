@@ -87,4 +87,11 @@ function clock(ptl) {
         document.getElementById("clock").style.backgroundColor = "green";
     }
 }
-            
+$.ready(function () {
+    $.datepicker.setDefaults(getMx());
+    $('#C_VD').datepicker({
+        maxDate: 0
+    });
+    $('#D_PROMv').datepicker();
+    $('#D_PAGOv').datepicker();
+});

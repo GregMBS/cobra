@@ -1110,19 +1110,8 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 </select>
                 <br>
                 <span class="formcap">Fecha:</span>
-                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                    var cal6 = new CalendarPopup();
-                    var tomorrow = new Date();
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    cal6.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                    cal6.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                    cal6.setWeekStartDay(1);
-                    cal6.setTodayText("Hoy");
-                    cal6.addDisabledDates(tomorrow, null);
-                </SCRIPT>
-                <INPUT TYPE="text" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>" SIZE=15>
-                <BUTTON onClick="cal6.select(document.getElementById('C_VD'), 'anchor6', 'yyyy-MM-dd');
-                        return false;" NAME="anchor6" ID="anchor6">eligir</BUTTON>
+                <INPUT TYPE="text" NAME="C_VD" ID="C_VD" 
+                       VALUE="<?php echo $CD ?>" SIZE=15 readonly="readonly">
                 <br>
                 <span class="formcap" id="pcap">Parentesco/Cargo</span>
                 <select name="C_CARG">
@@ -1174,31 +1163,14 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 <table>
                     <tr>
                         <td> <span class="formcap">Fecha promesa</span>
-                            <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                                var cal7 = new CalendarPopup();
-                                cal7.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                cal7.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                cal7.setWeekStartDay(1);
-                                cal7.setTodayText("Hoy");
-                            </SCRIPT>
-                            <INPUT TYPE="text" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15>
-                            <BUTTON onClick="cal7.select(document.getElementById('D_PROMv'), 'anchor7', 'yyyy-MM-dd');
-                                    return false;" NAME="anchor7" ID="anchor7">eligir</BUTTON>
+                            <INPUT TYPE="text" NAME="D_PROMv" ID="D_PROMv" 
+                                   VALUE="" SIZE=15 readonly="readonly">
                             <br>
                             <span class="formcap">Cantidad de pago prometido</span>
                             $<input type="text" name="N_PROMv" value=""><br>
                         </td>
                         <td id='pagocaptv'> <span class="formcap">Fecha ya pag&oacute;</span>
-                            <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                                var cal8 = new CalendarPopup();
-                                cal8.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                cal8.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                cal8.setWeekStartDay(1);
-                                cal8.setTodayText("Hoy");
-                            </SCRIPT>
                             <INPUT TYPE="text" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15>
-                            <BUTTON onClick="cal8.select(document.getElementById('D_PAGOv'), 'anchor8', 'yyyy-MM-dd');
-                                    return false;" NAME="anchor8" ID="anchor8">eligir</BUTTON>
                             <br>
                             <span class="formcap">Cantidad de ya pag&oacute;</span>
                             $<input type="text" name="N_PAGOv" value=""><br>
@@ -1803,6 +1775,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
             </form>
             <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
             <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
+            <script src="/js/datepicker_mx.js" type="text/javascript"></script>
             <script type="text/javascript" src="/js/resumen.js"></script>
             <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
 <?php
