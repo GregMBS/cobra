@@ -77,5 +77,4 @@ $.ready(function () {
     });
     $('#D_PROMv').datepicker();
     $('#D_PAGOv').datepicker();
-    openSearch();
 });
