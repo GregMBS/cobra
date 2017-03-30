@@ -96,4 +96,5 @@ $(document).ready(function () {
         minDate: 0,
         maxDate: '+30d'
     });
+    openSearch();
 });

@@ -1138,5 +1138,7 @@ if (realpath($path)) {
         "Rosa",
         "Verde"
 );
-    
+if (empty($flag)) {
+    $flag = 0;
+}
 include 'views/resumenView.php';

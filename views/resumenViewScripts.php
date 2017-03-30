@@ -2,17 +2,20 @@
             <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
             <script src="/js/datepicker_mx.js" type="text/javascript"></script>
             <script type="text/javascript" src="/js/resumen.js"></script>
-            <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
-<?php
-if (empty($flag)) {
-    $flag = 0;
-}
-if ($flag > 0) {
-    ?>
-                    alert("<?php echo $flagmsg; ?>\nBuscar para checar que gestion de cuenta <?php echo $CUENTA; ?> está guardado corectamente.");
-<?php } ?>
+            <script type="text/javascript" src="/js/depuracion.js"></script>
+            <script type="text/javascript" src="/js/depuracionv.js"></script>
+            <script type="text/JavaScript">
+                var flag = '<?php echo $flag; ?>';
+                var flagmsg = '<?php echo $flagmsg; ?>';
+                var cuenta = '<?php echo $CUENTA; ?>';
+                var tl = '<?php echo $tl; ?>';
+                var cuenta = '<?php echo $CUENTA; ?>';
+                if (flag !== '0') {
+                    alert(flagmsg+"\nBuscar para checar que gestion de cuenta "+
+                        cuenta            
+                        +" está guardado corectamente.");
                 function openSearch() {
-                setInterval('clock("<?php echo $tl; ?>")',1000);
+                    setInterval('clock("'+tl+'")',1000);
 <?php
 if (!empty($nota['notalertt'])) {
     ?>
@@ -177,6 +180,4 @@ if ($lockflag == 1) {
                 {
                 window.location="resumen.php?capt=<?php echo $capt; ?>&go='LOGOUT'";
                 }
-            </SCRIPT>
-            <script type="text/javascript" src="/js/depuracion.js"></script>
-            <script type="text/javascript" src="/js/depuracionv.js"></script>
+            </script>
