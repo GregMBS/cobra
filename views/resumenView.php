@@ -1567,9 +1567,10 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                     </tr>
                     <tr id="pagocapt2">
                         <td>Fecha Pag&oacute;</td>
-                        <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15> 
-                            <BUTTON onClick="cal9.select(document.getElementById('D_PAGOi'), 'anchor9', 'yyyy-MM-dd');
-                                    return false;" NAME="anchor9" ID="anchor9">eligir</BUTTON></td>
+                        <td>
+                            <INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" 
+                                   VALUE="" SIZE=15 readonly="readonly"> 
+                        </td>
                     </tr>
                     <tr>
                         <td colspan=2>Actualizaci&oacute;n de Datos</td>
