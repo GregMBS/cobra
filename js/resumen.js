@@ -70,7 +70,9 @@ function clock(ptl) {
     }
 }
 $(document).ready(function () {
-    $('#tabs').tabs();
+    $('#tabs').tabs({
+        active: 6
+    });
     $.datepicker.setDefaults(getMx());
     $('#C_VD').datepicker({
         maxDate: 0
