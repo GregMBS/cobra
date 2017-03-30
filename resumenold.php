@@ -2,20 +2,28 @@
 
 use gregmbs\cobra\PdoClass;
 use gregmbs\cobra\GestionClass;
-use gregmbs\cobra\ResumenClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
 setlocale(LC_MONETARY, 'en_US');
 
+function highhist($stat, $visit) {
+    $highstr = '';
+    if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
+        $highstr = " class='deudor'";
+    }
+    if (!empty($visit)) {
+        $highstr = " class='visit'";
+    }
+    return $highstr;
+}
+
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
-require_once 'classes/ResumenClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
-$rc = new ResumenClass($pdo);
 $capt = $pdoc->capt;
 $mytipo = $pdoc->tipo;
 /*
@@ -1116,29 +1124,5 @@ if (realpath($path)) {
     $hasPic = TRUE;
     $picFile = 'pics/' . $numero_de_cuenta . '.jpg';
 }
-    $colors = array(                    
-        "Amarilla",
-        "Azul",
-        "Beige",
-        "Blanca",
-        "Cafe",
-        "Cantera",
-        "Celeste",
-        "Crema",
-        "Forja",
-        "Gris",
-        "Ladrillo",
-        "Madera",
-        "Melon",
-        "Metalica",
-        "Morada",
-        "Naranja",
-        "Negra",
-        "Roja",
-        "Rosa",
-        "Verde"
-);
-if (empty($flag)) {
-    $flag = 0;
-}
-include 'views/resumenView.php';
+
+include 'resumenView.php';
