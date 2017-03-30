@@ -87,15 +87,15 @@ WHERE
         AND status_de_credito NOT REGEXP '-'
         and fecha>fecha_de_actualizacion;
 # Clear cellphone queue
-delete FROM cobra.callme where tiempo<curdate();
+delete FROM cobrademo.callme where tiempo<curdate();
 # Remove old rslices (> 1 hour)
 delete from rslice where timeuser<now()-interval 1 hour;
 # PROMESA HOY IS HOY
-UPDATE cobra.resumen set status_aarsa='PROMESA HOY' 
-where id_cuenta not in (select c_cont from cobra.historia where n_prom>0 
+UPDATE cobrademo.resumen set status_aarsa='PROMESA HOY' 
+where id_cuenta not in (select c_cont from cobrademo.historia where n_prom>0 
 and status_aarsa not in ('PAGO TOTAL', 'PAGO TOTAL - MULTIPLES PAGOS')
 and d_prom>curdate()) 
-and id_cuenta in (select c_cont from cobra.historia where n_prom>0 
+and id_cuenta in (select c_cont from cobrademo.historia where n_prom>0 
 and d_prom=curdate()) 
 and fecha_de_ultimo_pago>last_day(curdate()-interval 1 month);
 # Reset queue MANUAL
