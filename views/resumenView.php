@@ -1207,8 +1207,8 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
             </div>
 
             <div id="HISTORIA">
-                <table summary="historiahead" border='0' cellpadding='0' cellspacing=
-                       '0' width='100%' id="historyhead">
+                <table>
+                    <thead>
                     <tr>
                         <?php
                         $fieldnames = array("Status", "Fecha/Hora", "Gestor",
@@ -1225,14 +1225,11 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                                 ?></th> <?php
                         }
                         ?></tr>
-                </table>
+                </thead>
                 <?php
                 if (!empty($rowsub)) {
                     ?>
-                    <div id='tableContainer' class='tableContainer'>
-                        <table summary="historia" border='0' cellpadding='0' cellspacing=
-                               '0' width='100%' id='historybody'>
-                            <tbody class="scrollContent">
+                    <tbody class="scrollContent">
                                 <?php
                                 $j = 0;
                                 $c = 0;
