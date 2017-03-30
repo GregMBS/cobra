@@ -270,7 +270,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
             </table>
         </div>
         <div id="tabs">
-            <UL class='tabs'>
+            <ul>
                 <?php
                 $liArray = array(
                     'TELEFONOS' => 'TELEFONOS',
@@ -283,15 +283,15 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 );
                 foreach ($liArray as $key => $value) {
                     ?>
-                    <LI>
-                        <A href="#<?php echo $key; ?>">
+                    <li>
+                        <a href="#<?php echo $key; ?>">
                             <?php echo $value; ?>
-                        </A>
-                    </LI>
+                        </a>
+                    </li>
                     <?php
                 }
                 ?>
-            </UL>
+            </ul>
             <div id="TELEFONOS">
                 <span class='formcap'>Tel Casa</span><input type='text' name=tel_1 id="tel_1" readonly='readonly' value='<?php
                 if (isset($tel_1)) {
