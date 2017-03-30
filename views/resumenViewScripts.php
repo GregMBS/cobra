@@ -1,34 +1,35 @@
-            <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-            <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
-            <script src="/js/datepicker_mx.js" type="text/javascript"></script>
-            <script type="text/javascript" src="/js/resumen.js"></script>
-            <script type="text/javascript" src="/js/depuracion.js"></script>
-            <script type="text/javascript" src="/js/depuracionv.js"></script>
-            <script type="text/JavaScript">
-                var flag = '<?php echo $flag; ?>';
-                var flagmsg = '<?php echo $flagmsg; ?>';
-                var cuenta = '<?php echo $CUENTA; ?>';
-                var tl = '<?php echo $tl; ?>';
-                var cuenta = '<?php echo $CUENTA; ?>';
-                if (flag !== '0') {
-                    alert(flagmsg+"\nBuscar para checar que gestion de cuenta "+
-                        cuenta            
-                        +" está guardado corectamente.");
-                function openSearch() {
-                    setInterval('clock("'+tl+'")',1000);
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
+<script src="/js/datepicker_mx.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/resumen.js"></script>
+<script type="text/javascript" src="/js/depuracion.js"></script>
+<script type="text/javascript" src="/js/depuracionv.js"></script>
+<script type="text/JavaScript">
+    var flag = '<?php echo $flag; ?>';
+    var flagmsg = '<?php echo $flagmsg; ?>';
+    var cuenta = '<?php echo $CUENTA; ?>';
+    var tl = '<?php echo $tl; ?>';
+    var cuenta = '<?php echo $CUENTA; ?>';
+    function openSearch() {
+        if (flag !== '0') {
+            alert(flagmsg+"\nBuscar para checar que gestion de cuenta "+
+                cuenta            
+                +" está guardado corectamente.");
+        }
+        setInterval('clock("'+tl+'")',1000);
 <?php
 if (!empty($nota['notalertt'])) {
     ?>
-                    var goalert = confirm("Tiene alerta pendiente <?php echo $nota['notalertt']; ?> para cuenta <?php echo $nota['cuenta']; ?> Quiere verlo?");
-                    if(goalert==true)
-                    {
-                    window.location="resumen.php?find=<?php echo $nota['cuenta']; ?>&field=numero_de_cuenta&capt=<?php echo $capt; ?>&go=FROMALERT&from=resumen.php&go1=FROMALERT";
-                    }
+            var goalert = confirm("Tiene alerta pendiente <?php echo $nota['notalertt']; ?> para cuenta <?php echo $nota['cuenta']; ?> Quiere verlo?");
+            if(goalert==true)
+            {
+            window.location="resumen.php?find=<?php echo $nota['cuenta']; ?>&field=numero_de_cuenta&capt=<?php echo $capt; ?>&go=FROMALERT&from=resumen.php&go1=FROMALERT";
+            }
     <?php
 }
 if ((preg_match('/-/', $status_de_credito))) {
     ?>
-                    alert("Esta cuenta está <?php echo $status_de_credito ?>");
+            alert("Esta cuenta está <?php echo $status_de_credito ?>");
     <?php
 }
 if ($lockflag == 0) {
@@ -173,11 +174,11 @@ if ($lockflag == 0) {
 }
 if ($lockflag == 1) {
     ?>
-                    alert("ERROR RA4 - Esta record está en uso de <?php echo $locker ?>");
+            alert("ERROR RA4 - Esta record está en uso de <?php echo $locker ?>");
 <?php } ?>
-                }
-                function logout()
-                {
-                window.location="resumen.php?capt=<?php echo $capt; ?>&go='LOGOUT'";
-                }
-            </script>
+    }
+    function logout()
+    {
+    window.location="resumen.php?capt=<?php echo $capt; ?>&go='LOGOUT'";
+    }
+</script>
