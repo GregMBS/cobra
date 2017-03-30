@@ -620,37 +620,6 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 }
                 ?>'><br>
             </div>
-            <div id="EXTRAS">
-                <table summary="sdh extras">
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Segmento</th>
-                        <th>Status</th>
-                        <th>Cuenta</th>
-                        <th>Producto</th>
-                        <th>Saldo capital</th>
-                        <th>Saldo descuento</th>
-                    </tr>
-                    <?php
-                    if (isset($resultextra)) {
-                        foreach ($resultextra as $answerextra) {
-                            ?>
-                            <tr>
-                                <td><?php echo $answerextra['cliente']; ?></td>
-                                <td><?php echo $answerextra['status_de_credito']; ?></td>
-                                <td><?php echo $answerextra['status_aarsa']; ?></td>
-                                <td><?php echo $answerextra['numero_de_cuenta']; ?></td>
-                                <td><?php echo $answerextra['productos']; ?></td>
-                                <td><?php echo number_format($answerextra['sd'], 2); ?></td>
-                                <td><?php echo number_format($answerextra['sdd'], 2); ?></td>
-                            </tr>
-                            <?php
-                        }
-                    }
-                    ?>
-                </table>
-            </div>
-
             <div id="CONTABLES">
                 <table summary="contables">
                     <tr>
