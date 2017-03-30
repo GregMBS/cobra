@@ -69,7 +69,7 @@ function clock(ptl) {
         document.getElementById("clock").style.backgroundColor = "green";
     }
 }
-$.ready(function () {
+$(document).ready(function () {
     $('#tabs').tabs();
     $.datepicker.setDefaults(getMx());
     $('#C_VD').datepicker({
