@@ -88,6 +88,7 @@ function clock(ptl) {
     }
 }
 $.ready(function () {
+    $('#tabs').tabs();
     $.datepicker.setDefaults(getMx());
     $('#C_VD').datepicker({
         maxDate: 0
