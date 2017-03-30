@@ -305,26 +305,6 @@ td.chico {
 #avalbox .shortinp {
     width: 5em;
 }
-ul.tabs {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-ul.tabs li {
-    float: left;
-    padding: 0;
-    margin: 0;
-    padding-top: 0;
-    background: url(tab_right.png) no-repeat right top;
-    margin-right: 1px;
-}
-ul.tabs li a {
-    display: block;
-    padding: 0px 10px;
-    color: #fff;
-    text-decoration: none;
-    background: url(tab_left.png) no-repeat left top;
-}
-ul.tabs li a:hover {
-    color: #ff0;
+.ui-datepicker-title {
+    color: black;
 }
