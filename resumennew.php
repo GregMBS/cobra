@@ -2,6 +2,7 @@
 
 use gregmbs\cobra\PdoClass;
 use gregmbs\cobra\GestionClass;
+use gregmbs\cobra\ResumenClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
@@ -9,10 +10,12 @@ setlocale(LC_MONETARY, 'en_US');
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
+require_once 'classes/ResumenClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
+$rc = new ResumenClass($pdo);
 $capt = $pdoc->capt;
 $mytipo = $pdoc->tipo;
 /*
