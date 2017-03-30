@@ -1,22 +1,4 @@
 function aviso() {}
-function paging(pageid) {
-    document.getElementById("TELEFONOS").style.display = "none";
-    document.getElementById("REFERENCIAS").style.display = "none";
-    document.getElementById("LABORAL").style.display = "none";
-    document.getElementById("CONTABLES").style.display = "none";
-    document.getElementById("MISCELANEA").style.display = "none";
-    document.getElementById("VISITA").style.display = "none";
-    document.getElementById("HISTORIA").style.display = "none";
-    document.getElementById("EXTRAS").style.display = "none";
-    document.getElementById(pageid).style.display = "block";
-    if (document.getElementById("GESTION"))
-    {
-        document.getElementById("GESTION").style.display = "block";
-    }
-    if (pageid === "VISITA") {
-//        document.getElementById("GESTION").style.display = "none";
-    }
-}
 function npromChange(thisform)
 {
     thisform.N_PROM.value = (thisform.N_PROM1.value * 1) + (thisform.N_PROM2.value * 1);
@@ -95,4 +77,5 @@ $.ready(function () {
     });
     $('#D_PROMv').datepicker();
     $('#D_PAGOv').datepicker();
+    openSearch();
 });
