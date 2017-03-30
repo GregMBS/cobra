@@ -213,10 +213,6 @@ td.telefono {
 td.chico {
     width: 5em;
 }
-#tableContainer {
-    height: 4cm;
-    overflow: scroll;
-}
 .noshow {
     display: none;
     width: 0;

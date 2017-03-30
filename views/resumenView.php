@@ -4,6 +4,7 @@
         <title>Resumen</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
         <link href="/css/resumen.css" rel="stylesheet" type="text/css"/>
         <style type="text/css">
 <?php if (!empty($nota['notalert'])) { ?> 
@@ -1176,7 +1177,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
             </div>
 
             <div id="HISTORIA">
-                <table>
+                <table id="histable">
                     <thead>
                         <tr>
                             <?php

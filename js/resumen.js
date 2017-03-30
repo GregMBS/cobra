@@ -70,6 +70,10 @@ function clock(ptl) {
     }
 }
 $(document).ready(function () {
+    $('#histable').DataTable({
+                    "bPaginate": false,
+                    "bJQueryUI": true
+                });
     $('#tabs').tabs({
         active: 6
     });
