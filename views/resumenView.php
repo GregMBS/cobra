@@ -1177,8 +1177,8 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
             </div>
 
             <div id="HISTORIA">
-                <table id="histable">
-                    <thead>
+                <table id="histable" class="ui-widget">
+                    <thead class="ui-widget-header">
                         <tr>
                             <?php
                             $fieldnames = array("Status", "Fecha/Hora", "Gestor",
@@ -1199,7 +1199,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                     <?php
                     if (!empty($rowsub)) {
                         ?>
-                        <tbody class="scrollContent">
+                        <tbody class="ui-widget-contant">
                             <?php
                             $j = 0;
                             $c = 0;
