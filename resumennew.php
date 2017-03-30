@@ -7,17 +7,6 @@ $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
 setlocale(LC_MONETARY, 'en_US');
 
-function highhist($stat, $visit) {
-    $highstr = '';
-    if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
-        $highstr = " class='deudor'";
-    }
-    if (!empty($visit)) {
-        $highstr = " class='visit'";
-    }
-    return $highstr;
-}
-
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 $pdoc = new PdoClass();
