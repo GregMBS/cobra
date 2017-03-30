@@ -69,7 +69,6 @@ function clock(ptl) {
         document.getElementById("clock").style.backgroundColor = "green";
     }
 }
-alert('almost ready');
 $(document).ready(function () {
     $('#tabs').tabs();
     $.datepicker.setDefaults(getMx());
@@ -95,5 +94,4 @@ $(document).ready(function () {
         minDate: 0,
         maxDate: '+30d'
     });
-    alert('ready');
 });
