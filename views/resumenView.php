@@ -1276,7 +1276,6 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                                 $j++;
                             }
                             ?>
-                            <tr><td></td></tr>
                         </tbody>
                     </table>
                 </div>
