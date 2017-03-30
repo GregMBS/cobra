@@ -1496,25 +1496,11 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                                 ?>"></td>
                         </tr>
                         <tr>
-                            <td>Fecha promesa unico o 1o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                                    var cal4 = new CalendarPopup();
-                                    var oneMinute = 60 * 1000;  // milliseconds in a minute
-                                    var oneHour = oneMinute * 60;
-                                    var oneDay = oneHour * 24;
-                                    var today = new Date();
-                                    var dateInMS = today.getTime() + oneDay * 10;
-                                    var yesterday = new Date();
-                                    yesterday.setDate(yesterday.getDate() - 1);
-                                    cal4.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal4.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal4.setWeekStartDay(1);
-                                    cal4.setTodayText("Hoy");
-                                    cal4.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal4.addDisabledDates('<?php echo $dday; ?>', null);
-                                </SCRIPT></td>
-                            <td><INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" VALUE="" SIZE=15> <BUTTON onClick="cal4.select(document.getElementById('D_PROM1'), 'anchor4', 'yyyy-MM-dd');
-                                    return false;" NAME="anchor4" ID="anchor4">eligir</BUTTON></td>
+                            <td>Fecha promesa unico o 1o</td>
+                            <td>
+                                <INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" 
+                                       VALUE="" SIZE=15 readonly="readonly"> 
+                            </td>
                             <td><input type="text" name="D_PROM1_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
                                 if (isset($D_PROM1_OLD)) {
                                     echo $D_PROM1_OLD;
@@ -1531,22 +1517,11 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                                 ?>"><br>
                         </tr>
                         <tr>
-                            <td>Fecha promesa 2o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                                    var cal5 = new CalendarPopup();
-                                    var yesterday = new Date();
-                                    yesterday.setDate(yesterday.getDate() - 1);
-                                    cal5.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal5.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal5.setWeekStartDay(1);
-                                    cal5.setTodayText("Hoy");
-                                    cal5.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5.addDisabledDates('<?php echo $dday2; ?>', null);
-                                </SCRIPT>
+                            <td>Fecha promesa 2o</td>
+                            <td>
+                                <INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" 
+                                       VALUE="" SIZE=15 readonly="readonly"> 
                             </td>
-                            <td><INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" VALUE="" SIZE=15> 
-                                <BUTTON onClick="cal5.select(document.getElementById('D_PROM2'), 'anchor5', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5" ID="anchor5">eligir</BUTTON></td>
                             <td><input type="text" name="D_PROM2_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
                                 if (isset($D_PROM2_OLD)) {
                                     echo $D_PROM2_OLD;
@@ -1563,22 +1538,11 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                                 ?>"><br>
                         </tr>
                         <tr>
-                            <td>Fecha promesa 3o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                                    var cal5c = new CalendarPopup();
-                                    var yesterday = new Date();
-                                    yesterday.setDate(yesterday.getDate() - 1);
-                                    cal5c.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal5c.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal5c.setWeekStartDay(1);
-                                    cal5c.setTodayText("Hoy");
-                                    cal5c.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5c.addDisabledDates('<?php echo $dday2; ?>', null);
-                                </SCRIPT>
+                            <td>Fecha promesa 3o</td>
+                            <td>
+                                <INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" 
+                                       VALUE="" SIZE=15 readonly="readonly"> 
                             </td>
-                            <td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE="" SIZE=15> 
-                                <BUTTON onClick="cal5c.select(document.getElementById('D_PROM3'), 'anchor5c', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5c" ID="anchor5c">eligir</BUTTON></td>
                             <td><input type="text" name="D_PROM3_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
                                 if (isset($D_PROM3_OLD)) {
                                     echo $D_PROM3_OLD;
@@ -1595,22 +1559,11 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                                 ?>"><br>
                         </tr>
                         <tr>
-                            <td>Fecha promesa 4o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                                    var cal5d = new CalendarPopup();
-                                    var yesterday = new Date();
-                                    yesterday.setDate(yesterday.getDate() - 1);
-                                    cal5d.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal5d.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal5d.setWeekStartDay(1);
-                                    cal5d.setTodayText("Hoy");
-                                    cal5d.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5d.addDisabledDates('<?php echo $dday2; ?>', null);
-                                </SCRIPT>
+                            <td>Fecha promesa 4o</td>
+                            <td>
+                                <INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" 
+                                       VALUE="" SIZE=15 readonly="readonly"> 
                             </td>
-                            <td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE="" SIZE=15> 
-                                <BUTTON onClick="cal5d.select(document.getElementById('D_PROM4'), 'anchor5d', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5d" ID="anchor5d">eligir</BUTTON></td>
                             <td><input type="text" name="D_PROM4_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
                                 if (isset($D_PROM4_OLD)) {
                                     echo $D_PROM4_OLD;
@@ -1644,14 +1597,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                             <td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
                         </tr>
                         <tr id="pagocapt2">
-                            <td>Fecha Pag&oacute;
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-                                    var cal9 = new CalendarPopup();
-                                    cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal9.setWeekStartDay(1);
-                                    cal9.setTodayText("Hoy");
-                                </SCRIPT></td>
+                            <td>Fecha Pag&oacute;</td>
                             <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15> 
                                 <BUTTON onClick="cal9.select(document.getElementById('D_PAGOi'), 'anchor9', 'yyyy-MM-dd');
                                         return false;" NAME="anchor9" ID="anchor9">eligir</BUTTON></td>

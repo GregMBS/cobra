@@ -77,4 +77,21 @@ $.ready(function () {
     });
     $('#D_PROMv').datepicker();
     $('#D_PAGOv').datepicker();
+    $('#D_PAGOi').datepicker();
+    $('#D_PROM1').datepicker({
+        minDate: 0,
+        maxDate: '+15d'
+    });
+    $('#D_PROM2').datepicker({
+        minDate: 0,
+        maxDate: '+30d'
+    });
+    $('#D_PROM3').datepicker({
+        minDate: 0,
+        maxDate: '+30d'
+    });
+    $('#D_PROM4').datepicker({
+        minDate: 0,
+        maxDate: '+30d'
+    });
 });
