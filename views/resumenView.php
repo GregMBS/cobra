@@ -21,7 +21,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
 <?php } ?>
             </style>
         </head>
-        <body onLoad="openSearch();" id="todos">
+        <body id="todos">
             <div id="buttonbox">
                 <?php if (($go == 'FROMULTIMA') || ($go == 'FROMBUSCAR')) { ?>
                     <form class="buttons" name="seg" method="get" action=
