@@ -14,7 +14,7 @@ function paging(pageid) {
         document.getElementById("GESTION").style.display = "block";
     }
     if (pageid === "VISITA") {
-        document.getElementById("GESTION").style.display = "none";
+//        document.getElementById("GESTION").style.display = "none";
     }
 }
 function npromChange(thisform)
