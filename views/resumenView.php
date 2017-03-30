@@ -49,7 +49,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 <input type="hidden" name="find" value="<?php echo $capt ?>"> 
                 <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
                 <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
-                <input type="submit" name="go" value="CUENTAS"<
+                <input type="submit" name="go" value="CUENTAS">
             </form>
             <form class="buttons" name="visitlist" method="get" action=
                   "realvisitlist.php" id="visitlist" target="_blank">
@@ -1209,508 +1209,508 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
             <div id="HISTORIA">
                 <table>
                     <thead>
-                    <tr>
-                        <?php
-                        $fieldnames = array("Status", "Fecha/Hora", "Gestor",
-                            "Telefono", "Gestion", "Gestion");
-                        $fieldsize = array("status", "timestamp", "chico", "telefono",
-                            "gestion", "hidebox");
-                        for ($j = 0; $j < 5; $j++) {
-                            $fieldname = $fieldnames[$j];
-                            ?>
-                            <th<?php echo ' class="' . $fieldsize[$j] . '"'; ?>><?php
-                                if (isset($fieldname)) {
-                                    echo $fieldname;
-                                }
-                                ?></th> <?php
-                        }
-                        ?></tr>
-                </thead>
-                <?php
-                if (!empty($rowsub)) {
-                    ?>
-                    <tbody class="scrollContent">
-                                <?php
-                                $j = 0;
-                                $c = 0;
-                                foreach ($rowsub as $answer) {
-                                    $auto = $answer['auto'];
-                                    $visit = $answer['c_cniv'];
-                                    $gestor = utf8_encode($answer['c_cvge']);
-                                    $gestion = utf8_encode($answer['c_obse1']);
-                                    $timestamp = utf8_encode($answer['fecha']);
-                                    $stat = utf8_encode($answer['c_cvst']);
-                                    $hh = $rc->highhist($stat, $visit);
-                                    ?>
-                                    <tr<?php echo $hh; ?>><?php
-                                        for ($k = 0; $k < 5; $k++) {
-                                            $anku = utf8_encode($answer[$k]);
-                                            if (is_null($anku)) {
-                                                $anku = "&nbsp;";
-                                            }
-                                            $ank = str_replace('00:00:00', '', $anku);
-                                            $jscode = '';
-                                            if ($fieldsize[$k] == "gestion") {
-                                                $jscode1 = " onClick='alert(";
-                                                $jscode2 = ")'";
-                                                $jscode = $jscode1 . '"' . preg_replace("[\n\r]", " ", $timestamp . ': ' . $gestion) . '"' . $jscode2;
-                                            }
-                                            ?>
-                                            <td<?php
-                                            if ($c == 1) {
-                                                echo " style='background-color:#dddddd'";
-                                            }
-                                            echo ' class="' . $fieldsize[$k] . '"' . $jscode;
-                                            ?>>
-                                                    <?php
-                                                    if (isset($ank)) {
-                                                        echo htmlentities($ank, ENT_QUOTES, "UTF-8");
-                                                    }
-                                                    ?>
-                                            </td>
-                                            <?php
-                                        } $c = 1 - $c;
+                        <tr>
+                            <?php
+                            $fieldnames = array("Status", "Fecha/Hora", "Gestor",
+                                "Telefono", "Gestion", "Gestion");
+                            $fieldsize = array("status", "timestamp", "chico", "telefono",
+                                "gestion", "hidebox");
+                            for ($j = 0; $j < 5; $j++) {
+                                $fieldname = $fieldnames[$j];
+                                ?>
+                                <th<?php echo ' class="' . $fieldsize[$j] . '"'; ?>><?php
+                                    if (isset($fieldname)) {
+                                        echo $fieldname;
+                                    }
+                                    ?></th> <?php
+                            }
+                            ?></tr>
+                    </thead>
+                    <?php
+                    if (!empty($rowsub)) {
+                        ?>
+                        <tbody class="scrollContent">
+                            <?php
+                            $j = 0;
+                            $c = 0;
+                            foreach ($rowsub as $answer) {
+                                $auto = $answer['auto'];
+                                $visit = $answer['c_cniv'];
+                                $gestor = utf8_encode($answer['c_cvge']);
+                                $gestion = utf8_encode($answer['c_obse1']);
+                                $timestamp = utf8_encode($answer['fecha']);
+                                $stat = utf8_encode($answer['c_cvst']);
+                                $hh = $rc->highhist($stat, $visit);
+                                ?>
+                                <tr<?php echo $hh; ?>><?php
+                                    for ($k = 0; $k < 5; $k++) {
+                                        $anku = utf8_encode($answer[$k]);
+                                        if (is_null($anku)) {
+                                            $anku = "&nbsp;";
+                                        }
+                                        $ank = str_replace('00:00:00', '', $anku);
+                                        $jscode = '';
+                                        if ($fieldsize[$k] == "gestion") {
+                                            $jscode1 = " onClick='alert(";
+                                            $jscode2 = ")'";
+                                            $jscode = $jscode1 . '"' . preg_replace("[\n\r]", " ", $timestamp . ': ' . $gestion) . '"' . $jscode2;
+                                        }
                                         ?>
-                                    </tr>
+                                        <td<?php
+                                        if ($c == 1) {
+                                            echo " style='background-color:#dddddd'";
+                                        }
+                                        echo ' class="' . $fieldsize[$k] . '"' . $jscode;
+                                        ?>>
+                                                <?php
+                                                if (isset($ank)) {
+                                                    echo htmlentities($ank, ENT_QUOTES, "UTF-8");
+                                                }
+                                                ?>
+                                        </td>
+                                        <?php
+                                    } $c = 1 - $c;
+                                    ?>
+                                </tr>
+                                <?php
+                                $j++;
+                            }
+                            ?>
+                            <tr><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
+        </div>
+        <form action="resumen.php" method="get" id="gestionform" 
+              onSubmit="return validate_form(this, event,<?php
+              echo $saldo_descuento_2 + 0;
+              ?>,<?php
+              if (empty($AUTH)) {
+                  $AUTH = '';
+              }
+              if (($mytipo == 'admin') || ($AUTH != '')) {
+                  echo 1;
+              } else {
+                  echo 0;
+              }
+              ?>, ' ');">
+            <div id="GESTION">
+                <table id="databox">
+                    <?php
+                    if ($mytipo == 'admin' || $mytipo == 'supervisor') {
+                        ?>
+                        <tr>
+                            <td>Gestor</td>
+                            <td><select name="C_CVGE">
+                                    <option value="<?php echo $capt; ?>"><?php echo $capt; ?></option>
                                     <?php
-                                    $j++;
+                                    foreach ($resultGestor as $answerGestor) {
+                                        ?>
+                                        <option value="<?php echo $answerGestor[1]; ?>"><?php echo $answerGestor[0]; ?></option>
+                                    <?php }
+                                    ?>
+                                </select></td>
+                        </tr>
+                    <?php } else { ?>
+                        <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
+                        if (isset($C_CVGE)) {
+                            echo $C_CVGE;
+                        }
+                        ?>" >
+                           <?php } ?>
+                    <tr id='authbox' class="hidebox">
+                        <td>Autorizaci&oacute;n</td>
+                        <td><input type="password" name="AUTH" id="AUTH" value=""></td>
+                    </tr>
+                    <tr>
+                        <td>Telefono</td>
+                        <td colspan=2><select id="C_TELE" name="C_TELE">
+                                <option value=''>&nbsp;</option>
+                                <option value='Entrante'>Llamada entrante</option>
+                                <option value='Oficina'>Cliente Visito</option>
+                                <option value='040'>040</option>
+                                <option value=''>Nuevo Tel. 1</option>
+                                <option value=''>Nuevo Tel. 2</option>
+                                <?php
+                                if (isset($tel_1)) {
+                                    ?><option value='<?php echo $tel_1 ?>'>TEL Casa - <?php echo $tel_1 ?></option><?php } ?>
+                                <?php if (isset($tel_1_laboral)) { ?><option <?php echo $t1l; ?>value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1 - <?php echo $empresa . ' - ' . $tel_1_laboral; ?></option><?php } ?>
+                                <?php if (isset($tel_1_ref_1)) { ?><option <?php echo $t1r1; ?>value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1 - <?php echo $nombre_referencia_1 . ' - ' . $tel_1_ref_1; ?></option><?php } ?>
+                                <?php if (isset($tel_1_ref_2)) { ?><option <?php echo $t1r2; ?>value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2 - <?php echo $nombre_referencia_2 . ' - ' . $tel_1_ref_2; ?></option><?php } ?>
+                                <?php if (isset($tel_1_ref_3)) { ?><option <?php echo $t1r3; ?>value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3 - <?php echo $nombre_referencia_3 . ' - ' . $tel_1_ref_3; ?></option><?php } ?>
+                                <?php if (isset($tel_1_ref_4)) { ?><option <?php echo $t1r4; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4 - <?php echo $nombre_referencia_4 . ' - ' . $tel_1_ref_4; ?></option><?php } ?>
+                                <?php if (isset($tel_1_verif)) { ?><option class='verif' <?php echo $t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF - <?php echo $tel_1_verif; ?></option><?php } ?>
+                                <?php if (isset($tel_2)) { ?><option value='<?php echo $tel_2; ?>'>CELULAR - <?php echo $tel_2; ?></option><?php } ?>
+                                <?php if (isset($tel_2_laboral)) { ?><option <?php echo $t2l; ?>value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2 - <?php echo $empresa . ' - ' . $tel_2_laboral; ?></option><?php } ?>
+                                <?php if (isset($tel_2_ref_1)) { ?><option <?php echo $t2r1; ?>value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1 - <?php echo $nombre_referencia_1 . ' - ' . $tel_2_ref_1; ?></option><?php } ?>
+                                <?php if (isset($tel_2_ref_2)) { ?><option <?php echo $t2r2; ?>value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2 - <?php echo $nombre_referencia_2 . ' - ' . $tel_2_ref_2; ?></option><?php } ?>
+                                <?php if (isset($tel_2_ref_3)) { ?><option <?php echo $t2r3; ?>value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3 - <?php echo $nombre_referencia_3 . ' - ' . $tel_2_ref_3; ?></option><?php } ?>
+                                <?php if (isset($tel_2_ref_4)) { ?><option <?php echo $t2r4; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4 - <?php echo $nombre_referencia_4 . ' - ' . $tel_2_ref_4; ?></option><?php } ?>
+                                <?php if (isset($tel_2_verif)) { ?><option class='verif' <?php echo $t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF - <?php echo $tel_2_verif; ?></option><?php } ?>
+                                <?php if (isset($tel_3)) { ?><option value='<?php echo $tel_3; ?>'>TEL 3 - <?php echo $tel_3; ?></option><?php } ?>
+                                <?php if (isset($tel_3_verif)) { ?><option class='verif' <?php echo $t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF - <?php echo $tel_3_verif; ?></option><?php } ?>
+                                <?php if (isset($tel_4)) { ?><option value='<?php echo $tel_4; ?>'>TEL 4 - <?php echo $tel_4; ?></option><?php } ?>
+                                <?php if (isset($tel_4_verif)) { ?><option class='verif' <?php echo $t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF - <?php echo $tel_4_verif; ?></option><?php } ?>
+                                <?php if (isset($telefono_de_ultimo_contacto)) { ?><option <?php echo $tuc; ?>value='<?php echo $telefono_de_ultimo_contacto; ?>'>TEL DE ULT. CONT. - <?php echo $telefono_de_ultimo_contacto; ?></option><?php } ?>
+                            </select> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="pcap2">Parentesco/Cargo</td>
+                        <td><select name="C_CARG">
+                                <option value="">&nbsp;</option>
+                                <option value="Aval">Aval</option>
+                                <option value="Conyuge">C&oacute;nyuge</option>
+                                <option value="Deudor">Deudor</option>
+                                <option value="Familiar">Familiar</option>
+                                <option value="Hermano/a">Hermano/a</option>
+                                <option value="Hijo/a">Hijo/a</option>
+                                <option value="Madre">Madre</option>
+                                <option value="Otro">Otro</option>
+                                <option value="Padre">Padre</option>
+                                <option value="Vecino/a">Vecino/a</option>
+                                <option value="Yerno">Yerno</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Gestion</td>
+                        <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1' 
+                                      onkeypress="tooLong(this)" onkeyup="valid(this, 'special')" onmouseover='this.focus();'
+                                      onblur="valid(this, 'special')" onmousedown='this.focus();'></textarea></td>
+                        <td colspan=2>Acci&oacute;n 
+                            <select name="ACCION" id="ACCION">
+                                <?php
+                                foreach ($resultAccion as $answerAccion) {
+                                    ?>
+                                    <option value="<?php echo $answerAccion[0]; ?>" style="font-size:120%;"><?php
+                                        if (isset($answerAccion[0])) {
+                                            echo $answerAccion[0];
+                                        }
+                                        ?></option>
+                                    <?php
                                 }
                                 ?>
-                                <tr><td></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                <?php } ?>
-            </div>
-                <form action="resumen.php" method="get" id="gestionform" 
-                      onSubmit="return validate_form(this, event,<?php
-                      echo $saldo_descuento_2 + 0;
-                      ?>,<?php
-                      if (empty($AUTH)) {
-                          $AUTH = '';
-                      }
-                      if (($mytipo == 'admin') || ($AUTH != '')) {
-                          echo 1;
-                      } else {
-                          echo 0;
-                      }
-                      ?>, ' ');">
-            <div id="GESTION">
-                    <table id="databox">
-                        <?php
-                        if ($mytipo == 'admin' || $mytipo == 'supervisor') {
-                            ?>
-                            <tr>
-                                <td>Gestor</td>
-                                <td><select name="C_CVGE">
-                                        <option value="<?php echo $capt; ?>"><?php echo $capt; ?></option>
-                                        <?php
-                                        foreach ($resultGestor as $answerGestor) {
-                                            ?>
-                                            <option value="<?php echo $answerGestor[1]; ?>"><?php echo $answerGestor[0]; ?></option>
-                                        <?php }
-                                        ?>
-                                    </select></td>
-                            </tr>
-                        <?php } else { ?>
-                            <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
-                            if (isset($C_CVGE)) {
-                                echo $C_CVGE;
-                            }
-                            ?>" >
-                               <?php } ?>
-                        <tr id='authbox' class="hidebox">
-                            <td>Autorizaci&oacute;n</td>
-                            <td><input type="password" name="AUTH" id="AUTH" value=""></td>
-                        </tr>
-                        <tr>
-                            <td>Telefono</td>
-                            <td colspan=2><select id="C_TELE" name="C_TELE">
-                                    <option value=''>&nbsp;</option>
-                                    <option value='Entrante'>Llamada entrante</option>
-                                    <option value='Oficina'>Cliente Visito</option>
-                                    <option value='040'>040</option>
-                                    <option value=''>Nuevo Tel. 1</option>
-                                    <option value=''>Nuevo Tel. 2</option>
-                                    <?php
-                                    if (isset($tel_1)) {
-                                        ?><option value='<?php echo $tel_1 ?>'>TEL Casa - <?php echo $tel_1 ?></option><?php } ?>
-                                    <?php if (isset($tel_1_laboral)) { ?><option <?php echo $t1l; ?>value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1 - <?php echo $empresa . ' - ' . $tel_1_laboral; ?></option><?php } ?>
-                                    <?php if (isset($tel_1_ref_1)) { ?><option <?php echo $t1r1; ?>value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1 - <?php echo $nombre_referencia_1 . ' - ' . $tel_1_ref_1; ?></option><?php } ?>
-                                    <?php if (isset($tel_1_ref_2)) { ?><option <?php echo $t1r2; ?>value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2 - <?php echo $nombre_referencia_2 . ' - ' . $tel_1_ref_2; ?></option><?php } ?>
-                                    <?php if (isset($tel_1_ref_3)) { ?><option <?php echo $t1r3; ?>value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3 - <?php echo $nombre_referencia_3 . ' - ' . $tel_1_ref_3; ?></option><?php } ?>
-                                    <?php if (isset($tel_1_ref_4)) { ?><option <?php echo $t1r4; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4 - <?php echo $nombre_referencia_4 . ' - ' . $tel_1_ref_4; ?></option><?php } ?>
-                                    <?php if (isset($tel_1_verif)) { ?><option class='verif' <?php echo $t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF - <?php echo $tel_1_verif; ?></option><?php } ?>
-                                    <?php if (isset($tel_2)) { ?><option value='<?php echo $tel_2; ?>'>CELULAR - <?php echo $tel_2; ?></option><?php } ?>
-                                    <?php if (isset($tel_2_laboral)) { ?><option <?php echo $t2l; ?>value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2 - <?php echo $empresa . ' - ' . $tel_2_laboral; ?></option><?php } ?>
-                                    <?php if (isset($tel_2_ref_1)) { ?><option <?php echo $t2r1; ?>value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1 - <?php echo $nombre_referencia_1 . ' - ' . $tel_2_ref_1; ?></option><?php } ?>
-                                    <?php if (isset($tel_2_ref_2)) { ?><option <?php echo $t2r2; ?>value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2 - <?php echo $nombre_referencia_2 . ' - ' . $tel_2_ref_2; ?></option><?php } ?>
-                                    <?php if (isset($tel_2_ref_3)) { ?><option <?php echo $t2r3; ?>value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3 - <?php echo $nombre_referencia_3 . ' - ' . $tel_2_ref_3; ?></option><?php } ?>
-                                    <?php if (isset($tel_2_ref_4)) { ?><option <?php echo $t2r4; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4 - <?php echo $nombre_referencia_4 . ' - ' . $tel_2_ref_4; ?></option><?php } ?>
-                                    <?php if (isset($tel_2_verif)) { ?><option class='verif' <?php echo $t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF - <?php echo $tel_2_verif; ?></option><?php } ?>
-                                    <?php if (isset($tel_3)) { ?><option value='<?php echo $tel_3; ?>'>TEL 3 - <?php echo $tel_3; ?></option><?php } ?>
-                                    <?php if (isset($tel_3_verif)) { ?><option class='verif' <?php echo $t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF - <?php echo $tel_3_verif; ?></option><?php } ?>
-                                    <?php if (isset($tel_4)) { ?><option value='<?php echo $tel_4; ?>'>TEL 4 - <?php echo $tel_4; ?></option><?php } ?>
-                                    <?php if (isset($tel_4_verif)) { ?><option class='verif' <?php echo $t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF - <?php echo $tel_4_verif; ?></option><?php } ?>
-                                    <?php if (isset($telefono_de_ultimo_contacto)) { ?><option <?php echo $tuc; ?>value='<?php echo $telefono_de_ultimo_contacto; ?>'>TEL DE ULT. CONT. - <?php echo $telefono_de_ultimo_contacto; ?></option><?php } ?>
-                                </select> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="pcap2">Parentesco/Cargo</td>
-                            <td><select name="C_CARG">
-                                    <option value="">&nbsp;</option>
-                                    <option value="Aval">Aval</option>
-                                    <option value="Conyuge">C&oacute;nyuge</option>
-                                    <option value="Deudor">Deudor</option>
-                                    <option value="Familiar">Familiar</option>
-                                    <option value="Hermano/a">Hermano/a</option>
-                                    <option value="Hijo/a">Hijo/a</option>
-                                    <option value="Madre">Madre</option>
-                                    <option value="Otro">Otro</option>
-                                    <option value="Padre">Padre</option>
-                                    <option value="Vecino/a">Vecino/a</option>
-                                    <option value="Yerno">Yerno</option>
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td>Gestion</td>
-                            <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1' 
-                                          onkeypress="tooLong(this)" onkeyup="valid(this, 'special')" onmouseover='this.focus();'
-                                          onblur="valid(this, 'special')" onmousedown='this.focus();'></textarea></td>
-                            <td colspan=2>Acci&oacute;n 
-                                <select name="ACCION" id="ACCION">
-                                    <?php
-                                    foreach ($resultAccion as $answerAccion) {
-                                        ?>
-                                        <option value="<?php echo $answerAccion[0]; ?>" style="font-size:120%;"><?php
-                                            if (isset($answerAccion[0])) {
-                                                echo $answerAccion[0];
-                                            }
-                                            ?></option>
-                                        <?php
-                                    }
+                            </select>
+                            <br>
+                            Status 
+                            <select name="C_CVST" id="C_CVST" onblur="statusChange(this.form);">
+                                <option value=''></option>
+                                <?php
+                                foreach ($resultDictamen as $answerDictamen) {
                                     ?>
-                                </select>
-                                <br>
-                                Status 
-                                <select name="C_CVST" id="C_CVST" onblur="statusChange(this.form);">
-                                    <option value=''></option>
-                                    <?php
-                                    foreach ($resultDictamen as $answerDictamen) {
-                                        ?>
-                                        <option value="<?php
-                                        if (isset($answerDictamen[0])) {
-                                            echo htmlentities($answerDictamen[0]);
+                                    <option value="<?php
+                                    if (isset($answerDictamen[0])) {
+                                        echo htmlentities($answerDictamen[0]);
+                                    }
+                                    ?>"
+                                            style="font-size:120%;">
+                                                <?php
+                                                if (isset($answerDictamen[0])) {
+                                                    echo htmlentities($answerDictamen[0]);
+                                                }
+                                                ?>
+                                    </option>
+                                <?php } ?>
+                            </select><br>
+                            Causa no pago
+                            <select name="C_CNP" id="C_CNP">
+                                <?php
+                                foreach ($resultCnp as $answerCnp) {
+                                    ?>
+                                    <option value="<?php echo $answerCnp[0]; ?>" style="font-size:120%;"><?php
+                                        if (isset($answerCnp[0])) {
+                                            echo htmlentities($answerCnp[0]);
                                         }
-                                        ?>"
-                                                style="font-size:120%;">
-                                                    <?php
-                                                    if (isset($answerDictamen[0])) {
-                                                        echo htmlentities($answerDictamen[0]);
-                                                    }
-                                                    ?>
-                                        </option>
-                                    <?php } ?>
-                                </select><br>
-                                Causa no pago
-                                <select name="C_CNP" id="C_CNP">
+                                        ?></option>
                                     <?php
-                                    foreach ($resultCnp as $answerCnp) {
-                                        ?>
-                                        <option value="<?php echo $answerCnp[0]; ?>" style="font-size:120%;"><?php
-                                            if (isset($answerCnp[0])) {
-                                                echo htmlentities($answerCnp[0]);
-                                            }
-                                            ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
+                                }
+                                ?>
+                            </select>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Motivadores</td>
-                            <td><select id="C_MOTIV" name="C_MOTIV">
-                                    <option value=" ">
-                                        <?php
-                                        foreach ($resultMotiv as $answerMotiv) {
-                                            ?>
-                                        <option value="<?php echo $answerMotiv[0]; ?>"><?php echo $answerMotiv[0]; ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>Se necesita localizar <input type="checkbox" name="LOCALIZAR" id="localizar" <?php
-                                if (!empty($localizar)) {
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Motivadores</td>
+                        <td><select id="C_MOTIV" name="C_MOTIV">
+                                <option value=" ">
+                                    <?php
+                                    foreach ($resultMotiv as $answerMotiv) {
+                                        ?>
+                                    <option value="<?php echo $answerMotiv[0]; ?>"><?php echo $answerMotiv[0]; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>Se necesita localizar <input type="checkbox" name="LOCALIZAR" id="localizar" <?php
+                            if (!empty($localizar)) {
+                                echo 'selected="selected"';
+                            }
+                            ?>></td>
+                        <td colspan=2>Localizable <select name='CUANDO'>
+                                <option value=""></option>
+                                <option value="madrugada" <?php
+                                if ($CUANDO == 'madrugada') {
                                     echo 'selected="selected"';
                                 }
-                                ?>></td>
-                            <td colspan=2>Localizable <select name='CUANDO'>
-                                    <option value=""></option>
-                                    <option value="madrugada" <?php
-                                    if ($CUANDO == 'madrugada') {
-                                        echo 'selected="selected"';
-                                    }
-                                    ?>>madrugada</option>
-                                    <option value="manana" <?php
-                                    if ($CUANDO == 'manana') {
-                                        echo 'selected="selected"';
-                                    }
-                                    ?>>ma&ntilde;ana</option>
-                                    <option value="tarde" <?php
-                                    if ($CUANDO == 'tarde') {
-                                        echo 'selected="selected"';
-                                    }
-                                    ?>>tarde</option>
-                                    <option value="noche" <?php
-                                    if ($CUANDO == 'noche') {
-                                        echo 'selected="selected"';
-                                    }
-                                    ?>>noche</option>
-                                    <option value="robot" <?php
-                                    if ($CUANDO == 'robot') {
-                                        echo
-                                        'selected="selected"';
-                                    }
-                                    ?>>robot</option>
-                                    <option value="visita" <?php
-                                    if ($CUANDO == 'visita') {
-                                        echo
-                                        'selected="selected"';
-                                    }
-                                    ?>>visita</option>
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td>Cant. de promesa unico o 1o</td>
-                            <td>$<input type="text" name="N_PROM1" value="0" size="8" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
-                            <td>$<input type="text" name="N_PROM1_OLD" readonly="readonly" size="8" value="<?php
-                                if (isset($N_PROM1_OLD)) {
-                                    echo $N_PROM1_OLD;
+                                ?>>madrugada</option>
+                                <option value="manana" <?php
+                                if ($CUANDO == 'manana') {
+                                    echo 'selected="selected"';
                                 }
-                                ?>"></td>
-                        </tr>
-                        <tr>
-                            <td>Fecha promesa unico o 1o</td>
-                            <td>
-                                <INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" 
-                                       VALUE="" SIZE=15 readonly="readonly"> 
-                            </td>
-                            <td><input type="text" name="D_PROM1_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
-                                if (isset($D_PROM1_OLD)) {
-                                    echo $D_PROM1_OLD;
+                                ?>>ma&ntilde;ana</option>
+                                <option value="tarde" <?php
+                                if ($CUANDO == 'tarde') {
+                                    echo 'selected="selected"';
                                 }
-                                ?>"></td>
-                        </tr>
-                        <tr>
-                            <td>Cant. de promesa 2o</td>
-                            <td>$<input type="text" name="N_PROM2" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
-                            <td>$<input type="text" name="N_PROM2_OLD" size="8" readonly="readonly" value="<?php
-                                if (isset($N_PROM2_OLD)) {
-                                    echo $N_PROM2_OLD;
+                                ?>>tarde</option>
+                                <option value="noche" <?php
+                                if ($CUANDO == 'noche') {
+                                    echo 'selected="selected"';
                                 }
-                                ?>"><br>
-                        </tr>
-                        <tr>
-                            <td>Fecha promesa 2o</td>
-                            <td>
-                                <INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" 
-                                       VALUE="" SIZE=15 readonly="readonly"> 
-                            </td>
-                            <td><input type="text" name="D_PROM2_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
-                                if (isset($D_PROM2_OLD)) {
-                                    echo $D_PROM2_OLD;
+                                ?>>noche</option>
+                                <option value="robot" <?php
+                                if ($CUANDO == 'robot') {
+                                    echo
+                                    'selected="selected"';
                                 }
-                                ?>"></td>
-                        </tr>
-                        <tr>
-                            <td>Cant. de promesa 3o</td>
-                            <td>$<input type="text" name="N_PROM3" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
-                            <td>$<input type="text" name="N_PROM3_OLD" size="8" readonly="readonly" value="<?php
-                                if (isset($N_PROM3_OLD)) {
-                                    echo $N_PROM3_OLD;
+                                ?>>robot</option>
+                                <option value="visita" <?php
+                                if ($CUANDO == 'visita') {
+                                    echo
+                                    'selected="selected"';
                                 }
-                                ?>"><br>
-                        </tr>
-                        <tr>
-                            <td>Fecha promesa 3o</td>
-                            <td>
-                                <INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" 
-                                       VALUE="" SIZE=15 readonly="readonly"> 
-                            </td>
-                            <td><input type="text" name="D_PROM3_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
-                                if (isset($D_PROM3_OLD)) {
-                                    echo $D_PROM3_OLD;
-                                }
-                                ?>"></td>
-                        </tr>
-                        <tr>
-                            <td>Cant. de promesa 4o</td>
-                            <td>$<input type="text" name="N_PROM4" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
-                            <td>$<input type="text" name="N_PROM4_OLD" size="8" readonly="readonly" value="<?php
-                                if (isset($N_PROM4_OLD)) {
-                                    echo $N_PROM4_OLD;
-                                }
-                                ?>"><br>
-                        </tr>
-                        <tr>
-                            <td>Fecha promesa 4o</td>
-                            <td>
-                                <INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" 
-                                       VALUE="" SIZE=15 readonly="readonly"> 
-                            </td>
-                            <td><input type="text" name="D_PROM4_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
-                                if (isset($D_PROM4_OLD)) {
-                                    echo $D_PROM4_OLD;
-                                }
-                                ?>"></td>
-                        </tr>
-                        <tr>
-                            <td>Frecuencia de promesa</td>
-                            <td><select name="C_PROM" id="C_PROM">
-                                    <option selected="selected" value="">&nbsp;</option>
-                                    <option value="unico">Unico</option>
-                                    <option value="dos pagos">Dos pagos</option>
-                                    <option value="semanales">Semanales</option>
-                                    <option value="quincenales">Quincenales</option>
-                                    <option value="mensuales">Mensuales</option>
-                                    <option value="otro">Otro (en Gestion comentas)</option>
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td>Cant. de promesa total</td>
-                            <td><input type="text" name="N_PROM" id="N_PROM" readonly="readonly" style="background-color:#c0c0c0;" value=""></td>
-                            <td>Cant. prometido anterior</td>
-                            <td><input type="text" name="N_PROM_OLD" id="N_PROM_OLD" readonly="readonly" style="background-color:#c0c0c0;" value="<?php
-                                if (isset($N_PROM_OLD)) {
-                                    echo floor($N_PROM_OLD);
-                                }
-                                ?>"></td>
-                        </tr>
-                        <tr id="pagocapt">
-                            <td>Monto Pag&oacute;</td>
-                            <td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
-                        </tr>
-                        <tr id="pagocapt2">
-                            <td>Fecha Pag&oacute;</td>
-                            <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15> 
-                                <BUTTON onClick="cal9.select(document.getElementById('D_PAGOi'), 'anchor9', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor9" ID="anchor9">eligir</BUTTON></td>
-                        </tr>
-                        <tr>
-                            <td colspan=2>Actualizaci&oacute;n de Datos</td>
-                        </tr>
-                        <tr>
-                            <td>Tel.</td>
-                            <td><input type="text" name="C_NTEL" value=""  onmouseover='this.focus();'
-                                       onChange="addToTels(4, this)"></td>
-                        </tr>
-                        <tr>
-                            <td>Tel 2.</td>
-                            <td><input type="text" size=50 name="C_OBSE2" value="" onmouseover='this.focus();'
-                                       onChange="addToTels(5, this)"></td>
-                        </tr>
-                        <tr>
-                            <td>Direcci&oacute;n</td>
-                            <td><input type="text" size=50 name="C_NDIR" value="" onmouseover='this.focus();'></td>
-                        </tr>
-                        <tr>
-                            <td>E-mail</td>
-                            <td><input type="text" name="C_EMAIL" value="" onmouseover='this.focus();'></td>
-                        </tr>
-                    </table>
-                    <input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR" ondblclick="return false;">
-                    <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false">RESET</button>
-                    <br>
-                    </div>
-
-                    <div class="noshow">
-                        <input type="text" name="from" readonly="readonly" value="resumen.php" ><br>
-                        <input type="text" name="D_FECH" readonly="readonly" value="<?php
-                        if (isset($CD)) {
-                            echo $CD;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="D_PROM" readonly="readonly" value="<?php
-                        if (isset($CD)) {
-                            echo $CD;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="C_HRIN" readonly="readonly" value="<?php
-                        if (isset($CT)) {
-                            echo $CT;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="C_HRFI" readonly="readonly" value="<?php
-                        if (isset($CT)) {
-                            echo $CT;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="AUTO" readonly="readonly" value="" ><br>
-                        <input type="text" name="find" readonly="readonly" value="<?php
-                        if (isset($find)) {
-                            echo $find;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="field" readonly="readonly" value="<?php
-                        if (isset($field)) {
-                            echo $field;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="capt" readonly="readonly" value="<?php
-                        if (isset($capt)) {
-                            echo $capt;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="camp" readonly="readonly" value="<?php
-                        if (isset($camp)) {
-                            echo $camp;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="neworder" readonly="readonly" value="<?php
-                        if (isset($neworder)) {
-                            echo $neworder;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="C_CVBA" readonly="readonly" value="<?php
-                        if (isset($cliente)) {
-                            echo $cliente;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="C_ATTE" readonly="readonly" value="" ><br>
-                        <input type="text" name="C_CONT" readonly="readonly" value="<?php
-                        if (isset($id_cuenta)) {
-                            echo $id_cuenta;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="C_CONTAN" readonly="readonly" value="<?php
-                        if (isset($status_aarsa)) {
-                            echo $status_aarsa;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
-                        if (isset($numero_de_cuenta)) {
-                            echo $numero_de_cuenta;
-                        }
-                        ?>" ><br>
-                        <input type="text" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
-                               if (isset($ejecutivo_asignado_call_center)) {
-                                   echo $ejecutivo_asignado_call_center;
-                               }
-                               ?>" ><br>
-                        <input type="text" name="oldgo" readonly="readonly" value="<?php echo $go; ?>" ><br>
-                        <input type="text" name="error" readonly="readonly" value="1" ><br>
-                        <input type="text" name="go" readonly="readonly" value="GUARDAR" ><br>
-                    </div>
-                </form>
+                                ?>>visita</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de promesa unico o 1o</td>
+                        <td>$<input type="text" name="N_PROM1" value="0" size="8" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
+                        <td>$<input type="text" name="N_PROM1_OLD" readonly="readonly" size="8" value="<?php
+                            if (isset($N_PROM1_OLD)) {
+                                echo $N_PROM1_OLD;
+                            }
+                            ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Fecha promesa unico o 1o</td>
+                        <td>
+                            <INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" 
+                                   VALUE="" SIZE=15 readonly="readonly"> 
+                        </td>
+                        <td><input type="text" name="D_PROM1_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
+                            if (isset($D_PROM1_OLD)) {
+                                echo $D_PROM1_OLD;
+                            }
+                            ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de promesa 2o</td>
+                        <td>$<input type="text" name="N_PROM2" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
+                        <td>$<input type="text" name="N_PROM2_OLD" size="8" readonly="readonly" value="<?php
+                            if (isset($N_PROM2_OLD)) {
+                                echo $N_PROM2_OLD;
+                            }
+                            ?>"><br>
+                    </tr>
+                    <tr>
+                        <td>Fecha promesa 2o</td>
+                        <td>
+                            <INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" 
+                                   VALUE="" SIZE=15 readonly="readonly"> 
+                        </td>
+                        <td><input type="text" name="D_PROM2_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
+                            if (isset($D_PROM2_OLD)) {
+                                echo $D_PROM2_OLD;
+                            }
+                            ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de promesa 3o</td>
+                        <td>$<input type="text" name="N_PROM3" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
+                        <td>$<input type="text" name="N_PROM3_OLD" size="8" readonly="readonly" value="<?php
+                            if (isset($N_PROM3_OLD)) {
+                                echo $N_PROM3_OLD;
+                            }
+                            ?>"><br>
+                    </tr>
+                    <tr>
+                        <td>Fecha promesa 3o</td>
+                        <td>
+                            <INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" 
+                                   VALUE="" SIZE=15 readonly="readonly"> 
+                        </td>
+                        <td><input type="text" name="D_PROM3_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
+                            if (isset($D_PROM3_OLD)) {
+                                echo $D_PROM3_OLD;
+                            }
+                            ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de promesa 4o</td>
+                        <td>$<input type="text" name="N_PROM4" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
+                        <td>$<input type="text" name="N_PROM4_OLD" size="8" readonly="readonly" value="<?php
+                            if (isset($N_PROM4_OLD)) {
+                                echo $N_PROM4_OLD;
+                            }
+                            ?>"><br>
+                    </tr>
+                    <tr>
+                        <td>Fecha promesa 4o</td>
+                        <td>
+                            <INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" 
+                                   VALUE="" SIZE=15 readonly="readonly"> 
+                        </td>
+                        <td><input type="text" name="D_PROM4_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
+                            if (isset($D_PROM4_OLD)) {
+                                echo $D_PROM4_OLD;
+                            }
+                            ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Frecuencia de promesa</td>
+                        <td><select name="C_PROM" id="C_PROM">
+                                <option selected="selected" value="">&nbsp;</option>
+                                <option value="unico">Unico</option>
+                                <option value="dos pagos">Dos pagos</option>
+                                <option value="semanales">Semanales</option>
+                                <option value="quincenales">Quincenales</option>
+                                <option value="mensuales">Mensuales</option>
+                                <option value="otro">Otro (en Gestion comentas)</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de promesa total</td>
+                        <td><input type="text" name="N_PROM" id="N_PROM" readonly="readonly" style="background-color:#c0c0c0;" value=""></td>
+                        <td>Cant. prometido anterior</td>
+                        <td><input type="text" name="N_PROM_OLD" id="N_PROM_OLD" readonly="readonly" style="background-color:#c0c0c0;" value="<?php
+                            if (isset($N_PROM_OLD)) {
+                                echo floor($N_PROM_OLD);
+                            }
+                            ?>"></td>
+                    </tr>
+                    <tr id="pagocapt">
+                        <td>Monto Pag&oacute;</td>
+                        <td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
+                    </tr>
+                    <tr id="pagocapt2">
+                        <td>Fecha Pag&oacute;</td>
+                        <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15> 
+                            <BUTTON onClick="cal9.select(document.getElementById('D_PAGOi'), 'anchor9', 'yyyy-MM-dd');
+                                    return false;" NAME="anchor9" ID="anchor9">eligir</BUTTON></td>
+                    </tr>
+                    <tr>
+                        <td colspan=2>Actualizaci&oacute;n de Datos</td>
+                    </tr>
+                    <tr>
+                        <td>Tel.</td>
+                        <td><input type="text" name="C_NTEL" value=""  onmouseover='this.focus();'
+                                   onChange="addToTels(4, this)"></td>
+                    </tr>
+                    <tr>
+                        <td>Tel 2.</td>
+                        <td><input type="text" size=50 name="C_OBSE2" value="" onmouseover='this.focus();'
+                                   onChange="addToTels(5, this)"></td>
+                    </tr>
+                    <tr>
+                        <td>Direcci&oacute;n</td>
+                        <td><input type="text" size=50 name="C_NDIR" value="" onmouseover='this.focus();'></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail</td>
+                        <td><input type="text" name="C_EMAIL" value="" onmouseover='this.focus();'></td>
+                    </tr>
+                </table>
+                <input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR" ondblclick="return false;">
+                <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false">RESET</button>
+                <br>
             </div>
-            <?php
-            require_once 'views/resumenViewScripts.php';
-            ?>
-    </body>
+
+            <div class="noshow">
+                <input type="text" name="from" readonly="readonly" value="resumen.php" ><br>
+                <input type="text" name="D_FECH" readonly="readonly" value="<?php
+                if (isset($CD)) {
+                    echo $CD;
+                }
+                ?>" ><br>
+                <input type="text" name="D_PROM" readonly="readonly" value="<?php
+                if (isset($CD)) {
+                    echo $CD;
+                }
+                ?>" ><br>
+                <input type="text" name="C_HRIN" readonly="readonly" value="<?php
+                if (isset($CT)) {
+                    echo $CT;
+                }
+                ?>" ><br>
+                <input type="text" name="C_HRFI" readonly="readonly" value="<?php
+                if (isset($CT)) {
+                    echo $CT;
+                }
+                ?>" ><br>
+                <input type="text" name="AUTO" readonly="readonly" value="" ><br>
+                <input type="text" name="find" readonly="readonly" value="<?php
+                if (isset($find)) {
+                    echo $find;
+                }
+                ?>" ><br>
+                <input type="text" name="field" readonly="readonly" value="<?php
+                if (isset($field)) {
+                    echo $field;
+                }
+                ?>" ><br>
+                <input type="text" name="capt" readonly="readonly" value="<?php
+                if (isset($capt)) {
+                    echo $capt;
+                }
+                ?>" ><br>
+                <input type="text" name="camp" readonly="readonly" value="<?php
+                if (isset($camp)) {
+                    echo $camp;
+                }
+                ?>" ><br>
+                <input type="text" name="neworder" readonly="readonly" value="<?php
+                if (isset($neworder)) {
+                    echo $neworder;
+                }
+                ?>" ><br>
+                <input type="text" name="C_CVBA" readonly="readonly" value="<?php
+                if (isset($cliente)) {
+                    echo $cliente;
+                }
+                ?>" ><br>
+                <input type="text" name="C_ATTE" readonly="readonly" value="" ><br>
+                <input type="text" name="C_CONT" readonly="readonly" value="<?php
+                if (isset($id_cuenta)) {
+                    echo $id_cuenta;
+                }
+                ?>" ><br>
+                <input type="text" name="C_CONTAN" readonly="readonly" value="<?php
+                if (isset($status_aarsa)) {
+                    echo $status_aarsa;
+                }
+                ?>" ><br>
+                <input type="text" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
+                if (isset($numero_de_cuenta)) {
+                    echo $numero_de_cuenta;
+                }
+                ?>" ><br>
+                <input type="text" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
+                       if (isset($ejecutivo_asignado_call_center)) {
+                           echo $ejecutivo_asignado_call_center;
+                       }
+                       ?>" ><br>
+                <input type="text" name="oldgo" readonly="readonly" value="<?php echo $go; ?>" ><br>
+                <input type="text" name="error" readonly="readonly" value="1" ><br>
+                <input type="text" name="go" readonly="readonly" value="GUARDAR" ><br>
+            </div>
+        </form>
+    </div>
+    <?php
+    require_once 'views/resumenViewScripts.php';
+    ?>
+</body>
 </html> 
