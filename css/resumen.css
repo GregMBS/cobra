@@ -304,6 +304,9 @@ td.chico {
 .ui-datepicker-title {
     color: black;
 }
-label, .dataTables_info {
+label {
     color: black;
+}
+.dataTables_info {
+    color: black !important;
 }
