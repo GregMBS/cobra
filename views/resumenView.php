@@ -77,15 +77,6 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 ?>">
                 <input type="submit" name="go" value="PAGOS">
             </form>
-            <form class="buttons" name="white" method="get" action="white.php" id="white" target="_blank">
-                <input type="hidden" name="capt" value="<?php
-                if (isset($capt)) {
-                    echo $capt;
-                }
-                ?>">
-                <input type="submit" name="go" value="PAGINAS BLANCAS">
-            </form>
-
             <?php $CTA = $numero_de_credito; ?>
             <form class="buttons" name="notasq" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
                 <input type="hidden" name="C_CONT" value="<?php
