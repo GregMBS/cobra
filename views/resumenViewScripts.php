@@ -1,5 +1,5 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/ju/jqc-1.12.4/dt-1.10.13/datatables.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" type="text/javascript"></script>
 <script src="/js/datepicker_mx.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/resumen.js"></script>

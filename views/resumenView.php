@@ -4,7 +4,7 @@
         <title>Resumen</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
-        <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/jqc-1.12.4/dt-1.10.13/datatables.min.css"/>
         <link href="/css/resumen.css" rel="stylesheet" type="text/css"/>
         <style type="text/css">
 <?php if (!empty($nota['notalert'])) { ?> 
