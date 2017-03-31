@@ -79,11 +79,11 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
             </form>
             <?php $CTA = $numero_de_credito; ?>
             <form class="buttons" name="notasq" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
-                <input type="hidden" name="C_CONT" value="<?php
-                if (isset($id_cuenta)) {
-                    echo $id_cuenta;
-                }
-                ?>">
+                                                                                                                  <input type="hidden" name="C_CONT" value="<?php
+                                                                                                                  if (isset($id_cuenta)) {
+                                                                                                                      echo $id_cuenta;
+                                                                                                                  }
+                                                                                                                  ?>">
                 <input type="submit" name="go" value="NOTAS">
             </form>
             <form class="buttons" name="queuesg" method="get" action=
@@ -180,58 +180,67 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                     <td>
                         <label for='nombre_deudor'>Deudor</label>
                         <input type='text' size=80 style='width:12cm' 
-                               name=nombre_deudor id="nombre_deudor" 
+                               name='nombre_deudor' id="nombre_deudor" 
                                readonly='readonly' value='<?php
-                        if (isset($nombre_deudor)) {
-                            echo htmlentities($nombre_deudor);
-                        }
-                        ?>'>
+                               if (isset($nombre_deudor)) {
+                                   echo htmlentities($nombre_deudor);
+                               }
+                               ?>'>
                     </td>
                     <td>
-                        <span class='formcapa' id='domicilio'>Domicilio</span>
-                        <textarea name=domicilio_deudor id=domicilio_deudor readonly='readonly' rows=4 cols=20>
-                            <?php echo $domicilio_deudor . "\n" . $colonia_deudor . "\n" . $ciudad_deudor . ", " . $estado_deudor . '  ' . $cp_deudor; ?>
-                            <?php
-                            if (isset($domicilio_deudor_2)) {
-                                echo "\n o \n" . $domicilio_deudor_2;
-                            }
-                            ?>
+                        <label for='domicilio_deudor'>Domicilio</label>
+                        <textarea name='domicilio_deudor' id='domicilio_deudor' 
+                                  readonly='readonly' rows=4 cols=20>
+                                      <?php
+                                      echo $domicilio_deudor . "\n"
+                                      . $colonia_deudor . "\n" . $ciudad_deudor
+                                      . ", " . $estado_deudor . '  ' . $cp_deudor;
+                                      ?>
+                                      <?php
+                                      if (isset($domicilio_deudor_2)) {
+                                          echo "\n o \n" . $domicilio_deudor_2;
+                                      }
+                                      ?>
                         </textarea><br>
                         <?php if (!empty($direccion_nueva)) { ?>
-                            <span class='formcapa'>Direcci&oacute;n nueva</span><input type='text' name=direccion_nueva readonly='readonly' value='<?php echo $direccion_nueva; ?>'><br>
-                            <?php
-                        }
-                        if (substr($cliente, 0, 9) == "INFONAVIT") {
-                            ?>
-                            <span class='formcapa'>NSS</span><input type='text' name=nss readonly='readonly' value='<?php
-                            if (isset($nss)) {
-                                echo $nss;
-                            }
-                            ?>'><br>
-                                                                    <?php
-                                                                }
-                                                                if (substr($cliente, 0, 8) == "JURIDICO") {
-                                                                    ?>
-                            <input type='text' name=nss readonly='readonly' value='<?php
-                            if (isset($avapar)) {
-                                echo $avapar;
-                            }
-                            ?>'><br>
-                               <?php } ?>
+                            <label for='direccion_nueva'>Direcci&oacute;n nueva</label>
+                            <input type='text' name=direccion_nueva 
+                                   readonly='readonly' 
+                                   value='<?php echo $direccion_nueva; ?>'><br>
+                                   <?php
+                               }
+                               if (substr($cliente, 0, 9) == "INFONAVIT") {
+                                   ?>
+                            <label for='nss'>NSS</label>
+                            <input type='text' name=nss readonly='readonly' 
+                                   value='<?php
+                                   if (isset($nss)) {
+                                       echo $nss;
+                                   }
+                                   ?>'><br>
+                                   <?php
+                               }
+                               ?>
                     </td>
                 <tr>
                     <td>
-                        <span class='formcapa'>Gestor - call center</span><input type='text' name=ejecutivo_asignado_call_center readonly='readonly' value='<?php
+                        <label for='ejecutivo_asignado_call_center'>Gestor - call center</label>
+                        <input type='text' name=ejecutivo_asignado_call_center 
+                               readonly='readonly' value='<?php
                         if (isset($ejecutivo_asignado_call_center)) {
                             echo $ejecutivo_asignado_call_center;
                         }
                         ?>'><br>
-                        <span class='formcapa'>Numero de cuenta</span><input type='text' name=numero_de_cuenta id="numero_de_cuenta" readonly='readonly' value='<?php
+                        <label for='numero_de_cuenta'>Numero de cuenta</label>
+                        <input type='text' name=numero_de_cuenta 
+                               id="numero_de_cuenta" readonly='readonly' 
+                               value='<?php
                         if (isset($numero_de_cuenta)) {
                             echo $numero_de_cuenta;
                         }
                         ?>'><br>
-                        <span class='formcapa'>Status de cuenta</span><input type='text' name=status_aarsa readonly='readonly' value='<?php
+                        <label for='status_aarsa'>Status de cuenta</label>
+                        <input type='text' name=status_aarsa readonly='readonly' value='<?php
                         if (isset($status_aarsa)) {
                             echo $status_aarsa;
                         }
