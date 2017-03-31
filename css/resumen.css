@@ -310,3 +310,10 @@ label {
 .dataTables_info {
     color: black !important;
 }
+#GENERAL label {
+    display: block;
+    width: 13em;
+    float: left;
+    font-size: 100%;
+    font-weight: bold;
+}
