@@ -71,6 +71,9 @@ function clock(ptl) {
 }
 $(document).ready(function () {
     $('#histable').DataTable({
+        scrollY:        '33vh',
+        scrollCollapse: true,
+        paging:         false,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json"
         },
