@@ -71,9 +71,12 @@ function clock(ptl) {
 }
 $(document).ready(function () {
     $('#histable').DataTable({
-                    "bPaginate": false,
-                    "bJQueryUI": true
-                });
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json"
+        },
+        "bPaginate": false,
+        "bJQueryUI": true
+    });
     $('#tabs').tabs({
         active: 6
     });
