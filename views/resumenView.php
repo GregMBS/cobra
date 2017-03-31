@@ -178,11 +178,14 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
             <table summary="demograficas">
                 <tr>
                     <td>
-                        <span class='formcapa' id='deudor'>Deudor</span><input type='text' size=80 style='width:12cm' name=nombre_deudor id="nombre_deudor" readonly='readonly' value='<?php
+                        <label for='nombre_deudor'>Deudor</label>
+                        <input type='text' size=80 style='width:12cm' 
+                               name=nombre_deudor id="nombre_deudor" 
+                               readonly='readonly' value='<?php
                         if (isset($nombre_deudor)) {
                             echo htmlentities($nombre_deudor);
                         }
-                        ?>'><br>
+                        ?>'>
                     </td>
                     <td>
                         <span class='formcapa' id='domicilio'>Domicilio</span>
