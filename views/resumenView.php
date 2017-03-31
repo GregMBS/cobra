@@ -57,12 +57,12 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
                 <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>"> 
                 <input type="hidden" name="ejecutivo_asignado_call_center" value="<?php echo $ejecutivo_asignado_call_center ?>"> 
-                <input type="submit" name="go" value="VISITAS"<
+                <input type="submit" name="go" value="VISITAS">
             </form>
             <form class="buttons" name="rotas" method="get" action=
                   "rotas.php" id="rotas">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                <input type="submit" name="go" value="PROMESAS"<
+                <input type="submit" name="go" value="PROMESAS">
             </form>
             <form class="buttons" name="pagos" method="get" action="pagos.php" id="pagos" target="_blank">
                 <input type="hidden" name="capt" value="<?php
@@ -75,7 +75,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                     echo $id_cuenta;
                 }
                 ?>">
-                <input type="submit" name="go" value="PAGOS"<
+                <input type="submit" name="go" value="PAGOS">
             </form>
             <form class="buttons" name="white" method="get" action="white.php" id="white" target="_blank">
                 <input type="hidden" name="capt" value="<?php
@@ -83,16 +83,11 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                     echo $capt;
                 }
                 ?>">
-                <input type="submit" name="go" value="PAGINAS BLANCAS"<
+                <input type="submit" name="go" value="PAGINAS BLANCAS">
             </form>
 
             <?php $CTA = $numero_de_credito; ?>
             <form class="buttons" name="notasq" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
-                                                                                                                  <input type="hidden" name="CUENTA" value="<?php
-                                                                                                                  if (isset($numero_de_cuenta)) {
-                                                                                                                      echo $numero_de_cuenta;
-                                                                                                                  }
-                                                                                                                  ?>">
                 <input type="hidden" name="C_CONT" value="<?php
                 if (isset($id_cuenta)) {
                     echo $id_cuenta;
@@ -114,7 +109,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                            echo $capt;
                        }
                        ?>"> 
-                <input type="submit" name="go" value="QUEUES"<
+                <input type="submit" name="go" value="QUEUES">
             </form>
             <form class="buttons" name="logout" method="get" action=
                   "resumen.php" id="logout">
@@ -124,7 +119,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 }
                 ?>">
                 <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
-                <input type="submit" name="go" value="LOGOUT"<
+                <input type="submit" name="go" value="LOGOUT">
             </form>
             <?php if ($camp == 0) { ?>
                 <form action="resumen.php" method="get">
