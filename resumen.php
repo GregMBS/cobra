@@ -3,6 +3,7 @@
 use gregmbs\cobra\PdoClass;
 use gregmbs\cobra\GestionClass;
 use gregmbs\cobra\ResumenClass;
+use gregmbs\cobra\ValidationClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
@@ -11,11 +12,13 @@ setlocale(LC_MONETARY, 'en_US');
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenClass.php';
+require_once 'classes/ValidationClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
 $rc = new ResumenClass($pdo);
+$vc = new ValidationClass($pdo);
 $capt = $pdoc->capt;
 $mytipo = $pdoc->tipo;
 /*
@@ -185,16 +188,7 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $D_PROM4 = mysqli_real_escape_string($con, $get['D_PROM4']);
     $D_PAGO = mysqli_real_escape_string($con, $get['D_PAGO']);
     $N_PAGO = mysqli_real_escape_string($con, $get['N_PAGO']);
-    if (isset($get['D_MERC'])) {
-        $D_MERC = mysqli_real_escape_string($con, $get['D_MERC']);
-    } else {
-        $D_MERC = '';
-    }
-    if (isset($get['MERC'])) {
-        for ($merci = 0; $merci < count($get['MERC']); $merci++) {
-            $MERC[$merci] = mysqli_real_escape_string($con, $get['MERC'][$merci]);
-        }
-    }
+    $D_MERC = '';
     $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
     $N_PROM_OLD = mysqli_real_escape_string($con, $get['N_PROM_OLD']);
     $N_PROM1 = mysqli_real_escape_string($con, $get['N_PROM1']);
@@ -208,27 +202,11 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $C_EMAIL = trim(mysqli_real_escape_string($con, $get['C_EMAIL']));
     $C_OBSE2 = mysqli_real_escape_string($con, $get['C_OBSE2']);
     $C_EJE = mysqli_real_escape_string($con, $get['C_EJE']);
-    $montomax = 0;
-    $fechamin = '2020-12-31';
-    $fechamax = '2007-01-01';
-    $queryult = "select max(n_prom),min(d_prom),max(d_prom) from historia where c_cont='" . $C_CONT . "' and n_prom>0;";
-    $resultult = mysqli_query($con, $queryult) or die("ERROR RM21 - " . mysqli_error($con));
-    while ($answerult = mysqli_fetch_row($resultult)) {
-        $montomax = max($answerult[0], 0);
-        $fechamin = $answerult[1];
-        $fechamax = $answerult[2];
-    }
     $D_PROM = $D_PROM1;
     $flagmsg = "";
-    $querydup = "SELECT count(1) FROM historia 
-WHERE c_cont=" . $C_CONT . " and d_fech='" . $D_FECH . "' 
-and c_hrin='" . $C_HRIN . "' and c_cvst='" . $C_CVST . "' 
-and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
-    $resultdup = mysqli_query($con, $querydup) or die("ERROR RM23 - " . mysqli_error($con));
-    while ($answerdup = mysqli_fetch_row($resultdup)) {
-        $error = $error + $answerdup[0];
-        $flagmsg = "DOBLE ENTRANTE";
-    }
+    $dupcount = $vc->countDup($get, "DOBLE ENTRANTE");
+    $error += $dupcount['value'];
+    $flagmsg .= $dupcount['message'];
     if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO J')) {
         $error = $error + 1;
         $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';

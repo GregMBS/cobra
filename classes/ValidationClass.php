@@ -63,7 +63,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
      * @param string $message
      * @return array
      */
-    private function countDup($gestion, $message) {
+    public function countDup($gestion, $message) {
         $output = array();
         $std = $this->pdo->prepare($this->querydup);
         $std->bindParam(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
