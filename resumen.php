@@ -56,47 +56,19 @@ if (!empty($mytipo)) {
         $find = $rc->cleanFind($rawfind);
     }
 
-    $pagalert = 0;
-    $querypagos = "select (c_cvst like 'PAG%'),c_cont from historia 
-where c_cvge='" . $capt . "' and d_fech=curdate() and c_cvst like 'PAG%'
-and (cuenta,c_cvba) not in (select cuenta,cliente from pagos)
-order by d_fech desc,c_hrin desc limit 1";
-    $resultpagos = mysqli_query($con, $querypagos) or die("ERROR RM1 - " . mysqli_error($con));
-    while ($answerpagos = mysqli_fetch_row($resultpagos)) {
-        $pagalert = $answerpagos[0];
-        $pagid = $answerpagos[1];
-        if (empty($pagalert)) {
-            $pagalert = 0;
-        }
-        if ($mytipo == 'visitador') {
-            $pagalert = 0;
-        }
+    $answerpagos = $rc->pagAlert($capt);
+    $pagalert = $answerpagos['alert'];
+    $pagid = $answerpagos['id'];
+    if ($mytipo == 'visitador') {
+        $pagalert = 0;
     }
 
-    $notalert = '';
-    $querynotas = "select min(concat_ws(' ',fecha,hora)<now()),min(concat_ws(' ',fecha,hora))
-from notas 
-where c_cvge='" . $capt . "' AND borrado=0 and fecha<>'0000-00-00'
-AND concat_ws(' ',fecha,hora)<now()";
-    $resultnotas = $pdo->query($querynotas);
-    foreach ($resultnotas as $answernotas) {
-        $notalert = $answernotas[0];
-        $notalertt = $answernotas[1];
-    }
-    if (empty($notalert)) {
-        $notalert = 0;
-    } else {
-        $querynotas2 = "select cuenta,nota,fuente
-from notas 
-where (c_cvge='" . $capt . "' OR c_cvge='todos')
-AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
-        $resultnotas2 = mysqli_query($con, $querynotas2) or die("ERROR RM3 - " . mysqli_error($con));
-        while ($answernotas2 = mysqli_fetch_row($resultnotas2)) {
-            $alertcuenta = $answernotas2[0];
-            $alertnota = $answernotas2[1];
-            $alertfuente = $answernotas2[2];
-        }
-    }
+    $answernotas = $rc->notAlert($capt);
+    $notalert = $answernotas['notalert'];
+    $notalertt = $answernotas['notalert'];
+    $alertcuenta = $answernotas['cuenta'];
+    $alertnota = $answernotas['nota'];
+    $alertfuente = $answernotas['fuente'];
 
     if ($go == 'LOGOUT') {
         $page = "Location: logout.php?gone=&capt=" . $capt;
@@ -104,7 +76,7 @@ AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
     }
 
     if (($go == 'CAPTURADO') && (!empty($get['C_CVST']))) {
-        $C_HRIN = mysqli_real_escape_string($con, $get['C_VH']) . ':' . mysqli_real_escape_string($con, $get['C_VMN']);
+        $C_HRIN = filter_input(INPUT_GET, 'C_VH') . ':' . filter_input(INPUT_GET, 'C_VMN');
         $C_HRFI = date('H:i:s');
         $C_CVGE = filter_input(INPUT_GET, 'C_CVGE');
         $C_CVBA = filter_input(INPUT_GET, 'C_CVBA');
@@ -156,32 +128,20 @@ AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
     exit();
 }
 if ($go == 'NUEVOS') {
-    $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
-    $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
-    $C_NDIR = trim(mysqli_real_escape_string($con, $get['C_NDIR']));
-    $C_OBSE2 = mysqli_real_escape_string($con, $get['C_OBSE2']);
+    $C_CONT = filter_input(INPUT_GET, 'C_CONT', FILTER_VALIDATE_INT);
+    $C_NTEL = filter_input(INPUT_GET, 'C_NTEL');
+    $C_NDIR = trim(filter_input(INPUT_GET, 'C_NDIR'));
+    $C_OBSE2 = filter_input(INPUT_GET, 'C_OBSE2');
     if (!empty($C_NTEL)) {
-        $queryntel = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_NTEL . " WHERE id_cuenta='" . $C_CONT . "'";
-        mysqli_query($con, $queryntel) or die("ERROR RM17 - " . mysqli_error($con));
-    }
-    if (!empty($C_NDIR)) {
-        $queryndir = "UPDATE resumen SET direccion_nueva='" . $C_NDIR . "' WHERE id_cuenta='" . $C_CONT . "'";
-        mysqli_query($con, $queryndir) or die("ERROR RM18 - " . mysqli_error($con));
+        $gc->addNewTel($C_CONT, $C_NTEL);
     }
     if (!empty($C_OBSE2) && $C_OBSE2 == filter_var($C_OBSE2, FILTER_SANITIZE_NUMBER_FLOAT)) {
-        $querymemo = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_OBSE2 . " WHERE id_cuenta='" . $C_CONT . "'";
-        mysqli_query($con, $querymemo) or die("ERROR RM19 - " . mysqli_error($con));
+        $gc->addNewTel($C_CONT, $C_OBSE2);
     }
-    if ($merciv > 0) {
-        foreach ($MERCv as $MERCa) {
-            if (!empty($MERCa)) {
-                $queryins = "INSERT INTO sdhmerc (ID_CUENTA,MERC,FECHAMERC,FECHACAPT) 
-    VALUES (" . $C_CONT . ",'" . $MERCa . "','" . $D_MERC . "',now())";
-                mysqli_query($con, $queryins) or die("ERROR RM20 - " . mysqli_error($con));
-            }
-        }
+    if (!empty($C_NDIR)) {
+        $gc->updateAddress($C_CONT, $C_NDIR);
     }
-//$redirector = "Location: resumen.php?&capt=".$capt."&go=ULTIMA";
+
     $redirector = "Location: resumen.php?&capt=" . $capt;
     header($redirector);
 }
@@ -1064,27 +1024,27 @@ if (realpath($path)) {
     $hasPic = TRUE;
     $picFile = 'pics/' . $numero_de_cuenta . '.jpg';
 }
-    $colors = array(                    
-        "Amarilla",
-        "Azul",
-        "Beige",
-        "Blanca",
-        "Cafe",
-        "Cantera",
-        "Celeste",
-        "Crema",
-        "Forja",
-        "Gris",
-        "Ladrillo",
-        "Madera",
-        "Melon",
-        "Metalica",
-        "Morada",
-        "Naranja",
-        "Negra",
-        "Roja",
-        "Rosa",
-        "Verde"
+$colors = array(
+    "Amarilla",
+    "Azul",
+    "Beige",
+    "Blanca",
+    "Cafe",
+    "Cantera",
+    "Celeste",
+    "Crema",
+    "Forja",
+    "Gris",
+    "Ladrillo",
+    "Madera",
+    "Melon",
+    "Metalica",
+    "Morada",
+    "Naranja",
+    "Negra",
+    "Roja",
+    "Rosa",
+    "Verde"
 );
 if (empty($flag)) {
     $flag = 0;

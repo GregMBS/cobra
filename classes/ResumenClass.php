@@ -44,6 +44,12 @@ where c_cvge IN (:capt,'todos')
 AND borrado=0 
 AND concat(fecha,' ',hora) = :fechahora 
 LIMIT 1";
+    
+    private $pagosQuery = "select (c_cvst like 'PAG%') as alert, c_cont as id
+        from historia 
+where c_cvge = :capt and d_fech=curdate() and c_cvst like 'PAG%'
+and (cuenta,c_cvba) not in (select cuenta,cliente from pagos)
+order by d_fech desc,c_hrin desc limit 1";
 
     /**
      *
@@ -165,6 +171,30 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $capt
      * @return array
      */
+    public function pagAlert($capt) {
+        $stn = $this->pdo->prepare($this->pagosQuery);
+        $stn->bindParam(':capt', $capt);
+        $stn->execute();
+        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        if (isset($result['alert'])) {
+            $output = array(
+                'alert' => $result['alert'],
+                'id' => $result['id']
+            );
+        } else {
+            $output = array(
+                'alert' => 0,
+                'id' => ''
+            );
+        }
+        return $output;
+    }
+
+     /**
+     * 
+     * @param string $capt
+     * @return array
+     */
     public function notAlert($capt) {
         $stn = $this->pdo->prepare($this->notesQuery);
         $stn->bindParam(':capt', $capt);
@@ -191,7 +221,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
         return $output;
     }
 
-    /**
+   /**
      * 
      * @param string $mytipo
      * @return array
