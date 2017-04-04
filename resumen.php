@@ -46,18 +46,14 @@ if (!empty($mytipo)) {
     $getupdate = isset($get['find']);
     $isoldid = isset($get['id_cuenta']);
     if ($getupdate) {
-        $findg = filter_input(INPUT_GET, 'find');
-        $findu = mysqli_real_escape_string($con, $findg);
-        if (isset($get['field'])) {
-            $field = mysqli_real_escape_string($con, $get['field']);
+        $rawfield = filter_input(INPUT_GET, 'field');
+        if ($rc->fieldCheck($rawfield)) {
+            $field = $rawfield;
         } else {
             $field = 'id_cuenta';
         }
-//   $capt = mysqli_real_escape_string($con,$get['capt']);
-        // We perform a bit of filtering
-        $findU = strtoupper($findu);
-        $findS = strip_tags($findU);
-        $find = trim($findS);
+        $rawfind = filter_input(INPUT_GET, 'find');
+        $find = $rc->cleanFind($rawfind);
     }
 
     $pagalert = 0;
@@ -894,63 +890,15 @@ if ($mytipo != 'admin') {
     if (!(empty($locker)) && ($locker != $capt)) {
         $lockflag = 1;
     } else {
-        $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL 
-WHERE locker='" . $capt . "';";
-        $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-        if ($cliente == 'Surtidor del Hogar') {
-            $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
-        }
-        if ($mytipo == 'admin') {
-            $querylock = "SELECT 1;";
-        }
-        $queryunlock2 = "UPDATE rslice SET timelock=NULL, locker=NULL 
-WHERE locker='" . $capt . "';";
-        $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-        if ($cliente == 'Surtidor del Hogar') {
-            $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
-        }
-        mysqli_autocommit($con, FALSE);
-        mysqli_query($con, $queryunlock) or die("ERROR RM51 - " . mysqli_error($con));
-        mysqli_query($con, $querylock) or die("ERROR RM52 - " . mysqli_error($con));
-        mysqli_query($con, $queryunlock2) or die("ERROR RM51 - " . mysqli_error($con));
-        mysqli_query($con, $querylock2) or die("ERROR RM52 - " . mysqli_error($con));
-        mysqli_commit($con);
-        $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') FROM 
-resumen 
-WHERE id_cuenta='" . $id_cuenta . "';";
-        $resulttlock = mysqli_query($con, $querytlock) or die("ERROR RM53 - " . mysqli_error($con));
-        if ($resulttlock) {
-            while ($answertlock = mysqli_fetch_row($resulttlock)) {
-                $tl = $answertlock[0];
-            }
-        }
+        $rc->setLocks($capt, $id_cuenta, $mytipo);
+        $tl = $rc->getTimeCheck($id_cuenta);
     }
 }
-$queryeom = "select last_day(curdate())+interval 1 month";
-$resulteom = mysqli_query($con, $queryeom) or die("ERROR RMeom - " . mysqli_error($con));
-while ($roweom = mysqli_fetch_row($resulteom)) {
-    $dday = $roweom[0];
-    $dday2 = $roweom[0];
-}
+$dday = strototime("last day of next month");
+$dday2 = $dday;
 $CD = date("Y-m-d");
 $CT = date("H:i:s");
-$others = 0;
-$queryothers = "select count(1) FROM resumen 
-where nombre_deudor='$nombre_deudor'
-and '$cliente'='Surtidor del Hogar';";
-$resultothers = mysqli_query($con, $queryothers) or die("ERROR RMothers - " . mysqli_error($con));
-while ($rowothers = mysqli_fetch_row($resultothers)) {
-    $others = $rowothers[0];
-}
-
-$queryfilt = "SELECT cliente,sdc,queue FROM queuelist 
-WHERE gestor=':capt' 
-ORDER BY cliente,sdc,queue
-;";
-$stf = $pdo->prepare($queryfilt);
-$stf->bindParam(':capt', $capt);
-$stf->execute();
-$resultfilt = $stf->fetchAll();
+$resultfilt = $rc->getQueueList($capt);
 
 $queryng = "SELECT count(1) as cng FROM historia 
 WHERE c_cvge=:capt 
