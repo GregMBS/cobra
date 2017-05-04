@@ -1,11 +1,15 @@
 <?php
 
 use gregmbs\cobra\PdoClass;
+use gregmbs\cobra\ReporteDiarioClass;
 
 require_once 'classes/PdoClass.php';
+require_once 'classes/ReporteDiarioClass.php';
+
 $pdoc = new PdoClass();
-$pdo  = $pdoc->dbConnectAdmin();
+$pdo = $pdoc->dbConnectAdmin();
 $capt = $pdoc->capt;
+$rd = new ReporteDiarioClass($pdo);
 
 function last_business_day($year, $month)
 {
