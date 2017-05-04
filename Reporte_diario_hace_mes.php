@@ -11,49 +11,7 @@ $pdo = $pdoc->dbConnectAdmin();
 $capt = $pdoc->capt;
 $rd = new ReporteDiarioClass($pdo);
 
-$querya  = "create temporary table rrotas
-select numero_de_cuenta,resumen.cliente,status_de_credito,status_aarsa,producto,subproducto,
-nombre_deudor,pagos.auto as pauto,monto,fecha,historia.auto as hauto,
-n_prom1,d_prom1,n_prom2,d_prom2,c_cvge,'pagos' as semaforo,resumen.id_cuenta 
-from pagos
-join resumen using (id_cuenta)
-left join historia on c_cont=pagos.id_cuenta 
-and fecha between d_fech and (d_prom+interval 2 day) and c_cvst like 'promesa de%'
-where fecha > :lbd0
-and fecha <= :lbd1
-and confirmado=0";
-$sta     = $pdo->prepare($querya);
-$sta->bindParam(':lbd0', $lbd0);
-$sta->bindParam(':lbd1', $lbd1);
-$sta->execute();
-$queryb  = "create temporary table rotad select pauto from rrotas
-group by pauto having count(1)>1";
-$pdo->query($queryb);
-$queryc  = "select pauto from rotad";
-$resultc = $pdo->query($queryc);
-$queryd  = "delete from rrotas where pauto = ;pauto order by fecha limit 1";
-$std     = $pdo->prepare($queryd);
-foreach ($resultc as $answerc) {
-    $pauto = $answerc['pauto'];
-    $std->bindParam(':pauto', $pauto);
-    $std->execute();
-}
-$queryp              = "create temporary table xrotas
-select * from rrotas where hauto>0";
-$pdo->query($queryp);
-$queryu              = "update rrotas r,xrotas as x
-set r.hauto=x.hauto,r.c_cvge=x.c_cvge,
-r.n_prom1=x.n_prom1,r.d_prom1=x.d_prom1,
-r.n_prom2=x.n_prom2,r.d_prom2=x.d_prom2
-where r.id_cuenta=x.id_cuenta and r.hauto is null";
-$pdo->query($queryu);
-$queryparcial        = "select hauto,numero_de_cuenta,rrotas.cliente,
-status_de_credito,producto,subproducto,q(status_aarsa),status_aarsa,
-nombre_deudor,n_prom1+n_prom2,n_prom1,d_prom1,n_prom2,d_prom2,
-max(folio),c_cvge,monto,rrotas.fecha from rrotas
-left join folios on rrotas.cliente like 'credito%' and cuenta=numero_de_cuenta
-group by hauto,rrotas.cliente,numero_de_cuenta,monto,rrotas.fecha
-order by rrotas.cliente,status_de_credito,numero_de_cuenta";
+$rd->buildReportAnt();
 $queryvencido        = "select h1.auto,concat(h1.CUENTA,' ') as 'numero_de_cuenta',resumen.cliente,
 status_de_credito as 'campa&ntilde;a',producto,subproducto,q(status_aarsa) as 'queue',status_aarsa,
 nombre_deudor,n_prom as 'Imp. Neg.',n_prom1 as 'pp1',d_prom1 as 'fpp1',n_prom2 as 'pp2',d_prom2 as 'fpp2',

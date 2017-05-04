@@ -223,21 +223,11 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
     /**
      * 
      * @param string $last_business_day
+     * @param string $query
      */
-    private function createPromesasTable($last_business_day) {
+    private function createPromesasTable($last_business_day, $query) {
         $this->pdo->query('DROP TABLE IF EXISTS rrotas');
-        $sta = $this->pdo->prepare($this->queryrrotas);
-        $sta->bindParam(':lbd0', $last_business_day);
-        $sta->execute();
-    }
-
-    /**
-     * 
-     * @param string $last_business_day
-     */
-    private function createPromesasTableAnt($last_business_day) {
-        $this->pdo->query('DROP TABLE IF EXISTS rrotas');
-        $sta = $this->pdo->prepare($this->queryrrotasAnt);
+        $sta = $this->pdo->prepare($query);
         $sta->bindParam(':lbd0', $last_business_day);
         $sta->execute();
     }
@@ -282,15 +272,27 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
 
     public function buildReport() {
         $lbd = $this->last_business_day();
-        $this->createPromesasTable($lbd);
+        $this->createPromesasTable($lbd, $this->queryrrotas);
         $duplicates = $this->getDuplicates();
         $this->deleteDuplicates($duplicates);
         $this->updateMultiples();
         $this->createAnalysis();
+        $stv = $this->pdo->prepare($this->queryvencido);
+        $stv->bindParam(':lbd', $lbd);
+        $stv->execute();
+        $this->resultVencidos = $stv->fetchAll(\PDO::FETCH_ASSOC);
 
-//        $stp = $this->pdo->query($this->queryparcial);
-//        $rawResultPagos = $stp->fetchAll(\PDO::FETCH_ASSOC);
+        $sti = $this->pdo->query($this->queryvigente);
+        $this->resultVigentes = $sti->fetchAll(\PDO::FETCH_ASSOC);
+    }
 
+    public function buildReportAnt() {
+        $lbd = $this->last_business_day();
+        $this->createPromesasTableAnt($lbd, $this->queryrrotasAnt);
+        $duplicates = $this->getDuplicates();
+        $this->deleteDuplicates($duplicates);
+        $this->updateMultiples();
+        $this->createAnalysis();
         $stv = $this->pdo->prepare($this->queryvencido);
         $stv->bindParam(':lbd', $lbd);
         $stv->execute();
