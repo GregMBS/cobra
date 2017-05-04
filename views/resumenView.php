@@ -29,13 +29,13 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                     <input type="hidden" name="capt" value="<?php echo $capt ?>">
                     <input type="hidden" name="find" value="<?php echo $id_cuenta ?>">
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
-                    <input type="submit" name="go" value="REINTRO QUEUE"<
+                    <input type="submit" name="go" value="REINTRO QUEUE">
                 </form>
             <?php } ?>
-            <form class="buttons" name="ultima" method="get" action=
-                  "resumen.php" id="ultima">
+            <form class="buttons" name="ultima" method="get" 
+                  action="resumen.php" id="ultima">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                <input type="submit" name="go" value="ULTIMA"<
+                <input type="submit" name="go" value="ULTIMA">
             </form>
             <form class="buttons" name="buscar" action="resumen.php" id="buscar">
                 <button type="button" value="buscar" onclick=
@@ -227,18 +227,18 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                         <label for='ejecutivo_asignado_call_center'>Gestor - call center</label>
                         <input type='text' name=ejecutivo_asignado_call_center 
                                readonly='readonly' value='<?php
-                        if (isset($ejecutivo_asignado_call_center)) {
-                            echo $ejecutivo_asignado_call_center;
-                        }
-                        ?>'><br>
+                               if (isset($ejecutivo_asignado_call_center)) {
+                                   echo $ejecutivo_asignado_call_center;
+                               }
+                               ?>'><br>
                         <label for='numero_de_cuenta'>Numero de cuenta</label>
                         <input type='text' name=numero_de_cuenta 
                                id="numero_de_cuenta" readonly='readonly' 
                                value='<?php
-                        if (isset($numero_de_cuenta)) {
-                            echo $numero_de_cuenta;
-                        }
-                        ?>'><br>
+                               if (isset($numero_de_cuenta)) {
+                                   echo $numero_de_cuenta;
+                               }
+                               ?>'><br>
                         <label for='status_aarsa'>Status de cuenta</label>
                         <input type='text' name=status_aarsa readonly='readonly' value='<?php
                         if (isset($status_aarsa)) {
@@ -1194,60 +1194,56 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                             }
                             ?></tr>
                     </thead>
-                    <?php
-                    if (!empty($rowsub)) {
-                        ?>
-                        <tbody class="ui-widget-contant">
-                            <?php
-                            $j = 0;
-                            $c = 0;
-                            foreach ($rowsub as $answer) {
-                                $auto = $answer['auto'];
-                                $visit = $answer['c_cniv'];
-                                $gestor = utf8_encode($answer['c_cvge']);
-                                $gestion = utf8_encode($answer['c_obse1']);
-                                $timestamp = utf8_encode($answer['fecha']);
-                                $stat = utf8_encode($answer['c_cvst']);
-                                $hh = $rc->highhist($stat, $visit);
-                                ?>
-                                <tr<?php echo $hh; ?>><?php
-                                    for ($k = 0; $k < 5; $k++) {
-                                        $anku = utf8_encode($answer[$k]);
-                                        if (is_null($anku)) {
-                                            $anku = "&nbsp;";
-                                        }
-                                        $ank = str_replace('00:00:00', '', $anku);
-                                        $jscode = '';
-                                        if ($fieldsize[$k] == "gestion") {
-                                            $jscode1 = " onClick='alert(";
-                                            $jscode2 = ")'";
-                                            $jscode = $jscode1 . '"' . preg_replace("[\n\r]", " ", $timestamp . ': ' . $gestion) . '"' . $jscode2;
-                                        }
-                                        ?>
-                                        <td<?php
-                                        if ($c == 1) {
-                                            echo " style='background-color:#dddddd'";
-                                        }
-                                        echo ' class="' . $fieldsize[$k] . '"' . $jscode;
-                                        ?>>
-                                                <?php
-                                                if (isset($ank)) {
-                                                    echo htmlentities($ank, ENT_QUOTES, "UTF-8");
-                                                }
-                                                ?>
-                                        </td>
-                                        <?php
-                                    } $c = 1 - $c;
-                                    ?>
-                                </tr>
-                                <?php
-                                $j++;
-                            }
+                    <tbody class="ui-widget-contant">
+                        <?php
+                        $j = 0;
+                        $c = 0;
+                        foreach ($rowsub as $answer) {
+                            $auto = $answer['auto'];
+                            $visit = $answer['c_cniv'];
+                            $gestor = utf8_encode($answer['c_cvge']);
+                            $gestion = utf8_encode($answer['c_obse1']);
+                            $timestamp = utf8_encode($answer['fecha']);
+                            $stat = utf8_encode($answer['c_cvst']);
+                            $hh = $rc->highhist($stat, $visit);
                             ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php } ?>
+                            <tr<?php echo $hh; ?>><?php
+                                for ($k = 0; $k < 5; $k++) {
+                                    $anku = utf8_encode($answer[$k]);
+                                    if (is_null($anku)) {
+                                        $anku = "&nbsp;";
+                                    }
+                                    $ank = str_replace('00:00:00', '', $anku);
+                                    $jscode = '';
+                                    if ($fieldsize[$k] == "gestion") {
+                                        $jscode1 = " onClick='alert(";
+                                        $jscode2 = ")'";
+                                        $jscode = $jscode1 . '"' . preg_replace("[\n\r]", " ", $timestamp . ': ' . $gestion) . '"' . $jscode2;
+                                    }
+                                    ?>
+                                    <td<?php
+                                    if ($c == 1) {
+                                        echo " style='background-color:#dddddd'";
+                                    }
+                                    echo ' class="' . $fieldsize[$k] . '"' . $jscode;
+                                    ?>>
+                                            <?php
+                                            if (isset($ank)) {
+                                                echo htmlentities($ank, ENT_QUOTES, "UTF-8");
+                                            }
+                                            ?>
+                                    </td>
+                                    <?php
+                                } $c = 1 - $c;
+                                ?>
+                            </tr>
+                            <?php
+                            $j++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <form action="resumen.php" method="get" id="gestionform" 
               onSubmit="return validate_form(this, event,<?php

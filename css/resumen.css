@@ -317,3 +317,7 @@ label {
     font-size: 100%;
     font-weight: bold;
 }
+
+#HISTORIA td {
+    border: none;
+}

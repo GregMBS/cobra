@@ -55,7 +55,14 @@
                 <button onclick="window.location = 'horarios_clean.php?capt=<?php echo $capt; ?>'">Productividad este Mes</button>
                 <button onclick="window.location = 'perfmes.php?capt=<?php echo $capt; ?>'">Productividad Mes Anterior</button>
                 <button onclick="window.location = 'horariosv.php?capt=<?php echo $capt; ?>'">Productividad Visit. este Mes</button>
-                <button onclick="window.location = 'perfmesv.php?capt=<?php echo $capt; ?>'">Productividad Visit. Mes Ant.</button>
+                <button onclick="window.location = 'perfmesv.php?capt=<?php echo $capt; ?>'">Productividad Visit. Mes Ant.</button><br>
+                <button onclick="window.location = 'bigquery2.xls.php?capt=<?php echo $capt; ?>'">Query de las Gestiones XLS</button>
+                <button onclick="window.location = 'bigproms.php?capt=<?php echo $capt; ?>'">Query de las Promesas XLS</button>
+                <button onclick="window.location = 'inventario.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario XLS</button>
+                <button onclick="window.location = 'inventario-rapid.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLS</button>
+            </div>
+            <div data-role="collapsible">
+                <h2>Miscelánea</h2>
                 <button onclick="window.location = 'comparativo.php?capt=<?php echo $capt; ?>'">Comparativo de 3 meses HTML</button><br>
                 <button onclick="window.location = 'tels_contactados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Contactados XLS</button>
                 <button onclick="window.location = 'tels_marcados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Marcados XLS</button>

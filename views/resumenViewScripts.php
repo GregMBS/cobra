@@ -10,7 +10,6 @@
     var flagmsg = '<?php echo $flagmsg; ?>';
     var cuenta = '<?php echo $CUENTA; ?>';
     var tl = '<?php echo $tl; ?>';
-    var cuenta = '<?php echo $CUENTA; ?>';
     function openSearch() {
         if (flag !== '0') {
             alert(flagmsg+"\nBuscar para checar que gestion de cuenta "+

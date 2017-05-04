@@ -20,8 +20,8 @@
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <p>Cliente: 
                 <select name="cliente">
-                    <option value="todos" style="font-size:120%;">todos</option>
-                    <option value="actives" style="font-size:120%;">todos activos</option>
+<!--                    <option value="todos" style="font-size:120%;">todos</option>
+                    <option value="actives" style="font-size:120%;">todos activos</option>-->
                     <?php
 foreach ($resultc as $answerc) {
                         ?>
