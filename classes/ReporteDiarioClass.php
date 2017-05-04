@@ -10,7 +10,7 @@ class ReporteDiarioClass extends BaseClass {
      *
      * @var string
      */
-    protected $queryrrotas = "create table rrotas
+    private $queryrrotas = "create table rrotas
 select numero_de_cuenta,resumen.cliente,status_de_credito,status_aarsa,producto,subproducto,
 nombre_deudor,pagos.auto as pauto,monto,fecha,historia.auto as hauto,
 n_prom1,d_prom1,n_prom2,d_prom2,
@@ -27,7 +27,25 @@ and status_de_credito not regexp '-'";
      *
      * @var string
      */
-    protected $queryrotad = "create table rotad 
+    private $queryrrotasAnt = "create table rrotas
+select numero_de_cuenta,resumen.cliente,status_de_credito,status_aarsa,producto,subproducto,
+nombre_deudor,pagos.auto as pauto,monto,fecha,historia.auto as hauto,
+n_prom1,d_prom1,n_prom2,d_prom2,
+n_prom3,d_prom3,n_prom4,d_prom4,
+c_cvge,'pagos' as semaforo,resumen.id_cuenta 
+from pagos
+join resumen using (id_cuenta)
+left join historia on c_cont=pagos.id_cuenta 
+and fecha between d_fech and (d_prom+interval 2 day) and c_cvst like 'promesa de%'
+where fecha > :lbd0 - INTERVAL 2 MONTH
+and fecha <= :lbd0 - INTERVAL 1 MONTH
+and confirmado=0";
+
+    /**
+     *
+     * @var string
+     */
+    private $queryrotad = "create table rotad 
         select pauto 
         from rrotas
         group by pauto 
@@ -37,7 +55,7 @@ and status_de_credito not regexp '-'";
      *
      * @var string
      */
-    protected $querydeldup = "delete from rrotas 
+    private $querydeldup = "delete from rrotas 
             where pauto = :pauto 
             order by fecha limit 1";
 
@@ -45,14 +63,14 @@ and status_de_credito not regexp '-'";
      *
      * @var string
      */
-    protected $queryxrotas = "create table xrotas 
+    private $queryxrotas = "create table xrotas 
 select * from rrotas where hauto>0";
 
     /**
      *
      * @var string
      */
-    protected $queryupdate = "update rrotas r,xrotas as x
+    private $queryupdate = "update rrotas r,xrotas as x
 set r.hauto=x.hauto,r.c_cvge=x.c_cvge,
 r.n_prom1=x.n_prom1,r.d_prom1=x.d_prom1,
 r.n_prom2=x.n_prom2,r.d_prom2=x.d_prom2,
@@ -64,7 +82,7 @@ where r.id_cuenta=x.id_cuenta and r.hauto is null";
      *
      * @var string
      */
-    protected $queryparcial = "select hauto, numero_de_cuenta,
+    private $queryparcial = "select hauto, numero_de_cuenta,
         rrotas.cliente, status_de_credito, producto, 
         subproducto, q(status_aarsa) as 'queue', status_aarsa, 
         nombre_deudor, n_prom1+n_prom2+n_prom3+n_prom4 as 'nprom', 
@@ -79,7 +97,7 @@ where r.id_cuenta=x.id_cuenta and r.hauto is null";
      *
      * @var string
      */
-    protected $queryvencido = "select h1.auto,concat(h1.CUENTA,' ') as 'numero_de_cuenta',resumen.cliente,
+    private $queryvencido = "select h1.auto,concat(h1.CUENTA,' ') as 'numero_de_cuenta',resumen.cliente,
 status_de_credito as 'campa&ntilde;a',producto,subproducto,q(status_aarsa) as 'queue',status_aarsa,
 nombre_deudor,n_prom as 'Imp. Neg.',
 n_prom1 as 'pp1',d_prom1 as 'fpp1',n_prom2 as 'pp2',d_prom2 as 'fpp2',
@@ -100,7 +118,7 @@ where h1.c_cont=id_cuenta and fecha>:lbd)";
      *
      * @var string
      */
-    protected $queryvigente = "select h1.auto,
+    private $queryvigente = "select h1.auto,
         concat(h1.CUENTA,' ') as 'numero_de_cuenta',
         resumen.cliente,
         status_de_credito as 'campa&ntilde;a',
@@ -135,7 +153,7 @@ where h1.c_cont=id_cuenta and fecha>d_fech)";
      *
      * @var string
      */
-    protected $querymake = "CREATE TABLE `gmbtemp` (
+    private $querymake = "CREATE TABLE `gmbtemp` (
   `gestor` varchar(50)  NOT NULL,
   `cliente` varchar(50)  NOT NULL,
   `sdc` varchar(50)  NOT NULL,
@@ -157,7 +175,7 @@ CHARACTER SET utf8 COLLATE utf8_spanish_ci";
      *
      * @var string
      */
-    protected $querycalc = "update gmbtemp g
+    private $querycalc = "update gmbtemp g
 set g.meta=1,metap=(pago)/1,
 negociado=(vigente+vencido+pago),
 cumplimentop=(pago)/(vigente+vencido+pago),
@@ -186,7 +204,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
      * 
      * @return string
      */
-    protected function last_business_day() {
+    private function last_business_day() {
         $lastm = strtotime("-31 day");
         $month = date("n", $lastm);
         $year = date("Y", $lastm);
@@ -206,7 +224,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
      * 
      * @param string $last_business_day
      */
-    protected function createPromesasTable($last_business_day) {
+    private function createPromesasTable($last_business_day) {
         $this->pdo->query('DROP TABLE IF EXISTS rrotas');
         $sta = $this->pdo->prepare($this->queryrrotas);
         $sta->bindParam(':lbd0', $last_business_day);
@@ -215,9 +233,20 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
 
     /**
      * 
+     * @param string $last_business_day
+     */
+    private function createPromesasTableAnt($last_business_day) {
+        $this->pdo->query('DROP TABLE IF EXISTS rrotas');
+        $sta = $this->pdo->prepare($this->queryrrotasAnt);
+        $sta->bindParam(':lbd0', $last_business_day);
+        $sta->execute();
+    }
+
+    /**
+     * 
      * @return array
      */
-    protected function getDuplicates() {
+    private function getDuplicates() {
         $this->pdo->query('DROP TABLE IF EXISTS rotad');
         $this->pdo->query($this->queryrotad);
         $querypauto = "select pauto from rotad";
@@ -229,7 +258,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
      * 
      * @param array $resultpauto
      */
-    protected function deleteDuplicates($resultpauto) {
+    private function deleteDuplicates($resultpauto) {
         foreach ($resultpauto as $answerpauto) {
             $pauto = $answerpauto['pauto'];
             $std = $this->pdo->prepare($this->querydeldup);
@@ -238,13 +267,13 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
         }
     }
 
-    protected function updateMultiples() {
+    private function updateMultiples() {
         $this->pdo->query('DROP TABLE IF EXISTS xrotas');
         $this->pdo->query($this->queryxrotas);
         $this->pdo->query($this->queryupdate);
     }
 
-    protected function createAnalysis() {
+    private function createAnalysis() {
         $querydrop = "DROP TABLE IF EXISTS `gmbtemp`;";
         $this->pdo->query($querydrop);
         $this->pdo->query($this->querymake);
