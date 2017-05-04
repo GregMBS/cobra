@@ -21,6 +21,9 @@ $rc = new ResumenClass($pdo);
 $vc = new ValidationClass($pdo);
 $capt = $pdoc->capt;
 $mytipo = $pdoc->tipo;
+$flagmsg = "";
+$CUENTA = "";
+$tl = date('r');
 /*
   if ($detect->isMobile()) {
   header("Location: resumen-mobile.php?capt=" . $capt);
@@ -823,7 +826,6 @@ while ($answercheck = mysqli_fetch_row($resultcheck)) {
     $locker = $answercheck[1];
     $sofar = $answercheck[2];
 }
-$tl = date('r');
 if ($mytipo != 'admin') {
     if (!(empty($locker)) && ($locker != $capt)) {
         $lockflag = 1;
@@ -832,7 +834,7 @@ if ($mytipo != 'admin') {
         $tl = $rc->getTimeCheck($id_cuenta);
     }
 }
-$dday = strototime("last day of next month");
+$dday = strtotime("last day of next month");
 $dday2 = $dday;
 $CD = date("Y-m-d");
 $CT = date("H:i:s");
@@ -910,6 +912,15 @@ if ($id_cuenta > 0) {
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
     $sts = $pdo->prepare($querysub);
     $sts->bindParam(':id_cuenta', $id_cuenta);
+    $sts->execute();
+    $rowsub = $sts->fetchAll();
+} else {
+    $querysub = "SELECT c_cvst,concat(d_fech,' ',c_hrin) as fecha,
+                    c_cvge,c_tele,left(c_obse1,50) as short,c_obse1,
+                    auto,c_cniv 
+                    FROM historia 
+                    LIMIT 0";
+    $sts = $pdo->prepare($querysub);
     $sts->execute();
     $rowsub = $sts->fetchAll();
 }
