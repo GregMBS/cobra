@@ -88,7 +88,7 @@ where confirmado=0 and cuenta=:cuenta
      * @param string $c_cvge
      */
     private function runAddTemp($stpa, $cuenta, $fecha, $monto, $c_cvge) {
-            $stpa->bindParam(':cuenta', $$cuenta);
+            $stpa->bindParam(':cuenta', $cuenta);
             $stpa->bindParam(':fecha', $fecha);
             $stpa->bindParam(':monto', $monto);
             $stpa->bindParam(':c_cvge', $c_cvge);

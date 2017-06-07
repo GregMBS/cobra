@@ -81,7 +81,7 @@ class SegmentadminClass {
         }
         $querylistcamp = "update queuelist
             set camp=auto where camp=9999999;";
-        $$this->pdo->query($querylistcamp);
+        $this->pdo->query($querylistcamp);
     }
 
     /**
