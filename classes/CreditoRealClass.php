@@ -185,22 +185,41 @@ ORDER BY d_fech, c_hrin";
 
     /**
      * 
+     * @param string $c_cvst
+     * @return boolean
+     */
+    private function checkstat($c_cvst) {
+        $stats = array_keys($this->resCode);
+        $good = in_array($c_cvst, $stats);
+        return $good;
+    }
+
+    private function loadArray($inrow) {
+        $outrow = array();
+        foreach ($this->keys as $key) {
+            $outrow[] = $inrow[$key];
+        }
+        return $outrow;
+    }
+
+    /**
+     * 
      * @param array $data
      * @return array
      */
     private function addSpecialData($data) {
         $output = array();
         foreach ($data as $row) {
-            $inrow = $row;
-            $inrow['despacho'] = 'PAVE';
-            $inrow['actCode'] = $this->getAccionCode($row['c_accion']);
-            $inrow['resCode'] = $this->getResultCode($row['c_cvst']);
-            $inrow['statCode'] = $this->getStatusCode($row['c_cvst']);
-            $outrow = array();
-            foreach ($this->keys as $key) {
-                $outrow[] = $inrow[$key];
+            $good = $this->checkstat($row['c_cvst']);
+            if ($good) {
+                $inrow = $row;
+                $inrow['despacho'] = 'PAVE';
+                $inrow['actCode'] = $this->getAccionCode($row['c_accion']);
+                $inrow['resCode'] = $this->getResultCode($row['c_cvst']);
+                $inrow['statCode'] = $this->getStatusCode($row['c_cvst']);
+                $outrow = $this->loadArray($inrow);
+                $output[] = $outrow;
             }
-            $output[] = $outrow;
         }
         return $output;
     }
