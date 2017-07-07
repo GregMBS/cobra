@@ -627,7 +627,7 @@ WHERE status_de_credito  = '" . $sdc . "'
         $querymain = "SELECT * FROM resumen 
 WHERE (status_de_credito  = '" . $sdc . "' 
  AND locker is null
- AND status_de_credito not regexp '[dv]o$'
+ AND status_de_credito not regexp '-'
  AND cliente='" . $cliente . "' 
  AND ((status_aarsa='') or (status_aarsa is null)))
  ORDER BY saldo_total desc LIMIT 1";
