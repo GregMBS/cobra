@@ -7,6 +7,7 @@ $capt   = '';
 $mytipo = '';
 require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();
+var_dump($pdoc); die();
 $pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
 //include 'config.php';
