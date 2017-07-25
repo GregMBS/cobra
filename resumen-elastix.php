@@ -1,9 +1,14 @@
 <?php
+use cobra_salsa\PdoClass;
+
 date_default_timezone_set('America/Monterrey');
 $con    = '';
 $capt   = '';
 $mytipo = '';
-include('usuario_hdr_i.php');
+require_once 'classes/PdoClass.php';
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectUser();
+$con = $pdoc->dbConnectUserMysqli();
 include 'config.php';
 $tcapt  = $capt;
 $C_CVGE = $capt;
