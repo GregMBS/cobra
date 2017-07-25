@@ -33,5 +33,5 @@ $stq->bindParam(':capt', $capt);
 $stq->execute();
 $field='ID_CUENTA';
 $find= filter_input(INPUT_GET, 'find');
-$redirector = "Location: resumen.php?go=FROMBUSCAR&i=0&elastix=yes&field=id_cuenta&find=".$find."&capt=".$capt;
+$redirector = "Location: resumen-elastix.php?go=FROMBUSCAR&i=0&elastix=yes&field=id_cuenta&find=".$find."&capt=".$capt;
 header($redirector);
