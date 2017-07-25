@@ -13,7 +13,9 @@ class BestClass extends BaseClass
 
     public function getResumenData() {
         $query = "select id_cuenta,numero_de_cuenta,status_de_credito,
-        saldo_total,fecha_ultima_gestion,nombre_deudor,producto,status_aarsa
+        saldo_total,saldo_descuento_1,saldo_descuento_2,
+        fecha_ultima_gestion,nombre_deudor,producto,subproducto,status_aarsa,
+        domicilio_deudor,colonia_deudor,ciudad_deudor,estado_deudor
         from resumen
         where status_de_credito not regexp '-'
         order by numero_de_cuenta";
