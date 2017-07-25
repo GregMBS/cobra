@@ -1,16 +1,14 @@
 <?php
-use cobra_salsa\PdoClass;
-require_once 'classes/PdoClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectUser();
-$con = $pdoc->dbConnectUserMysqli();
-$capt = $pdoc->capt;
-
 date_default_timezone_set('America/Monterrey');
+$con    = '';
+$capt   = '';
+$mytipo = '';
+include('usuario_hdr_i.php');
+include 'config.php';
 $tcapt  = $capt;
 $C_CVGE = $capt;
 $elast  = filter_input(INPUT_GET, 'elastix');
-$find   = filter_input(INPUT_GET, 'find');
+$findi  = filter_input(INPUT_GET, 'find');
 $get    = filter_input_array(INPUT_GET);
 if (isset($elast)) {
     $elastix = mysqli_real_escape_string($con, $elast);
@@ -38,7 +36,12 @@ if (!empty($mytipo)) {
     if (!empty($get['shutup'])) {
         $shutup = 1;
     }
+    $findr = mysqli_real_escape_string($con, $findi);
+    $capt  = mysqli_real_escape_string($con, $get['capt']);
     // We perform a bit of filtering
+    $findu = strtoupper($findr);
+    $finds = strip_tags($findu);
+    $find  = trim($finds);
 }
 $pagalert    = 0;
 $querypagos  = "select (c_cvst like 'PAG%'),c_cont from historia
@@ -722,4 +725,1695 @@ while ($answerd = mysqli_fetch_row($resultd)) {
         $dday2 = $answerd[2];
     }
 }
-require_once 'resumenView.php';
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resumen desde ELASTIX</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/redmond/jquery-ui.css" type="text/css" media="all" /> 
+        <script src="js/jquery-1.5.1.min.js" type="text/javascript"></script> 
+        <script src="js/jquery-ui-1.8.13.custom.min.js" type="text/javascript"></script> 
+        <style type="text/css">
+            body {font-family: verdana,arial, helvetica, sans-serif; font-size: 10pt; background-color: #ffffff;color:#000000;}
+            .hidebox {display:none}
+            div {clear:both}
+            span.formcap {display: block; width: 20em; float: left; font-size: 100%; font-weight:bold;}
+            span.formcapa {display: block; width: 13em; float: left; font-size: 100%; font-weight:bold;}
+            span.formcaps {display: block; width: 6em; float: left; font-size: 100%; font-weight:bold;}
+            #deudor {width: 7em;}
+            #domicilio {width: 7em;}
+            span.formtit {display: block; width: 24em; float: left; font-size: 100%; font-weight:bold;}
+            span.formfirst {display: block; width: 24em; float: left;}
+            select, input, button {font-family: verdana,arial, helvetica, sans-serif;font-size:100%}
+            input {font-family: verdana,arial, helvetica, sans-serif;font-size:100%; font-weight:bold;}
+            #GESTION input {font-size:80%; width:auto}
+            #GENERAL textarea {font-family: verdana,arial, helvetica, sans-serif;font-size:90%;width:9cm; font-weight:normal;}
+            #GENERAL table {width:100%}
+            #GENERAL td {border:0}
+            #CONTABLES table {width:100%}
+            #CONTABLES td {border:0; font-weight:normal; font-size:90%;}
+            #GESTION table {width:100%;background-color:#ddffdd}
+            #GESTION tr {background-color:#ddffdd}
+            #GESTION td {border:0; font-weight:bold; font-size:80%; background-color:#ddffdd}
+            #VISITA table {width:100%}
+            #VISITA td {border:0; font-weight:normal; font-size:90%;}
+            a:link {color:blue;}   
+            a:visited {color:green;}   
+            a:hover {color:red;}   
+            a:active {color:yellow;}   
+            #telefono2 {font-weight:bold;}   
+            #telbox span.formcap {display: block; width: 14em; float: left;}
+            #demobox {float: left;}
+            .telbox {float: left;}
+            .verif {font-weight:bold; background-color:#00ff00;}
+            #descbox {float: left;}
+            #gestionbox {clear: right;}
+            #capturabox {float: left;}
+            #guardbox {float: left; width:42em;}
+            #captresbox {float: left;}
+            #notabox {float: left;}
+            .clearbox {clear: both; text-align: center;}
+            table {color:#000000;}
+            tr {height:2em;}
+            th {width: 9em;}
+            th.gestion {width: 32em;}
+            th.status {width: 16em;}
+            th.timestamp {width: 8em;}
+            th.telefono {width: 8em;}
+            th.chico {width: 5em;}
+            td {border: 1pt solid #000000;background-color: #ffffff; width:10em;}
+            td.gestion {width: 32em;height: 1em;overflow:hidden;}
+            td.status {width: 16em;}
+            td.timestamp {width: 8em;}
+            td.telefono {width: 8em;}
+            td.chico {width: 5em;}
+            #tableContainer {height: 4cm; overflow: scroll;}
+            .noshow { display: none; width: 0;}
+            #searchbox {z-index: 98; display: none; position: absolute; left: 30%; top: 30%; color: #000000; background-color: #ffffff; text-align: center; padding: 1em; border: 2px black solid;}
+            #searchbox input {color: #000000; background-color: #ffffff;}
+            #calm {z-index: 98; position: absolute; left: 30%; top: 30%; color: #000000; background-color: #ffffff; text-align: center; padding: 1em; border: 2px black solid;}
+            #calm input {color: #000000; background-color: #ffffff;}
+            #pagocapt td {background-color: #ffff00;}
+            #pagocapt2 td {background-color: #ffff00;}
+            .visitable td {border:0; background-color: transparent;width:auto;}
+            #buttonbox form {float:left}
+            .buttons {float:left;width:auto}
+            .buttons input {float:left}
+            .buttons button {float:left;width:auto}
+            <?php if ($notalert > 0) { ?> 
+                #notasq input {background-color: #ff0000;}
+                <?php
+            }
+            if ($pagalert > 0) {
+                ?> 
+                #pagos input {background-color: #ff0000;}
+                <?php
+            }
+            if ($mytipo == 'visitador') { ?> 
+                #databox,#prombox,#nuevoboxt,#combox,#guardbox,#dtelboxt,#clock {display:none;}
+                #visitboxt,#visitbox {display:block;}
+<?php
+}
+if ($cliente != "Prestamo Familiar") {
+    ?>
+                .PrestamoFamiliar { visibility:hidden;}
+    <?php
+}
+?>
+            .deudor {color: #ff0000;}
+            .visit {color: #00aa00;}
+            #avalbox input {font-size: 85%}
+            #avalbox .shortinp {width: 5em;}
+        </style>
+        <script type="text/javascript" src="dom-drag.js"></script>
+        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
+            $(function() {
+            $( "#tab" ).tabs();
+            $( ".buttons button" ).button();
+            $( ".buttons input[name='go']" ).button();
+            $( "#inactivo" ).dialog({ 
+            autoOpen: false, 
+            modal: true, 
+            buttons: { "Ok": function() { $(this).dialog("close"); } } });
+<?php
+if ((preg_match('/o$/', $status_de_credito)) || (preg_match('/o$/',
+        $status_de_credito))) {
+    ?>
+                $("#inactivo").dialog("open")
+<?php } ?>
+
+            });
+            function trim(str)
+            {
+            if(!str || typeof str != 'string')
+            return null;
+
+            return str.replace(/^[\s]+/,'').replace(/[\s]+$/,'').replace(/[\s]{2,}/,' ');
+            }function beep() {}
+            function paging(pageid) {
+            document.getElementById("TELEFONOS").style.display="none";
+            document.getElementById("REFERENCIAS").style.display="none";
+            document.getElementById("LABORAL").style.display="none";
+            document.getElementById("CONTABLES").style.display="none";
+            document.getElementById("MISCELANEA").style.display="none";
+<?php if (($cliente == 'FISA') || ($cliente == 'Surtidor del Hogar')) { ?>
+                document.getElementById("EXTRAS").style.display="none";
+<?php } ?>
+            document.getElementById("HISTORIA").style.display="none";
+            document.getElementById(pageid).style.display="block";
+            document.getElementById("GESTION").style.display="block";
+            }
+            function gestionChange(thisform)
+            {
+            with (thisform) {
+            N_PROM.value=(N_PROM1.value*1)+(N_PROM2.value*1)+(N_PROM3.value*1)+(N_PROM4.value*1);
+            if ((C_CVST.value=='PAGO TOTAL')||(C_CVST.value=='PAGO PARCIAL')||(C_CVST.value=='PAGANDO CONVENIO')||(C_CVST.value=='REESTRUCTURADA')||(C_CVST.value=='REGULARIZADA')) {
+            document.getElementById("pagocapt").style.display="table-row";document.getElementById("pagocapt2").style.display="table-row";
+            }
+            }
+            }
+
+            function clock() {
+            var d=new Date();
+            var tn=d.getTime();
+            var tll = new Date('<?php echo $tl; ?>');
+            var tl=tll.getTime();
+            document.getElementById("timer").value=tn-tl;
+            document.getElementById("timers").value=parseInt(parseInt(document.getElementById("timer").value)/1000)%60;
+            document.getElementById("timerm").value=parseInt(parseInt(document.getElementById("timer").value)/1000/60);
+            if (document.getElementById("timerm").value>2) {
+            document.getElementById("clock").style.backgroundColor="yellow";
+            }
+            if (document.getElementById("timerm").value>4) {
+            document.getElementById("clock").style.backgroundColor="red";
+            }
+            if (document.getElementById("timer").value%2==0) {
+            document.getElementById("clock").style.backgroundColor="green";
+            }
+            }
+            function openSearch() {
+            setInterval('clock()',1000);
+            <?php
+            if (isset($breakflag)) {
+                if ($breakflag == 1) {
+                    ?>
+                    alert("Tiene <?php echo $btipo; ?> entre <?php echo $bemp; ?> y <?php echo $bterm; ?>");
+        <?php
+    }
+}
+if ($lockflag == 1) {
+    ?>
+                alert("ERROR EA5 - Esta record está en uso de <?php echo $locker ?>");
+<?php } ?>
+            }
+
+            var r={
+            'special':/[\W]/g,
+            'quotes':/['\''&'\"']/g,
+            'notnumbers':/[^\d]/g
+            }
+
+            function valid(o,w){
+            o.value = o.value.replace(r[w],' ');
+            }
+
+            function tooLong(e)
+            {
+            if (window.document.getElementById("C_OBSE1").value.length>250) {
+            window.document.getElementById("C_OBSE1").value=window.document.getElementById("C_OBSE1").value.replace('  ',' ');
+            window.document.getElementById("C_OBSE1").value=window.document.getElementById("C_OBSE1").value.substr(0,200);
+            confirm('GESTION demasiado largo');
+            window.document.getElementById("C_OBSE1").style.backgroundColor="yellow";
+            return false;}
+            }
+            function logout()
+            {
+            window.location="resumen-elastix.php?capt=<?php echo $capt; ?>&go='LOGOUT'";
+            }
+
+            function showsearch()
+            {
+            document.getElementById('searchbox').style.display="block";
+            document.getElementById('find').focus();
+            }
+            function showbox(boxname)
+            {
+            document.getElementById(boxname).style.display="block";
+            }
+            function cancelbox(boxname)
+            {
+            document.getElementById(boxname).style.display="none";
+            searching="";
+            }
+            function addToTels(pos,tel) {
+            document.getElementById("C_TELE").options[pos]=new Option(tel.value, tel.value, true, true);
+            document.getElementById("C_TELE").options[pos].style.fontWeight="bold";
+            document.getElementById("C_TELE").options[pos].style.backgroundColor="#00FF00";
+            }
+            function dial(capt,cta) {
+            tel=document.gestion.C_TELE.value;
+            if (!parseInt(tel)){alert('ERROR EA6 - No es numero.');}
+            else if ((tel.length!=8) && (tel.length!=10) && (tel.length!=12) && (tel.length!=13)) {
+            alert('ERROR EA7 - Telefono invalido.');
+            }
+            else {
+            dialstr="dial2.php?capt="+capt+"&cta="+cta+"&tel="+tel;
+            window.open(dialstr);
+            }
+            }
+        </SCRIPT>
+        <script type="text/javascript" src="depuracion.js"></script>
+        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
+    </head>
+    <body onLoad="alerttxt = new String('');
+            paging('HISTORIA');
+            openSearch();<?php ?>" id="todos">
+        <div id="buttonbox">
+                <?php if (true) { ?>
+                <form class="buttons" name="visitlist" method="get" action=
+                      "visitlist.php" id="visitlist" target="_blank">
+                    <input type="hidden" name="capt" value="<?php echo $capt ?>">
+                    <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
+                    <input type="hidden" name="ejecutivo_asignado_call_center" value="<?php echo $ejecutivo_asignado_call_center ?>">
+                    <input type="submit" name="go" value="VISITAS"></form>
+                <form class="buttons" name="pagos" method="get" action="pagos.php" id="pagos" target="_blank">
+                    <input type="hidden" name="capt" value="<?php
+                           if (isset($capt)) {
+                               echo $capt;
+                           }
+                           ?>">
+                    <input type="hidden" name="id_cuenta" value="<?php
+                        if (isset($id_cuenta)) {
+                            echo $id_cuenta;
+                        }
+                        ?>">
+                    <input type="submit" name="go" value="PAGOS"></form>
+                <button class="buttons" type="button" value="white" onclick=
+                        "window.open('white.php?capt=<?php echo $capt ?>', 'newWin', 'resizable=yes,width=400,height=400,scrollbars=yes');">PAGINAS BLANCAS</button>
+                    <?php
+                    $CTA = $numero_de_credito;
+                    if ($cliente != 'Prestamo Relampago') {
+                        $CTA = $numero_de_cuenta;
+                    }
+                    if (($cliente == 'Credito Si B') || ($cliente == 'Credito Si F')) {
+                        ?>
+                    <form class="buttons" name="folios" method="get" action="folios.php" id="folios" target="_blank">
+                        <input type="hidden" name="capt" value="<?php
+                               if (isset($capt)) {
+                                   echo $capt;
+                               }
+                               ?>">
+                        <input type="hidden" name="tipo" value="<?php
+                    if (isset($mytipo)) {
+                        echo $mytipo;
+                    }
+                    ?>">
+                        <input type="hidden" name="CUENTA" value="<?php echo $CTA; ?>">
+                        <input type="hidden" name="CLIENTE" value="<?php echo $cliente; ?>">
+                        <input type="hidden" name="source" value="resumen-elastix">
+                        <input type="submit" name="go" value="FOLIOS"></form>
+                    <?php } ?>
+                <form class="buttons" name="notas" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
+                                                                                                                     name="capt" value="<?php
+                           if (isset($capt)) {
+                               echo $capt;
+                           }
+                           ?>">
+                    <input type="hidden" name="CUENTA" value="<?php
+                           if (isset($numero_de_cuenta)) {
+                               echo $numero_de_cuenta;
+                           }
+                           ?>">
+                    <input type="hidden" name="C_CONT" value="<?php
+                    if (isset($id_cuenta)) {
+                        echo $id_cuenta;
+                    }
+                    ?>">
+                    <input type="submit" name="go" value="NOTAS"></form>
+                <form class="buttons" name="logout" method="get" action=
+                      "resumen-elastix.php" id="logout">
+                    <input type="hidden" name="capt" value="<?php
+                       if (isset($capt)) {
+                           echo $capt;
+                       }
+                       ?>">
+                    <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
+                    <input type="submit" name="go" value="LOGOUT"></form>
+                <button><?php echo $cliente ?></BUTTON>
+                <?php if ($mytipo == 'admin') { ?>
+                    <form class="buttons" action="reports.php" method="get">
+                        <input type="hidden" name="capt" value="<?php echo $capt; ?>">
+                        <input type="submit" value="REPORTES">
+                    </form>
+                <?php } ?>
+
+                <span style='font-weight:bold;font-size:120%;'><?php echo $capt; ?></span>
+                <?php if (!empty($cliente)) { ?>
+                    <span onmouseover='this.style.visibility = "hidden";'><img style="position:absolute;top:0;right:0" height=50 alt="client logo" src='<?php echo $cliente ?>.jpg'></span>
+                        <?php
+                    }
+                    if ($nfolio > 0) {
+                        echo $nfolio;
+                        ?>
+                    &nbsp;es folio sig.
+                           <?php } ?>
+                <form class="buttons" name="trouble" method="get" action="trouble.php" id="trouble" target="_blank">
+                    <input type="hidden" name="capt" value="<?php
+                       if (isset($capt)) {
+                           echo $capt;
+                       }
+                       ?>">
+    <?php
+    include 'privacidadInclude.php';
+    ?>
+                    <input type="submit" name="go" value="ERROR">
+                </form>
+            </div>
+            <form action="#" method="post" name="resumenform" id=
+                  "resumenform">
+                <div id="GENERAL">
+                    <table summary="demograficas">
+                        <tr>
+                            <td>
+                                <span class='formcapa' id='deudor'>Deudor</span><input type='text' size=50 style='width:7.1cm' name=nombre_deudor id="nombre_deudor" readonly='readonly' value='<?php
+                                    if (isset($nombre_deudor)) {
+                                        echo htmlentities($nombre_deudor);
+                                    }
+                                    ?>'><br>
+                            </td>
+                            <td>
+                                <span class='formcapa' id='domicilio'>Domicilio</span>
+                                <textarea name=domicilio_deudor id=domicilio_deudor readonly='readonly' rows=5 cols=20>
+                                <?php echo $domicilio_deudor."\n".$colonia_deudor."\n".$ciudad_deudor.", ".$estado_deudor.'  '.$cp_deudor; ?>
+                                </textarea>
+                            </td>
+                        <tr>
+                            <td>
+                                <span class='formcapa'>Gestor - call center</span><input type='text' name=ejecutivo_asignado_call_center readonly='readonly' value='<?php
+                                                                                     if (isset($ejecutivo_asignado_call_center)) {
+                                                                                         echo $ejecutivo_asignado_call_center;
+                                                                                     }
+                                                                                     ?>'><br>
+                                <span class='formcapa'>Numero de cuenta</span><input type='text' name=numero_de_cuenta id="numero_de_cuenta" readonly='readonly' value='<?php
+                                if (isset($numero_de_cuenta)) {
+                                    echo $numero_de_cuenta;
+                                }
+                                ?>'><br>
+                                <span class='formcapa'>Gestiones: <?php echo $countg; ?></span>&nbsp;<span class='formcapa'>Promesas: <?php echo $countpr; ?></span><span class='formcapa'>Pagos: <?php echo $npagos; ?></span><br>
+                                <span class='formcapa'>Status de la Cuenta</span><input type='text' name=status_aarsa readonly='readonly' value='<?php
+                                if (isset($status_aarsa)) {
+                                    echo $status_aarsa;
+                                }
+                                ?>'><br>
+                            </td>
+                            <td>
+                                <div id='clock'>
+                                    <input type="hidden" name="timer" id="timer" readonly="readonly" value="0">:
+                                    <input type="text" name="timerm" id="timerm" readonly="readonly" value="0" size="3">:
+                                    <input type="text" name="timers" id="timers" readonly="readonly" value="0" size="3"><br>
+                                    <?php
+                                    $numgest  = 0;
+                                    $numprom  = 0;
+                                    $queryng  = "SELECT count(1),sum(n_prom>0) FROM historia
+WHERE c_cvge='".$capt."' 
+AND d_fech=curdate()
+AND c_cont <> '0'
+";
+                                    $resultng = mysqli_query($con, $queryng);
+                                    $campoc   = " style='background-color:red; color:white;'";
+                                    while ($answerng = mysqli_fetch_row($resultng)) {
+                                        $numgest = $answerng[0];
+                                        $numprom = $answerng[1] + 0;
+                                        if ($numgest > 20) {
+                                            $campoc = " style='background-color:yellow; color:black;'";
+                                        }
+                                        if ($numgest > 40) {
+                                            $campoc = " style='background-color:green; color:white;'";
+                                        }
+                                    }
+                                    ?>
+                                    <input type="text"<?php echo $campoc; ?> name="numgest" id="numgest" readonly="readonly" value="<?php echo $numgest.' gestiones'; ?>">
+                                    <input type="text" name="numprom" id="numprom" readonly="readonly" value="<?php echo $numprom.' promesas'; ?>">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clearbox" id="tab">
+                    <UL class='tabs'>
+                        <LI><A onClick="paging('TELEFONOS');">TELEFONOS</A></LI>
+                        <LI><A onClick="paging('REFERENCIAS');">REFERENCIAS</A></LI>
+                        <LI><A onClick="paging('LABORAL');">LABORAL</A></LI>
+                        <LI><A onClick="paging('CONTABLES');">CONTABLES</A></LI>
+                        <LI><A onClick="paging('MISCELANEA');">MISCELANEA</A></LI>
+                    <?php if (($cliente == 'FISA') || ($cliente
+                        == 'Surtidor del Hogar')) { ?>
+                            <LI><A onClick="paging('EXTRAS');">EXTRAS</A></LI>
+                                                             <?php } ?>
+                        <LI><A onClick="paging('HISTORIA');">HISTORIA</A></LI>
+                    </UL>
+                </div>
+                <div id="TELEFONOS">
+                    <span class='formcap'>Tel 1</span><input type='text' name=tel_1 id="tel_1" readonly='readonly' value='<?php
+                                                         if (isset($tel_1)) {
+                                                             echo $tel_1;
+                                                         }
+                                                             ?>'><br>
+                    <span class='formcap'>Tel 2</span><input type='text' name=tel_2 id="tel_2" readonly='readonly' value='<?php
+                if (isset($tel_2)) {
+                    echo $tel_2;
+                }
+                                                             ?>'><br>
+                    <span class='formcap'>Tel 3</span><input type='text' name=tel_3 id="tel_3" readonly='readonly' value='<?php
+                if (isset($tel_3)) {
+                    echo $tel_3;
+                }
+                ?>'><br>
+                    <span class='formcap'>Tel 4</span><input type='text' name=tel_4 id="tel_4" readonly='readonly' value='<?php
+                    if (isset($tel_4)) {
+                        echo $tel_4;
+                    }
+                    ?>'><br>
+                </div>
+                <div id="REFERENCIAS">
+                                                             <?php if (isset($nombre_deudor_alterno)) { ?>
+                        <span class='formcaps'>Aval</span><input type='text' name=nombre_deudor_alterno id="nombre_deudor_alterno" readonly='readonly' value='<?php
+                        if (isset($nombre_deudor_alterno)) {
+                            echo htmlentities($nombre_deudor_alterno);
+                        }
+                        ?>'>
+                               <?php
+                           }
+                           if (isset($parentesco_aval)) {
+                               ?>
+                        <input type='text' name=parentesco_aval class='shortinp' readonly='readonly' value='<?php
+                        if (isset($parentesco_aval)) {
+                            echo $parentesco_aval;
+                        }
+                        ?>'><br>
+                                                              <?php } ?>
+                    <br>
+                                                              <?php if (isset($tel_1_alterno)) { ?>
+                        <span class='formcaps'>Tel 1</span><input type='text' name=tel_1_alterno id="tel_1_alterno" readonly='readonly' value='<?php
+                        if (isset($tel_1_alterno)) {
+                            echo $tel_1_alterno;
+                        }
+                        ?>'><br>
+                                                                  <?php
+                                                              }
+                                                              if (isset($tel_2_alterno)) {
+                                                                  ?>
+                        <span class='formcaps'>Tel 2</span><input type='text' name=tel_2_alterno id="tel_2_alterno" readonly='readonly' value='<?php
+                        if (isset($tel_2_alterno)) {
+                            echo $tel_2_alterno;
+                        }
+                        ?>'><br>
+                                                                  <?php
+                                                              }
+                                                              if (isset($tel_3_alterno)) {
+                                                                  ?>
+                        <span class='formcaps'>Tel 3</span><input type='text' name=tel_3_alterno id="tel_3_alterno" readonly='readonly' value='<?php
+                        if (isset($tel_3_alterno)) {
+                            echo $tel_3_alterno;
+                        }
+                        ?>'><br>
+                                                                  <?php
+                                                              }
+                                                              if (isset($tel_4_alterno)) {
+                                                                  ?>
+                        <span class='formcaps'>Tel 4</span><input type='text' name=tel_4_alterno id="tel_4_alterno" readonly='readonly' value='<?php
+                        if (isset($tel_4_alterno)) {
+                            echo $tel_4_alterno;
+                        }
+                        ?>'><br>
+                        <?php
+                    }
+                    if ($cliente == 'UR') {
+                        ?>
+                        <span class='formcap'>Madre</span>
+                    <?php } else { ?>
+                        <span class='formcaps'>Ref 1</span>
+                               <?php
+                           }
+                           if (isset($nombre_referencia_1)) {
+                               ?>
+                        <input type='text' size=40 name=nombre_referencia_1 id="nombre_referencia_1" readonly='readonly' value='<?php
+                        if (isset($nombre_referencia_1)) {
+                            echo htmlentities($nombre_referencia_1);
+                        }
+                        ?>'>
+                               <?php
+                           }
+                           if (isset($referencias_1)) {
+                               ?>
+                        <input type='text' name=referencias_1 class='shortinp' readonly='readonly' value='<?php
+                        if (isset($referencias_1)) {
+                            echo $referencias_1;
+                        }
+                        ?>'><br>
+                                                              <?php } ?>
+                    <br>
+                                                              <?php if (isset($tel_1_ref_1)) { ?>
+                        <span class='formcaps'>Tel 1</span><input type='text' name=tel_1_ref_1 id="tel_1_ref_1" readonly='readonly' value='<?php
+                        if (isset($tel_1_ref_1)) {
+                            echo $tel_1_ref_1;
+                        }
+                        ?>'><br>
+                                                                  <?php
+                                                              }
+                                                              if (isset($tel_2_ref_1)) {
+                                                                  ?>
+                        <span class='formcaps'>Tel 2</span><input type='text' name=tel_2_ref_1 id="tel_2_ref_1" readonly='readonly' value='<?php
+                        if (isset($tel_2_ref_1)) {
+                            echo $tel_2_ref_1;
+                        }
+                        ?>'><br>
+                        <?php
+                    }
+                    if ($cliente == 'UR') {
+                        ?>
+                        <span class='formcap'>Padre</span>
+                    <?php } else { ?>
+                        <span class='formcaps'>Ref 2</span>
+                               <?php
+                           }
+                           if (isset($nombre_referencia_2)) {
+                               ?>
+                        <input type='text' size=40 name=nombre_referencia_2 id="nombre_referencia_2" readonly='readonly' value='<?php
+                        if (isset($nombre_referencia_2)) {
+                            echo htmlentities($nombre_referencia_2);
+                        }
+                        ?>'>
+                               <?php
+                           }
+                           if (isset($referencias_2)) {
+                               ?>
+                        <input type='text' name=referencias_2  class='shortinp' readonly='readonly' value='<?php
+                        if (isset($referencias_2)) {
+                            echo $referencias_2;
+                        }
+                        ?>'><br>
+                                                              <?php } ?>
+                    <br>
+                                                              <?php if (isset($tel_1_ref_2)) { ?>
+                        <span class='formcaps'>Tel 1</span><input type='text' name=tel_1_ref_2 id="tel_1_ref_2" readonly='readonly' value='<?php
+                        if (isset($tel_1_ref_2)) {
+                            echo $tel_1_ref_2;
+                        }
+                        ?>'><br>
+                                                                  <?php
+                                                              }
+                                                              if (isset($tel_2_ref_2)) {
+                                                                  ?>
+                        <span class='formcaps'>Tel 2</span><input type='text' name=tel_2_ref_2 id="tel_2_ref_2" readonly='readonly' value='<?php
+                        if (isset($tel_2_ref_2)) {
+                            echo $tel_2_ref_2;
+                        }
+                        ?>'><br>
+                        <?php
+                    }
+                    if ($cliente == 'UR') {
+                        ?>
+                        <span class='formcap'>Tutor</span>
+                    <?php } else { ?>
+                        <span class='formcaps'>Ref 3</span>
+                               <?php
+                           }
+                           if (isset($nombre_referencia_3)) {
+                               ?>
+                        <input type='text' size=40 name=nombre_referencia_3 id="nombre_referencia_3" readonly='readonly' value='<?php
+                        if (isset($nombre_referencia_3)) {
+                            echo htmlentities($nombre_referencia_3);
+                        }
+                        ?>'>
+                               <?php
+                           }
+                           if (isset($referencias_3)) {
+                               ?>
+                        <input type='text' name=referencias_3  class='shortinp' readonly='readonly' value='<?php
+                        if (isset($referencias_3)) {
+                            echo $referencias_3;
+                        }
+                        ?>'><br>
+                                                              <?php } ?>
+                    <br>
+                                                              <?php if (isset($tel_1_ref_3)) { ?>
+                        <span class='formcaps'>Tel 1</span><input type='text' name=tel_1_ref_3 id="tel_1_ref_3" readonly='readonly' value='<?php
+                        if (isset($tel_1_ref_3)) {
+                            echo $tel_1_ref_3;
+                        }
+                        ?>'><br>
+                                                                  <?php
+                                                              }
+                                                              if (isset($tel_2_ref_3)) {
+                                                                  ?>
+                        <span class='formcaps'>Tel 2</span><input type='text' name=tel_2_ref_3 id="tel_2_ref_3" readonly='readonly' value='<?php
+                                                          if (isset($tel_2_ref_3)) {
+                                                              echo $tel_2_ref_3;
+                                                          }
+                                                                  ?>'><br>
+                               <?php
+                           }
+                           if (isset($nombre_referencia_4)) {
+                               ?>
+                        <span class='formcaps'>Cosolicitante</span>
+                        <input type='text' size=40 name=nombre_referencia_4 id="nombre_referencia_4" readonly='readonly' value='<?php
+                        if (isset($nombre_referencia_4)) {
+                            echo htmlentities($nombre_referencia_4);
+                        }
+                        ?>'>
+                               <?php
+                           }
+                           if (isset($referencias_4)) {
+                               ?>
+                        <input type='text' name=referencias_4  class='shortinp' readonly='readonly' value='<?php
+                        if (isset($referencias_4)) {
+                            echo $referencias_4;
+                        }
+                        ?>'><br>
+                                                              <?php } ?>
+                    <br>
+                                                              <?php if (isset($tel_1_ref_4)) { ?>
+                        <span class='formcaps'>Tel 1</span><input type='text' name=tel_1_ref_4 id="tel_1_ref_4" readonly='readonly' value='<?php
+                        if (isset($tel_1_ref_4)) {
+                            echo $tel_1_ref_4;
+                        }
+                        ?>'><br>
+                                                                  <?php
+                                                              }
+                                                              if (isset($tel_2_ref_4)) {
+                                                                  ?>
+                        <span class='formcaps'>Tel 2</span><input type='text' name=tel_2_ref_4 id="tel_2_ref_4" readonly='readonly' value='<?php
+                        if (isset($tel_2_ref_4)) {
+                            echo $tel_2_ref_4;
+                        }
+                        ?>'><br>
+                    <?php } ?>
+                </div>
+
+                <div id="LABORAL">
+                    <span class='formcap'>Empresa</span><input type='text' name=empresa readonly='readonly' value='<?php
+                    if (isset($empresa)) {
+                        echo $empresa;
+                    }
+                    ?>'><br>
+                    <span class='formcap'>Domicilio</span><input type='text' name=domicilio_laboral readonly='readonly' value='<?php
+                if (isset($domicilio_laboral)) {
+                    echo $domicilio_laboral;
+                }
+                    ?>'><br>
+                    <span class='formcap'>Colonia</span><input type='text' name=colonia_laboral readonly='readonly' value='<?php
+                if (isset($colonia_laboral)) {
+                    echo $colonia_laboral;
+                }
+                    ?>'><br>
+                    <span class='formcap'>Ciudad</span><input type='text' name=ciudad_laboral readonly='readonly' value='<?php
+                if (isset($ciudad_laboral)) {
+                    echo $ciudad_laboral;
+                }
+                    ?>'><br>
+                    <span class='formcap'>Estado</span><input type='text' name=estado_laboral readonly='readonly' value='<?php
+                if (isset($estado_laboral)) {
+                    echo $estado_laboral;
+                }
+                    ?>'><br>
+                    <span class='formcap'>CP</span><input type='text' name=cp_laboral readonly='readonly' value='<?php
+                if (isset($cp_laboral)) {
+                    echo $cp_laboral;
+                }
+                    ?>'><br>
+                    <span class='formcap'>Tel 1</span><input type='text' name=tel_1_laboral id="tel_1_laboral" readonly='readonly' value='<?php
+                if (isset($tel_1_laboral)) {
+                    echo $tel_1_laboral;
+                }
+                    ?>'><br>
+                    <span class='formcap'>Tel 2</span><input type='text' name=tel_2_laboral id="tel_2_laboral" readonly='readonly' value='<?php
+            if (isset($tel_2_laboral)) {
+                echo $tel_2_laboral;
+            }
+            ?>'><br>
+                </div>
+    <?php
+    if ($cliente == 'FISA') {
+        ?>
+                    <div id="EXTRAS">
+                        <table summary="sdh extras">
+                            <tr>
+                                <th>Grupo</th>
+                                <th>Dias Vencidos</th>
+                                <th>Meses Vencidos</th>
+                                <th>Cuenta Banamex</th>
+                                <th>Ref. Banamex</th>
+                                <th>Ref. BBVA</th>
+                                <th>Ref. Conexia</th>
+                                <th>Ref. FISA</th>
+                            </tr>
+        <?php
+        $prods     = "";
+        $querysdh  = "SELECT grupo,mora,mora/30.25,c_bmx,a_bmx,a_bbva,a_conexia,a_fisa
+ FROM fisa_extras 
+where credito='".$numero_de_credito."'";
+        $resultsdh = mysqli_query($con, $querysdh);
+        while ($answersdh = mysqli_fetch_row($resultsdh)) {
+            ?>
+                                <tr>
+                                    <td><?php echo $answersdh[0]; ?></td>
+                                    <td><?php echo $answersdh[1]; ?></td>
+                                    <td><?php echo $answersdh[2]; ?></td>
+                                    <td><?php echo $answersdh[3]; ?></td>
+                                    <td><?php echo $answersdh[4]; ?></td>
+                                    <td><?php echo $answersdh[5]; ?></td>
+                                    <td><?php echo $answersdh[6]; ?></td>
+                                    <td><?php echo $answersdh[7]; ?></td>
+                                </tr>
+            <?php
+        }
+        ?>
+                        </table>
+                    </div>
+                                <?php } ?>
+                <br>
+                </div>
+
+                <div id="CONTABLES">
+                    <table summary="contables">
+                        <tr>
+                            <td>Numero de credito</td>
+                            <td><input type='text' name=numero_de_credito readonly='readonly' value='<?php
+                                if (isset($numero_de_credito)) {
+                                    echo $numero_de_credito;
+                                }
+                                ?>'></td>
+                                <?php if (($cliente
+                                    != 'GE Capital') && ($cliente != 'CrediClub')) { ?>
+                                <td>Ultimo folio</td>
+                                <td><?php if ($folio != '') { ?>
+                                        <input type='text' name='folio' id='folio' readonly='readonly' value='<?php
+                                    echo
+                                    $folio;
+                                    ?>'></td>
+                                    <?php
+                                }
+                            }
+                            if ($cliente == 'GE Capital') {
+                                ?>
+                                <td>Convenio CIE Bancomer</td>
+                                <td style='font-weight:bold'>632236-<?php echo $numero_de_cuenta; ?><br></td>
+                                <?php
+                            }
+                            if ($cliente == 'Provident') {
+                                ?>
+                                <td>BANCO BANAMEX<br>
+                                    CUENTA 28552<br>
+                                    SUCURSAL 4778<br>
+                                    REFERENCIA <?php echo $numero_de_cuenta; ?></td>
+                                <td>BANCO SANTANDER SERFIN 65502341276<br>
+                                    REFERENCIA <?php echo $numero_de_cuenta; ?></td>
+                                    <?php
+                                }
+                                if ($cliente == 'CrediClub') {
+                                    ?>
+                                <td>Convenio CIE Banorte</td>
+                                <td style='font-weight:bold'>44568-<?php echo substr($numero_de_credito,
+                                -8); ?><br></td>
+    <?php }
+    ?>
+
+                            <td>ID cuenta</td>
+                            <td><input type='text' name="id_cuenta" id="id_cuenta" readonly='readonly' value='<?php
+                                       if (isset($id_cuenta)) {
+                                           echo $id_cuenta;
+                                       }
+                                       ?>'></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de asignacion</td>
+                            <td><input type='text' name=fecha_de_asignacion readonly='readonly' value='<?php
+                            if (isset($fecha_de_asignacion)) {
+                                echo $fecha_de_asignacion;
+                            }
+                                       ?>'></td>
+                            <td>Fecha de actualizacion</td>
+                            <td><input type='text' name=fecha_de_actualizacion readonly='readonly' value='<?php
+                            if (isset($fecha_de_actualizacion)) {
+                                echo $fecha_de_actualizacion;
+                            }
+                                       ?>'></td>
+                            <td>RFC deudor</td>
+                            <td><input type='text' name=rfc_deudor readonly='readonly' value='<?php
+                                       if (isset($rfc_deudor)) {
+                                           echo $rfc_deudor;
+                                       }
+                                       ?>'></td>
+                        </tr>
+                        <tr>
+                            <td>Pagado a la Fecha</td>
+                            <td><input type='text' name=contrato readonly='readonly' value='<?php
+                                       if (isset($contrato)) {
+                                           echo $contrato;
+                                       }
+                                       ?>'></td>
+                            <?php if ($cliente == 'GE Capital') { ?>
+                                <td>Monto asignado</td>
+                                <td><input type='text' name=saldo_cuota readonly='readonly' value='<?php
+                                if (isset($saldo_cuota)) {
+                                    echo '$'.number_format($saldo_cuota);
+                                }
+                                ?>'></td>
+                            </tr>
+    <?php } ?>
+                                <?php if (($cliente == 'Credito Si B')
+                                    || ($cliente == 'Credito Si F')) { ?>
+                            <td>Saldo cuota</td>
+                            <td><input type='text' name=saldo_cuota readonly='readonly' value='<?php
+                                           if (isset($saldo_cuota)) {
+                                               echo '$'.number_format($saldo_cuota);
+                                           }
+                                           ?>'></td></tr>
+                                <?php } ?>
+                        </tr>
+                        <tr>
+                            <td>Saldo total</td>
+                            <td><input type='text' name=saldo_total readonly='readonly' value='<?php
+                            if (isset($saldo_total)) {
+                                echo '$'.number_format($saldo_total);
+                            }
+                                ?>'></td>
+                                <?php if ($cliente
+                                    <> 'GE Capital') { ?>
+                                <td>Monto adeudado</td>
+                                <td><input type='text' name=monto_adeudado readonly='readonly' value='<?php
+                                    if (isset($monto_adeudado)) {
+                                        echo '$'.number_format($monto_adeudado);
+                                    }
+                                    ?>'></td>
+                            </tr>
+                            <tr>
+                                <td>Saldo vencido</td>
+                                <td><input type='text' name=saldo_vencido readonly='readonly' value='<?php
+                            if ($cliente != 'GE Capital') {
+                                echo '$'.number_format($saldo_vencido);
+                            }
+                                    ?>'></td>
+                                <?php } ?>
+                                <?php if (($cliente
+                                    == 'Credito Si B') || ($cliente == 'Credito Si F')) { ?>
+                                <td>Saldo capital</td>
+                                <td><input type='text' name=saldo_descuento_1 readonly='readonly' value='<?php
+                                           if (isset($saldo_descuento_1)) {
+                                               echo '$'.number_format($saldo_descuento_1);
+                                           }
+                                           ?>'>
+                                       <?php } ?>
+                            </td>
+                            <td>Saldo descuento <?php
+                                if (($cliente == 'Credito Si B') || ($cliente == 'Credito Si F')) {
+                                    echo '2';
+                                }
+                                ?></td>
+                            <td><input type='text'
+                                       name=saldo_descuento_2 readonly='readonly' value='<?php
+                                       if
+                                       (isset($saldo_descuento_2)) {
+                                           echo
+                                           '$'.number_format($saldo_descuento_2 + 0.51);
+                                       }
+                                       ?>'></td>
+                            <td>Intereses moratorios</td>
+                            <td><input type='text' name=monto_adeudado readonly='readonly' value='<?php
+                                echo '$'.number_format($saldo_total - $saldo_descuento_1);
+                                ?>'></td>
+                            <td>% descuento</td>
+                            <td><input type='text' name=descuento readonly='readonly' value='<?php
+                                echo number_format(100 - ($saldo_descuento_2 / ($saldo_descuento_1
+                                    + 0.001)) * 100)."%";
+                                ?>'></td>
+                        </tr>
+    <?php if (($cliente != 'Credito Si B') && ($cliente
+        != 'Credito Si F')) { ?>
+                            <tr>
+                                <td>Fecha - ultimo pago</td>
+                                <td><input type='text' name=fecha_de_ultimo_pago readonly='readonly' value='<?php
+                                    if (isset($fecha_de_ultimo_pago)) {
+                                        echo $fecha_de_ultimo_pago;
+                                    }
+                                    ?>'></td>
+                                <td>Monto ultimo pago</td>
+                                <td><input type='text' name=monto_ultimo_pago readonly='readonly' value='<?php
+                                if (isset($monto_ultimo_pago)) {
+                                    echo '$'.number_format($monto_ultimo_pago);
+                                }
+                                ?>'></td>
+                                <td>Producto</td>
+                                <td><input type='text' name=producto readonly='readonly' value='<?php
+                                    if (!empty($prods)) {
+                                        echo $prods;
+                                    } else {
+                                        echo htmlentities($producto);
+                                    }
+                                    ?>'></td>
+                            </tr>
+                                <?php } ?>
+                        <tr>
+                                       <?php if ($cliente
+                                           == 'FISA') { ?>
+                                <td>Grupo</td>
+                                <?php } else { ?>
+                                <td>Subproducto</td>
+                                <?php } ?>
+                            <td><input type='text' name=subproducto readonly='readonly' value='<?php
+                            if (isset($subproducto)) {
+                                echo htmlentities($subproducto);
+                            }
+                            ?>'><br>
+                            <td>Status de credito</td>
+                            <td><input type='text' name=status_de_credito readonly='readonly' value='<?php
+                    if (isset($status_de_credito)) {
+                        echo $status_de_credito;
+                    }
+                    ?>'></td>
+                            <td>D&iacute;s vencidos</td>
+                            <td><input type='text' name=dias_vencidos readonly='readonly' value='<?php
+                    if (isset($dias_vencidos)) {
+                        echo $dias_vencidos;
+                    }
+                    ?>'><br>
+                        </tr>
+                    </table>
+                </div>
+                <div id="MISCELANEA">
+                    <span class='formcap'>Telefonos marcados</span><input type='text' name="telefonos_marcados" id="telefonos_marcados" readonly='readonly' value='<?php
+                    if (isset($telefonos_marcados)) {
+                        echo $telefonos_marcados;
+                    }
+                    ?>'><br>
+                    <span class='formcap'>Tel 1 verificado</span><input type='text' name="tel_1_verif" id="tel_1_verif" readonly='readonly' value='<?php
+                    if (isset($tel_1_verif)) {
+                        echo $tel_1_verif;
+                    }
+                    ?>'><br>
+                    <span class='formcap'>Tel 2 verificado</span><input type='text' name="tel_2_verif" id="tel_2_verif" readonly='readonly' value='<?php
+                    if (isset($tel_2_verif)) {
+                        echo $tel_2_verif;
+                    }
+                    ?>'><br>
+                    <span class='formcap'>Tel 3 verificado</span><input type='text' name="tel_3_verif" id="tel_3_verif" readonly='readonly' value='<?php
+                    if (isset($tel_3_verif)) {
+                        echo $tel_3_verif;
+                    }
+                    ?>'><br>
+                    <span class='formcap'>Tel 4 verificado</span><input type='text' name="tel_4_verif" id="tel_4_verif" readonly='readonly' value='<?php
+                    if (isset($tel_4_verif)) {
+                        echo $tel_4_verif;
+                    }
+                    ?>'><br>
+                    <span class='formcap'>Tel de ult. contacto</span><input type='text' name="telefono_de_ultimo_contacto" readonly='readonly' value='<?php
+                    if (isset($telefono_de_ultimo_contacto)) {
+                        echo $telefono_de_ultimo_contacto;
+                    }
+                    ?>'><br>
+                    <span class='formcap'>Ultimo status</span><input type='text' name='ultimo_status_de_la_gestion' readonly='readonly' value='<?php
+                    if (isset($ultimo_status_de_la_gestion)) {
+                        echo $ultimo_status_de_la_gestion;
+                    }
+                    ?>'><br>
+                </div>
+
+            </form>
+    <?php if (($id_cuenta == 0) && ($mytipo <> 'callcenter')) { ?>
+                <div id='calm'>
+                    <!--<form class="buttons" name="segq" method="get" action=
+                    "resumen-elastix.php" id="segq">
+                    -->
+                    <p>Termino de queue</p>
+                    <!--
+                    <input type="hidden" name="capt" value="<?php echo $capt ?>">
+                    <input type="hidden" name="find" value="<?php echo $id_cuenta ?>">
+                    <input type="submit" name="go" value="SEG"></form>
+                    -->
+                </div>
+            </form>
+    <?php } ?>
+        <div id="searchbox">
+            <h2>Buscar</h2>
+            <form name="search" method="get" action=
+                  "buscar.php" id="search">Buscar a: <input type=
+                                                      "text" name="find" id="find"> en <select name="field">
+                    <option value="nombre_deudor">Nombre</option>
+                    <option value="domicilio_deudor">Direcci&oacute;n</option>
+                    <option value="numero_de_cuenta">Cuenta</option>
+                    <option value="TELS">Telefonos</option>
+                    <option value="ROBOT">Telefonos marcados</option>
+                    <option value="REFS">Aval/Referencias</option>
+                    <option value="id_cuenta">Expediente</option>
+                    <option value="producto">Producto</option>
+                    <option value="subproducto">Subproducto/Grupo</option>
+                </select><br>
+                Client = <select name="cliente">
+                    <option value=" ">Todos</option>
+                <?php
+                $querycl  = "SELECT cliente FROM clientes;";
+                $resultcl = mysqli_query($con, $querycl);
+                while ($answercl = mysqli_fetch_array($resultcl)) {
+                    ?>
+                        <option value="<?php echo $answercl[0]; ?>"><?php echo $answercl[0]; ?>
+                        </option>
+    <?php } ?>
+                </select><br>
+                <input type="hidden" name="capt" value="<?php
+    if (isset($capt)) {
+        echo $capt;
+    }
+    ?>">
+                <input type="hidden" name="C_CONT" value="<?php
+                    if (isset($id_cuenta)) {
+                        echo $id_cuenta;
+                    }
+                    ?>">
+                <input type="hidden" name="go" value="BUSCAR">
+                <input type="hidden" name="from" value="resumen-elastix.php">
+                <input type="submit" name="go1" value="BUSCAR">
+                <input type="button" name="cancel" onclick="cancelbox('searchbox');"
+                       value="Cancel">
+            </form>
+        </div>
+
+        <div id="HISTORIA">
+            <table summary="historiahead" border='0' cellpadding='0' cellspacing=
+                   '0' width='100%' id="historyhead">
+                <tr>
+            <?php
+            $fieldnames = array("Status", "Fecha/Hora", "Gestor", "Telefono", "Gestion",
+                "Gestion");
+            $fieldsize  = array("status", "timestamp", "chico", "telefono", "gestion",
+                "hidebox");
+            for ($j = 0; $j < 5; $j++) {
+                $fieldname = $fieldnames[$j];
+                ?>
+                        <th<?php echo ' class="'.$fieldsize[$j].'"'; ?>><?php
+                if (isset($fieldname)) {
+                    echo $fieldname;
+                }
+                ?></th> <?php
+                        }
+                        ?></tr>
+            </table>
+                        <?php
+                        if ($id_cuenta > 0) {
+                            $querysub = "SELECT c_cvst,concat(d_fech,' ',c_hrin),if(c_visit is null,c_cvge,c_visit),c_tele,left(c_obse1,50),c_obse1,auto,c_cniv FROM historia
+WHERE (historia.C_CONT=".$id_cuenta.") AND ((c_cvge <> 'Milt') or (c_cont in (select id_cuenta from resumen where status_de_credito ='720s'))) 
+and (c_visit is null or d_fech>'2011-02-01')
+ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
+                            $rowsub   = mysqli_query($con, $querysub);
+                            if (!(empty($rowsub))) {
+                                ?>
+                    <div id='tableContainer' class='tableContainer'>
+                        <table summary="historia" border='0' cellpadding='0' cellspacing=
+                               '0' width='100%' id='historybody'>
+                            <tbody class="scrollContent">
+                                    <?php
+                                    $j      = 0;
+                                    $c      = 0;
+                                    while ($answer = mysqli_fetch_array($rowsub)) {
+//                                    $auto = $answer[6];
+                                        $visit     = $answer[7];
+//                                    $gestor = utf8_encode($answer[2]);
+                                        $gestion   = utf8_encode($answer[5]);
+                                        $timestamp = utf8_encode($answer[1]);
+                                        $stat      = utf8_encode($answer[0]);
+                                        ?>
+                                    <tr<?php echo highhist($stat, $visit); ?>><?php
+                                            for ($k = 0; $k < 5; $k++) {
+                                                $anko = utf8_encode($answer[$k]);
+                                                if (is_null($anko)) {
+                                                    $anko = "&nbsp;";
+                                                }
+                                                $ank    = str_replace('00:00:00',
+                                                    '', $anko);
+                                                $jscode = '';
+                                                if ($fieldsize[$k] == "gestion") {
+                                                    $jscode1 = " onClick='alert(";
+                                                    $jscode2 = ")'";
+                                                    $jscode  = $jscode1.'"'.ereg_replace("[\n\r]",
+                                                            " ",
+                                                            $timestamp.': '.$gestion).'"'.$jscode2;
+                                                }
+                                                ?>
+                                            <td<?php
+                                                if ($c == 1) {
+                                                    echo " style='background-color:#dddddd'";
+                                                }
+                                                echo ' class="'.$fieldsize[$k].'"'.$jscode;
+                                                ?>>
+                    <?php
+                    if (isset($ank)) {
+                        echo $ank;
+                    }
+                    ?>
+                                            </td>
+                                                <?php
+                                            } $c = 1 - $c;
+                                            ?>
+                                    </tr>
+                                            <?php
+                                            $j++;
+                                        }
+                                        ?>
+                                <tr><td></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                        <?php } ?>
+            </div>
+            <div id="GESTION">
+                <form action="#" method="get" id="gestionform"
+                      onSubmit="return validate_form(this, event,<?php echo $saldo_descuento_2
+                        + 0; ?>, '<?php echo $mytipo; ?>');">
+                    <table id="databox">
+                               <?php if ($mytipo == 'admin'
+                                   || $mytipo == 'supervisor') { ?>
+                            <tr>
+                                <td>Gestor</td>
+                                <td><select name="C_CVGE">
+            <?php
+            $query  = "SELECT usuaria,iniciales FROM nombres ORDER BY usuaria;";
+            $result = mysqli_query($con, $query);
+            $j      = 0;
+
+            while ($answer = mysqli_fetch_array($result)) {
+                ?>
+                                            <option value="<?php echo $answer[1]; ?>" <?php if ($answer[1]
+                                == $capt) { ?>selected="selected"<?php } ?>><?php echo $answer[0]; ?></option>
+                                        <?php }
+                                        ?>
+                                    </select></td>
+                            </tr>
+                                    <?php } else { ?>
+                            <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
+                                        if (isset($C_CVGE)) {
+                                            echo $C_CVGE;
+                                        }
+                                        ?>" >
+                                    <?php } ?>
+                        <tr id='authbox' class="hidebox">
+                            <td>Autorizaci&oacute;n</td>
+                            <td><input type="password" name="AUTH" id="AUTH" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>Telefono</td>
+                            <td colspan=2><select id="C_TELE" name="C_TELE">
+                                    <option value=''>&nbsp;</option>
+                                    <option value=''>Nuevo Tel. 1</option>
+                                    <option value=''>Nuevo Tel. 2</option>
+        <?php if (isset($tel_1)) { ?><option value='<?php echo $tel_1 ?>'>TEL 1 - <?php echo $tel_1 ?></option><?php } ?>
+        <?php if (isset($tel_1_alterno)) { ?><option value='<?php echo $tel_1_alterno ?>'>TEL ALT 1 - <?php echo $nombre_deudor_alterno.' - '.$tel_1_alterno ?></option><?php } ?>
+        <?php if (isset($tel_1_laboral)) { ?><option value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1 - <?php echo $empresa.' - '.$tel_1_laboral; ?></option><?php } ?>
+        <?php if (isset($tel_1_ref_1)) { ?><option value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1 - <?php echo $nombre_referencia_1.' - '.$tel_1_ref_1; ?></option><?php } ?>
+        <?php if (isset($tel_1_ref_2)) { ?><option value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2 - <?php echo $nombre_referencia_2.' - '.$tel_1_ref_2; ?></option><?php } ?>
+        <?php if (isset($tel_1_ref_3)) { ?><option value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3 - <?php echo $nombre_referencia_3.' - '.$tel_1_ref_3; ?></option><?php } ?>
+        <?php if (isset($tel_1_ref_4)) { ?><option value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4 - <?php echo $nombre_referencia_4.' - '.$tel_1_ref_4; ?></option><?php } ?>
+        <?php if (isset($tel_1_verif)) { ?><option class='verif' value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF - <?php echo $tel_1_verif; ?></option><?php } ?>
+        <?php if (isset($tel_2)) { ?><option value='<?php echo $tel_2; ?>'>CELULAR - <?php echo $tel_2; ?></option><?php } ?>
+        <?php if (isset($tel_2_alterno)) { ?><option value='<?php echo $tel_2_alterno; ?>'>TEL ALT 1 - <?php echo $nombre_deudor_alterno.' - '.$tel_2_alterno; ?></option><?php } ?>
+        <?php if (isset($tel_2_laboral)) { ?><option value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2 - <?php echo $empresa.' - '.$tel_2_laboral; ?></option><?php } ?>
+        <?php if (isset($tel_2_ref_1)) { ?><option value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1 - <?php echo $nombre_referencia_1.' - '.$tel_2_ref_1; ?></option><?php } ?>
+        <?php if (isset($tel_2_ref_2)) { ?><option value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2 - <?php echo $nombre_referencia_2.' - '.$tel_2_ref_2; ?></option><?php } ?>
+        <?php if (isset($tel_2_ref_3)) { ?><option value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3 - <?php echo $nombre_referencia_3.' - '.$tel_2_ref_3; ?></option><?php } ?>
+        <?php if (isset($tel_2_ref_4)) { ?><option value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4 - <?php echo $nombre_referencia_4.' - '.$tel_2_ref_4; ?></option><?php } ?>
+        <?php if (isset($tel_2_verif)) { ?><option class='verif' value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF - <?php echo $tel_2_verif; ?></option><?php } ?>
+        <?php if (isset($tel_3)) { ?><option value='<?php echo $tel_3; ?>'>TEL 3 - <?php echo $tel_3; ?></option><?php } ?>
+                        <?php if (isset($tel_3_alterno)) { ?><option value='<?php echo $tel_3_alterno; ?>'>TEL ALT 3 - <?php echo $nombre_deudor_alterno.' - '.$tel_3_alterno; ?></option><?php } ?>
+                        <?php if (isset($tel_3_verif)) { ?><option class='verif' value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF - <?php echo $tel_3_verif; ?></option><?php } ?>
+                        <?php if (isset($tel_4)) { ?><option value='<?php echo $tel_4; ?>'>TEL 4 - <?php echo $tel_4; ?></option><?php } ?>
+                        <?php if (isset($tel_4_alterno)) { ?><option value='<?php echo $tel_4_alterno; ?>'>TEL ALT 4 - <?php echo $nombre_deudor_alterno.' - '.$tel_4_alterno; ?></option><?php } ?>
+                        <?php if (isset($tel_4_verif)) { ?><option class='verif' value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF - <?php echo $tel_4_verif; ?></option><?php } ?>
+        <?php if (isset($telefono_de_ultimo_contacto)) { ?><option value='<?php echo $telefono_de_ultimo_contacto; ?>'>TEL DE ULT. CONT. - <?php echo $telefono_de_ultimo_contacto; ?></option><?php } ?>
+                                    <option value='Creditor'>Desde Creditor</option>
+                                </select> <a href="JavaScript: dial('<?php echo $capt ?>',<?php echo $numero_de_cuenta ?>)">CELULAR</a></td>
+                        </tr>
+                        <tr>
+                            <td id="pcap2">Parentesco/Cargo</td>
+                            <td><select name="C_CARG">
+                                    <option value="">&nbsp;</option>
+                                    <option value="Aval">Aval</option>
+                                    <option value="Conyuge">C&oacute;nyuge</option>
+                                    <option value="Deudor">Deudor</option>
+                                    <option value="Familiar">Familiar</option>
+                                    <option value="Hermano/a">Hermano/a</option>
+                                    <option value="Hijo/a">Hijo/a</option>
+                                    <option value="Madre">Madre</option>
+                                    <option value="Otro">Otro</option>
+                                    <option value="Padre">Padre</option>
+                                    <option value="Vecino/a">Vecino/a</option>
+                                </select></td>
+                        </tr>
+                                        <?php
+                                        $CD    = date("Y-m-d");
+                                        $CT    = date("H:i:s");
+                                        ?>
+                        <tr>
+                            <td>Gestion</td>
+                            <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1'
+                                          onkeypress="tooLong(this);" onkeyup="valid(this, 'special');" onmouseover='this.focus();'
+                                          onblur="valid(this, 'special');" onmousedown='this.focus();'></textarea></td>
+                            <td colspan=2>Acci&oacute;n
+                                <select name="ACCION" id="ACCION">
+                                    <option></option>
+                                    <?php
+                                    $query = "SELECT accion FROM acciones where callcenter=1 order by (accion not regexp 'domic')";
+                                    if (($mytipo == 'abogado' || $capt == 'edgar')
+                                        && $cliente == 'Vanguardia') {
+                                        $query = "SELECT accion FROM acciones where callcenter=1 or judicial=1 order by (accion not regexp 'domic')";
+                                    }
+                                    if ($capt == 'gmbs') {
+                                        $query = "SELECT accion FROM acciones order by accion";
+                                    }
+                                    $result = mysqli_query($con, $query);
+                                    while ($answer = mysqli_fetch_array($result)) {
+                                        ?>
+                                        <option value="<?php echo $answer[0]; ?>" style="font-size:120%;"><?php
+                                                    if (isset($answer[0])) {
+                                                        echo $answer[0];
+                                                    }
+                                                    ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                                <br>
+                                Status
+                                <select name="C_CVST" id="C_CVST" onchange='gestionChange(this.form);'>
+                                    <option value=''></option>
+                                    <?php
+                                    $querydi  = "SELECT dictamen FROM dictamenes "
+                                        . "where callcenter=1 or $mytipo='admin' "
+                                        . "order by dictamen";
+                                    $resultdi = mysqli_query($con, $querydi);
+                                    while ($answer   = mysqli_fetch_array($resultdi)) {
+                                        ?>
+                                        <option value="<?php
+                                            if (isset($answer[0])) {
+                                                echo htmlentities($answer[0]);
+                                            }
+                                            ?>"
+                                                style="font-size:120%;">
+                                <?php
+                                if (isset($answer[0])) {
+                                    echo htmlentities($answer[0]);
+                                }
+                                ?>
+                                        </option>
+                            <?php } ?>
+                                </select><br>
+                                Causa no pago
+                                <select name="C_CNP" id="C_CNP">
+                                    <option value="" style="font-size:120%;">&nbsp;</option>
+                            <?php
+                            $querycnp  = "SELECT status FROM cnp";
+                            $resultcnp = mysqli_query($con, $querycnp);
+                            while ($answer    = mysqli_fetch_array($resultcnp)) {
+                                ?>
+                                        <option value="<?php echo $answer[0]; ?>" style="font-size:120%;"><?php
+                                if (isset($answer[0])) {
+                                    echo htmlentities($answer[0]);
+                                }
+                                ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                </select>
+                            </td>
+                                    <?php
+                                    if ($cliente == 'Surtidor del Hogar') {
+                                        $merci      = 0;
+                                        $querymerc  = "select productos from sdhextras where cuenta='".$numero_de_cuenta."';";
+                                        $resultmerc = mysqli_query($con,
+                                            $querymerc);
+                                        while ($answermerc = mysqli_fetch_array($resultmerc,
+                                        MYSQLI_NUM)) {
+                                            $merca[$merci] = $answermerc[0];
+                                            $merci++;
+                                        }
+                                        ?>
+                            <tr style="display:none">
+            <?php
+            for ($mercii = 0; $mercii < $merci; $mercii++) {
+                ?>
+                                    <td>Mercancia <?php echo $mercii + 1; ?></td>
+                                    <td><select name="MERC[]">
+                                            <option value="" style="font-size:120%;">&nbsp;</option>
+                                <?php foreach ($merca as $merc) { ?>
+                                                <option value="<?php echo $merc; ?>" style="font-size:120%;">
+                    <?php
+                    if (isset($merc)) {
+                        echo $merc;
+                    }
+                    ?>
+                                                </option>
+                <?php } ?>
+                                        </select></td>
+            <?php } ?>
+                            </tr>
+                            <tr style="display:none">
+                                <td>Fecha Recib&iacute;o
+                                    <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                        var cala = new CalendarPopup();
+                                        cala.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
+                                        cala.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
+                                        cala.setWeekStartDay(1);
+                                        cala.setTodayText("Hoy");
+                                    </SCRIPT></td>
+                                <td><INPUT TYPE="text" NAME="D_MERC" ID="D_MERC" VALUE="" SIZE=15>
+                                    <BUTTON onClick="cala.select(document.getElementById('D_MERC'), 'anchora', 'yyyy-MM-dd');
+                                                        return false;" NAME="anchora" ID="anchora">eligir</BUTTON>
+                                    <BUTTON onClick="document.getElementById('D_MERC').value = '';
+                                                        return false;">BORRAR</BUTTON></td>
+                            </tr>
+        <?php }
+        ?>
+                        </tr>
+                        <tr id="pagocapt" style="display:none">
+                            <td>Monto Pag&oacute;</td>
+                            <td>$<input type="text" name="N_PAGO" value="0" onmouseover='this.focus();'></td>
+                            <td class="PrestamoFamiliar"># Sucursal</td>
+                            <td class="PrestamoFamiliar"><input class="PrestamoFamiliar" type="text" name="numero_sucursal" id="numero_sucursal" value="" onmouseover='this.focus();'></td>
+                        </tr>
+                        <tr id="pagocapt2" style="display:none">
+                            <td>Fecha Pag&oacute;
+                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                    var cal9 = new CalendarPopup();
+                                    cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
+                                    cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
+                                    cal9.setWeekStartDay(1);
+                                    cal9.setTodayText("Hoy");
+                                </SCRIPT></td>
+                            <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15>
+                                <BUTTON onClick="cal9.select(document.getElementById('D_PAGOi'), 'anchor9', 'yyyy-MM-dd');
+                                                return false;" NAME="anchor9" ID="anchor9">eligir</BUTTON>
+                                <BUTTON onClick="document.getElementById('D_PAGOi').value = '';
+                                                return false;">BORRAR</BUTTON></td>
+                            <td class="PrestamoFamiliar">Nombre Sucursal</td>
+                            <td class="PrestamoFamiliar"><input class="PrestamoFamiliar" type="text" name="nombre_sucursal" id="nombre_sucursal" value="" onmouseover='this.focus();'></td>
+                        </tr>
+                        <tr>
+                            <td>Motivadores</td>
+                            <td><select id="C_MOTIV" name="C_MOTIV">
+                                    <option value=" ">
+                                            <?php
+                                            $querymot = "SELECT motiv FROM motivadores where callcenter=1";
+                                            if ($capt == 'gmbs') {
+                                                $querymot = "SELECT motiv FROM motivadores";
+                                            }
+                                            $resultmot = mysqli_query($con,
+                                                $querymot);
+                                            while ($answer    = mysqli_fetch_array($resultmot)) {
+                                                ?>
+                                        <option value="<?php echo $answer[0]; ?>"><?php echo $answer[0]; ?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>Se necesita localizar <input type="checkbox" name="LOCALIZAR" id="localizar" <?php
+                                    if (!empty($localizar)) {
+                                        echo 'selected="selected"';
+                                    }
+                                    ?>></td>
+                            <td colspan=2>Localizable <select name='CUANDO'>
+                                    <option value=""></option>
+                                    <option value="madrugada" <?php
+                                    if ($CUANDO == 'madrugada') {
+                                        echo 'selected="selected"';
+                                    }
+                                    ?>>madrugada</option>
+                                    <option value="manana" <?php
+                                    if ($CUANDO == 'manana') {
+                                        echo 'selected="selected"';
+                                    }
+                                    ?>>ma&ntilde;ana</option>
+                                    <option value="tarde" <?php
+                                if ($CUANDO == 'tarde') {
+                                    echo 'selected="selected"';
+                                }
+                                ?>>tarde</option>
+                                    <option value="noche" <?php
+                                if ($CUANDO == 'noche') {
+                                    echo 'selected="selected"';
+                                }
+                                ?>>noche</option>
+                                    <option value="robot" <?php
+                                if ($CUANDO == 'robot') {
+                                    echo
+                                    'selected="selected"';
+                                }
+                                ?>>robot</option>
+                                    <option value="visita" <?php
+                                if ($CUANDO == 'visita') {
+                                    echo
+                                    'selected="selected"';
+                                }
+                                ?>>visita</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td>Cant. de pago inicial</td>
+                            <td>$<input type="text" name="N_PROM1" value="0" size="8" onmouseover='this.focus();'></td>
+                            <td>$<input type="text" name="N_PROM1_OLD" readonly="readonly" size="8" value="<?php
+                                if (isset($N_PROM1_OLD)) {
+                                    echo $N_PROM1_OLD;
+                                }
+                                ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha promesa única o 1a
+                            <td><INPUT class="maxWhen" readonly="readonly" TYPE="text" readonly="readonly" NAME="D_PROM1" ID="D_PROM1" VALUE="" SIZE=15>
+                                <BUTTON onClick="document.getElementById('D_PROM1').value = '';
+                                                return false;">BORRAR</BUTTON></td>
+                            <td><input type="text" name="D_PROM1_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
+                        if (isset($D_PROM1_OLD)) {
+                            echo $D_PROM1_OLD;
+                        }
+                                ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Cant. de 2a promesa</td>
+                            <td>$<input type="text" name="N_PROM2" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
+                            <td>$<input type="text" name="N_PROM2_OLD" size="8" readonly="readonly" value="<?php
+                        if (isset($N_PROM2_OLD)) {
+                            echo $N_PROM2_OLD;
+                        }
+                                ?>"><br>
+                        </tr>
+                        <tr>
+                            <td>Fecha 2a promesa
+                            </td>
+                            <td><INPUT class="maxWhen2" readonly="readonly" TYPE="text" readonly="readonly" NAME="D_PROM2" ID="D_PROM2" VALUE="" SIZE=15>
+                                <BUTTON onClick="document.getElementById('D_PROM2').value = '';
+                                                return false;">BORRAR</BUTTON></td>
+                            <td><input type="text" name="D_PROM2_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
+                        if (isset($D_PROM2_OLD)) {
+                            echo $D_PROM2_OLD;
+                        }
+                                ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Cant. de 3a promesa</td>
+                            <td>$<input type="text" name="N_PROM3" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
+                            <td>$<input type="text" name="N_PROM3_OLD" size="8" readonly="readonly" value="<?php
+                        if (isset($N_PROM3_OLD)) {
+                            echo $N_PROM3_OLD;
+                        }
+                                ?>"><br>
+                        </tr>
+                        <tr>
+                            <td>Fecha 3a promesa
+                            </td>
+                            <td><INPUT class="maxWhen2" readonly="readonly" TYPE="text" readonly="readonly" NAME="D_PROM3" ID="D_PROM3" VALUE="" SIZE=15>
+                                <BUTTON onClick="document.getElementById('D_PROM3').value = '';
+                                                return false;">BORRAR</BUTTON></td>
+                            <td><input type="text" name="D_PROM3_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
+                        if (isset($D_PROM3_OLD)) {
+                            echo $D_PROM3_OLD;
+                        }
+                                ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Cant. de 4a promesa</td>
+                            <td>$<input type="text" name="N_PROM4" value="0" onchange="npromChange(this.form);" onmouseover='this.focus();'></td>
+                            <td>$<input type="text" name="N_PROM4_OLD" size="8" readonly="readonly" value="<?php
+                        if (isset($N_PROM4_OLD)) {
+                            echo $N_PROM4_OLD;
+                        }
+                                ?>"><br>
+                        </tr>
+                        <tr>
+                            <td>Fecha 4a promesa
+                            </td>
+                            <td><INPUT class="maxWhen2" readonly="readonly" TYPE="text" readonly="readonly" NAME="D_PROM4" ID="D_PROM4" VALUE="" SIZE=15>
+                                <BUTTON onClick="document.getElementById('D_PROM4').value = '';
+                                                return false;">BORRAR</BUTTON></td>
+                            <td><input type="text" name="D_PROM4_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
+                                if (isset($D_PROM4_OLD)) {
+                                    echo $D_PROM4_OLD;
+                                }
+                                ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Frecuencia de pago</td>
+                            <td><select name="C_FREQ" id="C_FREQ">
+                                    <option selected="selected" value="">&nbsp;</option>
+        <?php
+        if (($cliente == 'Credito Si B') || ($cliente == 'Credito Si F')) {
+            ?>
+                                        <option value="mensuales">Unico</option>
+                                        <option value="semanales">Semanales (&lt; 14 d&iacute;as)</option>
+                                        <option value="quincenales">Quincenales (14 - 20 d&iacute;as)</option>
+                                        <option value="mensuales">Mensuales (21+ d&iacute;as)</option>
+        <?php } else { ?>
+                                        <option value="unico">Unico</option>
+                                        <option value="dos pagos">2 pagos</option>
+                                        <option value="multiples">M&uacute;ltiples pagos</option>
+        <?php } ?>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td>Cant. de pago total</td>
+                            <td><input type="text" name="N_PROM" readonly="readonly" style="background-color:#c0c0c0;" value=""></td>
+                            <td>Cant. de pago prometido anterior</td>
+                            <td><input type="text" name="N_PROM_OLD" readonly="readonly" style="background-color:#c0c0c0;" value="<?php
+        if (isset($N_PROM_OLD)) {
+            echo floor($N_PROM_OLD);
+        }
+        ?>"></td>
+                        </tr>
+                        <tr>
+                            <td colspan=2>Actualizaci&oacute;n de Datos</td>
+                        </tr>
+                        <tr>
+                            <td>Tel.</td>
+                            <td><input type="text" name="C_NTEL" value=""  onmouseover='this.focus();'
+                                       onChange="addToTels(1, this);"></td>
+                        </tr>
+                        <tr>
+                            <td>Tel 2.</td>
+                            <td><input type="text" size=50 name="C_OBSE2" value="" onmouseover='this.focus();'
+                                       onChange="addToTels(2, this);"></td>
+                        </tr>
+                        <tr>
+                            <td>Direcci&oacute;n</td>
+                            <td><input type="text" size=50 name="C_NDIR" value="" onmouseover='this.focus();'></td>
+                        </tr>
+                        <tr>
+                            <td>E-mail</td>
+                            <td><input type="text" name="C_EMAIL" value="" onmouseover='this.focus();'></td>
+                        </tr>
+                    </table>
+                    <input type="submit" name="GUARDAR" value="GUARDAR">
+                    <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false;">RESET</button>
+                    <br>
+                    </div>
+                    </div>
+                    <div class="noshow">
+                        <input type="text" name="from" readonly="readonly" value="resumen-elastix.php" ><br>
+                        <input type="text" name="D_FECH" readonly="readonly" value="<?php
+                        if (isset($CD)) {
+                            echo $CD;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="D_PROM" readonly="readonly" value="<?php
+                        if (isset($CD)) {
+                            echo $CD;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="C_PROM" readonly="readonly" value="elastix" ><br>
+                        <input type="text" name="C_HRIN" readonly="readonly" value="<?php
+                        if (isset($CT)) {
+                            echo $CT;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="C_HRFI" readonly="readonly" value="<?php
+                        if (isset($CT)) {
+                            echo $CT;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="AUTO" readonly="readonly" value="" ><br>
+                        <input type="text" name="find" readonly="readonly" value="<?php
+                        if (isset($find)) {
+                            echo $find;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="capt" readonly="readonly" value="<?php
+                        if (isset($capt)) {
+                            echo $capt;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="camp" readonly="readonly" value="<?php
+                        if (isset($camp)) {
+                            echo $camp;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="C_CVBA" readonly="readonly" value="<?php
+                        if (isset($cliente)) {
+                            echo $cliente;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="C_ATTE" readonly="readonly" value="" ><br>
+                        <input type="text" name="C_CONT" readonly="readonly" value="<?php
+                        if (isset($id_cuenta)) {
+                            echo $id_cuenta;
+                        }
+                        ?>" ><br>
+                        <input type="text" name="C_CONTAN" readonly="readonly" value="<?php
+            if (isset($status_aarsa)) {
+                echo $status_aarsa;
+            }
+            ?>" ><br>
+                        <input type="text" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
+            if (isset($numero_de_cuenta)) {
+                echo $numero_de_cuenta;
+            }
+            ?>" ><br>
+                        <input type="text" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
+            if (isset($ejecutivo_asignado_call_center)) {
+                echo $ejecutivo_asignado_call_center;
+            }
+            ?>" ><br>
+                        <input type="text" name="saldo_total" readonly="readonly" value="<?php echo $saldo_total; ?>"><br>
+                        <input type="text" name="oldgo" readonly="readonly" value="<?php echo mysqli_real_escape_string($con,
+                $get['go']); ?>" ><br>
+                        <input type="text" name="error" readonly="readonly" value="1" ><br>
+                        <input type="text" name="go" readonly="readonly" value="GUARDAR" ><br>
+                    </div>
+                </form>
+            </div>
+            <SCRIPT>
+                $('.calendar').datepicker({
+                    showOn: 'button',
+                    buttonText: 'Elegir',
+                    dateFormat: 'yy-mm-dd',
+                    constrainInput: true
+                });
+                $('.maxNow').datepicker({
+                    showOn: 'button',
+                    buttonText: 'Elegir',
+                    dateFormat: 'yy-mm-dd',
+                    constrainInput: true,
+                    maxDate: 0
+                });
+                $('.minNow').datepicker({
+                    showOn: 'button',
+                    buttonText: 'Elegir',
+                    dateFormat: 'yy-mm-dd',
+                    constrainInput: true,
+                    minDate: 0
+                });
+                $('.maxWhen').datepicker({
+                    showOn: 'button',
+                    buttonText: 'Elegir',
+                    dateFormat: 'yy-mm-dd',
+                    constrainInput: true,
+                    minDate: 0,
+                    maxDate: '<?php echo $dday; ?>'
+                });
+                $('.maxWhen2').datepicker({
+                    showOn: 'button',
+                    buttonText: 'Elegir',
+                    dateFormat: 'yy-mm-dd',
+                    constrainInput: true,
+                    minDate: 0,
+                    maxDate: '<?php echo $dday2; ?>'
+                });
+                $('#buttonbox input[type="submit"]').button();
+                $('#buttonbox button').button();
+            </script>
+        <?php
+    }
+}
+mysqli_close($con);
+?>
+</body>
+</html> 
+
