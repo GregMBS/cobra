@@ -19,14 +19,9 @@ $output = array();
 $i = 1;
 foreach ($resultpre as $rowpre) {
     $aData = array();
-    $aData['id_cuenta'] = $rowpre[0];
-    $aData['numero_de_cuenta'] = $rowpre[1];
-    $aData['segmento'] = $rowpre[2];
-    $aData['saldo_total'] = $rowpre[3];
-    $aData['ultima_gestion'] = $rowpre[4];
-    $aData['nombre_deudor'] = $rowpre[5];
-    $aData['producto'] = $rowpre[6];
-    $aData['status_de_la_cuenta'] = $rowpre[7];
+    foreach ($rowpre as $key => $value) {
+        $aData[$key] = $value;
+    }
     $aData['ultimo_status'] = '';
     $aData['ultimo_tel'] = '';
     $aData['ultimo_comentario'] = '';
