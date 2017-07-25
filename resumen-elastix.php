@@ -9,7 +9,7 @@ require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
-include 'config.php';
+//include 'config.php';
 $tcapt  = $capt;
 $C_CVGE = $capt;
 $elast  = filter_input(INPUT_GET, 'elastix');
