@@ -64,8 +64,7 @@ tel_2_laboral regexp :find or
 tel_1_verif regexp :find or
 tel_2_verif regexp :find or
 tel_3_verif regexp :find or
-tel_4_verif regexp :find or
-telefonos_marcados regexp :find)";
+tel_4_verif regexp :find )";
 
     /**
      *
