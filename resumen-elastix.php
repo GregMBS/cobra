@@ -727,4 +727,4 @@ while ($answerd = mysqli_fetch_row($resultd)) {
         $dday2 = $answerd[2];
     }
 }
-require_once 'views/resumenView.php';
+require_once 'resumenView.php';
