@@ -10,7 +10,7 @@ date_default_timezone_set('America/Monterrey');
 $tcapt  = $capt;
 $C_CVGE = $capt;
 $elast  = filter_input(INPUT_GET, 'elastix');
-$findi  = filter_input(INPUT_GET, 'find');
+$find   = filter_input(INPUT_GET, 'find');
 $get    = filter_input_array(INPUT_GET);
 if (isset($elast)) {
     $elastix = mysqli_real_escape_string($con, $elast);
@@ -38,12 +38,7 @@ if (!empty($mytipo)) {
     if (!empty($get['shutup'])) {
         $shutup = 1;
     }
-    $findr = mysqli_real_escape_string($con, $findi);
-    $capt  = mysqli_real_escape_string($con, $get['capt']);
     // We perform a bit of filtering
-    $findu = strtoupper($findr);
-    $finds = strip_tags($findu);
-    $find  = trim($finds);
 }
 $pagalert    = 0;
 $querypagos  = "select (c_cvst like 'PAG%'),c_cont from historia
