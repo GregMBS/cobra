@@ -20,7 +20,7 @@ class BestClass extends BaseClass
         where status_de_credito not regexp '-'
         order by numero_de_cuenta";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function getLastHistoriaData($c_cont) {
