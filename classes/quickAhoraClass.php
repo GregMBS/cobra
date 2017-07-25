@@ -35,7 +35,7 @@ ifnull(queuelist.status_aarsa,if(rslice.status_aarsa<>'','ELASTIX','BREAK')),
 usuario,permalog.gestor,id_cuenta
 FROM permalog
 left join rslice on user=permalog.gestor
-left JOIN nombres use index (grupo) ON permalog.gestor=iniciales
+left JOIN nombres ON permalog.gestor=iniciales
 LEFT JOIN queuelist ON nombres.camp=queuelist.camp and user=permalog.gestor
 WHERE permalog.gestor IS NOT NULL
 and fechahora>curdate()
