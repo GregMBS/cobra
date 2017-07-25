@@ -202,7 +202,7 @@ $post = filter_input_array(INPUT_POST);
                     $resultins = $con->query($queryins) or die('Load cargadex: ' . $con->error);
                 }
             }
-            $querydrop = "DROP TABLE IF EXISTS `cobracsi`.`temp`;";
+            $querydrop = "DROP TABLE IF EXISTS `cobramunoz`.`temp`;";
             $con->query($querydrop) or die($con->error);
             $querydex = "select * from cargadex where cliente='" . $cliente . "';";
             $resultdex = $con->query($querydex) or die($con->error);
@@ -214,7 +214,7 @@ $post = filter_input_array(INPUT_POST);
                 $c++;
                 set_time_limit(300);
             }
-            $querystart = "CREATE TABLE  `cobracsi`.`temp` (";
+            $querystart = "CREATE TABLE  `cobramunoz`.`temp` (";
             $queryend = "`fecha_de_actualizacion` date,
 `originacion` varchar(255)
 ) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;";
@@ -240,7 +240,7 @@ $post = filter_input_array(INPUT_POST);
                 while (($data = fgetcsv($handle, 1000, ',', '"')) !== FALSE) {
                     if ($n == 0) {
                         $header = $data;
-                        $queryload = "INSERT INTO cobracsi.temp (" . implode(",", $header) . ") VALUES ";
+                        $queryload = "INSERT INTO cobramunoz.temp (" . implode(",", $header) . ") VALUES ";
                     }
                     if ($n > 0) {
                         $limpio = str_replace("'", "", $data);
@@ -324,9 +324,9 @@ and fecha_de_ultimo_pago<fecha_de_actualizacion
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
             $con->query($querypagoins) or die($con->error);
-            $queryrlist1 = "truncate cobracsi.rlook;";
+            $queryrlist1 = "truncate cobramunoz.rlook;";
             $con->query($queryrlist1) or die($con->error);
-            $queryrlist2 = "insert into cobracsi.rlook
+            $queryrlist2 = "insert into cobramunoz.rlook
 select id_cuenta,numero_de_cuenta,nombre_deudor,cliente,status_de_credito,
 nombre_referencia_1,nombre_referencia_2,nombre_referencia_3,nombre_referencia_4,
 tel_1,tel_2,tel_3,tel_4,
@@ -337,7 +337,7 @@ tel_1_ref_2,tel_2_ref_2,
 tel_1_ref_3,tel_2_ref_3,
 tel_1_ref_4,tel_2_ref_4,
 tel_1_laboral,tel_2_laboral,telefonos_marcados
-from cobracsi.resumen;
+from cobramunoz.resumen;
 ";
             $con->query($queryrlist2) or die($con->error);
         }
