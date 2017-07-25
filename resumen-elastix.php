@@ -2,14 +2,12 @@
 use cobra_salsa\PdoClass;
 
 date_default_timezone_set('America/Monterrey');
-$con    = '';
-$capt   = '';
-$mytipo = '';
 require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
-var_dump($pdoc); die();
+$capt = $pdoc->capt;
+$mytipo = $pdoc->tipo;
 //include 'config.php';
 $tcapt  = $capt;
 $C_CVGE = $capt;
