@@ -28,6 +28,7 @@ $go = filter_input(INPUT_GET, 'go');
 if (!empty($fecha1)) {
 	$bio = new BigInputObject($fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo);
 	$result = $bc->getProms($bio);
+        var_dump($result);die();
 	if ($result) {
 		$filename = "Query_de_promesas.xlsx";
 		$output = array();
