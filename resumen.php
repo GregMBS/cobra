@@ -555,10 +555,6 @@ while ($answerg = mysqli_fetch_row($resultg)) {
     $mytipo = $answerg[1];
     $camp = $answerg[2];
 }
-if (empty($capt)) {
-    $redirector = "Location: index.php";
-    header($redirector);
-}
 $id_cuenta = 0;
 $lockflag = 0;
 $sdc = '';
