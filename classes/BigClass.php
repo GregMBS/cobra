@@ -86,8 +86,8 @@ class BigClass extends BaseClass {
 		. $this->getGestorStr($gestor)
 		. $this->getClienteStr($cliente)
 		. $this->queryBack;
-                die(htmlentities($query));
-		$stq = $this->pdo->prepare($query);
+                
+                $stq = $this->pdo->prepare($query);
 		$stq->bindParam(':fecha1', $fecha1);
 		$stq->bindParam(':fecha2', $fecha2);
 		if ($gestor != 'todos') {
@@ -200,7 +200,7 @@ ORDER BY d_fech,c_hrin";
     saldo_total,
     saldo_descuento_1,
     saldo_descuento_2,
-    queue,
+    d1.queue,
     h1.*,
     d2.v_cc as ponderacion,
     domicilio_deudor as calle,
