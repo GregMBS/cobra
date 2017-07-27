@@ -315,28 +315,32 @@ where d_fech between :fecha1 and :fecha2
 	 * @return array
 	 */
 	public function getProms(BigInputObject $bio) {
-		$this->queryFront = "select status_aarsa AS 'STATUS',
-            c_cvge AS 'GESTOR',
-            numero_de_cuenta as 'CUENTA',
-            nombre_deudor as 'NOMBRE',
-            saldo_descuento_1 as 'SALDO CAPITAL s/i',
-            saldo_total as 'SALDO TOTAL',
-            pagos_vencidos*30 as 'MORA',
-            n_prom as 'TOTAL PROMESA',
-            d_prom1 as 'FECHA PROMESA 1',n_prom1 as 'MONTO PROMESA 1',
-            d_prom2 as 'FECHA PROMESA 2',n_prom2 as 'MONTO PROMESA 2',
-            max(folio) AS 'FOLIO',
-            c_motiv AS 'MOTIVADOR',
-            c_cnp AS 'CAUSA NO PAGO',
-            resumen.cliente AS 'CLIENTE',
-            status_de_credito AS 'CAMPANA',
-            d_fech AS 'FECHA GESTION',
-            max(pagos.fecha) AS 'FECHA PAGO',
-            sum(monto) AS 'MONTO PAGO',
-            max(confirmado) as 'CONFIRMADO'
+		$this->queryFront = "SELECT 
+    numero_de_cuenta,
+    nombre_deudor AS 'NOMBRE',
+    resumen.cliente AS 'CLIENTE',
+    status_de_credito AS 'SEGMENTO',
+    saldo_total,
+    saldo_descuento_1,
+    saldo_descuento_2,
+    h1.*,
+    v_cc AS 'PONDERACION',
+    domicilio_deudor AS 'CALLE',
+    colonia_deudor AS 'COLONIA',
+    direccion_nueva,
+    email_deudor,
+    fecha_de_ultimo_pago,
+    monto_ultimo_pago
+FROM
+    resumen
+        JOIN
+    historia h1 ON c_cont = id_cuenta
+        LEFT JOIN
+    pagos USING (id_cuenta)
+		LEFT JOIN
+	dictamenes ON status_aarsa = dictamen
         from resumen
             join historia h1 on c_cont=id_cuenta
-            left join folios on id=id_cuenta and fecha>=d_fech
             left join pagos using (id_cuenta)
         where n_prom>0
             and d_fech between :fecha1 and :fecha2
