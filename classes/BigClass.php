@@ -323,6 +323,7 @@ where d_fech between :fecha1 and :fecha2
     saldo_total,
     saldo_descuento_1,
     saldo_descuento_2,
+    queue,
     h1.*,
     v_cc AS 'PONDERACION',
     domicilio_deudor AS 'CALLE',
