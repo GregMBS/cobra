@@ -359,8 +359,8 @@ FROM
 		. $bio->getGestorStr()
 		. $bio->getClienteStr()
 		. $this->queryBack;
-
-		$stm = $this->pdo->prepare($query) or die($this->pdo->errorInfo());
+die(htmlentities($query));
+		$stm = $this->pdo->prepare($query);
 		$stm->bindParam(':fecha1', $bio->getFecha1());
 		$stm->bindParam(':fecha2', $bio->getFecha2());
 		$stm->bindParam(':fecha3', $bio->getFecha3());
