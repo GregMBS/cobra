@@ -339,10 +339,7 @@ FROM
     pagos USING (id_cuenta)
 		LEFT JOIN
 	dictamenes ON status_aarsa = dictamen
-        from resumen
-            join historia h1 on c_cont=id_cuenta
-            left join pagos using (id_cuenta)
-        where n_prom>0
+WHERE n_prom>0
             and d_fech between :fecha1 and :fecha2
             and d_prom between :fecha3 and :fecha4
             and not exists (
@@ -359,8 +356,8 @@ FROM
 		. $bio->getGestorStr()
 		. $bio->getClienteStr()
 		. $this->queryBack;
-die(htmlentities($query));
-		$stm = $this->pdo->prepare($query);
+
+                $stm = $this->pdo->prepare($query);
 		$stm->bindParam(':fecha1', $bio->getFecha1());
 		$stm->bindParam(':fecha2', $bio->getFecha2());
 		$stm->bindParam(':fecha3', $bio->getFecha3());
