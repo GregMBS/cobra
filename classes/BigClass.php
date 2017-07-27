@@ -86,6 +86,7 @@ class BigClass extends BaseClass {
 		. $this->getGestorStr($gestor)
 		. $this->getClienteStr($cliente)
 		. $this->queryBack;
+                die(htmlentities($query));
 		$stq = $this->pdo->prepare($query);
 		$stq->bindParam(':fecha1', $fecha1);
 		$stq->bindParam(':fecha2', $fecha2);
