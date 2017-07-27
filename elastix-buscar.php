@@ -6,15 +6,13 @@ require_once 'classes/PdoClass.php';
 $pdoc = new PdoClass();
 /* @var $pdo PDO */
 $pdo = $pdoc->dbConnectNobody();
-$local = $_SERVER['REMOTE_ADDR'];
-$name = gethostbyaddr($local);
+$ticket = filter_input(INPUT_COOKIE, 'auth');
 $querycheck="SELECT gestor,nombres.tipo FROM nombres,userlog 
-WHERE (usuario=:local or usuario=:name) 
-and iniciales=gestor
+WHERE ticket = :ticket 
+and iniciales = gestor
 and userlog.fechahora>curdate() order by fechahora desc limit 1";
 $stc = $pdo->prepare($querycheck);
-$stc->bindParam(':local', $local);
-$stc->bindParam(':name', $name);
+$stc->bindParam(':ticket', $ticket);
 $stc->execute();
 $answercheck=$stc->fetch();
 $capt=$answercheck[0];
