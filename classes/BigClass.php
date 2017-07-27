@@ -190,14 +190,25 @@ ORDER BY d_fech,c_hrin";
 	 * @return array
 	 */
 	public function getBigGestiones($fecha1, $fecha2, $gestor, $cliente) {
-		$this->queryFront = "SELECT numero_de_cuenta as 'cuenta',
+		$this->queryFront = "SELECT 
+                    numero_de_cuenta as 'cuenta',
         nombre_deudor as 'nombre',
-    resumen.cliente as 'cliente',status_de_credito as 'segmento',
-    saldo_total,status_aarsa as 'mejor status',h1.*,d2.
-    v_cc as ponderacion,
-    domicilio_deudor as calle,colonia_deudor as 'colonia',
+    resumen.cliente as 'cliente',
+    status_de_credito as 'segmento',
+    subproducto,
+    saldo_total,
+    saldo_descuento_1,
+    saldo_descuento_2,
+    queue,
+    h1.*,
+    d2.v_cc as ponderacion,
+    domicilio_deudor as calle,
+    colonia_deudor as 'colonia',
+    ciudad_deudor as 'ciudad',
+    estado_deudor as 'estado',
     direccion_nueva as 'direccion nueva',email_deudor,
-    pagos.fecha as 'fecha pago',pagos.monto as 'monto pago'
+    pagos.fecha as 'fecha pago',pagos.monto as 'monto pago',
+    fecha_de_asignacion
     from resumen join historia h1 on c_cont=resumen.id_cuenta
 left join dictamenes d1 on status_aarsa=d1.dictamen
 left join dictamenes d2 on c_cvst=d2.dictamen
