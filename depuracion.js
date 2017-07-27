@@ -470,7 +470,7 @@ function validate_form(tf, evt, minprom, authorized, at)
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
-            if (np < minprom)
+            if ((np < minprom) && (authorized < 1))
             {
                 tf.C_CVST.style.backgroundColor = "yellow";
                 flag = 1;
