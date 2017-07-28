@@ -182,7 +182,7 @@ order by cliente,gestor,fecha";
                     gestor, confirmado
 from pagos, resumen
 where fecha<=last_day(curdate()-interval 5 week)
-and fecha>(last_day(curdate()-interval 5 week)) - interval 1 month
+and fecha>(last_day(curdate()-interval 5 week - interval 1 month))
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
         $std = $this->pdo->query($queryDA);
