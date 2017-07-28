@@ -181,7 +181,7 @@ order by cliente,gestor,fecha";
                     status_de_credito as 'sdc',
                     gestor, confirmado
 from pagos, resumen
-where fecha>=last_day(curdate()-interval 5 week)
+where fecha<=last_day(curdate()-interval 5 week)
 and fecha>(last_day(curdate()-interval 5 week)) - interval 1 month
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
