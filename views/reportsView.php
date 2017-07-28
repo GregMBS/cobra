@@ -53,6 +53,7 @@
                 <button onclick="window.location = 'rotas.php?capt=<?php echo $capt; ?>'">Promesas del Mes Actual</button>
                 <button onclick="window.location = 'pagosum.php?capt=<?php echo $capt; ?>'">Pagos por Cliente</button>
                 <button onclick="window.location = 'pagodet.xlsx.php?capt=<?php echo $capt; ?>'">Pagos este mes (XLSX)</button>
+                <button onclick="window.location = 'pagodetant.xlsx.php?capt=<?php echo $capt; ?>'">Pagos mes anterior (XLSX)</button>
                 <button onclick="window.location = 'horarios_clean.php?capt=<?php echo $capt; ?>'">Productividad este Mes</button>
                 <button onclick="window.location = 'perfmes.php?capt=<?php echo $capt; ?>'">Productividad Mes Anterior</button>
                 <button onclick="window.location = 'horariosv.php?capt=<?php echo $capt; ?>'">Productividad Visit. este Mes</button>

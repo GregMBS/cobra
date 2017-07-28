@@ -148,6 +148,10 @@ ORDER BY fecha";
         return $rowsub;
     }
 
+    /**
+     * 
+     * @return array
+     */
     public function querySheet() {
         $queryDA = "select cuenta, fecha, monto,
                     pagos.cliente as 'cliente',
@@ -155,6 +159,30 @@ ORDER BY fecha";
                     gestor, confirmado
 from pagos, resumen
 where fecha>last_day(curdate()-interval 5 week)
+and pagos.id_cuenta=resumen.id_cuenta
+order by cliente,gestor,fecha";
+        $std = $this->pdo->query($queryDA);
+        if (!$std) {
+            $result = array();
+        } else {
+            $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+        }
+
+        return $result;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function queryOldSheet() {
+        $queryDA = "select cuenta, fecha, monto,
+                    pagos.cliente as 'cliente',
+                    status_de_credito as 'sdc',
+                    gestor, confirmado
+from pagos, resumen
+where fecha>=last_day(curdate()-interval 5 week)
+and fecha>(last_day(curdate()-interval 5 week)) - interval 1 month
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
         $std = $this->pdo->query($queryDA);
