@@ -177,14 +177,14 @@
                         ?>
                     </tbody>
                     <tfoot>
-                    <td></td>
-                    <td><?php echo $sumGestiones; ?></td>
-                    <td><?php echo $sumPromesas; ?></td>
-                    <td><?php echo $sumMontos; ?></td>
-                    <td><?php echo $sumNegociaciones; ?></td>
-                    <td><?php echo $sumHoras; ?></td>
-                    <td><?php echo $sumBreak; ?></td>
-                    <td><?php echo number_format($sumGestiones / ($sumHoras + 1 / 3600)); ?></td>
+                    <th>&nbsp;</th>
+                    <th><?php echo $sumGestiones; ?></th>
+                    <th><?php echo $sumPromesas; ?></th>
+                    <th><?php echo $sumMontos; ?></th>
+                    <th><?php echo $sumNegociaciones; ?></th>
+                    <th><?php echo $sumHoras; ?></th>
+                    <th><?php echo $sumBreak; ?></th>
+                    <th><?php echo number_format($sumGestiones / ($sumHoras + 1 / 3600)); ?></th>
                     </tfoot>
                 </table>
             </div>
