@@ -62,7 +62,7 @@ group by gestor,cliente";
      * @return array
      */
     public function detailsThisMonth() {
-        $queryActDet = "select cuenta, fecha, monto, cliente, gestor, confirmado
+        $queryActDet = "select cuenta, fecha, fechacapt, monto, cliente, gestor, confirmado
 from pagos
 where fecha>last_day(curdate()-interval 1 month)
 order by cliente,gestor,fecha";
@@ -106,7 +106,7 @@ group by gestor,cliente";
      * @return array
      */
     public function detailsLastMonth() {
-        $queryAntDet = "select cuenta, fecha, monto, cliente, gestor, confirmado
+        $queryAntDet = "select cuenta, fecha, fechacapt, monto, cliente, gestor, confirmado
 from pagos
 where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
