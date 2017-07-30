@@ -68,7 +68,8 @@
 	    <thead class="ui-widget-header">
 		<tr>
 		    <th>Cuenta</th>
-		    <th>Fecha</th>
+		    <th>Fecha Pago</th>
+		    <th>Fecha Capturado</th>
 		    <th>Monto</th>
 		    <th>Cliente</th>
 		    <th>Gestor</th>
@@ -80,6 +81,7 @@
 		foreach ($resultActDet as $row) {
 			$CUENTA	 = $row['cuenta'];
 			$FECHA	 = $row['fecha'];
+			$FECHACAPT	 = $row['fechacapt'];
 			$MONTO	 = number_format($row['monto'], 2);
 			$CLIENTE = $row['cliente'];
 			$GESTOR	 = $row['gestor'];
@@ -88,6 +90,7 @@
 			<tr>
 			    <td><?php echo $CUENTA; ?></td>
 			    <td><?php echo $FECHA; ?></td>
+			    <td><?php echo $FECHACAPT; ?></td>
 			    <td class="num"><?php echo $MONTO; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $GESTOR; ?></td>
@@ -156,7 +159,8 @@
 	    <thead class="ui-widget-header">
 		<tr>
 		    <th>Cuenta</th>
-		    <th>Fecha</th>
+		    <th>Fecha Pago</th>
+		    <th>Fecha Capturado</th>
 		    <th>Monto</th>
 		    <th>Cliente</th>
 		    <th>Gestor</th>
@@ -168,6 +172,7 @@
 		foreach ($resultAntDet as $row) {
 			$CUENTA	 = $row['cuenta'];
 			$FECHA	 = $row['fecha'];
+			$FECHACAPT	 = $row['fechacapt'];
 			$MONTO	 = number_format($row['monto'], 2);
 			$CLIENTE = $row['cliente'];
 			$GESTOR	 = $row['gestor'];
@@ -176,6 +181,7 @@
 			<tr>
 			    <td><?php echo $CUENTA; ?></td>
 			    <td><?php echo $FECHA; ?></td>
+			    <td><?php echo $FECHACAPT; ?></td>
 			    <td class="num"><?php echo $MONTO; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $GESTOR; ?></td>
