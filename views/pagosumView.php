@@ -72,7 +72,7 @@
 		    <th>Fecha Capturado</th>
 		    <th>Monto</th>
 		    <th>Cliente</th>
-		    <th>Gestor</th>
+		    <th>Gestor de Promesa</th>
 		    <th>Confirmado</th>
 		</tr>
 	    </thead>
@@ -84,7 +84,7 @@
 			$FECHACAPT	 = $row['fechacapt'];
 			$MONTO	 = number_format($row['monto'], 2);
 			$CLIENTE = $row['cliente'];
-			$GESTOR	 = $row['gestor'];
+			$GESTOR	 = $row['credit'];
 			$CONF	 = $row['confirmado'];
 			?>
 			<tr>
@@ -163,7 +163,7 @@
 		    <th>Fecha Capturado</th>
 		    <th>Monto</th>
 		    <th>Cliente</th>
-		    <th>Gestor</th>
+		    <th>Gestor de Promesa</th>
 		    <th>Confirmado</th>
 		</tr>
 	    </thead>
@@ -175,7 +175,7 @@
 			$FECHACAPT	 = $row['fechacapt'];
 			$MONTO	 = number_format($row['monto'], 2);
 			$CLIENTE = $row['cliente'];
-			$GESTOR	 = $row['gestor'];
+			$GESTOR	 = $row['credit'];
 			$CONF	 = $row['confirmado'];
 			?>
 			<tr>
