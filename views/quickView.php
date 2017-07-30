@@ -15,13 +15,6 @@
         </style>
     </head>
     <body>
-        <script>
-            $(function () {
-                $("#tab").tabs();
-                $("body").css("font-size", "10pt");
-                $(".rightnow a,#pbx,#cell,input[submit],button").button();
-            });
-        </script>
         <div id="tab">
             <ul>
                 <li><a href="#AHORA">AHORA</a></li>
@@ -175,5 +168,13 @@
             </div>
         </div>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <script>
+            $(function () {
+                $("#tab").tabs();
+                $("body").css("font-size", "10pt");
+                $(".rightnow a,#pbx,#cell,input[submit],button").button();
+                $('#PORDIAtab').dataTable();
+            });
+        </script>
     </body>
 </html>
