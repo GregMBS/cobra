@@ -144,6 +144,12 @@
                     </thead>
                     <tbody class="ui-widget-content">
                         <?php
+                        $sumGestiones = 0;
+                        $sumPromesas = 0;
+                        $sumMontos = 0;
+                        $sumNegociaciones = 0;
+                        $sumHoras = 0;
+                        $sumBreak = 0;
                         foreach ($resultHoy as $rowHoy) {
                             ?>
                             <tr<?php
@@ -161,11 +167,24 @@
                                 <td><?php echo $rowHoy['Gestiones_por_hora']; ?></td>
                             </tr>
                             <?php
+                            $sumGestiones += $rowHoy['Gestiones'];
+                            $sumPromesas += $rowHoy['Promesas_Hoy'];
+                            $sumMontos += $rowHoy['Monto_Promesas_Hoy'];
+                            $sumNegociaciones += $rowHoy['Negociaciones'];
+                            $sumHoras += $rowHoy['Horas'];
+                            $sumBreak += $rowHoy['Gestiones_por_hora'];
                         }
                         ?>
                     </tbody>
                     <tfoot>
-                        
+                    <td></td>
+                    <td><?php echo $sumGestiones; ?></td>
+                    <td><?php echo $sumPromesas; ?></td>
+                    <td><?php echo $sumMontos; ?></td>
+                    <td><?php echo $sumNegociaciones; ?></td>
+                    <td><?php echo $sumHoras; ?></td>
+                    <td><?php echo $sumBreak; ?></td>
+                    <td><?php echo number_format($sumGestiones / ($sumHoras + 1 / 3600)); ?></td>
                     </tfoot>
                 </table>
             </div>
