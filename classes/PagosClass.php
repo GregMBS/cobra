@@ -62,12 +62,21 @@ group by gestor,cliente";
      * @return array
      */
     public function detailsThisMonth() {
-        $queryActDet = "select cuenta, fecha, fechacapt, monto, cliente, gestor, confirmado
+        $queryActDet = "select cuenta, fecha, fechacapt, monto, cliente, 
+            gestor, confirmado, id_cuenta
 from pagos
 where fecha>last_day(curdate()-interval 1 month)
 order by cliente,gestor,fecha";
         $resultActDet = $this->pdo->query($queryActDet);
-        return $resultActDet;
+        $array = $resultActDet->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($array as $row) {
+            $id_cuenta = $row['id_cuenta'];
+            $fechacapt = $row['fechacapt'];
+            $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
+            $output[] = $row;
+        }
+
+        return $output;
     }
 
     /**
@@ -106,13 +115,23 @@ group by gestor,cliente";
      * @return array
      */
     public function detailsLastMonth() {
-        $queryAntDet = "select cuenta, fecha, fechacapt, monto, cliente, gestor, confirmado
+        $output = array();
+        $queryAntDet = "select cuenta, fecha, fechacapt, monto, cliente, 
+            gestor, confirmado, id_cuenta
 from pagos
 where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 order by cliente,gestor,fecha";
         $resultAntDet = $this->pdo->query($queryAntDet);
-        return $resultAntDet;
+        $array = $resultAntDet->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($array as $row) {
+            $id_cuenta = $row['id_cuenta'];
+            $fechacapt = $row['fechacapt'];
+            $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
+            $output[] = $row;
+        }
+
+        return $output;
     }
 
     /**
@@ -193,6 +212,21 @@ order by cliente,gestor,fecha";
         }
 
         return $result;
+    }
+
+    private function assignCredit($id_cuenta, $fechacapt) {
+        $query = "SELECT c_cvge FROM historia "
+                . "WHERE c_cont = :id_cuenta "
+                . "AND d_fech <= :fechacapt "
+                . "AND n_prom > 0 "
+                . "ORDER by d_fech desc, c_hrin desc "
+                . "LIMIT 1";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':id_cuenta', $id_cuenta);
+        $stq->bindParam(':fechacapt', $fechacapt);
+        $stq->execute();
+        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        return $result['c_cvge'];
     }
 
 }
