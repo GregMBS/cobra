@@ -100,15 +100,21 @@ group by cli, sdc with rollup";
      * @return array
      */
     public function byGestorLastMonth() {
+        $temp = array();
         $output = array();
         $result = $this->detailsLastMonth();
         foreach ($result as $row) {
             $gestor = strtolower($row['credit']);
             $cliente = strtoupper($row['cliente']);
-            $output[$gestor][$cliente]['gestor'] = $gestor;
-            $output[$gestor][$cliente]['cliente'] = $cliente;
-            $output[$gestor][$cliente]['sm'] += $row['monto'];
-            $output[$gestor][$cliente]['smc'] += $row['monto'] * $row['confirmado'];
+            $temp[$gestor][$cliente]['gestor'] = $gestor;
+            $temp[$gestor][$cliente]['cliente'] = $cliente;
+            $temp[$gestor][$cliente]['sm'] += $row['monto'];
+            $temp[$gestor][$cliente]['smc'] += $row['monto'] * $row['confirmado'];
+        }
+        foreach ($temp as $group) {
+            foreach ($group as $row) {
+                $output[] = $row;
+            }
         }
         return $output;
     }
