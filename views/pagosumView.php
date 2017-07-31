@@ -49,7 +49,7 @@
 	    </thead>
 	    <tbody class="ui-widget-content">
 		<?php
-		foreach ($resultActGest as $row) {
+                foreach ($resultActGest as $row) {
 			$GESTOR	 = $row['gestor'];
 			$CLIENTE = $row['cliente'];
 			$PAGO	 = number_format($row['sm'], 2);
@@ -132,7 +132,7 @@
 	<table class="ui-widget">
 	    <thead class="ui-widget-header">
 		<tr>
-		    <th>Gestor de captura</th>
+		    <th>Gestor</th>
 		    <th>Cliente</th>
 		    <th>Monto Pago Capturado</th>
 		    <th>Monto Pago Confirmado</th>
@@ -140,6 +140,7 @@
 	    </thead>
 	    <tbody class="ui-widget-content">
 		<?php
+                                    var_dump($resultAntGest);die();
 		foreach ($resultAntGest as $row) {
 			$GESTOR	 = $row['gestor'];
 			$CLIENTE = $row['cliente'];
