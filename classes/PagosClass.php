@@ -181,7 +181,7 @@ from pagos, resumen
 where fecha>last_day(curdate()-interval 5 week)
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
-        $std = $this->pdo->query($queryDA);
+        $std = $this->pdo->query($queryDA) or die($this->pdo->errorInfo());
         if ($std) {
             $result = $std->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($result as $row) {
