@@ -54,7 +54,7 @@ from pagos
 where fecha>last_day(curdate()-interval 1 month)
 group by gestor,cliente";
         $resultActGest = $this->pdo->query($queryActGest);
-        return $resultActGest;
+        return $resultActGest->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
