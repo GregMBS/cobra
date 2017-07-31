@@ -67,7 +67,7 @@ class BigInputObject {
      *
      * @var string
      */
-    protected $maxDate;
+    protected $maxDate = '2100-12-31';
 
     /**
      * 
