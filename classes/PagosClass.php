@@ -202,7 +202,7 @@ order by cliente,gestor,fecha";
      * @return array
      */
     public function queryOldSheet() {
-        $queryDA = "select cuenta, fecha, fechacatp, monto,
+        $queryDA = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
                     gestor, confirmado, pagos.id_cuenta
