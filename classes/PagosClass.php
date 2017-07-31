@@ -105,6 +105,8 @@ group by cli, sdc with rollup";
         foreach ($result as $row) {
             $gestor = strtolower($row['credit']);
             $cliente = strtoupper($row['cliente']);
+            $output[$gestor][$cliente]['gestor'] = $gestor;
+            $output[$gestor][$cliente]['cliente'] = $cliente;
             $output[$gestor][$cliente]['sm'] += $row['monto'];
             $output[$gestor][$cliente]['smc'] += $row['monto'] * $row['confirmado'];
         }
