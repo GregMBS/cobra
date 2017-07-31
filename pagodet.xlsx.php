@@ -16,6 +16,7 @@ $go        = filter_input(INPUT_GET, 'go');
 $thismonth = strftime("%B %Y");
 $lastmonth = strftime("%B %Y", strtotime("last month"));
 $result = $pc->querySheet();
+var_dump($result);die();
 $filename = "Pagos_".trim(date('ym')).".xlsx";
 $output   = array();
 $output[] = array_keys($result[0]);
