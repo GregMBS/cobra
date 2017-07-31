@@ -103,10 +103,11 @@ group by cli, sdc with rollup";
         $output = array();
         $result = $this->detailsLastMonth();
         foreach ($result as $row) {
-            $output[$row['credit']][$row['cliente']]['sm'] += $row['monto'];
-            $output[$row['credit']][$row['cliente']]['smc'] += $row['monto'] * $row['confirmado'];
+            $gestor = strtolower($row['credit']);
+            $cliente = strtoupper($row['cliente']);
+            $output[$gestor][$cliente]['sm'] += $row['monto'];
+            $output[$gestor][$cliente]['smc'] += $row['monto'] * $row['confirmado'];
         }
-        var_dump($output); die();
         return $output;
     }
 
