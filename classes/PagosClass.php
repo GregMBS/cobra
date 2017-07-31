@@ -172,22 +172,27 @@ ORDER BY fecha";
      * @return array
      */
     public function querySheet() {
-        $queryDA = "select cuenta, fecha, monto,
+        $output = array();
+        $queryDA = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
-                    gestor, confirmado
+                    gestor, confirmado, id_cuenta
 from pagos, resumen
 where fecha>last_day(curdate()-interval 5 week)
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
         $std = $this->pdo->query($queryDA);
-        if (!$std) {
-            $result = array();
-        } else {
+        if ($std) {
             $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($result as $row) {
+                $id_cuenta = $row['id_cuenta'];
+                $fechacapt = $row['fechacapt'];
+                $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
+                $output[] = $row;
+            }
         }
 
-        return $result;
+        return $output;
     }
 
     /**
@@ -195,23 +200,27 @@ order by cliente,gestor,fecha";
      * @return array
      */
     public function queryOldSheet() {
-        $queryDA = "select cuenta, fecha, monto,
+        $queryDA = "select cuenta, fecha, fechacatp, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
-                    gestor, confirmado
+                    gestor, confirmado, id_cuenta
 from pagos, resumen
 where fecha<=last_day(curdate()-interval 5 week)
 and fecha>(last_day(curdate()-interval 5 week - interval 1 month))
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
         $std = $this->pdo->query($queryDA);
-        if (!$std) {
-            $result = array();
-        } else {
+        if ($std) {
             $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($result as $row) {
+                $id_cuenta = $row['id_cuenta'];
+                $fechacapt = $row['fechacapt'];
+                $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
+                $output[] = $row;
+            }
         }
 
-        return $result;
+        return $output;
     }
 
     private function assignCredit($id_cuenta, $fechacapt) {
