@@ -355,12 +355,7 @@ FROM
 WHERE n_prom>0
             and d_fech between :fecha1 and :fecha2
             and d_prom between :fecha3 and :fecha4
-            and not exists (
-                select * from historia h2
-                    where h1.c_cont=h2.c_cont
-                    and n_prom>0
-                    and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi)
-            )";
+            ";
 		$this->queryBack = " and status_de_credito not REGEXP '-'
             and c_cniv is null
             group by id_cuenta
