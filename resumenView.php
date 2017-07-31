@@ -1833,7 +1833,7 @@
                                         <?php
                                         foreach ($resultGestor as $answerGestor) {
                                             ?>
-                                            <option value="<?php echo $answerGestor[1]; ?>"><?php echo $answerGestor[0]; ?></option>
+                                            <option value="<?php echo $answerGestor[0]; ?>"><?php echo $answerGestor[0]; ?></option>
                                         <?php }
                                         ?>
                                     </select></td>
