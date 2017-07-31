@@ -140,8 +140,7 @@
 	    </thead>
 	    <tbody class="ui-widget-content">
 		<?php
-                var_dump($resultAntGest);die();
-		foreach ($resultAntGest as $row) {
+                foreach ($resultAntGest as $row) {
 			$GESTOR	 = $row['gestor'];
 			$CLIENTE = $row['cliente'];
 			$PAGO	 = number_format($row['sm'], 2);
