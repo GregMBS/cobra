@@ -211,9 +211,9 @@ where fecha<=last_day(curdate()-interval 5 week)
 and fecha>(last_day(curdate()-interval 5 week - interval 1 month))
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
-        $std = $this->pdo->query($queryDA);
+        $std = $this->pdo->query($queryDA) or var_dump($this->pdo->errorInfo());
         if ($std) {
-            $result = $std->fetchAll(\PDO::FETCH_ASSOC) or var_dump($this->pdo->errorInfo());
+            $result = $std->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($result as $row) {
                 $id_cuenta = $row['id_cuenta'];
                 $fechacapt = $row['fechacapt'];
