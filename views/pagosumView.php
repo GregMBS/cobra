@@ -41,7 +41,7 @@
 	<table class="ui-widget">
 	    <thead class="ui-widget-header">
 		<tr>
-		    <th>Gestor de captura</th>
+		    <th>Gestor</th>
 		    <th>Cliente</th>
 		    <th>Monto Pago Capturado</th>
 		    <th>Monto Pago Confirmado</th>
