@@ -49,7 +49,8 @@
 	    </thead>
 	    <tbody class="ui-widget-content">
 		<?php
-                foreach ($resultActGest as $row) {
+                var_dump($resultActGest);die();
+		foreach ($resultActGest as $row) {
 			$GESTOR	 = $row['gestor'];
 			$CLIENTE = $row['cliente'];
 			$PAGO	 = number_format($row['sm'], 2);
@@ -140,7 +141,7 @@
 	    </thead>
 	    <tbody class="ui-widget-content">
 		<?php
-                                    var_dump($resultAntGest);die();
+                var_dump($resultAntGest);die();
 		foreach ($resultAntGest as $row) {
 			$GESTOR	 = $row['gestor'];
 			$CLIENTE = $row['cliente'];
