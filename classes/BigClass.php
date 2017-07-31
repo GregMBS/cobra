@@ -357,14 +357,13 @@ WHERE n_prom>0
             and d_prom between :fecha3 and :fecha4
             ";
 		$this->queryBack = " and status_de_credito not REGEXP '-'
-            and c_cniv is null
             group by id_cuenta
             ORDER BY d_fech,c_hrin";
 		$query = $this->queryFront
 		. $bio->getGestorStr()
 		. $bio->getClienteStr()
 		. $this->queryBack;
-
+die(htmlentities($query));
                 $stm = $this->pdo->prepare($query);
 		$stm->bindParam(':fecha1', $bio->getFecha1());
 		$stm->bindParam(':fecha2', $bio->getFecha2());
