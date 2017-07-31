@@ -48,13 +48,23 @@ group by cli, sdc with rollup";
      * @return array
      */
     public function byGestorThisMonth() {
-        $queryActGest = "select gestor,cliente,
-sum(monto) as sm, sum(monto*confirmado) as smc
-from pagos
-where fecha>last_day(curdate()-interval 1 month)
-group by gestor,cliente";
-        $resultActGest = $this->pdo->query($queryActGest);
-        return $resultActGest->fetchAll(\PDO::FETCH_ASSOC);
+        $temp = array();
+        $output = array();
+        $result = $this->detailsThisMonth();
+        foreach ($result as $row) {
+            $gestor = strtolower($row['credit']);
+            $cliente = strtoupper($row['cliente']);
+            $temp[$gestor][$cliente]['gestor'] = $gestor;
+            $temp[$gestor][$cliente]['cliente'] = $cliente;
+            $temp[$gestor][$cliente]['sm'] += $row['monto'];
+            $temp[$gestor][$cliente]['smc'] += $row['monto'] * $row['confirmado'];
+        }
+        foreach ($temp as $group) {
+            foreach ($group as $row) {
+                $output[] = $row;
+            }
+        }
+        return $output;
     }
 
     /**
