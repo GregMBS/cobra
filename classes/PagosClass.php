@@ -213,13 +213,15 @@ and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
         $std = $this->pdo->query($queryDA);
         if ($std) {
-            $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $std->fetchAll(\PDO::FETCH_ASSOC) or var_dump($this->pdo->errorInfo());
             foreach ($result as $row) {
                 $id_cuenta = $row['id_cuenta'];
                 $fechacapt = $row['fechacapt'];
                 $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
                 $output[] = $row;
             }
+        } else {
+            die();
         }
 
         return $output;
