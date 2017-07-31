@@ -176,7 +176,7 @@ ORDER BY fecha";
         $queryDA = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
-                    gestor, confirmado, id_cuenta
+                    gestor, confirmado, pagos.id_cuenta
 from pagos, resumen
 where fecha>last_day(curdate()-interval 5 week)
 and pagos.id_cuenta=resumen.id_cuenta
@@ -205,7 +205,7 @@ order by cliente,gestor,fecha";
         $queryDA = "select cuenta, fecha, fechacatp, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
-                    gestor, confirmado, id_cuenta
+                    gestor, confirmado, pagos.id_cuenta
 from pagos, resumen
 where fecha<=last_day(curdate()-interval 5 week)
 and fecha>(last_day(curdate()-interval 5 week - interval 1 month))
