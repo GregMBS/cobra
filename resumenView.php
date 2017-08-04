@@ -675,7 +675,7 @@
                                         }
                                     ?>
                                     <input type="text"<?php echo $campoc; ?> name="numgest" id="numgest" readonly="readonly" value="<?php echo $numgest.' gestiones'; ?>">
-                                    <input type="text" name="numprom" id="numprom" readonly="readonly" value="<?php echo $numprom.' gestiones'; ?>">
+                                    <input type="text" name="numprom" id="numprom" readonly="readonly" value="<?php echo $numprom.' promesas'; ?>">
                                 </div>
                             </td>
                         </tr>
