@@ -966,6 +966,17 @@ $stn->bindParam(':capt', $capt);
 $stn->execute();
 $resultng = $stn->fetch();
 
+$querynp = "SELECT count(1) as cnp FROM historia 
+WHERE c_cvge=:capt 
+AND n_prom > 0 
+AND d_fech=curdate()
+AND c_cont <> 0
+";
+$stp = $pdo->prepare($querynp);
+$stp->bindParam(':capt', $capt);
+$stp->execute();
+$resultnp = $stp->fetch();
+
 $queryextra = "SELECT *
  FROM resumen,sdhextras 
 WHERE cuenta=numero_de_credito 

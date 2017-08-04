@@ -665,6 +665,7 @@
                                     <?php
                                     $campoc  = " style='background-color:red; color:white;'";
                                     $numgest = $resultng['cng'] or 0;
+				    $numprom = $resultnp['cnp'] or 0;
 				    
                                         if ($numgest > 20) {
                                             $campoc = " style='background-color:yellow; color:black;'";
@@ -674,6 +675,7 @@
                                         }
                                     ?>
                                     <input type="text"<?php echo $campoc; ?> name="numgest" id="numgest" readonly="readonly" value="<?php echo $numgest.' gestiones'; ?>">
+                                    <input type="text" name="numprom" id="numprom" readonly="readonly" value="<?php echo $numprom.' gestiones'; ?>">
                                 </div>
                             </td>
                         </tr>
