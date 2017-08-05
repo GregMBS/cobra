@@ -82,7 +82,7 @@ order by cliente,gestor,fecha";
         foreach ($array as $row) {
             $cuenta = $row['cuenta'];
             $cliente = $row['cliente'];
-            $fechapago = $row['fechapago'];
+            $fechapago = $row['fecha'];
             $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
             $output[] = $row;
         }
@@ -147,7 +147,7 @@ order by cliente,gestor,fecha";
         foreach ($array as $row) {
             $cuenta = $row['cuenta'];
             $cliente = $row['cliente'];
-            $fechapago = $row['fechapago'];
+            $fechapago = $row['fecha'];
             $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
             $output[] = $row;
         }
@@ -208,7 +208,7 @@ order by cliente,gestor,fecha";
             foreach ($result as $row) {
                 $cuenta = $row['cuenta'];
                 $cliente = $row['cliente'];
-                $fechapago = $row['fechapago'];
+                $fechapago = $row['fecha'];
                 $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
                 $output[] = $row;
             }
@@ -239,7 +239,7 @@ order by cliente,gestor,fecha";
             foreach ($result as $row) {
                 $cuenta = $row['cuenta'];
                 $cliente = $row['cliente'];
-                $fechapago = $row['fechapago'];
+                $fechapago = $row['fecha'];
                 $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
                 $output[] = $row;
             }
@@ -278,11 +278,8 @@ order by cliente,gestor,fecha";
         $stp->bindParam(':id_cuenta', $id_cuenta);
         $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
-        var_dump([$stp, $id_cuenta, $fechapago]);
-        die();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
-        var_dump([$result]);
-        die();
+        $gestor = $result['c_cvge'];
         return $gestor;
     }
 
