@@ -258,15 +258,24 @@ order by cliente,gestor,fecha";
      * @return string
      */
     private function assignCredit($cuenta, $cliente, $fechacapt) {
-        $query = "SELECT max(auto) as 'ma' FROM historia  WHERE cuenta = :cuenta 
-            AND c_cvba = :cliente
-                AND d_fech <= :fechacapt  AND n_prom > 0";
-        $stq = $this->pdo->prepare($query);
+        $quertcc = "select id_cuenta from resumen 
+                where numero_de_cuenta = :cuenta
+                and cliente = :cliente";
+        $stq = $this->pdo->prepare($quertcc);
         $stq->bindParam(':cuenta', $cuenta);
         $stq->bindParam(':cliente', $cliente);
-        $stq->bindParam(':fechacapt', $fechacapt);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $resultc = $stq->fetch(\PDO::FETCH_ASSOC);
+        $id_cuenta = $resultc['id_cuenta'];
+        $queryp = "SELECT max(auto) as 'ma' FROM historia 
+            WHERE c_cont= :id_cuenta
+                AND d_fech <= :fechacapt 
+                AND n_prom > 0";
+        $stp = $this->pdo->prepare($queryp);
+        $stp->bindParam(':id_cuenta', $id_cuenta);
+        $stp->bindParam(':fechacapt', $fechacapt);
+        $stp->execute();
+        $result = $stp->fetch(\PDO::FETCH_ASSOC);
         $auto = $result['ma'];
         $queryhg = "SELECT c_cvge FROM histgest WHERE auto = :auto";
         $sth = $this->pdo->prepare($queryhg);
