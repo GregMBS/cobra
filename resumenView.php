@@ -135,7 +135,7 @@
                 function npromChange(thisform)
                 {
                 with (thisform) {
-                N_PROM.value=(N_PROM1.value*1)+(N_PROM2.value*1);
+                N_PROM.value=(N_PROM1.value*1)+(N_PROM2.value*1)+(N_PROM3.value*1)+(N_PROM4.value*1);
                 }
                 }
                 function statusChange(thisform)
