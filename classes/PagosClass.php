@@ -82,8 +82,8 @@ order by cliente,gestor,fecha";
         foreach ($array as $row) {
             $cuenta = $row['cuenta'];
             $cliente = $row['cliente'];
-            $fechacapt = $row['fechacapt'];
-            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechacapt);
+            $fechapago = $row['fechapago'];
+            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
             $output[] = $row;
         }
 
@@ -147,8 +147,8 @@ order by cliente,gestor,fecha";
         foreach ($array as $row) {
             $cuenta = $row['cuenta'];
             $cliente = $row['cliente'];
-            $fechacapt = $row['fechacapt'];
-            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechacapt);
+            $fechapago = $row['fechapago'];
+            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
             $output[] = $row;
         }
 
@@ -208,8 +208,8 @@ order by cliente,gestor,fecha";
             foreach ($result as $row) {
                 $cuenta = $row['cuenta'];
                 $cliente = $row['cliente'];
-                $fechacapt = $row['fechacapt'];
-                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechacapt);
+                $fechapago = $row['fechapago'];
+                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
                 $output[] = $row;
             }
         } else {
@@ -239,8 +239,8 @@ order by cliente,gestor,fecha";
             foreach ($result as $row) {
                 $cuenta = $row['cuenta'];
                 $cliente = $row['cliente'];
-                $fechacapt = $row['fechacapt'];
-                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechacapt);
+                $fechapago = $row['fechapago'];
+                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
                 $output[] = $row;
             }
         } else {
@@ -254,10 +254,10 @@ order by cliente,gestor,fecha";
      * 
      * @param string $cuenta
      * @param string $cliente
-     * @param string $fechacapt
+     * @param string $fechapago
      * @return string
      */
-    private function assignCredit($cuenta, $cliente, $fechacapt) {
+    private function assignCredit($cuenta, $cliente, $fechapago) {
         $quertcc = "select id_cuenta from resumen 
                 where numero_de_cuenta = :cuenta
                 and cliente = :cliente";
@@ -267,21 +267,23 @@ order by cliente,gestor,fecha";
         $stq->execute();
         $resultc = $stq->fetch(\PDO::FETCH_ASSOC);
         $id_cuenta = $resultc['id_cuenta'];
+
         $queryp = "SELECT max(auto) as 'ma' FROM historia 
             WHERE c_cont= :id_cuenta
-                AND d_fech <= :fechacapt 
+                AND d_fech <= :fechapago 
                 AND n_prom > 0";
         $stp = $this->pdo->prepare($queryp);
         $stp->bindParam(':id_cuenta', $id_cuenta);
-        $stp->bindParam(':fechacapt', $fechacapt);
+        $stp->bindParam(':fechacapt', $fechapago);
         $stp->execute();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
         $auto = $result['ma'];
+
         $queryhg = "SELECT c_cvge FROM historia WHERE auto = :auto";
         $sth = $this->pdo->prepare($queryhg);
         $sth->bindParam(':auto', $auto);
         $sth->execute();
-        $resulthg = $stq->fetch(\PDO::FETCH_ASSOC);                
+        $resulthg = $stq->fetch(\PDO::FETCH_ASSOC);
         return $resulthg['c_cvge'];
     }
 
