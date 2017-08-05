@@ -275,11 +275,11 @@ order by cliente,gestor,fecha";
                 order by auto desc
                 limit 1";
         $stp = $this->pdo->prepare($queryp);
-        var_dump($this->pdo->errorInfo());
-        die();
         $stp->bindParam(':id_cuenta', $id_cuenta);
         $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
+        var_dump($this->pdo->errorInfo());
+        die();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
         var_dump([$result]);
         die();
