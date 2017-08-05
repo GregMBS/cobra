@@ -279,7 +279,7 @@ order by cliente,gestor,fecha";
         $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
-        $gestor = $result['c_cvge'];
+        $gestor = $result['C_CVGE'];
         var_dump([$id_cuenta, $fechapago, $gestor]);
         die();
         return $gestor;
