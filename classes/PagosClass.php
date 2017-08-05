@@ -268,7 +268,7 @@ order by cliente,gestor,fecha";
         $resultc = $stq->fetch(\PDO::FETCH_ASSOC);
         $id_cuenta = $resultc['id_cuenta'];
 
-        $queryp = "SELECT c_cvge FROM historia 
+        $queryp = "SELECT * FROM historia 
             WHERE c_cont= :id_cuenta
                 AND d_fech <= :fechapago 
                 AND n_prom > 0
@@ -279,8 +279,7 @@ order by cliente,gestor,fecha";
         $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
-        $gestor = $result['c_cvge'];
-        var_dump([$id_cuenta, $gestor]);
+        var_dump([$result]);
         die();
         return $gestor;
     }
