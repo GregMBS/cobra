@@ -27,6 +27,7 @@ foreach ($resultpre as $rowpre) {
     $aData['ultimo_comentario'] = '';
     $aData['mejor_status'] = '';
     $aData['mejor_tel'] = '';
+    $aData['mejor_fecha'] = '';
     $resultult = $bc->getLastHistoriaData($aData['id_cuenta']);
     foreach ($resultult as $rowult) {
         $aData['ultimo_status'] = $rowult['C_CVST'];
@@ -37,7 +38,9 @@ foreach ($resultpre as $rowpre) {
     foreach ($resultbest as $rowbest) {
         $aData['mejor_status'] = $rowbest['c_cvst'];
         $aData['mejor_tel'] = $rowbest['c_tele'];
+        $aData['mejor_fecha'] = $rowbest['d_fech'];
     }
+    $aData['gestiones'] = $bc->countGestiones($aData['id_cuenta']);
     if ($i == 1) {
         $output[0] = array_keys($aData);
     }

@@ -14,8 +14,9 @@ class BestClass extends BaseClass
     public function getResumenData() {
         $query = "select id_cuenta,numero_de_cuenta,status_de_credito,
         saldo_total,saldo_descuento_1,saldo_descuento_2,
-        fecha_ultima_gestion,nombre_deudor,producto,subproducto,status_aarsa,
-        domicilio_deudor,colonia_deudor,ciudad_deudor,estado_deudor
+        date(fecha_ultima_gestion) as 'fecha gestion',
+        time(fecha_ultima_gestion) as 'hora gestion',
+        nombre_deudor,producto,subproducto,status_aarsa as 'estatus'
         from resumen
         where status_de_credito not regexp '-'
         order by numero_de_cuenta";
@@ -34,15 +35,35 @@ class BestClass extends BaseClass
         return $result;
     }
 
+    /**
+     * 
+     * @param int $c_cont
+     * @return array
+     */
     public function getBestHistoriaData($c_cont) {
-        $query = "select c_cvst,c_tele from historia
+        $query = "select c_cvst,c_tele,d_fech from historia
 join dictamenes on c_cvst=dictamen
 where c_cont=:c_cont
-order by v_cc limit 1";
+order by v_cc asc, d_fech desc limit 1";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':c_cont', $c_cont);
         $stq->execute();
         $result = $stq->fetchAll();
         return $result;
+    }
+    
+    /**
+     * 
+     * @param int $c_cont
+     * @return int
+     */
+    public function countGestiones($c_cont) {
+        $query = "select count(1) as ct from historia
+where c_cont=:c_cont";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':c_cont', $c_cont);
+        $stq->execute();
+        $result = $stq->fetch();
+        return $result['ct'];
     }
 }
