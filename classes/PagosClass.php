@@ -284,7 +284,10 @@ order by cliente,gestor,fecha";
         $sth->bindParam(':auto', $auto);
         $sth->execute();
         $resulthg = $stq->fetch(\PDO::FETCH_ASSOC);
-        return $resulthg['c_cvge'];
+        $gestor = $resulthg['c_cvge'];
+        var_dump([$id_cuenta, $auto, $gestor]);
+        die();
+        return $gestor;
     }
 
 }
