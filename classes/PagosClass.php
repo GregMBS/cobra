@@ -80,9 +80,10 @@ order by cliente,gestor,fecha";
         $resultActDet = $this->pdo->query($queryActDet);
         $array = $resultActDet->fetchAll(\PDO::FETCH_ASSOC);
         foreach ($array as $row) {
-            $id_cuenta = $row['id_cuenta'];
+            $cuenta = $row['cuenta'];
+            $cliente = $row['cliente'];
             $fechacapt = $row['fechacapt'];
-            $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
+            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechacapt);
             $output[] = $row;
         }
 
@@ -144,9 +145,10 @@ order by cliente,gestor,fecha";
         $resultAntDet = $this->pdo->query($queryAntDet);
         $array = $resultAntDet->fetchAll(\PDO::FETCH_ASSOC);
         foreach ($array as $row) {
-            $id_cuenta = $row['id_cuenta'];
+            $cuenta = $row['cuenta'];
+            $cliente = $row['cliente'];
             $fechacapt = $row['fechacapt'];
-            $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
+            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechacapt);
             $output[] = $row;
         }
 
@@ -204,9 +206,10 @@ order by cliente,gestor,fecha";
         if ($std) {
             $result = $std->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($result as $row) {
-                $id_cuenta = $row['id_cuenta'];
+                $cuenta = $row['cuenta'];
+                $cliente = $row['cliente'];
                 $fechacapt = $row['fechacapt'];
-                $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
+                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechacapt);
                 $output[] = $row;
             }
         } else {
@@ -234,9 +237,10 @@ order by cliente,gestor,fecha";
         if ($std) {
             $result = $std->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($result as $row) {
-                $id_cuenta = $row['id_cuenta'];
+                $cuenta = $row['cuenta'];
+                $cliente = $row['cliente'];
                 $fechacapt = $row['fechacapt'];
-                $row['credit'] = $this->assignCredit($id_cuenta, $fechacapt);
+                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechacapt);
                 $output[] = $row;
             }
         } else {
@@ -246,15 +250,22 @@ order by cliente,gestor,fecha";
         return $output;
     }
 
-    private function assignCredit($id_cuenta, $fechacapt) {
-        $query = "SELECT c_cvge FROM historia "
-                . "WHERE c_cont = :id_cuenta "
-                . "AND d_fech <= :fechacapt "
-                . "AND n_prom > 0 "
-                . "ORDER by d_fech desc, c_hrin desc "
-                . "LIMIT 1";
+    /**
+     * 
+     * @param string $cuenta
+     * @param string $cliente
+     * @param string $fechacapt
+     * @return string
+     */
+    private function assignCredit($cuenta, $cliente, $fechacapt) {
+        $query = "SELECT c_cvge FROM historia  WHERE cuenta = :cuenta 
+            AND c_cvba = :cliente
+                AND d_fech <= :fechacapt  AND n_prom > 0 
+                ORDER by d_fech desc, c_hrin desc 
+                LIMIT 1";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':id_cuenta', $id_cuenta);
+        $stq->bindParam(':cuenta', $cuenta);
+        $stq->bindParam(':cliente', $cliente);
         $stq->bindParam(':fechacapt', $fechacapt);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
