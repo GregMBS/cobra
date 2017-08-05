@@ -258,18 +258,22 @@ order by cliente,gestor,fecha";
      * @return string
      */
     private function assignCredit($cuenta, $cliente, $fechacapt) {
-        $query = "SELECT c_cvge FROM historia  WHERE cuenta = :cuenta 
+        $query = "SELECT max(auto) as 'ma' FROM historia  WHERE cuenta = :cuenta 
             AND c_cvba = :cliente
-                AND d_fech <= :fechacapt  AND n_prom > 0 
-                ORDER by d_fech desc, c_hrin desc 
-                LIMIT 1";
+                AND d_fech <= :fechacapt  AND n_prom > 0";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':cuenta', $cuenta);
         $stq->bindParam(':cliente', $cliente);
         $stq->bindParam(':fechacapt', $fechacapt);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
-        return $result['c_cvge'];
+        $auto = $result['ma'];
+        $queryhg = "SELECT c_cvge FROM histgest WHERE auto = :auto";
+        $sth = $this->pdo->prepare($queryhg);
+        $sth->bindParam(':auto', $auto);
+        $sth->execute();
+        $resulthg = $stq->fetch(\PDO::FETCH_ASSOC);                
+        return $resulthg['c_cvge'];
     }
 
 }
