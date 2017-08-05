@@ -277,7 +277,7 @@ order by cliente,gestor,fecha";
         $stp->execute();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
         $auto = $result['ma'];
-        $queryhg = "SELECT c_cvge FROM histgest WHERE auto = :auto";
+        $queryhg = "SELECT c_cvge FROM historia WHERE auto = :auto";
         $sth = $this->pdo->prepare($queryhg);
         $sth->bindParam(':auto', $auto);
         $sth->execute();
