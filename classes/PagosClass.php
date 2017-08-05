@@ -268,24 +268,19 @@ order by cliente,gestor,fecha";
         $resultc = $stq->fetch(\PDO::FETCH_ASSOC);
         $id_cuenta = $resultc['id_cuenta'];
 
-        $queryp = "SELECT max(auto) as 'ma' FROM historia 
+        $queryp = "SELECT c_cvge FROM historia 
             WHERE c_cont= :id_cuenta
                 AND d_fech <= :fechapago 
-                AND n_prom > 0";
+                AND n_prom > 0
+                order by auto desc
+                limit 1";
         $stp = $this->pdo->prepare($queryp);
         $stp->bindParam(':id_cuenta', $id_cuenta);
-        $stp->bindParam(':fechacapt', $fechapago);
+        $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
-        $auto = $result['ma'];
-
-        $queryhg = "SELECT c_cvge FROM historia WHERE auto = :auto";
-        $sth = $this->pdo->prepare($queryhg);
-        $sth->bindParam(':auto', $auto);
-        $sth->execute();
-        $resulthg = $stq->fetch(\PDO::FETCH_ASSOC);
-        $gestor = $resulthg['c_cvge'];
-        var_dump([$id_cuenta, $auto, $gestor]);
+        $gestor = $result['c_cvge'];
+        var_dump([$id_cuenta, $gestor]);
         die();
         return $gestor;
     }
