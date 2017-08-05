@@ -278,7 +278,7 @@ order by cliente,gestor,fecha";
         $stp->bindParam(':id_cuenta', $id_cuenta);
         $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
-        var_dump($this->pdo->errorInfo());
+        var_dump($stp);
         die();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
         var_dump([$result]);
