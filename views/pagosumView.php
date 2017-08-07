@@ -37,8 +37,8 @@
 			<tr>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
-			    <td class="num"><?php echo '$' . printf("%10s", number_format($PAGO, 2)); ?></td>
-			    <td class="num"><?php echo '$' . printf("%10s", number_format($CONF, 2)); ?></td>
+			    <td class="num"><?php echo '$' . printf("%s", number_format($PAGO, 2)); ?></td>
+			    <td class="num"><?php echo '$' . printf("%s", number_format($CONF, 2)); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -63,8 +63,8 @@
 			<tr>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
-			    <td class="num"><?php echo '$' . printf("%10s", number_format($PAGO, 2)); ?></td>
-			    <td class="num"><?php echo '$' . printf("%10s", number_format($CONF, 2)); ?></td>
+			    <td class="num"><?php echo '$' . printf("%s", number_format($PAGO, 2)); ?></td>
+			    <td class="num"><?php echo '$' . printf("%s", number_format($CONF, 2)); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -97,7 +97,7 @@
 			<tr>
 			    <td><?php echo $CUENTA; ?></td>
 			    <td><?php echo $FECHA; ?></td>
-			    <td><?php echo '$' . printf("%10s", number_format($MONTO, 2)); ?></td>
+			    <td><?php echo '$' . printf("%s", number_format($MONTO, 2)); ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
 			    <td><?php echo $GESTOR; ?></td>
@@ -131,8 +131,8 @@
 			<tr>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
-			    <td><?php echo '$' . printf("%10s", number_format($PAGO, 2)); ?></td>
-			    <td><?php echo '$' . printf("%10s", number_format($CONF, 2)); ?></td>
+			    <td><?php echo '$' . printf("%s", number_format($PAGO, 2)); ?></td>
+			    <td><?php echo '$' . printf("%s", number_format($CONF, 2)); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -157,8 +157,8 @@
 			<tr>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
-			    <td><?php echo '$' . printf("%10s", number_format($PAGO, 2)); ?></td>
-			    <td><?php echo '$' . printf("%10s", number_format($CONF, 2)); ?></td>
+			    <td><?php echo '$' . printf("%s", number_format($PAGO, 2)); ?></td>
+			    <td><?php echo '$' . printf("%s", number_format($CONF, 2)); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -191,7 +191,7 @@
 			<tr>
 			    <td><?php echo $CUENTA; ?></td>
 			    <td><?php echo $FECHA; ?></td>
-			    <td><?php echo '$' . printf("%10s", number_format($MONTO, 2)); ?></td>
+			    <td><?php echo '$' . printf("%s", number_format($MONTO, 2)); ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
 			    <td><?php echo $GESTOR; ?></td>
