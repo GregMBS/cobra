@@ -5,6 +5,11 @@
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+        <style>
+            .num {
+                text-align: right;
+            }
+        </style>
     </head>
     <body>
 	<button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
@@ -32,8 +37,8 @@
 			<tr>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
-			    <td><?php echo money_format('%#10.2n', $PAGO); ?></td>
-			    <td><?php echo money_format('%#10.2n', $CONF); ?></td>
+			    <td class="num"><?php echo money_format('%#10.2n', $PAGO); ?></td>
+			    <td class="num"><?php echo money_format('%#10.2n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -58,8 +63,8 @@
 			<tr>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
-			    <td><?php echo money_format('%#10.2n', $PAGO); ?></td>
-			    <td><?php echo money_format('%#10.2n', $CONF); ?></td>
+			    <td class="num"><?php echo money_format('%#10.2n', $PAGO); ?></td>
+			    <td class="num"><?php echo money_format('%#10.2n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
