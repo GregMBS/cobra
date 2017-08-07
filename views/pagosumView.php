@@ -26,14 +26,14 @@
 			if (empty($SDC)) {
 				$SDC = 'total';
 			}
-			$PAGO	 = number_format($row['sm'], 2);
-			$CONF	 = number_format($row['smc'], 2);
+			$PAGO	 = $row['sm'];
+			$CONF	 = $row['smc'];
 			?>
 			<tr>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
-			    <td><?php echo $PAGO; ?></td>
-			    <td><?php echo $CONF; ?></td>
+			    <td><?php echo money_format('%(#10n', $PAGO); ?></td>
+			    <td><?php echo money_format('%(#10n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -52,14 +52,14 @@
                 foreach ($resultActGest as $row) {
 			$GESTOR	 = $row['gestor'];
 			$CLIENTE = $row['cliente'];
-			$PAGO	 = number_format($row['sm'], 2);
-			$CONF	 = number_format($row['smc'], 2);
+			$PAGO	 = $row['sm'];
+			$CONF	 = $row['smc'];
 			?>
 			<tr>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
-			    <td class="num"><?php echo $PAGO; ?></td>
-			    <td class="num"><?php echo $CONF; ?></td>
+			    <td><?php echo money_format('%(#10n', $PAGO); ?></td>
+			    <td><?php echo money_format('%(#10n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -68,12 +68,13 @@
 	    <thead class="ui-widget-header">
 		<tr>
 		    <th>Cuenta</th>
-		    <th>Fecha Pago</th>
-		    <th>Fecha Capturado</th>
+		    <th>Fecha</th>
 		    <th>Monto</th>
 		    <th>Cliente</th>
-		    <th>Gestor de Promesa</th>
+                    <th>Segmento</th>
+		    <th>Gestor</th>
 		    <th>Confirmado</th>
+		    <th>Fecha Capturado</th>
 		</tr>
 	    </thead>
 	    <tbody class="ui-widget-content">
@@ -82,19 +83,21 @@
 			$CUENTA	 = $row['cuenta'];
 			$FECHA	 = $row['fecha'];
 			$FECHACAPT	 = $row['fechacapt'];
-			$MONTO	 = number_format($row['monto'], 2);
+			$MONTO	 = $row['monto'];
 			$CLIENTE = $row['cliente'];
 			$GESTOR	 = $row['credit'];
 			$CONF	 = $row['confirmado'];
+			$SDC	 = $row['sdc'];
 			?>
 			<tr>
 			    <td><?php echo $CUENTA; ?></td>
 			    <td><?php echo $FECHA; ?></td>
-			    <td><?php echo $FECHACAPT; ?></td>
-			    <td class="num"><?php echo $MONTO; ?></td>
+			    <td><?php echo money_format('%(#10n', $MONTO); ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
+			    <td><?php echo $SDC; ?></td>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CONF; ?></td>
+			    <td><?php echo $FECHACAPT; ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -117,14 +120,14 @@
 			if (empty($SDC)) {
 				$SDC = 'total';
 			}
-			$PAGO	 = number_format($row['sm'], 2);
-			$CONF	 = number_format($row['smc'], 2);
+			$PAGO	 = $row['sm'];
+			$CONF	 = $row['smc'];
 			?>
 			<tr>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
-			    <td><?php echo $PAGO; ?></td>
-			    <td><?php echo $CONF; ?></td>
+			    <td><?php echo money_format('%(#10n', $PAGO); ?></td>
+			    <td><?php echo money_format('%(#10n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -143,14 +146,14 @@
                 foreach ($resultAntGest as $row) {
 			$GESTOR	 = $row['gestor'];
 			$CLIENTE = $row['cliente'];
-			$PAGO	 = number_format($row['sm'], 2);
-			$CONF	 = number_format($row['smc'], 2);
+			$PAGO	 = $row['sm'];
+			$CONF	 = $row['smc'];
 			?>
 			<tr>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
-			    <td class="num"><?php echo $PAGO; ?></td>
-			    <td class="num"><?php echo $CONF; ?></td>
+			    <td><?php echo money_format('%(#10n', $PAGO); ?></td>
+			    <td><?php echo money_format('%(#10n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -159,12 +162,13 @@
 	    <thead class="ui-widget-header">
 		<tr>
 		    <th>Cuenta</th>
-		    <th>Fecha Pago</th>
-		    <th>Fecha Capturado</th>
+		    <th>Fecha</th>
 		    <th>Monto</th>
 		    <th>Cliente</th>
-		    <th>Gestor de Promesa</th>
+                    <th>Segmento</th>
+		    <th>Gestor</th>
 		    <th>Confirmado</th>
+		    <th>Fecha Capturado</th>
 		</tr>
 	    </thead>
 	    <tbody class="ui-widget-content">
@@ -173,19 +177,21 @@
 			$CUENTA	 = $row['cuenta'];
 			$FECHA	 = $row['fecha'];
 			$FECHACAPT	 = $row['fechacapt'];
-			$MONTO	 = number_format($row['monto'], 2);
+			$MONTO	 = $row['monto'];
 			$CLIENTE = $row['cliente'];
 			$GESTOR	 = $row['credit'];
 			$CONF	 = $row['confirmado'];
+			$SDC	 = $row['sdc'];
 			?>
 			<tr>
 			    <td><?php echo $CUENTA; ?></td>
 			    <td><?php echo $FECHA; ?></td>
-			    <td><?php echo $FECHACAPT; ?></td>
-			    <td class="num"><?php echo $MONTO; ?></td>
+			    <td><?php echo money_format('%(#10n', $MONTO); ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
+			    <td><?php echo $SDC; ?></td>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CONF; ?></td>
+			    <td><?php echo $FECHACAPT; ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
