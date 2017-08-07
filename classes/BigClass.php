@@ -348,8 +348,6 @@ FROM
     resumen
         JOIN
     historia h1 ON c_cont = id_cuenta
-        LEFT JOIN
-    pagos USING (id_cuenta)
 		LEFT JOIN
 	dictamenes ON status_aarsa = dictamen
 WHERE n_prom>0
