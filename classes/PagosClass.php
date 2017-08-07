@@ -72,9 +72,10 @@ group by cli, sdc with rollup";
      * @return array
      */
     public function detailsThisMonth() {
-        $queryActDet = "select cuenta, fecha, monto, cliente, status_de_credito as sdc, 
+        $queryActDet = "select cuenta, fecha, monto, pagos.cliente, 
+            status_de_credito as sdc, 
             gestor, confirmado, fechacapt, pagos.id_cuenta 
-from pagos ,resumen
+from pagos,resumen
 where fecha>last_day(curdate()-interval 1 month)
 and pagos.id_cuenta = resumen.id_cuenta
 order by cliente,gestor,fecha";
