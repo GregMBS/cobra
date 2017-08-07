@@ -32,8 +32,8 @@
 			<tr>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
-			    <td><?php echo money_format('#10n', $PAGO); ?></td>
-			    <td><?php echo money_format('#10n', $CONF); ?></td>
+			    <td><?php echo money_format('%#10n', $PAGO); ?></td>
+			    <td><?php echo money_format('%#10n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -58,8 +58,8 @@
 			<tr>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
-			    <td><?php echo money_format('#10n', $PAGO); ?></td>
-			    <td><?php echo money_format('#10n', $CONF); ?></td>
+			    <td><?php echo money_format('%#10n', $PAGO); ?></td>
+			    <td><?php echo money_format('%#10n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -92,7 +92,7 @@
 			<tr>
 			    <td><?php echo $CUENTA; ?></td>
 			    <td><?php echo $FECHA; ?></td>
-			    <td><?php echo money_format('#10n', $MONTO); ?></td>
+			    <td><?php echo money_format('%#10n', $MONTO); ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
 			    <td><?php echo $GESTOR; ?></td>
@@ -126,8 +126,8 @@
 			<tr>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
-			    <td><?php echo money_format('#10n', $PAGO); ?></td>
-			    <td><?php echo money_format('#10n', $CONF); ?></td>
+			    <td><?php echo money_format('%#10n', $PAGO); ?></td>
+			    <td><?php echo money_format('%#10n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -152,8 +152,8 @@
 			<tr>
 			    <td><?php echo $GESTOR; ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
-			    <td><?php echo money_format('#10n', $PAGO); ?></td>
-			    <td><?php echo money_format('#10n', $CONF); ?></td>
+			    <td><?php echo money_format('%#10n', $PAGO); ?></td>
+			    <td><?php echo money_format('%#10n', $CONF); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -186,7 +186,7 @@
 			<tr>
 			    <td><?php echo $CUENTA; ?></td>
 			    <td><?php echo $FECHA; ?></td>
-			    <td><?php echo money_format('#10n', $MONTO); ?></td>
+			    <td><?php echo money_format('%#10n', $MONTO); ?></td>
 			    <td><?php echo $CLIENTE; ?></td>
 			    <td><?php echo $SDC; ?></td>
 			    <td><?php echo $GESTOR; ?></td>
