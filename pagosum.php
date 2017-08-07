@@ -15,4 +15,5 @@ $resultActDet	 = $pc->detailsThisMonth();
 $resultAnt	 = $pc->summaryLastMonth();
 $resultAntGest	 = $pc->byGestorLastMonth();
 $resultAntDet	 = $pc->detailsLastMonth();
+setlocale(LC_MONETARY, 'en_US');
 require_once 'views/pagosumView.php';
