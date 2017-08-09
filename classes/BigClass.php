@@ -373,10 +373,7 @@ WHERE n_prom>0
 			$stm->bindParam(':cliente', $bio->getCliente());
 		}
 		$stm->execute();
-                var_dump($stm);
-                var_dump($bio);
-                die();
-		$result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+                $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
 		return $result;
 	}
 
