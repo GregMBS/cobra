@@ -238,10 +238,17 @@ class BigInputObject {
      * @return boolean
      */
     private function validDate($date) {
-        if (!empty($date)) {
-            return true;
+        if (empty($date)) {
+            return FALSE;
+        }
+        $time = strtotime($date);
+        $year = date('Y',$time);
+        $month = date('Y',$time);
+        $day = date('Y',$time);
+        if (checkdate($month, $day, $year)) {
+            return TRUE;
         } else {
-            return false;
+            return FALSE;
         }
     }
 
