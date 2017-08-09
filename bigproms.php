@@ -24,7 +24,7 @@ $gestor = filter_input(INPUT_GET, 'gestor');
 $cliente = filter_input(INPUT_GET, 'cliente');
 $tipo = filter_input(INPUT_GET, 'tipo');
 $go = filter_input(INPUT_GET, 'go');
-
+die($fecha4);
 if (!empty($fecha1)) {
 	$bio = new BigInputObject($fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo);
 	$result = $bc->getProms($bio);
