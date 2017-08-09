@@ -80,7 +80,7 @@ class BigInputObject {
      * @param string $tipo
      */
     public function __construct(
-    $fecha1, $fecha2, $gestor, $cliente, $fecha3 = "", $fecha4 = "", $tipo = ""
+    $fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo = ""
     ) {
         $this->maxDate = date("Y-m-d");
         $this->fecha1 = $this->fixDate($fecha1, $this->minDate);
