@@ -38,8 +38,8 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 <input type="submit" name="go" value="ULTIMA">
             </form>
             <form class="buttons" name="buscar" action="resumen.php" id="buscar">
-                <button type="button" value="buscar" onclick=
-                        "showsearch();">BUSCAR</button>
+                <button type="button" value="buscar" 
+                        onclick="showsearch();">BUSCAR</button>
             </form>
             <form class="buttons" name="migo" method="get" action=
                   "migo<?php
