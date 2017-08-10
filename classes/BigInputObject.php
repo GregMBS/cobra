@@ -61,13 +61,19 @@ class BigInputObject {
      *
      * @var string
      */
-    protected $minDate = '2007-10-17';
+    public $minDate = '2007-10-17';
 
     /**
      *
      * @var string
      */
-    protected $maxDate = '2020-12-31';
+    public $maxDateGest = '2020-12-31';
+
+    /**
+     *
+     * @var string
+     */
+    public $maxDateProm = '2020-12-31';
 
     /**
      * 
@@ -82,11 +88,11 @@ class BigInputObject {
     public function __construct(
     $fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo = ""
     ) {
-        $this->maxDate = date("Y-m-d");
+        $this->maxDateGest = date("Y-m-d");
         $this->fecha1 = $this->fixDate($fecha1, $this->minDate);
-        $this->fecha2 = $this->fixDate($fecha2, $this->maxDate);
+        $this->fecha2 = $this->fixDate($fecha2, $this->maxDateGest);
         $this->fecha3 = $this->fixDate($fecha3, $this->minDate);
-        $this->fecha4 = $this->fixDate($fecha4, $this->maxDate);
+        $this->fecha4 = $this->fixDate($fecha4, $this->maxDateProm);
         $this->gestor = $gestor;
         $this->cliente = $cliente;
         $this->tipo = $tipo;
@@ -237,14 +243,14 @@ class BigInputObject {
      * @param string $date
      * @return boolean
      */
-    private function validDate($date) {
+    public function validDate($date) {
         if (empty($date)) {
             return FALSE;
         }
         $time = strtotime($date);
         $year = date('Y',$time);
-        $month = date('Y',$time);
-        $day = date('Y',$time);
+        $month = date('m',$time);
+        $day = date('d',$time);
         if (checkdate($month, $day, $year)) {
             return TRUE;
         } else {
@@ -258,7 +264,7 @@ class BigInputObject {
      * @param string $default
      * @return string
      */
-    private function fixDate($date, $default) {
+    public function fixDate($date, $default) {
         if ($this->validDate($date)) {
             return $date;
         } else {
