@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace cobra_munoz;
+namespace cobra_demo;
 
 use PHPUnit\Framework\TestCase;
 use cobra_salsa\BigInputObject;

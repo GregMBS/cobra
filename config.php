@@ -10,11 +10,11 @@ class ConfigClass
      *
      * @var string
      */
-    public $dbName = 'cobramunoz';
+    public $dbName = 'cobrademo';
     
     /**
      *
      * @var string
      */
-    public $robotDb = 'robotmunoz';
+    public $robotDb = 'robotdemo';
 }

@@ -17,13 +17,13 @@ class PdoClass {
      *
      * @var string
      */
-    protected $dsn = 'mysql:dbname=cobramunoz;host=localhost';
+    protected $dsn = 'mysql:dbname=cobrademo;host=localhost';
 
     /**
      *
      * @var string
      */
-    protected $db = 'cobramunoz';
+    protected $db = 'cobrademo';
 
     /**
      *
