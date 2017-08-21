@@ -16,7 +16,8 @@ class BestClass extends BaseClass
         saldo_total,saldo_descuento_1,saldo_descuento_2,
         date(fecha_ultima_gestion) as 'fecha gestion',
         time(fecha_ultima_gestion) as 'hora gestion',
-        nombre_deudor,producto,subproducto,status_aarsa as 'estatus'
+        nombre_deudor,producto,subproducto,status_aarsa as 'estatus',
+        tel_1 as 'tel_casa', tel_2 as 'tel_cel',
         from resumen
         where status_de_credito not regexp '-'
         order by numero_de_cuenta";

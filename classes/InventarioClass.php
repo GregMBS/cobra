@@ -31,6 +31,7 @@ class InventarioClass {
     producto,subproducto,
     saldo_total,d1.queue,saldo_descuento_1,saldo_descuento_2,
     domicilio_deudor,colonia_deudor,ciudad_deudor, estado_deudor,cp_deudor,
+    tel_1 as 'tel_casa', tel_2 as 'tel_cel',
     ejecutivo_asignado_call_center, ejecutivo_asignado_domiciliario,
 count(historia.auto) as gestiones, sum(c_carg<>'') as contactos, fecha_de_asignacion
     from resumen 
