@@ -53,12 +53,13 @@ class GestoradminClass {
      * @param string $usuaria
      */
     public function updatePassword($passw, $usuaria) {
+        $bpw = password_hash($passw, PASSWORD_DEFAULT);
         $queryp = "UPDATE nombres
-            SET passw = sha(:passw)
+            SET passw = :bpw
             WHERE usuaria = :usuaria
 	    AND passw <> :passw";
         $stp = $this->pdo->prepare($queryp);
-        $stp->bindParam(':passw', $passw);
+        $stp->bindParam(':bpw', $bpw);
         $stp->bindParam(':usuaria', $usuaria);
         $stp->execute();
     }
@@ -106,15 +107,16 @@ class GestoradminClass {
      * @param string $passw
      */
     public function addToNombres($completo, $tipo, $usuaria, $iniciales, $passw) {
+        $bpw = password_hash($passw, PASSWORD_DEFAULT);
         $queryin = "INSERT INTO nombres (USUARIA, INICIALES, COMPLETO, PASSW,
             TIPO, CAMP) 
-	VALUES (:usuaria, :iniciales, :completo, sha(:passw), :tipo, 999999)";
+	VALUES (:usuaria, :iniciales, :completo, :bpw, :tipo, 999999)";
         $sti = $this->pdo->prepare($queryin);
         $sti->bindParam(':completo', $completo);
         $sti->bindParam(':tipo', $tipo);
         $sti->bindParam(':usuaria', $usuaria);
         $sti->bindParam(':iniciales', $iniciales);
-        $sti->bindParam(':passw', $passw);
+        $sti->bindParam(':bpw', $bpw);
         $sti->execute();
     }
 
