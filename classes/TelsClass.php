@@ -126,7 +126,9 @@ order by c_tele";
      * @param string $fecha2
      */
     public function createContactos($fecha1, $fecha2) {
-        $querycreate = "CREATE TEMPORARY TABLE contactos
+        $querydrop = 'DROP TABLE IF EXISTS contactos';
+        $this->pdo->query($querydrop);
+        $querycreate = "CREATE TABLE contactos
 SELECT c_tele FROM historia LIMIT 0";
         $this->pdo->query($querycreate);
         $queryfill = "insert into contactados select distinct c_tele
