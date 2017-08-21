@@ -103,7 +103,9 @@ where status_de_credito not regexp '-'";
      * @param string $fecha2
      */
     public function createMarcados($fecha1, $fecha2) {
-        $querycreate = "CREATE TEMPORARY TABLE marcados
+        $querydrop = 'DROP TABLE IF EXISTS marcados';
+        $this->pdo->query($querydrop);
+        $querycreate = "CREATE TABLE marcados
 SELECT distinct c_tele
 from historia,resumen,dictamenes
 where c_cont=id_cuenta and dictamen=c_cvst
