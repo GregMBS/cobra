@@ -24,7 +24,7 @@
                 <h2>Cargas</h2>
                 <button onclick="window.location = 'carga2.php?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
                 <button onclick="window.location = 'pagobulk.php?capt=<?php echo $capt; ?>'">Cargar Pagos Confirmados</button>
-                <button onclick="window.location = 'cargaPic.php?capt=<?php echo $capt; ?>'">Cargar Foto (FAMSA)</button><br>
+                <button onclick="window.location = 'cargaPic.php?capt=<?php echo $capt; ?>'">Cargar Foto</button><br>
                 <h2>Visitas</h2>
                 <button onclick="window.location = 'checkout.php?capt=<?php echo $capt; ?>'">Asignar Visitas</button>
                 <button onclick="window.location = 'checkin.php?capt=<?php echo $capt; ?>'">Recibir Visitas</button>
