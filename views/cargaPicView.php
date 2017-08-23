@@ -7,9 +7,16 @@
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
         <?php
-        if (isset($result)) {
+        if ($result) {
             ?>
             <h1>Foto para <?php echo $cliente . ' ' . $cuenta; ?> cargado.</h1>
+            <?php
+        }
+        ?>
+        <?php
+        if ((isset($result)) && (!$result)) {
+            ?>
+            <h1><?php echo $cliente . ' ' . $cuenta; ?> no es correcto.</h1>
             <?php
         }
         ?>
