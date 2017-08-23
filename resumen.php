@@ -1126,10 +1126,10 @@ $resultCnp = $pdo->query($queryCnp);
 
 $hasPic = FALSE;
 $picFile = '';
-$path = $_SERVER['DOCUMENT_ROOT']."/uploads/". $numero_de_cuenta . '.jpg';
+$path = $_SERVER['DOCUMENT_ROOT']."/uploads/". $id_cuenta . '.jpg';
 if (realpath($path)) {
     $hasPic = TRUE;
-    $picFile = 'pics/' . $numero_de_cuenta . '.jpg';
+    $picFile = '/uploads/' . $id_cuenta . '.jpg';
 }
 
 include 'resumenView.php';

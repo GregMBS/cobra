@@ -9,7 +9,7 @@
         <?php
         if (isset($result)) {
             ?>
-            <h1>Foto para <?php echo $cuenta; ?> cargado.</h1>
+            <h1>Foto para <?php echo $cliente . ' ' . $cuenta; ?> cargado.</h1>
             <?php
         }
         ?>
@@ -18,6 +18,15 @@
                 <input type="hidden" name="capt" id="capt" value="<?php echo $capt ?>" />
                 <label for="file">Filename:</label>
                 <input type="file" name="file" id="file" accept="image/jpeg"><br>
+                <label for="cliente">Cliente:</label>
+                <select name='cliente' id='cliente'>
+                    <?php foreach ($clientes as $cliente) { ?>
+                        <option><?php echo $cliente; ?></option>            
+                        <?php
+                    }
+                    ?>
+
+                </select><br>
                 <label for="cuenta">Cuenta:</label>
                 <input type="text" name="cuenta" id="cuenta"><br>
                 <button type="submit" name="go" value="cargar">Elegir archivo</button>
