@@ -21,7 +21,7 @@
                 <label for="cliente">Cliente:</label>
                 <select name='cliente' id='cliente'>
                     <?php foreach ($clientes as $cliente) { ?>
-                        <option><?php echo $cliente; ?></option>            
+                        <option><?php echo $cliente[0]; ?></option>            
                         <?php
                     }
                     ?>
