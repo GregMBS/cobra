@@ -1126,7 +1126,7 @@ $resultCnp = $pdo->query($queryCnp);
 
 $hasPic = FALSE;
 $picFile = '';
-$path = dirname(__FILE__) . '/pics/' . $numero_de_cuenta . '.jpg';
+$path = $_SERVER['DOCUMENT_ROOT']."/uploads/". $numero_de_cuenta . '.jpg';
 if (realpath($path)) {
     $hasPic = TRUE;
     $picFile = 'pics/' . $numero_de_cuenta . '.jpg';
