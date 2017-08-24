@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of ResumenClass
  *
@@ -566,6 +568,65 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts->execute();
         $rowsub = $sts->fetchAll(\PDO::FETCH_ASSOC);
         return $rowsub;
+    }
+
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return int
+     */
+    public function countGestiones($id_cuenta) {
+        $query = "SELECT COUNT(1) as gest FROM historia 
+                WHERE c_cont = :id_cuenta
+                AND c_cont > 0";
+        $stg = $this->pdo->prepare($query);
+        $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $stg->execute();
+        $result = $stg->fetch(PDO::FETCH_ASSOC);
+        $count = $result['gest'];
+        if (empty($count)) {
+            $count = 0;
+        }
+        return $count;
+    }
+
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return int
+     */
+    public function countPromesas($id_cuenta) {
+        $query = "SELECT COUNT(1) as prom FROM historia 
+                WHERE c_cont = :id_cuenta 
+                AND n_prom > 0";
+        $stg = $this->pdo->prepare($query);
+        $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $stg->execute();
+        $result = $stg->fetch(PDO::FETCH_ASSOC);
+        $count = $result['prom'];
+        if (empty($count)) {
+            $count = 0;
+        }
+        return $count;
+    }
+
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return int
+     */
+    public function countPagos($id_cuenta) {
+        $query = "SELECT COUNT(1) as pag FROM pagos 
+                WHERE id_cuenta = :id_cuenta";
+        $stg = $this->pdo->prepare($query);
+        $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $stg->execute();
+        $result = $stg->fetch(PDO::FETCH_ASSOC);
+        $count = $result['pag'];
+        if (empty($count)) {
+            $count = 0;
+        }
+        return $count;
     }
 
 }
