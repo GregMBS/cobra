@@ -656,6 +656,9 @@
                                     echo $status_aarsa;
                                 }
                                 ?>'><br>
+                                <?php echo $gestiones; ?> gestiones<br>
+                                <?php echo $promesas; ?> promesas<br>
+                                <?php echo $pagos; ?> pagos<br>
                             </td>
                             <td>
                                 <div id='clock'>

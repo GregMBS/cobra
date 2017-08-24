@@ -2,6 +2,7 @@
 
 use cobra_salsa\PdoClass;
 use cobra_salsa\GestionClass;
+use cobra_salsa\ResumenClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
@@ -20,10 +21,13 @@ function highhist($stat, $visit) {
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
+require_once 'classes/ResumenClass.php';
 $pdoc = new PdoClass();
+/* @var $pdo \PDO */
 $pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
+$rc = new ResumenClass($pdo);
 $capt = $pdoc->capt;
 $mytipo = $pdoc->tipo;
 /*
@@ -465,13 +469,13 @@ order by v_cc LIMIT 1;";
 where id_cuenta=" . $C_CONT . "
 and cliente not like 'J%' and cliente not like '%JUR';";
         mysqli_query($con, $querysa3) or die("ERROR RM15c - " . mysqli_error($con));
-        $querysa1 = "update cobrademo.resumen set status_aarsa='PROMESA INCUMPLIDA' 
-where id_cuenta not in (select c_cont from cobrademo.historia where n_prom>0 
+        $querysa1 = "update cobramunoz.resumen set status_aarsa='PROMESA INCUMPLIDA' 
+where id_cuenta not in (select c_cont from cobramunoz.historia where n_prom>0 
 and d_prom>=curdate()) and cliente not like 'J%' and cliente not like '%JUR'
-and id_cuenta in (select c_cont from cobrademo.historia where n_prom>0 
+and id_cuenta in (select c_cont from cobramunoz.historia where n_prom>0 
 and d_prom<curdate()) 
 and numero_de_cuenta not in 
-(select cuenta from cobrademo.pagos where fecha>last_day(curdate()-interval 1 month)) 
+(select cuenta from cobramunoz.pagos where fecha>last_day(curdate()-interval 1 month)) 
 and status_aarsa not regexp 'rota' and status_aarsa not regexp 'propuesta'
 and (status_aarsa like 'PROMESA DE P%' or status_aarsa like 'CONFIRMA P%')
 and id_cuenta=" . $C_CONT . ";";
@@ -628,13 +632,15 @@ WHERE (status_de_credito  = '" . $sdc . "'
  AND ((status_aarsa='') or (status_aarsa is null)))
  ORDER BY saldo_total desc LIMIT 1";
     }
-    if ($cr == 'TOPS') {
-        $querymain = "select * from (select * from resumen 
-where cliente='" . $cliente . "' 
-and status_de_credito  = '" . $sdc . "'
-and fecha_de_actualizacion > last_day(curdate() - interval 6 week)
-order by saldo_total desc limit 15) as tmp 
-order by tmp.fecha_ultima_gestion limit 1";
+    if ($cr == 'MANUAL') {
+        $querymain = "select * from resumen 
+where cliente='".$cliente."' 
+and status_de_credito not regexp '-' 
+and status_aarsa not in (select dictamen from dictamenes where queue in ('PAGOS','PROMESAS','ACLARACION'))
+and especial = 1
+and locker is null
+and ejecutivo_asignado_call_center in ('".$capt."','sinasig')
+order by (ejecutivo_asignado_call_center='sinasig'),fecha_ultima_gestion limit 1";
     }
 
     if (($cr == 'INICIAL')) {
@@ -930,11 +936,18 @@ WHERE id_cuenta='" . $id_cuenta . "';";
         }
     }
 }
-$queryeom = "select last_day(curdate())+interval 1 month";
-$resulteom = mysqli_query($con, $queryeom) or die("ERROR RMeom - " . mysqli_error($con));
-while ($roweom = mysqli_fetch_row($resulteom)) {
-    $dday = $roweom[0];
-    $dday2 = $roweom[0];
+//$queryeom = "select last_day(curdate())+interval 1 month";
+//$resulteom = mysqli_query($con, $queryeom) or die("ERROR RMeom - " . mysqli_error($con));
+//while ($roweom = mysqli_fetch_row($resulteom)) {
+//    $dday = $roweom[0];
+//    $dday2 = $roweom[0];
+//}
+if ($mytipo == 'admin') {
+    $dday = date("Y-m-d", strtotime("+1 month")) ;
+    $dday2 = date("Y-m-d", strtotime("+1 month")) ;
+} else {
+    $dday = date("Y-m-d", strtotime("+1 week")) ;
+    $dday2 = date("Y-m-d", strtotime("+15 day")) ;
 }
 $CD = date("Y-m-d");
 $CT = date("H:i:s");
@@ -1126,10 +1139,12 @@ $resultCnp = $pdo->query($queryCnp);
 
 $hasPic = FALSE;
 $picFile = '';
-$path = $_SERVER['DOCUMENT_ROOT']."/uploads/". $id_cuenta . '.jpg';
+$path = dirname(__FILE__) . '/pics/' . $numero_de_cuenta . '.jpg';
 if (realpath($path)) {
     $hasPic = TRUE;
-    $picFile = '/uploads/' . $id_cuenta . '.jpg';
+    $picFile = 'pics/' . $numero_de_cuenta . '.jpg';
 }
-
+$gestiones = $rc->countGestiones($id_cuenta);
+$promesas = $rc->countPromesas($id_cuenta);
+$pagos = $rc->countPagos($id_cuenta);
 include 'resumenView.php';
