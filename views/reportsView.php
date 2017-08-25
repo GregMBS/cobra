@@ -37,6 +37,7 @@
                 <button onclick="window.location = 'segmentadmin.php?capt=<?php echo $capt; ?>'">Administrar Segmetos</button><br>
                 <button onclick="window.location = 'changest.php?capt=<?php echo $capt; ?>'">
                     Cambiar Status de Credito</button>
+                <button onclick="window.location='queuemanual.php?capt=<?php echo $capt;?>'">Carga Queue MANUAL</button>
                 <!--
                 <button onclick="window.location='changegest.php?capt=<?php echo $capt; ?>'">
                 Cambiar Gestor Asignado</button>
