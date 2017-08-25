@@ -6,7 +6,9 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace cobra_munoz;
+
+use cobra_salsa\BaseClass;
 
 /**
  * Description of QueueManualClass

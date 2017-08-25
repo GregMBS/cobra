@@ -138,9 +138,11 @@ group by cli, sdc with rollup";
      */
     public function detailsLastMonth() {
         $output = array();
-        $queryAntDet = "select cuenta, fecha, fechacapt, monto, cliente, 
-            gestor, confirmado, id_cuenta
+        $queryAntDet = "select cuenta, fecha, monto, pagos.cliente, 
+            status_de_credito as 'sdc', 
+            gestor, confirmado, fechacapt, pagos.id_cuenta
 from pagos
+join resumen using (id_cuenta)
 where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 order by cliente,gestor,fecha";
