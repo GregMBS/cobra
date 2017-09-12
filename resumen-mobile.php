@@ -457,7 +457,7 @@ if ($camp > 0) {
 left join dictamenes on status_aarsa=dictamen
 WHERE status_de_credito = '".$sdc."'
  AND locker is null
- ORDER BY fecha_ultima_gestion, vcc(status_aarsa), saldo_total desc LIMIT 1";
+ ORDER BY fecha_ultima_gestion, v_cc, saldo_total desc LIMIT 1";
     if ($cr <> '') {
         $querymain = "SELECT * FROM resumen 
 join dictamenes on dictamen=status_aarsa 

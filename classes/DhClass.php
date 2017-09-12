@@ -30,9 +30,10 @@ class DhClass {
 status_de_credito,ejecutivo_asignado_call_center,
 pagos_vencidos,status_aarsa,
 saldo_descuento_1,producto,estado_deudor,ciudad_deudor,cliente,id_cuenta,
-max(n_prom) as monto_promesa,max(d_prom) as fecha_promesa,vcc(status_aarsa) as vcc
+max(n_prom) as monto_promesa,max(d_prom) as fecha_promesa,v_cc as vcc
 from resumen
 join historia on id_cuenta=c_cont
+left join dictamenes on dictamen = status_aarsa
 where c_cvge=:gestor and d_fech=:fecha and n_prom>0
 group by id_cuenta
 ORDER BY
