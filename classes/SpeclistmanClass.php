@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of SpeclistmanClass
  *
@@ -16,16 +18,16 @@ namespace cobra_salsa;
 class SpeclistmanClass extends BaseClass {
 
     /**
-     * 
+     *
      * @param string $cliente
      * @param string $sdc
      * @return array
      */
     public function getReport($cliente, $sdc) {
         $querymain = "SELECT numero_de_cuenta, nombre_deudor, saldo_total, status_aarsa,
-ejecutivo_asignado_call_center, status_de_credito, 
-resumen.cliente as cli, fecha_ultima_gestion, especial 
-FROM resumen 
+ejecutivo_asignado_call_center, status_de_credito,
+resumen.cliente as cli, fecha_ultima_gestion, especial
+FROM resumen
 JOIN dictamenes ON dictamen = status_aarsa
 LEFT JOIN pagos using (id_cuenta)
 WHERE resumen.cliente = :cliente
