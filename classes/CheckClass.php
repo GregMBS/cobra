@@ -16,13 +16,13 @@ namespace cobra_salsa;
 class CheckClass extends BaseClass {
 
     /**
-     * 
+     *
      * @param string $CUENTA
      * @return int
      */
     public function getIdCuentafromCuenta($CUENTA) {
         $querycc = "select id_cuenta from resumen
-where numero_de_cuenta=:cuenta 
+where numero_de_cuenta=:cuenta
 and status_de_creditonot regexp '-' LIMIT 1";
         $stcc = $this->pdo->prepare($querycc);
         $stcc->bindParam(':cuenta', $CUENTA);
@@ -37,13 +37,13 @@ and status_de_creditonot regexp '-' LIMIT 1";
     }
 
     /**
-     * 
+     *
      * @param int $id_cuenta
      * @return string
      */
     public function getCuentafromIdCuenta($id_cuenta) {
         $querycc = "select numero_de_cuenta from resumen
-where id_cuenta=:id_cuenta 
+where id_cuenta=:id_cuenta
 and status_de_creditonot regexp '-' LIMIT 1";
         $stcc = $this->pdo->prepare($querycc);
         $stcc->bindParam(':id_cuenta', $id_cuenta);
@@ -58,7 +58,7 @@ and status_de_creditonot regexp '-' LIMIT 1";
     }
 
     /**
-     * 
+     *
      * @param string $CUENTA
      * @param string $gestor
      * @param string $fechaout
@@ -76,7 +76,7 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
     }
 
     /**
-     * 
+     *
      * @param string $CUENTA
      * @param string $gestor
      * @param int $ID_CUENTA
@@ -84,7 +84,7 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
     public function insertVasign($CUENTA, $gestor, $ID_CUENTA) {
         $queryins = "INSERT INTO vasign
 			(cuenta, gestor, fechaout,c_cont)
-			VALUES 
+			VALUES
 			(:cuenta, :gestor, now(), :id_cuenta)";
         $sti = $this->pdo->prepare($queryins);
         $sti->bindParam(':cuenta', $CUENTA);
@@ -94,7 +94,7 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
     }
 
     /**
-     * 
+     *
      * @return array
      */
     public function getVisitadores() {
@@ -105,7 +105,7 @@ and tipo IN ('visitador','admin')";
     }
 
     /**
-     * 
+     *
      * @return array
      */
     public function getOneMonth() {
@@ -123,16 +123,16 @@ and tipo IN ('visitador','admin')";
     }
 
     /**
-     * 
+     *
      * @param string $gestor
      * @return array
      */
     public function countInOut($gestor) {
         $querycount = "select sum(fechaout>curdate()) as countOut,
-    sum(fechain>curdate()) as countIn 
+    sum(fechain>curdate()) as countIn
     from vasign
 where gestor=:gestor";
-        $stc = $this->pdo->query($querycount);
+        $stc = $this->pdo->prepare($querycount);
         $stc->bindParam(':gestor', $gestor);
         $stc->execute();
         $resultcount = $stc->fetch();
@@ -140,7 +140,7 @@ where gestor=:gestor";
     }
 
     /**
-     * 
+     *
      * @param string $gestor
      * @return array
      */
@@ -154,9 +154,9 @@ where gestor=:gestor";
 
         $querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
 queue, completo, fechaout, fechain, gestor
-from resumen 
-join vasign on id_cuenta=c_cont 
-join nombres on iniciales=gestor 
+from resumen
+join vasign on id_cuenta=c_cont
+join nombres on iniciales=gestor
 join dictamenes on dictamen = status_aarsa " . $gstring;
         $stm = $this->pdo->query($querymain);
         if (!empty($gestor)) {
@@ -168,7 +168,7 @@ join dictamenes on dictamen = status_aarsa " . $gstring;
     }
 
     /**
-     * 
+     *
      * @param string $vst
      * @return array
      */
@@ -184,7 +184,7 @@ limit 1;";
     }
 
     /**
-     * 
+     *
      * @param string $tipo
      * @param string $CUENTA
      */
