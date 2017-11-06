@@ -17,7 +17,7 @@ $msg = 'CobraMas';
     </head>
     <body>
         <h1><?php echo $msg; ?></h1>
-        <em>versi&oacute;n configurado para VoIP Consulting</em>
+        <em>versi&oacute;n configurado para RIBEMI</em>
         <div class="forma">
             <form action="index.php" method="post" autocomplete="off">
                 <fieldset>
