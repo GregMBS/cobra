@@ -72,12 +72,12 @@
             </div>
             <div id="spec">
                 <h2>Reportes Specializados</h2>
-                <button onclick="window.location = 'folios_new.php?capt=<?php echo $capt; ?>'">Carga Folios</button><br>
-                <br>
-                <h3>Credito Real</h3>
+<!--                <button onclick="window.location = 'folios_new.php?capt=<?php echo $capt; ?>'">Carga Folios</button><br>
+                <br>-->
+<!--                <h3>Credito Real</h3>
                 <button onclick="window.location = 'CreditoRealReport.php?capt=<?php echo $capt; ?>'">Reporte Lunes, Miercoles, Viernes para Credito Real</button>
                 <button onclick="window.location = 'CreditoRealFdm.php?capt=<?php echo $capt; ?>'">Reporte Mensual</button>
-                <br>
+                <br>-->
 <!--                <h3>Credito Si</h3>
                 <button onclick="window.location = 'folioadmin2.php?capt=<?php echo $capt; ?>'">Administrar CS Folios</button>
                 
@@ -102,8 +102,8 @@
             <div id="bot">
                 <h2>Controlar ROBOT y ELASTIX</h2>
                 <h3>ROBOT</h3>
-                <button onclick="window.location = 'cargatel.php?capt=<?php echo $capt; ?>'">CARGAR ROBOT</button>
-                <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">CONTROLAR ROBOT</button>
+<!--                <button onclick="window.location = 'cargatel.php?capt=<?php echo $capt; ?>'">CARGAR ROBOT</button>
+                <button onclick="window.location = 'robocon.php?capt=<?php echo $capt; ?>'">CONTROLAR ROBOT</button>-->
             </div>
         </div>
         <p>
