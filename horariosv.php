@@ -22,4 +22,5 @@ foreach ($resultwd as $answerwd) {
 	$expw2	 = $answerwd['sss'] * 15;
 }
 $dst = '';
+$day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
 require_once 'views/horariosvView.php';

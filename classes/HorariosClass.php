@@ -234,7 +234,7 @@ order by usuaria;';
 	 */
 	public function countVisitsAssigned($visitador, $dom)
 	{
-		$query = "select count(fechaout) as co, count(fechain) as ci
+		$query = "select count(fechaout) as 'co', count(fechain) as 'ci'
 			from vasign
 			where gestor = :visitador
 			and fechaout>last_day(curdate()-interval 1 month)
