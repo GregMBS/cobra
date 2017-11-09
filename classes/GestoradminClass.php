@@ -61,6 +61,7 @@ class GestoradminClass {
         $stp = $this->pdo->prepare($queryp);
         $stp->bindParam(':bpw', $bpw);
         $stp->bindParam(':usuaria', $usuaria);
+        $stp->bindParam(':passw', $passw);
         $stp->execute();
     }
 
