@@ -4,6 +4,7 @@ namespace cobra_salsa;
 
 use Box\Spout\Reader;
 use Box\Spout\Common\Type;
+use Exception;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

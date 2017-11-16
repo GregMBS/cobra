@@ -1,4 +1,4 @@
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
+<SCRIPT TYPE="text/JavaScript">
 function validate_form2(tf,evt)
 {
 //initialize 

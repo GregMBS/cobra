@@ -52,7 +52,7 @@
                 <?php } ?>
             </tbody>
         </table>
-        <script LANGUAGE="JavaScript" TYPE="text/JavaScript">
+        <script TYPE="text/JavaScript">
             $(function() {
             $( "input:submit, a, button" ).button();
             $( "body" ).css("font-size", "10pt")

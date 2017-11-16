@@ -9,6 +9,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 require_once 'config.php';
 

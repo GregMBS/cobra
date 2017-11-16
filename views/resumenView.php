@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-    <html>
         <head>
 
             <title>Resumen</title>
@@ -21,7 +20,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
 <?php } ?>
             </style>
             <script type="text/javascript" src="/js/resumen.js"></script>
-            <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
+            <SCRIPT TYPE="text/JavaScript">
 <?php
 if (empty($flag)) {
     $flag = 0;
@@ -197,7 +196,7 @@ if ($lockflag == 1) {
             </SCRIPT>
             <script type="text/javascript" src="/js/depuracion.js"></script>
             <script type="text/javascript" src="/js/depuracionv.js"></script>
-            <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
+            <SCRIPT TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
         </head>
         <body onLoad="alerttxt = new String('');
     paging('HISTORIA');
@@ -1289,7 +1288,7 @@ if (isset($id_cuenta)) {
                     </select>
                     <br>
                     <span class="formcap">Fecha:</span>
-                    <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                    <SCRIPT type="text/javascript">
                         var cal6 = new CalendarPopup();
                         var tomorrow = new Date();
                         tomorrow.setDate(tomorrow.getDate() + 1);
@@ -1353,7 +1352,7 @@ foreach ($resultDictamenV as $answerDictamenV) {
                     <table>
                         <tr>
                             <td> <span class="formcap">Fecha promesa</span>
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal7 = new CalendarPopup();
                                     cal7.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal7.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
@@ -1368,7 +1367,7 @@ foreach ($resultDictamenV as $answerDictamenV) {
                                 $<input type="text" name="N_PROMv" value=""><br>
                             </td>
                             <td id='pagocaptv'> <span class="formcap">Fecha ya pag&oacute;</span>
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal8 = new CalendarPopup();
                                     cal8.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal8.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
@@ -1715,7 +1714,7 @@ foreach ($resultDictamen as $answerDictamen) {
                         </tr>
                         <tr>
                             <td>Fecha promesa unico o 1o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal4 = new CalendarPopup();
                                     var oneMinute = 60 * 1000;  // milliseconds in a minute
                                     var oneHour = oneMinute * 60;
@@ -1750,7 +1749,7 @@ foreach ($resultDictamen as $answerDictamen) {
                         </tr>
                         <tr>
                             <td>Fecha promesa 2o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal5 = new CalendarPopup();
                                     var yesterday = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
@@ -1782,7 +1781,7 @@ foreach ($resultDictamen as $answerDictamen) {
                         </tr>
                         <tr>
                             <td>Fecha promesa 3o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal5c = new CalendarPopup();
                                     var yesterday = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
@@ -1814,7 +1813,7 @@ foreach ($resultDictamen as $answerDictamen) {
                         </tr>
                         <tr>
                             <td>Fecha promesa 4o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal5d = new CalendarPopup();
                                     var yesterday = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
@@ -1863,7 +1862,7 @@ foreach ($resultDictamen as $answerDictamen) {
                         </tr>
                         <tr id="pagocapt2">
                             <td>Fecha Pag&oacute;
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal9 = new CalendarPopup();
                                     cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');

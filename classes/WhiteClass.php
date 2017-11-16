@@ -63,7 +63,7 @@ class WhiteClass {
     public function runQuery($query, $data) {
         try {
             $stm = $this->pdo->prepare($query);
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             die($e->getMessage());
         }
         foreach ($data as $key => $value) {
@@ -73,10 +73,10 @@ class WhiteClass {
         }
         try {
             $stm->execute();
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             die($e->getMessage());
         }
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 

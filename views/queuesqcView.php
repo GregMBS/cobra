@@ -20,22 +20,22 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-        <h2>Queues Normales</>
+        <h2>Queues Normales</h2>
             <table class="ui-widget" id="normales">
                 <thead class="ui-widget-header">
                     <tr>
-                        <th>Cliente</a></th>
-                        <th>Campa&ntilde;a</a></th>
-                        <th>Asignados</a></th>
-                        <th>Queue</a></th>
-                        <th>#/$ cuentas</a></th>
-                        <th>% campa&ntilde;a</a></th>
-                        <th>#/$ diario</a></th>
-                        <th>% diario</a></th>
-                        <th>#/$ semanal</a></th>
-                        <th>% semanal</a></th>
-                        <th>#/$ mensual</a></th>
-                        <th>% mensual</a></th>
+                        <th>Cliente</th>
+                        <th>Campa&ntilde;a</th>
+                        <th>Asignados</th>
+                        <th>Queue</th>
+                        <th>#/$ cuentas</th>
+                        <th>% campa&ntilde;a</th>
+                        <th>#/$ diario</th>
+                        <th>% diario</th>
+                        <th>#/$ semanal</th>
+                        <th>% semanal</th>
+                        <th>#/$ mensual</th>
+                        <th>% mensual</th>
                     </tr>
                 </thead>
                 <tbody class="ui-widget-content">
@@ -149,15 +149,15 @@
                     <?php } ?>
                 </tbody>
             </table>
-            <h2>Queus Especiales</h2>
+            <h2>Queues Especiales</h2>
             <table class="ui-widget" id="especiales">
                 <thead class="ui-widget-header">
                     <tr>
-                        <th>Cliente</a></th>
-                        <th>Campa&ntilde;a</a></th>
-                        <th>Asignados</a></th>
-                        <th>#/$ cuentas</a></th>
-                        <th>% campa&ntilde;a</a></th>
+                        <th>Cliente</th>
+                        <th>Campa&ntilde;a</th>
+                        <th>Asignados</th>
+                        <th>#/$ cuentas</th>
+                        <th>% campa&ntilde;a</th>
                     </tr>
                 </thead>
                 <tbody class="ui-widget-content">

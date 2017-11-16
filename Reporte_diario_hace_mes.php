@@ -190,7 +190,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
                 text-decoration:blink;}
             </style>
             <script type="text/javascript" src="dom-drag.js"></script>
-            <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
+            <SCRIPT TYPE="text/JavaScript">
                 function paging(pageid) {
                 pageida=pageid+"a";
                 document.getElementById("pagos").style.display="none";

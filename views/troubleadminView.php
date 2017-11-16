@@ -28,19 +28,20 @@
                     <tbody class="ui-widget-content">
                         <?php foreach ($rowsub as $answer) { ?>
                             <tr>
-                                <td><?php echo $answer['fechahora']; ?></th>
-                                <td><?php echo $answer['sistema']; ?></th>
-                                <td><?php echo $answer['usuario']; ?></th>
-                                <td><?php echo $answer['fuente']; ?></th>
-                                <td><?php echo $answer['descripcion']; ?></th>
-                                <td><?php echo $answer['error_msg']; ?></th>
+                                <td><?php echo $answer['fechahora']; ?></td>
+                                <td><?php echo $answer['sistema']; ?></td>
+                                <td><?php echo $answer['usuario']; ?></td>
+                                <td><?php echo $answer['fuente']; ?></td>
+                                <td><?php echo $answer['descripcion']; ?></td>
+                                <td><?php echo $answer['error_msg']; ?></td>
                                 <td>
                                     <?php if (empty($answer['it_guy'])) { ?>
-                                        <form action="troubleadmin.php" method="get" name="lista<?echo $answer['auto'];?>">
+                                        <form action="troubleadmin.php" method="get" name="lista<?php echo $answer['auto'];?>" >
                                             <input type="hidden" name="which" readonly="readonly" value=<?php echo $answer['auto']; ?> />
                                             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> />
-                                            <input type="text" name="reparacion" /></th>
+                                            <input type="text" name="reparacion" />
                                         </form>
+                                </td>
                                         <?php
                                     } else {
                                         echo $answer['reparacion'];

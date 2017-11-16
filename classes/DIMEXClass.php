@@ -2,8 +2,6 @@
 
 namespace cobra_salsa;
 
-use cobra_salsa\BaseClass;
-
 class DIMEXClass extends BaseClass {
 
     private $columnNames = array(

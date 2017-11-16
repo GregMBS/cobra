@@ -826,7 +826,7 @@ if ($cliente != "Prestamo Familiar") {
             #avalbox .shortinp {width: 5em;}
         </style>
         <script type="text/javascript" src="dom-drag.js"></script>
-        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
+        <SCRIPT TYPE="text/JavaScript">
             $(function() {
             $( "#tab" ).tabs();
             $( ".buttons button" ).button();
@@ -963,7 +963,7 @@ if ($lockflag == 1) {
             }
         </SCRIPT>
         <script type="text/javascript" src="depuracion.js"></script>
-        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
+        <SCRIPT TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
     </head>
     <body onLoad="alerttxt = new String('');
             paging('HISTORIA');
@@ -2056,7 +2056,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                             </tr>
                             <tr style="display:none">
                                 <td>Fecha Recib&iacute;o
-                                    <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                    <SCRIPT type="text/javascript">
                                         var cala = new CalendarPopup();
                                         cala.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                         cala.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
@@ -2080,7 +2080,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                         </tr>
                         <tr id="pagocapt2" style="display:none">
                             <td>Fecha Pag&oacute;
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal9 = new CalendarPopup();
                                     cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');

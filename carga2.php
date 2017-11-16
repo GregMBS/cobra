@@ -155,7 +155,6 @@ $post = filter_input_array(INPUT_POST);
                            }
                            fclose($handle);
                            ?>
-                    </p>
                     <p>
                         <input type="hidden" name="maxc" value="<?php echo $c ?>" />
                         <input type="hidden" name="capt" value="<?php echo $capt ?>" />

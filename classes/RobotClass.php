@@ -2,7 +2,6 @@
 
 namespace cobra_salsa;
 
-use cobra_salsa\BaseClass;
 use PDO;
 
 require_once 'classes/BaseClass.php';

@@ -106,7 +106,7 @@
                 { color: #ff0; }		
             </style>
             <script type="text/javascript" src="dom-drag.js"></script>
-            <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
+            <SCRIPT TYPE="text/JavaScript">
                 function aviso() {}
                 function paging(pageid) {
                 document.getElementById("TELEFONOS").style.display="none";
@@ -394,7 +394,7 @@
             </SCRIPT>
             <script type="text/javascript" src="depuracion.js"></script>
             <script type="text/javascript" src="depuracionv.js"></script>
-            <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
+            <SCRIPT TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
         </head>
         <body onLoad="alerttxt = new String('');
                 paging('HISTORIA');
@@ -1602,7 +1602,7 @@
                     </select>
                     <br>
                     <span class="formcap">Fecha:</span>
-                    <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                    <SCRIPT type="text/javascript">
                         var cal6 = new CalendarPopup();
                         cal6.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                         cal6.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
@@ -1663,7 +1663,7 @@
                     <table>
                         <tr>
                             <td> <span class="formcap">Fecha promesa</span>
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal7 = new CalendarPopup();
                                     cal7.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal7.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
@@ -1678,7 +1678,7 @@
                                 $<input type="text" name="N_PROMv" value=""><br>
                             </td>
                             <td id='pagocaptv'> <span class="formcap">Fecha ya pag&oacute;</span>
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal8 = new CalendarPopup();
                                     cal8.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal8.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
@@ -2028,7 +2028,7 @@
                         </tr>
                         <tr>
                             <td>Fecha promesa unico o 1o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal4 = new CalendarPopup();
                                     var oneMinute = 60 * 1000;  // milliseconds in a minute
                                     var oneHour = oneMinute * 60;
@@ -2063,7 +2063,7 @@
                         </tr>
                         <tr>
                             <td>Fecha promesa 2o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal5 = new CalendarPopup();
                                     var yesterday = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
@@ -2095,7 +2095,7 @@
                         </tr>
                         <tr>
                             <td>Fecha promesa 3o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal5c = new CalendarPopup();
                                     var yesterday = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
@@ -2127,7 +2127,7 @@
                         </tr>
                         <tr>
                             <td>Fecha promesa 4o
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal5d = new CalendarPopup();
                                     var yesterday = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
@@ -2176,7 +2176,7 @@
                         </tr>
                         <tr id="pagocapt2">
                             <td>Fecha Pag&oacute;
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT type="text/javascript">
                                     var cal9 = new CalendarPopup();
                                     cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');

@@ -14,10 +14,10 @@
         <table summary="Segmentos" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
-                    <th>CLIENTE</a></th>
-                    <th>SEGMENTO</a></th>
-                    <th>CUENTAS</a></th>
-                    <th>&nbsp;</a></th>
+                    <th>CLIENTE</th>
+                    <th>SEGMENTO</th>
+                    <th>CUENTAS</th>
+                    <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody class="ui-widget-content">

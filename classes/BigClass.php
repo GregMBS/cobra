@@ -2,8 +2,6 @@
 
 namespace cobra_salsa;
 
-use cobra_salsa\BigInputObject;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

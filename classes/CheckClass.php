@@ -8,6 +8,10 @@
 
 namespace cobra_salsa;
 
+use DateTime;
+use DateInterval;
+use DatePeriod;
+
 /**
  * Description of CheckClass
  *

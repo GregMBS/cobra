@@ -11,10 +11,10 @@
         <table class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
-                    <th>Gestor</a></th>
-                    <th>Tipo</a></th>
-                    <th>Empieza</a></th>
-                    <th>Termina</a></th>
+                    <th>Gestor</th>
+                    <th>Tipo</th>
+                    <th>Empieza</th>
+                    <th>Termina</th>
                 </tr>
             </thead>
             <tbody class="ui-widget-content">
@@ -100,16 +100,15 @@
                         <td>
                             <form method="get" action="breakadmin.php" name="cambiar">
                                 <input type="submit" name="go" value="CAMBIAR" />
-                                <input type="hidden" name="capt" value="<?php echo $capt; ?>"
+                                <input type="hidden" name="capt" value="<?php echo $capt; ?>" />
                             </form>
                         </td>
                         <td>
                             <form method="get" action="breakadmin.php" name="borrar">
                                 <input type="submit" name="go" value="BORRAR" />
-                                <input type="hidden" name="capt" value="<?php echo $capt; ?>"
+                                <input type="hidden" name="capt" value="<?php echo $capt; ?>" />
                             </form>
                         </td>
-                        </form>
                     </tr>
                 <?php }
                 ?>
