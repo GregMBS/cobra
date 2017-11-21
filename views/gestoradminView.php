@@ -15,12 +15,10 @@
         <table summary="Gestores" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
-            <form action="gestoradmin.php" method="get" name="migoorden">
-                <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                <th>Gestor</a></th>
-                <th>Completo</a></th>
-                <th>Contrase&ntilde;a</a></th>
-                <th>Tipo</a></th>
+                <th>Gestor</th>
+                <th>Completo</th>
+                <th>Contrase&ntilde;a</th>
+                <th>Tipo</th>
                 </tr>
                 </thead>
                 <tbody class="ui-widget-content">

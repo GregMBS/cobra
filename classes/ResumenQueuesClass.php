@@ -192,7 +192,7 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
             $stm->execute();
             $result = $stm->fetch(\PDO::FETCH_ASSOC);
             return $result;
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             return array();
         }
     }

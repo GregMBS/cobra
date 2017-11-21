@@ -142,7 +142,7 @@ order by usuaria;';
 
 	/**
 	 *
-	 * @param strig $gestor
+	 * @param string $gestor
 	 * @param int $dom
 	 * @param string $tipo
 	 * @return array

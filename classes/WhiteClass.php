@@ -8,6 +8,9 @@
 
 namespace gregmbs\cobra;
 
+use PDO;
+use PDOException;
+
 /**
  * Description of whiteClass
  *

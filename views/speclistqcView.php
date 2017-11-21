@@ -26,7 +26,7 @@
                     <th>MONTO PAGO</th>
                     <th>SALDO TOTAL</th>
                     <th>QUEUE</th>
-                    <th>GESTOR</a</th>
+                    <th>GESTOR</th>
                     <th>ULT. GESTI&Oacute;N</th>
                 </tr>
             </thead>

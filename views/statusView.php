@@ -14,14 +14,14 @@
         <table summary="Processlist" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
-                    <th>ID</a></th>
-                    <th>User</a></th>
-                    <th>Host</a></th>
-                    <th>db</a></th>
-                    <th>Command</a></th>
-                    <th>Time</a></th>
-                    <th>State</a></th>
-                    <th>Info</a></th>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Host</th>
+                    <th>db</th>
+                    <th>Command</th>
+                    <th>Time</th>
+                    <th>State</th>
+                    <th>Info</th>
                 </tr>
             </thead>
             <tbody class="ui-widget-content">
@@ -65,11 +65,11 @@
         <table summary="Processlist" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
-                    <th>Table</a></th>
-                    <th>Rows</a></th>
-                    <th>Data</a></th>
-                    <th>Index</a></th>
-                    <th>D/I</a></th>
+                    <th>Table</th>
+                    <th>Rows</th>
+                    <th>Data</th>
+                    <th>Index</th>
+                    <th>D/I</th>
                 </tr>
             </thead>
             <tbody class="ui-widget-content">

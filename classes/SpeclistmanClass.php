@@ -37,7 +37,7 @@ ORDER BY especial, saldo_descuento_1 desc";
         $stm->bindParam(':cliente', $cliente);
         $stm->bindParam(':sdc', $sdc);
         $stm->execute();
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 

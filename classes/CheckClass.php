@@ -8,6 +8,10 @@
 
 namespace gregmbs\cobra;
 
+use DateInterval;
+use DatePeriod;
+use DateTime;
+
 /**
  * Description of CheckClass
  *

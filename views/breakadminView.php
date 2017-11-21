@@ -100,13 +100,13 @@
                         <td>
                             <form method="get" action="breakadmin.php" name="cambiar">
                                 <input type="submit" name="go" value="CAMBIAR" />
-                                <input type="hidden" name="capt" value="<?php echo $capt; ?>"
+                                <input type="hidden" name="capt" value="<?php echo $capt; ?>" />
                             </form>
                         </td>
                         <td>
                             <form method="get" action="breakadmin.php" name="borrar">
                                 <input type="submit" name="go" value="BORRAR" />
-                                <input type="hidden" name="capt" value="<?php echo $capt; ?>"
+                                <input type="hidden" name="capt" value="<?php echo $capt; ?>" />
                             </form>
                         </td>
                         </form>

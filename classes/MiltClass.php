@@ -9,6 +9,7 @@
 namespace gregmbs\cobra;
 
 use PDO;
+use PDOException;
 
 require_once 'config.php';
 

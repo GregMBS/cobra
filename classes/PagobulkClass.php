@@ -99,7 +99,7 @@ where confirmado=0 and cuenta=:cuenta
      * 
      * @param \PDOStatement $stpf
      * @param string $cuenta
-     * @param typstringe $fecha
+     * @param string $fecha
      * 
      * @return array
      */
@@ -107,7 +107,7 @@ where confirmado=0 and cuenta=:cuenta
             $stpf->bindParam(':cuenta', $cuenta);
             $stpf->bindParam(':fecha', $fecha);
             $stpf->execute();
-            $result = $stpf->fetch(PDO::FETCH_ASSOC);
+            $result = $stpf->fetch(\PDO::FETCH_ASSOC);
             return $result;
     }
 

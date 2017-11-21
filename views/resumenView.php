@@ -78,8 +78,8 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 <input type="submit" name="go" value="PAGOS">
             </form>
             <?php $CTA = $numero_de_credito; ?>
-            <form class="buttons" name="notasq" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
-                                                                                                                  <input type="hidden" name="C_CONT" value="<?php
+            <form class="buttons" name="notasq" method="get" action="notas.php" id="notas" target="_blank">
+            <input type="hidden" name="C_CONT" value="<?php
                                                                                                                   if (isset($id_cuenta)) {
                                                                                                                       echo $id_cuenta;
                                                                                                                   }
@@ -671,7 +671,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                             if (isset($saldo_cuota)) {
                                 echo '$' . number_format($saldo_cuota);
                             }
-                            ?>'></td></tr>
+                            ?>'></td>
                     </tr>
                     <tr>
                         <td>Saldo total</td>
@@ -1245,6 +1245,7 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                 </table>
             </div>
         </div>
+        <div>
         <form action="resumen.php" method="get" id="gestionform" 
               onSubmit="return validate_form(this, event,<?php
               echo $saldo_descuento_2 + 0;
@@ -1276,11 +1277,13 @@ if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
                                 </select></td>
                         </tr>
                     <?php } else { ?>
+                    <tr><td>
                         <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
                         if (isset($C_CVGE)) {
                             echo $C_CVGE;
                         }
                         ?>" >
+                        </td></tr>
                            <?php } ?>
                     <tr id='authbox' class="hidebox">
                         <td>Autorizaci&oacute;n</td>

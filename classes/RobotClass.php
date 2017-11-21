@@ -2,7 +2,6 @@
 
 namespace gregmbs\cobra;
 
-use gregmbs\cobra\BaseClass;
 use PDO;
 
 require_once 'classes/BaseClass.php';

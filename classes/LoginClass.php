@@ -8,6 +8,8 @@
 
 namespace gregmbs\cobra;
 
+use PDO;
+
 /**
  * Description of LoginClass
  *

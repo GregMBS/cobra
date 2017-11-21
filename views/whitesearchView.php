@@ -47,7 +47,7 @@
             </tbody>
         </table>
         <button type="button" value="white" onclick=
-                "window.location = 'white.php?capt=<?php echo $capt ?>';"><-</button>
+                "window.location = 'white.php?capt=<?php echo $capt ?>';"></button>
         <script>
             $(function() {
                 $('#dirtable').dataTable({"bJQueryUI": true});
