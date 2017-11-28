@@ -54,7 +54,7 @@
             <?php
         }
         ?>
-        <form action="notadminView.php" method="get" name="notas">
+        <form action="notadmin.php" method="get" name="notas">
             <span class="formcap">Gestor</span><SELECT NAME="target">
                 <OPTION VALUE='todos'>todos</option>
 <?php
