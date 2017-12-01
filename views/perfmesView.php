@@ -18,6 +18,7 @@
         <h2>HORARIOS</h2>
         <div>
             <?php
+            $day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
             foreach ($resultnom as $answernom) {
                 $gestor = $answernom['c_cvge'];
                 ?>
