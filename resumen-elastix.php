@@ -40,7 +40,6 @@ if (!empty($mytipo)) {
     if (!empty($get['shutup'])) {
         $shutup = 1;
     }
-    $find  = trim($finds);
 }
 $pagalert    = 0;
 $querypagos  = "select (c_cvst like 'PAG%'),c_cont from historia
@@ -826,7 +825,7 @@ if ($cliente != "Prestamo Familiar") {
             #avalbox .shortinp {width: 5em;}
         </style>
         <script type="text/javascript" src="dom-drag.js"></script>
-        <SCRIPT TYPE="text/JavaScript">
+        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
             $(function() {
             $( "#tab" ).tabs();
             $( ".buttons button" ).button();
@@ -963,7 +962,7 @@ if ($lockflag == 1) {
             }
         </SCRIPT>
         <script type="text/javascript" src="depuracion.js"></script>
-        <SCRIPT TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
+        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
     </head>
     <body onLoad="alerttxt = new String('');
             paging('HISTORIA');
@@ -1834,7 +1833,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                                                 if ($fieldsize[$k] == "gestion") {
                                                     $jscode1 = " onClick='alert(";
                                                     $jscode2 = ")'";
-                                                    $jscode  = $jscode1.'"'.ereg_replace("[\n\r]",
+                                                    $jscode  = $jscode1.'"'.preg_replace("/[\n\r]/",
                                                             " ",
                                                             $timestamp.': '.$gestion).'"'.$jscode2;
                                                 }
@@ -2023,54 +2022,6 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                                         ?>
                                 </select>
                             </td>
-                                    <?php
-                                    if ($cliente == 'Surtidor del Hogar') {
-                                        $merci      = 0;
-                                        $querymerc  = "select productos from sdhextras where cuenta='".$numero_de_cuenta."';";
-                                        $resultmerc = mysqli_query($con,
-                                            $querymerc);
-                                        while ($answermerc = mysqli_fetch_array($resultmerc,
-                                        MYSQLI_NUM)) {
-                                            $merca[$merci] = $answermerc[0];
-                                            $merci++;
-                                        }
-                                        ?>
-                            <tr style="display:none">
-            <?php
-            for ($mercii = 0; $mercii < $merci; $mercii++) {
-                ?>
-                                    <td>Mercancia <?php echo $mercii + 1; ?></td>
-                                    <td><select name="MERC[]">
-                                            <option value="" style="font-size:120%;">&nbsp;</option>
-                                <?php foreach ($merca as $merc) { ?>
-                                                <option value="<?php echo $merc; ?>" style="font-size:120%;">
-                    <?php
-                    if (isset($merc)) {
-                        echo $merc;
-                    }
-                    ?>
-                                                </option>
-                <?php } ?>
-                                        </select></td>
-            <?php } ?>
-                            </tr>
-                            <tr style="display:none">
-                                <td>Fecha Recib&iacute;o
-                                    <SCRIPT type="text/javascript">
-                                        var cala = new CalendarPopup();
-                                        cala.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                        cala.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                        cala.setWeekStartDay(1);
-                                        cala.setTodayText("Hoy");
-                                    </SCRIPT></td>
-                                <td><INPUT TYPE="text" NAME="D_MERC" ID="D_MERC" VALUE="" SIZE=15>
-                                    <BUTTON onClick="cala.select(document.getElementById('D_MERC'), 'anchora', 'yyyy-MM-dd');
-                                                        return false;" NAME="anchora" ID="anchora">eligir</BUTTON>
-                                    <BUTTON onClick="document.getElementById('D_MERC').value = '';
-                                                        return false;">BORRAR</BUTTON></td>
-                            </tr>
-        <?php }
-        ?>
                         </tr>
                         <tr id="pagocapt" style="display:none">
                             <td>Monto Pag&oacute;</td>
@@ -2080,7 +2031,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                         </tr>
                         <tr id="pagocapt2" style="display:none">
                             <td>Fecha Pag&oacute;
-                                <SCRIPT type="text/javascript">
+                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
                                     var cal9 = new CalendarPopup();
                                     cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');

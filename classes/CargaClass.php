@@ -2,8 +2,6 @@
 
 namespace cobra_salsa;
 
-use Box\Spout\Reader;
-use Box\Spout\Common\Type;
 use Exception;
 
 /*

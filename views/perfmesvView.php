@@ -26,6 +26,8 @@
                 $tsumpp[$i] = 0;
                 $tsump[$i] = 0;
                 $tsumw[$i] = 0;
+                $tsumco[$i] = 0;
+                $tsumci[$i] = 0;
             }
             $resultnom = $pc->listVisitadores();
             foreach ($resultnom as $answernom) {
@@ -41,13 +43,11 @@
                             $tlla[$i] = 0;
                             $prom[$i] = 0;
                             $pag[$i] = 0;
-                            $lph[$i] = 0;
                             $resultss = $pc->getVisitadorMain($c_visit, $i);
                             foreach ($resultss as $answerss) {
                                 $lla[$i] = $answerss['cuentas'];
                                 $tlla[$i] = $answerss['gestiones'];
                                 $prom[$i] = $answerss['promesas'];
-                                $lph[$i] = $lla[$i] / ($diff[$i] + 1 / 3600);
                                 $sumg = 0;
                                 $sumgt = 0;
                                 $sumgt1 = 0;
@@ -64,9 +64,12 @@
                             }
 
                             $resultco = $pc->countVisitsAssigned($c_visit, $i);
-                            foreach ($resultco as $answerco) {
-                                $co[$i] = $answerco['co'];
-                                $ci[$i] = $answerco['ci'];
+                            if ($resultco) {
+                                $co[$i] = $resultco['co'];
+                                $ci[$i] = $resultco['ci'];
+                            } else {
+                                $co[$i] = 0;
+                                $ci[$i] = 0;
                             }
                             $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
                             ?>
@@ -127,11 +130,9 @@
                             $tsumgt[$i] = $tsumgt[$i] + $tlla[$i];
                             if ($i < 16) {
                                 $sumgt1 = $sumgt1 + $tlla[$i];
-                                $tsumgt1[$i] = $tsumgt1[$i] + $tlla[$i];
                             }
                             if ($i > 15) {
                                 $sumgt2 = $sumgt2 + $tlla[$i];
-                                $tsumgt2[$i] = $tsumgt2[$i] + $tlla[$i];
                             }
                             ?>
                         <?php }
@@ -169,7 +170,7 @@
                                 echo ' zeros';
                             }
                             ?>">
-                                <a href='<?php echo strtolower('pdh.php?capt=' . $capt . '&i=' . $prom[$i] . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
+                                <a href='<?php echo strtolower('pdh.php?capt=' . $capt . '&i=' . $prom[$i] . '&gestor=' . trim($c_visit) . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
                             <?php echo $prom[$i]; ?></a></td>
                             <?php
                             $sumpp = $sumpp + $prom[$i];

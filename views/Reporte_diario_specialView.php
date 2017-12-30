@@ -1,3 +1,8 @@
+<?php 
+/**
+ * @var string $capt
+ */
+?>
 <!DOCTYPE html">
 <html>
     <head>
@@ -100,7 +105,6 @@
                 <h2>Por Cliente</h2>
                 <?php
 // analytica
-                $pdo->query($querycalc);
                 $queryAnalytica = "select cliente,sum(pago),sum(vigente),sum(vencido)
 from gmbtemp group by cliente;";
                 $resultAnalytica = $pdo->query($queryAnalytica);

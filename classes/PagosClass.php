@@ -80,6 +80,7 @@ group by cli, sdc with rollup";
      * @return array
      */
     public function detailsThisMonth() {
+        $output = array();
         $queryActDet = "select cuenta, fecha, monto, pagos.cliente, 
             status_de_credito as sdc, 
             gestor, confirmado, fechacapt, pagos.id_cuenta 
@@ -236,6 +237,7 @@ order by cliente,gestor,fecha";
      * @return array
      */
     public function queryOldSheet() {
+        $output = array();
         $queryDA = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',

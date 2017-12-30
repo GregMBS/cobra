@@ -32,6 +32,12 @@
  * @version     2.6.0
  */
 
+/**
+ * 
+ * @var array $match
+ *
+ */
+
 class Mobile_Detect {
 
     protected $scriptVersion = '2.6.0';
