@@ -130,8 +130,16 @@ group by cli, sdc with rollup";
             $cliente = strtoupper($row['cliente']);
             $temp[$gestor][$cliente]['gestor'] = $gestor;
             $temp[$gestor][$cliente]['cliente'] = $cliente;
-            $temp[$gestor][$cliente]['sm'] += $row['monto'];
-            $temp[$gestor][$cliente]['smc'] += $row['monto'] * $row['confirmado'];
+            if (isset($temp[$gestor][$cliente]['sm'])) {
+                $temp[$gestor][$cliente]['sm'] += $row['monto'];
+            } else {
+                $temp[$gestor][$cliente]['sm'] = $row['monto'];
+            }
+            if (isset($temp[$gestor][$cliente]['smc'])) {
+                $temp[$gestor][$cliente]['smc'] += $row['monto'] * $row['confirmado'];
+            } else {
+                $temp[$gestor][$cliente]['smc'] = $row['monto'] * $row['confirmado'];
+            }
         }
         foreach ($temp as $group) {
             foreach ($group as $row) {
