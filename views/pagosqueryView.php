@@ -34,7 +34,7 @@
                 a:
                 <input name="fecha2" id="fecha2" readonly="readonly" />
             </p>
-            <input type='submit' name='go' value='Query Pagos'>
+            <input type='submit' name='go' value='Query_Pagos'>
         </form>
         <script src="/js/datepicker_mx.js" type="text/javascript"></script>
         <script>
