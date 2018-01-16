@@ -249,20 +249,38 @@ order by cliente,gestor,fecha";
      */
     public function queryAll($start, $end, $cliente) {
         $output = array();
+        $startquery = " ";
+        $endquery = " ";
+        $clientequery = " ";
+        if (!empty($start)) {
+            $startquery = " and fecha >= :start ";
+        }
+        if (!empty($end)) {
+            $endquery = " and fecha <= :end ";
+        }
+        if (!empty($cliente)) {
+            $startquery = " and cliente= :cliente ";
+        }
         $query = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
                     gestor, confirmado, pagos.id_cuenta
 from pagos, resumen
-where fecha >= :start
-and fecha <= :end
-and cliente = :cliente
-and pagos.id_cuenta=resumen.id_cuenta
+where pagos.id_cuenta=resumen.id_cuenta 
+$startquery
+$endquery
+$clientequery
 order by cliente,gestor,fecha";
         $std = $this->pdo->prepare($query);
-        $std->bindParam(':start', $start);
-        $std->bindParam(':end', $end);
-        $std->bindParam(':cliente', $cliente);
+        if (!empty($start)) {
+            $std->bindParam(':start', $start);
+        }
+        if (!empty($end)) {
+            $std->bindParam(':end', $end);
+        }
+        if (!empty($cliente)) {
+            $std->bindParam(':cliente', $cliente);
+        }
         $std->execute();
         if ($std) {
             $result = $std->fetchAll(\PDO::FETCH_ASSOC);

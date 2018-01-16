@@ -14,7 +14,7 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-        <form action="pgosquery.php" method="get" name="queryparms">
+        <form action="pagosquery.php" method="get" name="queryparms">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <p>Cliente:
                 <select name="cliente">
