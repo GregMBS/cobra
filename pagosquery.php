@@ -28,5 +28,6 @@ if (filter_has_var(INPUT_GET, 'go')) {
     $writer->openToBrowser($filename); // stream data directly to the browser
     $writer->addRows($output); // add multiple rows at a time
     $writer->close();
+} else {
+    require_once 'views/pagosqueryView.php';
 }
-require_once 'views/pagosqueryView.php';
