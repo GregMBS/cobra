@@ -271,8 +271,6 @@ $startquery
 $endquery
 $clientequery
 order by cliente,gestor,fecha";
-        var_dump([$start, $end,$cliente]);
-        die(htmlentities($query));
         $std = $this->pdo->prepare($query);
         if (!empty($start)) {
             $std->bindParam(':start', $start);
