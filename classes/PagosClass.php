@@ -258,7 +258,7 @@ order by cliente,gestor,fecha";
         if (!empty($end)) {
             $endquery = " and fecha <= :end ";
         }
-        if (!empty($cliente)) {
+        if ($cliente != "todos") {
             $startquery = " and cliente= :cliente ";
         }
         $query = "select cuenta, fecha, fechacapt, monto,
@@ -280,7 +280,7 @@ order by cliente,gestor,fecha";
         if (!empty($end)) {
             $std->bindParam(':end', $end);
         }
-        if (!empty($cliente)) {
+        if ($cliente != "todos") {
             $std->bindParam(':cliente', $cliente);
         }
         $std->execute();
