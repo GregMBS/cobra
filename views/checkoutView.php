@@ -38,8 +38,8 @@
             <button onclick="window.location = 'checkoutlist.php?capt=<?php echo $capt; ?>&visitador=<?php echo $gestor; ?>'">CHECKLIST</button>
             <?php
             if ($resultcount) {
-                $ASIG = $resultcount['asig'];
-                $RECIB = $resultcount['recib'];
+                $ASIG = $resultcount['countOut'];
+                $RECIB = $resultcount['countIn'];
             }
             ?>
             <p>Asignado: <?php echo $ASIG; ?><br>
