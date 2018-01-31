@@ -987,8 +987,6 @@ if ($lockflag == 1) {
                         }
                         ?>">
                     <input type="submit" name="go" value="PAGOS"></form>
-                <button class="buttons" type="button" value="white" onclick=
-                        "window.open('white.php?capt=<?php echo $capt ?>', 'newWin', 'resizable=yes,width=400,height=400,scrollbars=yes');">PAGINAS BLANCAS</button>
                     <?php
                     $CTA = $numero_de_credito;
                     if ($cliente != 'Prestamo Relampago') {
