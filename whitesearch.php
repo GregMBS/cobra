@@ -11,6 +11,6 @@ $wc = new WhiteClass($pdo);
 $capt = $pdoc->capt;
 
 $search = filter_input_array(INPUT_GET);
-$querymain = $wc->buildQuery($data);
+$querymain = $wc->buildQuery($search);
 $result = $wc->runQuery($querymain, $search);
 require_once 'views/whitesearchView.php';

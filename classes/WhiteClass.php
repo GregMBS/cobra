@@ -42,7 +42,7 @@ class WhiteClass {
      * @param array $data
      * @return string
      */
-    public function buildQuery($data) {
+    public function buildQuery(array $data) {
         $searchstr = '';
         foreach ($data as $key => $value) {
             if (!empty($value) && isset($this->datamatch[$key])) {
