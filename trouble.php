@@ -18,6 +18,6 @@ if ($go == 'ENVIAR') {
     $descripcion = filter_input(INPUT_GET, 'descripcion');
     $error_msg   = filter_input(INPUT_GET, 'error_msg');
     $tc->insertTrouble($sistema, $capt, $fuente, $descripcion, $error_msg);
-    $message     = 'Error en '.$fuente.' de sistema '.$sistema.' y usuario '.$usuario.' enviado '.$fechahora;
+    $message     = 'Error en '.$fuente.' de sistema '.$sistema.' y usuario '.$capt.' enviado '.$fechahora;
 }
 require_once 'views/troubleView.php';

@@ -1,4 +1,8 @@
 <?php
+/**
+ * 
+ * @var string $cliente
+ */
 $afirme = array(
     'Credito Si',
     'Surtidor del Hogar',

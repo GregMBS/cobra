@@ -29,6 +29,17 @@ class LogoutClass {
                     order by d_fech desc,c_hrin desc 
                     limit 1";
 
+    /**
+     * 
+     * @var string
+     */
+    public $date;
+    
+    /**
+     *
+     * @var string
+     */
+    public $time;
 
     /**
      * 
@@ -58,8 +69,8 @@ class LogoutClass {
      * @return array
      */
     public function getLogoutDatetime($capt, $go) {
-        $date = date('Y-m-d');
-        $time = date('H:i:s');
+        $this->date = date('Y-m-d');
+        $this->time = date('H:i:s');
         if ($go == 'forgot') {
             $go = 'salir';
             $stl = $this->pdo->prepare($this->queryldt);
@@ -67,15 +78,11 @@ class LogoutClass {
             $stl->execute();
             $resultldt = $stl->fetch(\PDO::FETCH_ASSOC);
             if ($resultldt) {
-                $date = $resultldt['d_fech'];
-                $time = $resultldt['c_hrin'];
+                $this->date = $resultldt['d_fech'];
+                $this->time = $resultldt['c_hrin'];
             }
         }
-        $output = array(
-            'date' => $date,
-            'time' => $time
-        );
-        return $output;
+        return $this;
     }
 
     /**

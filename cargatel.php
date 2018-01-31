@@ -22,4 +22,4 @@ if (!empty($go)) {
         $msg = "<p>Llamadas est&aacute;n cargadas</p>";
     }
 }
-require_once 'cargatelView.php';
+require_once 'views/cargatelView.php';

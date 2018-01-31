@@ -13,7 +13,8 @@ $go		 = filter_input(INPUT_GET, 'gone');
 $lc->unlockCuentas($capt);
 if ($go != "") {
     $resultdt = $lc->getLogoutDatetime($capt, $go);
-    extract($resultdt);
+    $date = $resultdt->date;
+    $time = $resultdt->time;
 	$lc->insertHistoria($capt, $go, $date, $time);
 	$lc->clearResumenLocks($capt);
 	$lc->clearRslice($capt);

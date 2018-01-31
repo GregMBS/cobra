@@ -174,7 +174,9 @@ $post = filter_input_array(INPUT_POST);
                 $queryres = "show columns from resumen";
                 $resultres = $con->query($queryres) or die($con->error);
                 $k = 0;
-
+                $field =array();
+                $type =array();
+                $nullok =array();
                 while ($answerres = $resultres->fetch_row()) {
                     $field[$k] = $answerres[0];
                     $type[$k] = $answerres[1];

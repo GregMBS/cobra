@@ -34,4 +34,4 @@ if (!empty($auto)) {
 }
 $resulta = $rc->getReport();
 $result = $rc->getQueues();
-require_once 'roboconView.php';
+require_once 'views/roboconView.php';
