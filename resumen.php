@@ -30,11 +30,6 @@ $gc = new GestionClass($pdo);
 $rc = new ResumenClass($pdo);
 $capt = $pdoc->capt;
 $mytipo = $pdoc->tipo;
-/*
-  if ($detect->isMobile()) {
-  header("Location: resumen-mobile.php?capt=" . $capt);
-  }
- */
 $tcapt = $capt;
 $C_CVGE = $capt;
 if (!empty($mytipo)) {
@@ -188,15 +183,6 @@ if ($go == 'NUEVOS') {
         $querymemo = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_OBSE2 . " WHERE id_cuenta='" . $C_CONT . "'";
         mysqli_query($con, $querymemo) or die("ERROR RM19 - " . mysqli_error($con));
     }
-    if ($merciv > 0) {
-        foreach ($MERCv as $MERCa) {
-            if (!empty($MERCa)) {
-                $queryins = "INSERT INTO sdhmerc (ID_CUENTA,MERC,FECHAMERC,FECHACAPT) 
-    VALUES (" . $C_CONT . ",'" . $MERCa . "','" . $D_MERC . "',now())";
-                mysqli_query($con, $queryins) or die("ERROR RM20 - " . mysqli_error($con));
-            }
-        }
-    }
 //$redirector = "Location: resumen.php?&capt=".$capt."&go=ULTIMA";
     $redirector = "Location: resumen.php?&capt=" . $capt;
     header($redirector);
@@ -245,11 +231,6 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
         $D_MERC = mysqli_real_escape_string($con, $get['D_MERC']);
     } else {
         $D_MERC = '';
-    }
-    if (isset($get['MERC'])) {
-        for ($merci = 0; $merci < count($get['MERC']); $merci++) {
-            $MERC[$merci] = mysqli_real_escape_string($con, $get['MERC'][$merci]);
-        }
     }
     $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
     $N_PROM_OLD = mysqli_real_escape_string($con, $get['N_PROM_OLD']);
