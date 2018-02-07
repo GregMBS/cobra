@@ -361,4 +361,20 @@ order by cliente,gestor,fecha";
         return $gestor;
     }
 
+    /**
+     * 
+     * @return array
+     */
+    public function listClientes()
+    {
+        $query = "SELECT DISTINCT cliente FROM pagos 
+                    ORDER BY cliente
+                    LIMIT 1000";
+        $stc = $this->pdo->prepare($query);
+        $stc->execute();
+        $result = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+            
+    }
+    
 }

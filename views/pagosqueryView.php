@@ -22,8 +22,8 @@
                     <?php
                     foreach ($resultc as $answerc) {
                         ?>
-                        <option value="<?php echo $answerc[0]; ?>" style="font-size:120%;">
-                            <?php echo $answerc[0]; ?></option>
+                        <option value="<?php echo $answerc['cliente']; ?>" style="font-size:120%;">
+                            <?php echo $answerc['cliente']; ?></option>
                         <?php
                     }
                     ?>
