@@ -249,17 +249,20 @@ order by cliente,gestor,fecha";
      */
     public function queryAll($start, $end, $cliente) {
         $output = array();
-        $startquery = " ";
-        $endquery = " ";
-        $clientequery = " ";
         if (!empty($start)) {
             $startquery = " and fecha >= :start ";
+        } else {
+            $startquery = " ";
         }
         if (!empty($end)) {
             $endquery = " and fecha <= :end ";
+        } else {
+            $endquery = " ";
         }
         if ($cliente != "todos") {
-            $startquery = " and cliente= :cliente ";
+            $clientequery = " and cliente= :cliente ";
+        } else {
+            $clientequery = " ";
         }
         $query = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
