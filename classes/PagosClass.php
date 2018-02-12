@@ -260,7 +260,7 @@ order by cliente,gestor,fecha";
             $endquery = " ";
         }
         if ($cliente != "todos") {
-            $clientequery = " and cliente= :cliente ";
+            $clientequery = " and pagos.cliente = :cliente ";
         } else {
             $clientequery = " ";
         }
