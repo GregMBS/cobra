@@ -7,8 +7,6 @@ use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 use cobra_salsa\OutputClass;
 
-require_once 'classes/PdoClass.php';
-require_once 'classes/PagosClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
 $pc = new PagosClass($pdo);
