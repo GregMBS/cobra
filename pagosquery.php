@@ -5,6 +5,7 @@ use cobra_salsa\PdoClass;
 use cobra_salsa\PagosClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
+use cobra_salsa\OutputClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/PagosClass.php';
@@ -20,20 +21,13 @@ if (filter_has_var(INPUT_GET, 'go')) {
     $result = $pc->queryAll($fecha1, $fecha2, $cliente);
     var_dump($result);
     die();
-    if (count($result > 0)) {
-        $filename = "pagos.xlsx";
-        $output = array();
-        $output[] = array_keys($result[0]);
-        foreach ($result as $row) {
-            $row['monto'] = (float) $row['monto'];
-            $output[] = $row;
-        }
-        $writer = WriterFactory::create(Type::XLSX);
-        $writer->openToBrowser($filename); // stream data directly to the browser
-        $writer->addRows($output); // add multiple rows at a time
-        $writer->close();
-    } else {
+    if (empty($result)) {
         require_once 'views/pagosqueryView.php';
+    } else {
+        $oc = new OutputClass();
+        $filename = "pagos.xlsx";
+        $headers = array_keys($result[0]);
+        $oc->writeXLSXFile($filename, $result, $headers);
     }
 } else {
     require_once 'views/pagosqueryView.php';
