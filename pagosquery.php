@@ -19,8 +19,6 @@ $cliente = filter_input(INPUT_GET, 'cliente');
 $resultc = $pc->listClientes();
 if (filter_has_var(INPUT_GET, 'go')) {
     $result = $pc->queryAll($fecha1, $fecha2, $cliente);
-    var_dump($result);
-    die();
     if (empty($result)) {
         require_once 'views/pagosqueryView.php';
     } else {
