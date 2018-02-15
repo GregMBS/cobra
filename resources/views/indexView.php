@@ -16,7 +16,8 @@ $msg = 'COBRA';
         <h1><?php echo $msg; ?></h1>
         <em>versi&oacute;n configurado para Servicios Automáticos en Linea SA</em>
         <div class="forma">
-            <form action="index.php" method="post" autocomplete="off">
+            <form action="/login" method="post" autocomplete="off">
+            <?php echo csrf_field(); ?>
                 <fieldset>
                     <div class="username">
                         <span class="formcap">Usuario:</span>

@@ -41,7 +41,7 @@ class LoginClass extends BaseClass {
      * @param string $capt
      * @param string $tipo
      */
-    public function setTicket($cpw, $capt, $tipo) {
+    private function setTicket($cpw, $capt, $tipo) {
         $queryc = "update nombres "
                 . "set ticket = :cpw "
                 . "where iniciales = :capt "
@@ -57,7 +57,7 @@ class LoginClass extends BaseClass {
      * 
      * @param string $capt
      */
-    public function setInitialQueue($capt) {
+    private function setInitialQueue($capt) {
         $queryq = "update nombres n, queuelist qu
 			set n.camp = qu.camp
 			where iniciales = gestor
@@ -74,7 +74,7 @@ class LoginClass extends BaseClass {
      * @param string $capt
      * @param string $local
      */
-    public function setUserlog($capt, $local) {
+    private function setUserlog($capt, $local) {
         $queryu = "delete from userlog "
                 . "where gestor = :capt ";
         $stdu = $this->pdo->prepare($queryu);
@@ -93,7 +93,7 @@ class LoginClass extends BaseClass {
      * @param string $capt
      * @param string $local
      */
-    public function insertPermalog($capt, $local) {
+    private function insertPermalog($capt, $local) {
         $querypl = "insert into permalog "
                 . "(usuario,tipo,fechahora,gestor) "
                 . "values (:local, 'login', now(), :capt)";
@@ -107,12 +107,44 @@ class LoginClass extends BaseClass {
      * 
      * @param string $capt
      */
-    public function insertHistoria($capt) {
+    private function insertHistoria($capt) {
         $queryins = "INSERT INTO historia
 			(C_CVGE,C_CVBA,C_CONT,CUENTA,C_CVST,D_FECH,C_HRIN,C_HRFI)
 			VALUES (:capt, '', 0, 0, 'login', curdate(), curtime(), curtime())";
         $stih = $this->pdo->prepare($queryins);
         $stih->bindParam(':capt', $capt);
         $stih->execute();
+    }
+    
+    /**
+     * 
+     * @param string $capt
+     * @param string $pw
+     * @return string
+     */
+    private function setCookie($capt, $pw) {
+        $cpw = $capt.sha1($pw).date('U');
+        if ($capt == "gmbs") {
+            setcookie('auth', $cpw, time() + 60 * 60 * 24);
+        } else {
+            setcookie('auth', $cpw, time() + 60 * 60 * 11);
+        }
+        return $cpw;
+    }
+    
+    /**
+     * 
+     * @param string $capt
+     * @param string $pwd
+     * @param string $tipo
+     * @param string $local
+     */
+    public function processLogin($capt, $pwd, $tipo, $local) {
+        $cookie = $this->lc->setCookie($capt, $pwd);
+        $this->lc->setTicket($cookie, $capt, $tipo);
+        $this->lc->setInitialQueue($capt);
+        $this->lc->setUserlog($capt, $local);
+        $this->lc->insertPermalog($capt, $local);
+        $this->lc->insertHistoria($capt);
     }
 }
