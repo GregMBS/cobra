@@ -1,8 +1,9 @@
 <?php
-include('pdoConnect.php');
-$pc             = new pdoConnect();
+use cobra_salsa\PdoClass;
+use cobra_salsa\BigClass;
+
+$pc             = new PdoClass();
 $pdo            = $pc->dbConnectAdmin();
-include('BigClass.php');
 $bc             = new BigClass($pdo);
 $resultGestores = $bc->getPromesasGestores();
 $resultClientes = $bc->getPromesasClientes();

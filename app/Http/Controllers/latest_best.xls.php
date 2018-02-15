@@ -4,11 +4,11 @@ require_once 'vendor/autoload.php';
 
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
+use cobra_salsa\PdoClass;
+use cobra_salsa\BestClass;
 
-include('pdoConnect.php');
-$pc        = new pdoConnect();
+$pc        = new PdoClass();
 $pdo       = $pc->dbConnectAdmin();
-include('BestClass.php');
 $bc        = new BestClass($pdo);
 $resultpre = $bc->getResumenData();
 $filename  = "Ultimo_y_mejor_".date('ymd').".xlsx";

@@ -1,6 +1,6 @@
 <?php
-require_once 'pdoConnect.php'; // returns $pdo
-$pdoc      = new pdoConnect();
+use cobra_salsa\PdoClass; // returns $pdo
+$pdoc      = new PdoClass();
 $pdo       = $pdoc->dbConnectUser();
 $capt      = filter_input(INPUT_GET, 'capt');
 $querymain = "SELECT numero_de_cuenta, nombre_deudor, saldo_total, 

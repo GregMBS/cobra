@@ -22,23 +22,16 @@
             </p>
             <p>PAG&Oacute; de:
                 <select name="fecha1">
-                @include('tools.optionLoop', ['array' => $$datesAsc])
+                @include('tools.optionLoop', ['array' => $datesAsc])
                 </select>
                 a:
                 <select name="fecha2">
-                    <?php
-                    foreach ($datesDesc as $date) {
-                        ?>
-                        <option value="<?php echo $date[0]; ?>" style="font-size:120%;">
-                            <?php echo $date[0]; ?></option>
-                        <?php } ?>
+                @include('tools.optionLoop', ['array' => $datesDesc])
                 </select>
             </p>
             <input type='submit' name='go' value='Query Pagos'>
         </form>
-        <?php
-        if (!empty($get['go'])) {
-            ?>
+        @isset($go)
             <table>
                 <tr>
                     <?php
@@ -74,6 +67,6 @@
                 }
                 ?>
             </table>
-        <?php } ?>
+        @endisset
     </body>
 </html> 

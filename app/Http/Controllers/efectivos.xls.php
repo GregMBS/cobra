@@ -5,8 +5,8 @@ require_once 'vendor/autoload.php';
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
-require_once 'pdoConnect.php';
-$pdoc = new pdoConnect();
+use cobra_salsa\PdoClass;
+$pdoc = new PdoClass();
 $pdo  = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');

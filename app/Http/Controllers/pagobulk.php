@@ -1,9 +1,9 @@
 <?php
 use cobra_salsa\PagobulkClass;
 
-require_once 'pdoConnect.php';
+use cobra_salsa\PdoClass;
 require_once 'classes/PagobulkClass.php';
-$pdoc = new pdoConnect();
+$pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();
 $pbc = new PagobulkClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');

@@ -1,4 +1,6 @@
 <?php
+use cobra_salsa\ResumenClass;
+
 date_default_timezone_set('America/Monterrey');
 
 function highhist($stat, $visit) {
@@ -41,9 +43,7 @@ function myget($field) {
     return $contents;
 }
 
-require('usuario_hdr_i.php');
-require('resumenClass.php');
-$rc = new resumenClass();
+$rc = new ResumenClass($pdo);
 $tcapt = $capt;
 $C_CVGE = $capt;
 $tl = date('r');

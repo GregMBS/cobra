@@ -1,8 +1,7 @@
 <?php
-include('pdoConnect.php');
-$pc     = new pdoConnect();
+use cobra_salsa\PdoClass;
+$pc     = new PdoClass();
 $pdo    = $pc->dbConnectAdmin();
-include('DhvClass.php');
 $dc     = new DhvClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $gestor = filter_input(INPUT_GET, 'gestor');

@@ -1,6 +1,6 @@
 <?php
-require_once 'pdoConnect.php';
-$pdoc  = new pdoConnect();
+use cobra_salsa\PdoClass;
+$pdoc  = new PdoClass();
 $pdo   = $pdoc->dbConnectUser();
 $local = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
 $capt   = filter_input(INPUT_GET, 'capt');

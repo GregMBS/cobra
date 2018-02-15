@@ -1,6 +1,6 @@
 <?php
-include('pdoConnect.php');
-$pc         = new pdoConnect();
+use cobra_salsa\PdoClass;
+$pc         = new PdoClass();
 $pdo        = $pc->dbConnectAdmin();
 $capt       = filter_input(INPUT_GET, 'capt');
 ?>

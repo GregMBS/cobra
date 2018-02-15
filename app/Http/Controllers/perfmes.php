@@ -1,11 +1,11 @@
 <?php
 $day_esp         = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-include('pdoConnect.php');
-$pdc              = new pdoConnect();
+use cobra_salsa\PdoClass;
+use cobra_salsa\PerfmesClass;
+use cobra_salsa\PerfmesAllClass;
+$pdc              = new PdoClass();
 $pdo             = $pdc->dbConnectAdmin();
-require_once 'PerfmesClass.php';
 $pc              = new PerfmesClass($pdo);
-require_once 'PerfmesAllClass.php';
 $pac             = new PerfmesAllClass($pdo);
 $yr              = date('Y', strtotime('last day of previous month'));
 $mes             = date('m', strtotime('last day of previous month'));

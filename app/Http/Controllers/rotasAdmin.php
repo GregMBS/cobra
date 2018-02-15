@@ -1,9 +1,9 @@
 <?php
-require_once 'pdoConnect.php';
-$pc     = new pdoConnect();
+use cobra_salsa\PdoClass;
+use cobra_salsa\RotasClass;
+$pc     = new PdoClass();
 $pdo    = $pc->dbConnectUser();
-require_once 'rotasClass.php';
-$rc     = new rotasClass($pdo);
+$rc     = new RotasClass($pdo);
 $capt   = filter_input(INPUT_GET, 'capt');
 $result = $rc->getRotas($capt, '');
 ?>
