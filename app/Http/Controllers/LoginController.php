@@ -45,7 +45,9 @@ class LoginController extends Controller
         $userData = $this->lc->getUserData($capt, $pwd);
         if ($userData) {
             $tipo = $userData['tipo'];
-            $enlace = $userData['enlace'];
+            $enlaceString = $userData['enlace'];
+            $enlaceArray = explode('.', $enlaceString, 2);
+            $enlace = $enlaceArray[0];
             $this->lc->processLogin($capt, $pwd, $tipo, $local);
             $redirect = redirect()->route($enlace,['capt'=>$capt]);
             return $redirect;

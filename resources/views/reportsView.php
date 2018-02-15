@@ -19,29 +19,29 @@
             </div>
             <div data-role="collapsible">
                 <h2>Cargar</h2>
-                <button onclick="window.location = 'carga2.php?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
+                <button onclick="window.location = 'carga?capt=<?php echo $capt; ?>'">Cargar Cartera</button>
             </div>
             <div data-role="collapsible">
                 <h2>Visitar</h2>
-                <button onclick="window.location = 'checkout.php?capt=<?php echo $capt; ?>'">Asignar Visitas</button>
-                <button onclick="window.location = 'checkin.php?capt=<?php echo $capt; ?>'">Recibir Visitas</button>
+                <button onclick="window.location = 'checkout?capt=<?php echo $capt; ?>'">Asignar Visitas</button>
+                <button onclick="window.location = 'checkin?capt=<?php echo $capt; ?>'">Recibir Visitas</button>
             </div>
             <div data-role="collapsible">
                 <h2>Administrar</h2>
-                <button onclick="window.location = 'gestoradmin.php?capt=<?php echo $capt; ?>'">Administrar Acesso</button>
-                <button onclick="window.location = 'breakadmin.php?capt=<?php echo $capt; ?>'">Administrar Breaks</button>
-                <button onclick="window.location = 'queues.php?capt=<?php echo $capt; ?>'">Administrar Queues</button>
-                <button onclick="window.location = 'notadmin.php?capt=<?php echo $capt; ?>'">Administrar Notas</button>
-                <button onclick="window.location = 'segmentadmin.php?capt=<?php echo $capt; ?>'">Administrar Segmetos</button>
-                <button onclick="window.location = 'changest.php?capt=<?php echo $capt; ?>'">Cambiar Status de Credito</button>
-                <button onclick="window.location = 'inactivar.php?capt=<?php echo $capt; ?>'">Inactivar Cuentas</button>
-                <button onclick="window.location = 'queuemanual.php?capt=<?php echo $capt; ?>'">Cargar Queue MANUAL</button>
-                <button onclick="window.location = 'reporteManual.php?capt=<?php echo $capt; ?>'">Reporte Queue MANUAL</button>
+                <button onclick="window.location = 'gestoradmin?capt=<?php echo $capt; ?>'">Administrar Acesso</button>
+                <button onclick="window.location = 'breakadmin?capt=<?php echo $capt; ?>'">Administrar Breaks</button>
+                <button onclick="window.location = 'queues?capt=<?php echo $capt; ?>'">Administrar Queues</button>
+                <button onclick="window.location = 'notadmin?capt=<?php echo $capt; ?>'">Administrar Notas</button>
+                <button onclick="window.location = 'segmentadmin?capt=<?php echo $capt; ?>'">Administrar Segmetos</button>
+                <button onclick="window.location = 'changest?capt=<?php echo $capt; ?>'">Cambiar Status de Credito</button>
+                <button onclick="window.location = 'inactivar?capt=<?php echo $capt; ?>'">Inactivar Cuentas</button>
+                <button onclick="window.location = 'queuemanual?capt=<?php echo $capt; ?>'">Cargar Queue MANUAL</button>
+                <button onclick="window.location = 'reporteManual?capt=<?php echo $capt; ?>'">Reporte Queue MANUAL</button>
             </div>
             <div data-role="footer">
-                <button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
-                <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
-                <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button>
+                <button onclick="window.location = 'quick?capt=<?php echo $capt; ?>'">Tiempo Real</button>
+                <button onclick="window.location = 'resumen?capt=<?php echo $capt; ?>'">Las Cuentas</button>
+                <button onclick="window.location = 'resumen?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button>
             </div>
         </div>
         <div data-role="page" id='Generales'>
@@ -57,42 +57,42 @@
             </div>
             <div data-role="collapsible">
                 <h2>Estatus de cuentas</h2>
-                <button onclick="window.location = 'queuesqc.php?capt=<?php echo $capt; ?>'">Queues por Cliente</button>
-                <button onclick="window.location = 'latest_best.php?capt=<?php echo $capt; ?>'">Ultimo y Mejor Status</button>
+                <button onclick="window.location = 'queuesqc?capt=<?php echo $capt; ?>'">Queues por Cliente</button>
+                <button onclick="window.location = 'latest_best?capt=<?php echo $capt; ?>'">Ultimo y Mejor Status</button>
             </div>
             <div data-role="collapsible">
                 <h2>Promesas y Pagos</h2>
-                <button onclick="window.location = 'rotas.php?capt=<?php echo $capt; ?>'">Promesas del Mes Actual</button>
-                <button onclick="window.location = 'pagosum.php?capt=<?php echo $capt; ?>'">Pagos por Cliente</button>
-                <button onclick="window.location = 'pagodet.xlsx.php?capt=<?php echo $capt; ?>'">Pagos este mes (XLSX)</button>
+                <button onclick="window.location = 'rotas?capt=<?php echo $capt; ?>'">Promesas del Mes Actual</button>
+                <button onclick="window.location = 'pagosum?capt=<?php echo $capt; ?>'">Pagos por Cliente</button>
+                <button onclick="window.location = 'pagodet?capt=<?php echo $capt; ?>'">Pagos este mes (XLSX)</button>
             </div>
             <div data-role="collapsible">
                 <h2>Recursos Humanos</h2>
-                <button onclick="window.location = 'horarios_clean.php?capt=<?php echo $capt; ?>'">Productividad este Mes</button>
-                <button onclick="window.location = 'perfmes.php?capt=<?php echo $capt; ?>'">Productividad Mes Anterior</button>
-                <button onclick="window.location = 'horariosv.php?capt=<?php echo $capt; ?>'">Productividad Visit. este Mes</button>
-                <button onclick="window.location = 'perfmesv.php?capt=<?php echo $capt; ?>'">Productividad Visit. Mes Ant.</button>
-                <button onclick="window.location = 'horarios_clean2.php?capt=<?php echo $capt; ?>'">Solo uno Empleo</button><br>
+                <button onclick="window.location = 'horarios?capt=<?php echo $capt; ?>'">Productividad este Mes</button>
+                <button onclick="window.location = 'perfmes?capt=<?php echo $capt; ?>'">Productividad Mes Anterior</button>
+                <button onclick="window.location = 'horariosv?capt=<?php echo $capt; ?>'">Productividad Visit. este Mes</button>
+                <button onclick="window.location = 'perfmesv?capt=<?php echo $capt; ?>'">Productividad Visit. Mes Ant.</button>
+                <button onclick="window.location = 'horario?capt=<?php echo $capt; ?>'">Solo uno Empleo</button><br>
             </div>
             <div data-role="collapsible">
                 <h2>Gestiones y Inventarios de Deascargar</h2>
-                <button onclick="window.location = 'bigquery2.xls.php?capt=<?php echo $capt; ?>'">Query de las Gestiones XLSX</button>
-                <button onclick="window.location = 'bigproms.php?capt=<?php echo $capt; ?>'">Query de las Promesas XLSX</button>
-                <button onclick="window.location = 'inventario.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario XLSX</button>
-                <button onclick="window.location = 'inventario-rapid.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLSX</button>
-                <button onclick="window.location = 'intensidad.php?capt=<?php echo $capt; ?>'">Query del Intensidad XLSX</button>
+                <button onclick="window.location = 'bigquery?capt=<?php echo $capt; ?>'">Query de las Gestiones XLSX</button>
+                <button onclick="window.location = 'bigproms?capt=<?php echo $capt; ?>'">Query de las Promesas XLSX</button>
+                <button onclick="window.location = 'inventario?capt=<?php echo $capt; ?>'">Query del Inventario XLSX</button>
+                <button onclick="window.location = 'inventario-rapid?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLSX</button>
+                <button onclick="window.location = 'intensidad?capt=<?php echo $capt; ?>'">Query del Intensidad XLSX</button>
             </div>
             <div data-role="collapsible">
                 <h2>Miscelánea</h2>
-                <button onclick="window.location = 'comparativo.php?capt=<?php echo $capt; ?>'">Comparativo de 3 meses HTML</button><br>
-                <button onclick="window.location = 'tels_contactados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Contactados XLS</button>
-                <button onclick="window.location = 'tels_marcados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Marcados XLS</button>
+                <button onclick="window.location = 'comparativo?capt=<?php echo $capt; ?>'">Comparativo de 3 meses HTML</button><br>
+                <button onclick="window.location = 'contactados?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Contactados XLS</button>
+                <button onclick="window.location = 'marcados?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Marcados XLS</button>
             </div>
         </div>
         <div data-role="footer">
-            <button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
-            <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
-            <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button><br>
+            <button onclick="window.location = 'quick?capt=<?php echo $capt; ?>'">Tiempo Real</button>
+            <button onclick="window.location = 'resumen?capt=<?php echo $capt; ?>'">Las Cuentas</button>
+            <button onclick="window.location = 'logout?capt=<?php echo $capt; ?>'">LOGOUT</button><br>
         </div>
     </body>
 </html>

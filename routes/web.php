@@ -12,10 +12,15 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    return view('indexView');
+    return view('index');
 });
-
-Route::post('/login', 'LoginController@login');
+    
+Route::get('/reports', function (Request $r) {
+    $capt = $r->capt;
+    return view('reports')->with('capt', $capt);
+});
         
+Route::post('/login', 'LoginController@login');
