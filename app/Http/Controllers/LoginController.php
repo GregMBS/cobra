@@ -49,7 +49,7 @@ class LoginController extends Controller
             $enlaceArray = explode('.', $enlaceString, 2);
             $enlace = $enlaceArray[0];
             $this->lc->processLogin($capt, $pwd, $tipo, $local);
-            $redirect = redirect()->route($enlace,['capt'=>$capt]);
+            $redirect = redirect()->to($enlace,302,['capt'=>$capt]);
             return $redirect;
         }
         return redirect('/');
