@@ -1,5 +1,5 @@
 <?php
-use cobra_salsa\ResumenClass;
+use app\ResumenClass;
 
 date_default_timezone_set('America/Monterrey');
 

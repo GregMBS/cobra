@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\LogoutClass;
+use app\PdoClass;
+use app\LogoutClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/LogoutClass.php';

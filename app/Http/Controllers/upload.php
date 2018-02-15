@@ -1,9 +1,9 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\UploadClass;
-use cobra_salsa\InfonavitClass;
-use cobra_salsa\HistoriaClass;
+use app\PdoClass;
+use app\UploadClass;
+use app\InfonavitClass;
+use app\HistoriaClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/UploadClass.php';

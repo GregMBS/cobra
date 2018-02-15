@@ -1,6 +1,6 @@
 <?php
-use cobra_salsa\PdoClass;
-use cobra_salsa\HorariosVClass;
+use app\PdoClass;
+use app\HorariosVClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/HorariosVClass.php';

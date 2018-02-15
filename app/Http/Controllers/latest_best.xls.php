@@ -4,8 +4,8 @@ require_once 'vendor/autoload.php';
 
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
-use cobra_salsa\PdoClass;
-use cobra_salsa\BestClass;
+use app\PdoClass;
+use app\BestClass;
 
 $pc        = new PdoClass();
 $pdo       = $pc->dbConnectAdmin();

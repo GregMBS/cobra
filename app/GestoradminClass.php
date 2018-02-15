@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace app;
 
 /**
  * Description of GestoradminClass

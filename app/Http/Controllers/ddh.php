@@ -1,6 +1,6 @@
 <?php
-use cobra_salsa\PdoClass;
-use cobra_salsa\DhClass;
+use app\PdoClass;
+use app\DhClass;
 $pc     = new PdoClass();
 $pdo    = $pc->dbConnectAdmin();
 $dc     = new DhClass($pdo);

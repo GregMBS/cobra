@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace cobra_salsa;
+namespace app;
 
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;

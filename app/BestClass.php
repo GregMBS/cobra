@@ -1,6 +1,6 @@
 <?php
 
-namespace cobra_salsa;
+namespace app;
 
 /**
  * Database Queries for 'best' reports

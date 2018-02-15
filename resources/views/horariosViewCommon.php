@@ -4,7 +4,7 @@
  * @var string $capt
  * @var string $gestor
  * @var int $dhoy
- * @var cobra_salsa\HorariosClass $hc
+ * @var app\HorariosClass $hc
  */
 ?>
 <th><a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $c_cvge); ?>'><?php echo $gestor; ?></a></th>

@@ -1,6 +1,6 @@
 <?php
 
-namespace cobra_salsa;
+namespace app;
 
 use Exception;
 

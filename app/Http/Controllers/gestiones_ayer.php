@@ -1,5 +1,5 @@
 <?php
-use cobra_salsa\PdoClass;
+use app\PdoClass;
 $pdoc   = new PdoClass();
 $pdo    = $pdoc->dbConnectAdmin();
 $capt   = filter_input(INPUT_GET, 'capt');

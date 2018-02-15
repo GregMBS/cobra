@@ -1,7 +1,7 @@
 <?php
-use cobra_salsa\PagobulkClass;
+use app\PagobulkClass;
 
-use cobra_salsa\PdoClass;
+use app\PdoClass;
 require_once 'classes/PagobulkClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();

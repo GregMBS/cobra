@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\BigClass;
+use app\PdoClass;
+use app\BigClass;
 
 $pc             = new PdoClass();
 $pdo            = $pc->dbConnectAdmin();

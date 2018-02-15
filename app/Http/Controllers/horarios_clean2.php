@@ -1,7 +1,7 @@
 <?php
 $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-use cobra_salsa\PdoClass;
-use cobra_salsa\HorariosClass;
+use app\PdoClass;
+use app\HorariosClass;
 $pc      = new PdoClass();
 $pdo     = $pc->dbConnectAdmin();
 $hc      = new HorariosClass($pdo);

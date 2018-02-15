@@ -1,8 +1,8 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\InventarioClass;
-use cobra_salsa\OutputClass;
+use app\PdoClass;
+use app\InventarioClass;
+use app\OutputClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/InventarioClass.php';

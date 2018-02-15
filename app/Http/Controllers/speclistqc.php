@@ -1,5 +1,5 @@
 <?php
-use cobra_salsa\PdoClass;
+use app\PdoClass;
 $pc	 = new PdoClass();
 $pdo	 = $pc->dbConnectAdmin();
 set_time_limit(300);

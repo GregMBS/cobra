@@ -3,8 +3,8 @@
 set_time_limit(300);
 require_once 'vendor/autoload.php';
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\IntensidadClass;
+use app\PdoClass;
+use app\IntensidadClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 

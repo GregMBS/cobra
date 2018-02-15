@@ -1,10 +1,10 @@
 <?php
 
-use cobra_salsa\PdoClass;
-use cobra_salsa\QuickAhoraClass;
-use cobra_salsa\QuickBreaksClass;
-use cobra_salsa\QuickHoyClass;
-use cobra_salsa\QuickPorHoraClass;
+use app\PdoClass;
+use app\QuickAhoraClass;
+use app\QuickBreaksClass;
+use app\QuickHoyClass;
+use app\QuickPorHoraClass;
 
 require_once 'classes/PdoClass.php';
 $pc     = new PdoClass();

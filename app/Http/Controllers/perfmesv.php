@@ -1,6 +1,6 @@
 <?php
-use cobra_salsa\PdoClass;
-use cobra_salsa\PerfmesVClass;
+use app\PdoClass;
+use app\PerfmesVClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/PerfmesVClass.php';

@@ -1,6 +1,6 @@
 <?php
-use cobra_salsa\PdoClass;
-use cobra_salsa\RotasClass;
+use app\PdoClass;
+use app\RotasClass;
 $pc     = new PdoClass();
 $pdo    = $pc->dbConnectUser();
 $rc     = new RotasClass($pdo);

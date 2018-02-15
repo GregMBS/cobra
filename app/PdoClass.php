@@ -1,10 +1,8 @@
 <?php
 
-namespace cobra_salsa;
+namespace app;
 
 use PDO;
-
-require_once __DIR__.'/BaseClass.php';
 
 /**
  * Description of PdoClass
