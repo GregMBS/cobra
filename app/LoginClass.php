@@ -140,11 +140,11 @@ class LoginClass extends BaseClass {
      * @param string $local
      */
     public function processLogin($capt, $pwd, $tipo, $local) {
-        $cookie = $this->lc->setCookie($capt, $pwd);
-        $this->lc->setTicket($cookie, $capt, $tipo);
-        $this->lc->setInitialQueue($capt);
-        $this->lc->setUserlog($capt, $local);
-        $this->lc->insertPermalog($capt, $local);
-        $this->lc->insertHistoria($capt);
+        $cookie = $this->setCookie($capt, $pwd);
+        $this->setTicket($cookie, $capt, $tipo);
+        $this->setInitialQueue($capt);
+        $this->setUserlog($capt, $local);
+        $this->insertPermalog($capt, $local);
+        $this->insertHistoria($capt);
     }
 }
