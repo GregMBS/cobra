@@ -1,7 +1,7 @@
 <?php
-use app\PagobulkClass;
+use App\PagobulkClass;
 
-use app\PdoClass;
+use App\PdoClass;
 require_once 'classes/PagobulkClass.php';
 $pdoc = new PdoClass();
 $pdo = $pdoc->dbConnectAdmin();

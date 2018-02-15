@@ -1,5 +1,5 @@
 <?php
-use app\PdoClass;
+use App\PdoClass;
 $pc	 = new PdoClass();
 $pdo	 = $pc->dbConnectAdmin();
 set_time_limit(300);

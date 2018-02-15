@@ -1,6 +1,6 @@
 <?php
-use app\PdoClass;
-use app\DhClass;
+use App\PdoClass;
+use App\DhClass;
 $pc     = new PdoClass();
 $pdo    = $pc->dbConnectAdmin();
 $dc     = new DhClass($pdo);

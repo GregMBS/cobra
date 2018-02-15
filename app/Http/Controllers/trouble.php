@@ -1,5 +1,5 @@
 <?php
-use app\PdoClass;
+use App\PdoClass;
 $pc      = new PdoClass();
 $pdo     = $pc->dbConnectUser();
 $sistema = filter_input(INPUT_SERVER, 'REMOTE_ADDR');

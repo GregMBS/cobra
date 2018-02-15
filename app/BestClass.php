@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace App;
 
 /**
  * Database Queries for 'best' reports

@@ -1,5 +1,5 @@
 <?php
-use app\PdoClass; // returns $pdo
+use App\PdoClass; // returns $pdo
 $pdoc      = new PdoClass();
 $pdo       = $pdoc->dbConnectUser();
 $capt      = filter_input(INPUT_GET, 'capt');

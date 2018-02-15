@@ -1,8 +1,8 @@
 <?php
 
-use app\PdoClass;
-use app\GccInventarioClass;
-use app\OutputClass;
+use App\PdoClass;
+use App\GccInventarioClass;
+use App\OutputClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/GccInventarioClass.php';

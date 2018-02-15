@@ -1,9 +1,9 @@
 <?php
 
-use app\PdoClass;
-use app\UploadClass;
-use app\InfonavitClass;
-use app\HistoriaClass;
+use App\PdoClass;
+use App\UploadClass;
+use App\InfonavitClass;
+use App\HistoriaClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/UploadClass.php';

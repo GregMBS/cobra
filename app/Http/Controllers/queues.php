@@ -1,7 +1,7 @@
 <?php
 
-use app\PdoClass;
-use app\QueuesClass;
+use App\PdoClass;
+use App\QueuesClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/QueuesClass.php';

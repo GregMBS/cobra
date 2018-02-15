@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace app;
+namespace App;
 
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;

@@ -1,8 +1,8 @@
 <?php
 
-use app\PdoClass;
-use app\InventarioClass;
-use app\OutputClass;
+use App\PdoClass;
+use App\InventarioClass;
+use App\OutputClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/InventarioClass.php';

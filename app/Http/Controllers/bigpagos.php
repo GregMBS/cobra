@@ -1,7 +1,7 @@
 <?php
 
-use app\PdoClass;
-use app\BigClass;
+use App\PdoClass;
+use App\BigClass;
 
 $pc             = new PdoClass();
 $pdo            = $pc->dbConnectAdmin();

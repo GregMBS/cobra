@@ -1,8 +1,8 @@
 <?php
 $day_esp         = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-use app\PdoClass;
-use app\PerfmesClass;
-use app\PerfmesAllClass;
+use App\PdoClass;
+use App\PerfmesClass;
+use App\PerfmesAllClass;
 $pdc              = new PdoClass();
 $pdo             = $pdc->dbConnectAdmin();
 $pc              = new PerfmesClass($pdo);

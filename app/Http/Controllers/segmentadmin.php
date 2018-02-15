@@ -1,7 +1,7 @@
 <?php
 
-use app\PdoClass;
-use app\SegmentadminClass;
+use App\PdoClass;
+use App\SegmentadminClass;
 
 include 'classes/PdoClass.php';
 include 'classes/SegmentadminClass.php';

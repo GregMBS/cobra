@@ -1,6 +1,6 @@
 <?php
-use app\PdoClass;
-use app\HorariosVClass;
+use App\PdoClass;
+use App\HorariosVClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/HorariosVClass.php';

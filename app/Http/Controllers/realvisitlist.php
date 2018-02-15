@@ -1,7 +1,7 @@
 <?php
 
-use app\PdoClass;
-use app\ResumenClass;
+use App\PdoClass;
+use App\ResumenClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/ResumenClass.php';

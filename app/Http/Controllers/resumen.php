@@ -1,5 +1,5 @@
 <?php
-use app\ResumenClass;
+use App\ResumenClass;
 
 date_default_timezone_set('America/Monterrey');
 

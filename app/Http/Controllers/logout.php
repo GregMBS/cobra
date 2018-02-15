@@ -1,7 +1,7 @@
 <?php
 
-use app\PdoClass;
-use app\LogoutClass;
+use App\PdoClass;
+use App\LogoutClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/LogoutClass.php';

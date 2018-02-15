@@ -1,7 +1,7 @@
 <?php
 $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-use app\PdoClass;
-use app\HorariosClass;
+use App\PdoClass;
+use App\HorariosClass;
 $pc      = new PdoClass();
 $pdo     = $pc->dbConnectAdmin();
 $hc      = new HorariosClass($pdo);

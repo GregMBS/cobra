@@ -1,10 +1,10 @@
 <?php
 
-use app\PdoClass;
-use app\QuickAhoraClass;
-use app\QuickBreaksClass;
-use app\QuickHoyClass;
-use app\QuickPorHoraClass;
+use App\PdoClass;
+use App\QuickAhoraClass;
+use App\QuickBreaksClass;
+use App\QuickHoyClass;
+use App\QuickPorHoraClass;
 
 require_once 'classes/PdoClass.php';
 $pc     = new PdoClass();

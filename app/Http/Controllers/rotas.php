@@ -1,6 +1,6 @@
 <?php
-use app\PdoClass;
-use app\RotasClass;
+use App\PdoClass;
+use App\RotasClass;
 $pc     = new PdoClass();
 $pdo    = $pc->dbConnectUser();
 $rc     = new RotasClass($pdo);

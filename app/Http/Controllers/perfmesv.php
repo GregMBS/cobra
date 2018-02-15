@@ -1,6 +1,6 @@
 <?php
-use app\PdoClass;
-use app\PerfmesVClass;
+use App\PdoClass;
+use App\PerfmesVClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/PerfmesVClass.php';

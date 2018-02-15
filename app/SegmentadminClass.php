@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace App;
 
 require_once 'classes/BaseClass.php';
 

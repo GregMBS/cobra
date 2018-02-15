@@ -4,7 +4,7 @@ require_once 'vendor/autoload.php';
 
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
-use app\PdoClass;
+use App\PdoClass;
 
 $pdoc = new PdoClass();
 $pdo  = $pdoc->dbConnectAdmin();
