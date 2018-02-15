@@ -1,18 +1,27 @@
+<?php 
+/**
+ * @var string $c_cvge
+ * @var string $capt
+ * @var string $gestor
+ * @var int $dhoy
+ * @var cobra_salsa\HorariosClass $hc
+ */
+?>
 <th><a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $c_cvge); ?>'><?php echo $gestor; ?></a></th>
 <?php
+$start = array_fill(1, $dhoy, '');
+$stop = array_fill(1, $dhoy, '');
+$diff = array_fill(1, $dhoy, 0);
+$break = array_fill(1, $dhoy, 0);
+$bano = array_fill(1, $dhoy, 0);
+$lla = array_fill(1, $dhoy, 0);
+$tlla = array_fill(1, $dhoy, 0);
+$prom = array_fill(1, $dhoy, 0);
+$pag = array_fill(1, $dhoy, 0);
+$lph = array_fill(1, $dhoy, 0);
+$ct = array_fill(1, $dhoy, 0);
+$nct = array_fill(1, $dhoy, 0);
 for ($i = 1; $i <= $dhoy; $i++) {
-    $start[$i] = ' ';
-    $stop[$i] = ' ';
-    $diff[$i] = 0;
-    $break[$i] = 0;
-    $bano[$i] = 0;
-    $lla[$i] = 0;
-    $tlla[$i] = 0;
-    $prom[$i] = 0;
-    $pag[$i] = 0;
-    $lph[$i] = 0;
-    $ct[$i] = 0;
-    $nct[$i] = 0;
     $resultssd = $hc->getStartStopDiff($gestor, $i);
     foreach ($resultssd as $answerssd) {
         $start[$i] = substr($answerssd['start'], 0, 5);

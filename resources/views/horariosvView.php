@@ -1,8 +1,6 @@
 <?php 
-use cobra_salsa\HorariosVClass;
-
 /**
- * @var HorariosVClass $hc
+ * @var cobra_salsa\HorariosVClass $hc
  */
 ?>
 <!DOCTYPE html>
