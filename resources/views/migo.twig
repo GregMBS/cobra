@@ -31,8 +31,9 @@
 			</tr>
 		</thead>
 		<tbody class="ui-widget-content">
-			{% if result|defined %}
+			{% if result is defined %}
 			{% for row in result %}
+			{% if row.numero_de_cuenta is defined %}
 			<tr>
 				<td><a
 					href="resumen?go=FROMMIGO&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}">
@@ -46,6 +47,7 @@
 				<td>{{ row.status_aarsa }}</td>
 				<td>{{ row.fecha_ultima_gestion }}</td>
 			</tr>
+			{% endif %}
 			{% endfor %}
 			{% endif %}
 		</tbody>
