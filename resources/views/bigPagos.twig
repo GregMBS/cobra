@@ -1,0 +1,59 @@
+<!DOCTYPE html">
+<html>
+<head>
+<title>Query de las Pagos</title>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
+	type="text/css" media="all" />
+</head>
+<body>
+	<button
+		onclick="window.location = 'reports?capt={{ capt }}'">Regressar
+		a la plantilla administrativa</button>
+	<br>
+	<form action="bigpagos" method="get" name="queryparms">
+		<input type="hidden" name="capt" value="{{ capt }}">
+		<p>
+			Gestor: <select name="gestor">
+				<option value="todos" style="font-size: 120%;">todos</option>
+				{% include 'tools:optionLoop.twig' with {'array': resultGestores} %}
+			</select>
+		</p>
+		<p>
+			Cliente: <select name="cliente">
+				<option value="todos" style="font-size: 120%;">todos</option>
+				{% include 'tools:optionLoop.twig' with {'array': resultClientes} %}
+			</select>
+		</p>
+		<p>
+			PAG&Oacute; de: <select name="fecha1">
+				{% include 'tools:optionLoop.twig' with {'array': datesAsc} %}
+			</select> a: <select name="fecha2">
+				{% include 'tools:optionLoop.twig' with {'array': datesDesc} %}
+			</select>
+		</p>
+		<input type='submit' name='go' value='Query Pagos'>
+	</form>
+	{% if go is defined %}
+	<table>
+		<tr>
+			{% for key,value in result|first %}
+			<th>{{ key }}</th>
+			{% endfor %}
+		</tr>
+		{% for row in result %}
+		<tr>
+			{% for key,value in row %}
+			{% if key == 'CUENTA' %}
+			<td><a
+				href="resumen?find={{ value }}&field=numero_de_cuenta&qs=qs&capt={{ capt }}&go=QUICKSEARCH&from=bigPagos&go1=QUICKSEARCH">
+					{{ cell }}
+			</a></td>
+			{% else %}
+			<td>{{ cell }}</td>
+			{% endif %}
+		</tr>
+	</table>
+	{% endif %}
+</body>
+</html>

@@ -36,6 +36,23 @@ WHERE id_cuenta=:C_CONT";
         $stu->bindParam(':C_CONT', $C_CONT);
         $stu->execute();
     }
+    
+    /**
+     * 
+     * @param string $sdc
+     * @param bool $inactivo
+     * @return string
+     */
+    public function getTags($sdc,$inactivo) {
+        $tagArray      = explode('-', $sdc);
+        $trimmed       = trim($tagArray[0]);
+        if ($inactivo) {
+            $TAGS = $trimmed.'-inactivo';
+        } else {
+            $TAGS = $trimmed;
+        }
+        return $TAGS;
+    }
 
     /**
      * 
@@ -105,11 +122,13 @@ WHERE id_cuenta=:C_CONT";
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function listClientes() {
-        $querycl = "SELECT DISTINCT cliente FROM resumen ORDER BY cliente LIMIT 1000";
-        $resultcl = $this->pdo->query($querycl);
+        $query = "SELECT DISTINCT cliente FROM resumen ORDER BY cliente LIMIT 1000";
+        $stc = $this->pdo->prepare($query);
+        $stc->execute();
+        $resultcl = $stc->fetchColumn(0);
         return $resultcl;
     }
 
