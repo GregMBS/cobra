@@ -50,6 +50,7 @@ class LoginController extends Controller
             $enlace = $enlaceArray[0];
             $cookie = $this->lc->processLogin($capt, $pwd, $tipo, $local);
             $redirect = redirect()->to($enlace,302)->withCookie($cookie);
+            dd($redirect);
             return $redirect;
         }
         return redirect('/');
