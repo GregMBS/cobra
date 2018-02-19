@@ -23,8 +23,8 @@ Route::get('/reports', function (Request $r) {
     return view('reports')->with('capt', $capt);
 });
 
-    Route::get('/migo', 'MigoController@user');
-    Route::get('/migoadmin', 'MigoController@admin');
+    Route::get('/migo', 'MigoController@userList');
+    Route::get('/migoadmin', 'MigoController@adminList');
     Route::get('/changest', 'ChangestController@showOne');
     Route::post('/changest', 'ChangestController@updateOne');
     
