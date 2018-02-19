@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
     
 Route::get('/reports', function (Request $r) {
-    dd($r->auth);
+    dd($r->cookie('auth'));
     $capt = $r->capt;
     return view('reports')->with('capt', $capt);
 });
