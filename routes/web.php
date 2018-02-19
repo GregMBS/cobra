@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
     
 Route::get('/reports', function (Request $r) {
+    dd($r);
     $capt = $r->capt;
     return view('reports')->with('capt', $capt);
 });
