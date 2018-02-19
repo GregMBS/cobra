@@ -124,11 +124,6 @@ class LoginClass extends BaseClass {
      */
     private function setCookie($capt, $pw) {
         $cpw = $capt.sha1($pw).date('U');
-        if ($capt == "gmbs") {
-            setcookie('auth', $cpw, time() + 60 * 60 * 24);
-        } else {
-            setcookie('auth', $cpw, time() + 60 * 60 * 11);
-        }
         return $cpw;
     }
     
@@ -138,6 +133,7 @@ class LoginClass extends BaseClass {
      * @param string $pwd
      * @param string $tipo
      * @param string $local
+     * @return string cookie
      */
     public function processLogin($capt, $pwd, $tipo, $local) {
         $cookie = $this->setCookie($capt, $pwd);
@@ -146,5 +142,6 @@ class LoginClass extends BaseClass {
         $this->setUserlog($capt, $local);
         $this->insertPermalog($capt, $local);
         $this->insertHistoria($capt);
+        return $cookie;
     }
 }
