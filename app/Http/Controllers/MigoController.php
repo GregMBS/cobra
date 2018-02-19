@@ -57,7 +57,7 @@ class MigoController extends Controller
      */
     public function userList() {
         $result = $this->mc->userReport($this->capt);
-        dd($this);
+        dd($result);
         $view = view('migo')->with('result', $result)->with('capt', $this->capt);
         return $view;
     }
