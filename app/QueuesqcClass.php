@@ -180,12 +180,12 @@ group by cliente,status_de_credito
      * @return string
      */
     private function alertClass($percent, $warning, $error) {
-        $result = "class='good'";
+        $result = "class=good";
         if ($percent < $warning) {
-            $result = "class='fair'";
+            $result = "class=fair";
         }
         if ($percent < $error) {
-            $result = "class='bad'";
+            $result = "class=bad";
         }
         return $result;
     }
