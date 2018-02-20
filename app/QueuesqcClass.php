@@ -73,7 +73,7 @@ and queue = :queue ";
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -207,7 +207,6 @@ group by cliente,status_de_credito
         }
         Foreach ($output as &$o) {
             $segmentCounts = $this->getSegmentoCount($o->CLIENTE, $o->SDC);
-            dd($segmentCounts);
             $o->ASIGNADOS = $segmentCounts['ct'];
             $o->DINERO = $segmentCounts['sst'];
             $queueCounts = $this->getQueueCounts($o->CLIENTE, $o->SDC, $o->QUEUE);
