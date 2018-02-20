@@ -168,7 +168,10 @@ group by cliente,status_de_credito
      * @return int
      */
     private function roundPc($numerator, $denominator) {
-        $result = round($numerator / ($denominator + 0.001) * 100, 0);
+        if ($denominator == 0) {
+            return -1;
+        }
+        $result = round($numerator / $denominator * 100, 0);
         return $result;
     }
     
