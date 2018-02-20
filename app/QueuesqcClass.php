@@ -187,7 +187,7 @@ group by cliente,status_de_credito
         if ($percent < $error) {
             $result = "class=bad";
         }
-        if (empty($percent)) {
+        if ($percent == '') {
             $result = "";
         }
         return $result;
