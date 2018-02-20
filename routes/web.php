@@ -28,5 +28,6 @@ Route::get('/reports', function (Request $r) {
     Route::get('/changest', 'ChangestController@showOne');
     Route::post('/changest', 'ChangestController@updateOne');
     
-Route::post('/login', 'LoginController@login');
-Route::get('/quick', 'QuickController@index');
+    Route::post('/login', 'LoginController@login');
+    Route::get('/quick', 'QuickController@index');
+    Route::get('/queuesqc', 'QueueReportController@index');
