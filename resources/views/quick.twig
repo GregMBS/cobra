@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tiempo Real</title>
+<meta http-equiv="refresh" content="60" />
+<link
+	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
+	rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+	type="text/javascript"></script>
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
+	type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+	type="text/javascript"></script>
+<style>
+tr.odd {
+	background-color: white
+}
+
+tr.even {
+	background-color: #dddddd
+}
+
+.alert {
+	background-color: red
+}
+</style>
+</head>
+<body>
+	<script>
+		$(function() {
+			$("#tab").tabs();
+			$("body").css("font-size", "10pt");
+			$(".rightnow a,#pbx,#cell,input[submit],button").button();
+		});
+	</script>
+	<div id="tab">
+		<ul>
+			<li><a href="#AHORA">AHORA</a></li>
+			<li><a href="#BREAKS">BREAKS</a></li>
+			<li><a href="#PORHORA">ULTIMA HORA</a></li>
+			<li><a href="#PORDIA">HOY</a></li>
+		</ul>
+		<div id='AHORA'>
+			<table class='ui-widget' id="AHORAtab">
+				<thead class='ui-widget-header'>
+					<tr>
+						<th>Gestor</th>
+						<th>Cuenta</th>
+						<th>Nombre<br>Deudor
+						</th>
+						<th>Cliente</th>
+						<th>Camp</th>
+						<th>Status</th>
+						<th>Tiempo en este cuenta (min)</th>
+						<th>Queue</th>
+						<th>Sistema</th>
+						<th>Login</th>
+						<th>Logout</th>
+					</tr>
+				</thead>
+				<tbody class='ui-widget-content'>
+					{% for rowAhora in resultAhora %}
+					{% if rowAhora.logout == rowAhora.gestor %}
+					{% set url = 'logout?gone=forgot&capt=' ~ rowAhora.gestor %}
+					{% set logout = '<a href="' ~ url ~ '" target="_blank">LOGOUT</a>' %}
+					{% else %}
+					{% set logout = rowAhora.logout %}
+					{% endif %}
+					<tr {% if rowAhora.tiempo > 60 %} class="alert" {% endif %}>
+						<td>{{ rowAhora.gestor }}</td>
+						<td><a
+							href="resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find={{ rowAhora.id_cuenta }}&capt={{ capt }}">{{ rowAhora.cuenta }}</a></td>
+						<td>{{ rowAhora.nombre }}</td>
+						<td>{{ rowAhora.cliente }}</td>
+						<td>{{ rowAhora.camp }}</td>
+						<td>{{ rowAhora.status }}</td>
+						<td>{{ rowAhora.tiempo }}</td>
+						<td>{{ rowAhora.queue }}</td>
+						<td>{{ rowAhora.sistema }}</td>
+						<td>{{ rowAhora.login }}</td>
+						<td>{{ logout }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div id='BREAKS'>
+			<table class='ui-widget' id='BREAKStab'>
+				<thead class='ui-widget-header'>
+					<tr>
+						<th>Gestor</th>
+						<th>Tipo</th>
+						<th>de</th>
+						<th>a</th>
+						<th>Minutes</th>
+					</tr>
+				</thead>
+				<tbody class="ui-widget-content">
+					{% for rowBreaks in resultBreaks %}
+					<tr>
+						<td>{{ rowBreaks.gestor }}</td>
+						<td>{{ rowBreaks.tipo }}</td>
+						<td>{{ rowBreaks.tiempo }}</td>
+						<td>{{ rowBreaks.ntp }}</td>
+						<td>{{ rowBreaks.diff }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div id='PORHORA'>
+			<table class="ui-widget" id='PORHORAtab'>
+				<thead class="ui-widget-header">
+					<tr>
+						<th></th>
+						<th>Contactos</th>
+						<th>Gestiones</th>
+						<th>Promesas de Pago</th>
+						<th>Promesas de Firma</th>
+						<th>% Contactos</th>
+					</tr>
+				</thead>
+				<tbody class="ui-widget-content">
+					{% for rowPorHora in resultPorHora %}
+					<tr>
+						<td>{{ rowPorHora.gestor }}</td>
+						<td>{{ rowPorHora.contactos }}</td>
+						<td>{{ rowPorHora.gestiones }}</td>
+						<td>{{ rowPorHora.promesas }}</td>
+						<td>{{ rowPorHora.firmas }}</td>
+						<td>{{ rowPorHora.porciento }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div id='PORDIA'>
+			<table class="ui-widget" id="PORDIAtab">
+				<thead class="ui-widget-header">
+					<tr>
+						<th></th>
+						<th>Gestiones</th>
+						<th>Promesas de Pago Hoy</th>
+						<th>$ Promesas Hoy</th>
+						<th>Promesas de Firma Hoy</th>
+						<th>Pagos Hoy</th>
+						<th>Negociaciones</th>
+						<th>Horas</th>
+						<th>Break min</th>
+						<th>Gestiones por hora</th>
+						<th>Efectividad</th>
+					</tr>
+				</thead>
+				<tbody class="ui-widget-content">
+					{% for rowHoy in resultHoy %}
+					<tr {% if rowAhora.Horas < rowHoy.Break_min * 6 %} class="alert"
+						{% endif %}>
+						<td>{{ rowHoy.gestor }}</td>
+						<td>{{ rowHoy.Gestiones }}</td>
+						<td>{{ rowHoy.Promesas_Hoy }}</td>
+						<td>{{ rowHoy.Monto_Promesas_Hoy }}</td>
+						<td>{{ rowHoy.Firmas_Hoy }}</td>
+						<td>{{ rowHoy.Pagos_Hoy }}</td>
+						<td>{{ rowHoy.Negociaciones }}</td>
+						<td>{{ rowHoy.Horas }}</td>
+						<td>{{ rowHoy.Break_min }}</td>
+						<td>{{ rowHoy.Gestiones_por_hora }}</td>
+						<td>{{ rowHoy.Efectividad * 100 }}%</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<button onclick="window.location = 'reports?capt={{ capt }}'">Regressar
+		a la plantilla administrativa</button>
+	<br>
+</body>
+</html>

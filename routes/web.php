@@ -29,3 +29,4 @@ Route::get('/reports', function (Request $r) {
     Route::post('/changest', 'ChangestController@updateOne');
     
 Route::post('/login', 'LoginController@login');
+Route::get('/quick', 'QuickController@index');
