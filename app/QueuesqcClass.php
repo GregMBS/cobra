@@ -55,13 +55,13 @@ and queue = :queue ";
      * @param string $SDC
      * @return array
      */
-    private function getSegmentoCount($CLIENTE, $SDC)
+    private function getSegmentoCount($CLIENTE, $SDC='')
     {
         $queryc = "SELECT count(1) as ct, sum(saldo_total) as sst
                             FROM resumen
                             WHERE status_de_credito not regexp '-'
                             AND cliente = :cliente";
-        if (! empty($SDC)) {
+        if (!empty($SDC)) {
             $queryc = "SELECT count(1) as ct, sum(saldo_total) as sst
                                 FROM resumen
                                 WHERE status_de_credito = :sdc
@@ -69,7 +69,7 @@ and queue = :queue ";
         }
         $stc = $this->pdo->prepare($queryc);
         $stc->bindParam(':cliente', $CLIENTE);
-        if (! empty($SDC)) {
+        if (!empty($SDC)) {
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
