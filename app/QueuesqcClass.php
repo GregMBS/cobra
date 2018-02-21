@@ -227,13 +227,13 @@ group by cliente,status_de_credito
             $o->pcc  = $this->roundPc($o->count, $o->ASIGNADOS);
             $pcd  = $this->roundPc($o->countd, $o->count);
             $o->empd = $this->alertClass($o->pcd, 80, 40);
-            $o->pcd = max([$pcd. 0]);
+            $o->pcd = max([$pcd, 0]);
             $pcs  = $this->roundPc($o->counts, $o->count);
             $o->emps = $this->alertClass($pcs, 80, 40);
-            $o->pcs = max([$pcs. 0]);
+            $o->pcs = max([$pcs, 0]);
             $pcm  = $this->roundPc($o->countm, $o->count);
             $o->empm = $this->alertClass($pcm, 80, 40);
-            $o->pcm = max([$pcm. 0]);
+            $o->pcm = max([$pcm, 0]);
             $o->pcmc = max([$this->roundPc($o->monto, $o->DINERO),0]);
             $o->pcmd = max([$this->roundPc($o->montod, $o->monto),0]);
             $o->pcms = max([$this->roundPc($o->montos, $o->monto),0]);
