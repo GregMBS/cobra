@@ -226,7 +226,7 @@ group by cliente,status_de_credito
             $o->montom = $queueCounts['stm'];
             $o->pcc  = $this->roundPc($o->count, $o->ASIGNADOS);
             $pcd  = $this->roundPc($o->countd, $o->count);
-            $o->empd = $this->alertClass($o->pcd, 80, 40);
+            $o->empd = $this->alertClass($pcd, 80, 40);
             $o->pcd = max([$pcd, 0]);
             $pcs  = $this->roundPc($o->counts, $o->count);
             $o->emps = $this->alertClass($pcs, 80, 40);
