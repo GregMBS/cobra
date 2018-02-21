@@ -145,9 +145,11 @@ telefonos_marcados regexp :find)";
      * @return array
      */
     public function listClients() {
-        $querycl = "SELECT cliente FROM clientes";
-        $resultcl = $this->pdo->query($querycl);
-        return $resultcl;
+        $query = "SELECT cliente FROM clientes";
+        $stc = $this->pdo->prepare($query);
+        $stc->execute();
+        $result = $stc->fetchColumn(0);
+        return $result;
     }
 
 }

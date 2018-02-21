@@ -31,3 +31,4 @@ Route::get('/reports', function (Request $r) {
     Route::post('/login', 'LoginController@login');
     Route::get('/quick', 'QuickController@index');
     Route::get('/queuesqc', 'QueueReportController@index');
+    Route::get('/buscar', 'BuscarController@search');
