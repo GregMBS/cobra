@@ -39,7 +39,7 @@
                     {% set col = 'blue' %}
                 {% endif %}                
                 <tr>
-                    <td><a style='color:{{ col }}' href='{{ from }}?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}&highlight={{ field }}&hfind={{ find }}'>
+                    <td><a style='color:{{ col }}' href='resumen?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}&highlight={{ field }}&hfind={{ find }}'>
                     {{ row.numero_de_cuenta }}
                     </a></td>
                     <td>{{ row.nombre_deudor }}</td>
