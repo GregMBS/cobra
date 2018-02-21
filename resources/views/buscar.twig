@@ -33,17 +33,19 @@
             </thead>
             <tbody class="ui-widget-c">
             {% for row in result %}
-            {% if row.status_de_credito matches '/-/' %}
-            {% set col = '#c0c0c0' %}
-            {% endif %}                
-                    <tr>
-                        <td><a style="color:"{{ col }}"' href='{{ from }}?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}&highlight={{ field }}&hfind={{ find }}'>
-                        {{ row.numero_de_cuenta }}
-                        </a></td>
-                        <td>{{ row.nombre_deudor }}</td>
-                        <td>{{ row.cliente }}</td>
-                        <td>{{ row.status_de_credito }}</td>
-                    </tr>
+                {% if row.status_de_credito matches '/-/' %}
+                    {% set col = 'gray' %}
+                {% else %}
+                    {% set col = 'blue' %}
+                {% endif %}                
+                <tr>
+                    <td><a style="color:"{{ col }}"' href='{{ from }}?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}&highlight={{ field }}&hfind={{ find }}'>
+                    {{ row.numero_de_cuenta }}
+                    </a></td>
+                    <td>{{ row.nombre_deudor }}</td>
+                    <td>{{ row.cliente }}</td>
+                    <td>{{ row.status_de_credito }}</td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
