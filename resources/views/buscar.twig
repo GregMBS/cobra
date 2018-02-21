@@ -37,8 +37,8 @@
             {% set col = '#c0c0c0' %}
             {% endif %}                
                     <tr>
-                        <td><a href='{{ from }}?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}&highlight={{ field }}&hfind={{ find }}'>{{ row.numero_de_cuenta }}
-                        style="color:"{{ col }}"' 
+                        <td><a style="color:"{{ col }}"' href='{{ from }}?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}&highlight={{ field }}&hfind={{ find }}'>
+                        {{ row.numero_de_cuenta }}
                         </a></td>
                         <td>{{ row.nombre_deudor }}</td>
                         <td>{{ row.cliente }}</td>
