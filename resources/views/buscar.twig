@@ -33,7 +33,7 @@
             </thead>
             <tbody class="ui-widget-c">
             {% for row in result %}
-            {% if row.status_de_credito match '/-/' %}
+            {% if row.status_de_credito matches '/-/' %}
             {% set col = '#c0c0c0' %}
             {% endif %}                
                     <tr>
