@@ -144,4 +144,24 @@ class LoginClass extends BaseClass {
         $this->insertHistoria($capt);
         return $cookie;
     }
+    
+    /**
+     * 
+     * @param string $cookie
+     * @return string|mixed
+     */
+    public function getCapt($cookie) {
+        $capt = '';
+        $query = "SELECT iniciales FROM users 
+                    WHERE ticket = :cookie 
+                    LIMIT 1";
+        $stc = $this->pdo->prepare($query);
+        $stc->bindParam(':cookie', $cookie);
+        $stc->execute();
+        $user = $stc->fetch(\PDO::FETCH_ASSOC);
+        if ($user) {
+            $capt = $user['iniciales'];
+        }
+        return $capt;
+    }
 }

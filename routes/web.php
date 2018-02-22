@@ -33,3 +33,6 @@ Route::get('/reports', function (Request $r) {
     Route::get('/queuesqc', 'QueueReportController@index');
     Route::get('/buscar', 'BuscarController@search');
     Route::get('/pagos/{id_cuenta}', 'PagosController@showOne');
+    Route::get('/logout/{capt}/{why}', 'LoginController@adminLogout');
+    Route::get('/logout/{why}', 'LoginController@logout');
+    Route::get('/logout', 'LoginController@logout');

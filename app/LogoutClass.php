@@ -8,6 +8,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+
 /**
  * Description of LogoutClass
  *
@@ -28,7 +30,7 @@ class LogoutClass extends BaseClass {
      * 
      * @param string $capt
      */
-    public function unlockCuentas($capt) {
+    private function unlockCuentas($capt) {
         $queryunlock = "UPDATE resumen "
                 . "SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
@@ -40,14 +42,13 @@ class LogoutClass extends BaseClass {
     /**
      * 
      * @param string $capt
-     * @param string $go
-     * @return array
+     * @param string $why
+     * @return \Carbon\Carbon
      */
-    public function getLogoutDatetime($capt, $go) {
-        $date = date('Y-m-d');
-        $time = date('H:i:s');
-        if ($go == 'forgot') {
-            $go = 'salir';
+    private function getLogoutDatetime($capt, $why) {
+        $dt = Carbon::now();
+        if ($why == 'forgot') {
+            $why = 'salir';
             $stl = $this->pdo->prepare($this->queryldt);
             $stl->bindParam(':capt', $capt);
             $stl->execute();
@@ -55,13 +56,10 @@ class LogoutClass extends BaseClass {
             if ($resultldt) {
                 $date = $resultldt['d_fech'];
                 $time = $resultldt['c_hrin'];
+                $dt = Carbon::createFromFormat('Y-m-d H:i:s', $date.' '.$time);
             }
         }
-        $output = array(
-            'date' => $date,
-            'time' => $time
-        );
-        return $output;
+        return $dt;
     }
 
     /**
@@ -71,7 +69,7 @@ class LogoutClass extends BaseClass {
      * @param string $date
      * @param string $time
      */
-    public function insertHistoria($capt, $go, $date, $time) {
+    private function insertHistoria($capt, $go, $date, $time) {
 	$queryins	 = "INSERT INTO historia
 		(C_CVGE, C_CVBA, C_CONT, CUENTA, C_CVST, D_FECH, C_HRIN, C_HRFI)
 		VALUES
@@ -89,7 +87,7 @@ class LogoutClass extends BaseClass {
      * 
      * @param string $capt
      */
-    public function clearResumenLocks($capt) {
+    private function clearResumenLocks($capt) {
 	$queryclr	 = "UPDATE resumen SET locker=NULL, timelock=NULL "
 	    ."WHERE locker = :capt";
 	$stc		 = $this->pdo->prepare($queryclr);
@@ -101,7 +99,7 @@ class LogoutClass extends BaseClass {
      * 
      * @param string $capt
      */
-    public function clearRslice($capt) {
+    private function clearRslice($capt) {
 	$querydel	 = "DELETE from rslice "
 	    ."WHERE user = :capt";
 	$std		 = $this->pdo->prepare($querydel);
@@ -113,11 +111,27 @@ class LogoutClass extends BaseClass {
      * 
      * @param string $capt
      */
-    public function expireTicket($capt) {
+    private function expireTicket($capt) {
 	$querynom	 = "update nombres set ticket = NULL "
 	    ."where iniciales = :capt";
 	$stn		 = $this->pdo->prepare($querynom);
 	$stn->bindParam(':capt', $capt);
 	$stn->execute();
+    }
+    
+    /**
+     * 
+     * @param string $capt
+     * @param string $why
+     */
+    public function processLogout($capt, $why) {
+        $this->loc->unlockCuentas($capt);
+        $dt = $this->loc->getLogoutDatetime($capt, $why);
+        $date = $dt->toDateString();
+        $time = $dt->toTimeString();
+        $this->loc->insertHistoria($capt, $why, $date, $time);
+        $this->loc->clearResumenLocks($capt);
+        $this->loc->clearRslice($capt);
+        $this->loc->expireTicket($capt);
     }
 }
