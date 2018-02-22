@@ -90,7 +90,7 @@ class LoginController extends Controller
             'error'
         );
         $cookie = session('auth', '');
-        $capt = $this->lc->getCapt($cookie);
+        $capt = $this->pdoc->getCapt($cookie);
         $redirect = redirect('/');
         if ($capt) {
             $this->loc->processLogout($capt, $why);
