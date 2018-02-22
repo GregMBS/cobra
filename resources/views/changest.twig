@@ -63,8 +63,10 @@
 				<option value="numero_de_cuenta">Cuenta</option>
 				<option value="id_cuenta">Expediente</option>
 			</select><br> Client = <select name="cliente">
-				<option value=" ">Todos</option> @foreach ($resultcl as $cl)
-				<option value="{{ $cl }}">{{ $cl }}</option> @endforeach
+				<option value=" ">Todos</option> 
+				@foreach ($resultcl as $cl)
+				<option value="{{ cl }}">{{ cl }}</option> 
+				@endforeach
 			</select><br> <input type="hidden" name="i" value="0"> <input
 				type="hidden" name="capt" value="{{ capt }}"> <input
 				type="hidden" name="go" value="BUSCAR"> <input type="hidden"
