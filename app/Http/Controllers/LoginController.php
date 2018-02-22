@@ -58,8 +58,7 @@ class LoginController extends Controller
             $enlaceString = $userData['enlace'];
             $enlace = explode('.', $enlaceString, 2);
             $cookie = $this->lc->processLogin($capt, $pwd, $tipo, $local);
-            session()->put('auth', $cookie);
-            $redirect = redirect()->to($enlace, 302);
+            $redirect = redirect()->to($enlace, 302)->session()->put('auth', $cookie);
             return $redirect;
         }
         return redirect('/');
