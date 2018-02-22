@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
     
 Route::get('/reports', function (LoginClass $lc) {
-    $cookie = session('auth', '');
+    $cookie = session()->get('auth', '');
     $capt = $lc->getCapt($cookie);
     return view('reports')->with('capt', $capt);
 });
