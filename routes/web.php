@@ -13,13 +13,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\LoginClass;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('index');
 });
     
-Route::get('/reports', function (LoginClass $lc) {
-    $cookie = session()->get('auth', '');
+Route::get('/reports', function (Request $r, LoginClass $lc) {
+    $cookie = $r->session()->get('auth', '');
     $capt = $lc->getCapt($cookie);
     return view('reports')->with('capt', $capt);
 });
