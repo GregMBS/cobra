@@ -79,11 +79,12 @@ class LoginController extends Controller
     }
 
     /**
-     *
+     * 
      * @param string $why
+     * @param Request $r
      * @return RedirectResponse
      */
-    public function logout($why)
+    public function logout($why, Request $r)
     {
         $terminal = arraY(
             'salir',
@@ -94,6 +95,7 @@ class LoginController extends Controller
         $redirect = redirect('/');
         if ($capt) {
             $this->loc->processLogout($capt, $why);
+            $r->session()->flush();
             if (! in_array($why, $terminal)) {
                 $redirect = redirect('/breaks/' . $capt);
             }
