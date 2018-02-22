@@ -12,16 +12,16 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use App\LoginClass;
 use Illuminate\Http\Request;
+use App\PdoClass;
 
 Route::get('/', function () {
     return view('index');
 });
     
-Route::get('/reports', function (Request $r, LoginClass $lc) {
+Route::get('/reports', function (Request $r, PdoClass $pdoc) {
     $cookie = $r->session()->get('auth', '');
-    $capt = $lc->getCapt($cookie);
+    $capt = $pdoc->getCapt($cookie);
     return view('reports')->with('capt', $capt);
 });
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use PDO;
+use Illuminate\Http\Request;
 
 /**
  * Description of PdoClass
@@ -61,16 +62,13 @@ class PdoClass
      * @returns \PDO
      */
 
-    private function dbConnect($querycheck)
+    private function dbConnect($querycheck, Request $r)
     {
-        $ticket = filter_input(INPUT_COOKIE, 'auth');
-        $capt   = filter_input(INPUT_GET, 'capt');
+        $ticket = $r->session()->get('auth', '');
+        $capt   = $this->getCapt($ticket);
         if (empty($capt)) {
-            $capt   = filter_input(INPUT_POST, 'capt');
-        }
-        if (empty($capt)) {
-            $redirector = "Location: index.php";
-            header($redirector);
+            $redirect = redirect("index", 403);
+            return $redirect;
         }
         $this->capt = $capt;
         $stc   = $this->pdo->prepare($querycheck);
@@ -79,8 +77,8 @@ class PdoClass
         $stc->execute();
         $count = $stc->fetch();
         if ($count[0] != 1) {
-            $redirector = 'Location: index.php';
-            header($redirector);
+            $redirect = redirect("index", 403);
+            return $redirect;
         }
         $stt   = $this->pdo->prepare($this->querytipo);
         $stt->bindParam(':ticket', $ticket);
@@ -93,20 +91,20 @@ class PdoClass
     /**
      * @returns \PDO
      */
-    public function dbConnectAdmin()
+    public function dbConnectAdmin(Request $r)
     {
         $querycheck = $this->queryadmin;
-        $pdo        = $this->dbConnect($querycheck);
+        $pdo        = $this->dbConnect($querycheck, $r);
         return $pdo;
     }
 
     /**
      * @returns \PDO
      */
-    public function dbConnectUser()
+    public function dbConnectUser(Request $r)
     {
         $querycheck = $this->queryuser;
-        $pdo        = $this->dbConnect($querycheck);
+        $pdo        = $this->dbConnect($querycheck, $r);
         return $pdo;
     }
 
@@ -119,19 +117,45 @@ class PdoClass
         return $pdo;
     }
 
+    /**
+     * 
+     * @param string $capt
+     * @return string
+     */
     public function getUserType($capt)
     {
         $tipo	 = '';
-        $query	 = "SELECT tipo FROM nombres "
-            ."WHERE iniciales = :capt "
-                ."LIMIT 1";
-                $stq	 = $this->pdo->prepare($query);
-                $stq->bindParam(':capt', $capt);
-                $stq->execute();
-                $result	 = $stq->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($result as $user) {
-                    $tipo = $user['tipo'];
-                }
-                return $tipo;
+        $query	 = "SELECT tipo FROM nombres 
+                WHERE iniciales = :capt 
+                LIMIT 1";
+        $stq	 = $this->pdo->prepare($query);
+        $stq->bindParam(':capt', $capt);
+        $stq->execute();
+        $result	 = $stq->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $tipo = $result['tipo'];
+        }
+        return $tipo;
     }
+    
+    /**
+     *
+     * @param string $cookie
+     * @return string|mixed
+     */
+    public function getCapt($cookie) {
+        $capt = '';
+        $query = "SELECT iniciales FROM users
+                    WHERE ticket = :cookie
+                    LIMIT 1";
+        $stc = $this->pdo->prepare($query);
+        $stc->bindParam(':cookie', $cookie);
+        $stc->execute();
+        $user = $stc->fetch(\PDO::FETCH_ASSOC);
+        if ($user) {
+            $capt = $user['iniciales'];
+        }
+        return $capt;
+    }
+    
 }
