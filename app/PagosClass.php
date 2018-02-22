@@ -108,7 +108,7 @@ order by cliente,gestor,fecha";
      * @return array
      */
     public function getCuentaClienteFromID($ID_CUENTA) {
-        $querycc = "SELECT numero_de_cuenta, cliente
+        $querycc = "SELECT numero_de_cuenta AS cuenta, cliente
 FROM resumen 
 WHERE id_cuenta=:id";
         $stc = $this->pdo->prepare($querycc);
