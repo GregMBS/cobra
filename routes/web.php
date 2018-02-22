@@ -12,14 +12,15 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+use App\LoginClass;
 
 Route::get('/', function () {
     return view('index');
 });
     
-Route::get('/reports', function (Request $r) {
-    $capt = $r->capt;
+Route::get('/reports', function (LoginClass $lc) {
+    $cookie = session('auth', '');
+    $capt = $lc->getCapt($cookie);
     return view('reports')->with('capt', $capt);
 });
 
@@ -35,4 +36,7 @@ Route::get('/reports', function (Request $r) {
     Route::get('/pagos/{id_cuenta}', 'PagosController@showOne');
     Route::get('/logout/{capt}/{why}', 'LoginController@adminLogout');
     Route::get('/logout/{why}', 'LoginController@logout');
-    Route::get('/logout', 'LoginController@logout');
+    Route::get('/logout', function () {
+        return view('logout');
+    });
+        

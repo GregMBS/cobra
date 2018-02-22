@@ -102,13 +102,4 @@ class LoginController extends Controller
         return $redirect;
     }
 
-    /**
-     *
-     * @return View
-     */
-    public function logout()
-    {
-        $view = view('logout');
-        return $view;
-    }
 }
