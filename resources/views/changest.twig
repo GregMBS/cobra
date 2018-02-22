@@ -52,6 +52,7 @@
 							type="submit" name="go" value="CAMBIAR">
 					</form></td>
 			</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 	<div id="searchbox">
@@ -64,9 +65,9 @@
 				<option value="id_cuenta">Expediente</option>
 			</select><br> Client = <select name="cliente">
 				<option value=" ">Todos</option> 
-				@foreach ($resultcl as $cl)
+				{% for cl in resultcl %}
 				<option value="{{ cl }}">{{ cl }}</option> 
-				@endforeach
+				{% endfor %}
 			</select><br> <input type="hidden" name="i" value="0"> <input
 				type="hidden" name="capt" value="{{ capt }}"> <input
 				type="hidden" name="go" value="BUSCAR"> <input type="hidden"
