@@ -7,6 +7,7 @@ use App\QuickBreaksClass;
 use App\QuickHoyClass;
 use App\QuickPorHoraClass;
 use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
 
 class QuickController extends Controller
 {
@@ -47,10 +48,14 @@ class QuickController extends Controller
      */
     private $qp;
     
-    public function __construct()
+    /**
+     * 
+     * @param Request $r
+     */
+    public function __construct(Request $r)
     {
         $this->pdoc = new PdoClass();
-        $this->pdo = $this->pdoc->dbConnectAdmin();
+        $this->pdo = $this->pdoc->dbConnectAdmin($r);
         $this->qa = new QuickAhoraClass($this->pdo);
         $this->qh = new QuickHoyClass($this->pdo);
         $this->qb = new QuickBreaksClass($this->pdo);
