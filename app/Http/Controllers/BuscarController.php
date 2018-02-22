@@ -47,7 +47,7 @@ class BuscarController extends Controller
     public function search(Request $r) {
         $field = $r->field; 
         $find = $r->find;
-        $from = $r->from;
+        $from = $r->path();
         $cliente = $r->cliente;
         $id_cuenta = $r->C_CONT;
         $view = $this->returnView($field, $find, $from, $cliente, $id_cuenta);

@@ -47,7 +47,7 @@ class ChangestController extends Controller
     public function showOne(Request $r) {
         $field = $r->field; 
         $find = $r->find;
-        $from = $r->from;
+        $from = $r->path();
         $cliente = $r->cliente;
         $view = $this->returnView($field, $find, $from, $cliente);
         return $view;
@@ -56,7 +56,7 @@ class ChangestController extends Controller
     public function updateOne(Request $r) {
         $field     = 'id_cuenta';
         $find      = $r->C_CONT;
-        $from = $r->from;
+        $from = $r->path();
         $cliente = $r->cliente;
         $sdc = $r->sdc;
         $inactivo = $r->has('inactivo');

@@ -32,3 +32,4 @@ Route::get('/reports', function (Request $r) {
     Route::get('/quick', 'QuickController@index');
     Route::get('/queuesqc', 'QueueReportController@index');
     Route::get('/buscar', 'BuscarController@search');
+    Route::get('/pagos/{id_cuenta}', 'PagosController@showOne');

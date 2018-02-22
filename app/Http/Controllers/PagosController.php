@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\PagosClass;
 use App\PdoClass;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
 class PagosController extends Controller
@@ -41,11 +40,10 @@ class PagosController extends Controller
     
     /**
      * 
-     * @param Request $r
+     * @param int $id_cuenta
      * @return View
      */
-    public function showOne(Request $r) {
-        $id_cuenta = (int) $r->id_cuenta;
+    public function showOne($id_cuenta) {
         $cuentaCliente = $this->pc->getCuentaClienteFromID($id_cuenta);
         $cuenta = $cuentaCliente['cuenta'];
         $cliente = $cuentaCliente['cliente'];
