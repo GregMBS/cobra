@@ -75,12 +75,11 @@ WHERE id_cuenta=:C_CONT";
      * @return string
      */
     private function getClientString($CLIENTE) {
+        $clientStr = " and :cliente<>'AA'";
         if (!empty($CLIENTE)) {
             if (strlen($CLIENTE) > 1) {
                 $clientStr = " and cliente=:cliente";
-            } else {
-                $clientStr = " and :cliente<>'AA'";
-            }
+            } 
         }
         return $clientStr;
     }
