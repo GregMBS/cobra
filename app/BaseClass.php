@@ -8,6 +8,8 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
+
 /**
  * Description of ActivarClass
  *
@@ -24,7 +26,7 @@ class BaseClass {
      * 
      * @param \PDO $pdo
      */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
+    public function __construct() {
+        $this->pdo = DB::connection()->getPdo();
     }
 }
