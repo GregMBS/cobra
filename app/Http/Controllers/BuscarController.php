@@ -14,14 +14,8 @@ class BuscarController extends Controller
      */
     private $bc;
     
-    /**
-     * @var string
-     */
-    private $capt;
-    
-    public function __construct() {
+     public function __construct() {
         $this->bc = new BuscarClass();
-        $this->capt = $this->pdoc->capt;
     }
     
     /**
@@ -55,7 +49,7 @@ class BuscarController extends Controller
         ->with('field', $field)
         ->with('find', $find)
         ->with('from', $from)
-        ->with('capt', $this->capt)
+        ->with('capt', auth()->user()->capt)
         ->with('C_CONT', $id_cuenta)
         ->with('result', $result)
         ->with('resultcl', $clienteList);

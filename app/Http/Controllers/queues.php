@@ -3,12 +3,7 @@
 
 use App\QueuesClass;
 
-require_once 'classes/PdoClass.php';
-require_once 'classes/QueuesClass.php';
-
-$pdo = $pdoc->dbConnectUser();
-$qc = new QueuesClass($pdo);
-$capt = $pdoc->capt;
+$qc = new QueuesClass();
 $go = filter_input(INPUT_GET, 'go');
 $CAMP = filter_input(INPUT_GET, 'camp', FILTER_VALIDATE_INT);
 $GESTOR = filter_input(INPUT_GET, 'gestor');

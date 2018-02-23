@@ -1,8 +1,5 @@
 <?php
 
-
-$pdo  = $pdoc->dbConnectUser();
-$capt = filter_input(INPUT_GET, 'capt');
 $go   = filter_input(INPUT_GET, 'go');
 $msg  = "";
 if ($go == 'INTRO') {

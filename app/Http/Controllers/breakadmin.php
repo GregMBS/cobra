@@ -1,8 +1,5 @@
 <?php
 
-
-$pdo     = $pdoc->dbConnectAdmin();
-$capt    = filter_input(INPUT_GET, 'capt');
 $go      = filter_input(INPUT_GET, 'go');
 $tipo    = filter_input(INPUT_GET, 'tipo');
 $auto    = filter_input(INPUT_GET, 'auto', FILTER_SANITIZE_NUMBER_INT);

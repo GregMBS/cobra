@@ -1,8 +1,5 @@
 <?php
 
-
-$pdo = $pdoc->dbConnectNobody();
-$capt	 = filter_input(INPUT_GET, 'capt');
 $queryl	 = "delete from userlog where gestor = :capt";
 $sdl	 = $pdo->prepare($queryl);
 $sdl->bindParam(':capt', $capt);

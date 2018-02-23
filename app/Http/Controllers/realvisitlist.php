@@ -3,12 +3,8 @@
 
 use App\ResumenClass;
 
-require_once 'classes/PdoClass.php';
-require_once 'classes/ResumenClass.php';
+$rc = new ResumenClass();
 
-$pdo = $pdoc->dbConnectUser();
-$rc = new ResumenClass($pdo);
-$capt = filter_input(INPUT_GET, 'capt');
 $ID_CUENTA = filter_input(INPUT_GET, 'id_cuenta');
 $rowsub = $rc->listVisits($ID_CUENTA);
 $fields = array("c_cvst", "fh", "gestor", "short", "Gestion");

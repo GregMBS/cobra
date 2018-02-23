@@ -1,15 +1,7 @@
 <?php
 use App\PagobulkClass;
 
-
-require_once 'classes/PagobulkClass.php';
-
-$pdo = $pdoc->dbConnectAdmin();
-$pbc = new PagobulkClass($pdo);
-$capt = filter_input(INPUT_GET, 'capt');
-if (empty($capt)) {
-    $capt = filter_input(INPUT_POST, 'capt');
-}
+$pbc = new PagobulkClass();
 $go = filter_input(INPUT_POST, 'go');
 $input = filter_input(INPUT_POST, 'data');
 $message = '';

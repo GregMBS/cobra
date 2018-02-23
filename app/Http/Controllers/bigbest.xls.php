@@ -5,10 +5,6 @@ require_once 'vendor/autoload.php';
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
-
-
-$pdo  = $pdoc->dbConnectAdmin();
-$capt = filter_input(INPUT_GET, 'capt');
 $get  = filter_input_array(INPUT_GET);
 
 function MesNom($n)
@@ -18,7 +14,6 @@ function MesNom($n)
     return date("M", $timestamp);
 }
 if (!empty($get['go'])) {
-    $go     = $get['go'];
     $gestor = $get['gestor'];
     $cliente = $get['cliente'];
     $fecha1 = $get['fecha1'];
