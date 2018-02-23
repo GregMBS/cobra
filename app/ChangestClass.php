@@ -116,7 +116,12 @@ WHERE id_cuenta=:C_CONT";
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':find', $find);
         $stm->bindParam(':cliente', $CLIENTE);
-        $stm->execute();
+        try {
+            $stm->execute();
+        } catch (\PDOException $e) {
+            dd($stm,$e);
+        }
+        
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
