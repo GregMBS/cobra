@@ -118,7 +118,6 @@ class LoginController extends Controller
      * @return int
      */
     private function oldToNew(array $oldData, $password) {
-        dd($oldData);
         $new = new User();
         $new->completo = $oldData['completo'];
         $new->iniciales = $oldData['iniciales'];
