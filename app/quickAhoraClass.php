@@ -15,17 +15,17 @@ class QuickAhoraClass extends BaseClass
      */
     protected $createAhora          = "CREATE TEMPORARY TABLE  `ahora` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
-  `gestor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `cuenta` varchar(255) COLLATE utf8_spanish_ci,
-  `nombre` varchar(255) COLLATE utf8_spanish_ci,
-  `cliente` varchar(255) COLLATE utf8_spanish_ci,
-  `camp` varchar(255) COLLATE utf8_spanish_ci,
-  `status` varchar(255) COLLATE utf8_spanish_ci,
+  `gestor` varchar(255) NOT NULL,
+  `cuenta` varchar(255),
+  `nombre` varchar(255),
+  `cliente` varchar(255),
+  `camp` varchar(255),
+  `status` varchar(255),
   `tiempo` int(11),
-  `queue` varchar(255) COLLATE utf8_spanish_ci,
-  `sistema` varchar(255) COLLATE utf8_spanish_ci,
-  `login` varchar(255) COLLATE utf8_spanish_ci,
-  `logout` varchar(255) COLLATE utf8_spanish_ci,
+  `queue` varchar(255),
+  `sistema` varchar(255),
+  `login` varchar(255),
+  `logout` varchar(255),
   `id_cuenta` int(11),
   PRIMARY KEY (`auto`)
 )";

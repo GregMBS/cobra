@@ -15,7 +15,7 @@ class QuickHoyClass extends BaseClass
      */
     protected $createHoy          = "CREATE TEMPORARY TABLE  `hoy` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
-  `gestor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `gestor` varchar(255) NOT NULL,
   `Gestiones` int(11),
   `Promesas_Total` int(11),
   `Promesas_Sin_Gestion` int(11),

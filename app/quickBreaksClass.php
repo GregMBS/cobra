@@ -15,8 +15,8 @@ class QuickBreaksClass extends BaseClass
      */
     protected $createBreaktab          = "CREATE TEMPORARY TABLE  `breaktab` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
-  `gestor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `tipo` varchar(255) COLLATE utf8_spanish_ci,
+  `gestor` varchar(255) NOT NULL,
+  `tipo` varchar(255),
   `tiempo` time,
   `ntp` time,
   `diff` int(11),

@@ -15,7 +15,7 @@ class QuickPorHoraClass extends BaseClass
      */
     protected $createPorHora = "CREATE TEMPORARY TABLE  `porhora` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
-  `gestor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `gestor` varchar(255) NOT NULL,
   `contactos` int(11),
   `gestiones` int(11),
   `promesas` int(11),
