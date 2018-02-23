@@ -1,10 +1,8 @@
 <?php
-use App\PdoClass;
+
 use App\BigClass;
 
-$pc             = new PdoClass();
-$pdo            = $pc->dbConnectAdmin();
-$bc             = new BigClass($pdo);
+$bc             = new BigClass();
 $resultGestores = $bc->getPromesasGestores();
 $resultClientes = $bc->getPromesasClientes();
 $datesAsc       = $bc->getGestionDates('asc');

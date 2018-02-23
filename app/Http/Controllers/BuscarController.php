@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\PdoClass;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\BuscarClass;
@@ -16,26 +15,12 @@ class BuscarController extends Controller
     private $bc;
     
     /**
-     *
-     * @var PdoClass
-     */
-    private $pdoc;
-    
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
-    
-    /**
      * @var string
      */
     private $capt;
     
     public function __construct() {
-        $this->pdoc = new PdoClass();
-        $this->pdo = $this->pdoc->dbConnectAdmin();
-        $this->bc = new BuscarClass($this->pdo);
+        $this->bc = new BuscarClass();
         $this->capt = $this->pdoc->capt;
     }
     

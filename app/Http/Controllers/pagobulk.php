@@ -1,9 +1,9 @@
 <?php
 use App\PagobulkClass;
 
-use App\PdoClass;
+
 require_once 'classes/PagobulkClass.php';
-$pdoc = new PdoClass();
+
 $pdo = $pdoc->dbConnectAdmin();
 $pbc = new PagobulkClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');

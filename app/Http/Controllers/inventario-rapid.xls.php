@@ -1,6 +1,6 @@
 <?php
 
-use App\PdoClass;
+
 use App\InventarioClass;
 use App\OutputClass;
 
@@ -10,7 +10,7 @@ require_once 'classes/OutputClass.php';
 
 set_time_limit(300);
 
-$pdoc = new PdoClass();
+
 $pdo = $pdoc->dbConnectAdmin();
 $ic = new InventarioClass($pdo);
 $capt = $pdoc->capt;

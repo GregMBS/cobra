@@ -1,12 +1,9 @@
 <?php
 
-use App\PdoClass;
+
 use App\BigClass;
 
-$pc             = new PdoClass();
-$pdo            = $pc->dbConnectAdmin();
-
-$bc             = new BigClass($pdo);
+$bc             = new BigClass();
 $resultGestores = $bc->getPagosGestores();
 $resultClientes = $bc->getPagosClientes();
 $datesAsc       = $bc->getPagosDates('asc');

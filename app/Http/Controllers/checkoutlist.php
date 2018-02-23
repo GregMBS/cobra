@@ -1,6 +1,6 @@
 <?php
-use App\PdoClass;
-$pdoc = new PdoClass();
+
+
 $pdo  = $pdoc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $vst  = filter_input(INPUT_GET, 'visitador');

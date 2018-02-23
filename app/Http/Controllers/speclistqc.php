@@ -1,9 +1,5 @@
 <?php
-use App\PdoClass;
-$pc	 = new PdoClass();
-$pdo	 = $pc->dbConnectAdmin();
-set_time_limit(300);
-$capt	 = filter_input(INPUT_GET, 'capt');
+
 $cliente = filter_input(INPUT_GET, 'cliente');
 $queue	 = filter_input(INPUT_GET, 'queue');
 $sdc	 = filter_input(INPUT_GET, 'status_de_credito');

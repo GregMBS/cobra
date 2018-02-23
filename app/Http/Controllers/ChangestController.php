@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\ChangestClass;
-use App\PdoClass;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 
@@ -14,28 +13,14 @@ class ChangestController extends Controller
      * @var ChangestClass
      */
     private $cc;
-    
-    /**
-     *
-     * @var PdoClass
-     */
-    private $pdoc;
-    
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
-    
+
     /**
      * @var string
      */
     private $capt;
     
     public function __construct() {
-        $this->pdoc = new PdoClass();
-        $this->pdo = $this->pdoc->dbConnectAdmin();
-        $this->cc = new ChangestClass($this->pdo);
+        $this->cc = new ChangestClass();
         $this->capt = $this->pdoc->capt;
     }
     

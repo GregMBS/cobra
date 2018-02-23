@@ -3,14 +3,14 @@
 set_time_limit(300);
 require_once 'vendor/autoload.php';
 
-use App\PdoClass;
+
 use App\IntensidadClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/IntensidadClass.php';
-$pdoc = new PdoClass();
+
 $pdo = $pdoc->dbConnectAdmin();
 $bc = new IntensidadClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');

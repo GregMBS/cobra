@@ -1,9 +1,3 @@
-<?php
-use App\PdoClass;
-$pc	 = new PdoClass();
-$pdo	 = $pc->dbConnectAdmin();
-$capt	 = filter_input(INPUT_GET, 'capt');
-?>
 <!DOCTYPE html">
 <html>
     <head>

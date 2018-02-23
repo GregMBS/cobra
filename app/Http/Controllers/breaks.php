@@ -1,6 +1,6 @@
 <?php
-use App\PdoClass;
-$pdoc = new PdoClass();
+
+
 $pdo = $pdoc->dbConnectNobody();
 $capt	 = filter_input(INPUT_GET, 'capt');
 $queryl	 = "delete from userlog where gestor = :capt";

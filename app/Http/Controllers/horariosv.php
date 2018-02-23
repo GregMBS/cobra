@@ -1,5 +1,5 @@
 <?php
-use App\PdoClass;
+
 use App\HorariosVClass;
 
 require_once 'classes/PdoClass.php';
@@ -7,7 +7,7 @@ require_once 'classes/HorariosVClass.php';
 
 set_time_limit(300);
 
-$pdoc = new PdoClass();
+
 $pdo = $pdoc->dbConnectAdmin();
 /* @var $hc HorariosVClass */
 $hc = new HorariosVClass($pdo);

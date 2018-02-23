@@ -1,6 +1,6 @@
 <?php
-use App\PdoClass;
-$pdoc = new PdoClass();
+
+
 $pdo  = $pdoc->dbConnectUser();
 $capt = filter_input(INPUT_GET, 'capt');
 if (empty($capt)) {

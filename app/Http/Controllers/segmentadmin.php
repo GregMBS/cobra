@@ -1,14 +1,9 @@
 <?php
 
-use App\PdoClass;
+
 use App\SegmentadminClass;
 
-include 'classes/PdoClass.php';
-include 'classes/SegmentadminClass.php';
-$pc = new PdoClass();
-$pdo = $pc->dbConnectAdmin();
-$sac = new SegmentadminClass($pdo);
-$capt = filter_input(INPUT_GET, 'capt');
+$sac = new SegmentadminClass();
 $go = filter_input(INPUT_GET, 'go');
 if (!empty($go)) {
     if ($go == "BORRAR") {

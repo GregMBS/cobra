@@ -1,11 +1,11 @@
 <?php
 
-use App\PdoClass;
+
 use App\ResumenClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/ResumenClass.php';
-$pdoc = new PdoClass();
+
 $pdo = $pdoc->dbConnectUser();
 $rc = new ResumenClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');

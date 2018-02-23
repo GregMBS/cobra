@@ -1,10 +1,8 @@
 <?php
-use App\PdoClass;
+
 use App\RotasClass;
-$pc     = new PdoClass();
-$pdo    = $pc->dbConnectUser();
-$rc     = new RotasClass($pdo);
-$capt   = filter_input(INPUT_GET, 'capt');
+
+$rc     = new RotasClass();
 $result = $rc->getRotas($capt, '');
 ?>
 <!DOCTYPE html>

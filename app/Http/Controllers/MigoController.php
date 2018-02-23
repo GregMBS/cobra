@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\MigoClass;
-use App\PdoClass;
 use Illuminate\Support\Facades\View;
 
 class MigoController extends Controller
@@ -15,26 +14,12 @@ class MigoController extends Controller
     private $mc;
     
     /**
-     *
-     * @var PdoClass
-     */
-    private $pdoc;
-    
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
-    
-    /**
      * @var string
      */
     private $capt;
     
     public function __construct() {
-        $this->pdoc = new PdoClass();
-        $this->pdo = $this->pdoc->dbConnectUser();
-        $this->mc = new MigoClass($this->pdo);
+        $this->mc = new MigoClass();
         $this->capt = $this->pdoc->capt;
     }
     

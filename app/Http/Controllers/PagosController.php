@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\PagosClass;
-use App\PdoClass;
 use Illuminate\Support\Facades\View;
 
 class PagosController extends Controller
@@ -13,29 +12,9 @@ class PagosController extends Controller
      * @var PagosClass
      */
     private $pc;
-    
-    /**
-     *
-     * @var PdoClass
-     */
-    private $pdoc;
-    
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
-    
-    /**
-     * @var string
-     */
-    private $capt;
-    
+
     public function __construct() {
-        $this->pdoc = new PdoClass();
-        $this->pdo = $this->pdoc->dbConnectUser();
-        $this->pc = new PagosClass($this->pdo);
-        $this->capt = $this->pdoc->capt;
+        $this->pc = new PagosClass();
     }
     
     /**

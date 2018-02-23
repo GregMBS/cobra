@@ -1,7 +1,5 @@
 <?php
-use App\PdoClass;
-$pdoc     = new PdoClass();
-$pdo      = $pdoc->dbConnectAdmin();
+
 $capt     = filter_input(INPUT_GET, 'capt');
 $tipo     = filter_input(INPUT_GET, 'tipo');
 $get      = filter_input_array(INPUT_GET);

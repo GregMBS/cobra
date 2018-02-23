@@ -1,7 +1,5 @@
 <?php
-use App\PdoClass;
-$pdoc  = new PdoClass();
-$pdo   = $pdoc->dbConnectUser();
+
 $local = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
 $capt   = filter_input(INPUT_GET, 'capt');
 $tel   = filter_input(INPUT_GET, 'tel');

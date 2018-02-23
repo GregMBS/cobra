@@ -1,10 +1,9 @@
 <?php
 $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-use App\PdoClass;
+
 use App\HorariosClass;
-$pc      = new PdoClass();
-$pdo     = $pc->dbConnectAdmin();
-$hc      = new HorariosClass($pdo);
+
+$hc      = new HorariosClass();
 $yr      = date('Y');
 $mes     = date('m');
 $dhoy    = date('d');

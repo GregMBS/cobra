@@ -1,9 +1,6 @@
 <?php
-use App\PdoClass;
-$pdoc   = new PdoClass();
-$pdo    = $pdoc->dbConnectUser();
-$capt   = filter_input(INPUT_GET, 'capt');
-$CUENTA = filter_input(INPUT_GET, 'CUENTA');
+
+$$CUENTA = filter_input(INPUT_GET, 'CUENTA');
 $C_CONT = (int) filter_input(INPUT_GET, 'C_CONT', FILTER_VALIDATE_INT);
 $go     = filter_input(INPUT_GET, 'go');
 $HORA   = (int) filter_input(INPUT_GET, 'HORA', FILTER_VALIDATE_INT);

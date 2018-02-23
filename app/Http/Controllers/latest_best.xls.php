@@ -4,12 +4,10 @@ require_once 'vendor/autoload.php';
 
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
-use App\PdoClass;
+
 use App\BestClass;
 
-$pc        = new PdoClass();
-$pdo       = $pc->dbConnectAdmin();
-$bc        = new BestClass($pdo);
+$bc        = new BestClass();
 $resultpre = $bc->getResumenData();
 $filename  = "Ultimo_y_mejor_".date('ymd').".xlsx";
 $output    = array();

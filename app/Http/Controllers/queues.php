@@ -1,11 +1,11 @@
 <?php
 
-use App\PdoClass;
+
 use App\QueuesClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/QueuesClass.php';
-$pdoc = new PdoClass();
+
 $pdo = $pdoc->dbConnectUser();
 $qc = new QueuesClass($pdo);
 $capt = $pdoc->capt;

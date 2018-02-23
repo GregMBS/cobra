@@ -1,8 +1,5 @@
 <?php
-use App\PdoClass;
-$pdoc   = new PdoClass();
-$pdo    = $pdoc->dbConnectAdmin();
-$capt   = filter_input(INPUT_GET, 'capt');
+
 $gestor = filter_input(INPUT_GET, 'gestor');
 $query  = "SELECT d_prom, cuenta, n_prom, c_cvge, "
     ."ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, "

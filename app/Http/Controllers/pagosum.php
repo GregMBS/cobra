@@ -1,8 +1,5 @@
 <?php
-use App\PdoClass;
-$pc		 = new PdoClass();
-$pdo		 = $pc->dbConnectAdmin();
-$capt		 = filter_input(INPUT_GET, 'capt');
+
 $queryAct	 = "select pagos.cliente as cli, status_de_credito as sdc,
 	sum(monto) as sm, sum(monto*confirmado) as smc
 from pagos join resumen using (id_cuenta)

@@ -1,8 +1,5 @@
 <?php
-use App\PdoClass;
-$pdoc        = new PdoClass();
-$pdo         = $pdoc->dbConnectAdmin();
-$capt        = filter_input(INPUT_GET, 'capt');
+
 $tempmonto   = "create temporary table tempmonto
     select c_cvge,c_cvba,c_cont,
 substring_index(group_concat(n_prom order by d_fech desc),',',1) as np

@@ -1,7 +1,5 @@
 <?php
-use App\PdoClass;
-$pdoc	 = new PdoClass();
-$pdo	 = $pdoc->dbConnectUser();
+
 $capt	 = filter_input(INPUT_GET, 'capt');
 set_time_limit(300);
 $field	 = filter_input(INPUT_GET, 'field');

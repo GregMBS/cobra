@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\PdoClass;
 use App\QuickAhoraClass;
 use App\QuickBreaksClass;
 use App\QuickHoyClass;
@@ -12,18 +11,6 @@ use Illuminate\Http\Request;
 class QuickController extends Controller
 {
 
-    /**
-     *
-     * @var PdoClass
-     */
-    private $pdoc;
-
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
-    
     /**
      * 
      * @var QuickAhoraClass
@@ -54,12 +41,10 @@ class QuickController extends Controller
      */
     public function __construct(Request $r)
     {
-        $this->pdoc = new PdoClass();
-        $this->pdo = $this->pdoc->dbConnectAdmin($r);
-        $this->qa = new QuickAhoraClass($this->pdo);
-        $this->qh = new QuickHoyClass($this->pdo);
-        $this->qb = new QuickBreaksClass($this->pdo);
-        $this->qp = new QuickPorHoraClass($this->pdo);
+        $this->qa = new QuickAhoraClass();
+        $this->qh = new QuickHoyClass();
+        $this->qb = new QuickBreaksClass();
+        $this->qp = new QuickPorHoraClass();
     }
 
     /**

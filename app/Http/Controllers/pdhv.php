@@ -1,8 +1,6 @@
 <?php
-use App\PdoClass;
-$pc     = new PdoClass();
-$pdo    = $pc->dbConnectAdmin();
-$dc     = new DhvClass($pdo);
+
+$dc     = new DhvClass();
 $capt = filter_input(INPUT_GET, 'capt');
 $gestor = filter_input(INPUT_GET, 'gestor');
 $fecha  = filter_input(INPUT_GET, 'fecha');

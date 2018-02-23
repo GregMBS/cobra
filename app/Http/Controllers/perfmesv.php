@@ -1,5 +1,5 @@
 <?php
-use App\PdoClass;
+
 use App\PerfmesVClass;
 
 require_once 'classes/PdoClass.php';
@@ -7,7 +7,7 @@ require_once 'classes/PerfmesVClass.php';
 
 set_time_limit(300);
 
-$pdoc = new PdoClass();
+
 $pdo = $pdoc->dbConnectAdmin();
 /* @var $hc PerfmesVClass */
 $hc = new PerfmesVClass($pdo);

@@ -1,8 +1,5 @@
 <?php
-use App\PdoClass;
-$pdoc		 = new PdoClass();
-$pdo		 = $pdoc->dbConnectAdmin();
-$capt		 = filter_input(INPUT_GET, 'capt');
+
 $querygact	 = "select gestor, pagos.cliente as cli, sum(monto) as sm, 
 	sum(monto*confirmado) as smc, who(status_de_credito) as who
 from pagos join resumen using (id_cuenta)

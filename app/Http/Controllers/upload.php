@@ -1,18 +1,12 @@
 <?php
 
-use App\PdoClass;
+
 use App\UploadClass;
 use App\InfonavitClass;
 use App\HistoriaClass;
 
-require_once 'classes/PdoClass.php';
-require_once 'classes/UploadClass.php';
-require_once 'classes/InfonavitClass.php';
-require_once 'classes/HistoriaClass.php';
-$pc = new PdoClass();
-$pdo = $pc->dbConnectAdmin();
 $uc = new UploadClass();
-$hc = new HistoriaClass($pdo);
+$hc = new HistoriaClass();
 
 $capt = filter_input(INPUT_GET, 'capt');
 $captp = filter_input(INPUT_POST, 'captp');

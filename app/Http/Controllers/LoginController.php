@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\LoginClass;
 use App\LogoutClass;
-use App\PdoClass;
 
 class LoginController extends Controller
 {
@@ -22,23 +21,9 @@ class LoginController extends Controller
      */
     private $loc;
 
-    /**
-     *
-     * @var PdoClass
-     */
-    private $pdoc;
-
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
-
     public function __construct()
     {
-        $this->pdoc = new PdoClass();
-        $this->pdo = $this->pdoc->dbConnectNobody();
-        $this->lc = new LoginClass($this->pdo);
+        $this->lc = new LoginClass();
     }
 
     /**
