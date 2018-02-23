@@ -40,7 +40,7 @@ SELECT distinct userlog.gestor,numero_de_cuenta,nombre_deudor,
 rslice.cliente, status_de_credito,rslice.status_aarsa,
 time_to_sec(timediff(now(),timeuser))/60,
 ifnull(queuelist.status_aarsa,if(rslice.status_aarsa<>'','ELASTIX','BREAK')),
-usuario,userlog.gestor,id_cuenta
+usuario,userlog.gestor,id_cuenta, nombres.tipo
 FROM userlog
 left join rslice on user=userlog.gestor
 left JOIN nombres use index (grupo) ON userlog.gestor=iniciales
