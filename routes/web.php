@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/breaks/{capt}', 'BreaksController@index');
+
 Route::middleware('auth')->group(function () {
     Route::get('/reports', function (Request $r) {
         $capt = auth()->user()->capt;

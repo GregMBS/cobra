@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Breaks del Hoy</title>
+        <meta http-equiv="refresh" content="15"/>
+        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
+        <style type="text/css">
+            .rightnow {background-color:#ffff00;}
+            .late {background-color:#ffff00; font-weight:bold; text-decoration:blink;}
+            .verylate {background-color:#ff0000; font-weight:bold; text-decoration:blink;}
+        </style>
+    </head>
+    <body>
+        <button onclick="window.location = '/'">LOGIN</button><br>
+        <table class="ui-widget" id="breaksTable">
+            <thead class="ui-widget-header">
+                <tr>
+                    <th>Gestor</th>
+                    <th>Tipo</th>
+                    <th>de</th>
+                    <th>a</th>
+                    <th>Minutes</th>
+                </tr>
+            </thead>
+            <tbody class="ui-widget-content">
+                {% for b in breaksMain %}
+                    <tr{{ b.formatstr }}>
+                        <td>{{ b.c_cvge }}</td>
+                        <td>{{ b.c_cvst }}</td>
+                        <td>{{ b.c_hrin }}</td>
+                        <td>{{ b.ntp }}</td>
+                        <td>{{ (r.diff / 60) | round }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+        <script>
+            $(function () {
+                $('#breaksTable').dataTable({
+                    "bPaginate": false,
+                    "bJQueryUI": true
+                });
+            });
+        </script>
+        
+    </body>
+</html>

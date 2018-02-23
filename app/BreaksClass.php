@@ -21,26 +21,26 @@ class BreaksClass extends BaseClass
      * @param string $GESTOR
      * @return array
      */
-    function getTimes($TIEMPO, $GESTOR)
+    private function getTimes($TIEMPO, $GESTOR)
     {
-        $queryq = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
+        $query = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
 min(c_hrin) as 'minhr'
 from historia 
 where c_cvge=:gestor and d_fech=curdate()
 and c_hrin>:tiempo";
-        $sdq = $this->pdo->prepare($queryq);
+        $sdq = $this->pdo->prepare($query);
         $sdq->bindParam(':tiempo', $TIEMPO);
         $sdq->bindParam(':gestor', $GESTOR);
         $sdq->execute();
-        $resultq = $sdq->fetchAll();
-        return $resultq;
+        $result = $sdq->fetch(\PDO::FETCH_ASSOC);
+        return $result;
     }
 
     /**
      *
      * @param string $capt
      */
-    function clearUserlog($capt)
+    public function clearUserlog($capt)
     {
         $queryl = "delete from userlog where gestor = :capt";
         $sdl = $this->pdo->prepare($queryl);
@@ -53,9 +53,9 @@ and c_hrin>:tiempo";
      * @param string $capt
      * @return array
      */
-    function getBreaksTable($capt)
+    private function getMainBreaksTable($capt)
     {
-        $queryp = "select auto,c_cvge,c_cvst,c_hrin,
+        $query = "select auto,c_cvge,c_cvst,c_hrin,
 time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff'
 from historia 
 where c_cont=0 
@@ -64,7 +64,7 @@ and c_cvst<>'login'
 and c_cvst<>'salir' 
 and c_cvge=:capt 
 order by c_cvge,c_cvst,c_hrin";
-        $sdp = $this->pdo->prepare($queryp);
+        $sdp = $this->pdo->prepare($query);
         $sdp->bindParam(':capt', $capt);
         $sdp->execute();
         $resultp = $sdp->fetchAll();
@@ -143,9 +143,30 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function listUsuarias()
     {
-        $query = "SELECT iniciales FROM nombres " . "WHERE tipo <> ''";
+        $query = "SELECT iniciales FROM nombres 
+                    WHERE tipo <> ''";
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_BOTH);
         return $result;
+    }
+    
+    /**
+     * 
+     * @param string $capt
+     * @return array
+     */
+    public function breaksPageData($capt) {
+        $main = $this->getMainBreaksTable($capt);
+        $main['formatstr']	 = ' class="late"';
+        $main['ntp'] = date('H:i:s');
+        foreach ($main as &$m) {
+            $times = $this->getTimes($m['diff'], $m['c_cvge']);
+            if (!empty($times['diff'])) {
+                $m['diff'] = $times['diff'];
+                $m['ntp'] = $times['minhr'];
+                $m['formatstr'] = '';
+            }
+        }
+        return $main;
     }
 }
