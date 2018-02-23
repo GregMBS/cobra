@@ -13,15 +13,9 @@ class ChangestController extends Controller
      * @var ChangestClass
      */
     private $cc;
-
-    /**
-     * @var string
-     */
-    private $capt;
     
     public function __construct() {
         $this->cc = new ChangestClass();
-        $this->capt = $this->pdoc->capt;
     }
     
     /**
