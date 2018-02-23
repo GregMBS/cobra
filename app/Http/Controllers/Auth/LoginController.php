@@ -7,7 +7,6 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\User;
 
 class LoginController extends Controller
 {
@@ -118,13 +117,23 @@ class LoginController extends Controller
      * @return int
      */
     private function oldToNew(array $oldData, $password) {
-        $new = new User();
-        $new->completo = $oldData['completo'];
-        $new->iniciales = $oldData['iniciales'];
-        $new->tipo = $oldData['tipo'];
-        $new->camp = $oldData['camp'];
-        $new->password = bcrypt($password);
-        $new->save();
-        return $new->id;
+        /**
+         * 
+         * @var \PDO $pdo
+         */
+        $pdo = DB::connection()->getPdo();
+        $pwd = bcrypt($password);
+        $query = "INSERT IGNORE INTO users 
+            (completo,iniciales,tipo,camp,password,created_at,updated_at) 
+            VALUES (:completo,:iniciales,:tipo,:camp,:pwd,NOW(),NOW())";
+        $sto = $pdo->prepare($query);
+        $sto->bindParam(':completo', $oldData['completo']);
+        $sto->bindParam(':iniciales', $oldData['iniciales']);
+        $sto->bindParam(':tipo', $oldData['tipo']);
+        $sto->bindParam(':camp', $oldData['camp']);
+        $sto->bindParam(':pwd', $pwd);
+        $sto->execute();
+        $id = $pdo->lastInsertId();
+        return $id;
     }
 }
