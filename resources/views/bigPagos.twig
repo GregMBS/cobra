@@ -8,7 +8,7 @@
 </head>
 <body>
 	<button
-		onclick="window.location = 'reports?capt={{ capt }}'">Regressar
+		onclick="window.location = 'reports'">Regressar
 		a la plantilla administrativa</button>
 	<br>
 	<form action="bigpagos" method="get" name="queryparms">
@@ -46,7 +46,7 @@
 			{% for key,value in row %}
 			{% if key == 'CUENTA' %}
 			<td><a
-				href="resumen?find={{ value }}&field=numero_de_cuenta&qs=qs&capt={{ capt }}&go=QUICKSEARCH&from=bigPagos&go1=QUICKSEARCH">
+				href="resumen?find={{ value }}&field=numero_de_cuenta&qs=qs&go=QUICKSEARCH&from=bigPagos&go1=QUICKSEARCH">
 					{{ cell }}
 			</a></td>
 			{% else %}

@@ -18,7 +18,7 @@
 </head>
 <body>
 	<h1>CAMBIO DE STATUS</h1>
-	<button onClick="window.location = 'reports?capt={{ capt }}'">
+	<button onClick="window.location = 'reports'">
 		Regresar al panel administrativo</button>
 	<table class="ui-widget" id="notahead">
 		<thead class='ui-widget-header'>
@@ -35,7 +35,7 @@
 			{% set j = j + 1 %}
 			<tr>
 				<td><a
-					href='resumen?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}&highlight={{ field }}&hfind={{ find }}'>
+					href='resumen?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&highlight={{ field }}&hfind={{ find }}'>
 						{{ row.numero_de_cuenta }}
 				</a></td>
 				<td>{{ row.nombre_deudor }}</td>

@@ -19,7 +19,7 @@
     </head>
     <body>
         <h1>BUSCAR</h1>
-        <button onClick="window.location = '{{ from }}?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ C_CONT }}&capt={{ capt }}'">
+        <button onClick="window.location = '{{ from }}?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ C_CONT }}'">
         	Regresar al resumen
         </button>
         <table class="ui-widget" id="buscarTable">
@@ -39,7 +39,7 @@
                     {% set col = 'blue' %}
                 {% endif %}                
                 <tr>
-                    <td><a style='color:{{ col }}' href='resumen?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&capt={{ capt }}&highlight={{ field }}&hfind={{ find }}'>
+                    <td><a style='color:{{ col }}' href='resumen?go=FROMBUSCAR&i=0&field=id_cuenta&find={{ row.id_cuenta }}&highlight={{ field }}&hfind={{ find }}'>
                     {{ row.numero_de_cuenta }}
                     </a></td>
                     <td>{{ row.nombre_deudor }}</td>

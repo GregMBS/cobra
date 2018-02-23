@@ -19,7 +19,7 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports?capt={{ capt }}'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports'">Regressar a la plantilla administrativa</button><br>
         <h2>Queues Normales</>
             <table class="ui-widget" id="normales">
                 <thead class="ui-widget-header">
@@ -54,12 +54,12 @@
                             <td>
                                 {{ q.QUEUE }}
                             </td>
-                            <td class='legibility'><a href="speclistqc?capt={{ capt }}&cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&status_de_credito={{ q.SDC }}&rato=total">
+                            <td class='legibility'><a href="speclistqc&cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&status_de_credito={{ q.SDC }}&rato=total">
                             {{ q.count }}<br>{{ q.monto }}</a>
                             </td>
                             <td>{{ q.pcc }}%<br>{{ q.pcmc }}%
                             </td>
-                            <td {{ q.empd }}><a href="speclistqc?capt={{ capt }}
+                            <td {{ q.empd }}><a href="speclistqc
                                                        &cliente={{ q.CLIENTE }}
                                                        &queue={{ q.QUEUE }}
                                                        &status_de_credito={{ q.SDC }}
@@ -67,7 +67,7 @@
                             {{ q.countd }}<br>{{ q.montod }}</a>
                             </td>
                             <td {{ q.empd }}>
-                            	<a href="speclistqc?capt={{ capt }}
+                            	<a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
@@ -76,7 +76,7 @@
                                 </a>
                             </td>
                             <td {{ q.emps }}>
-                            	<a href="speclistqc?capt={{ capt }}
+                            	<a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
@@ -84,7 +84,7 @@
                             {{ q.counts }}<br>{{ q.montos }}</a>
                             </td>
                             <td {{ q.emps }}>
-                            	<a href="speclistqc?capt={{ capt }}
+                            	<a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
@@ -93,7 +93,7 @@
                                 </a>
                             </td>
                             <td {{ q.empm }}>
-                            	<a href="speclistqc?capt={{ capt }}
+                            	<a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
@@ -101,7 +101,7 @@
                             {{ q.countm }}<br>{{ q.montom }}</a>
                             </td>
                             <td {{ q.empm }}>
-                            	<a href="speclistqc?capt={{ capt }}
+                            	<a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}

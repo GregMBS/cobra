@@ -73,7 +73,7 @@ tr.even {
 					<tr {% if rowAhora.tiempo > 60 %} class="alert" {% endif %}>
 						<td>{{ rowAhora.gestor }}</td>
 						<td><a
-							href="resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find={{ rowAhora.id_cuenta }}&capt={{ capt }}">{{ rowAhora.cuenta }}</a></td>
+							href="resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find={{ rowAhora.id_cuenta }}">{{ rowAhora.cuenta }}</a></td>
 						<td>{{ rowAhora.nombre }}</td>
 						<td>{{ rowAhora.cliente }}</td>
 						<td>{{ rowAhora.camp }}</td>
@@ -176,7 +176,7 @@ tr.even {
 			</table>
 		</div>
 	</div>
-	<button onclick="window.location = 'reports?capt={{ capt }}'">Regressar
+	<button onclick="window.location = 'reports'">Regressar
 		a la plantilla administrativa</button>
 	<br>
 </body>
