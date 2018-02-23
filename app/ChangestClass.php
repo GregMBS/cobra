@@ -109,7 +109,7 @@ WHERE id_cuenta=:C_CONT";
             default:
                 $find = 0;
                 $CLIENTE = '';
-                $querymain = $this->reporthead . " where id_cuenta<0 and :find=:find" . $clientStr;
+                $querymain = $this->reporthead . " where id_cuenta<0 and :find<>'QQ'" . $clientStr;
                 break;
         }
 
