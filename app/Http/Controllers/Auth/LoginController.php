@@ -97,8 +97,8 @@ class LoginController extends Controller
      */
     private function oldLogin(Request $request) {
         $pdo = DB::connection()->getPdo();
-        $capt = $request->capt;
-        $pw = $request->pwd;
+        $capt = $request->iniciales;
+        $pw = $request->password;
         $query = "SELECT * FROM nombres 
             WHERE passw = sha(:pw) 
             AND LOWER(iniciales) = LOWER(:capt) 
