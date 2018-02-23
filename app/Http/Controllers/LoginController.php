@@ -43,30 +43,6 @@ class LoginController extends Controller
 
     /**
      *
-     * @param Request $r
-     * @return RedirectResponse
-     */
-    public function login(Request $r)
-    {
-        $capt = $r->capt;
-        $pwd = $r->pwd;
-        $local = $r->ip();
-        $userData = $this->lc->getUserData($capt, $pwd);
-        if ($userData) {
-            $tipo = $userData['tipo'];
-            $enlaceString = $userData['enlace'];
-            $enlaceArray = explode('.', $enlaceString, 2);
-            $enlace = $enlaceArray[0];
-            $cookie = $this->lc->processLogin($capt, $pwd, $tipo, $local);
-            $r->session()->put('auth', $cookie);
-            $redirect = redirect()->to($enlace, 302);
-            return $redirect;
-        }
-        return redirect('/');
-    }
-
-    /**
-     *
      * @param string $capt
      * @param string $why
      * @return RedirectResponse

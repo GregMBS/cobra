@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\PdoClass;
@@ -41,3 +42,7 @@ Route::get('/reports', function (Request $r, PdoClass $pdoc) {
         return view('logout');
     });
         
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
