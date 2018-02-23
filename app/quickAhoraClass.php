@@ -40,14 +40,13 @@ SELECT distinct userlog.gestor,numero_de_cuenta,nombre_deudor,
 rslice.cliente, status_de_credito,rslice.status_aarsa,
 time_to_sec(timediff(now(),timeuser))/60,
 ifnull(queuelist.status_aarsa,if(rslice.status_aarsa<>'','ELASTIX','BREAK')),
-usuario,userlog.gestor,id_cuenta, nombres.tipo
+usuario,userlog.gestor,id_cuenta
 FROM userlog
 left join rslice on user=userlog.gestor
 left JOIN nombres use index (grupo) ON userlog.gestor=iniciales
 LEFT JOIN queuelist ON nombres.camp=queuelist.camp and user=userlog.gestor
 WHERE userlog.gestor IS NOT NULL
-and fechahora>curdate()
-order by nombres.tipo desc,gestor";
+and fechahora>curdate()";
     
     /**
      *
