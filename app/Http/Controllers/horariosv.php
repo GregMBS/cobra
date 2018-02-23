@@ -2,17 +2,10 @@
 
 use App\HorariosVClass;
 
-require_once 'classes/PdoClass.php';
-require_once 'classes/HorariosVClass.php';
-
 set_time_limit(300);
 
-
-$pdo = $pdoc->dbConnectAdmin();
 /* @var $hc HorariosVClass */
-$hc = new HorariosVClass($pdo);
-$capt = $pdoc->capt;
-
+$hc = new HorariosVClass();
 $dhoy = date('t');
 
 $visitadores = $hc->listVisitadores();

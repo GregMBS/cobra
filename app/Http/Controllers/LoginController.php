@@ -51,12 +51,11 @@ class LoginController extends Controller
             'salir',
             'error'
         );
-        $cookie = session('auth', '');
-        $capt = $this->pdoc->getCapt($cookie);
+        $capt = auth()->user()->capt;
         $redirect = redirect('/');
         if ($capt) {
             $this->loc->processLogout($capt, $why);
-            $r->session()->flush();
+            auth()->logout();
             if (! in_array($why, $terminal)) {
                 $redirect = redirect('/breaks/' . $capt);
             }

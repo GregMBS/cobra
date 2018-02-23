@@ -1,11 +1,5 @@
 <?php
 
-
-$pdo  = $pdoc->dbConnectUser();
-$capt = filter_input(INPUT_GET, 'capt');
-if (empty($capt)) {
-    $capt = filter_input(INPUT_POST, 'capt');
-}
 $go   = filter_input(INPUT_POST, 'go');
 $data = filter_input(INPUT_POST, 'data');
 ?>

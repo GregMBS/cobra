@@ -1,14 +1,8 @@
 <?php
-set_time_limit(300);
-require_once 'vendor/autoload.php';
 
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
-
-
-$pdo  = $pdoc->dbConnectAdmin();
-$capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');
 
 function MesNom($n)

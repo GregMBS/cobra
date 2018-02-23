@@ -1,19 +1,10 @@
 <?php
 
-set_time_limit(300);
-require_once 'vendor/autoload.php';
-
-
 use App\IntensidadClass;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
-require_once 'classes/PdoClass.php';
-require_once 'classes/IntensidadClass.php';
-
-$pdo = $pdoc->dbConnectAdmin();
-$bc = new IntensidadClass($pdo);
-$capt = filter_input(INPUT_GET, 'capt');
+$bc = new IntensidadClass();
 $fecha1 = filter_input(INPUT_GET, 'fecha1');
 $fecha2 = filter_input(INPUT_GET, 'fecha2');
 $get = filter_input_array(INPUT_GET);

@@ -4,18 +4,10 @@
 use App\InventarioClass;
 use App\OutputClass;
 
-require_once 'classes/PdoClass.php';
-require_once 'classes/InventarioClass.php';
-require_once 'classes/OutputClass.php';
-
 set_time_limit(300);
 
-
-$pdo = $pdoc->dbConnectAdmin();
-$ic = new InventarioClass($pdo);
-$capt = $pdoc->capt;
+$ic = new InventarioClass();
 $oc   = new OutputClass();
-set_time_limit(180);
 
 $go = filter_input(INPUT_GET, 'go');
 if (!empty($go)) {
