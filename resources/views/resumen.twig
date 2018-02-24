@@ -98,10 +98,8 @@
                 {% endif %}
 						</textarea><br>
 						{% if r.direccion_nueva is not empty %}
-						<label for="direccion_nueva">Direcci&oacute;n nueva</label>
-						<input type='text'
-						id=direccion_nueva readonly='readonly'
-						value='{{ r.direccion_nueva }}'><br>
+						{% include 'resfield.twig' with {'field': 'direccion_nueva', 'label': 'Dirección nueva', 'value': r.direccion_nueva} %}
+						{% endif %}
 					</td>
 				</tr>
 				<tr>
