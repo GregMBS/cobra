@@ -16,13 +16,6 @@ namespace App;
 class ChangestClass extends BaseClass {
 
     /**
-     *
-     * @var string 
-     */
-    private $reporthead = "SELECT SQL_NO_CACHE numero_de_cuenta,nombre_deudor,cliente,
-id_cuenta,status_de_credito,status_aarsa from resumen";
-
-    /**
      * 
      * @param string $TAGS
      * @param int $C_CONT
@@ -71,58 +64,14 @@ WHERE id_cuenta=:C_CONT";
 
     /**
      * 
-     * @param string $CLIENTE
-     * @return string
-     */
-    private function getClientString($CLIENTE = '') {
-        $clientStr = " and :cliente<>'AA'";
-        if (!empty($CLIENTE)) {
-            if (strlen($CLIENTE) > 1) {
-                $clientStr = " and cliente=:cliente";
-            } 
-        }
-        return $clientStr;
-    }
-
-    /**
-     * 
      * @param string $field
      * @param string $find
      * @param string $CLIENTE
      * @return array
      */
-    public function getReport($field, $find, $CLIENTE = '') {
-        $clientStr = $this->getClientString($CLIENTE);
-        switch ($field) {
-            case 'nombre_deudor':
-                $querymain = $this->reporthead . " where nombre_deudor regexp :find" . $clientStr;
-                break;
-
-            case 'id_cuenta':
-                $querymain = $this->reporthead . " where id_cuenta = :find" . $clientStr;
-                break;
-
-            case 'numero_de_cuenta':
-                $querymain = $this->reporthead . " where numero_de_cuenta = :find order by numero_de_cuenta" . $clientStr;
-                break;
-
-            default:
-                $find = 0;
-                $CLIENTE = '';
-                $querymain = $this->reporthead . " where id_cuenta<0 and :find<>'QQ'" . $clientStr;
-                break;
-        }
-
-        $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':find', $find);
-        $stm->bindParam(':cliente', $CLIENTE);
-        try {
-            $stm->execute();
-        } catch (\PDOException $e) {
-            dd($stm,$e);
-        }
-        
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+    public function getReport($field, $find, $CLIENTE) {
+        $bc = new BuscarClass();
+        $result = $bc->searchAccounts($field, $find, $CLIENTE);
         return $result;
     }
 
@@ -131,10 +80,8 @@ WHERE id_cuenta=:C_CONT";
      * @return string[]
      */
     public function listClientes() {
-        $query = "SELECT DISTINCT cliente FROM resumen ORDER BY cliente LIMIT 1000";
-        $stc = $this->pdo->prepare($query);
-        $stc->execute();
-        $resultcl = $stc->fetchColumn(0);
+        $bc = new BuscarClass();
+        $resultcl = $bc->listClients();
         return $resultcl;
     }
 
