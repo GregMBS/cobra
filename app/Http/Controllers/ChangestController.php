@@ -54,10 +54,13 @@ class ChangestController extends Controller
      * @return View
      */
     private function returnView($field, $find, $from, $cliente) {
-        $result = $this->cc->getReport($field, $find, $cliente);
+        $result = [];
+        if (!empty($find)) {
+            $result = $this->cc->getReport($field, $find, $cliente);
+        }
         $clienteList = $this->cc->listClientes();
         $view = view('changest')
-        ->with('fiels', $field)
+        ->with('field', $field)
         ->with('find', $find)
         ->with('from', $from)
         ->with('result', $result)
