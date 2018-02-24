@@ -26,8 +26,7 @@ Route::middleware('auth')->group(function () {
         return view('reports')->with('capt', $capt);
     });
     
-    Route::get('/migo', 'MigoController@userList');
-    Route::get('/migoadmin', 'MigoController@adminList');
+    Route::get('/migo', 'MigoController@getList');
     Route::get('/changest', 'ChangestController@showOne');
     Route::post('/changest', 'ChangestController@updateOne');
     Route::get('/rotas', 'RotasController@index');

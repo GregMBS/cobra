@@ -26,7 +26,7 @@ class MigoController extends Controller
      * 
      * @return View
      */
-    public function adminList() {
+    public function getList() {
         if (auth()->user()->tipo == 'admin') {
             $result = $this->mc->adminReport();
             $view = view('migo')->with('result', $result);
@@ -39,7 +39,7 @@ class MigoController extends Controller
      *
      * @return View
      */
-    public function userList() {
+    private function userList() {
         $result = $this->mc->userReport(auth()->user()->capt);
         $view = view('migo')->with('result', $result)->with('capt', auth()->user()->capt);
         return $view;
