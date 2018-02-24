@@ -44,6 +44,11 @@ and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
 order by c_cvge,sum(monto),h1.auto
 ";
 
+    private function sqlFudge() {
+        $query = "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))";
+        $this->pdo->query($query);
+    }
+    
     /**
      * 
      * @param string $capt
@@ -52,6 +57,7 @@ order by c_cvge,sum(monto),h1.auto
      */
     public function getRotas($d_prom = '')
     {
+        $this->sqlFudge();
         $gestorstr = " and (ejecutivo_asignado_call_center=:capt or c_cvge=:capt) ";
         $capt = auth()->user()->capt;
         $tipo = auth()->user()->tipo;
