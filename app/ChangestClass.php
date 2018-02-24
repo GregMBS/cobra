@@ -112,7 +112,7 @@ WHERE id_cuenta=:C_CONT";
                 $querymain = $this->reporthead . " where id_cuenta<0 and :find<>'QQ'" . $clientStr;
                 break;
         }
-dd($querymain, $find, $CLIENTE);
+
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':find', $find);
         $stm->bindParam(':cliente', $CLIENTE);
