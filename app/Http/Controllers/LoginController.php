@@ -56,7 +56,7 @@ class LoginController extends Controller
         if ($capt) {
             $this->loc->processLogout($capt, $why);
             auth()->logout();
-            if (! in_array($why, $terminal)) {
+            if (!in_array($why, $terminal)) {
                 $redirect = redirect('/breaks/' . $capt);
             }
         }
