@@ -111,19 +111,20 @@
 						{% include 'resfield.twig' with {'field': 'status_aarsa', 'label': 'Status de la Cuenta', 'value': r.status_aarsa} %}
 					</td>
 					<td>
-						<div id=' clock '>
-							<input type="hidden" name="timer" id="timer" readonly="readonly"
-								value="0"> : <input type="text" name="timerm"
-								id="timerm" readonly="readonly" value="0" size="3"> : <input
-								type="text" name="timers" id="timers" readonly="readonly"
-								value="0" size="3"> <br> <? php $ campoc =" style
-							=' background-color :red ; color :white ;'"; $ numgest = $
-							resultng [ ' cng ' ] or 0; if ($ numgest> 20) { $ campoc =" style
-							=' background-color :yellow ; color :black ;'"; } if ($ numgest>
-							40) { $ campoc =" style =' background-color :green ; color :white
-							;'"; } ?> <input type="text"<?php echo $campoc ; ?> name
-							="numgest" id ="numgest" readonly ="readonly" value ="<?php echo
-							$numgest . ' gestiones '; ?>">
+						<div id='clock'>
+							<input type="hidden" id="timer" readonly="readonly" value="0">
+							<input type="text" id="timerm" readonly="readonly" value="0" size="3"> : 
+							<input type="text" id="timers" readonly="readonly" value="0" size="3"><br>
+							{% set ngclass = 'low' %}
+							{% set numgest = ng.cng %}
+							{% if numgest > 20 %}
+                                {% set ngclass = 'med' %}
+                            {% endif %}
+							{% if numgest > 40 %}
+								{% set ngclass = 'high' %}
+							{% endif %}
+							<input type="text" id="numgest" class="{{ ngclass }}" readonly ="readonly" 
+							value ="{{ numgest ~ ' gestiones'}}">
 						</div>
 					</td>
 				</tr>

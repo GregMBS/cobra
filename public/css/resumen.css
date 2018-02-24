@@ -405,3 +405,18 @@ ul.tabs li a {
 ul.tabs li a:hover {
 	color: #ff0;
 }
+
+#ngclass.low {
+	background-color: red;
+	color: white;
+}
+
+#ngclass.med {
+	background-color: yellow;
+	color: blask;
+}
+
+#ngclass.high {
+	background-color: green;
+	color: white;
+}
