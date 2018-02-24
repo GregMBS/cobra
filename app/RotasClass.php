@@ -22,7 +22,7 @@ class RotasClass extends BaseClass
     protected $queryRotasStart = "select resumen.cliente,numero_de_cuenta,nombre_deudor,saldo_total,
 status_de_credito,c_cvge,
 status_aarsa,n_prom1,d_prom1,n_prom2,d_prom2,
-resumen.id_cuenta,datediff(curdate(),d_prom) as semaforo,d_fech,sum(monto) as sum_monto,
+resumen.id_cuenta,datediff(curdate(),d_prom) as semaforo,d_fech,monto as sum_monto,
 n_prom3,d_prom3,n_prom4,d_prom4
 from resumen
 join dictamenes on dictamen=status_aarsa
