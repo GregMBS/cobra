@@ -23,7 +23,7 @@ class RotasClass extends BaseClass
 status_de_credito,c_cvge,
 status_aarsa,n_prom1,d_prom1,n_prom2,d_prom2,
 resumen.id_cuenta,datediff(curdate(),d_prom) as semaforo,d_fech,sum(monto) as sum_monto,
-n_prom3,d_prom3,n_prom4,d_prom4
+n_prom3,d_prom3,n_prom4,d_prom4,auto
 from resumen
 join dictamenes on dictamen=status_aarsa
 join historia h1 on id_cuenta=c_cont
@@ -41,7 +41,7 @@ and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
      * @var string
      */
     protected $queryRotasEnd = "group by c_cvge,cliente,status_de_credito,numero_de_cuenta
-order by c_cvge,sum(monto),historia.auto
+order by c_cvge,sum(monto),h1.auto
 ";
 
     /**
