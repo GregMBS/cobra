@@ -74,7 +74,7 @@ WHERE id_cuenta=:C_CONT";
      * @param string $CLIENTE
      * @return string
      */
-    private function getClientString($CLIENTE) {
+    private function getClientString($CLIENTE = '') {
         $clientStr = " and :cliente<>'AA'";
         if (!empty($CLIENTE)) {
             if (strlen($CLIENTE) > 1) {
@@ -91,7 +91,7 @@ WHERE id_cuenta=:C_CONT";
      * @param string $CLIENTE
      * @return array
      */
-    public function getReport($field, $find, $CLIENTE) {
+    public function getReport($field, $find, $CLIENTE = '') {
         $clientStr = $this->getClientString($CLIENTE);
         switch ($field) {
             case 'nombre_deudor':
