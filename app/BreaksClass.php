@@ -157,14 +157,16 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function breaksPageData($capt) {
         $main = $this->getMainBreaksTable($capt);
-        $main['formatstr']	 = ' class="late"';
-        $main['ntp'] = date('H:i:s');
-        foreach ($main as &$m) {
-            $times = $this->getTimes($m['diff'], $m['c_cvge']);
-            if (!empty($times['diff'])) {
-                $m['diff'] = $times['diff'];
-                $m['ntp'] = $times['minhr'];
-                $m['formatstr'] = '';
+        if ($main) {
+            $main['formatstr']	 = ' class="late"';
+            $main['ntp'] = date('H:i:s');
+            foreach ($main as &$m) {
+                $times = $this->getTimes($m['diff'], $m['c_cvge']);
+                if (!empty($times['diff'])) {
+                    $m['diff'] = $times['diff'];
+                    $m['ntp'] = $times['minhr'];
+                    $m['formatstr'] = '';
+                }
             }
         }
         return $main;
