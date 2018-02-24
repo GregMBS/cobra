@@ -32,77 +32,38 @@
 			<input type="submit" name="go" value="CUENTAS ">
 		</form>
 		<form class="buttons" name="visitlist" method="get"
-			action="realvisitlist .php" id="visitlist" target="_blank ">
-			<input type="hidden" name="capt" value="<? php echo $ capt ?>">
+			action="realvisitlist" id="visitlist" target="_blank ">
 			<input type="hidden" name="id_cuenta"
-				value="<? php echo $ id_cuenta ?>"> <input type="hidden"
+				value="{{ r.id_cuenta }}">
+			<input type="hidden"
 				name="ejecutivo_asignado_call_center"
-				value="<? php echo $ ejecutivo_asignado_call_center ?>"> <input
-				type="submit" name="go" value="VISITAS ">
+				value="{{ r.ejecutivo_asignado_call_center }}">
+			<input type="submit" name="go" value="VISITAS">
 		</form>
 		<form class="buttons" name="rotas" method="get"
-			action="rotas .php" id="rotas ">
-			<input type="hidden" name="capt" value="<? php echo $ capt 	 ?>">
-			<input type="submit" name="go" value="PROMESAS ">
+			action="rotas" id="rotas">
+			<input type="submit" name="go" value="PROMESAS">
 		</form>
-		<? php if ($ hasPic ) { ?>
-		<form action="<?php echo $ picFile ; ?>" target="_blank ">
-			<input type="submit" value="Foto">
-		</form>
-		<? php } ?>
 		<form class="buttons" name="pagos" method="get"
-			action="pagos.php  	" id="pagos" target="_blank ">
-			<input type="hidden" name="capt"
-				value="<?php                 if (isset ($capt )) {echo $capt; 	 }?>">
-			<input type="hidden" name="id_cuenta"
-				value="<?php                 if (isset ($id_cuenta )) {echo $id_cuenta; 	 }?>">
+			action="pagos" id="pagos" target="_blank">
+			<input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
 			<input type="submit" name="go" value="PAGOS ">
 		</form>
-		<?php $CTA = $numero_de_credito ; ?>
 		<form class="buttons" name="notasq" method="get"
-			action="notas.php 	" id="notas" target="_blank ">
-			<input type="hidden" name="capt"
-				value="<?php                        if (isset ($capt )) {echo $capt; 	 }?>">
-			<input type="hidden" name="CUENTA"
-				value="<?php                 if (isset ($numero_de_cuenta )) {echo $numero_de_cuenta; 	 }?>">
-			<input type="hidden" name="C_CONT"
-				value="<?php                 if (isset ($id_cuenta )) {echo $id_cuenta; 	 }?>">
-			<input type="submit" name="go" value="NOTAS ">
+			action="notas" id="notas" target="_blank">
+			<input type="hidden" name="C_CONT" value="{{ r.id_cuenta }}">
+			<input type="submit" name="go" value="NOTAS">
 		</form>
 		<form class="buttons" name="queuesg" method="get"
-			action="queuesg.php" id="queuesg ">
-			<input type="hidden" name="mytipo"
-				value="<?php                        if (isset ($mytipo )) {echo $mytipo; 	 }?>">
-			<input type="hidden" name="capt"
-				value="<?php                        if (isset ($capt )) {echo $capt; 	 }?>">
-			<input type="submit" name="go" value="QUEUES ">
+			action="queuesg" id="queuesg">
+			<input type="submit" name="go" value="QUEUES">
 		</form>
 		<form class="buttons" name="logout" method="get"
-			action="resumen.php" id="logout ">
-			<input type="hidden" name="capt"
-				value="<?php                 if (isset ($capt )) {echo $capt; 	 }?>">
+			action="resumen.php" id="logout">
 			<input type="hidden" name="id_cuenta"
-				value="<?php echo $id_cuenta ?>"> <input type="submit"
-				name="go" value="LOGOUT ">
+				value="{{ r.id_cuenta }}">
+			<input type="submit" name="go" value="LOGOUT ">
 		</form>
-		<?php if ($camp == 0) { ?>
-		<form action="resumen.php" method="get">
-			<input type="hidden" name="capt" value="<?php echo $capt ?>">
-			<input type="hidden" name="id_cuenta"
-				value="<?php echo $id_cuenta ?>"> <select
-				name="clientefilt" onChange="this.form.submit ()">
-				<option value=""<?php if (!empty ($clientefilt )) { ?>
-					selected ="selected" <?php }?>> todos</option> <?php foreach ($resultfilt as
-				$answerfilt ) { ?>
-				<option value="<?php echo $answerfilt[ 'cliente 	'] ; 	 ?>"<?php
-					if (($cliente == $answerfilt[ 'cliente '] ) && ($sdc ==
-					$answerfilt[ 'sdc '] ) && ($cr == $answerfilt[ 'queue '] )) { ?>
-					selected ='selected' <?php }?>><? php echo $ answerfilt [ ' cliente
-					' ] . ' ' . $ answerfilt [ ' sdc ' ] . ' ' . $ answerfilt [ ' queue
-					' ] ; ?></option> <? php } ?>
-			</select>
-		</form>
-		<? php } else {if (empty($cliente)) { $cliente = ''; }?>
 		<button><? php echo $ cliente . ' ' . $ sdc . ' ' . $ cr ?></BUTTON>
 		<? php } if ($ mytipo == ' admin ') { ?>
 		<form action="reports .php" method="get">
