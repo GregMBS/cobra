@@ -63,19 +63,19 @@ td {
 		</thead>
 		<tbody>
 			{% for r in result %}
-			{% set color as 'blue' %}
-			{% set semtext as 'VIGENTE' %}
+			{% set color = 'blue' %}
+			{% set semtext = 'VIGENTE' %}
 			{% if r.semaforo > 0 %}
-			{% set color as 'red' %}
-			{% set semtext as 'VENCIDO' %}
+			{% set color = 'red' %}
+			{% set semtext = 'VENCIDO' %}
 			{% endif %}
 			{% if r.sum_monto > 10 %}
 			{% if r.status_aarsa == 'PAGO TOTAL' %}
-			{% set color as 'green' %}
-			{% set semtext as 'PAGO' %}
+			{% set color = 'green' %}
+			{% set semtext = 'PAGO' %}
 			{% else %}
-			{% set color as 'yellow' %}
-			{% set semtext as 'PAGANDO' %}
+			{% set color = 'yellow' %}
+			{% set semtext = 'PAGANDO' %}
 			{% endif %}
 			{% endif %}
 			<tr>
