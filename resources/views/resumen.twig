@@ -92,7 +92,7 @@
 						<textarea id=domicilio_deudor readonly='readonly ' rows=4 cols=20>
                 {{ r.domicilio_deudor ~ "\n" 
                 ~ r.colonia_deudor ~ "\n" 
-                ~ r.ciudad_deudor ~ "," ~ r.estado_deudor . ' ' . r.cp_deudor }}
+                ~ r.ciudad_deudor ~ "," ~ r.estado_deudor ~ ' ' ~ r.cp_deudor }}
                 {% if r.domicilio_deudor_2 is not empty %}
                 {{ "\n o \n" ~ r.domicilio_deudor_2 }}
                 {% endif %}
