@@ -140,11 +140,9 @@ AND NOT EXISTS (
      * @param string $d_prom
      * @return array
      */
-    public function getRotas()
+    public function getRotas($capt, $tipo)
     {
         $result = [];
-        $capt = auth()->user()->capt;
-        $tipo = auth()->user()->tipo;
         $fromResumen = $this->fromResumen();
         foreach ($fromResumen as $row) {
             $id_cuenta = $row['id_cuenta'];

@@ -41,6 +41,11 @@ td {
 </style>
 </head>
 <body>
+{% if tipo == 'admin' %}
+<button onclick="window.location = 'reports'">Regressar a la plantilla administrativa</button><br>
+{% else %}
+<button onclick="window.close()">Cerrar</button><br>
+{% endif %}
 	<table id="rotasTable">
 		<thead>
 			<tr>
