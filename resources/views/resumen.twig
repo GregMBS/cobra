@@ -86,7 +86,7 @@
 			<table>
 				<tr>
 					<td>
-					{{ include 'resfield.twig' with {'field': 'nombre_deudor', 'label': 'Deudor', 'value': r.nombre_deudor} }}
+					{% include 'resfield.twig' with {'field': 'nombre_deudor', 'label': 'Deudor', 'value': r.nombre_deudor} %}
 					</td>
 					<td><label for="domicilio_deudor">Domicilio</label>
 						<textarea id=domicilio_deudor readonly='readonly ' rows=4 cols=20>
@@ -106,9 +106,9 @@
 				</tr>
 				<tr>
 					<td>
-                        {{ include 'resfield.twig' with {'field': 'ejecutivo_asignado_call_center', 'label': 'Gestor Asignado', 'value': r.ejecutivo_asignado_call_center} }}
-						{{ include 'resfield.twig' with {'field': 'numero_de_cuenta', 'label': 'Numero de cuenta', 'value': r.numero_de_cuenta} }}
-						{{ include 'resfield.twig' with {'field': 'status_aarsa', 'label': 'Status de la Cuenta', 'value': r.status_aarsa} }}
+                        {% include 'resfield.twig' with {'field': 'ejecutivo_asignado_call_center', 'label': 'Gestor Asignado', 'value': r.ejecutivo_asignado_call_center} %}
+						{% include 'resfield.twig' with {'field': 'numero_de_cuenta', 'label': 'Numero de cuenta', 'value': r.numero_de_cuenta} %}
+						{% include 'resfield.twig' with {'field': 'status_aarsa', 'label': 'Status de la Cuenta', 'value': r.status_aarsa} %}
 					</td>
 					<td>
 						<div id=' clock '>
@@ -130,11 +130,11 @@
 			</table>
 		</div>
 		<div id="TELEFONOS ">
-			{{ include 'resfield.twig' with {'field': 'tel_1', 'label': 'Tel Casa', 'value': r.tel_1} }}
-			{{ include 'resfield.twig' with {'field': 'tel_2', 'label': 'Tel Cel', 'value': r.tel_2} }}
-			{{ include 'resfield.twig' with {'field': 'tel_3', 'label': 'Tel 3', 'value': r.tel_3} }}
-            {{ include 'resfield.twig' with {'field': 'tel_4', 'label': 'Tel 4', 'value': r.tel_4} }}
-			{{ include 'resfield.twig' with {'field': 'email_deudor', 'label': 'E-mail', 'value': r.email_deudor} }}
+			{% include 'resfield.twig' with {'field': 'tel_1', 'label': 'Tel Casa', 'value': r.tel_1} %}
+			{% include 'resfield.twig' with {'field': 'tel_2', 'label': 'Tel Cel', 'value': r.tel_2} %}
+			{% include 'resfield.twig' with {'field': 'tel_3', 'label': 'Tel 3', 'value': r.tel_3} %}
+            {% include 'resfield.twig' with {'field': 'tel_4', 'label': 'Tel 4', 'value': r.tel_4} %}
+			{% include 'resfield.twig' with {'field': 'email_deudor', 'label': 'E-mail', 'value': r.email_deudor} %}
 		</div>
 		<div id="REFERENCIAS ">
 			<?php if (isset ($nombre_deudor_alterno )) { ?> <span
