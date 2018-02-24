@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/migoadmin', 'MigoController@adminList');
     Route::get('/changest', 'ChangestController@showOne');
     Route::post('/changest', 'ChangestController@updateOne');
-    
+    Route::get('/rotas', 'RotasController@index');
     Route::get('/quick', 'QuickController@index');
     Route::get('/queuesqc', 'QueueReportController@index');
     Route::get('/buscar', 'BuscarController@search');

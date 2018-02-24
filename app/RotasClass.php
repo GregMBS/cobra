@@ -47,30 +47,14 @@ order by c_cvge,sum(monto),d_prom
     /**
      * 
      * @param string $capt
-     * @return string
-     */
-    public function getUserType($capt)
-    {
-        $query = "SELECT tipo FROM nombres "
-            ."WHERE iniciales = :gestor";
-        $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $capt);
-        $stq->execute();
-        $types = $stq->fetch();
-        $type  = $types['tipo'];
-        return $type;
-    }
-
-    /**
-     * 
-     * @param string $capt
      * @param string $d_prom
      * @return array
      */
-    public function getRotas($capt, $d_prom = '')
+    public function getRotas($d_prom = '')
     {
         $gestorstr = " and (ejecutivo_asignado_call_center=:capt or c_cvge=:capt) ";
-        $tipo = $this->getUserType($capt);
+        $capt = auth()->user()->capt;
+        $tipo = auth()->user()->tipo;
         if ($tipo == 'admin') {
             $gestorstr = "";
         }
