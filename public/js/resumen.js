@@ -48,8 +48,47 @@ $(function() {
     function openSearch() {
         setInterval('clock()', 1000);
     }
-    
-    openSearch();
+
+    function tooLong(e) {
+        if ($("#C_OBSE1").val().length > 250) {
+        	$("#C_OBSE1").val($("#C_OBSE1").val().replace(' 	', ' '));
+        	$("#C_OBSE1").val($("#C_OBSE1").val().substr(0, 200));
+            confirm('GESTION demasiado largo');
+            $("#C_OBSE1").css('backgroundColor',"yellow");
+            return false;
+        }
+    }
+
+    function showsearch() {
+    	$("#searchbox").show();
+        $('#find').focus();
+    }
+
+    function showbox(boxname) {
+    	var boxId = '#' + boxname;
+        $(boxId).show();
+    }
+
+    function cancelbox(boxname) {
+    	var boxId = '#' + boxname;
+        $(boxId).hide();
+    }
+
+    function statusChange(thisform) {
+        with(thisform) {
+            if (C_CVST.substr(0, 3) === "PAG") {
+                $("#pagocapt").css('backgroundColor', "yellow");
+                $("#pagocapt2").css('backgroundColor', "yellow");
+                $("#pagocaptv").css('backgroundColor', "yellow");
+            }
+        }
+    }
+
+    function addToTels(pos, tel) {
+    	$("#C_TELE").options[pos] = new Option(tel.value, tel.value, true, true);
+    	$("#C_TELE").options[pos].css('fontWeight', "bold");
+    	$("#C_TELE").options[pos].css('backgroundColor', "green");
+    }
 });
 
 function npromChange(thisform) {
@@ -58,50 +97,11 @@ function npromChange(thisform) {
     }
 }
 
-function statusChange(thisform) {
-    with(thisform) {
-        if (C_CVST.substr(0, 3) === "PAG") {
-            $("#pagocapt").css('backgroundColor', "yellow");
-            $("#pagocapt2").css('backgroundColor', "yellow");
-            $("#pagocaptv").css('backgroundColor', "yellow");
-        }
-    }
-}
 
 function valid(o, w) {
     o.value = o.value.replace(r[w], ' ');
 }
 
-function tooLong(e) {
-    if (window.document.getElementById("C_OBSE1").value.length > 250) {
-        window.document.getElementById("C_OBSE1").value = window.document.getElementById("C_OBSE1").value.replace(' 	', ' ');
-        window.document.getElementById("C_OBSE1").value = window.document.getElementById("C_OBSE1").value.substr(0, 200);
-        confirm('GESTION demasiado largo');
-        window.document.getElementById("C_OBSE1").style.backgroundColor = "yellow";
-        return false;
-    }
-}
-
 function logout() {
     window.location = "logout";
-}
-
-function showsearch() {
-    document.getElementById('searchbox').style.display = "block";
-    document.getElementById('find').focus();
-}
-
-function showbox(boxname) {
-    document.getElementById(boxname).style.display = "block";
-}
-
-function cancelbox(boxname) {
-    document.getElementById(boxname).style.display = "none";
-    searching = "";
-}
-
-function addToTels(pos, tel) {
-    document.getElementById("C_TELE").options[pos] = new Option(tel.value, tel.value, true, true);
-    document.getElementById("C_TELE").options[pos].style.fontWeight = "bold";
-    document.getElementById("C_TELE").options[pos].style.backgroundColor = " #00FF00 ";
 }
