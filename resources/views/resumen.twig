@@ -602,14 +602,10 @@
 				<OPTION VALUE=57>57</option>
 				<OPTION VALUE=58>58</option>
 				<OPTION VALUE=59>59</option>
-			</select> <br> <span class="formcap "> Fecha : </span>
-			<SCRIPT LANGUAGE="JavaScript" type="text/javascript"> var cal6 = new CalendarPopup (); cal6 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril	 ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre ', ' octubre ', ' noviembre	 ', ' diciembre '); cal6 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal6 .setWeekStartDay (1); cal6 .setTodayText (" Hoy ");                 </SCRIPT>
-			<INPUT TYPE="text" NAME="C_VD" ID="C_VD" VALUE="<? php echo $ CD ?>"
-				SIZE=15>
-			<BUTTON
-				onClick="cal6 .select ( document .getElementById (' C_VD ') , ' anchor6 ', ' yyyy-MM-dd '); return false ;"
-				NAME="anchor6" ID="anchor6 ">eligir</BUTTON>
-			<br> <span class="formcap" id="pcap "> Parentesco /Cargo</span>
+			</select> <br>
+			<label for="C_VD">Fecha:</label>
+			<INPUT TYPE="text" class='fecha' NAME="C_VD" ID="C_VD" VALUE="{{ CD }}" SIZE=15><br>
+			<span class="formcap" id="pcap "> Parentesco /Cargo</span>
 			<select name="C_CARG ">
 				<option value="">& nbsp ;</option>
 				<option value="Aval ">Aval</option>

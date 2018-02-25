@@ -1,5 +1,6 @@
 $(function() {
 	openSearch();
+	$('.fecha').datepicker();
 	if (flag > 0) {
 		alert(flagmsg.
 				"\nBuscar para checar que gestion de cuenta ".
