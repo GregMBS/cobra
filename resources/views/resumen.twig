@@ -15,7 +15,7 @@
 			id="segid">
 			<input type="hidden" name="find" value="{{ r.id_cuenta }}"> <input
 				type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}"> <input
-				type="submit" name="go" value="REINTRO QUEUE ">
+				type="submit" name="go" value="REINTRO QUEUE">
 		</form>
 		{% endif %}
 		<form class="buttons" name="ultima" method="get" action="resumen"
@@ -27,10 +27,10 @@
 				BUSCAR</button>
 		</form>
 		<form class="buttons" name="migo" method="get" action="migo" id="migo">
-			<input type="submit" name="go" value="CUENTAS ">
+			<input type="submit" name="go" value="CUENTAS">
 		</form>
 		<form class="buttons" name="visitlist" method="get"
-			action="realvisitlist" id="visitlist" target="_blank ">
+			action="realvisitlist" id="visitlist" target="_blank">
 			<input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
 			<input type="hidden" name="ejecutivo_asignado_call_center"
 				value="{{ r.ejecutivo_asignado_call_center }}"> <input
@@ -43,7 +43,7 @@
 		<form class="buttons" name="pagos" method="get" action="pagos"
 			id="pagos" target="_blank">
 			<input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
-			<input type="submit" name="go" value="PAGOS ">
+			<input type="submit" name="go" value="PAGOS">
 		</form>
 		<form class="buttons" name="notasq" method="get" action="notas"
 			id="notas" target="_blank">
@@ -54,17 +54,16 @@
 			id="queuesg">
 			<input type="submit" name="go" value="QUEUES">
 		</form>
-		<form class="buttons" name="logout" method="get" action="resumen.php"
+		<form class="buttons" name="logout" method="get" action="resumen"
 			id="logout">
 			<input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
-			<input type="submit" name="go" value="LOGOUT ">
+			<input type="submit" name="go" value="LOGOUT">
 		</form>
 		<button>
 			{{ r.cliente ~ '-' ~ r.status_de_credito ~ '-' ~ cr }}
 		</BUTTON>
 		{% if tipo == 'admin' %}
 		<form action="reports" method="get">
-			<input type="hidden" name="capt" value="<?php echo $ capt ; ?>">
 			<input type="submit" value="REPORTES">
 		</form>
 		{% endif %}
@@ -124,7 +123,7 @@
 				</tr>
 			</table>
 		</div>
-			<div id="searchbox ">
+			<div id="searchbox">
 		<h2>Buscar</h2>
 		<form name="search" method="get" action="buscar" id="search">
 			Buscar a : <input type="text" name="find" id="find"> en <select
@@ -145,7 +144,7 @@
 				{% endfor %}
 			</select><br>
 			<input type="submit" value="BUSCAR">
-			<input type="button" name="cancel" onclick="cancelbox('searchbox')"	value="Cancel ">
+			<input type="button" name="cancel" onclick="cancelbox('searchbox')"	value="Cancel">
 		</form>
 	</div>
 		
@@ -254,190 +253,173 @@
 			{% include 'resfield.twig' with {'field': 'tel_4_verif', 'label': 'Tel 4 Verificado', 'value': r.tel_4_verif} %}
 		</div>
 	<div id="VISITA">
-		<div class="noshow ">
+		<div class="noshow">
 				<input type="text" name="error" readonly="readonly" value="1">
-				<br> <input type="text" name="C_HRFI" readonly="readonly"
-					value="<?php                     if (isset ($CT )) {echo $CT; 	 }?>"><br>
+				<input type="text" name="C_HRFI" readonly="readonly" value="{{ CT }}">
 				<input type="text" name="AUTO" readonly="readonly" value="">
-				<br> <input type="text" name="find" readonly="readonly"
-					value="<?php                     if (isset ($find )) {echo $find; 	 }?>"><br>
-				<input type="text" name="field" readonly="readonly"
-					value="<?php                     if (isset ($field )) {echo $field; 	 }?>"><br>
-				<input type="text" name="capt" readonly="readonly"
-					value="<?php                     if (isset ($capt )) {echo $capt; 	 }?>"><br>
-				<input type="text" name="camp" readonly="readonly"
-					value="<?php                     if (isset ($camp )) {echo $camp; 	 }?>"><br>
-				<input type="text" name="neworder" readonly="readonly"
-					value="<?php                     if (isset ($neworder )) {echo $neworder; 	 }?>"><br>
-				<input type="text" name="C_CVGE" readonly="readonly"
-					value="<?php                     if (isset ($C_CVGE )) {echo $C_CVGE; 	 }?>"><br>
-				<input type="text" name="C_CVBA" readonly="readonly"
-					value="<?php                     if (isset ($cliente )) {echo $cliente; 	 }?>"><br>
+				<input type="text" name="find" readonly="readonly" value="{{ find }}">
+				<input type="text" name="field" readonly="readonly" value="{{ field }}"><br>
+				<input type="text" name="C_CVGE" readonly="readonly" value="{{ C_CVGE }}"><br>
+				<input type="text" name="C_CVBA" readonly="readonly" value="{{ r.cliente }}"><br>
 				<input type="text" name="C_ATTE" readonly="readonly" value="">
-				<br> <input type="text" name="C_CONT" readonly="readonly"
-					value="<?php                     if (isset ($id_cuenta )) {echo $id_cuenta; 	 }?>"><br>
-				<input type="text" name="C_CONTAN" readonly="readonly"
-					value="<?php                     if (isset ($status_aarsa )) {echo $status_aarsa; 	 }?>"><br>
-				<input type="text" name="CUENTA" id="CUENTA2" readonly="readonly"
-					value="<?php                     if (isset ($numero_de_cuenta )) {echo 	$numero_de_cuenta; 	 }?>"><br>
-				<input type="text" name="C_EJE" readonly="readonly"
-					value="<?php                     if (isset ($ejecutivo_asignado_call_center )) {echo 	$ejecutivo_asignado_call_center; 	 }?>"><br>
-				<input type="text" name="oldgo" readonly="readonly"
-					value="<? php echo $ go ; ?>"><br>
+				<input type="text" name="C_CONT" readonly="readonly" value="{{ r.id_cuenta }}"><br>
+				<input type="text" name="C_CONTAN" readonly="readonly" value="{{ r.status_aarsa }}"><br>
+				<input type="text" name="CUENTA" id="CUENTA2" readonly="readonly" value="{{ r.numero_de_cuenta }}"><br>
+				<input type="text" name="C_EJE" readonly="readonly" value="{{ r.ejecutivo_asignado_call_center }}"><br>
 			</div>
 			<p>DICTAMEN DOMICILIO PARTICULAR</p>
 			<table class=' visitable '>
 				<tr>
 					<th>Tipo :</th>
 					<td><label> <input type="checkbox" name="domtipo"
-							value="casa" id="casa "> Casa
+							value="casa" id="casa"> Casa
 					</label></td>
 					<td><label> <input type="checkbox" name="domtipo"
-							value="departamento" id="departamento "> Departamento
+							value="departamento" id="departamento"> Departamento
 					</label></td>
 					<td><label> <input type="checkbox" name="domtipo"
-							value="terreno" id="terreno "> Terreno
+							value="terreno" id="terreno"> Terreno
 					</label></td>
 					<td><label> <input type="checkbox" name="domtipo"
-							value="trabajo" id="trabajo "> Trabajo /Oficina
+							value="trabajo" id="trabajo"> Trabajo /Oficina
 					</label></td>
 				</tr>
 				<tr>
 					<th>Propio :</th>
 					<td><label> <input type="checkbox" name="domown"
-							value="propio" id="propio "> Propio
+							value="propio" id="propio"> Propio
 					</label></td>
 					<td><label> <input type="checkbox" name="domown"
-							value="rentado" id="rentado "> Rentado
+							value="rentado" id="rentado"> Rentado
 					</label></td>
 					<td><label> <input type="checkbox" name="domown"
-							value="abandonado" id="abandonado "> Abandonado
+							value="abandonado" id="abandonado"> Abandonado
 					</label></td>
 					<td><label> <input type="checkbox" name="domown"
-							value="deshabilitado" id="deshabilitado "> Deshabilitado
+							value="deshabilitado" id="deshabilitado"> Deshabilitado
 					</label></td>
 					<td><label> <input type="checkbox" name="domown"
-							value="invadido" id="invadido "> Invadido
+							value="invadido" id="invadido"> Invadido
 					</label></td>
 					<td><label> <input type="checkbox" name="domown"
-							value="prestado" id="prestado "> Prestado
+							value="prestado" id="prestado"> Prestado
 					</label></td>
 					<td><label> <input type="checkbox" name="domown"
-							value="laborando" id="laborando "> Laborando
+							value="laborando" id="laborando"> Laborando
 					</label></td>
 				</tr>
 				<tr>
 					<th>Nivel :</th>
 					<td><label> <input type="checkbox" name="C_NSE"
-							value="alto" id="alto "> Alto
+							value="alto" id="alto"> Alto
 					</label></td>
 					<td><label> <input type="checkbox" name="C_NSE"
-							value="medio" id="medio "> Medio
+							value="medio" id="medio"> Medio
 					</label></td>
 					<td><label> <input type="checkbox" name="C_NSE"
-							value="bajo" id="bajo "> Bajo
+							value="bajo" id="bajo"> Bajo
 					</label></td>
 				</tr>
 				<tr>
 					<th>Estado :</th>
 					<td><label> <input type="checkbox" name="domstat"
-							value="malo" id="malo "> Malo
+							value="malo" id="malo"> Malo
 					</label></td>
 					<td><label> <input type="checkbox" name="domstat"
-							value="regular" id="regular "> Regular
+							value="regular" id="regular"> Regular
 					</label></td>
 					<td><label> <input type="checkbox" name="domstat"
-							value="bueno" id="bueno "> Bueno
+							value="bueno" id="bueno"> Bueno
 					</label></td>
 					<td><label> <input type="checkbox" name="domstat"
-							value="excelente" id="excelente "> Excelente
+							value="excelente" id="excelente"> Excelente
 					</label></td>
 				</tr>
 			</table>
 			<p>SE & Ntilde ;AS :</p>
-			<span class="formcap "> Color : </span> <select name="C_CFAC ">
-				<option value="no ">No especifica</option>
-				<option value="Amarilla ">Amarilla</option>
-				<option value="Azul ">Azul</option>
-				<option value="Beige ">Beige</option>
-				<option value="Blanca ">Blanca</option>
-				<option value="Cafe ">Cafe</option>
-				<option value="Cantera ">Cantera</option>
-				<option value="Celeste ">Celeste</option>
-				<option value="Crema ">Crema</option>
-				<option value="Forja ">Forja</option>
-				<option value="Gris ">Gris</option>
-				<option value="Ladrillo ">Ladrillo</option>
-				<option value="Madera ">Madera</option>
-				<option value="Melon ">Melon</option>
-				<option value="Metalica ">Metalica</option>
-				<option value="Morada ">Morada</option>
-				<option value="Naranja ">Naranja</option>
-				<option value="Negra ">Negra</option>
-				<option value="Roja ">Roja</option>
-				<option value="Rosa ">Rosa</option>
-				<option value="Verde ">Verde</option>
-			</select> <br> <span class="formcap "> Puerta : </span> <select
-				name="C_CPTA ">
-				<option value="no ">No especifica</option>
-				<option value="no_tiene ">No tiene</option>
-				<option value="Amarilla ">Amarilla</option>
-				<option value="Azul ">Azul</option>
-				<option value="Beige ">Beige</option>
-				<option value="Blanca ">Blanca</option>
-				<option value="Cafe ">Cafe</option>
-				<option value="Celeste ">Celeste</option>
-				<option value="Crema ">Crema</option>
-				<option value="Forja ">Forja</option>
-				<option value="Gris ">Gris</option>
-				<option value="Ladrillo ">Ladrillo</option>
-				<option value="Madera ">Madera</option>
-				<option value="Melon ">Melon</option>
-				<option value="Metalica ">Metalica</option>
-				<option value="Morada ">Morada</option>
-				<option value="Naranja ">Naranja</option>
-				<option value="Negra ">Negra</option>
-				<option value="Roja ">Roja</option>
-				<option value="Rosa ">Rosa</option>
-				<option value="Verde ">Verde</option>
-			</select> <br> <span class="formcap "> Reja /Barandal : </span> <select
-				name="C_CREJ ">
-				<option value="no ">No especifica</option>
-				<option value="No ">No tiene</option>
-				<option value="Amarilla ">Amarilla</option>
-				<option value="Azul ">Azul</option>
-				<option value="Beige ">Beige</option>
-				<option value="Blanca ">Blanca</option>
-				<option value="Cafe ">Cafe</option>
-				<option value="Celeste ">Celeste</option>
-				<option value="Crema ">Crema</option>
-				<option value="Gris ">Gris</option>
-				<option value="Ladrillo ">Ladrillo</option>
-				<option value="Madera ">Madera</option>
-				<option value="Melon ">Melon</option>
-				<option value="Metalica ">Metalica</option>
-				<option value="Morada ">Morada</option>
-				<option value="Naranja ">Naranja</option>
-				<option value="Negra ">Negra</option>
-				<option value="Roja ">Roja</option>
-				<option value="Rosa ">Rosa</option>
-				<option value="Verde ">Verde</option>
-			</select> <br> <span class="formcap "> Patio /Jard&iacute;n : </span> <select
-				name="C_CPAT ">
-				<option value="no ">No especifica</option>
-				<option value="si ">S & iacute ;</option>
-				<option value="no ">No</option>
-			</select> <br> <span class="formcap "> Pisos : </span> <select
-				name="C_CNIV ">
-				<option value="planta baja ">planta baja</option>
-				<option value="planta alta ">planta alta</option>
+			<span class="formcap"> Color : </span> <select name="C_CFAC">
+				<option value="no">No especifica</option>
+				<option value="Amarilla">Amarilla</option>
+				<option value="Azul">Azul</option>
+				<option value="Beige">Beige</option>
+				<option value="Blanca">Blanca</option>
+				<option value="Cafe">Cafe</option>
+				<option value="Cantera">Cantera</option>
+				<option value="Celeste">Celeste</option>
+				<option value="Crema">Crema</option>
+				<option value="Forja">Forja</option>
+				<option value="Gris">Gris</option>
+				<option value="Ladrillo">Ladrillo</option>
+				<option value="Madera">Madera</option>
+				<option value="Melon">Melon</option>
+				<option value="Metalica">Metalica</option>
+				<option value="Morada">Morada</option>
+				<option value="Naranja">Naranja</option>
+				<option value="Negra">Negra</option>
+				<option value="Roja">Roja</option>
+				<option value="Rosa">Rosa</option>
+				<option value="Verde">Verde</option>
+			</select> <br> <span class="formcap"> Puerta : </span> <select
+				name="C_CPTA">
+				<option value="no">No especifica</option>
+				<option value="no_tiene">No tiene</option>
+				<option value="Amarilla">Amarilla</option>
+				<option value="Azul">Azul</option>
+				<option value="Beige">Beige</option>
+				<option value="Blanca">Blanca</option>
+				<option value="Cafe">Cafe</option>
+				<option value="Celeste">Celeste</option>
+				<option value="Crema">Crema</option>
+				<option value="Forja">Forja</option>
+				<option value="Gris">Gris</option>
+				<option value="Ladrillo">Ladrillo</option>
+				<option value="Madera">Madera</option>
+				<option value="Melon">Melon</option>
+				<option value="Metalica">Metalica</option>
+				<option value="Morada">Morada</option>
+				<option value="Naranja">Naranja</option>
+				<option value="Negra">Negra</option>
+				<option value="Roja">Roja</option>
+				<option value="Rosa">Rosa</option>
+				<option value="Verde">Verde</option>
+			</select> <br> <span class="formcap"> Reja /Barandal : </span> <select
+				name="C_CREJ">
+				<option value="no">No especifica</option>
+				<option value="No">No tiene</option>
+				<option value="Amarilla">Amarilla</option>
+				<option value="Azul">Azul</option>
+				<option value="Beige">Beige</option>
+				<option value="Blanca">Blanca</option>
+				<option value="Cafe">Cafe</option>
+				<option value="Celeste">Celeste</option>
+				<option value="Crema">Crema</option>
+				<option value="Gris">Gris</option>
+				<option value="Ladrillo">Ladrillo</option>
+				<option value="Madera">Madera</option>
+				<option value="Melon">Melon</option>
+				<option value="Metalica">Metalica</option>
+				<option value="Morada">Morada</option>
+				<option value="Naranja">Naranja</option>
+				<option value="Negra">Negra</option>
+				<option value="Roja">Roja</option>
+				<option value="Rosa">Rosa</option>
+				<option value="Verde">Verde</option>
+			</select> <br> <span class="formcap"> Patio /Jard&iacute;n : </span> <select
+				name="C_CPAT">
+				<option value="no">No especifica</option>
+				<option value="si">S & iacute ;</option>
+				<option value="no">No</option>
+			</select> <br> <span class="formcap"> Pisos : </span> <select
+				name="C_CNIV">
+				<option value="planta baja">planta baja</option>
+				<option value="planta alta">planta alta</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
 				<option value="> 3">>3</option>
 			</select> <br>
 			<p>DATOS DE LA GESTION</p>
-			<span class="formcap "> Hora : </span> <SELECT NAME="C_VH ">
+			<span class="formcap"> Hora : </span> <SELECT NAME="C_VH">
 				<OPTION VALUE=0>0</option>
 				<OPTION VALUE=1>1</option>
 				<OPTION VALUE=2>2</option>
@@ -462,7 +444,7 @@
 				<OPTION VALUE=21>21</option>
 				<OPTION VALUE=22>22</option>
 				<OPTION VALUE=23>23</option>
-			</select> : <SELECT NAME="C_VMN ">
+			</select> : <SELECT NAME="C_VMN">
 				<OPTION VALUE=00>00</option>
 				<OPTION VALUE=01>01</option>
 				<OPTION VALUE=02>02</option>
@@ -526,39 +508,39 @@
 			</select> <br>
 			<label for="C_VD">Fecha:</label>
 			<INPUT TYPE="text" class='fecha' NAME="C_VD" ID="C_VD" VALUE="{{ CD }}" SIZE=15><br>
-			<span class="formcap" id="pcap "> Parentesco /Cargo</span>
-			<select name="C_CARG ">
+			<span class="formcap" id="pcap"> Parentesco /Cargo</span>
+			<select name="C_CARG">
 				<option value="">& nbsp ;</option>
-				<option value="Aval ">Aval</option>
-				<option value="Conyuge ">C & oacute ;nyuge</option>
-				<option value="Deudor ">Deudor</option>
-				<option value="Familiar ">Familiar</option>
+				<option value="Aval">Aval</option>
+				<option value="Conyuge">C & oacute ;nyuge</option>
+				<option value="Deudor">Deudor</option>
+				<option value="Familiar">Familiar</option>
 				<option value="Hermano /a">Hermano /a</option>
 				<option value="Hijo /a">Hijo /a</option>
-				<option value="Madre ">Madre</option>
-				<option value="Otro ">Otro</option>
-				<option value="Padre ">Padre</option>
+				<option value="Madre">Madre</option>
+				<option value="Otro">Otro</option>
+				<option value="Padre">Padre</option>
 				<option value="Vecino /a">Vecino /a</option>
 			</select><br>
 			<label for="C_OBSE12">Gestion</label>
 			<textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12'
 				onkeypress="tooLong (this)">
 			</textarea><br>
-			<span class="formcap "> Acción : </span> <select
+			<span class="formcap"> Acción : </span> <select
 				name="ACCION" style="width: 8 cm;"> 
 				<?php foreach ($resultAccionV as $answerAccionV ) { ?>
 				<option style='width: 12 cm;'
 					value="<? php	 echo	 $ answerAccionV [ 0 ] ;	 ?>"><? php
 					echo $ answerAccionV [ 0 ] ; ?></option> <? php } ?>
-			</select> <br> <span class="formcap "> Status : </span> <select
+			</select> <br> <span class="formcap"> Status : </span> <select
 				name="C_CVST" style="width: 8 cm;"
 				onblur="statusChange (this .form );">
-				<option value="" selected="selected "></option> <? php foreach ($
+				<option value="" selected="selected"></option> <? php foreach ($
 				resultDictamenV as $ answerDictamenV ) { ?>
 				<option style='width: 12 cm;'
 					value="<? php	 echo	 $ answerDictamenV [ 0 ] ;	 ?>"><? php
 					echo $ answerDictamenV [ 0 ] ; ?></option> <? php } ?>
-			</select> <br> <span class="formcap "> Motivadores : </span> <select
+			</select> <br> <span class="formcap"> Motivadores : </span> <select
 				name="MOTIV" style="width: 8 cm;">
 				<option style='width: 12 cm;' value=""><? php foreach ($
 					resultMotivV as $ answerMotivV ) { ?>
@@ -580,88 +562,69 @@
 					</td>
 				</tr>
 			</table>
-			<span class="formcap "> Comentario de promesa </span> <input
+			<span class="formcap"> Comentario de promesa </span> <input
 				type="text" name="C_PROM" value=""> <br> <span
-				class="formcap "> Frecuencia de pago prometido </span> <select
-				name="C_FREQ ">
-				<option value="" selected="selected ">& nbsp ;</option>
-				<option value="unico ">Unico</option>
-				<option value="semanales ">Semanales</option>
-				<option value="quincenales ">Quincenales</option>
-				<option value="mensuales ">Mensuales</option>
-				<option value="otro ">Otro ( en Gestion comentas )</option>
-			</select> <br> <span class="formcap "> Visitador : </span> <select
-				name="C_VISIT" id="C_VISIT ">
+				class="formcap"> Frecuencia de pago prometido </span> <select
+				name="C_FREQ">
+				<option value="" selected="selected">& nbsp ;</option>
+				<option value="unico">Unico</option>
+				<option value="semanales">Semanales</option>
+				<option value="quincenales">Quincenales</option>
+				<option value="mensuales">Mensuales</option>
+				<option value="otro">Otro ( en Gestion comentas )</option>
+			</select> <br> <span class="formcap"> Visitador : </span> <select
+				name="C_VISIT" id="C_VISIT">
 				<option value=''></option> <? php foreach ($ resultGestorV as $
 				answerGestorV ) { ?>
 				<option value="<?php echo $ answerGestorV [ 0 ] ;	 ?>"><?
 					php echo htmlentities ($answerGestorV [ 1 ] ); ?></option> <? php } ?>
-			</select> <br> <span class="formcap ">ENTRE CALLE </span> <input
-				type="text" name="C_CALLE1 ">Y <input type="text"
-				name="C_CALLE2 "> <br>
-			<div class="togglebox" id="nuevoboxt2 ">
-				<span class="formcap ">Actualizaci &oacute ;n de datos </span> <br>
-				<span class="formcap ">Tel .</span> <input type="text" name="C_NTEL"
-					value=""> <br> <span class="formcap ">Tel 2.</span> <input
+			</select> <br> <span class="formcap">ENTRE CALLE </span> <input
+				type="text" name="C_CALLE1">Y <input type="text"
+				name="C_CALLE2"> <br>
+			<div class="togglebox" id="nuevoboxt2">
+				<span class="formcap">Actualizaci &oacute ;n de datos </span> <br>
+				<span class="formcap">Tel .</span> <input type="text" name="C_NTEL"
+					value=""> <br> <span class="formcap">Tel 2.</span> <input
 					type="text" size=50 name="C_OBSE2" value=""> <br> <span
-					class="formcap ">Direcci &oacute ;n</span> <input type="text"
+					class="formcap">Direcci &oacute ;n</span> <input type="text"
 					size=50 name="C_NDIR" value=""> <br>
 			</div>
-			<input type="hidden" name="go" value="CAPTURADO "> <input
-				type="submit" name="CAPTURADO" value="CAPTURADO ">
+			<input type="hidden" name="go" value="CAPTURADO"> <input
+				type="submit" name="CAPTURADO" value="CAPTURADO">
 		</form>
 	</div>
 	<!-- 	</div>-->
 	<div id="HISTORIA">
-		<table summary="historiahead" border='0' cellpadding='0'
-			cellspacing='0' width='100%' id="historyhead 	">
-			<tr>
-				<?php $fieldnames = array ("Status ", "Fecha /Hora", "Gestor ",
-				"Telefono ", "Gestion ", "Gestion "); $fieldsize = array ("status ",
-				"timestamp ", "chico ", "telefono ", "gestion ", "hidebox "); for
-				($j = 0; $j < 5; $j+ +) { $fieldname = $fieldnames[ $j] ; ?>
-				<th<?php echo ' class ="' . $fieldsize[ $j] . '"'; ?>><?php if
-					(isset ($fieldname )) {echo $fieldname; }?></th> <? php } ?>
-			</tr>
-		</table>
-		<?php if (!empty ($rowsub )) { ?>
 		<div id='tableContainer' class='tableContainer'>
-			<table summary="historia" border='0' cellpadding='0' cellspacing='0'
-				width='100%' id='historybody'>
-				<tbody class="scrollContent">
-					<?php $j = 0; $c = 0;foreach ($rowsub as $answer) { $auto =
-					$answer['auto']; $visit = $answer['c_cniv']; $gestor =
-					utf8_encode($answer['c_cvge']); $gestion =
-					utf8_encode($answer['c_obse1']); $timestamp =
-					utf8_encode($answer['fecha']); $stat =
-					utf8_encode($answer['c_cvst']); ?>
-					<tr
-						<?php echo $rc->highhist($stat, $visit); ?>><?php for ($k = 0; $k
-						< 5; $k ++) { $anku = utf8_encode($answer[$k]);if (is_null($anku))
-						{ $anku = "&nbsp; "; }$ ank = str_replace ('00 : 00 : 00', '', $
-						anku ); $ jscode = ''; if ($ fieldsize [ $ k ] ==" gestion ") { $
-						jscode1 =" onClick ='alert("; $ jscode2 = ")'"; $ jscode = $
-						jscode1 . '"' . preg_replace ("/ [ \n\r ] /" ," ", $ timestamp . '
-						: ' . $ gestion ) . ' "' . $ jscode2 ; } ?>
-						<td <? php                                         if ($ c == 1) { echo" style =' background-color : #dddddd '"; } echo ' class ="' . $fieldsize[ $k] . '"' . $jscode ; ?>>
-<?php                                                 if (isset ($ank )) {echo 	htmlentities($ank, ENT_QUOTES, "UTF-8"); 	 }?>
-</td>
-<? php                                     } $ c = 1 - $ c ; ?>
-</tr>
-					<? php $ j + +; } ?>
+			<table class="ui-widget">
+				<thead class="ui-widget-header">
+        			<tr>
+        				<th>Status</th>
+        				<th>Fecha/Hora</th>
+        				<th>Gestor</th>
+        				<th>Teléfono</th>
+        				<th>Gestión</th>
+        			</tr>
+                </thead>
+				<tbody class="ui-widget-content">
+				{% for h in historia %}
 					<tr>
-						<td></td>
+						<td>{{ h.C_CVST }}</td>
+						<td>{{ h.D_FECH }} {{ h.C_HRIN }}</td>
+						<td>{{ h.C_CVGE }}</td>
+						<td>{{ h.C_TELE }}</td>
+						<td>{{ h.C_OBSE1 }}</td>
 					</tr>
+				{% endfor %}
 				</tbody>
 			</table>
 		</div>
-		<? php } ?>
 	</div>
 	</div>
-	<div id="GESTION ">
+	<div id="GESTION">
 		<form action="resumen" method="get" id="gestionform"
 			onSubmit="return validate_form (this, event, <?php                   echo $saldo_descuento_2+ 0; ?>,<?php                   if (empty ($AUTH )) { $AUTH = ''; 	 }if (($ mytipo == ' admin ') || ($ AUTH != '')) { echo 1; } else {echo 0; 	 }?>, ' ');">
-			<table id="databox ">
+			<table id="databox">
 				<?php if ($mytipo == 'admin ' || $mytipo == 'supervisor ') { ?>
 				<tr>
 					<td>Gestor</td>
@@ -676,14 +639,14 @@
 				<input type="hidden" name="C_CVGE" readonly="readonly"
 					value="<?php if (isset($C_CVGE)) { echo $C_CVGE; 	 }?>"> <?
 				php } ?>
-				<tr id='authbox ' class="hidebox ">
+				<tr id='authbox ' class="hidebox">
 					<td>Autorizaci &oacute ;n</td>
 					<td><input type="password" name="AUTH" id="AUTH" value="">
 					</td>
 				</tr>
 				<tr>
 					<td>Telefono</td>
-					<td colspan=2><select id="C_TELE" name="C_TELE ">
+					<td colspan=2><select id="C_TELE" name="C_TELE">
 							<option value=''>&nbsp ;</option>
 							<option value='Entrante '>Llamada entrante</option>
 							<option value='Oficina '>Cliente Visito</option>
@@ -758,20 +721,20 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td id="pcap2 ">Parentesco /Cargo</td>
-					<td><select name="C_CARG ">
+					<td id="pcap2">Parentesco /Cargo</td>
+					<td><select name="C_CARG">
 							<option value="">&nbsp ;</option>
-							<option value="Aval ">Aval</option>
-							<option value="Conyuge ">C &oacute ;nyuge</option>
-							<option value="Deudor ">Deudor</option>
-							<option value="Familiar ">Familiar</option>
+							<option value="Aval">Aval</option>
+							<option value="Conyuge">C &oacute ;nyuge</option>
+							<option value="Deudor">Deudor</option>
+							<option value="Familiar">Familiar</option>
 							<option value="Hermano /a">Hermano /a</option>
 							<option value="Hijo 	/a">Hijo /a</option>
-							<option value="Madre ">Madre</option>
-							<option value="Otro ">Otro</option>
-							<option value="Padre ">Padre</option>
+							<option value="Madre">Madre</option>
+							<option value="Otro">Otro</option>
+							<option value="Padre">Padre</option>
 							<option value="Vecino /a">Vecino /a</option>
-							<option value="Yerno ">Yerno</option>
+							<option value="Yerno">Yerno</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -782,7 +745,7 @@
 							onmousedown='this.focus();'>
 </textarea></td>
 					<td colspan=2>Acci &oacute ;n <select name="ACCION"
-						id="ACCION "> <?php foreach ($resultAccion as
+						id="ACCION"> <?php foreach ($resultAccion as
 							$answerAccion ) { ?>
 							<option value="<?php echo $answerAccion[ 0] ;  	?>"
 								style="font-size: 120%;"><? php if (isset
@@ -796,7 +759,7 @@
 								style="font-size: 120%;"><? php if ( isset ($
 								answerDictamen [ 0 ] )) { echo htmlentities ($answerDictamen [ 0
 								] ); } ?></option> <? php } ?>
-					</select> <br>Causa no pago <select name="C_CNP" id="C_CNP ">
+					</select> <br>Causa no pago <select name="C_CNP" id="C_CNP">
 							<?php foreach ($resultCnp as $answerCnp ) { ?>
 							<option value="<?php echo 	 $answerCnp[ 0] ; ?>"
 								style="font-size: 120%;"><? php if (isset ($answerCnp[
@@ -806,7 +769,7 @@
 				</tr>
 				<tr>
 					<td>Motivadores</td>
-					<td><select id="C_MOTIV" name="C_MOTIV ">
+					<td><select id="C_MOTIV" name="C_MOTIV">
 							<option value=""><? php foreach ($ resultMotiv as $
 								answerMotiv ) { ?>
 							<option value="<?php echo $ answerMotiv [ 0 ] ;	 ?>"><?
@@ -907,14 +870,14 @@
 				</tr>
 				<tr>
 					<td>Frecuencia de promesa</td>
-					<td><select name="C_PROM" id="C_PROM ">
+					<td><select name="C_PROM" id="C_PROM">
 							<option selected="selected" value="">&nbsp ;</option>
-							<option value="unico ">Unico</option>
-							<option value="dos pagos 	 ">Dos pagos</option>
-							<option value="semanales ">Semanales</option>
-							<option value="quincenales ">Quincenales</option>
-							<option value="mensuales ">Mensuales</option>
-							<option value="otro ">Otro (en Gestion comentas )</option>
+							<option value="unico">Unico</option>
+							<option value="dos pagos 	">Dos pagos</option>
+							<option value="semanales">Semanales</option>
+							<option value="quincenales">Quincenales</option>
+							<option value="mensuales">Mensuales</option>
+							<option value="otro">Otro (en Gestion comentas )</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -927,13 +890,13 @@
 						readonly="readonly" style="background-color: #c0c0c0;"
 						value="<?php                             if (isset ($N_PROM_OLD )) {echo 	floor($N_PROM_OLD); 	 }?>"></td>
 				</tr>
-				<tr id="pagocapt ">
+				<tr id="pagocapt">
 					<td>Monto Pagó</td>
 					<td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0"
 						onmouseover='this.focus();'>
 					</td>
 				</tr>
-				<tr id="pagocapt2 ">
+				<tr id="pagocapt2">
 					<td>Fecha Pagó</td>
 					<td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" class="fecha" SIZE=15>
 					</td>
@@ -967,11 +930,11 @@
 			<input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR"
 				ondblclick="return false ;">
 			<button type="button" value="RESET 	"
-				onclick="this.form.GUARDAR.disabled = false ">RESET</button>
+				onclick="this.form.GUARDAR.disabled = false">RESET</button>
 			<br>
 	</div>
 	</div>
-	<div class="noshow ">
+	<div class="noshow">
 		<input type="text" name="from" readonly="readonly"
 			value="resumen"> <br>
 		<input type="text" name="D_FECH" readonly="readonly"
@@ -1007,7 +970,7 @@
 		<input type="text" name="oldgo" readonly="readonly"
 			value="<? php echo $ go ; ?>"><br> <input type="text"
 			name="error" readonly="readonly" value="1"> <br> <input
-			type="text" name="go" readonly="readonly" value="GUARDAR "> <br>
+			type="text" name="go" readonly="readonly" value="GUARDAR"> <br>
 	</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
