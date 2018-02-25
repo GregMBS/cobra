@@ -70,7 +70,7 @@
 		{% endif %}
 		<span style='font-weight: bold; font-size: 120%;'> {{ capt }}
 		</span>
-		{% if r.cliente is not empty %}
+		{% if not (r.cliente == '') %}
 		<span onmouseover='this.style.visibility = "hidden"; '> <img
 			style="position: absolute; top: 0; right: 0" height=50
 			alt="client logo" src='/logos/{{ cliente }}.jpg'></span>
