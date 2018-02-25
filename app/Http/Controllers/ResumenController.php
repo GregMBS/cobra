@@ -57,7 +57,8 @@ class ResumenController extends Controller
         $capt = auth()->user()->capt;
         $id_cuenta = $this->rc->lastGestion($capt);
         $result = $this->rqc->getOne($id_cuenta);
-        $view = view('resumen')->with('r', $result);
+        $from = 'ultima';
+        $view = view('resumen')->with('r', $result)->with('from', $from);
         return $view;
     }
     
@@ -69,7 +70,8 @@ class ResumenController extends Controller
     public function find($id_cuenta)
     {
         $result = $this->rqc->getOne($id_cuenta);
-        $view = view('resumen')->with('r', $result);
+        $from = 'find';
+        $view = view('resumen')->with('r', $result)->with('from', $from);
         return $view;
     }
 
