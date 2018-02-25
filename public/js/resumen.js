@@ -1,5 +1,4 @@
 $(function() {
-    openSearch();
     $('.fecha').datepicker();
     if (flag > 0) {
         alert(flagmsg +
@@ -49,6 +48,8 @@ $(function() {
     function openSearch() {
         setInterval('clock()', 1000);
     }
+    
+    openSearch();
 });
 
 function npromChange(thisform) {
