@@ -28,9 +28,8 @@ class BuscarController extends Controller
         $find = $r->find;
         $from = $r->path();
         $cliente = $r->cliente;
-        $id_cuenta = $r->C_CONT;
         if (!empty($find)) {
-            $view = $this->returnView($field, $find, $from, $cliente, $id_cuenta);
+            $view = $this->returnView($field, $find, $from, $cliente);
         } else {
             $clienteList = $this->bc->listClients();
             $view = view('buscar')->with('resultcl', $clienteList);
@@ -47,7 +46,7 @@ class BuscarController extends Controller
      * @param int $id_cuenta
      * @return View
      */
-    private function returnView($field, $find, $from, $cliente, $id_cuenta) {
+    private function returnView($field, $find, $from, $cliente) {
         $result = $this->bc->searchAccounts($field, $find, $cliente);
         $clienteList = $this->bc->listClients();
         $view = view('buscar')
@@ -55,7 +54,6 @@ class BuscarController extends Controller
         ->with('find', $find)
         ->with('from', $from)
         ->with('capt', auth()->user()->capt)
-        ->with('C_CONT', $id_cuenta)
         ->with('result', $result)
         ->with('resultcl', $clienteList);
         return $view;
