@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
         return view('reports')->with('capt', $capt);
     });
     
+    Route::get('/ultima', 'ResumenController@ultima');
+    Route::get('/resumen', 'ResumenController@index');
     Route::get('/migo', 'MigoController@getList');
     Route::get('/changest', 'ChangestController@showOne');
     Route::post('/changest', 'ChangestController@updateOne');

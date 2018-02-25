@@ -15,13 +15,7 @@ use PDO;
  *
  * @author gmbs
  */
-class ResumenClass {
-
-    /**
-     *
-     * @var \PDO
-     */
-    private $pdo;
+class ResumenClass extends BaseClass {
 
     /**
      *
@@ -78,28 +72,45 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      * 
-     * @param \PDO $pdo
-     */
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
-
-    /**
-     * 
      * @param string $stat
      * @param string $visit
      * @return string
      */
     public function highhist($stat, $visit) {
         $highstr = '';
-        if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
+        $red = array(
+            'PROMESA DE PAGO TOTAL',
+            'PROMESA DE PAGO PARCIAL',
+            'CLIENTE NEGOCIANDO',
+            'PAGO MENSUAL',
+            'ADJUDICACION',
+            'AUDIENCIA DE PRUEBAS',
+            'DACION ENTREGADA A INFONAVIT',
+            'DEMANDA ADMITIDA',
+            'ELABORACION DE DEMANDA',
+            'EMPLAZAMIENTO EFECTIVO',
+            'FIRMO PN PARA ENTREGA',
+            'INICIO DE EJECUCION',
+            'PROMESA DE DACION EN PAGO',
+            'PROMESA DE EVPN',
+            'SENTENCIA',
+            'NO OFRECER SOLUCION'
+        );
+        if (in_array($stat, $red)) {
             $highstr = " class='deudor'";
+        }
+        if (($stat == 'DACION EN PAGO') || ($stat == 'FIRMO CONVENIO JUDICIAL') || ($stat == 'FIRMO CONVENIO') || ($stat == 'CUENTA DEMANDADA')) {
+            $highstr = " class='deudor'";
+        }
+        if ($stat == 'VALIDACION') {
+            $highstr = " class='validacion'";
         }
         if (!empty($visit)) {
             $highstr = " class='visit'";
         }
         return $highstr;
     }
+    
 
     /**
      * 

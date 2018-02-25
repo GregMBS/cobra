@@ -161,20 +161,21 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $tele
      */
-    public function addNewTel($C_CONT, $tele) {
-        $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
-        $queryntel = "UPDATE resumen "
-                . "SET tel_4_verif = tel_3_verif,"
-                . "tel_3_verif = tel_2_verif,"
-                . "tel_2_verif = tel_1_verif,"
-                . "tel_1_verif = :tel "
-                . "WHERE id_cuenta = :C_CONT";
-        $stn = $this->pdo->prepare($queryntel);
-        $stn->bindParam(':tel', $tel);
-        $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
-        $stn->execute();
+    public function addNewTel($C_CONT, $tele = '') {
+        if (!empty($tele)) {
+            $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
+            $queryntel = "UPDATE resumen "
+                    . "SET tel_4_verif = tel_3_verif,"
+                    . "tel_3_verif = tel_2_verif,"
+                    . "tel_2_verif = tel_1_verif,"
+                    . "tel_1_verif = :tel "
+                    . "WHERE id_cuenta = :C_CONT";
+            $stn = $this->pdo->prepare($queryntel);
+            $stn->bindParam(':tel', $tel);
+            $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+            $stn->execute();
+        }
     }
-
     /**
      * 
      * @param int $C_CONT

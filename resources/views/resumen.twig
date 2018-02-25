@@ -161,131 +161,95 @@
 			
 		</div>
 		<div id="LABORAL ">
-			<span class='formcap '>Empresa </span> <input type='text ' size=100
-				name=empresa readonly='readonly '
-				value='<?php                 if (isset ($empresa )) {echo $empresa; 	 }?>'><br>
-			<span class='formcap '>Domicilio </span> <input type='text '
-				name=domicilio_laboral readonly='readonly '
-				value='<?php                 if (isset ($domicilio_laboral )) {echo 	$domicilio_laboral; 	 }?>'><br>
-			<span class='formcap '>Colonia </span> <input type='text '
-				name=colonia_laboral readonly='readonly '
-				value='<?php                 if (isset ($colonia_laboral )) {echo $colonia_laboral; 	 }?>'><br>
-			<span class='formcap '>Ciudad Estado </span> <input type='text '
-				name=ciudad_laboral readonly='readonly '
-				value='<?php                 if (isset ($ciudad_laboral )) {echo $ciudad_laboral; 	 }?>'><br>
-			<!-- <span class ='formcap '>Estado /CP</span>
-<input type ='text ' name 	 =estado_laboral readonly ='readonly ' value ='<?php echo $estado_laboral  	 . '/' . $cp_laboral ; ?>'><br>-->
-			<br> <span class='formcap '>Tel 1</span> <input type='text '
-				name=tel_1_laboral id="tel_1_laboral" readonly='readonly '
-				value='<?php                 if (isset ($tel_1_laboral )) {echo $tel_1_laboral; 	 }?>'><br>
-			<span class='formcap '>Tel 2</span> <input type='text '
-				name=tel_2_laboral id="tel_2_laboral" readonly='readonly '
-				value='<?php                 if (isset ($tel_2_laboral )) {echo $tel_2_laboral; 	 }?>'><br>
+            {% include 'resfield.twig' with {'field': 'empresa', 'label': 'Empresa', 'value': r.empresa} %}
+			{% include 'resfield.twig' with {'field': 'domicilio_laboral', 'label': 'Domicilio', 'value': r.domicilio_laboral} %}
+			{% include 'resfield.twig' with {'field': 'colonia_laboral', 'label': 'Colonia', 'value': r.colonia_laboral} %}
+			{% include 'resfield.twig' with {'field': 'ciudad_laboral', 'label': 'Ciudad', 'value': r.ciudad_laboral} %}
+			{% include 'resfield.twig' with {'field': 'estado_laboral', 'label': 'Estado', 'value': r.estado_laboral} %}
+			{% include 'resfield.twig' with {'field': 'tel_1_laboral', 'label': 'Tel', 'value': r.tel_1_laboral} %}
+			{% include 'resfield.twig' with {'field': 'tel_2_laboral', 'label': 'Ext.', 'value': r.tel_2_laboral} %}
 		</div>
 		<br>
-		</div>
-		<div id="EXTRAS ">
-			<table summary="sdh extras  	">
-				<tr>
-					<th>Cliente</th>
-					<th>Segmento</th>
-					<th>Status</th>
-					<th>Cuenta</th>
-					<th>Producto</th>
-					<th>Saldo capital</th>
-					<th>Saldo descuento</th>
-				</tr>
-				<?php if (is_array ($resultextra )) {foreach ($resultextra as
-				$answerextra) { ?>
-				<tr>
-					<td><?php echo $answerextra['cliente']; ?></td>
-					<td><?php echo $answerextra['status_de_credito']; ?></td>
-					<td><?php echo $answerextra['status_aarsa']; ?></td>
-					<td><?php echo $answerextra['numero_de_cuenta']; ?></td>
-					<td><?php echo $answerextra['productos']; ?></td>
-					<td><?php echo number_format($answerextra['sd'], 2); ?></td>
-					<td><?php echo number_format($answerextra['sdd'], 2); ?></td>
-				</tr>
-				<?php }} ?>
-			</table>
 		</div>
 		<div id="CONTABLES ">
 			<table summary="contables ">
 				<tr>
 					<td>Numero de credito</td>
-					<td><input type='text ' name=numero_de_credito
-						readonly='readonly '
-						value='<?php                             if (isset ($numero_de_credito )) {echo 	$numero_de_credito; 	 }?>'></td>
+					<td><input type='text' id='numero_de_credito'
+						readonly='readonly'
+						value='{{ r.numero_de_cuenta }}'>
+					</td>
 					<td>ID cuenta</td>
-					<td><input type='text ' name="id_cuenta" id="id_cuenta"
-						readonly='readonly '
-						value='<?php                             if (isset ($id_cuenta )) {echo $id_cuenta; 	 }?>'></td>
-					<?php if (!empty ($folio )) { ?>
-					<td>Ultimo folio</td>
-					<td><input type='text' name="ufolio" id="ufolio"
-						readonly='readonly' value='<?php 	echo $folio; ?>' /> <?php }?>
+					<td><input type='text' id="id_cuenta"
+						readonly='readonly'
+						value='{{ r.id_cuenta }}'></td>
 				</tr>
 				<tr>
 					<td>Fecha de asignacion</td>
-					<td><input type='text ' name=fecha_de_asignacion
-						readonly='readonly '
-						value='<?php                             if (isset ($fecha_de_asignacion )) {echo 	$fecha_de_asignacion; 	 }?>'></td>
+					<td><input type='text' id='fecha_de_asignacion'
+						readonly='readonly'
+						value='{{ r.fecha_de_asignacion }}'>
+					</td>
 					<td>Fecha de actualizacion</td>
-					<td><input type='text ' name=fecha_de_actualizacion
-						readonly='readonly '
-						value='<?php                             if (isset ($fecha_de_actualizacion )) {echo 	$fecha_de_actualizacion; 	 }?>'></td>
+					<td><input type='text' id='fecha_de_actualizacion'
+						readonly='readonly'
+						value='{{ r.fecha_de_actualizacion }}'>
+					</td>
 					<td>RFC deudor</td>
-					<td><input type='text ' name=rfc_deudor readonly='readonly '
-						value='<?php                             if (isset ($rfc_deudor )) {echo $rfc_deudor; 	 }?>'></td>
+					<td><input type='text' id=rfc_deudor readonly='readonly'
+						value='{{ r.rfc_deudor }}'></td>
 				</tr>
 				<tr>
 					<td>Fecha de retiro</td>
-					<td><input type='text ' name=contrato readonly='readonly '
-						value='<?php                             if (isset ($fecha_de_deasignacion )) {echo 	$fecha_de_deasignacion; 	 }?>'></td>
+					<td><input type='text' id='fecha_de_deasignacion'
+						readonly='readonly'
+						value='{{ r.fecha_de_deasignacion }}'>
+					</td>
 					<td>Saldo cuota</td>
-					<td><input type='text ' name=saldo_cuota readonly='readonly '
-						value='<?php                             if (isset ($saldo_cuota )) {echo '$' . 	number_format($saldo_cuota); 	 }?>'></td>
-				</tr>
+					<td><input type='text' id='saldo_cuota' readonly='readonly'
+						value='{{ r.saldo_cuota|number_format }}'>
+					</td>
 				</tr>
 				<tr>
 					<td>Saldo total</td>
-					<td><input type='text ' name=saldo_total readonly='readonly '
-						value='<?php                             if (isset ($saldo_total )) {echo '$' . 	number_format($saldo_total); 	 }?>'></td>
+					<td><input type='text' id='saldo_total' readonly='readonly'
+						value='{{ r.saldo_total|number_format }}'>
+					</td>
 					<? php if ($ saldo_descuento_1> 0) { ?>
 					<td>Saldo total sin gastos</td>
-					<td><input type=' text ' name=saldo_descuento_1
+					<td><input type=' text' name=saldo_descuento_1
 						readonly=' readonly ' value='<? php echo '$' . number_format ($ saldo_descuento_1 ); ?>'></td>
 					<? php } if ($ gastos_de_cobranza> 0) { ?>
 					<td>Gastos de Cobranza</td>
-					<td><input type=' text ' name=gastos_de_cobranza
+					<td><input type=' text' name=gastos_de_cobranza
 						readonly=' readonly '
 						value='<? php                                 echo '$' . number_format ($ gastos_de_cobranza );                                 ?>'></td>
 					<? php } if ($ monto_adeudado> 0) { ?>
-					<td>Monto en Contenci & oacute ;n</td>
-					<td><input type=' text ' name=monto_adeudado
+					<td>Monto en Contención</td>
+					<td><input type=' text' name=monto_adeudado
 						readonly=' readonly '
 						value='<? php                                 echo '$' . number_format ($ monto_adeudado );                                 ?>'></td>
 					<? php } ?>
 					<td>% descuento</td>
-					<td><input type=' text ' name=descuento readonly=' readonly '
+					<td><input type=' text' name=descuento readonly=' readonly '
 						value='<? php                             if ($ saldo_descuento_1> 0) { echo number_format (100 - ($ saldo_descuento_2 / $ saldo_descuento_1 ) * 100) . "%"; } else {echo number_format(100 - ($saldo_descuento_2 / ($saldo_total + 	0.01)) * 100) . "%"; 	 }?>'></td>
 					<td>Frecuencia</td>
-					<td><input type='text ' name=frecuencia readonly='readonly '
+					<td><input type='text' name=frecuencia readonly='readonly '
 						value='<?php                             if (isset ($frecuencia )) {echo $frecuencia; 	 }?>'>
 					<td>Reestructura</td>
-					<td><input type='text ' name=contrato readonly='readonly '
+					<td><input type='text' name=contrato readonly='readonly '
 						value='<?php                             if (isset ($contrato )) {echo $contrato; 	 }?>'>
 					</td>
 				</tr>
 				<tr>
 					<td>Saldo vencido</td>
-					<td><input type='text ' name=saldo_vencido
+					<td><input type='text' name=saldo_vencido
 						readonly='readonly ' value='<?php echo '$' . number_format ($saldo_vencido ); ?>'></td>
 					<td>Saldo descuento</td>
-					<td><input type='text ' name=saldo_descuento_2
+					<td><input type='text' name=saldo_descuento_2
 						readonly='readonly ' value='<?php echo '$' . number_format 	 ($saldo_descuento_2 ); ?>'></td>
 					<td>Productos</td>
-					<td><input type='text ' name=producto readonly='readonly '
+					<td><input type='text' name=producto readonly='readonly '
 						value='<?php                             if (!empty ($prods )) {echo $prods; 	 }else {echo htmlentities($producto); 	 }?>'></td>
 					<?php if (isset ($subproducto )) { ?>
 					<td>Subproducto</td>
@@ -295,11 +259,11 @@
 				</tr>
 				<tr>
 					<td>Fecha - ultimo pago</td>
-					<td><input type='text ' name=fecha_de_ultimo_pago
+					<td><input type='text' name=fecha_de_ultimo_pago
 						readonly='readonly '
 						value='<?php                             if (isset ($fecha_de_ultimo_pago )) {echo 	$fecha_de_ultimo_pago; 	 }?>'></td>
 					<td>Monto ultimo pago</td>
-					<td><input type='text ' name=monto_ultimo_pago
+					<td><input type='text' name=monto_ultimo_pago
 						readonly='readonly '
 						value='<?php                             if (isset ($monto_ultimo_pago )) {echo '$' . 	number_format($monto_ultimo_pago); 	 }?>'></td>
 					<?php if (isset ($cuenta_concentradora_1 )) { ?>
@@ -313,47 +277,29 @@
 				</tr>
 				<tr>
 					<td>Segmento</td>
-					<td><input type='text ' name=status_de_credito
+					<td><input type='text' name=status_de_credito
 						readonly='readonly '
 						value='<?php                             if (isset ($status_de_credito )) {echo 	$status_de_credito; 	 }?>'></td>
 					<td>Meses vencidos</td>
-					<td><input type='text ' name=pagos_vencidos
+					<td><input type='text' name=pagos_vencidos
 						readonly='readonly '
 						value='<?php                             if (isset ($pagos_vencidos )) {echo 	$pagos_vencidos; 	 }?>'>
 					<td>D &iacute ;as vencidos</td>
-					<td><input type='text ' name=dias_vencidos
+					<td><input type='text' name=dias_vencidos
 						readonly='readonly '
 						value='<?php                             if (isset ($dias_vencidos )) {echo 	$dias_vencidos; 	 }?>'><br>
 				</tr>
 			</table>
 		</div>
 		<div id="MISCELANEA ">
-			<span class='formcap 	'>Telefonos marcados </span> <input
-				type='text ' name="telefonos_marcados" id="telefonos_marcados"
-				readonly='readonly '
-				value='<?php                 if (isset ($telefonos_marcados )) {echo 	$telefonos_marcados; 	 }?>'><br>
-			<span class='formcap '>Tel 1 verificado </span> <input type='text 	'
-				name="tel_1_verif" id="tel_1_verif" readonly='readonly '
-				value='<?php                 if (isset ($tel_1_verif )) {echo $tel_1_verif; 	 }?>'><br>
-			<span class='formcap '>Tel 2 verificado </span> <input type='text 	'
-				name="tel_2_verif" id="tel_2_verif" readonly='readonly '
-				value='<?php                 if (isset ($tel_2_verif )) {echo $tel_2_verif; 	 }?>'><br>
-			<span class='formcap '>Tel 3 verificado </span> <input type='text 	'
-				name="tel_3_verif" id="tel_3_verif" readonly='readonly '
-				value='<?php                 if (isset ($tel_3_verif )) {echo $tel_3_verif; 	 }?>'><br>
-			<span class='formcap '>Tel 4 verificado </span> <input type='text 	'
-				name="tel_4_verif" id="tel_4_verif" readonly='readonly '
-				value='<?php                 if (isset ($tel_4_verif )) {echo $tel_4_verif; 	 }?>'><br>
-			<span class='formcap '>Tel de ult . contacto </span> <input
-				type='text ' name="telefono_de_ultimo_contacto" readonly='readonly '
-				value='<?php                 if (isset ($telefono_de_ultimo_contacto )) {echo 	$telefono_de_ultimo_contacto; 	 }?>'><br>
-			<span class='formcap '>Ultimo status </span> <input type='text '
-				name='ultimo_status_de_la_gestion ' readonly='readonly '
-				value='<?php                 if (isset ($ultimo_status_de_la_gestion )) {echo 	$ultimo_status_de_la_gestion; 	 }?>'><br>
+			{% include 'resfield.twig' with {'field': 'tel_1_verif', 'label': 'Tel 1 Verificado', 'value': r.tel_1_verif} %}
+			{% include 'resfield.twig' with {'field': 'tel_2_verif', 'label': 'Tel 2 Verificado', 'value': r.tel_2_verif} %}
+			{% include 'resfield.twig' with {'field': 'tel_3_verif', 'label': 'Tel 3 Verificado', 'value': r.tel_3_verif} %}
+			{% include 'resfield.twig' with {'field': 'tel_4_verif', 'label': 'Tel 4 Verificado', 'value': r.tel_4_verif} %}
 		</div>
 	<div id="searchbox ">
 		<h2>Buscar</h2>
-		<form name="search" method="get" action="buscar .php" id="search ">
+		<form name="search" method="get" action="buscar" id="search ">
 			Buscar a : <input type="text" name="find" id="find "> en <select
 				name="field ">
 				<option value="numero_de_cuenta ">Cuenta</option>
@@ -364,20 +310,15 @@
 				<option value="ROBOT ">Telefonos marcados</option>
 				<option value="REFS ">Aval /Referencias</option>
 				<option value="id_cuenta ">Expediente</option>
-			</select> <br> Client = <select name="cliente ">
-				<option value="">Todos</option> <? php foreach ($ resultcl as $
-				answercl ) { ?>
-				<option value="<?php echo $ answercl [ 0 ] ; ?>"><? php
-					echo $ answercl [ 0 ] ; ?></option> <? php } ?>
-			</select> <br> <input type="hidden" name="capt"
-				value="<?php                 if (isset ($capt )) {echo $capt; 	 }?>">
-			<input type="hidden" name="C_CONT"
-				value="<?php                 if (isset ($id_cuenta )) {echo $id_cuenta; 	 }?>">
-			<input type="hidden" name="go" value="BUSCAR "> <input
-				type="hidden" name="from" value="resumen.php "> <input
-				type="submit" name="go1" value="BUSCAR "> <input
-				type="button" name="cancel" onclick="cancelbox ('searchbox')"
-				value="Cancel ">
+			</select> <br>
+			Client = <select name="cliente ">
+				<option value="">Todos</option>
+				{% for cl in resultcl %}
+				<option value="{{ cl }}">{{ cl }}</option> 
+				{% endfor %}
+			</select><br>
+			<input type="submit" value="BUSCAR">
+			<input type="button" name="cancel" onclick="cancelbox('searchbox')"	value="Cancel ">
 		</form>
 	</div>
 	<div class="clearbox ">
@@ -664,7 +605,7 @@
 				<OPTION VALUE=58>58</option>
 				<OPTION VALUE=59>59</option>
 			</select> <br> <span class="formcap "> Fecha : </span>
-			<SCRIPT LANGUAGE="JavaScript" type="text /javascript"> var cal6 = new CalendarPopup (); cal6 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril	 ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre ', ' octubre ', ' noviembre	 ', ' diciembre '); cal6 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal6 .setWeekStartDay (1); cal6 .setTodayText (" Hoy ");                 </SCRIPT>
+			<SCRIPT LANGUAGE="JavaScript" type="text/javascript"> var cal6 = new CalendarPopup (); cal6 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril	 ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre ', ' octubre ', ' noviembre	 ', ' diciembre '); cal6 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal6 .setWeekStartDay (1); cal6 .setTodayText (" Hoy ");                 </SCRIPT>
 			<INPUT TYPE="text" NAME="C_VD" ID="C_VD" VALUE="<? php echo $ CD ?>"
 				SIZE=15>
 			<BUTTON
@@ -712,7 +653,7 @@
 			<table>
 				<tr>
 					<td><span class="formcap "> Fecha promesa </span> <SCRIPT
-							LANGUAGE="JavaScript" type="text /javascript"> var cal7 = new CalendarPopup	 (); cal7 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre	 ', ' octubre ', ' noviembre ', ' diciembre '); cal7 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal7 .setWeekStartDay (1); cal7 .setTodayText (" Hoy ");                             </SCRIPT>
+							LANGUAGE="JavaScript" type="text/javascript"> var cal7 = new CalendarPopup	 (); cal7 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre	 ', ' octubre ', ' noviembre ', ' diciembre '); cal7 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal7 .setWeekStartDay (1); cal7 .setTodayText (" Hoy ");                             </SCRIPT>
 						<INPUT TYPE="text" NAME="D_PROM" ID="D_PROMv" VALUE="" SIZE=15>
 						<BUTTON
 							onClick="cal7 .select ( document .getElementById (' D_PROMv ') , ' anchor7	 ', ' yyyy-MM-dd '); return false ;"
@@ -721,7 +662,7 @@
 						type="text" name="N_PROM" value=""> <br></td>
 					<td id=' pagocaptv '><span class="formcap "> Fecha ya
 							pag & oacute ;</span> <SCRIPT LANGUAGE="JavaScript"
-							type="text /javascript"> var cal8 = new CalendarPopup (); cal8 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre	 ', ' octubre ', ' noviembre ', ' diciembre '); cal8 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal8 .setWeekStartDay (1); cal8 .setTodayText (" Hoy ");                             </SCRIPT>
+							type="text/javascript"> var cal8 = new CalendarPopup (); cal8 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre	 ', ' octubre ', ' noviembre ', ' diciembre '); cal8 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal8 .setWeekStartDay (1); cal8 .setTodayText (" Hoy ");                             </SCRIPT>
 						<INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOv" VALUE="" SIZE=15>
 						<BUTTON
 							onClick="cal8 .select ( document .getElementById (' D_PAGOv ') , ' anchor8	 ', ' yyyy-MM-dd '); return false ;"
@@ -997,7 +938,7 @@
 				</tr>
 				<tr>
 					<td>Fecha promesa unico o 1o <SCRIPT LANGUAGE="JavaScript"
-							type="text /javascript">var cal4 = new CalendarPopup (); var oneMinute  	= 60 * 1000; // milliseconds in a minute                                 var oneHour = oneMinute * 60; var oneDay  	 = oneHour * 24; var today = new Date (); var dateInMS = today.getTime  	() +oneDay *  	 10; var yesterday = new Date (); yesterday.setDate (yesterday.getDate  	() - 1); cal4.setMonthNames ('enero ', 'febrero ', 'marzo ', 'abril ', 	'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal4.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal4.setWeekStartDay (1); cal4.setTodayText ("Hoy ");                                 cal4.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal4.addDisabledDates ('<?php echo $dday 	 ; ?>', null ); </SCRIPT>
+							type="text/javascript">var cal4 = new CalendarPopup (); var oneMinute  	= 60 * 1000; // milliseconds in a minute                                 var oneHour = oneMinute * 60; var oneDay  	 = oneHour * 24; var today = new Date (); var dateInMS = today.getTime  	() +oneDay *  	 10; var yesterday = new Date (); yesterday.setDate (yesterday.getDate  	() - 1); cal4.setMonthNames ('enero ', 'febrero ', 'marzo ', 'abril ', 	'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal4.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal4.setWeekStartDay (1); cal4.setTodayText ("Hoy ");                                 cal4.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal4.addDisabledDates ('<?php echo $dday 	 ; ?>', null ); </SCRIPT>
 					</td>
 					<td><INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" VALUE=""
 						SIZE=15>
@@ -1019,7 +960,7 @@
 				</tr>
 				<tr>
 					<td>Fecha promesa 2o <SCRIPT LANGUAGE="JavaScript"
-							type="text /javascript">var cal5 = new CalendarPopup (); var yesterday  	= new Date (); yesterday.setDate (yesterday.getDate () - 1); cal5.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal5.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal5.setWeekStartDay (1); cal5.setTodayText ("Hoy ");                                 cal5.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal5.addDisabledDates ('<?php echo $dday2 	 ; ?>', null ); </SCRIPT>
+							type="text/javascript">var cal5 = new CalendarPopup (); var yesterday  	= new Date (); yesterday.setDate (yesterday.getDate () - 1); cal5.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal5.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal5.setWeekStartDay (1); cal5.setTodayText ("Hoy ");                                 cal5.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal5.addDisabledDates ('<?php echo $dday2 	 ; ?>', null ); </SCRIPT>
 					</td>
 					<td><INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" VALUE=""
 						SIZE=15>
@@ -1041,7 +982,7 @@
 				</tr>
 				<tr>
 					<td>Fecha promesa 3o <SCRIPT LANGUAGE="JavaScript"
-							type="text /javascript">var cal5c = new CalendarPopup (); var yesterday  	= new Date (); yesterday.setDate (yesterday.getDate () - 1); cal5c.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal5c.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal5c.setWeekStartDay (1); cal5c.setTodayText ("Hoy 	");                                 cal5c.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal5c.addDisabledDates ('<?php echo $dday2 	 ; ?>', null ); </SCRIPT>
+							type="text/javascript">var cal5c = new CalendarPopup (); var yesterday  	= new Date (); yesterday.setDate (yesterday.getDate () - 1); cal5c.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal5c.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal5c.setWeekStartDay (1); cal5c.setTodayText ("Hoy 	");                                 cal5c.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal5c.addDisabledDates ('<?php echo $dday2 	 ; ?>', null ); </SCRIPT>
 					</td>
 					<td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE=""
 						SIZE=15>
@@ -1063,7 +1004,7 @@
 				</tr>
 				<tr>
 					<td>Fecha promesa 4o <SCRIPT LANGUAGE="JavaScript"
-							type="text /javascript">var cal5d = new CalendarPopup (); var yesterday  	= new Date (); yesterday.setDate (yesterday.getDate () - 1); cal5d.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal5d.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal5d.setWeekStartDay (1); cal5d.setTodayText ("Hoy 	");                                 cal5d.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal5d.addDisabledDates ('<?php echo $dday2 	 ; ?>', null ); </SCRIPT>
+							type="text/javascript">var cal5d = new CalendarPopup (); var yesterday  	= new Date (); yesterday.setDate (yesterday.getDate () - 1); cal5d.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal5d.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal5d.setWeekStartDay (1); cal5d.setTodayText ("Hoy 	");                                 cal5d.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal5d.addDisabledDates ('<?php echo $dday2 	 ; ?>', null ); </SCRIPT>
 					</td>
 					<td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE=""
 						SIZE=15>
@@ -1092,19 +1033,19 @@
 						readonly="readonly" style="background-color: #c0c0c0;" value="">
 					</td>
 					<td>Cant . prometido anterior</td>
-					<td><input type="text 	" name="N_PROM_OLD" id="N_PROM_OLD"
+					<td><input type="text	" name="N_PROM_OLD" id="N_PROM_OLD"
 						readonly="readonly" style="background-color: #c0c0c0;"
 						value="<?php                             if (isset ($N_PROM_OLD )) {echo 	floor($N_PROM_OLD); 	 }?>"></td>
 				</tr>
 				<tr id="pagocapt ">
-					<td>Monto Pag &oacute ;</td>
+					<td>Monto Pagó</td>
 					<td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0"
 						onmouseover='this.focus  	();'>
 					</td>
 				</tr>
 				<tr id="pagocapt2 ">
-					<td>Fecha Pag &oacute ; <SCRIPT LANGUAGE="JavaScript"
-							type="text /javascript">var cal9 = new CalendarPopup (); cal9.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo ', 'junio ', 'julio  	', 'agosto ', 'septiembre 	 ', 'octubre ', 'noviembre ', 'diciembre '); cal9.setDayHeaders ('Do ', 	'Lu ', 'Ma ', 'Mi ', 'Ju ', 'Vi ', 'Sa '); cal9.setWeekStartDay (1); 	cal9.setTodayText ("Hoy ");                             </SCRIPT>
+					<td>Fecha Pagó <SCRIPT LANGUAGE="JavaScript"
+							type="text/javascript">var cal9 = new CalendarPopup (); cal9.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo ', 'junio ', 'julio  	', 'agosto ', 'septiembre 	 ', 'octubre ', 'noviembre ', 'diciembre '); cal9.setDayHeaders ('Do ', 	'Lu ', 'Ma ', 'Mi ', 'Ju ', 'Vi ', 'Sa '); cal9.setWeekStartDay (1); 	cal9.setTodayText ("Hoy ");                             </SCRIPT>
 					</td>
 					<td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE=""
 						SIZE=15>
@@ -1113,7 +1054,7 @@
 							NAME="anchor9" ID="anchor9 ">eligir</BUTTON></td>
 				</tr>
 				<tr>
-					<td colspan=2>Actualizaci &oacute ;n de Datos</td>
+					<td colspan=2>Actualización de Datos</td>
 				</tr>
 				<tr>
 					<td>Tel .</td>
@@ -1194,7 +1135,7 @@
 	<script type="text/javascript">
 	var flag = '{{ flag }}';
 	var flagmsg = '{{ flagmsg }}';
-	var cuenta = '{{ alertcuenta }}';
+	var cuenta = '{{ notas.cuenta }}';
 	var notalert = '{{ notas.alert }}';
 	var sdc = '{{ r.status_de_credito }}';
 	var tipo = '{{ tipo }}';

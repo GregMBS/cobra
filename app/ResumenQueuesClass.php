@@ -21,7 +21,7 @@ class ResumenQueuesClass extends BaseClass {
      * @param int $camp
      * @return array
      */
-    public function getMyQueue($capt, $camp) {
+    private function getMyQueue($capt, $camp) {
         $queryquery = "SELECT cliente, status_aarsa as cr, sdc 
         FROM queuelist 
         WHERE gestor = :capt 
@@ -60,7 +60,7 @@ class ResumenQueuesClass extends BaseClass {
      * @param string $cr
      * @return \PDOStatement
      */
-    public function prepareResumenMain($cliente, $sdc, $cr) {
+    private function prepareResumenMain($cliente, $sdc, $cr) {
         if (empty($cliente)) {
             $clientStr = '';
         } else {
@@ -136,7 +136,7 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
      * @param string $cr
      * @return \PDOStatement
      */
-    public function bindResumenMain($stm, $capt, $cliente, $sdc, $cr) {
+    private function bindResumenMain($stm, $capt, $cliente, $sdc, $cr) {
         if (in_array($cr, array('MANUAL','INICIAL'))) {
             $stm->bindParam(':capt', $capt);
             return $stm;
@@ -162,7 +162,7 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
      * @param int $id_cuenta
      * @return \PDOStatement
      */
-    public function prepareQuicksearch($id_cuenta) {
+    private function prepareQuicksearch($id_cuenta) {
         $querymain = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta LIMIT 1";
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':id_cuenta', $id_cuenta);
@@ -174,7 +174,7 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
      * @param \PDOStatement $stm
      * @return array
      */
-    public function runResumenMain($stm) {
+    private function runResumenMain($stm) {
         try {
             $stm->execute();
             $result = $stm->fetch(\PDO::FETCH_ASSOC);
@@ -184,4 +184,20 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
         }
     }
 
+    /**
+     * 
+     * @param string $capt
+     * @param int $camp
+     * @return array
+     */
+    public function getResumen($capt, $camp) {
+        $queue = $this->getMyQueue($capt, $camp);
+        $cliente = $queue['cliente'];
+        $sdc = $queue['sdc'];
+        $cr = $queue['cr'];
+        $stm = $this->prepareResumenMain($cliente, $sdc, $cr);
+        $stmBound = $this->bindResumenMain($stm, $capt, $cliente, $sdc, $cr);
+        $result = $this->runResumenMain($stmBound);
+        return $result;
+    }
 }
