@@ -124,14 +124,49 @@
 				</tr>
 			</table>
 		</div>
-		<div id="TELEFONOS ">
+			<div id="searchbox ">
+		<h2>Buscar</h2>
+		<form name="search" method="get" action="buscar" id="search">
+			Buscar a : <input type="text" name="find" id="find"> en <select
+				name="field">
+				<option value="numero_de_cuenta">Cuenta</option>
+				<option value="numero_de_credito"># del Grupo</option>
+				<option value="nombre_deudor">Nombre</option>
+				<option value="domicilio_deudor">Direcci & oacute ;n</option>
+				<option value="TELS">Telefonos</option>
+				<option value="ROBOT">Telefonos marcados</option>
+				<option value="REFS">Aval /Referencias</option>
+				<option value="id_cuenta">Expediente</option>
+			</select> <br>
+			Client = <select name="cliente">
+				<option value="">Todos</option>
+				{% for cl in resultcl %}
+				<option value="{{ cl }}">{{ cl }}</option> 
+				{% endfor %}
+			</select><br>
+			<input type="submit" value="BUSCAR">
+			<input type="button" name="cancel" onclick="cancelbox('searchbox')"	value="Cancel ">
+		</form>
+	</div>
+		
+	<div id="tabs">
+		<UL>
+			<LI><A href="#TELEFONOS">TELEFONOS</A></LI>
+			<LI><A href="#REFERENCIAS">REFERENCIAS</A></LI>
+			<LI><A href="#LABORAL">LABORAL</A></LI>
+			<LI><A href="#CONTABLES">CONTABLES</A></LI>
+			<LI><A href="#MISCELANEA">MISCELANEA</A></LI>
+			<LI><A href="#tabs-1">CAPTURA VISITA</A></LI>
+			<LI><A href="#HISTORIA">HISTORIA</A></LI>
+		</UL>
+		<div id="TELEFONOS">
 			{% include 'resfield.twig' with {'field': 'tel_1', 'label': 'Tel Casa', 'value': r.tel_1} %}
 			{% include 'resfield.twig' with {'field': 'tel_2', 'label': 'Tel Cel', 'value': r.tel_2} %}
 			{% include 'resfield.twig' with {'field': 'tel_3', 'label': 'Tel 3', 'value': r.tel_3} %}
             {% include 'resfield.twig' with {'field': 'tel_4', 'label': 'Tel 4', 'value': r.tel_4} %}
 			{% include 'resfield.twig' with {'field': 'email_deudor', 'label': 'E-mail', 'value': r.email_deudor} %}
 		</div>
-		<div id="REFERENCIAS ">
+		<div id="REFERENCIAS">
 			{% include 'resfield.twig' with {'field': 'nombre_deudor_alterno', 'label': 'Aval', 'value': r.nombre_deudor_alterno} %}
 			{% include 'resfield.twig' with {'field': 'domicilio_deudor_alterno', 'label': 'Dirección Aval', 'value': r.domicilio_deudor_alterno} %}
 			{% include 'resfield.twig' with {'field': 'tel_1_alterno', 'label': 'Tel Casa Aval', 'value': r.tel_1_alterno} %}
@@ -156,7 +191,7 @@
 			{% include 'resfield.twig' with {'field': 'tel_2_ref_4', 'label': 'Tel Cel Ref 4', 'value': r.tel_2_ref_4} %}
 			
 		</div>
-		<div id="LABORAL ">
+		<div id="LABORAL">
             {% include 'resfield.twig' with {'field': 'empresa', 'label': 'Empresa', 'value': r.empresa} %}
 			{% include 'resfield.twig' with {'field': 'domicilio_laboral', 'label': 'Domicilio', 'value': r.domicilio_laboral} %}
 			{% include 'resfield.twig' with {'field': 'colonia_laboral', 'label': 'Colonia', 'value': r.colonia_laboral} %}
@@ -167,8 +202,8 @@
 		</div>
 		<br>
 		</div>
-		<div id="CONTABLES ">
-			<table summary="contables ">
+		<div id="CONTABLES">
+			<table>
 				<tr>
 					<td>Numero de credito</td>
 					<td><input type='text' id='numero_de_credito'
@@ -287,48 +322,13 @@
 				</tr>
 			</table>
 		</div>
-		<div id="MISCELANEA ">
+		<div id="MISCELANEA">
 			{% include 'resfield.twig' with {'field': 'tel_1_verif', 'label': 'Tel 1 Verificado', 'value': r.tel_1_verif} %}
 			{% include 'resfield.twig' with {'field': 'tel_2_verif', 'label': 'Tel 2 Verificado', 'value': r.tel_2_verif} %}
 			{% include 'resfield.twig' with {'field': 'tel_3_verif', 'label': 'Tel 3 Verificado', 'value': r.tel_3_verif} %}
 			{% include 'resfield.twig' with {'field': 'tel_4_verif', 'label': 'Tel 4 Verificado', 'value': r.tel_4_verif} %}
 		</div>
-	<div id="searchbox ">
-		<h2>Buscar</h2>
-		<form name="search" method="get" action="buscar" id="search">
-			Buscar a : <input type="text" name="find" id="find"> en <select
-				name="field">
-				<option value="numero_de_cuenta">Cuenta</option>
-				<option value="numero_de_credito"># del Grupo</option>
-				<option value="nombre_deudor">Nombre</option>
-				<option value="domicilio_deudor">Direcci & oacute ;n</option>
-				<option value="TELS">Telefonos</option>
-				<option value="ROBOT">Telefonos marcados</option>
-				<option value="REFS">Aval /Referencias</option>
-				<option value="id_cuenta">Expediente</option>
-			</select> <br>
-			Client = <select name="cliente">
-				<option value="">Todos</option>
-				{% for cl in resultcl %}
-				<option value="{{ cl }}">{{ cl }}</option> 
-				{% endfor %}
-			</select><br>
-			<input type="submit" value="BUSCAR">
-			<input type="button" name="cancel" onclick="cancelbox('searchbox')"	value="Cancel ">
-		</form>
-	</div>
-	<div class="clearbox ">
-		<UL class='tabs '>
-			<LI><A onClick="paging ('TELEFONOS')">TELEFONOS </A></LI>
-			<LI><A onClick="paging ('REFERENCIAS')">REFERENCIAS </A></LI>
-			<LI><A onClick="paging ('LABORAL')">LABORAL </A></LI>
-			<LI><A onClick="paging ('CONTABLES')">CONTABLES </A></LI>
-			<LI><A onClick="paging ('MISCELANEA')">MISCELANEA </A></LI>
-			<LI><A onClick="paging ('VISITA')">CAPTURA VISITA </A></LI>
-			<LI><A onClick="paging ('HISTORIA')">HISTORIA </A></LI>
-		</UL>
-	</div>
-	<div class="togglebox" id="VISITA 	">
+	<div id="VISITA">
 		<div class="noshow ">
 				<input type="text" name="error" readonly="readonly" value="1">
 				<br> <input type="text" name="C_HRFI" readonly="readonly"
@@ -687,7 +687,7 @@
 		</form>
 	</div>
 	<!-- 	</div>-->
-	<div id="HISTORIA ">
+	<div id="HISTORIA">
 		<table summary="historiahead" border='0' cellpadding='0'
 			cellspacing='0' width='100%' id="historyhead 	">
 			<tr>
@@ -731,6 +731,7 @@
 			</table>
 		</div>
 		<? php } ?>
+	</div>
 	</div>
 	<div id="GESTION ">
 		<form action="resumen" method="get" id="gestionform"
