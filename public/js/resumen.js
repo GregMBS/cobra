@@ -1,7 +1,9 @@
 $(function() {
     $('.fecha').datepicker();
     $('#tabs').tabs();
-    $('#history').datatable();
+    $('#history').dataTable({
+        "bJQueryUI": true
+    });
     if (flag > 0) {
         alert(flagmsg +
             "\nBuscar para checar que gestion de cuenta " + cuenta +
