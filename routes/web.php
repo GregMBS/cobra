@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/ultima', 'ResumenController@ultima');
     Route::get('/resumen', 'ResumenController@index');
+    Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
     Route::get('/migo', 'MigoController@getList');
     Route::get('/changest', 'ChangestController@showOne');
     Route::post('/changest', 'ChangestController@updateOne');

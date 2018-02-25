@@ -200,4 +200,18 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
         $result = $this->runResumenMain($stmBound);
         return $result;
     }
+    
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return array
+     */
+    public function getOne($id_cuenta) {
+        $query = "SELECT * FROM resumen where id_cuenta = :id_cuenta LIMIT 1";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stm->execute();
+        $result = $stm->fetch(\PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

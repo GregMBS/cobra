@@ -36,7 +36,7 @@
 			{% if row.numero_de_cuenta is defined %}
 			<tr>
 				<td><a
-					href="resumen?go=FROMMIGO&field=id_cuenta&find={{ row.id_cuenta }}">
+					href="/resumen/{{ row.id_cuenta }}">
 						{{ row.numero_de_cuenta }}
 				</a></td>
 				<td>{{ row.nombre_deudor }}</td>

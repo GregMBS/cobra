@@ -56,11 +56,24 @@ class ResumenController extends Controller
     {
         $capt = auth()->user()->capt;
         $id_cuenta = $this->rc->lastGestion($capt);
-        $view = view('resumen')->with('field', 'id_cuenta')->with('find', $id_cuenta);
+        $result = $this->rqc->getOne($id_cuenta);
+        $view = view('resumen')->with('r', $result);
+        return $view;
+    }
+    
+    /**
+     * 
+     * @param int $id_cuenta
+     * @return View
+     */
+    public function find($id_cuenta)
+    {
+        $result = $this->rqc->getOne($id_cuenta);
+        $view = view('resumen')->with('r', $result);
         return $view;
     }
 
-    /**
+/**
      *
      * @return RedirectResponse
      */

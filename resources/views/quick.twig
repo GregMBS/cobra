@@ -73,7 +73,7 @@ tr.even {
 					<tr {% if rowAhora.tiempo > 60 %} class="alert" {% endif %}>
 						<td>{{ rowAhora.gestor }}</td>
 						<td><a
-							href="resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find={{ rowAhora.id_cuenta }}">{{ rowAhora.cuenta }}</a></td>
+							href="/resumen/{{ rowAhora.id_cuenta }}">{{ rowAhora.cuenta }}</a></td>
 						<td>{{ rowAhora.nombre }}</td>
 						<td>{{ rowAhora.cliente }}</td>
 						<td>{{ rowAhora.camp }}</td>

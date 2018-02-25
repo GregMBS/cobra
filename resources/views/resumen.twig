@@ -1,4 +1,3 @@
-{{ dump() }}
 <html>
 <head>
 <title>Resumen</title>
@@ -334,9 +333,7 @@
 		</UL>
 	</div>
 	<div class="togglebox" id="VISITA 	">
-		<form action="resumen.php" method="get" id="capturaform"
-			onSubmit="return validate_form2 (this, event, <?php                   echo $saldo_descuento_2+ 0; ?>,<?php                   if (empty ($AUTH )) { $AUTH = ''; 	 }if (($ mytipo == ' admin ') || ($ AUTH != '')) { echo 1; } else {echo 0; 	 }?>, ' ');">
-			<div class="noshow ">
+		<div class="noshow ">
 				<input type="text" name="error" readonly="readonly" value="1">
 				<br> <input type="text" name="C_HRFI" readonly="readonly"
 					value="<?php                     if (isset ($CT )) {echo $CT; 	 }?>"><br>
@@ -750,7 +747,7 @@
 		<? php } ?>
 	</div>
 	<div id="GESTION ">
-		<form action="resumen.php" method="get" id="gestionform"
+		<form action="resumen" method="get" id="gestionform"
 			onSubmit="return validate_form (this, event, <?php                   echo $saldo_descuento_2+ 0; ?>,<?php                   if (empty ($AUTH )) { $AUTH = ''; 	 }if (($ mytipo == ' admin ') || ($ AUTH != '')) { echo 1; } else {echo 0; 	 }?>, ' ');">
 			<table id="databox ">
 				<?php if ($mytipo == 'admin ' || $mytipo == 'supervisor ') { ?>
@@ -1089,8 +1086,8 @@
 	</div>
 	<div class="noshow ">
 		<input type="text" name="from" readonly="readonly"
-			value="resumen.php "> <br> <input type="text"
-			name="D_FECH" readonly="readonly"
+			value="resumen"> <br>
+		<input type="text" name="D_FECH" readonly="readonly"
 			value="<?php                     if (isset ($CD )) {echo $CD; 	 }?>"><br>
 		<input type="text" name="D_PROM" readonly="readonly"
 			value="<?php                     if (isset ($CD )) {echo $CD; 	 }?>"><br>
@@ -1125,7 +1122,6 @@
 			name="error" readonly="readonly" value="1"> <br> <input
 			type="text" name="go" readonly="readonly" value="GUARDAR "> <br>
 	</div>
-	</form>
 	</div>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
