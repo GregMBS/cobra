@@ -856,8 +856,8 @@
 					<td>Gestion</td>
 					<td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1 '
 							onkeypress="tooLong (this)" onkeyup="valid (this, 'special ')"
-							onmouseover='this.focus ();' onblur="valid (this, 'special ')"
-							onmousedown='this.focus ();'>
+							onmouseover='this.focus();' onblur="valid (this, 'special ')"
+							onmousedown='this.focus();'>
 </textarea></td>
 					<td colspan=2>Acci &oacute ;n <select name="ACCION"
 						id="ACCION "> <?php foreach ($resultAccion as
@@ -935,7 +935,7 @@
 				<tr>
 					<td>Cant . de promesa 2o</td>
 					<td>$<input type="text" name="N_PROM2" value="0"
-						onchange="npromChange (this.form );" onmouseover='this.focus ();'>
+						onchange="npromChange (this.form );" onmouseover='this.focus();'>
 					</td>
 					<td>$<input type="text" name="N_PROM2_OLD" size="8"
 						readonly="readonly"
@@ -1008,18 +1008,13 @@
 				<tr id="pagocapt ">
 					<td>Monto Pagó</td>
 					<td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0"
-						onmouseover='this.focus  	();'>
+						onmouseover='this.focus();'>
 					</td>
 				</tr>
 				<tr id="pagocapt2 ">
-					<td>Fecha Pagó <SCRIPT LANGUAGE="JavaScript"
-							type="text/javascript">var cal9 = new CalendarPopup (); cal9.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo ', 'junio ', 'julio  	', 'agosto ', 'septiembre 	 ', 'octubre ', 'noviembre ', 'diciembre '); cal9.setDayHeaders ('Do ', 	'Lu ', 'Ma ', 'Mi ', 'Ju ', 'Vi ', 'Sa '); cal9.setWeekStartDay (1); 	cal9.setTodayText ("Hoy ");                             </SCRIPT>
+					<td>Fecha Pagó</td>
+					<td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" class="fecha" SIZE=15>
 					</td>
-					<td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE=""
-						SIZE=15>
-						<BUTTON
-							onClick="cal9.select (document.getElementById ('D_PAGOi '), 'anchor9 	 ', 'yyyy-MM-dd '); return false ;"
-							NAME="anchor9" ID="anchor9 ">eligir</BUTTON></td>
 				</tr>
 				<tr>
 					<td colspan=2>Actualización de Datos</td>
@@ -1027,24 +1022,24 @@
 				<tr>
 					<td>Tel .</td>
 					<td><input type="text" name="C_NTEL" value=""
-						onmouseover='this.focus  	();' onChange="addToTels (4, this )">
+						onmouseover='this.focus();' onChange="addToTels (4, this )">
 					</td>
 				</tr>
 				<tr>
 					<td>Tel 2.</td>
 					<td><input type="text" size=50 name="C_OBSE2" value=""
-						onmouseover='this.focus ();' onChange="addToTels 	(5, this )">
+						onmouseover='this.focus();' onChange="addToTels 	(5, this )">
 					</td>
 				</tr>
 				<tr>
 					<td>Direcci &oacute ;n</td>
 					<td><input type="text" size=50 name="C_NDIR" value=""
-						onmouseover='this.focus ();'></td>
+						onmouseover='this.focus();'></td>
 				</tr>
 				<tr>
 					<td>E-mail</td>
 					<td><input type="text" name="C_EMAIL" value=""
-						onmouseover='this.focus ();'></td>
+						onmouseover='this.focus();'></td>
 				</tr>
 			</table>
 			<input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR"
