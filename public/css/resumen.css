@@ -59,8 +59,7 @@ select, input, button {
 	font-size: 100%
 }
 
-input {
-	font-family: verdana, arial, helvetica, sans-serif;
+.buttons {
 	font-size: 80%;
 	font-weight: bold;
 }
