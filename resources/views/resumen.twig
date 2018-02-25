@@ -295,19 +295,19 @@
 		</div>
 	<div id="searchbox ">
 		<h2>Buscar</h2>
-		<form name="search" method="get" action="buscar" id="search ">
-			Buscar a : <input type="text" name="find" id="find "> en <select
-				name="field ">
-				<option value="numero_de_cuenta ">Cuenta</option>
-				<option value="numero_de_credito "># del Grupo</option>
-				<option value="nombre_deudor ">Nombre</option>
-				<option value="domicilio_deudor ">Direcci & oacute ;n</option>
-				<option value="TELS ">Telefonos</option>
-				<option value="ROBOT ">Telefonos marcados</option>
-				<option value="REFS ">Aval /Referencias</option>
-				<option value="id_cuenta ">Expediente</option>
+		<form name="search" method="get" action="buscar" id="search">
+			Buscar a : <input type="text" name="find" id="find"> en <select
+				name="field">
+				<option value="numero_de_cuenta">Cuenta</option>
+				<option value="numero_de_credito"># del Grupo</option>
+				<option value="nombre_deudor">Nombre</option>
+				<option value="domicilio_deudor">Direcci & oacute ;n</option>
+				<option value="TELS">Telefonos</option>
+				<option value="ROBOT">Telefonos marcados</option>
+				<option value="REFS">Aval /Referencias</option>
+				<option value="id_cuenta">Expediente</option>
 			</select> <br>
-			Client = <select name="cliente ">
+			Client = <select name="cliente">
 				<option value="">Todos</option>
 				{% for cl in resultcl %}
 				<option value="{{ cl }}">{{ cl }}</option> 
