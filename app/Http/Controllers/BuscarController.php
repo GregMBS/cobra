@@ -29,7 +29,12 @@ class BuscarController extends Controller
         $from = $r->path();
         $cliente = $r->cliente;
         $id_cuenta = $r->C_CONT;
-        $view = $this->returnView($field, $find, $from, $cliente, $id_cuenta);
+        if (!empty($find)) {
+            $view = $this->returnView($field, $find, $from, $cliente, $id_cuenta);
+        } else {
+            $clienteList = $this->bc->listClients();
+            $view = view('buscar')->with('resultcl', $clienteList);
+        }
         return $view;
     }
     
