@@ -649,17 +649,14 @@
 				<tr>
 					<td><label for="D_PROMv">Fecha promesa</label>
 						<INPUT TYPE="text" NAME="D_PROM" ID="D_PROMv" VALUE="" class="fecha" SIZE=15>
-						<span class="formcap "> Cantidad de pago prometido </span> $<input
-						type="text" name="N_PROM" value=""> <br></td>
-					<td id=' pagocaptv '><span class="formcap "> Fecha ya
-							pag & oacute ;</span> <SCRIPT LANGUAGE="JavaScript"
-							type="text/javascript"> var cal8 = new CalendarPopup (); cal8 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre	 ', ' octubre ', ' noviembre ', ' diciembre '); cal8 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal8 .setWeekStartDay (1); cal8 .setTodayText (" Hoy ");                             </SCRIPT>
-						<INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOv" VALUE="" SIZE=15>
-						<BUTTON
-							onClick="cal8 .select ( document .getElementById (' D_PAGOv ') , ' anchor8	 ', ' yyyy-MM-dd '); return false ;"
-							NAME="anchor8" ID="anchor8 ">eligir</BUTTON> <br> <span
-						class="formcap "> Cantidad de ya pag & oacute ;</span> $<input
-						type="text" name="N_PAGO" value=""> <br></td>
+						<label for="N_PROMv">Cantidad de pago prometido $</label>
+						<input type="text" name="N_PROM" id="N_PROMv" value=""><br>
+					</td>
+					<td id='pagocaptv'><label for="D_PAGOv">Fecha ya pagó</label>
+						<INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOv" VALUE="" class="fecha" SIZE=15><br>
+						<label for="N_PAGOv"> Cantidad de ya pagó $</label>
+						<input type="text" name="N_PAGO" id="N_PAGOv" value=""><br>
+					</td>
 				</tr>
 			</table>
 			<span class="formcap "> Comentario de promesa </span> <input
