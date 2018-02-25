@@ -618,13 +618,14 @@
 				<option value="Otro ">Otro</option>
 				<option value="Padre ">Padre</option>
 				<option value="Vecino /a">Vecino /a</option>
-			</select> <br> <span class="formcap "> Gestion </span>
-			<textarea rows="2" cols="40" name="C_OBSE1" id=' C_OBSE12 '
+			</select><br>
+			<label for="C_OBSE12">Gestion</label>
+			<textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12'
 				onkeypress="tooLong (this)">
-</textarea>
-			<br> <span class="formcap "> Acci & oacute ;n : </span> <select
-				name="ACCION" style="width: 8 cm;"> <? php foreach ($
-				resultAccionV as $ answerAccionV ) { ?>
+			</textarea><br>
+			<span class="formcap "> Acción : </span> <select
+				name="ACCION" style="width: 8 cm;"> 
+				<?php foreach ($resultAccionV as $answerAccionV ) { ?>
 				<option style='width: 12 cm;'
 					value="<? php	 echo	 $ answerAccionV [ 0 ] ;	 ?>"><? php
 					echo $ answerAccionV [ 0 ] ; ?></option> <? php } ?>
@@ -646,13 +647,9 @@
 			</select> <br>
 			<table>
 				<tr>
-					<td><span class="formcap "> Fecha promesa </span> <SCRIPT
-							LANGUAGE="JavaScript" type="text/javascript"> var cal7 = new CalendarPopup	 (); cal7 .setMonthNames (' enero ' , ' febrero ', ' marzo ', ' abril ', ' mayo ', ' junio ', ' julio ', ' agosto ', ' septiembre	 ', ' octubre ', ' noviembre ', ' diciembre '); cal7 .setDayHeaders (' Do ' , ' Lu ', ' Ma ', ' Mi ', ' Ju ', ' Vi ', ' Sa '); cal7 .setWeekStartDay (1); cal7 .setTodayText (" Hoy ");                             </SCRIPT>
-						<INPUT TYPE="text" NAME="D_PROM" ID="D_PROMv" VALUE="" SIZE=15>
-						<BUTTON
-							onClick="cal7 .select ( document .getElementById (' D_PROMv ') , ' anchor7	 ', ' yyyy-MM-dd '); return false ;"
-							NAME="anchor7" ID="anchor7 ">eligir</BUTTON> <br> <span
-						class="formcap "> Cantidad de pago prometido </span> $<input
+					<td><label for="D_PROMv">Fecha promesa</label>
+						<INPUT TYPE="text" NAME="D_PROM" ID="D_PROMv" VALUE="" class="fecha" SIZE=15>
+						<span class="formcap "> Cantidad de pago prometido </span> $<input
 						type="text" name="N_PROM" value=""> <br></td>
 					<td id=' pagocaptv '><span class="formcap "> Fecha ya
 							pag & oacute ;</span> <SCRIPT LANGUAGE="JavaScript"
