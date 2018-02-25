@@ -2,7 +2,8 @@ $(function() {
     $('.fecha').datepicker();
     $('#tabs').tabs();
     $('#history').dataTable({
-        "bJQueryUI": true
+        "bJQueryUI": true,
+        "order": [[ 1, "desc" ]]
     });
     if (flag > 0) {
         alert(flagmsg +
