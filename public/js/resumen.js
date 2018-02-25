@@ -1,6 +1,7 @@
 $(function() {
     $('.fecha').datepicker();
     $('#tabs').tabs();
+    $('#history').datatable();
     if (flag > 0) {
         alert(flagmsg +
             "\nBuscar para checar que gestion de cuenta " + cuenta +
