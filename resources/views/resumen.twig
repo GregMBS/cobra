@@ -229,19 +229,10 @@
 					{% endif %}
 </tr>
 <tr>					
-<td>Frecuencia</td>
-					<td><input type='text' name=frecuencia readonly='readonly '
-						value='<?php                             if (isset ($frecuencia )) {echo $frecuencia; 	 }?>'>
-					<td>Reestructura</td>
-					<td><input type='text' name=contrato readonly='readonly '
-						value='<?php                             if (isset ($contrato )) {echo $contrato; 	 }?>'>
-					</td>
-					<td>Productos</td>
-					<td><input type='text' name=producto readonly='readonly '
-						value='<?php                             if (!empty ($prods )) {echo $prods; 	 }else {echo htmlentities($producto); 	 }?>'></td>
-					<td>Subproducto</td>
-					<td><input type='text' name=subproducto readonly='readonly'
-						value='<?php echo htmlentities($subproducto); ?>'></td> 
+{% include 'rescell.twig' with {'field': 'frecuencia', 'label': 'Frecuencía', 'value': r.frecuencia} %}
+{% include 'rescell.twig' with {'field': 'contrato', 'label': 'Reestructura', 'value': r.contrato} %}
+{% include 'rescell.twig' with {'field': 'producto', 'label': 'Producto(s)', 'value': r.producto} %}
+{% include 'rescell.twig' with {'field': 'subproducto', 'label': 'Subproductos', 'value': r.subproducto} %}
 				</tr>
 				<tr>
 {% include 'rescell.twig' with {'field': 'fecha_de_ultimo_pago', 'label': 'Fecha de último pago', 'value': r.fecha_de_ultimo_pago} %}
