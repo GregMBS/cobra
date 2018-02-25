@@ -125,7 +125,7 @@ telefonos_marcados regexp :find)";
             $querymain = $querymain . " and cliente = :cliente ";
             $cliFlag = 1;
         }
-        $querymain .= " LIMIT 1000";
+        $querymain .= " LIMIT 10000";
         try {
             $stm = $this->pdo->prepare($querymain);
             $stm->bindParam(':find', $find);
