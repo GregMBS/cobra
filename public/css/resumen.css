@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-body {
-	font-family: verdana, arial, helvetica, sans-serif;
-	font-size: 10pt;
-	background-color: #ffffff;
-	color: #000000;
-}
-
 .hidebox {
 	display: none
 }
@@ -152,11 +145,6 @@ a:active {
 	display: block;
 	width: 14em;
 	float: left;
-}
-
-div {
-	border: 1pt black solid;
-	background-color: #ffffff;
 }
 
 #demobox {
