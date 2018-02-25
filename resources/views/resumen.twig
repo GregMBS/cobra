@@ -956,42 +956,32 @@
 					</td>
 					<td>$<input type="text" name="N_PROM3_OLD" size="8"
 						readonly="readonly"
-						value="<?php                             if (isset ($N_PROM3_OLD )) {echo 	$N_PROM3_OLD; 	 }?>"><br>
+						value="{{ N_PROM3_OLD }}"><br>
 				</tr>
 				<tr>
-					<td>Fecha promesa 3o <SCRIPT LANGUAGE="JavaScript"
-							type="text/javascript">var cal5c = new CalendarPopup (); var yesterday  	= new Date (); yesterday.setDate (yesterday.getDate () - 1); cal5c.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal5c.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal5c.setWeekStartDay (1); cal5c.setTodayText ("Hoy 	");                                 cal5c.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal5c.addDisabledDates ('<?php echo $dday2 	 ; ?>', null ); </SCRIPT>
+					<td>Fecha promesa 3&deg;</td>
+					<td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE="" class="fecha" SIZE=15>
 					</td>
-					<td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE=""
-						SIZE=15>
-						<BUTTON
-							onClick="cal5c.select (document.getElementById ('D_PROM3 '), 'anchor5c 	 ', 'yyyy-MM-dd '); return false ;"
-							NAME="anchor5c" ID="anchor5c ">eligir</BUTTON></td>
 					<td><input type="text" name="D_PROM3_OLD"
 						style="background-color: #c0c0c0;" readonly="readonly"
-						value="<?php                             if (isset ($D_PROM3_OLD )) {echo 	$D_PROM3_OLD; 	 }?>"></td>
+						value="{{ D_PROM3_OLD }}"><br>
 				</tr>
 				<tr>
-					<td>Cant . de promesa 4o</td>
+					<td>Cant. de promesa 4&deg;</td>
 					<td>$<input type="text" name="N_PROM4" value="0"
-						onchange="npromChange (this.form );" onmouseover='this.focus ();'>
+						onchange="npromChange(this.form);" onmouseover='this.focus();'>
 					</td>
 					<td>$<input type="text" name="N_PROM4_OLD" size="8"
 						readonly="readonly"
-						value="<?php                             if (isset ($N_PROM4_OLD )) {echo 	$N_PROM4_OLD; 	 }?>"><br>
+						value="{{ N_PROM4_OLD }}"><br>
 				</tr>
 				<tr>
-					<td>Fecha promesa 4o <SCRIPT LANGUAGE="JavaScript"
-							type="text/javascript">var cal5d = new CalendarPopup (); var yesterday  	= new Date (); yesterday.setDate (yesterday.getDate () - 1); cal5d.setMonthNames  	('enero ', 'febrero ', 'marzo ', 'abril ', 'mayo 	 ', 'junio ', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre 	 ', 'diciembre '); cal5d.setDayHeaders ('Do ', 'Lu ', 'Ma ', 'Mi ', 'Ju  	', 'Vi ', 'Sa '); cal5d.setWeekStartDay (1); cal5d.setTodayText ("Hoy 	");                                 cal5d.addDisabledDates (null, formatDate 	 (yesterday, "yyyy-MM-dd ")); cal5d.addDisabledDates ('<?php echo $dday2 	 ; ?>', null ); </SCRIPT>
+					<td>Fecha promesa 4&deg;<</td>
+					<td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE="" class="fecha" SIZE=15>
 					</td>
-					<td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE=""
-						SIZE=15>
-						<BUTTON
-							onClick="cal5d.select (document.getElementById ('D_PROM4 '), 'anchor5d 	 ', 'yyyy-MM-dd '); return false ;"
-							NAME="anchor5d" ID="anchor5d ">eligir</BUTTON></td>
 					<td><input type="text" name="D_PROM4_OLD"
 						style="background-color: #c0c0c0;" readonly="readonly"
-						value="<?php                             if (isset ($D_PROM4_OLD )) {echo 	$D_PROM4_OLD; 	 }?>"></td>
+						value="{{ D_PROM4_OLD }}"><br>
 				</tr>
 				<tr>
 					<td>Frecuencia de promesa</td>
