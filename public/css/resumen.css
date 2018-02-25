@@ -61,8 +61,12 @@ select, input, button {
 
 input {
 	font-family: verdana, arial, helvetica, sans-serif;
-	font-size: 100%;
+	font-size: 80%;
 	font-weight: bold;
+}
+
+.ui-tabs-tab {
+	font-size: 80%;
 }
 
 #GESTION input {
