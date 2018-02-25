@@ -203,58 +203,39 @@
 		<div id="CONTABLES">
 			<table>
 				<tr>
-                {% include 'rescell.twig' with {'field': 'numero_de_credito', 'label': 'Numero de credito', 'value': r.numero_de_cuenta} %}
-				{% include 'rescell.twig' with {'field': 'id_cuenta', 'label': 'ID cuenta', 'value': r.id_cuenta} %}
-				{% include 'rescell.twig' with {'field': 'rfc_deudor', 'label': 'RFC deudor', 'value': r.rfc_deudor} %}
+{% include 'rescell.twig' with {'field': 'numero_de_credito', 'label': 'Numero de credito', 'value': r.numero_de_cuenta} %}
+{% include 'rescell.twig' with {'field': 'id_cuenta', 'label': 'ID cuenta', 'value': r.id_cuenta} %}
+{% include 'rescell.twig' with {'field': 'status_de_credito', 'label': 'Segmento', 'value': r.status_de_credito} %}
+{% include 'rescell.twig' with {'field': 'rfc_deudor', 'label': 'RFC deudor', 'value': r.rfc_deudor} %}
 				</tr>
 				<tr>
-				{% include 'rescell.twig' with {'field': 'fecha_de_asignacion', 'label': 'Fecha de asignación', 'value': r.fecha_de_asignacion} %}
-				{% include 'rescell.twig' with {'field': 'fecha_de_actualizacion', 'label': 'Fecha de actualización', 'value': r.fecha_de_actualizacion} %}
-				{% include 'rescell.twig' with {'field': 'fecha_de_deasignacion', 'label': 'Fecha de retiro', 'value': r.fecha_de_deasignacion} %}
+{% include 'rescell.twig' with {'field': 'fecha_de_asignacion', 'label': 'Fecha de asignación', 'value': r.fecha_de_asignacion} %}
+{% include 'rescell.twig' with {'field': 'fecha_de_actualizacion', 'label': 'Fecha de actualización', 'value': r.fecha_de_actualizacion} %}
+{% include 'rescell.twig' with {'field': 'fecha_de_deasignacion', 'label': 'Fecha de retiro', 'value': r.fecha_de_deasignacion} %}
 				</tr>
 				<tr>
 {% include 'rescell.twig' with {'field': 'saldo_total', 'label': 'Saldo total', 'value': r.saldo_total|number_format} %}
 {% include 'rescell.twig' with {'field': 'saldo_descuento_2', 'label': 'Saldo descuento', 'value': r.saldo_descuento_2|number_format} %}
 {% include 'rescell.twig' with {'field': 'pcDescuento', 'label': '% decuento', 'value': ((100 - (100 * r.saldo_descuento_2 / r.saldo_total))|round) ~ '%'  } %}
-
 				</tr>
 				<tr>
-<td>Saldo cuota</td>
-					<td><input type='text' id='saldo_cuota' readonly='readonly'
-						value='{{ r.saldo_cuota|number_format }}'>
-					</td>
+{% include 'rescell.twig' with {'field': 'saldo_cuota', 'label': 'Saldo cuota', 'value': r.saldo_cuota|number_format} %}
+{% include 'rescell.twig' with {'field': 'saldo_vencido', 'label': 'Saldo vencido', 'value': r.saldo_vencido|number_format} %}
 					{% if r.saldo_descuento_1 > 0 %}
-					<td>Saldo total sin gastos</td>
-					<td><input type='text' name='saldo_descuento_1'
-						readonly='readonly' value='{{ r.saldo_descuento_1|number_format }}'></td>
-                    {% endif %}					
-                     {% if r.gastos_de_cobranza > 0 %}
-					<td>Gastos de Cobranza</td>
-					<td><input type='text' name='gastos_de_cobranza'
-						readonly='readonly'
-						value='{{ r.gastos_de_cobranza|number_format }}'></td>
+{% include 'rescell.twig' with {'field': 'saldo_descuento_1', 'label': 'Saldo capital', 'value': r.saldo_descuento_1|number_format} %}
 					{% endif %}					
-                     {% if r.monto_adeudado> 0 %}
-					<td>Monto en Contención</td>
-					<td><input type='text' name='monto_adeudado'
-						readonly='readonly'
-						value='{{ r.monto_adeudado|number_format }}'></td>
+                    {% if r.monto_adeudado> 0 %}
+{% include 'rescell.twig' with {'field': 'monto_adeudado', 'label': 'Monto en Contención', 'value': r.monto_adeudado|number_format} %}
 					{% endif %}
-					<td>% descuento</td>
-					<td><input type=' text' name=descuento readonly='readonly'
-						value='<? php                             if ($ saldo_descuento_1> 0) { echo number_format (100 - ($ saldo_descuento_2 / $ saldo_descuento_1 ) * 100) . "%"; } else {echo number_format(100 - ($saldo_descuento_2 / ($saldo_total + 	0.01)) * 100) . "%"; 	 }?>'></td>
-					<td>Frecuencia</td>
+</tr>
+<tr>					
+<td>Frecuencia</td>
 					<td><input type='text' name=frecuencia readonly='readonly '
 						value='<?php                             if (isset ($frecuencia )) {echo $frecuencia; 	 }?>'>
 					<td>Reestructura</td>
 					<td><input type='text' name=contrato readonly='readonly '
 						value='<?php                             if (isset ($contrato )) {echo $contrato; 	 }?>'>
 					</td>
-				</tr>
-				<tr>
-					<td>Saldo vencido</td>
-					<td><input type='text' name=saldo_vencido
-						readonly='readonly ' value='<?php echo '$' . number_format ($saldo_vencido ); ?>'></td>
 					<td>Productos</td>
 					<td><input type='text' name=producto readonly='readonly '
 						value='<?php                             if (!empty ($prods )) {echo $prods; 	 }else {echo htmlentities($producto); 	 }?>'></td>
@@ -263,28 +244,10 @@
 						value='<?php echo htmlentities($subproducto); ?>'></td> 
 				</tr>
 				<tr>
-					<td>Fecha - ultimo pago</td>
-					<td><input type='text' name=fecha_de_ultimo_pago
-						readonly='readonly '
-						value='<?php                             if (isset ($fecha_de_ultimo_pago )) {echo 	$fecha_de_ultimo_pago; 	 }?>'></td>
-					<td>Monto ultimo pago</td>
-					<td><input type='text' name=monto_ultimo_pago
-						readonly='readonly '
-						value='<?php                             if (isset ($monto_ultimo_pago )) {echo '$' . 	number_format($monto_ultimo_pago); 	 }?>'></td>
-				</tr>
-				<tr>
-					<td>Segmento</td>
-					<td><input type='text' name=status_de_credito
-						readonly='readonly '
-						value='<?php                             if (isset ($status_de_credito )) {echo 	$status_de_credito; 	 }?>'></td>
-					<td>Meses vencidos</td>
-					<td><input type='text' name=pagos_vencidos
-						readonly='readonly '
-						value='<?php                             if (isset ($pagos_vencidos )) {echo 	$pagos_vencidos; 	 }?>'>
-					<td>D &iacute ;as vencidos</td>
-					<td><input type='text' name=dias_vencidos
-						readonly='readonly '
-						value='<?php                             if (isset ($dias_vencidos )) {echo 	$dias_vencidos; 	 }?>'><br>
+{% include 'rescell.twig' with {'field': 'fecha_de_ultimo_pago', 'label': 'Fecha de último pago', 'value': r.fecha_de_ultimo_pago} %}
+{% include 'rescell.twig' with {'field': 'monto_ultimo_pago', 'label': 'Monto último pago', 'value': r.monto_ultimo_pago|number_format} %}
+{% include 'rescell.twig' with {'field': 'pagos_vencidos', 'label': 'Meses vencidos', 'value': r.pagos_vencidos|number_format} %}
+{% include 'rescell.twig' with {'field': 'dias_vencidos', 'label': 'Días vencidos', 'value': r.dias_vencidos|number_format} %}
 				</tr>
 			</table>
 		</div>
