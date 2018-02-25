@@ -54,12 +54,12 @@ span.formfirst {
 	float: left;
 }
 
-select, input, button {
-	font-family: verdana, arial, helvetica, sans-serif;
-	font-size: 100%
+.buttons input {
+	font-size: 80%;
+	font-weight: bold;
 }
 
-.buttons {
+.buttons button {
 	font-size: 80%;
 	font-weight: bold;
 }
