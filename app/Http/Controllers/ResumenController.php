@@ -57,8 +57,12 @@ class ResumenController extends Controller
         $capt = auth()->user()->capt;
         $id_cuenta = $this->rc->lastGestion($capt);
         $result = $this->rqc->getOne($id_cuenta);
+        $history = $this->rc->getHistory($id_cuenta);
         $from = 'ultima';
-        $view = view('resumen')->with('r', $result)->with('from', $from);
+        $view = view('resumen')
+        ->with('r', $result)
+        ->with('history', $history)
+        ->with('from', $from);
         return $view;
     }
     
@@ -70,8 +74,12 @@ class ResumenController extends Controller
     public function find($id_cuenta)
     {
         $result = $this->rqc->getOne($id_cuenta);
+        $history = $this->rc->getHistory($id_cuenta);
         $from = 'find';
-        $view = view('resumen')->with('r', $result)->with('from', $from);
+        $view = view('resumen')
+        ->with('r', $result)
+        ->with('history', $history)
+        ->with('from', $from);
         return $view;
     }
 
@@ -135,8 +143,12 @@ class ResumenController extends Controller
     {
         $capt = auth()->user()->capt;
         $camp = auth()->user()->camp;
-        $resumen = $this->rqc->getResumen($capt, $camp);
-        $view = view('resumen')->with('r', $resumen);
+        $result = $this->rqc->getResumen($capt, $camp);
+        $id_cuenta = $result['id_cuenta'];
+        $history = $this->rc->getHistory($id_cuenta);
+        $view = view('resumen')
+        ->with('r', $result)
+        ->with('history', $history);
         return $view;
     }
 }
