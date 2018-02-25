@@ -117,7 +117,7 @@
 							{% if numgest > 40 %}
 								{% set ngclass = 'high' %}
 							{% endif %}
-							<input type="text" id="numgest" class="{{ ngclass }}" readonly ="readonly" 
+							<input type="text" id="numgest" class="{{ ngclass }}"readonly="readonly" 
 							value ="{{ numgest ~ ' gestiones'}}">
 						</div>
 					</td>
@@ -156,7 +156,7 @@
 			<LI><A href="#LABORAL">LABORAL</A></LI>
 			<LI><A href="#CONTABLES">CONTABLES</A></LI>
 			<LI><A href="#MISCELANEA">MISCELANEA</A></LI>
-			<LI><A href="#tabs-1">CAPTURA VISITA</A></LI>
+			<LI><A href="#VISITA">CAPTURA VISITA</A></LI>
 			<LI><A href="#HISTORIA">HISTORIA</A></LI>
 		</UL>
 		<div id="TELEFONOS">
@@ -246,23 +246,25 @@
 					<td><input type='text' id='saldo_total' readonly='readonly'
 						value='{{ r.saldo_total|number_format }}'>
 					</td>
-					<? php if ($ saldo_descuento_1> 0) { ?>
+					{% if r.saldo_descuento_1 > 0 %}
 					<td>Saldo total sin gastos</td>
-					<td><input type=' text' name=saldo_descuento_1
-						readonly=' readonly ' value='<? php echo '$' . number_format ($ saldo_descuento_1 ); ?>'></td>
-					<? php } if ($ gastos_de_cobranza> 0) { ?>
+					<td><input type='text' name='saldo_descuento_1'
+						readonly='readonly' value='{{ r.saldo_descuento_1|number_format }}'></td>
+                    {% endif %}					
+                     {% if r.gastos_de_cobranza > 0 %}
 					<td>Gastos de Cobranza</td>
-					<td><input type=' text' name=gastos_de_cobranza
-						readonly=' readonly '
-						value='<? php                                 echo '$' . number_format ($ gastos_de_cobranza );                                 ?>'></td>
-					<? php } if ($ monto_adeudado> 0) { ?>
+					<td><input type='text' name='gastos_de_cobranza'
+						readonly='readonly'
+						value='{{ r.gastos_de_cobranza|number_format }}'></td>
+					{% endif %}					
+                     {% if r.monto_adeudado> 0) %}
 					<td>Monto en Contención</td>
-					<td><input type=' text' name=monto_adeudado
-						readonly=' readonly '
-						value='<? php                                 echo '$' . number_format ($ monto_adeudado );                                 ?>'></td>
-					<? php } ?>
+					<td><input type='text' name='monto_adeudado'
+						readonly='readonly'
+						value='{{ r.monto_adeudado|number_format }}'></td>
+					{% endif %}
 					<td>% descuento</td>
-					<td><input type=' text' name=descuento readonly=' readonly '
+					<td><input type=' text' name=descuento readonly='readonly'
 						value='<? php                             if ($ saldo_descuento_1> 0) { echo number_format (100 - ($ saldo_descuento_2 / $ saldo_descuento_1 ) * 100) . "%"; } else {echo number_format(100 - ($saldo_descuento_2 / ($saldo_total + 	0.01)) * 100) . "%"; 	 }?>'></td>
 					<td>Frecuencia</td>
 					<td><input type='text' name=frecuencia readonly='readonly '
