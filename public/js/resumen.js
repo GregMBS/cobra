@@ -1,5 +1,6 @@
 $(function() {
     $('.fecha').datepicker();
+    $('#tabs').tabs();
     if (flag > 0) {
         alert(flagmsg +
             "\nBuscar para checar que gestion de cuenta " + cuenta +
@@ -23,6 +24,7 @@ $(function() {
     if (inactivo.test(sdc) && (tipo != 'admin')) {
         $('#GUARTbutt').hide();
     }
+    openSearch();
 });
 
 function clock() {
