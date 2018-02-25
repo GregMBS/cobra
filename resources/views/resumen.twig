@@ -220,7 +220,7 @@
 				<tr>
 {% include 'rescell.twig' with {'field': 'saldo_total', 'label': 'Saldo total', 'value': r.saldo_total|number_format} %}
 {% include 'rescell.twig' with {'field': 'saldo_descuento_2', 'label': 'Saldo descuento', 'value': r.saldo_descuento_2|number_format} %}
-{% include 'rescell.twig' with {'field': 'pcDescuento', 'label': '% decuento', 'value': ((100 - (100 * r.saldo_descuento_2 / r.saldo_total))|round) ~ '%'  } %}
+{% include 'rescell.twig' with {'field': 'pcDescuento', 'label': '% decuento', 'value': ((100 - (100 * r.saldo_descuento_2 / (r.saldo_total + 0.001)))|round) ~ '%'  } %}
 				</tr>
 				<tr>
 {% include 'rescell.twig' with {'field': 'saldo_cuota', 'label': 'Saldo cuota', 'value': r.saldo_cuota|number_format} %}
