@@ -287,19 +287,23 @@ and tipo IN ('visitador','admin')";
     /**
      * 
      * @param string $capt
-     * @return array
+     * @return int
      */
     public function getNumGests($capt) {
-        $queryng = "SELECT count(1) as cng FROM historia 
+        $cng = 0;
+        $query = "SELECT count(1) as cng FROM historia 
 WHERE c_cvge=:capt 
 AND d_fech=curdate()
 AND c_cont <> 0
 ";
-        $stn = $this->pdo->prepare($queryng);
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':capt', $capt);
         $stn->execute();
-        $resultng = $stn->fetch();
-        return $resultng;
+        $result = $stn->fetch();
+        if ($result['cng']) {
+            $cng = $result['cng'];
+        }
+        return $cng;
     }
 
     /**
