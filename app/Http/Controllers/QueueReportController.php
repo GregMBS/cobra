@@ -20,7 +20,7 @@ class QueueReportController extends Controller
     {
         $normal = $this->qc->normalQueues();
         $special = $this->qc->specialQueues();
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $view = view('queuesqc')
         ->with('capt', $capt)
         ->with('normal', $normal)

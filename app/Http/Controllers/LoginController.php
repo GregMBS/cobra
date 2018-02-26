@@ -51,7 +51,7 @@ class LoginController extends Controller
             'salir',
             'error'
         );
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $redirect = redirect('/');
         if ($capt) {
             $this->loc->processLogout($capt, $why);

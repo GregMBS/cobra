@@ -13,7 +13,7 @@ class RotasController extends Controller
      * @return View
      */
     public function index(RotasClass $rc) {
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $tipo = auth()->user()->tipo;
         $result = $rc->getRotas($capt, $tipo);
         $view = view('rotas')->with('result', $result)->with('tipo', $tipo);

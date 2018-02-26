@@ -40,8 +40,8 @@ class MigoController extends Controller
      * @return View
      */
     private function userList() {
-        $result = $this->mc->userReport(auth()->user()->capt);
-        $view = view('migo')->with('result', $result)->with('capt', auth()->user()->capt);
+        $result = $this->mc->userReport(auth()->user()->iniciales);
+        $view = view('migo')->with('result', $result)->with('capt', auth()->user()->iniciales);
         return $view;
     }
 }

@@ -53,7 +53,7 @@ class BuscarController extends Controller
         ->with('field', $field)
         ->with('find', $find)
         ->with('from', $from)
-        ->with('capt', auth()->user()->capt)
+        ->with('capt', auth()->user()->iniciales)
         ->with('result', $result)
         ->with('resultcl', $clienteList);
         return $view;

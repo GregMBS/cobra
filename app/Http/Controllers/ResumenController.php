@@ -61,7 +61,7 @@ class ResumenController extends Controller
      */
     public function ultima()
     {
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $id_cuenta = $this->rc->lastGestion($capt);
         $result = $this->rqc->getOne($id_cuenta);
         $history = $this->rc->getHistory($id_cuenta);
@@ -77,7 +77,7 @@ class ResumenController extends Controller
      */
     public function find($id_cuenta)
     {
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $result = $this->rqc->getOne($id_cuenta);
         $history = $this->rc->getHistory($id_cuenta);
         $from = 'find';
@@ -143,7 +143,7 @@ class ResumenController extends Controller
      */
     public function index()
     {
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $camp = auth()->user()->camp;
         $result = $this->rqc->getResumen($capt, $camp);
         $id_cuenta = $result['id_cuenta'];
