@@ -165,6 +165,7 @@ class ResumenController extends Controller
         $id_cuenta = $result['id_cuenta'];
         $tipo = auth()->user()->tipo;
         $numgest = $this->rc->getNumGests($capt);
+        dd($numgest);
         $tl = $this->rc->getTimelock($id_cuenta);
         $notas = $this->nc->notAlert($capt);
         $view = view('resumen')
