@@ -156,7 +156,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
                     . "order by dictamen";
         }
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchColumn(0);
     }
 
     /**
@@ -166,7 +166,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     public function getDictV() {
         $mytipo = 'visitador';
         $result = $this->getDict($mytipo);
-        return $result;
+        return $result->fetchColumn(0);
     }
 
     /**
@@ -176,7 +176,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     public function getMotiv() {
         $query = "SELECT motiv FROM motivadores order by motiv";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchColumn(0);
     }
 
     /**
@@ -186,7 +186,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     public function getMotivV() {
         $query = "SELECT motiv FROM motivadores where visitas = 1 order by motiv";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchColumn(0);
     }
 
     /**
@@ -196,7 +196,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     public function getCnp() {
         $query = "SELECT status FROM cnp";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchColumn(0);
     }
 
     /**
@@ -206,7 +206,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     public function getAccion() {
         $query = "SELECT accion FROM acciones where callcenter=1";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchColumn(0);
     }
 
     /**
@@ -216,7 +216,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     public function getAccionV() {
         $query = "SELECT accion FROM acciones where visitas=1";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchColumn(0);
     }
 
     /**
