@@ -167,10 +167,22 @@ class ResumenController extends Controller
         $numgest = $this->rc->getNumGests($capt);
         $tl = $this->rc->getTimelock($id_cuenta);
         $notas = $this->nc->notAlert($capt);
+        $acciones = $this->rc->getAccion();
+        $accionesV = $this->rc->getAccionV();
+        $dictamenes = $this->rc->getDict($tipo);
+        $dictamenesV = $this->rc->getDictV();
+        $motiv = $this->rc->getMotiv();
+        $motivV = $this->rc->getMotivV();
         $view = view('resumen')
         ->with('r', $result)
         ->with('history', $history)
         ->with('notas', $notas)
+        ->with('acciones', $acciones)
+        ->with('accionesV', $accionesV)
+        ->with('dictamenes', $dictamenes)
+        ->with('dictamenesV', $dictamenesV)
+        ->with('motiv', $motiv)
+        ->with('motivV', $motivV)
         ->with('capt', $capt)
         ->with('tipo', $tipo)
         ->with('tl', $tl)
