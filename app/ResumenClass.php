@@ -137,7 +137,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     /**
      * 
      * @param string $mytipo
-     * @return array
+     * @return string[]
      */
     public function getDict($mytipo) {
         $query = "SELECT dictamen,v_cc,judicial "
@@ -156,12 +156,14 @@ where id_cuenta=:id_cuenta LIMIT 1";
                     . "order by dictamen";
         }
         $result = $this->pdo->query($query);
-        return $result->fetchColumn(0);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getDictV() {
         $mytipo = 'visitador';
@@ -171,52 +173,62 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getMotiv() {
         $query = "SELECT motiv FROM motivadores order by motiv";
         $result = $this->pdo->query($query);
-        return $result->fetchColumn(0);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getMotivV() {
         $query = "SELECT motiv FROM motivadores where visitas = 1 order by motiv";
         $result = $this->pdo->query($query);
-        return $result->fetchColumn(0);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getCnp() {
         $query = "SELECT status FROM cnp";
         $result = $this->pdo->query($query);
-        return $result->fetchColumn(0);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getAccion() {
         $query = "SELECT accion FROM acciones where callcenter=1";
         $result = $this->pdo->query($query);
-        return $result->fetchColumn(0);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getAccionV() {
         $query = "SELECT accion FROM acciones where visitas=1";
         $result = $this->pdo->query($query);
-        return $result->fetchColumn(0);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
