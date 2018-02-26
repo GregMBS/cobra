@@ -268,10 +268,12 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @return array
      */
     public function getGestorList() {
-        $queryGestor = "SELECT usuaria,completo FROM nombres 
+        $query = "SELECT iniciales FROM nombres 
     ORDER BY usuaria";
-        $resultGestor = $this->pdo->query($queryGestor);
-        return $resultGestor;
+        $result = $this->pdo->query($query);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
@@ -291,9 +293,11 @@ and tipo IN ('visitador','admin')";
      * @return array
      */
     public function getClientList() {
-        $querycl = "SELECT cliente FROM clientes;";
-        $resultcl = $this->pdo->query($querycl);
-        return $resultcl;
+        $query = "SELECT cliente FROM clientes;";
+        $result = $this->pdo->query($query);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
