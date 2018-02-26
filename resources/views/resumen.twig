@@ -718,35 +718,16 @@
                     </td>
                     <td colspan=2>
                         Acción 
-                        <select name="ACCION"
-                            id="ACCION">
-                            <?php foreach ($resultAccion as
-                                $answerAccion ) { ?>
-                            <option value="<?php echo $answerAccion[ 0] ;  	?>"
-                                style="font-size: 120%;"><? php if (isset
-                                ($answerAccion[ 0] )) {echo $answerAccion[0]; }?></option>
-                            <? php } ?>
+                        <select name="ACCION" id="ACCION">
+                            {% include 'resopt.twig' with {'list': acciones} %}
                         </select>
                         <br>Status 
-                        <select name="C_CVST" id="C_CVST"
-                            onblur="statusChange (this.form );">
-                            <option value=''></option>
-                            <?php foreach ($resultDictamen as
-                                $answerDictamen ) { ?>
-                            <option
-                                value="<?php if 	 (isset ($answerDictamen[ 0] )) {echo htmlentities($answerDictamen[0]); 	 }?>"
-                                style="font-size: 120%;"><? php if ( isset ($
-                                answerDictamen [ 0 ] )) { echo htmlentities ($answerDictamen [ 0
-                                ] ); } ?></option>
-                            <? php } ?>
+                        <select name="C_CVST" id="C_CVST" onblur="statusChange(this.form);">
+                            {% include 'resopt.twig' with {'list': dictamenes} %}
                         </select>
                         <br>Causa no pago 
                         <select name="C_CNP" id="C_CNP">
-                            <?php foreach ($resultCnp as $answerCnp ) { ?>
-                            <option value="<?php echo 	 $answerCnp[ 0] ; ?>"
-                                style="font-size: 120%;"><? php if (isset ($answerCnp[
-                                0] )) {echo htmlentities($answerCnp[0]); }?></option>
-                            <? php } ?>
+                            {% include 'resopt.twig' with {'list': cnp} %}
                         </select>
                     </td>
                 </tr>
@@ -754,43 +735,36 @@
                     <td>Motivadores</td>
                     <td>
                         <select id="C_MOTIV" name="C_MOTIV">
-                            <option value=""><? php foreach ($ resultMotiv as $
-                                answerMotiv ) { ?>
-                            <option value="<?php echo $ answerMotiv [ 0 ] ;	 ?>"><?
-                                php echo $ answerMotiv [ 0 ] ; ?></option>
-                            <? php } ?>
+                            {% include 'resopt.twig' with {'list': motiv} %}
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Se necesita localizar <input type="checkbox"
-                        name="LOCALIZAR" id="localizar "<?php if (!empty
-                            ($localizar )) {echo 'selected="selected"'; }?>>
+                        name="LOCALIZAR" id="localizar"
+                        {% if localizar != '' %}
+                        selected="selected"
+						{% endif %}
+						>
                     </td>
                     <td colspan=2>
                         Localizable 
                         <select name=' CUANDO '>
                             <option value=""></option>
-                            <option value="madrugada "<?php if ($ CUANDO == '
-                                madrugada ') { echo ' selected ="selected"'; } ?>> madrugada</option>
-                            <option value="manana "<?php if ($ CUANDO == ' manana ')
-                                { echo ' selected ="selected"'; } ?>> mañana</option>
-                            <option value="tarde "<?php if ($ CUANDO == ' tarde ') {
-                                echo ' selected ="selected"'; } ?>> tarde</option>
-                            <option value="noche "<?php if ($ CUANDO == ' noche ') {
-                                echo ' selected ="selected"'; } ?>> noche</option>
-                            <option value="robot "<?php if ($ CUANDO == ' robot ') {
-                                echo ' selected ="selected"'; } ?>> robot</option>
-                            <option value="visita "<?php if ($ CUANDO == ' visita ')
-                                { echo ' selected ="selected"'; } ?>> visita</option>
+                            <option value="madrugada">madrugada</option>
+                            <option value="manana">mañana</option>
+                            <option value="tarde">tarde</option>
+                            <option value="noche">noche</option>
+                            <option value="robot">robot</option>
+                            <option value="visita">visita</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td>Cant . de promesa unico o 1&deg;</td>
+                    <td>Cant. de promesa unico o 1&deg;</td>
                     <td>$<input type="text" name="N_PROM1" value="0" size="8"
-                        onchange="npromChange (this.form );" onmouseover='this.focus();'>
+                        onchange="npromChange(this.form);" onmouseover ='this.focus();'>
                     </td>
                     <td>$<input type="text" name="N_PROM1_OLD" readonly="readonly"
                         size="8" value="{{ N_PROM1_OLD }}"></td>
@@ -801,16 +775,16 @@
                         class="fecha" SIZE=15></td>
                     <td><input type="text" name="D_PROM1_OLD"
                         style="background-color: #c0c0c0;" readonly="readonly"
-                        value="<?php                             if (isset ($D_PROM1_OLD )) {echo 	$D_PROM1_OLD; 	 }?>"></td>
+                        value="{{ D_PROM1_OLD }}"></td>
                 </tr>
                 <tr>
-                    <td>Cant . de promesa 2&deg;</td>
+                    <td>Cant. de promesa 2&deg;</td>
                     <td>$<input type="text" name="N_PROM2" value="0"
-                        onchange="npromChange (this.form );" onmouseover='this.focus();'>
+                        onchange="npromChange(this.form);" onmouseover='this.focus();'>
                     </td>
                     <td>$<input type="text" name="N_PROM2_OLD" size="8"
                         readonly="readonly"
-                        value="<?php                             if (isset ($N_PROM2_OLD )) {echo 	$N_PROM2_OLD; 	 }?>"><br>
+                        value="{{ N_PROM2_OLD }}"><br>
                 </tr>
                 <tr>
                     <td>Fecha promesa 2&deg;</td>
@@ -858,23 +832,23 @@
                         <select name="C_PROM" id="C_PROM">
                             <option selected="selected" value=""></option>
                             <option value="unico">Unico</option>
-                            <option value="dos pagos 	">Dos pagos</option>
+                            <option value="dos pagos">Dos pagos</option>
                             <option value="semanales">Semanales</option>
                             <option value="quincenales">Quincenales</option>
                             <option value="mensuales">Mensuales</option>
-                            <option value="otro">Otro (en Gestion comentas )</option>
+                            <option value="otro">Otro (en Gestión comentas)</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td>Cant . de promesa total</td>
+                    <td>Cant. de promesa total</td>
                     <td><input type="text" name="N_PROM" id="N_PROM"
                         readonly="readonly" style="background-color: #c0c0c0;" value="">
                     </td>
                     <td>Cant . prometido anterior</td>
                     <td><input type="text	" name="N_PROM_OLD" id="N_PROM_OLD"
                         readonly="readonly" style="background-color: #c0c0c0;"
-                        value="<?php                             if (isset ($N_PROM_OLD )) {echo 	floor($N_PROM_OLD); 	 }?>"></td>
+                        value="{{ N_PROM_OLD }}"></td>
                 </tr>
                 <tr id="pagocapt">
                     <td>Monto Pagó</td>
@@ -893,13 +867,13 @@
                 <tr>
                     <td>Tel .</td>
                     <td><input type="text" name="C_NTEL" value=""
-                        onmouseover='this.focus();' onChange="addToTels (4, this )">
+                        onmouseover='this.focus();' onChange="addToTels(4, this)">
                     </td>
                 </tr>
                 <tr>
                     <td>Tel 2.</td>
                     <td><input type="text" size=50 name="C_OBSE2" value=""
-                        onmouseover='this.focus();' onChange="addToTels 	(5, this )">
+                        onmouseover='this.focus();' onChange="addToTels(5, this)">
                     </td>
                 </tr>
                 <tr>
@@ -914,8 +888,8 @@
                 </tr>
             </table>
             <input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR"
-                ondblclick="return false ;">
-            <button type="button" value="RESET 	"
+                ondblclick="return false;">
+            <button type="button" value="RESET"
                 onclick="this.form.GUARDAR.disabled = false">RESET</button>
             <br>
         </div>
