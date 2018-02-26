@@ -166,7 +166,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     public function getDictV() {
         $mytipo = 'visitador';
         $result = $this->getDict($mytipo);
-        return $result->fetchColumn(0);
+        return $result;
     }
 
     /**
