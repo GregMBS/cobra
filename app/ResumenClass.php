@@ -21,28 +21,29 @@ class ResumenClass extends BaseClass {
      *
      * @var string
      */
-    private $badNoQuery = "select if(tel_1 in (select * from deadlines),' class=\"badno\" ','') as t1,
-if(tel_2 in (select * from deadlines),' class=\"badno\" ','') as t2,
-if(tel_3 in (select * from deadlines),' class=\"badno\" ','') as t3,
-if(tel_4 in (select * from deadlines),' class=\"badno\" ','') as t4,
-if(tel_1_alterno in (select * from deadlines),' class=\"badno\" ','') as t1a,
-if(tel_2_alterno in (select * from deadlines),' class=\"badno\" ','') as t2a,
-if(tel_3_alterno in (select * from deadlines),' class=\"badno\" ','') as t3a,
-if(tel_4_alterno in (select * from deadlines),' class=\"badno\" ','') as t4a,
-if(tel_1_ref_1 in (select * from deadlines),' class=\"badno\" ','') as t1r1,
-if(tel_2_ref_1 in (select * from deadlines),' class=\"badno\" ','') as t2r1,
-if(tel_1_ref_2 in (select * from deadlines),' class=\"badno\" ','') as t1r2,
-if(tel_2_ref_2 in (select * from deadlines),' class=\"badno\" ','') as t2r2,
-if(tel_1_ref_3 in (select * from deadlines),' class=\"badno\" ','') as t1r3,
-if(tel_2_ref_3 in (select * from deadlines),' class=\"badno\" ','') as t2r3,
-if(tel_1_ref_4 in (select * from deadlines),' class=\"badno\" ','') as t1r4,
-if(tel_2_ref_4 in (select * from deadlines),' class=\"badno\" ','') as t2r4,
-if(tel_1_laboral in (select * from deadlines),' class=\"badno\" ','') as t1l,
-if(tel_2_laboral in (select * from deadlines),' class=\"badno\" ','') as t2l,
-if(tel_1_verif in (select * from deadlines),' class=\"badno\" ','') as t1v,
-if(tel_2_verif in (select * from deadlines),' class=\"badno\" ','') as t2v,
-if(tel_3_verif in (select * from deadlines),' class=\"badno\" ','') as t3v,
-if(tel_4_verif in (select * from deadlines),' class=\"badno\" ','') as t4v
+    private $badNoQuery = "select 
+if(tel_1) in (select * from deadlines), 'badno','') as tel_1,
+if(tel_2) in (select * from deadlines), 'badno','') as tel_2,
+if(tel_3) in (select * from deadlines), 'badno','') as tel_3,
+if(tel_4) in (select * from deadlines), 'badno','') as tel_4,
+if(tel_1_alterno) in (select * from deadlines), 'badno','') as tel_1_alterno,
+if(tel_2_alterno) in (select * from deadlines), 'badno','') as tel_2_alterno,
+if(tel_3_alterno) in (select * from deadlines), 'badno','') as tel_3_alterno,
+if(tel_4_alterno) in (select * from deadlines), 'badno','') as tel_4_alterno,
+if(tel_1_ref_1) in (select * from deadlines), 'badno','') as tel_1_ref_1,
+if(tel_2_ref_1) in (select * from deadlines), 'badno','') as tel_2_ref_1,
+if(tel_1_ref_2) in (select * from deadlines), 'badno','') as tel_1_ref_2,
+if(tel_2_ref_2) in (select * from deadlines), 'badno','') as tel_2_ref_2,
+if(tel_1_ref_3) in (select * from deadlines), 'badno','') as tel_1_ref_3,
+if(tel_2_ref_3) in (select * from deadlines), 'badno','') as tel_2_ref_3,
+if(tel_1_ref_4) in (select * from deadlines), 'badno','') as tel_1_ref_4,
+if(tel_2_ref_4) in (select * from deadlines), 'badno','') as tel_2_ref_4,
+if(tel_1_laboral) in (select * from deadlines), 'badno','') as tel_1_laboral,
+if(tel_2_laboral) in (select * from deadlines), 'badno','') as tel_2_laboral,
+if(tel_1_verif) in (select * from deadlines), 'badno','') as tel_1_verif,
+if(tel_2_verif) in (select * from deadlines), 'badno','') as tel_2_verif,
+if(tel_3_verif) in (select * from deadlines), 'badno','') as tel_3_verif,
+if(tel_4_verif) in (select * from deadlines), 'badno','') as tel_4_verif
 from resumen
 where id_cuenta=:id_cuenta LIMIT 1";
 
