@@ -173,6 +173,7 @@ class ResumenController extends Controller
         $dictamenesV = $this->rc->getDictV();
         $motiv = $this->rc->getMotiv();
         $motivV = $this->rc->getMotivV();
+        $visitadores = $this->rc->getVisitadorList();
         $view = view('resumen')
         ->with('r', $result)
         ->with('history', $history)
@@ -183,6 +184,7 @@ class ResumenController extends Controller
         ->with('dictamenesV', $dictamenesV)
         ->with('motiv', $motiv)
         ->with('motivV', $motivV)
+        ->with('visitadores', $visitadores)
         ->with('capt', $capt)
         ->with('tipo', $tipo)
         ->with('tl', $tl)

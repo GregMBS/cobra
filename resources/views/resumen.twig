@@ -533,11 +533,9 @@
                 <select
                     name="C_VISIT" id="C_VISIT">
                     <option value=''></option>
-                    <? php foreach ($ resultGestorV as $
-                        answerGestorV ) { ?>
-                    <option value="<?php echo $ answerGestorV [ 0 ] ;	 ?>"><?
-                        php echo htmlentities ($answerGestorV [ 1 ] ); ?></option>
-                    <? php } ?>
+                    {% for v in visitadores %}
+                    <option value="{{ v.iniciales }}">{{ v.completo }}</option>
+                    {% endfor %}
                 </select>
                 <br> <span class="formcap">ENTRE CALLE </span> <input
                     type="text" name="C_CALLE1">Y <input type="text"
