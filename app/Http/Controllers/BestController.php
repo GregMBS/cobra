@@ -54,7 +54,7 @@ class BestController extends Controller
             }
             $data[] = array_merge($row, $ultimo, $mejor);
         }
-        $header = array_keys($data[0]);
+        $header = array(array_keys($data[0]));
         $output = array_merge($header, $data);
         dd($output);
         $this->writeXLSX($output);
