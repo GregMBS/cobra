@@ -580,8 +580,12 @@
             </div>
         </div>
         <div id="GESTION">
+        {% set authval = 0 %}
+        {% if tipo == 'admin' %}
+        {% set authval = 1 %}
+        {% endif %}
             <form action="resumen" method="get" id="gestionform"
-                onSubmit="return validate_form (this, event, {{ r.saldo_descuento_2 }}, {% (tipo == 'admin') ? 1 : 0 %}, ' ');">
+                onSubmit="return validate_form (this, event, {{ r.saldo_descuento_2 }}, {{ authval }}, ' ');">
             <table id="databox">
                 {% if tipo == 'admin' %}
                 <tr>
