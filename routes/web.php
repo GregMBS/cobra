@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
         return view('reports')->with('capt', $capt);
     });
     
+    Route::get('/ultimo_mejor', 'BestController@index');
     Route::get('/ultima', 'ResumenController@ultima');
     Route::get('/resumen', 'ResumenController@index');
     Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
