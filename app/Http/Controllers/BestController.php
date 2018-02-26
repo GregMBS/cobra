@@ -29,6 +29,7 @@ class BestController extends Controller
      * @param array $output
      */
     private function writeXLSX(array $output) {
+        dd($output);
         $writer = WriterFactory::create(Type::XLSX);
         $writer->openToBrowser($this->filename); // stream data directly to the browser
         $writer->addRows($output); // add multiple rows at a time
