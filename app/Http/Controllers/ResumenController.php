@@ -167,6 +167,7 @@ class ResumenController extends Controller
         $tl = $this->rc->getTimelock($id_cuenta);
         $notas = $this->nc->notAlert($capt);
         $view = view('resumen')
+        ->with('user', auth()->user())
         ->with('r', $result)
         ->with('history', $history)
         ->with('notas', $notas)
