@@ -16,6 +16,30 @@ namespace App;
 class NotaClass extends BaseClass {
 
     /**
+     *
+     * @var string
+     */
+    private $notesQuery = "select min(concat_ws(' ',fecha,hora)<now()) as alert,
+            min(concat_ws(' ',fecha,hora)) as fechahora
+from notas
+where c_cvge = :capt
+AND borrado=0
+and fecha<>'0000-00-00'
+AND concat_ws(' ',fecha,hora)<now()
+ORDER BY fecha, hora LIMIT 1";
+    
+    /**
+     *
+     * @var string
+     */
+    private $notasDataQuery = "select cuenta,nota,fuente
+from notas
+where c_cvge IN (:capt,'todos')
+AND borrado=0
+AND concat(fecha,' ',hora) = :fechahora
+LIMIT 1";
+    
+    /**
      * 
      * @param string $capt
      * @param int $C_CONT
@@ -145,4 +169,41 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
         return $rowt;
     }
 
+    /**
+     *
+     * @param string $capt
+     * @param string $fechahora
+     * @return array
+     */
+    private function notaData($capt, $fechahora) {
+        $stn = $this->pdo->prepare($this->notasDataQuery);
+        $stn->bindParam(':capt', $capt);
+        $stn->bindParam(':fechahora', $fechahora);
+        $stn->execute();
+        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
+    /**
+     * 
+     * @param string $capt
+     * @return NotaDataClass
+     */
+    public function notAlert($capt) {
+        $stn = $this->pdo->prepare($this->notesQuery);
+        $stn->bindParam(':capt', $capt);
+        $stn->execute();
+        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        $output = new NotaDataClass();
+        if (isset($result['alert'])) {
+            $notaData = $this->notaData($capt, $result['fechahora']);
+            $output->alert = $result['alert'];
+            $output->alertt = $result['fechahora'];
+            $output->cuenta = $notaData['cuenta'];
+            $output->nota = $notaData['nota'];
+            $output->fuente = $notaData['fuente'];
+        };
+        return $output;
+    }
+    
 }

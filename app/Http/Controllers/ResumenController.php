@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\GestionClass;
 use Illuminate\Support\Facades\View;
+use App\NotaClass;
 
 class ResumenController extends Controller
 {
@@ -28,19 +29,25 @@ class ResumenController extends Controller
      * @var GestionClass
      */
     private $gc;
+    
+    /**
+     * 
+     * @var NotaClass
+     */
+    private $nc;
 
     public function __construct()
     {
         $this->rc = new ResumenClass();
         $this->gc = new GestionClass();
         $this->rqc = new ResumenQueuesClass();
+        $this->nc = new NotaClass();
     }
 
     /*
     private function getFields(Request $r)
     {
         $tl = date('r');
-        $tipo = auth()->user()->tipo;
         $findo = $r->find;
         $field = $r->field;
         $find = $this->rc->cleanFind($findo);
@@ -59,10 +66,7 @@ class ResumenController extends Controller
         $result = $this->rqc->getOne($id_cuenta);
         $history = $this->rc->getHistory($id_cuenta);
         $from = 'ultima';
-        $view = view('resumen')
-        ->with('r', $result)
-        ->with('history', $history)
-        ->with('from', $from);
+        $view = $this->buildView($result, $history, $from, $capt);
         return $view;
     }
     
@@ -73,13 +77,11 @@ class ResumenController extends Controller
      */
     public function find($id_cuenta)
     {
+        $capt = auth()->user()->capt;
         $result = $this->rqc->getOne($id_cuenta);
         $history = $this->rc->getHistory($id_cuenta);
         $from = 'find';
-        $view = view('resumen')
-        ->with('r', $result)
-        ->with('history', $history)
-        ->with('from', $from);
+        $view = $this->buildView($result, $history, $from, $capt);
         return $view;
     }
 
@@ -100,9 +102,9 @@ class ResumenController extends Controller
     {
         if (($r->has('C_CVST') && ($r->has('C_VISIT')))) {
             $gestion = $r->all();
-            $this->gc->doVisit($gestion);
+            $valid = $this->gc->doVisit($gestion);
         }
-        $view = $this->ultima();
+        $view = $this->ultima()->with('valid', $valid);
         return $view;
     }
 
@@ -129,9 +131,9 @@ class ResumenController extends Controller
     {
         if (($r->has('C_CVST') && ($r->has('C_CVGE')))) {
             $gestion = $r->all();
-            $this->gc->doGestion($gestion);
+            $valid = $this->gc->doGestion($gestion);
         }
-        $view = $this->index();
+        $view = $this->index()->with('valid', $valid);
         return $view;
     }
 
@@ -146,9 +148,31 @@ class ResumenController extends Controller
         $result = $this->rqc->getResumen($capt, $camp);
         $id_cuenta = $result['id_cuenta'];
         $history = $this->rc->getHistory($id_cuenta);
+        $from = '';
+        $view = $this->buildView($result, $history, $from, $capt);
+        return $view;
+    }
+    
+    /**
+     * 
+     * @param array $result
+     * @param array $history
+     * @param string $from
+     * @param string $capt
+     * @return View
+     */
+    private function buildView($result, $history, $from, $capt) {
+        $id_cuenta = $result['id_cuenta'];
+        $tl = $this->rc->getTimelock($id_cuenta);
+        $notas = $this->nc->notAlert($capt);
         $view = view('resumen')
         ->with('r', $result)
-        ->with('history', $history);
+        ->with('history', $history)
+        ->with('notas', $notas)
+        ->with('capt', $capt)
+        ->with('tipo', auth()->user()->tipo)
+        ->with('tl', $tl)
+        ->with('from', $from);
         return $view;
     }
 }

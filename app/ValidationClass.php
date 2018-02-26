@@ -5,7 +5,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 namespace App;
 
 /**
@@ -13,7 +12,8 @@ namespace App;
  *
  * @author gmbs
  */
-class ValidationClass extends BaseClass {
+class ValidationClass extends BaseClass
+{
 
     /**
      *
@@ -28,27 +28,38 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
      *
      * @var array
      */
-    private $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO PARCIAL');
+    private $paid = array(
+        'PAGANDO CONVENIO',
+        'PAGO TOTAL',
+        'PAGO PARCIAL'
+    );
 
     /**
      *
      * @var array
      */
-    private $proms = array('PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO PARCIAL');
+    private $proms = array(
+        'PROMESA DE PAGO TOTAL',
+        'PROMESA DE PAGO PARCIAL'
+    );
 
     /**
      *
      * @var array
      */
-    private $blankDates = array('', '0000-00-00');
+    private $blankDates = array(
+        '',
+        '0000-00-00'
+    );
 
     /**
-     * 
+     *
      * @param array $gestion
      * @param string $message
      * @return array
      */
-    private function countDup($gestion, $message) {
+    private function countDup($gestion, $message)
+    {
         $output = array();
         $std = $this->pdo->prepare($this->querydup);
         $std->bindParam(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
@@ -68,12 +79,13 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     }
 
     /**
-     * 
+     *
      * @param boolean $fieldcond
      * @param string $message
      * @return array
      */
-    private function checkRequired($fieldcond, $message) {
+    private function checkRequired($fieldcond, $message)
+    {
         $output = array(
             'value' => 0,
             'message' => ''
@@ -86,13 +98,14 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     }
 
     /**
-     * 
+     *
      * @param boolean $fieldcond
      * @param boolean $condition
      * @param string $message
      * @return array
      */
-    private function checkRequiredConditional($fieldcond, $condition, $message) {
+    private function checkRequiredConditional($fieldcond, $condition, $message)
+    {
         $output = array(
             'value' => 0,
             'message' => ''
@@ -107,105 +120,201 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     }
 
     /**
-     * 
+     *
      * @param array $gestion
-     * @return array
+     * @return ValidationErrorClass
      */
-    public function countVisitErrors($gestion) {
-        $errorv = 0;
-        $flagmsgv = "";
-
+    public function countVisitErrors($gestion)
+    {
+        $output = new ValidationErrorClass();
         $requiredArray = array(
-            array(empty($gestion['C_CVST']), '<BR>RESUELTO ES NECESARIO'),
-            array(empty($gestion['C_VISIT']), '<BR>VISITADOR ES NECESARIO'),
-            array(empty($gestion['ACCION']), '<BR>ACCION ES NECESARIO'),
-            array(str_word_count($gestion['C_OBSE!']) < 3, "COMENTARIO INCOMPLETO"),
-            array(strlen($gestion['C_OBSE!']) >250, "COMENTARIO DEMASIADO LARGO"),
+            array(
+                empty($gestion['C_CVST']),
+                '<BR>RESUELTO ES NECESARIO'
+            ),
+            array(
+                empty($gestion['C_VISIT']),
+                '<BR>VISITADOR ES NECESARIO'
+            ),
+            array(
+                empty($gestion['ACCION']),
+                '<BR>ACCION ES NECESARIO'
+            ),
+            array(
+                str_word_count($gestion['C_OBSE!']) < 3,
+                "COMENTARIO INCOMPLETO"
+            ),
+            array(
+                strlen($gestion['C_OBSE!']) > 250,
+                "COMENTARIO DEMASIADO LARGO"
+            )
         );
         $conditionalArray = array(
-            array(($gestion['N_PAGO'] == 0), (in_array($gestion['C_CVST'], $this->paid)), '<br>pago necesita monto'),
-            array(($gestion['N_PROM'] == 0), (in_array($gestion['C_CVST'], $this->proms)), '<br>promesa necesita monto'),
-            array(($gestion['N_PAGO'] > 0), (in_array($gestion['D_PAGO'], $this->blankDates)), '<br>pago necesita fecha'),
-            array(($gestion['N_PROM'] > 0), (in_array($gestion['D_PROM'], $this->blankDates)), '<br>promesa necesita fecha'),
-            array((substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON'), ($gestion['C_CARG'] == ''), "<BR>MENSAJE NECESITA PARENTESCO/CARGO"),
-            array(($gestion['N_PROM'] == 0), ($gestion['D_PROM'] >= $gestion['D_FECH']), "<BR>PROMESA NECESITA MONTO"),
-            array(($gestion['N_PROM1'] == 0), ($gestion['N_PROM2'] > 0), "<BR>USA PROMESA INICIAL ANTES PROMESA TERMINAL")
+            array(
+                ($gestion['N_PAGO'] == 0),
+                (in_array($gestion['C_CVST'], $this->paid)),
+                '<br>pago necesita monto'
+            ),
+            array(
+                ($gestion['N_PROM'] == 0),
+                (in_array($gestion['C_CVST'], $this->proms)),
+                '<br>promesa necesita monto'
+            ),
+            array(
+                ($gestion['N_PAGO'] > 0),
+                (in_array($gestion['D_PAGO'], $this->blankDates)),
+                '<br>pago necesita fecha'
+            ),
+            array(
+                ($gestion['N_PROM'] > 0),
+                (in_array($gestion['D_PROM'], $this->blankDates)),
+                '<br>promesa necesita fecha'
+            ),
+            array(
+                (substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON'),
+                ($gestion['C_CARG'] == ''),
+                "<BR>MENSAJE NECESITA PARENTESCO/CARGO"
+            ),
+            array(
+                ($gestion['N_PROM'] == 0),
+                ($gestion['D_PROM'] >= $gestion['D_FECH']),
+                "<BR>PROMESA NECESITA MONTO"
+            ),
+            array(
+                ($gestion['N_PROM1'] == 0),
+                ($gestion['N_PROM2'] > 0),
+                "<BR>USA PROMESA INICIAL ANTES PROMESA TERMINAL"
+            )
         );
-
+        
         foreach ($requiredArray as $required) {
             $test = $this->checkRequired($required[0], $required[1]);
             $errorv += $test['value'];
             $flagmsgv .= $test['message'];
         }
-
+        
         foreach ($conditionalArray as $conditional) {
             $test = $this->checkRequiredConditional($conditional[0], $conditional[1], $conditional[2]);
             $errorv += $test['value'];
             $flagmsgv .= $test['message'];
         }
-
+        
         $dupcount = $this->countDup($gestion, "DOBLE ENTRANTE");
         $errorv += $dupcount['value'];
         $flagmsgv .= $dupcount['message'];
-
-        $output = array(
-            'errorv' => $errorv,
-            'flagmsgv' => $flagmsgv
-        );
+        
+        $output->flag = ($errorv > 0);
+        $output->msg = $flagmsgv;
         return $output;
     }
 
     /**
-     * 
+     *
      * @param array $gestion
      * @return array
      */
-    public function countGestionErrors($gestion) {
-        $error = 0;
-        $flagmsg = "";
-
+    public function countGestionErrors($gestion)
+    {
+        $output = new ValidationErrorClass();
+        
         $requiredArray = array(
-            array(empty($gestion['C_CVST']), '<BR>RESUELTO ES NECESARIO'),
-            array(empty($gestion['C_TELE']), '<BR>TELEFONO ES NECESARIO'),
-            array(empty($gestion['ACCION']), '<BR>ACCION ES NECESARIO'),
-            array(str_word_count($gestion['C_OBSE!']) < 3, "COMENTARIO INCOMPLETO"),
-            array(strlen($gestion['C_OBSE!']) >250, "COMENTARIO DEMASIADO LARGO"),
+            array(
+                empty($gestion['C_CVST']),
+                '<BR>RESUELTO ES NECESARIO'
+            ),
+            array(
+                empty($gestion['C_TELE']),
+                '<BR>TELEFONO ES NECESARIO'
+            ),
+            array(
+                empty($gestion['ACCION']),
+                '<BR>ACCION ES NECESARIO'
+            ),
+            array(
+                str_word_count($gestion['C_OBSE!']) < 3,
+                "COMENTARIO INCOMPLETO"
+            ),
+            array(
+                strlen($gestion['C_OBSE!']) > 250,
+                "COMENTARIO DEMASIADO LARGO"
+            )
         );
         $conditionalArray = array(
-            array(($gestion['N_PAGO'] == 0), (in_array($gestion['C_CVST'], $this->paid)), '<br>pago necesita monto'),
-            array(($gestion['N_PROM'] == 0), (in_array($gestion['C_CVST'], $this->proms)), '<br>promesa necesita monto'),
-            array(($gestion['N_PAGO'] > 0), (in_array($gestion['D_PAGO'], $this->blankDates)), '<br>pago necesita fecha'),
-            array(($gestion['N_PROM'] > 0), (in_array($gestion['D_PROM'], $this->blankDates)), '<br>promesa necesita fecha'),
-            array(($gestion['N_PROM1'] > 0), (in_array($gestion['D_PROM1'], $this->blankDates)), '<br>promesa necesita fecha'),
-            array(($gestion['N_PROM2'] > 0), (in_array($gestion['D_PROM2'], $this->blankDates)), '<br>promesa necesita fecha'),
-            array(($gestion['N_PROM3'] > 0), (in_array($gestion['D_PROM3'], $this->blankDates)), '<br>promesa necesita fecha'),
-            array(($gestion['N_PROM4'] > 0), (in_array($gestion['D_PROM4'], $this->blankDates)), '<br>promesa necesita fecha'),
-            array((substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON'), ($gestion['C_CARG'] == ''), "<BR>MENSAJE NECESITA PARENTESCO/CARGO"),
-            array(($gestion['N_PROM'] == 0), ($gestion['D_PROM'] >= $gestion['D_FECH']), "<BR>PROMESA NECESITA MONTO"),
-            array(($gestion['N_PROM1'] == 0), ($gestion['N_PROM2'] > 0), "<BR>USA PROMESA INICIAL ANTES PROMESA TERMINAL")
+            array(
+                ($gestion['N_PAGO'] == 0),
+                (in_array($gestion['C_CVST'], $this->paid)),
+                '<br>pago necesita monto'
+            ),
+            array(
+                ($gestion['N_PROM'] == 0),
+                (in_array($gestion['C_CVST'], $this->proms)),
+                '<br>promesa necesita monto'
+            ),
+            array(
+                ($gestion['N_PAGO'] > 0),
+                (in_array($gestion['D_PAGO'], $this->blankDates)),
+                '<br>pago necesita fecha'
+            ),
+            array(
+                ($gestion['N_PROM'] > 0),
+                (in_array($gestion['D_PROM'], $this->blankDates)),
+                '<br>promesa necesita fecha'
+            ),
+            array(
+                ($gestion['N_PROM1'] > 0),
+                (in_array($gestion['D_PROM1'], $this->blankDates)),
+                '<br>promesa necesita fecha'
+            ),
+            array(
+                ($gestion['N_PROM2'] > 0),
+                (in_array($gestion['D_PROM2'], $this->blankDates)),
+                '<br>promesa necesita fecha'
+            ),
+            array(
+                ($gestion['N_PROM3'] > 0),
+                (in_array($gestion['D_PROM3'], $this->blankDates)),
+                '<br>promesa necesita fecha'
+            ),
+            array(
+                ($gestion['N_PROM4'] > 0),
+                (in_array($gestion['D_PROM4'], $this->blankDates)),
+                '<br>promesa necesita fecha'
+            ),
+            array(
+                (substr($gestion['C_CVST'], 0, 11) == 'MENSAJE CON'),
+                ($gestion['C_CARG'] == ''),
+                "<BR>MENSAJE NECESITA PARENTESCO/CARGO"
+            ),
+            array(
+                ($gestion['N_PROM'] == 0),
+                ($gestion['D_PROM'] >= $gestion['D_FECH']),
+                "<BR>PROMESA NECESITA MONTO"
+            ),
+            array(
+                ($gestion['N_PROM1'] == 0),
+                ($gestion['N_PROM2'] > 0),
+                "<BR>USA PROMESA INICIAL ANTES PROMESA TERMINAL"
+            )
         );
-
+        
         foreach ($requiredArray as $required) {
             $test = $this->checkRequired($required[0], $required[1]);
             $error += $test['value'];
             $flagmsg .= $test['message'];
         }
-
+        
         foreach ($conditionalArray as $conditional) {
             $test = $this->checkRequiredConditional($conditional[0], $conditional[1], $conditional[2]);
             $error += $test['value'];
             $flagmsg .= $test['message'];
         }
-
+        
         $dupcount = $this->countDup($gestion, "DOBLE ENTRANTE");
         $error += $dupcount['value'];
         $flagmsg .= $dupcount['message'];
-
-         $output = array(
-            'error' => $error,
-            'flagmsg' => $flagmsg
-        );
+        
+        $output->flag = ($error > 0);
+        $output->msg = $flagmsg;
         return $output;
     }
-
 }

@@ -108,7 +108,7 @@
                                 size="3"> : <input type="text" id="timers"
                                 readonly="readonly" value="0" size="3"><br>
                             {% set ngclass = 'low' %}
-                            {% set numgest = ng.cng %}
+                            {% set numgest = cng %}
                             {% if numgest > 20 %}
                             {% set ngclass = 'med' %}
                             {% endif %}
@@ -1053,8 +1053,8 @@
         <script type="text/javascript" src="/js/depuracionv.js"></script>
         <script type="text/javascript" src="/js/resumen.js"></script>
         <script type="text/javascript">
-            var flag = '{{ flag }}';
-            var flagmsg = '{{ flagmsg }}';
+            var flag = '{{ valid.flag }}';
+            var flagmsg = '{{ valid.msg }}';
             var cuenta = '{{ notas.cuenta }}';
             var notalert = '{{ notas.alert }}';
             var sdc = '{{ r.status_de_credito }}';

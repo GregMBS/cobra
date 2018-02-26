@@ -21,30 +21,6 @@ class ResumenClass extends BaseClass {
      *
      * @var string
      */
-    private $notesQuery = "select min(concat_ws(' ',fecha,hora)<now()) as alert,
-            min(concat_ws(' ',fecha,hora)) as fechahora
-from notas 
-where c_cvge = :capt 
-AND borrado=0 
-and fecha<>'0000-00-00'
-AND concat_ws(' ',fecha,hora)<now()
-ORDER BY fecha, hora LIMIT 1";
-
-    /**
-     *
-     * @var string
-     */
-    private $notasDataQuery = "select cuenta,nota,fuente
-from notas 
-where c_cvge IN (:capt,'todos')
-AND borrado=0 
-AND concat(fecha,' ',hora) = :fechahora 
-LIMIT 1";
-
-    /**
-     *
-     * @var string
-     */
     private $badNoQuery = "select if(tel_1 in (select * from deadlines),' class=\"badno\" ','') as t1,
 if(tel_2 in (select * from deadlines),' class=\"badno\" ','') as t2,
 if(tel_3 in (select * from deadlines),' class=\"badno\" ','') as t3,
@@ -134,7 +110,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $dirty
      * @return string
      */
-    public function cleanFind($dirty) {
+    private function cleanFind($dirty) {
         $upper = strtoupper($dirty);
         $stripped = strip_tags($upper);
         $trimmed = trim($stripped);
@@ -146,7 +122,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $field
      * @return boolean
      */
-    public function fieldCheck($field) {
+    private function fieldCheck($field) {
         $valid = false;
         $q = $this->pdo->query("SHOW FIELDS FROM resumen");
         foreach ($q as $row) {
@@ -156,52 +132,6 @@ where id_cuenta=:id_cuenta LIMIT 1";
             }
         }
         return $valid;
-    }
-
-    /**
-     * 
-     * @param string $capt
-     * @param string $fechahora
-     * @return array
-     */
-    private function notaData($capt, $fechahora) {
-        $stn = $this->pdo->prepare($this->notasDataQuery);
-        $stn->bindParam(':capt', $capt);
-        $stn->bindParam(':fechahora', $fechahora);
-        $stn->execute();
-        $result = $stn->fetch(\PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    /**
-     * 
-     * @param string $capt
-     * @return array
-     */
-    public function notAlert($capt) {
-        $stn = $this->pdo->prepare($this->notesQuery);
-        $stn->bindParam(':capt', $capt);
-        $stn->execute();
-        $result = $stn->fetch(\PDO::FETCH_ASSOC);
-        if (isset($result['alert'])) {
-            $notaData = $this->notaData($capt, $result['fechahora']);
-            $output = array(
-                'notalert' => $result['alert'],
-                'notalertt' => $result['fechahora'],
-                'cuenta' => $notaData['cuenta'],
-                'nota' => $notaData['nota'],
-                'fuente' => $notaData['fuente']
-            );
-        } else {
-            $output = array(
-                'notalert' => '',
-                'notalertt' => '',
-                'cuenta' => '',
-                'nota' => '',
-                'fuente' => ''
-            );
-        }
-        return $output;
     }
 
     /**
@@ -377,7 +307,7 @@ AND c_cont <> 0
      * @param string $capt
      * @return array
      */
-    public function getQueueList($capt) {
+    private function getQueueList($capt) {
         $queryfilt = "SELECT cliente,sdc,queue FROM queuelist 
 WHERE gestor = :capt 
 ORDER BY cliente,sdc,queue";
@@ -394,6 +324,7 @@ ORDER BY cliente,sdc,queue";
      * @return string
      */
     public function getTimelock($id_cuenta) {
+        $tl = date('r');
         $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') as tl
             FROM resumen 
             WHERE id_cuenta = :id_cuenta";
@@ -412,7 +343,7 @@ ORDER BY cliente,sdc,queue";
      * @param string $string
      * @return float
      */
-    public function demonitize($string) {
+    private function demonitize($string) {
         $number = str_replace('$', '', str_replace(',', '', $string));
         return $number;
     }
@@ -458,7 +389,7 @@ ORDER BY cliente,sdc,queue";
      * @param string $capt
      * @param int $id_cuenta
      */
-    public function setSlice($capt, $id_cuenta) {
+    private function setSlice($capt, $id_cuenta) {
         $qsliced = "delete from rslice where user = :capt";
         $std = $this->pdo->prepare($qsliced);
         $std->bindParam(':capt', $capt);
@@ -477,7 +408,7 @@ ORDER BY cliente,sdc,queue";
      * @param int $id_cuenta
      * @return array
      */
-    public function getLastStatus($id_cuenta) {
+    private function getLastStatus($id_cuenta) {
         $querycom = "select c_cvst,cuando from historia where c_cont = :id_cuenta "
                 . "order by d_fech desc, c_hrin desc limit 1";
         $stl = $this->pdo->prepare($querycom);
@@ -515,7 +446,7 @@ order by d_fech desc, c_hrin desc limit 1";
      * @param int $id_cuenta
      * @return array
      */
-    public function getTimeCheck($id_cuenta) {
+    private function getTimeCheck($id_cuenta) {
         $querycheck = "SELECT timelock, locker, time_to_sec(timediff(now(),timelock))/60 as sofar "
                 . "FROM resumen "
                 . "WHERE id_cuenta = :id_cuenta";
@@ -532,7 +463,7 @@ order by d_fech desc, c_hrin desc limit 1";
      * @param int $id_cuenta
      * @param string $mytipo
      */
-    public function setLocks($capt, $id_cuenta, $mytipo) {
+    private function setLocks($capt, $id_cuenta, $mytipo) {
         $queryunlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
         $stu = $this->pdo->prepare($queryunlock);
