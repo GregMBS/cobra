@@ -332,7 +332,7 @@ ORDER BY cliente,sdc,queue";
         $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $sts->execute();
         $result = $sts->fetch(\PDO::FETCH_ASSOC);
-        if ($result) {
+        if ($result['tl']) {
             $tl = $result['tl'];
         }
         return $tl;
