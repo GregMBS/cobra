@@ -163,16 +163,16 @@ class ResumenController extends Controller
      */
     private function buildView($result, $history, $from, $capt) {
         $id_cuenta = $result['id_cuenta'];
+        $tipo = auth()->user()->tipo;
         $numgest = $this->rc->getNumGests($capt);
         $tl = $this->rc->getTimelock($id_cuenta);
         $notas = $this->nc->notAlert($capt);
         $view = view('resumen')
-        ->with('user', auth()->user())
         ->with('r', $result)
         ->with('history', $history)
         ->with('notas', $notas)
         ->with('capt', $capt)
-        ->with('tipo', auth()->user()->tipo)
+        ->with('tipo', $tipo)
         ->with('tl', $tl)
         ->with('numgest', $numgest)
         ->with('from', $from);

@@ -300,7 +300,7 @@ AND c_cont <> 0
         $stn->bindParam(':capt', $capt);
         $stn->execute();
         $result = $stn->fetch();
-        if ($result['cng']) {
+        if ($result['cng'] > 0) {
             $cng = $result['cng'];
         }
         return $cng;
