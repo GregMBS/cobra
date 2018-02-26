@@ -41,7 +41,7 @@ class BestClass extends BaseClass
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':c_cont', $c_cont, \PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -59,7 +59,7 @@ order by v_cc limit 1";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':c_cont', $c_cont, \PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 }
