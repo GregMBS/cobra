@@ -581,25 +581,20 @@
         </div>
         <div id="GESTION">
             <form action="resumen" method="get" id="gestionform"
-                onSubmit="return validate_form (this, event, <?php                   echo $saldo_descuento_2+ 0; ?>,<?php                   if (empty ($AUTH )) { $AUTH = ''; 	 }if (($ mytipo == ' admin ') || ($ AUTH != '')) { echo 1; } else {echo 0; 	 }?>, ' ');">
+                onSubmit="return validate_form (this, event, {{ r.saldo_descuento_2 }}, {% (tipo == 'admin') ? 1 : 0 %}, ' ');">
             <table id="databox">
                 {% if tipo == 'admin' %}
                 <tr>
                     <td>Gestor</td>
                     <td>
                         <select name="C_CVGE">
-                            <option value="<?php echo $capt ; ?>"><?php echo $capt ;
-                                ?></option>
-                            <?php foreach ($resultGestor as $answerGestor ) { ?>
-                            <option value="<?php 	echo $answerGestor[1]; ?>"><?php
-                                echo $answerGestor[0]; ?></option>
-                            <?php }?>
+                            {% include 'resopt.twig' with {'list': gestores} %}
                         </select>
                     </td>
                 </tr>
                 {% else %}
                 <input type="hidden" name="C_CVGE" readonly="readonly"
-                    value="<?php if (isset($C_CVGE)) { echo $C_CVGE; 	 }?>"> 
+                    value="{{ capt }}"> 
                 {% endif %}
                 <tr id='authbox ' class="hidebox">
                     <td>Autorización</td>
@@ -711,8 +706,8 @@
                 <tr>
                     <td>Gestion</td>
                     <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1 '
-                        onkeypress="tooLong (this)" onkeyup="valid (this, 'special ')"
-                        onmouseover='this.focus();' onblur="valid (this, 'special ')"
+                        onkeypress="tooLong(this)" onkeyup="valid(this, 'special')"
+                        onmouseover='this.focus();' onblur="valid(this, 'special')"
                         onmousedown='this.focus();'>
                         </textarea>
                     </td>
@@ -895,43 +890,6 @@
         </div>
         </div>
         {{ dump() }}
-        <div class="noshow">
-            <input type="text" name="from" readonly="readonly" value="resumen">
-            <br> <input type="text" name="D_FECH" readonly="readonly"
-                value="<?php                     if (isset ($CD )) {echo $CD; 	 }?>"><br>
-            <input type="text" name="D_PROM" readonly="readonly"
-                value="<?php                     if (isset ($CD )) {echo $CD; 	 }?>"><br>
-            <input type="text" name="C_HRIN" readonly="readonly"
-                value="<?php                     if (isset ($CT )) {echo $CT; 	 }?>"><br>
-            <input type="text" name="C_HRFI" readonly="readonly"
-                value="<?php                     if (isset ($CT )) {echo $CT; 	 }?>"><br>
-            <input type="text" name="AUTO" readonly="readonly" value=""> <br>
-            <input type="text" name="find" readonly="readonly"
-                value="<?php                     if (isset ($find )) {echo $find; 	 }?>"><br>
-            <input type="text" name="field" readonly="readonly"
-                value="<?php                     if (isset ($field )) {echo $field; 	 }?>"><br>
-            <input type="text" name="capt" readonly="readonly"
-                value="<?php                     if (isset ($capt )) {echo $capt; 	 }?>"><br>
-            <input type="text" name="camp" readonly="readonly"
-                value="<?php                     if (isset ($camp )) {echo $camp; 	 }?>"><br>
-            <input type="text" name="neworder" readonly="readonly"
-                value="<?php                     if (isset ($neworder )) {echo $neworder; 	 }?>"><br>
-            <input type="text" name="C_CVBA" readonly="readonly"
-                value="<?php                     if (isset ($cliente )) {echo $cliente; 	 }?>"><br>
-            <input type="text" name="C_ATTE" readonly="readonly" value="">
-            <br> <input type="text" name="C_CONT" readonly="readonly"
-                value="<?php                     if (isset ($id_cuenta )) {echo $id_cuenta; 	 }?>"><br>
-            <input type="text" name="C_CONTAN" readonly="readonly"
-                value="<?php                     if (isset ($status_aarsa )) {echo $status_aarsa; 	 }?>"><br>
-            <input type="text" name="CUENTA" id="CUENTA" readonly="readonly 	"
-                value="<?php                     if (isset ($numero_de_cuenta )) {echo 	$numero_de_cuenta; 	 }?>"><br>
-            <input type="text" name="C_EJE" id="C_EJE" readonly="readonly 	"
-                value="<?php                            if (isset ($ejecutivo_asignado_call_center )) 	{echo $ejecutivo_asignado_call_center; 	 } ?>"><br>
-            <input type="text" name="oldgo" readonly="readonly"
-                value="<? php echo $ go ; ?>"><br> <input type="text"
-                name="error" readonly="readonly" value="1"> <br> <input
-                type="text" name="go" readonly="readonly" value="GUARDAR"> <br>
-        </div>
         </div>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script
