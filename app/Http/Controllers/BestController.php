@@ -56,6 +56,7 @@ class BestController extends Controller
         }
         $header = array_keys($data[0]);
         $output = array_merge($header, $data);
+        dd($output);
         $this->writeXLSX($output);
     }
 }
