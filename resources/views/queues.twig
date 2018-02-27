@@ -15,7 +15,7 @@
         </div>
         <div>
             <div style='clear:both;border:1pt black solid'>
-                <form method='get' action='queues' name='todos'>
+                <form method='get' action='queues/todos' name='todos'>
                     <div style='float:left;width:25%'>
                         <input name='gestor' type='text' readonly='readonly' value='todos'>
                     </div>
@@ -43,7 +43,7 @@
         <div>
             {% for gestor in gestores %}
                 <div style='clear:both;border:1pt black solid'>
-                    <form method='get' action='queues.php' name='<?php echo $GESTOR; ?>'>
+                    <form method='get' action='queues/{{ gestor }}' name='{{ gestor }}'>
                         <div style='float:left;width:25%'>
                             <input name='gestor' type='text' readonly='readonly' value='{{ gestor }}'>
                         </div>
@@ -58,7 +58,7 @@
                             {% if q.bloqueado == 1 %}
                             	{% set class = 'blocked' %}
                             {% endif %}
-                                <option value='{{ q.cliente ~ ',' ~ q.sdc ~ ',' ~ q.cr }}'
+                                <option value='{{ q.camp }}'
                                 class='{{ class }}'>
                                 {{ q.cliente ~ '-' ~ q.sdc ~ '-' ~ q.cr }}</option>
                             {% endfor %}
