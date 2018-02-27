@@ -255,7 +255,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
                     c_cvge,c_tele,left(c_obse1,50) as short,c_obse1,
                     auto,c_cniv 
                     FROM historia 
-                    WHERE historia.C_CONT=:id_cuenta   
+                    WHERE c_cont=:id_cuenta 
+                    AND c_cont > 0  
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($querysub);
         $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
