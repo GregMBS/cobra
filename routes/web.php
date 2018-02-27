@@ -26,18 +26,11 @@ Route::middleware('auth')->group(function () {
         return view('reports')->with('capt', $capt);
     });
     
-    Route::get('/ultimo_mejor', 'BestController@index');
-    Route::get('/queues', 'QueuesController@index');
-    Route::get('/queues/{gestor}', 'QueuesController@change');
     Route::get('/ultima', 'ResumenController@ultima');
     Route::get('/resumen', 'ResumenController@index');
     Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
     Route::get('/migo', 'MigoController@getList');
-    Route::get('/changest', 'ChangestController@showOne');
-    Route::post('/changest', 'ChangestController@updateOne');
     Route::get('/rotas', 'RotasController@index');
-    Route::get('/quick', 'QuickController@index');
-    Route::get('/queuesqc', 'QueueReportController@index');
     Route::get('/buscar', 'BuscarController@search');
     Route::get('/pagos/{id_cuenta}', 'PagosController@showOne');
     Route::get('/logout/{capt}/{why}', 'LoginController@adminLogout');
@@ -45,6 +38,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', function () {
         return view('logout');
     });
+    
+    // Admin only
+    Route::get('/ultimo_mejor', 'BestController@index');
+    Route::get('/queues', 'QueuesController@index');
+    Route::get('/queues/{gestor}', 'QueuesController@change');
+    Route::get('/changest', 'ChangestController@showOne');
+    Route::post('/changest', 'ChangestController@updateOne');
+    Route::get('/quick', 'QuickController@index');
+    Route::get('/queuesqc', 'QueueReportController@index');
+    Route::get('/speclistqc', 'SpeclistController@index');
 });
 Auth::routes();
 
