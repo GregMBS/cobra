@@ -126,14 +126,15 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getGestores() {
-        $query = "SELECT distinct gestor,tipo,nombres.camp as campnow
+        $query = "SELECT distinct gestor 
             FROM queuelist
         JOIN nombres ON gestor=iniciales 
         WHERE tipo <> ''
         ORDER BY gestor";
-        $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
-        return $result;
+        $result = $this->pdo->query($query);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**
