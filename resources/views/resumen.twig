@@ -14,50 +14,50 @@
     <body id="todos">
         <div id="buttonbox">
             {% if from in ['ultima','find'] %}
-            <form class="buttons" name="seg" method="get" action="resumen"
+            <form class="buttons" name="seg" method="get" action="/resumen"
                 id="segid">
                 <input type="hidden" name="find" value="{{ r.id_cuenta }}"> <input
                     type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}"> <input
                     type="submit" name="go" value="REINTRO QUEUE">
             </form>
             {% endif %}
-            <form class="buttons" name="ultima" method="get" action="resumen"
+            <form class="buttons" name="ultima" method="get" action="/resumen"
                 id="ultima">
                 <input type="submit" name="go" value="ULTIMA">
             </form>
-            <form class="buttons" name="buscar" action="resumen" id="buscar">
+            <form class="buttons" name="buscar" action="/resumen" id="/buscar">
                 <button type="button" value="buscar" onclick="showsearch();">
                 BUSCAR</button>
             </form>
-            <form class="buttons" name="migo" method="get" action="migo" id="migo">
+            <form class="buttons" name="migo" method="get" action="/migo" id="migo">
                 <input type="submit" name="go" value="CUENTAS">
             </form>
             <form class="buttons" name="visitlist" method="get"
-                action="realvisitlist" id="visitlist" target="_blank">
+                action="/realvisitlist" id="visitlist" target="_blank">
                 <input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
                 <input type="hidden" name="ejecutivo_asignado_call_center"
                     value="{{ r.ejecutivo_asignado_call_center }}"> <input
                     type="submit" name="go" value="VISITAS">
             </form>
-            <form class="buttons" name="rotas" method="get" action="rotas"
+            <form class="buttons" name="rotas" method="get" action="/rotas"
                 id="rotas">
                 <input type="submit" name="go" value="PROMESAS">
             </form>
-            <form class="buttons" name="pagos" method="get" action="pagos"
+            <form class="buttons" name="pagos" method="get" action="/pagos"
                 id="pagos" target="_blank">
                 <input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
                 <input type="submit" name="go" value="PAGOS">
             </form>
-            <form class="buttons" name="notasq" method="get" action="notas"
+            <form class="buttons" name="notasq" method="get" action="/notas"
                 id="notas" target="_blank">
                 <input type="hidden" name="C_CONT" value="{{ r.id_cuenta }}">
                 <input type="submit" name="go" value="NOTAS">
             </form>
-            <form class="buttons" name="queuesg" method="get" action="queuesg"
+            <form class="buttons" name="queuesg" method="get" action="/queuesg"
                 id="queuesg">
                 <input type="submit" name="go" value="QUEUES">
             </form>
-            <form class="buttons" name="logout" method="get" action="resumen"
+            <form class="buttons" name="logout" method="get" action="/resumen"
                 id="logout">
                 <input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
                 <input type="submit" name="go" value="LOGOUT">
@@ -66,13 +66,13 @@
             {{ r.cliente ~ '-' ~ r.status_de_credito ~ '-' ~ cr }}
             </BUTTON>
             {% if tipo == 'admin' %}
-            <form action="reports" method="get">
+            <form action="/reports" method="get">
                 <input type="submit" value="REPORTES">
             </form>
             {% endif %}
             <span style='font-weight: bold; font-size: 120%;'> {{ capt }}
             </span>
-            <form class="buttons" name="trouble" method="get" action="trouble"
+            <form class="buttons" name="trouble" method="get" action="/trouble"
                 id="trouble" target="_blank">
                 <input type="hidden" name="c_cont" value="{{ r.id_cuenta }}">
                 <input type="submit" name="go" value="ERROR">
@@ -124,7 +124,7 @@
         </div>
         <div id="searchbox">
             <h2>Buscar</h2>
-            <form name="search" method="get" action="buscar" id="search">
+            <form name="search" method="get" action="/buscar" id="search">
                 Buscar a : <input type="text" name="find" id="find"> en 
                 <select
                     name="field">
