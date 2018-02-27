@@ -17,7 +17,7 @@
             <div style='clear:both;border:1pt black solid'>
                 <form method='get' action='queues/todos' name='todos'>
                     <div style='float:left;width:25%'>
-                        <input name='gestor' type='text' readonly='readonly' value='todos'>
+                        TODOS
                     </div>
                     <div style='float:left;width:40%'>
                         <select name='queue'>
@@ -45,7 +45,7 @@
                 <div style='clear:both;border:1pt black solid'>
                     <form method='get' action='queues/{{ gestor }}' name='{{ gestor }}'>
                         <div style='float:left;width:25%'>
-                            <input name='gestor' type='text' readonly='readonly' value='{{ gestor }}'>
+                            {{ gestor }}
                         </div>
                         <div style='float:left;width:40%'>
                             {% set mq = myQueue[gestor] %}

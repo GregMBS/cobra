@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/ultimo_mejor', 'BestController@index');
     Route::get('/queues', 'QueuesController@index');
-    Route::get('/queues/{{gestor}}', 'QueuesController@change');
+    Route::get('/queues/{gestor}', 'QueuesController@change');
     Route::get('/ultima', 'ResumenController@ultima');
     Route::get('/resumen', 'ResumenController@index');
     Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
