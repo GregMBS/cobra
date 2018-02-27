@@ -36,8 +36,8 @@
                         <td>{{ r.nombre_deudor }}</td>
                         <td>{{ r.cli }}</td>
                         <td>{{ r.status_de_credito }}</td>
-                        <td class='num'>{{ r.sm|round(2)) }}</td>
-                        <td class='num'>{{ r.saldo_total|round(2)) }}</td>
+                        <td class='num'>{{ r.sm|number_format(2, '.', ',') }}</td>
+                        <td class='num'>{{ r.saldo_total|number_format(2, '.', ',') }}</td>
                         <td>{{ r.status_aarsa }}</td>
                         <td>{{ r.ejecutivo_asignado_call_center }}</td>
                         <td>{{ r.fecha_ultima_gestion }}</td>
