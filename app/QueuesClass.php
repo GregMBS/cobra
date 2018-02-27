@@ -141,7 +141,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getQueues() {
-        $query = "SELECT distinct cliente,sdc,status_aarsa,bloqueado
+        $query = "SELECT distinct cliente,sdc,status_aarsa as 'cr',bloqueado
         FROM queuelist
         WHERE cliente<> ''
         ORDER BY cliente,sdc,status_aarsa";
@@ -156,7 +156,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getMyQueue($GESTOR) {
-        $queryqc = "SELECT cliente, sdc, status_aarsa, 
+        $queryqc = "SELECT cliente, sdc, status_aarsa as 'cr', 
                                 nombres.camp as campnow
                                 FROM queuelist, nombres 
                                 WHERE gestor = :gestor and gestor=iniciales 
@@ -177,7 +177,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getMyQueuelist($GESTOR) {
-        $queryqa = "SELECT cliente, sdc, status_aarsa,
+        $queryqa = "SELECT cliente, sdc, status_aarsa as 'cr',
                                     camp, bloqueado
                                     FROM queuelist
                                     WHERE gestor = :gestor

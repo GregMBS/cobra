@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Administraci&oacute;n de los queues</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <div style='clear:both;background-color:#ffffff;width:100%'>
+            <div style='float:left;width:25%'>Gestor</div>
+            <div style='float:left;width:50%'>Queue</div>
+        </div>
+        <div>
+            <div style='clear:both;border:1pt black solid'>
+                <form method='get' action='queues' name='todos'>
+                    <div style='float:left;width:25%'>
+                        <input name='gestor' type='text' readonly='readonly' value='todos'>
+                    </div>
+                    <div style='float:left;width:40%'>
+                        <select name='queue'>
+                            {% for q in queues %}
+                            {% set class = '' %}
+                            {% if q.bloqueado == 1 %}
+                            	{% set class = 'blocked' %}
+                            {% endif %}
+                                <option value='{{ q.cliente ~ ',' ~ q.sdc ~ ',' ~ q.cr }}'
+                                class='{{ class }}'>
+                                {{ q.cliente ~ '-' ~ q.sdc ~ '-' ~ q.cr }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div style='float:left;width:30%'>
+                        <input type="submit" name="go" value="INTRO TODOS"><br>
+                        <input type="submit" name="go" value="BLOQUEAR TODOS"><br>
+                        <input type="submit" name="go" value="DESBLOQUEAR TODOS">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            {% for gestor in gestores %}
+                <div style='clear:both;border:1pt black solid'>
+                    <form method='get' action='queues.php' name='<?php echo $GESTOR; ?>'>
+                        <div style='float:left;width:25%'>
+                            <input name='gestor' type='text' readonly='readonly' value='{{ gestor }}'>
+                        </div>
+                        <div style='float:left;width:40%'>
+                            {% set mq = myQueue[gestor] %}
+                            {{ mq.cliente ~ '-' ~ mq.sdc ~ '-' ~ mq.cr }}
+                            <br>
+                            <select name='camp'>
+                            {% set ql = myQueueList[gestor] %}
+                            {% for q in ql %}
+                            {% set class = '' %}
+                            {% if q.bloqueado == 1 %}
+                            	{% set class = 'blocked' %}
+                            {% endif %}
+                                <option value='{{ q.cliente ~ ',' ~ q.sdc ~ ',' ~ q.cr }}'
+                                class='{{ class }}'>
+                                {{ q.cliente ~ '-' ~ q.sdc ~ '-' ~ q.cr }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div style='float:left;width:30%'>
+                            <input type="submit" name="go" value="INTRO">
+                            <input type="submit" name="go" value="BLOQUEAR">
+                            <input type="submit" name="go" value="DESBLOQUEAR">
+                        </div>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html> 
+
