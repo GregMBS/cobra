@@ -1,0 +1,52 @@
+<!DOCTYPE html">
+<html>
+    <head>
+        <title>Listado por Gestor y Status</title>
+        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" 
+              href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+        <style type="text/css">
+            tr:hover {background-color: #ff0000;}
+        </style>
+    </head>
+    <body>
+        <button onclick="window.location = 'queuesqc'">Regressar al Reporte de Queues</button><br>
+        <button onclick="window.location = 'reports'">Regressar al Admin</button><br>
+        <table id="cuentas" class="ui-widget">
+            <thead class="ui-widget-header">
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>CLIENTE</th>
+                    <th>SEGMENTO</th>
+                    <th>MONTO PAGO</th>
+                    <th>SALDO TOTAL</th>
+                    <th>QUEUE</th>
+                    <th>GESTOR</th>
+                    <th>ULT. GESTI&Oacute;N</th>
+                </tr>
+            </thead>
+            <tbody class="ui-widget-content">
+                {% for r in result %}
+                    <tr>
+                        <td><a href='resumen?go=FROMMIGO&i=0&field=id_cuenta&find={{ r.idc }}'>{{ r.numero_de_cuenta }}</a></td>
+                        <td>{{ r.nombre_deudor }}</td>
+                        <td>{{ r.cli }}</td>
+                        <td>{{ r.status_de_credito }}</td>
+                        <td class='num'>{{ r.sm|number_format(2)) }}</td>
+                        <td class='num'>{{ r.saldo_total|number_format(2)) }}</td>
+                        <td>{{ r.status_aarsa }}</td>
+                        <td>{{ r.ejecutivo_asignado_call_center }}</td>
+                        <td>{{ r.fecha_ultima_gestion }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script>
+            $('#cuentas').DataTable();
+        </script>
+    </body>
+</html>
