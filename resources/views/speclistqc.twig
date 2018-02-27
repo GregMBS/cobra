@@ -32,7 +32,7 @@
             <tbody class="ui-widget-content">
                 {% for r in result %}
                     <tr>
-                        <td><a href='resumen?go=FROMMIGO&i=0&field=id_cuenta&find={{ r.idc }}'>{{ r.numero_de_cuenta }}</a></td>
+                        <td><a href='resumen/{{ r.idc }}'>{{ r.numero_de_cuenta }}</a></td>
                         <td>{{ r.nombre_deudor }}</td>
                         <td>{{ r.cli }}</td>
                         <td>{{ r.status_de_credito }}</td>
