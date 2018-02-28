@@ -29,6 +29,7 @@ from historia
 where c_cvge=:gestor and d_fech=curdate()
 and c_hrin>:tiempo";
         $sdq = $this->pdo->prepare($query);
+        dd($sdq);
         $sdq->bindParam(':tiempo', $TIEMPO);
         $sdq->bindParam(':gestor', $GESTOR);
         $sdq->execute();
@@ -161,7 +162,6 @@ order by c_cvge,c_cvst,c_hrin";
             $main['formatstr']	 = ' class="late"';
             $main['ntp'] = date('H:i:s');
             foreach ($main as &$m) {
-                dd($m);
                 $times = $this->getTimes($m['diff'], $m['c_cvge']);
                 if (!empty($times['diff'])) {
                     $m['diff'] = $times['diff'];
