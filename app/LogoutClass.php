@@ -125,13 +125,13 @@ class LogoutClass extends BaseClass {
      * @param string $why
      */
     public function processLogout($capt, $why) {
-        $this->loc->unlockCuentas($capt);
-        $dt = $this->loc->getLogoutDatetime($capt, $why);
+        $this->unlockCuentas($capt);
+        $dt = $this->getLogoutDatetime($capt, $why);
         $date = $dt->toDateString();
         $time = $dt->toTimeString();
-        $this->loc->insertHistoria($capt, $why, $date, $time);
-        $this->loc->clearResumenLocks($capt);
-        $this->loc->clearRslice($capt);
-        $this->loc->expireTicket($capt);
+        $this->insertHistoria($capt, $why, $date, $time);
+        $this->clearResumenLocks($capt);
+        $this->clearRslice($capt);
+        $this->expireTicket($capt);
     }
 }
