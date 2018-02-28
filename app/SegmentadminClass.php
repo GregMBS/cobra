@@ -80,12 +80,12 @@ select cliente, status_de_credito, count(id_cuenta) as counter from resumen
 where status_de_credito not regexp '-'
 group by cliente, status_de_credito";
 		$this->pdo->query($querytempr);
-		$query = "SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, q.auto as id
+		$query = "SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, min(q.auto) as id
     FROM queuelist q
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
-    group by q.cliente,sdc,id
+    group by q.cliente,sdc
     ";
 		$stq = $this->pdo->query($query);
 		$result = $stq->fetchAll(\PDO::FETCH_BOTH);
