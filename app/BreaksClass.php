@@ -29,9 +29,9 @@ from historia
 where c_cvge=:gestor and d_fech=curdate()
 and c_hrin>:tiempo";
         $sdq = $this->pdo->prepare($query);
-        dd($sdq);
         $sdq->bindParam(':tiempo', $TIEMPO);
         $sdq->bindParam(':gestor', $GESTOR);
+        dd($sdq, $TIEMPO, $GESTOR);
         $sdq->execute();
         $result = $sdq->fetch(\PDO::FETCH_ASSOC);
         return $result;
