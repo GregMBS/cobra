@@ -157,6 +157,7 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function breaksPageData($capt) {
         $main = $this->getMainBreaksTable($capt);
+        dd($main);
         if ($main) {
             $main['formatstr']	 = ' class="late"';
             $main['ntp'] = date('H:i:s');
