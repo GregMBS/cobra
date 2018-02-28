@@ -76,11 +76,11 @@ class SegmentadminClass extends BaseClass {
 	 */
 	public function listQueuedSegmentos() {
 		$querytempr = "create temporary table csdcr
-select cliente, status_de_credito, count(id_cuenta) as cnt from resumen
+select cliente, status_de_credito, count(id_cuenta) as counter from resumen
 where status_de_credito not regexp '-'
 group by cliente, status_de_credito";
 		$this->pdo->query($querytempr);
-		$query = "SELECT q.cliente as 'cliente', r.sdc, max(r.cnt), q.auto as id
+		$query = "SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, q.auto as id
     FROM queuelist q
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
