@@ -91,7 +91,7 @@ class SegmentController extends Controller
     {
         $result = $this->sc->listQueuedSegmentos();
         $resultU = $this->sc->listUnqueuedSegments();
-        $view = view('segment')->with('result', $result)->with('resultU', $resultU);
+        $view = view('segments')->with('result', $result)->with('resultU', $resultU);
         return $view;
     }
 }
