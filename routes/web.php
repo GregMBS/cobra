@@ -48,6 +48,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/quick', 'QuickController@index');
     Route::get('/queuesqc', 'QueueReportController@index');
     Route::get('/speclistqc', 'SpeclistController@index');
+    Route::get('/segmento', 'SegmentController@index');
+    Route::post('/segmento/borrar', 'SegmentController@borrar');
+    Route::post('/segmento/inactivar', 'SegmentController@inactivar');
+    Route::post('/segmento/agregar', 'SegmentController@agregar');
+    Route::post('/segmento/segment/agregartodo', 'SegmentController@segment/agregartodo');
 });
 Auth::routes();
 

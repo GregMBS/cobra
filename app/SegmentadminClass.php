@@ -2,8 +2,6 @@
 
 namespace App;
 
-require_once 'classes/BaseClass.php';
-
 /**
  * Description of segmentadminClass
  *
@@ -82,7 +80,7 @@ select cliente, status_de_credito, count(id_cuenta) as cnt from resumen
 where status_de_credito not regexp '-'
 group by cliente, status_de_credito";
 		$this->pdo->query($querytempr);
-		$query = "SELECT q.cliente as 'cliente', sdc, cnt
+		$query = "SELECT q.cliente as 'cliente', sdc, cnt, q.auto as id
     FROM queuelist q
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
