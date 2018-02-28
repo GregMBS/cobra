@@ -157,11 +157,11 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function breaksPageData($capt) {
         $main = $this->getMainBreaksTable($capt);
-        dd($main);
         if ($main) {
             $main['formatstr']	 = ' class="late"';
             $main['ntp'] = date('H:i:s');
             foreach ($main as &$m) {
+                dd($m);
                 $times = $this->getTimes($m['diff'], $m['c_cvge']);
                 if (!empty($times['diff'])) {
                     $m['diff'] = $times['diff'];
