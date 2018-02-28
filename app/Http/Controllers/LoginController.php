@@ -24,6 +24,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->lc = new LoginClass();
+        $this->loc = new LogoutClass();
     }
 
     /**
