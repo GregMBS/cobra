@@ -568,7 +568,7 @@
                             <td>{{ h.fecha }}</td>
                             <td>{{ h.c_cvge }}</td>
                             <td>{{ h.c_tele }}</td>
-                            <td onclick="alert('{{ h.c_obse1 }}')">{{ h.short }}</td>
+                            <td onclick="alert('{{ h.c_obse1|convert_encoding('iso-8859-1','UTF-8') }}')">{{ h.short|convert_encoding('iso-8859-1','UTF-8') }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
