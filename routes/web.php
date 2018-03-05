@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/resumen', 'ResumenController@index');
     Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
     Route::get('/migo', 'MigoController@getList');
+    Route::get('/visits/{id_cuenta}', 'VisitController@index');
     Route::get('/rotas', 'RotasController@index');
     Route::get('/buscar', 'BuscarController@search');
     Route::get('/pagos/{id_cuenta}', 'PagosController@showOne');
