@@ -28,7 +28,7 @@
 					<td>{{ h.c_cvst }}</td>
 					<td>{{ h.fh }}</td>
 					<td>{{ h.gestor }}</td>
-					<td onclick="alert('{{ h.c_obse1|e('js') }}')">{{ h.short|e }}</td>
+					<td onclick="alert('{{ h.c_obse1|convert_encoding('iso-8859-1','UTF-8') }}')">{{ h.short|convert_encoding('iso-8859-1','UTF-8') }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
