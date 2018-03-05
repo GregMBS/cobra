@@ -40,14 +40,12 @@
                 id="rotas">
                 <input type="submit" name="go" value="PROMESAS">
             </form>
-            <form class="buttons" name="pagos" method="get" action="/pagos"
+            <form class="buttons" name="pagos" method="get" action="/pagos/{{ r.id_cuenta }}"
                 id="pagos" target="_blank">
-                <input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
                 <input type="submit" name="go" value="PAGOS">
             </form>
-            <form class="buttons" name="notasq" method="get" action="/notas"
+            <form class="buttons" name="notasq" method="get" action="/notas/{{ r.id_cuenta }}"
                 id="notas" target="_blank">
-                <input type="hidden" name="C_CONT" value="{{ r.id_cuenta }}">
                 <input type="submit" name="go" value="NOTAS">
             </form>
             <form class="buttons" name="queuesg" method="get" action="/queuesg"
