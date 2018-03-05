@@ -28,7 +28,7 @@
 					<td>{{ h.c_cvst }}</td>
 					<td>{{ h.fh }}</td>
 					<td>{{ h.gestor }}</td>
-					<td onclick="alert('{{ h.gestion }}')">{{ h.short }}</td>
+					<td onclick="alert('{{ h.c_obse1|e('js') }}')">{{ h.short|e }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
