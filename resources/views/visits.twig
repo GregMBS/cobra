@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Visitas</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
+	type="text/css" media="all" />
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+	type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+	type="text/javascript"></script>
+</head>
+<body>
+	<div id="historybox">
+		<table class="ui-widget" id="historyhead">
+			<thead class="ui-widget-header">
+				<tr>
+					{% for j in range(0,3) %}
+					<th>{{ fieldname[j] }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody class="ui-widget-content">
+				{% for h in historia %}
+				<tr>
+					<td>{{ h.c_cvst }}</td>
+					<td>{{ h.fh }}</td>
+					<td>{{ h.gestor }}</td>
+					<td onclick="alert('{{ h.gestion }}')">{{ h.short }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	</div>
+	<button onClick='window.close()'>CIERRA</button>
+</body>
+</html>
+
