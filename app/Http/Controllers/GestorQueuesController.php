@@ -27,7 +27,7 @@ class GestorQueuesController extends Controller
     public function changeQueue(Request $r)
     {
         $msg = "<h2>Se elige queue bloqueado o equivocado.</h2>";
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $cliente = $r->cliente;
         $sdc = $r->sdc;
         $queue = $r->queue;
@@ -46,13 +46,12 @@ class GestorQueuesController extends Controller
      */
     public function index($msg = '')
     {
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
 
         $resultc = $this->qc->getClients();
         $arrayc = json_encode($resultc);
 
         $results = $this->qc->getSdcClients($capt);
-        dd($results);
         $arrays = json_encode($results);
 
         $resultsa = $this->qc->getQueueSdcClients($capt);

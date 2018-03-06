@@ -27,7 +27,7 @@ class NotaController extends Controller
     public function index($id_cuenta = 0)
     {
         $cuenta = $this->nc->getCuentaFromId($id_cuenta);
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $notas = $this->nc->listMyNotas($capt);
         $view = view('notas')
         ->with('id_cuenta', $id_cuenta)
@@ -44,7 +44,7 @@ class NotaController extends Controller
      */
     public function remove($nota_id)
     {
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $this->nc->softDeleteOneNota($capt, $nota_id);
         return $this->index();
     }
@@ -56,7 +56,7 @@ class NotaController extends Controller
      */
     public function add(Request $r)
     {
-        $capt = auth()->user()->capt;
+        $capt = auth()->user()->iniciales;
         $D_FECH = date('Y-m-d');
         $C_HORA = date('H:i:s');
         $C_CONT = $r->C_CONT;
