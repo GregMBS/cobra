@@ -47,16 +47,9 @@ class GestorQueuesController extends Controller
     public function index($msg = '')
     {
         $capt = auth()->user()->capt;
-        $arrayc  = '[';
-        $arrays  = '[';
-        $arrayq  = '[';
         
         $resultc = $this->qc->getClients();
-        foreach ($resultc as $rowc) {
-            $arrayc = $arrayc.'"';
-            $arrayc = $arrayc.$rowc['cliente'].'",';
-        }
-        $arrayc  = $arrayc.']';
+        $arrayc  = json_encode($resultc);
         
         $results=$this->qc->getSdcClients($capt);
         foreach ($results as $rows) {
