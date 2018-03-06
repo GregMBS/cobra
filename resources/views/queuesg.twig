@@ -48,7 +48,7 @@
                 $("body").css("font-size", "10pt").css("text-align", "center");
                 $("div").css("float", "left");
                 $(".introb").css("clear", "left");
-                $.each({{ arrayc|e('js') }}, function (index, value) {
+                $.each({{ arrayc|raw }}, function (index, value) {
                     var data = '<div class="column"><input class="columnc" '
                             +'type="radio" name="cliente" value="' + value 
                             + '" />' + value + '</div>';
@@ -58,7 +58,7 @@
                     $("#sdc").empty();
                     $("#queue").empty();
                     var data2 = $('input[name=cliente]:checked').val();
-                    $.each({{ arrays|e('js') }}, function (index, sdc) {
+                    $.each({{ arrays|raw }}, function (index, sdc) {
                         if (sdc[1] === data2) {
                             var st = sdc[0];
                             if (st === '') {
@@ -76,7 +76,7 @@
                     $("#queue").empty();
                     var data2 = $('input[name=cliente]:checked').val();
                     var data4 = $('input[name=sdc]:checked').val();
-                    $.each({{ arrayq|e('js') }}, function (index, que) {
+                    $.each({{ arrayq|raw }}, function (index, que) {
                         if ((que[1] + que[2]) === (data4 + data2)) {
                             var qt = que[0];
                             if (qt === '') {
