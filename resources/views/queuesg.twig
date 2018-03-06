@@ -59,14 +59,14 @@
                     $("#queue").empty();
                     var data2 = $('input[name=cliente]:checked').val();
                     $.each({{ arrays|raw }}, function (index, sdc) {
-                        if (sdc[1] === data2) {
-                            var st = sdc[0];
+                        if (sdc.cliente === data2) {
+                            var st = sdc.sdc;
                             if (st === '') {
                                 st = 'TODOS';
                             }
                             data3 = '<div class="column"><input class="columns" '
                                     +'type="radio" name="sdc" value="' 
-                                    + sdc[0] + '" />' + st + '</div>';
+                                    + sdc.sdc + '" />' + st + '</div>';
                             $('#sdc').append(data3);
                         }
                     });
