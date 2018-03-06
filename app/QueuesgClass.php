@@ -39,7 +39,12 @@ class QueuesgClass extends BaseClass {
         $stq->execute();
         $resultqueue = $stq->fetch(\PDO::FETCH_ASSOC);
         $camp = $resultqueue['camp'];
-        return $camp;
+        if ($camp) {
+            return $camp;
+        } else {
+            return -1;
+        }
+        
     }
     
     /**

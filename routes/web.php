@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
     Route::get('/notas/{id_cuenta}', 'NotaController@index');
     Route::get('/migo', 'MigoController@getList');
+    Route::get('/queuesg', 'GestorQueuesController@index');
+    Route::post('/queuesg', 'GestorQueuesController@changeQueue');
     Route::get('/visits/{id_cuenta}', 'VisitController@index');
     Route::get('/rotas', 'RotasController@index');
     Route::get('/buscar', 'BuscarController@search');
