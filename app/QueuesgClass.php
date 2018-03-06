@@ -82,7 +82,7 @@ class QueuesgClass extends BaseClass {
     public function getSdcClients($capt) {
         $querys  = "SELECT distinct sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado=0 and cliente<>''
-        ORDER BY cliente,sdc,status_aarsa";
+        ORDER BY cliente,sdc";
         $sts = $this->pdo->prepare($querys);
         $sts->bindParam(':capt', $capt);
         $sts->execute();
