@@ -70,7 +70,7 @@ class QueuesgClass extends BaseClass {
         FROM queuelist where cliente<>''
         ORDER BY cliente";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
+        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
     
