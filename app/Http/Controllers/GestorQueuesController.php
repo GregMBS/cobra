@@ -52,21 +52,10 @@ class GestorQueuesController extends Controller
         $arrayc  = json_encode($resultc);
         
         $results=$this->qc->getSdcClients($capt);
-        foreach ($results as $rows) {
-            $arrays = $arrays.'["';
-            $arrays = $arrays.$rows['sdc'].'","'.$rows['cliente'].'"],';
-        }
-        $arrays  = rtrim($arrays, ',').']';
+        $arrays  = json_encode($results);
         
         $resultsa=$this->qc->getQueueSdcClients($capt);
-        foreach ($resultsa as $rowsa) {
-            $arrayq = $arrayq.'["';
-            $arrayq = $arrayq
-            . $rowsa['status_aarsa'].'","'
-                . $rowsa['sdc'].'","'
-                    . $rowsa['cliente'].'"],';
-        }
-        $arrayq = rtrim($arrayq, ',').']';
+        $arrayq = json_encode($resultsa);
         $view = view('queuesg')
         ->with('msg', $msg)
         ->with('capt', $capt)
