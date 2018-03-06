@@ -20,7 +20,7 @@ class GestorQueuesController extends Controller
     }
 
     /**
-     * 
+     *
      * @param Request $r
      * @return View
      */
@@ -38,30 +38,31 @@ class GestorQueuesController extends Controller
         }
         return $this->index($msg);
     }
-    
+
     /**
-     * 
+     *
      * @param string $msg
      * @return View
      */
     public function index($msg = '')
     {
         $capt = auth()->user()->capt;
-        
+
         $resultc = $this->qc->getClients();
-        $arrayc  = json_encode($resultc);
-        
-        $results=$this->qc->getSdcClients($capt);
-        $arrays  = json_encode($results);
-        
-        $resultsa=$this->qc->getQueueSdcClients($capt);
+        $arrayc = json_encode($resultc);
+
+        $results = $this->qc->getSdcClients($capt);
+        dd($results);
+        $arrays = json_encode($results);
+
+        $resultsa = $this->qc->getQueueSdcClients($capt);
         $arrayq = json_encode($resultsa);
-        $view = view('queuesg')
-        ->with('msg', $msg)
-        ->with('capt', $capt)
-        ->with('arrayc', $arrayc)
-        ->with('arrays', $arrays)
-        ->with('arrayq', $arrayq);
+
+        $view = view('queuesg')->with('msg', $msg)
+            ->with('capt', $capt)
+            ->with('arrayc', $arrayc)
+            ->with('arrays', $arrays)
+            ->with('arrayq', $arrayq);
         return $view;
     }
 }
