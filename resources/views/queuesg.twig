@@ -50,8 +50,8 @@
                 $(".introb").css("clear", "left");
                 $.each({{ arrayc|raw }}, function (index, value) {
                     var data = '<div class="column"><input class="columnc" '
-                            +'type="radio" name="cliente" value="' + value 
-                            + '" />' + value + '</div>';
+                            +'type="radio" name="cliente" value="' + value.cliente 
+                            + '" />' + value.cliente + '</div>';
                     $('#cliente').append(data);
                 });
                 $("#cliente").change(function () {
