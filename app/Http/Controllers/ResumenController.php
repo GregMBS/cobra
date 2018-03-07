@@ -164,6 +164,10 @@ class ResumenController extends Controller
     private function buildView($result, $history, $from, $capt) {
         $id_cuenta = $result['id_cuenta'];
         $tipo = auth()->user()->tipo;
+        $camp = auth()->user()->camp;
+        $queue = $this->rqc->getMyQueue($capt, $camp);
+        $sdc = $queue['sdc'];
+        $cr = $queue['cr'];
         $numgest = $this->rc->getNumGests($capt);
         $tl = $this->rc->getTimelock($id_cuenta);
         $notas = $this->nc->notAlert($capt);
@@ -192,6 +196,8 @@ class ResumenController extends Controller
         ->with('capt', $capt)
         ->with('tipo', $tipo)
         ->with('tl', $tl)
+        ->with('sdc', $sdc)
+        ->with('cr', $cr)
         ->with('numgest', $numgest)
         ->with('from', $from);
         return $view;

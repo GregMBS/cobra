@@ -21,7 +21,7 @@ class ResumenQueuesClass extends BaseClass {
      * @param int $camp
      * @return array
      */
-    private function getMyQueue($capt, $camp) {
+    public function getMyQueue($capt, $camp) {
         $queryquery = "SELECT cliente, status_aarsa as cr, sdc 
         FROM queuelist 
         WHERE gestor = :capt 
