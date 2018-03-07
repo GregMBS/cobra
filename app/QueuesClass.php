@@ -23,7 +23,7 @@ class QueuesClass extends BaseClass {
      * @param string $GESTOR
      */
     public function updateQueue($CAMP, $GESTOR) {
-        $queryupd = "UPDATE nombres SET camp=:camp "
+        $queryupd = "UPDATE users SET camp=:camp "
                 . "where iniciales=:gestor";
         $stu = $this->pdo->prepare($queryupd);
         $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
@@ -69,12 +69,12 @@ class QueuesClass extends BaseClass {
      */
     public function updateQueueAll($cliente, $sdc, $status) {
         if (empty($sdc)) {
-            $queryqueue = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
+            $queryqueue = "UPDATE users,queuelist SET users.camp=queuelist.camp
 where iniciales=gestor and cliente=:cliente
 and status_aarsa=:status";
             $stq = $this->pdo->prepare($queryqueue);
         } else {
-            $queryqueue = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
+            $queryqueue = "UPDATE users,queuelist SET users.camp=queuelist.camp
 where iniciales=gestor and cliente=:cliente
 and sdc=:sdc and status_aarsa=:status";
             $stq = $this->pdo->prepare($queryqueue);
@@ -128,7 +128,7 @@ and sdc=:sdc and status_aarsa=:status";
     public function getGestores() {
         $query = "SELECT distinct gestor 
             FROM queuelist
-        JOIN nombres ON gestor=iniciales 
+        JOIN users ON gestor=iniciales 
         WHERE tipo <> ''
         ORDER BY gestor";
         $result = $this->pdo->query($query);
@@ -158,10 +158,10 @@ and sdc=:sdc and status_aarsa=:status";
      */
     public function getMyQueue($GESTOR) {
         $queryqc = "SELECT cliente, sdc, status_aarsa as 'cr', 
-                                nombres.camp as campnow
-                                FROM queuelist, nombres 
+                                users.camp as campnow
+                                FROM queuelist, users 
                                 WHERE gestor = :gestor and gestor=iniciales 
-                                and nombres.camp=queuelist.camp
+                                and users.camp=queuelist.camp
                                 and cliente<>''
                                 ORDER BY cliente,sdc,status_aarsa
                                 LIMIT 1";

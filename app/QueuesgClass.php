@@ -53,7 +53,7 @@ class QueuesgClass extends BaseClass {
      * @param string $capt
      */
     public function setCamp($camp, $capt) {
-        $queryupd = "UPDATE nombres SET camp=:camp "
+        $queryupd = "UPDATE users SET camp=:camp "
             . "where iniciales=:capt";
         $stu = $this->pdo->prepare($queryupd);
         $stu->bindParam(':camp', $camp);
