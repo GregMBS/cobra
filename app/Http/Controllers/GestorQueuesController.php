@@ -26,7 +26,7 @@ class GestorQueuesController extends Controller
      */
     public function changeQueue(Request $r)
     {
-        $msg = "<h2>Se elige queue bloqueado o equivocado.</h2>";
+        $msg = "Se elige queue bloqueado o equivocado.";
         $capt = auth()->user()->iniciales;
         $cliente = $r->cliente;
         $sdc = $r->sdc;
@@ -34,7 +34,7 @@ class GestorQueuesController extends Controller
         $camp = $this->qc->getCamp($cliente, $queue, $sdc, $capt);
         if ($camp >= 0) {
             $this->qc->setCamp($camp, $capt);
-            $msg = "<h2>Se elige queue " . $cliente . " " . $sdc . " " . $queue . "</h2>";
+            $msg = "Se elige queue " . $cliente . " " . $sdc . " " . $queue;
         }
         return $this->index($msg);
     }
