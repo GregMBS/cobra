@@ -44,7 +44,7 @@ class GestoradminClass extends BaseClass {
                 SET password = :passw
                 WHERE iniciales = :capt";
             $stp = $this->pdo->prepare($queryp);
-            $stp->bindParam(':passw', bcrypt($passw));
+            $stp->bindValue(':passw', bcrypt($passw));
             $stp->bindParam(':usuaria', $capt);
             $stp->execute();
         }
@@ -99,7 +99,7 @@ class GestoradminClass extends BaseClass {
         $sti->bindParam(':completo', $completo);
         $sti->bindParam(':tipo', $tipo);
         $sti->bindParam(':iniciales', $iniciales);
-        $sti->bindParam(':passw', bcrypt($passw));
+        $sti->bindValue(':passw', bcrypt($passw));
         $sti->execute();
     }
 
