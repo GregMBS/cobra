@@ -43,8 +43,8 @@ tr:hover {
 					name="passw" value="" /></td>
 				<td><select form="gestorchange{{ rnd }}" name="tipo">
 						<option value=""></option>
-						{% set seltxt = '' %}
 						{% for g in groups %}
+                        {% set seltxt = '' %}
 						{% if g == r.tipo %}
 						{% set seltxt = 'selected' %}
 						{% endif %}
