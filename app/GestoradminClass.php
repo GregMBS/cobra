@@ -21,15 +21,15 @@ class GestoradminClass extends BaseClass {
      * @param string $tipo
      * @param string $usuaria
      */
-    public function updateOpenParams($completo, $tipo, $usuaria) {
-        $queryu = "UPDATE nombres
+    private function updateOpenParams($completo, $tipo, $capt) {
+        $queryu = "UPDATE users
             SET completo = :completo,
             tipo = :tipo
-            WHERE usuaria = :usuaria";
+            WHERE iniciales = :capt";
         $stu = $this->pdo->prepare($queryu);
         $stu->bindParam(':completo', $completo);
         $stu->bindParam(':tipo', $tipo);
-        $stu->bindParam(':usuaria', $usuaria);
+        $stu->bindParam(':capt', $capt);
         $stu->execute();
     }
 
@@ -38,48 +38,49 @@ class GestoradminClass extends BaseClass {
      * @param string $passw
      * @param string $usuaria
      */
-    public function updatePassword($passw, $usuaria) {
-        $queryp = "UPDATE nombres
-            SET passw = sha(:passw)
-            WHERE usuaria = :usuaria
-	    AND passw <> :passw";
-        $stp = $this->pdo->prepare($queryp);
-        $stp->bindParam(':passw', $passw);
-        $stp->bindParam(':usuaria', $usuaria);
-        $stp->execute();
+    private function updatePassword($passw, $capt) {
+        if ((strlen($passw) < 50) && (strlen($passw) > 0)) {
+            $queryp = "UPDATE users
+                SET password = :passw
+                WHERE iniciales = :capt";
+            $stp = $this->pdo->prepare($queryp);
+            $stp->bindParam(':passw', bcrypt($passw));
+            $stp->bindParam(':usuaria', $capt);
+            $stp->execute();
+        }
     }
 
     /**
      * 
-     * @param string $usuaria
+     * @param string $capt
      */
-    public function deleteFromNombres($usuaria) {
-        $queryb = "DELETE FROM nombres WHERE usuaria = :usuaria";
+    private function deleteFromUsers($capt) {
+        $queryb = "DELETE FROM users WHERE iniciales = :capt";
         $stb = $this->pdo->prepare($queryb);
-        $stb->bindParam(':usuaria', $usuaria);
+        $stb->bindParam(':capt', $capt);
         $stb->execute();
     }
 
     /**
      * 
-     * @param string $usuaria
+     * @param string $capt
      */
-    public function deleteFromQueuelist($usuaria) {
-        $queryb = "DELETE FROM queuelist WHERE gestor = :usuaria";
+    private function deleteFromQueuelist($capt) {
+        $queryb = "DELETE FROM queuelist WHERE gestor = :capt";
         $stb = $this->pdo->prepare($queryb);
-        $stb->bindParam(':usuaria', $usuaria);
+        $stb->bindParam(':capt', $capt);
         $stb->execute();
     }
 
     /**
      * 
-     * @param string $usuaria
+     * @param string $capt
      */
-    public function deleteFromResumen($usuaria) {
+    private function deleteFromResumen($capt) {
         $queryb = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
-            WHERE ejecutivo_asignado_call_center = :usuaria";
+            WHERE ejecutivo_asignado_call_center = :capt";
         $stb = $this->pdo->prepare($queryb);
-        $stb->bindParam(':usuaria', $usuaria);
+        $stb->bindParam(':capt', $capt);
         $stb->execute();
     }
 
@@ -87,20 +88,18 @@ class GestoradminClass extends BaseClass {
      * 
      * @param string $completo
      * @param string $tipo
-     * @param string $usuaria
      * @param string $iniciales
      * @param string $passw
      */
-    public function addToNombres($completo, $tipo, $usuaria, $iniciales, $passw) {
-        $queryin = "INSERT INTO nombres (USUARIA, INICIALES, COMPLETO, PASSW,
-            TIPO, CAMP) 
-	VALUES (:usuaria, :iniciales, :completo, sha(:passw), :tipo, 999999)";
+    private function addToUsers($completo, $tipo, $iniciales, $passw) {
+        $queryin = "INSERT INTO users (iniciales, completo, password,
+            tipo, camp) 
+	VALUES (:iniciales, :completo, :passw, :tipo, 999999)";
         $sti = $this->pdo->prepare($queryin);
         $sti->bindParam(':completo', $completo);
         $sti->bindParam(':tipo', $tipo);
-        $sti->bindParam(':usuaria', $usuaria);
         $sti->bindParam(':iniciales', $iniciales);
-        $sti->bindParam(':passw', $passw);
+        $sti->bindParam(':passw', bcrypt($passw));
         $sti->execute();
     }
 
@@ -108,7 +107,7 @@ class GestoradminClass extends BaseClass {
      * 
      * @param string $iniciales
      */
-    public function addToQueuelists($iniciales) {
+    private function addToQueuelists($iniciales) {
         $querylistin = "insert ignore into queuelist
 		SELECT distinct null, :iniciales, cliente, status_aarsa, 999999,
 		orden1, updown1, orden2, updown2, orden3, updown3,
@@ -127,23 +126,62 @@ class GestoradminClass extends BaseClass {
      * @return array
      */
     public function getNombres() {
-        $querymain = "SELECT USUARIA, COMPLETO, TIPO, CAMP, INICIALES, PASSW 
-    FROM nombres 
-    where iniciales <> 'gmbs'
-    order by TIPO, USUARIA";
+        $querymain = "(SELECT completo, tipo, camp, iniciales, password as pwd
+    FROM users
+    WHERE iniciales <> 'gmbs')
+    UNION
+(SELECT completo, tipo, camp, iniciales, passw as pwd
+    FROM nombres
+    WHERE iniciales <> 'gmbs')    
+    order by tipo, iniciales";
         $result = $this->pdo->query($querymain);
         return $result;
     }
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getGroups() {
         $queryg = "SELECT grupo FROM grupos";
-        $resultg = $this->pdo->query($queryg);
-        $groups = $resultg->fetchAll(\PDO::FETCH_ASSOC);
+        $stg = $this->pdo->query($queryg);
+        $result = $stg->fetchAll(\PDO::FETCH_ASSOC);
+        $groups = array_column($result, 'grupo');
         return $groups;
     }
 
+    /**
+     * 
+     * @param string $completo
+     * @param string $tipo
+     * @param string $iniciales
+     * @param string $passwd
+     */
+    public function changeUserData($completo, $tipo, $iniciales, $passwd)
+    {
+        $this->updateOpenParams($completo, $tipo, $iniciales);
+        $this->updatePassword($passwd, $iniciales);
+    }
+    
+    /**
+     * 
+     * @param string $iniciales
+     */
+    public function removeUser($iniciales) {
+        $this->deleteFromUsers($iniciales);
+        $this->deleteFromQueuelist($iniciales);
+        $this->deleteFromResumen($iniciales);
+    }
+    
+    /**
+     * 
+     * @param string $completo
+     * @param string $tipo
+     * @param string $iniciales
+     * @param string $passw
+     */
+    public function addUser($completo, $tipo, $iniciales, $passw) {
+        $this->addToUsers($completo, $tipo, $iniciales, $passw);
+        $this->addToQueuelists($iniciales);
+    }
 }

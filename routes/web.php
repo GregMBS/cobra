@@ -57,6 +57,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/segmento/inactivar', 'SegmentController@inactivar');
     Route::post('/segmento/agregar', 'SegmentController@agregar');
     Route::post('/segmento/segment/agregartodo', 'SegmentController@segment/agregartodo');
+    Route::get('/gestoradmin', 'GestoradminController@index');
+    Route::get('/gestor/add', 'GestoradminController@agregar');
+    Route::get('/gestor/change', 'GestoradminController@cambiar');
+    Route::get('/gestor/delete', 'GestoradminController@borrar');
 });
 Auth::routes();
 
