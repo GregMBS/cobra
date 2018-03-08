@@ -38,7 +38,7 @@ class GestoradminController extends Controller
      * @return View
      */
     public function cambiar(Request $r) {
-        $this->gc->changeUserData($r->completo, $r->tipo, $r->iniciales, $r->passwd);
+        $this->gc->changeUserData($r->completo, $r->tipo, $r->iniciales, $r->passw);
         return $this->index();
     }
     

@@ -47,8 +47,6 @@ class GestoradminClass extends BaseClass {
             $stp->bindValue(':passw', bcrypt($passw));
             $stp->bindParam(':usuaria', $capt);
             $stp->execute();
-        } else {
-            dd($passw, $capt);
         }
     }
 
