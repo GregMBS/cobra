@@ -23,7 +23,7 @@ class LoginClass extends BaseClass {
      */
     public function getUserData($capt, $pw) {
         $queryg = "SELECT iniciales, enlace, tipo "
-                . "FROM nombres JOIN grupos ON grupo=tipo "
+                . "FROM users JOIN grupos ON grupo=tipo "
                 . "WHERE passw = sha(:pw) "
                 . "AND LOWER(iniciales) = LOWER(:capt) "
                 . "LIMIT 1";
@@ -42,7 +42,7 @@ class LoginClass extends BaseClass {
      * @param string $tipo
      */
     private function setTicket($cpw, $capt, $tipo) {
-        $queryc = "update nombres "
+        $queryc = "update users "
                 . "set ticket = :cpw "
                 . "where iniciales = :capt "
                 . "and tipo = :tipo";
@@ -58,7 +58,7 @@ class LoginClass extends BaseClass {
      * @param string $capt
      */
     private function setInitialQueue($capt) {
-        $queryq = "update nombres n, queuelist qu
+        $queryq = "update users n, queuelist qu
 			set n.camp = qu.camp
 			where iniciales = gestor
 			and status_aarsa = 'Inicial'
