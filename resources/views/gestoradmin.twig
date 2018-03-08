@@ -44,7 +44,7 @@ tr:hover {
 				<td><select form="gestorchange{{ rnd }}" name="tipo">
 						<option value=""></option>
 						{% set seltxt = '' %}
-						{% for g in group %}
+						{% for g in groups %}
 						{% if g == r.tipo %}
 						{% set seltxt = 'selected' %}
 						{% endif %}
@@ -71,7 +71,7 @@ tr:hover {
 					<td><input type="password" name="passw" value="" /></td>
 					<td><select name="tipo">
 							<option value=""></option>
-							{% for g in group %}
+							{% for g in groups %}
 							<option value="{{ g }}" style="font-size: 120%;">{{ g }}</option>
 							{% endfor %}
 					</select></td>
