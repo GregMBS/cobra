@@ -302,9 +302,7 @@ and field not regexp '_cuenta$';";
                 $sep = ',';
             }
             $queryins = "insert ignore into resumen (" . $fieldlist . ") select " . $fieldlist . " from temp
-            where numero_de_cuenta+0>0 and not exists (
-            select * from resumen 
-            where temp.numero_de_cuenta=resumen.numero_de_cuenta);";
+            where numero_de_cuenta+0>0";
             //die(htmlentities($queryins));
 //die("ready to INSERT to resumen");                    
             $queryins = "insert ignore into resumen (" . $fieldlist . ") select " . $fieldlist . " from temp;";
