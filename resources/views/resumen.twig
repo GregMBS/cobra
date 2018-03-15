@@ -169,27 +169,14 @@
                     {% include 'resfield.twig' with {'field': 'tel_3_alterno', 'label': 'Tel 3 Aval', 'value': r.tel_3_alterno} %}
                     {% include 'resfield.twig' with {'field': 'tel_4_alterno', 'label': 'Tel 4 Aval', 'value': r.tel_4_alterno} %}
                 </div>
+                {% for ref in referencias %}
                 <div style="float: left; clear: none;">
-                    {% include 'resfield.twig' with {'field': 'nombre_referencia_1', 'label': 'Referencia 1', 'value': r.nombre_referencia_1} %}
-                    {% include 'resfield.twig' with {'field': 'tel_1_ref_1', 'label': 'Tel Casa Ref 1', 'value': r.tel_1_ref_1} %}
-                    {% include 'resfield.twig' with {'field': 'tel_2_ref_1', 'label': 'Tel Cel Ref 1', 'value': r.tel_2_ref_1} %}
+                    {% include 'resfield.twig' with {'field': 'nombre_'~ref.id, 'label': 'Referencia', 'value': ref.nombre} %}
+                    {% include 'resfield.twig' with {'field': 'tel_1_'~ref.id, 'label': 'Tel Casa', 'value': ref.tel_1} %}
+                    {% include 'resfield.twig' with {'field': 'tel_2_'~ref.id, 'label': 'Tel Cel', 'value': ref.tel_2} %}
                 </div>
-                <div style="float: left; clear: none;">
-                    {% include 'resfield.twig' with {'field': 'nombre_referencia_2', 'label': 'Referencia 2', 'value': r.nombre_referencia_2} %}
-                    {% include 'resfield.twig' with {'field': 'tel_1_ref_2', 'label': 'Tel Casa Ref 2', 'value': r.tel_1_ref_2} %}
-                    {% include 'resfield.twig' with {'field': 'tel_2_ref_2', 'label': 'Tel Cel Ref 2', 'value': r.tel_2_ref_2} %}
-                </div>
-                <div style="float: left; clear: none;">
-                    {% include 'resfield.twig' with {'field': 'nombre_referencia_3', 'label': 'Referencia 3', 'value': r.nombre_referencia_3} %}
-                    {% include 'resfield.twig' with {'field': 'tel_1_ref_3', 'label': 'Tel Casa Ref 3', 'value': r.tel_1_ref_3} %}
-                    {% include 'resfield.twig' with {'field': 'tel_2_ref_3', 'label': 'Tel Cel Ref 3', 'value': r.tel_2_ref_3} %}
-                </div>
-                <div style="float: left; clear: none;">
-                    {% include 'resfield.twig' with {'field': 'nombre_referencia_4', 'label': 'Referencia 4', 'value': r.nombre_referencia_4} %}
-                    {% include 'resfield.twig' with {'field': 'tel_1_ref_4', 'label': 'Tel Casa Ref 4', 'value': r.tel_1_ref_4} %}
-                    {% include 'resfield.twig' with {'field': 'tel_2_ref_4', 'label': 'Tel Cel Ref 4', 'value': r.tel_2_ref_4} %}
-                </div>
-            </div>
+                {% endfor %}
+             </div>
             <div id="LABORAL">
                 {% include 'resfield.twig' with {'field': 'empresa', 'label': 'Empresa', 'value': r.empresa} %}
                 {% include 'resfield.twig' with {'field': 'domicilio_laboral', 'label': 'Domicilio', 'value': r.domicilio_laboral} %}
@@ -619,14 +606,10 @@
                             {% include 'restel.twig' with {'telno': r.tel_2_verif, 'class': 'verif ' ~ badno.tel_2_verif, 'label': 'TEL 2 VERIF'} %}
                             {% include 'restel.twig' with {'telno': r.tel_3_verif, 'class': 'verif ' ~ badno.tel_3_verif, 'label': 'TEL 3 VERIF'} %}
                             {% include 'restel.twig' with {'telno': r.tel_4_verif, 'class': 'verif ' ~ badno.tel_4_verif, 'label': 'TEL 4 VERIF'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_1_ref_1, 'class': badno.tel_1_ref_1, 'label': 'TEL 1 REF 1'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_1_ref_2, 'class': badno.tel_1_ref_2, 'label': 'TEL 1 REF 2'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_1_ref_3, 'class': badno.tel_1_ref_3, 'label': 'TEL 1 REF 3'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_1_ref_4, 'class': badno.tel_1_ref_4, 'label': 'TEL 1 REF 4'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_2_ref_1, 'class': badno.tel_2_ref_1, 'label': 'TEL 2 REF 1'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_2_ref_2, 'class': badno.tel_2_ref_2, 'label': 'TEL 2 REF 2'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_2_ref_3, 'class': badno.tel_2_ref_3, 'label': 'TEL 2 REF 3'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_2_ref_4, 'class': badno.tel_2_ref_4, 'label': 'TEL 2 REF 4'} %}
+                            {% for ref in referencias %}
+                            {% include 'restel.twig' with {'telno': ref.tel_1, 'class': '', 'label': ref.nombre} %}
+                            {% include 'restel.twig' with {'telno': ref.tel_2, 'class': '', 'label': ref.nombre} %}
+                            {% endfor %}
                         </select>
                     </td>
                 </tr>

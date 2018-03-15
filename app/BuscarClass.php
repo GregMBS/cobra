@@ -27,11 +27,11 @@ cliente, id_cuenta, status_de_credito from resumen ";
      * @var string
      */
     private $refstring = "WHERE
-(nombre_deudor_alterno regexp :find or
-nombre_referencia_1 regexp :find or
-nombre_referencia_2 regexp :find or
-nombre_referencia_3 regexp :find or
-nombre_referencia_4 regexp :find)";
+(id_cuenta IN (
+    SELECT id_cuenta FROM referencias
+    WHERE nombre REGEXP :find
+    )
+)";
 
     /**
      *
@@ -46,21 +46,23 @@ tel_1_alterno regexp :find or
 tel_2_alterno regexp :find or
 tel_3_alterno regexp :find or
 tel_4_alterno regexp :find or
-tel_1_ref_1 regexp :find or
-tel_2_ref_1 regexp :find or
-tel_1_ref_2 regexp :find or
-tel_2_ref_2 regexp :find or
-tel_1_ref_3 regexp :find or
-tel_2_ref_3 regexp :find or
-tel_1_ref_4 regexp :find or
-tel_2_ref_4 regexp :find or
 tel_1_laboral regexp :find or
 tel_2_laboral regexp :find or
 tel_1_verif regexp :find or
 tel_2_verif regexp :find or
 tel_3_verif regexp :find or
 tel_4_verif regexp :find or
-telefonos_marcados regexp :find)";
+telefonos_marcados regexp :find) or 
+(id_cuenta IN (
+    SELECT id_cuenta FROM referencias
+    WHERE tel_1 REGEXP :find
+    )
+) OR 
+(id_cuenta IN (
+    SELECT id_cuenta FROM referencias
+    WHERE tel_2 REGEXP :find
+    )
+)";
 
     /**
      *

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\GestionClass;
 use Illuminate\Support\Facades\View;
 use App\NotaClass;
+use App\ReferenciaClass;
 
 class ResumenController extends Controller
 {
@@ -35,6 +36,12 @@ class ResumenController extends Controller
      * @var NotaClass
      */
     private $nc;
+    
+    /**
+     * 
+     * @var ReferenciaClass
+     */
+    private $fc;
 
     public function __construct()
     {
@@ -42,6 +49,7 @@ class ResumenController extends Controller
         $this->gc = new GestionClass();
         $this->rqc = new ResumenQueuesClass();
         $this->nc = new NotaClass();
+        $this->fc = new ReferenciaClass();
     }
 
     /*
@@ -180,6 +188,7 @@ class ResumenController extends Controller
         $visitadores = $this->rc->getVisitadorList();
         $gestores = $this->rc->getGestorList();
         $cnp = $this->rc->getCnp();
+        $referencias = $this->fc->index($id_cuenta);
         $view = view('resumen')
         ->with('r', $result)
         ->with('history', $history)
@@ -191,6 +200,7 @@ class ResumenController extends Controller
         ->with('motiv', $motiv)
         ->with('motivV', $motivV)
         ->with('cnp', $cnp)
+        ->with('referencias', $referencias)
         ->with('gestores', $gestores)
         ->with('visitadores', $visitadores)
         ->with('capt', $capt)

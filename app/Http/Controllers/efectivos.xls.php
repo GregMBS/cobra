@@ -24,8 +24,6 @@ if((tel_3 in (select c_tele from livelines))*(1-(tel_3 in (select c_tele from de
 if((tel_4 in (select c_tele from livelines))*(1-(tel_4 in (select c_tele from deadlines))),concat('',tel_4),'') as 'tel_4',
 if((tel_1_verif in (select c_tele from livelines))*(1-(tel_1_verif in (select c_tele from deadlines))),concat('',tel_1_verif),'') as 'tel_1_verif',
 if((tel_2_verif in (select c_tele from livelines))*(1-(tel_2_verif in (select c_tele from deadlines))),concat('',tel_2_verif),'') as 'tel_2_verif',
-if((tel_1_ref_1 in (select c_tele from livelines))*(1-(tel_1_ref_1 in (select c_tele from deadlines))),concat('',tel_1_ref_1),'') as 'tel_referencia_1',
-if((tel_1_ref_2 in (select c_tele from livelines))*(1-(tel_1_ref_2 in (select c_tele from deadlines))),concat('',tel_1_ref_2),'') as 'tel_referencia_2',
 if((tel_1_verif in (select c_tele from livelines))*(1-(tel_1_verif in (select c_tele from deadlines))),concat('',tel_1_verif),'') as 'tel_1_actualizado',
 if((tel_2_verif in (select c_tele from livelines))*(1-(tel_2_verif in (select c_tele from deadlines))),concat('',tel_2_verif),'') as 'tel_2_actualizado',
 if((tel_3_verif in (select c_tele from livelines))*(1-(tel_3_verif in (select c_tele from deadlines))),concat('',tel_3_verif),'') as 'tel_3_actualizado',

@@ -49,21 +49,6 @@ WHERE id_cuenta=:C_CONT";
 
     /**
      * 
-     * @param string $TAGS
-     * @param int $C_CONT
-     */
-    public function updateRlook($TAGS, $C_CONT) {
-        $queryup = "UPDATE rlook
-SET status_de_credito=:tags
-WHERE id_cuenta=:C_CONT";
-        $stu = $this->pdo->prepare($queryup);
-        $stu->bindParam(':tags', $TAGS);
-        $stu->bindParam(':C_CONT', $C_CONT);
-        $stu->execute();
-    }
-
-    /**
-     * 
      * @param string $field
      * @param string $find
      * @param string $CLIENTE

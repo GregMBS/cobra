@@ -329,22 +329,6 @@ where h2.d_fech>h1.d_fech and h2.c_cont=h1.c_cont and h2.n_prom>0)
 and fecha_de_ultimo_pago<fecha_de_actualizacion
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)";
 //$con->query($querypagoins) or die($con->error);
-            $queryrlist1    = "truncate rlook;";
-            $con->query($queryrlist1) or die($con->error);
-            $queryrlist2    = "insert into rlook
-select id_cuenta,numero_de_cuenta,nombre_deudor,cliente,status_de_credito,
-nombre_referencia_1,nombre_referencia_2,nombre_referencia_3,nombre_referencia_4,
-tel_1,tel_2,tel_3,tel_4,
-tel_1_alterno,tel_2_alterno,tel_3_alterno,tel_4_alterno,
-tel_1_verif,tel_2_verif,tel_3_verif,tel_4_verif,
-tel_1_ref_1,tel_2_ref_1,
-tel_1_ref_2,tel_2_ref_2,
-tel_1_ref_3,tel_2_ref_3,
-tel_1_ref_4,tel_2_ref_4,
-tel_1_laboral,tel_2_laboral,telefonos_marcados
-from resumen;
-";
-            $con->query($queryrlist2) or die($con->error);
         }
         $querydesact = "UPDATE resumen
 SET status_de_credito=concat(status_de_credito,'-inactivo')
