@@ -81,17 +81,25 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function updateBreak($auto, $tipo, $empieza, $termina)
     {
-        $queryu = "UPDATE breaks
+        $query = "UPDATE breaks
             SET tipo=:tipo,
             empieza=:empieza,
             termina=:termina
             WHERE auto=:auto";
-        $stu = $this->pdo->prepare($queryu);
+        try {
+            $stu = $this->pdo->prepare($query);
+        } catch (\PDOException $e) {
+            dd($e);
+        }
         $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
         $stu->bindParam(':tipo', $tipo);
         $stu->bindParam(':empieza', $empieza);
         $stu->bindParam(':termina', $termina);
-        $stu->execute();
+        try {
+            $stu->execute();
+        } catch (\PDOException $e) {
+            dd($e);
+        }        
     }
 
     /**
@@ -142,13 +150,17 @@ order by c_cvge,c_cvst,c_hrin";
      *
      * @return array
      */
-    public function listUsuarias()
+    public function listGestores()
     {
-        $query = "SELECT iniciales FROM nombres 
+        $query = "SELECT iniciales FROM users 
+                    WHERE tipo <> ''
+                UNION
+                SELECT iniciales FROM nombres 
                     WHERE tipo <> ''";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
-        return $result;
+        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $gestores = array_column($result, 'iniciales');
+        return $gestores;
     }
     
     /**

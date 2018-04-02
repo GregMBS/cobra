@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
 use App\BreaksClass;
+use Illuminate\Http\Request;
 
 class BreaksController extends Controller
 {
@@ -18,7 +19,7 @@ class BreaksController extends Controller
     }
     
     /**
-     * 
+     *
      * @param string $capt
      * @return View
      */
@@ -26,5 +27,48 @@ class BreaksController extends Controller
         $result = $this->bc->breaksPageData($capt);
         $view = view('breaks')->with('result', $result);
         return $view;
+    }
+    
+    /**
+     *
+     * @return View
+     */
+    public function admindex() {
+        $breaks = $this->bc->listBreaks();
+        $gestores = $this->bc->listGestores();
+        $view = view('breakadmin')
+        ->with('breaks', $breaks)
+        ->with('gestores', $gestores);
+        return $view;
+    }
+    
+    /**
+     * 
+     * @param int $auto
+     * @return View
+     */
+    public function borrar($auto) {
+        $this->bc->deleteBreak($auto);
+        return $this->admindex();
+    }
+    
+    /**
+     * 
+     * @param Request $r
+     * @return View
+     */
+    public function cambiar(Request $r) {
+        $this->bc->updateBreak($r->auto, $r->tipo, $r->empieza, $r->termina);
+        return $this->admindex();        
+    }
+
+    /**
+     *
+     * @param Request $r
+     * @return View
+     */
+    public function agregar(Request $r) {
+        $this->bc->insertBreak($r->gestor, $r->tipo, $r->empieza, $r->termina);
+        return $this->admindex();
     }
 }

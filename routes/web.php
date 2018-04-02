@@ -61,6 +61,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/gestor/add', 'GestoradminController@agregar');
     Route::get('/gestor/change', 'GestoradminController@cambiar');
     Route::get('/gestor/delete', 'GestoradminController@borrar');
+    Route::get('/breakadmin', 'BreaksController@admindex');
+    Route::delete('/breakadmin/{auto}', 'BreaksController@borrar');
+    Route::put('/breakadmin', 'BreaksController@cambiar');
+    Route::post('/breakadmin', 'BreaksController@agregar');
+    Route::resource('/trouble', 'TroubleController');
 });
 Auth::routes();
 

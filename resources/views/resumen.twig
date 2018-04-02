@@ -66,9 +66,8 @@
             {% endif %}
             <span style='font-weight: bold; font-size: 120%;'> {{ capt }}
             </span>
-            <form class="buttons" name="trouble" method="get" action="/trouble"
-                id="trouble" target="_blank">
-                <input type="hidden" name="c_cont" value="{{ r.id_cuenta }}">
+            <form class="buttons" name="trouble" method="get" action="/trouble/create"
+                id="trouble">
                 <input type="submit" name="go" value="ERROR">
             </form>
             {% include 'privacidad.twig' %}
