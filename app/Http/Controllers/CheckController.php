@@ -33,6 +33,19 @@ class CheckController extends Controller
     
     /**
      * 
+     * @param Request $r
+     * @return View
+     */
+    public function assignBoth(Request $r) {
+        $this->cc->setVars($r);
+        $this->cc->insertVasignBoth();
+        $list = $this->cc->listVasign($r->gestor);
+        $view = $this->cc->checkboth();
+        return $view;
+    }
+    
+    /**
+     * 
      * @param string $gestor
      * @return View
      */
@@ -67,4 +80,24 @@ class CheckController extends Controller
         ->with('list', $list);
         return $view;
     }
+
+    /**
+     * 
+     * @param array $list
+     * @param string $gestor
+     * @param string $tipo
+     * @param string $fechaout
+     * @return View
+     */
+    public function checkboth(array $list = [], $gestor = '', $tipo = '', $fechaout = '') {
+        $gestores = $this->cc->getVisitadores();
+        $view = view('checkout')
+        ->with('gestor', $gestor)
+        ->with('gestores', $gestores)
+        ->with('tipo', $tipo)
+        ->with('fechaout', $fechaout)
+        ->with('list', $list);
+        return $view;
+    }
+    
 }

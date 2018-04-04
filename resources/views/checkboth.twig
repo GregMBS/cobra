@@ -9,7 +9,7 @@
         <div id="vtable">
             <h1>{{ message }}</h1>
             <form id='asigform' action='/checkout' method='post'>
-            	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_token" value="{{ csrf_token()) }}">
                 <span class="formcap">Visitador:</span>
                 <select name="gestor" onmouseup="this.form.submit;">
                     <option value='' {% if gestor is empty %}selected{% endif %}></option>
@@ -17,6 +17,8 @@
                         <option value="{{ g.iniciales }}" {% if g.iniciales == gestor %}selected{% endif %}>{{ g.completo }}</option>
                     {% endfor %}
                 </select>
+                <label for="fechaout">Fecha Asignada:</label>
+                <input type="text" class="fecha" id="fechaout" name="fechaout" value="{{ fechaout }}">
                 <label for="CUENTA">Cuenta:</label>
                 <input type="text" id="CUENTA" name="CUENTA" value=""><br>
                 <label for="idc">código de barras</label>
@@ -62,14 +64,15 @@
         <button onclick="window.location = '/reports';">Regressar a la plantilla administrativa</button><br>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-		<script>
-			$(function() {
-				{% if gestor is not empty %}
-				 $('#CUENTA').focus();
-				 {% else %}
-				 $('#CUENTA').disable();
-				{% endif %}
-			});
-		</script>
+        <script>
+            $(function () {
+            {% if gestor is not empty %}
+                    $('#CUENTA').focus();
+            {% else %}
+                    $('#CUENTA').disable();
+            {% endif %}
+                    $('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
+                });
+        </script>
     </body>
-</html> 
+</html>

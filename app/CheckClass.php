@@ -58,7 +58,7 @@ class CheckClass extends BaseClass {
             $this->id_cuenta = $r->CUENTA;
             $this->CUENTA = $this->getCuentafromIdCuenta($this->id_cuenta);
         }
-        $this->fechaout == new Carbon($r->fechaout);
+        $this->fechaout = new Carbon($r->fechaout);
     }
 
     /**
@@ -69,7 +69,7 @@ class CheckClass extends BaseClass {
     private function getIdCuentafromCuenta($CUENTA) {
         $querycc = "select id_cuenta from resumen
 where numero_de_cuenta=:cuenta 
-and status_de_creditonot regexp '-' LIMIT 1";
+and status_de_credito not regexp '-' LIMIT 1";
         $stcc = $this->pdo->prepare($querycc);
         $stcc->bindParam(':cuenta', $CUENTA);
         $stcc->execute();
@@ -90,7 +90,7 @@ and status_de_creditonot regexp '-' LIMIT 1";
     private function getCuentafromIdCuenta($id_cuenta) {
         $querycc = "select numero_de_cuenta from resumen
 where id_cuenta=:id_cuenta 
-and status_de_creditonot regexp '-' LIMIT 1";
+and status_de_credito not regexp '-' LIMIT 1";
         $stcc = $this->pdo->prepare($querycc);
         $stcc->bindParam(':id_cuenta', $id_cuenta);
         $stcc->execute();
