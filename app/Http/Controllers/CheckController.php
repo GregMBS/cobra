@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\CheckClass;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
 class CheckController extends Controller
@@ -40,7 +40,7 @@ class CheckController extends Controller
         $this->cc->setVars($r);
         $this->cc->insertVasignBoth();
         $list = $this->cc->listVasign($r->gestor);
-        $view = $this->cc->checkboth();
+        $view = $this->checkboth($list, $r->gestor, $r->tipo, $r->fechaout);
         return $view;
     }
     
