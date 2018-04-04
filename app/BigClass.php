@@ -61,26 +61,21 @@ class BigClass extends BaseClass {
      * 
      * @param string $queryFront
      * @param string $queryBack
-     * @param string $fecha1
-     * @param string $fecha2
-     * @param string $gestor
-     * @param string $cliente
+     * @param BigDataClass $bdc
      * @return array
      */
-    private function getHistoria(
-    $queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente
-    ) {
-        $gestorstr = $this->getGestorStr($gestor);
-        $clientestr = $this->getClienteStr($cliente);
+    private function getHistoria($queryFront, $queryBack, BigDataClass $bdc) {
+        $gestorstr = $bdc->getGestorString();
+        $clientestr = $bdc->getClienteString();
         $query = $queryFront . $gestorstr . $clientestr . $queryBack;
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':fecha1', $fecha1);
-        $stq->bindParam(':fecha2', $fecha2);
-        if ($gestor != 'todos') {
-            $stq->bindParam(':gestor', $gestor);
+        $stq->bindParam(':fecha1', $bdc->fecha1);
+        $stq->bindParam(':fecha2', $bdc->fecha2);
+        if ($bdc->hasGestor()) {
+            $stq->bindParam(':gestor', $bdc->gestor);
         }
-        if ($cliente != 'todos') {
-            $stq->bindParam(':cliente', $cliente);
+        if ($bdc->hasCliente()) {
+            $stq->bindParam(':cliente', $bdc->cliente);
         }
         $stq->execute();
         $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
@@ -89,13 +84,10 @@ class BigClass extends BaseClass {
 
     /**
      * 
-     * @param string $fecha1
-     * @param string $fecha2
-     * @param string $gestor
-     * @param string $cliente
+     * @param BigDataClass $bdc
      * @return array
      */
-    public function getAllPagos($fecha1, $fecha2, $gestor, $cliente) {
+    public function getAllPagos(BigDataClass $bdc) {
         $queryFront = "select Status_aarsa AS 'STATUS',ejecutivo_asignado_call_center AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
     saldo_descuento_2 as 'SALDO MINIMO',saldo_total as 'SALDO TOTAL',
@@ -114,19 +106,16 @@ and pagos.fecha between :fecha1 and :fecha2
         $queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
 group by resumen.id_cuenta ORDER BY d_fech,c_hrin";
         $data = $this->getHistoria(
-                $queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
+                $queryFront, $queryBack, $bdc);
         return $data;
     }
 
     /**
      * 
-     * @param string $fecha1
-     * @param string $fecha2
-     * @param string $gestor
-     * @param string $cliente
+     * @param BigDataClass $bdc
      * @return array
      */
-    public function getBigGestiones($fecha1, $fecha2, $gestor, $cliente) {
+    public function getBigGestiones(BigDataClass $bdc) {
         $queryFront = "SELECT numero_de_cuenta as 'cuenta',
         nombre_deudor as 'nombre',
     resumen.cliente as 'cliente',status_de_credito as 'segmento',
@@ -144,19 +133,16 @@ where d_fech between :fecha1 and :fecha2
 ";
 
         $queryBack = "";
-        $data = $this->getHistoria($queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
+        $data = $this->getHistoria($queryFront, $queryBack, $bdc);
         return $data;
     }
 
     /**
      * 
-     * @param string $fecha1
-     * @param string $fecha2
-     * @param string $gestor
-     * @param string $cliente
+     * @param BigDataClass $bdc
      * @return array
      */
-    public function getAllGestiones($fecha1, $fecha2, $gestor, $cliente) {
+    public function getAllGestiones(BigDataClass $bdc) {
         $queryFront = "SELECT numero_de_cuenta,nombre_deudor,
             resumen.cliente,status_de_credito,saldo_total,queue,h1.*
     from resumen join historia h1 on c_cont=id_cuenta
@@ -166,7 +152,7 @@ where d_fech between :fecha1 and :fecha2
 
         $queryBack = "and status_de_credito not like '%tivo'
 ORDER BY d_fech,c_hrin";
-        $data = $this->getHistoria($queryFront, $queryBack, $fecha1, $fecha2, $gestor, $cliente);
+        $data = $this->getHistoria($queryFront, $queryBack, $bdc);
         return $data;
     }
 
@@ -219,7 +205,7 @@ ORDER BY d_fech,c_hrin";
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getGestionClientes() {
         $query = "SELECT distinct c_cvba FROM historia
@@ -227,8 +213,9 @@ ORDER BY d_fech,c_hrin";
         limit 10
 	";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
-        return $result;
+        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $clientes = array_column($result, 'c_cvba');
+        return $clientes;
     }
 
     /**
@@ -247,7 +234,7 @@ ORDER BY d_fech,c_hrin";
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function getGestionGestores() {
         $query = "SELECT distinct c_cvge FROM historia
@@ -255,8 +242,9 @@ ORDER BY d_fech,c_hrin";
         order by c_cvge
         limit 1000";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
-        return $result;
+        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $gestores = array_column($result, 'c_cvge');
+        return $gestores;
     }
 
     /**
@@ -275,107 +263,57 @@ ORDER BY d_fech,c_hrin";
 
     /**
      * 
-     * @param array $dates
+     * @param BigDataClass $bdc
      * @return array
      */
-    private function alignDates($dates) {
-        $output = $dates;
-        if ($dates[1] < $dates[0]) {
-            $output[1] = $dates[0];
-            $output[0] = $dates[1];
-        }
-        if ($dates[3] < $dates[2]) {
-            $output[3] = $dates[2];
-            $output[2] = $dates[3];
-        }
-        return $output;
-    }
-
-    /**
-     * 
-     * @param string $tipo
-     * @return string
-     */
-    private function getTipoStr($tipo) {
-        switch ($tipo) {
-            case 'visits':
-                $tipostr = " and c_visit <> '' and c_msge is null ";
-                break;
-            case 'telef':
-                $tipostr = " and c_visit IS NULL and c_msge is null ";
-                break;
-            case 'admin':
-                $tipostr = " and c_msge <> '' ";
-                break;
-            case 'noadmin':
-                $tipostr = " and c_msge IS NULL ";
-                break;
-            default :
-                $tipostr = " ";
-                break;
-        }
-        return $tipostr;
-    }
-    
-    /**
-     * 
-     * @param array $get
-     * @return array
-     */
-    public function getProms($get) {
-        $dates = $this->alignDates(array($get['fecha1'], $get['fecha2'], $get['fecha3'], $get['fecha4']));
-        list($fecha1, $fecha2, $fecha3, $fecha4) = $dates;
-        $tipo = $get['tipo'];
-        $gestor = $get['gestor'];
-        $cliente = $get['cliente'];
-        if (!isset($tipo)) {
-            $tipo = '';
-        }
-//$gestorstr=" and ejecutivo_asignado_call_center not regexp '-' ";
-        $gestorstr = '';
-        $clientestr = '';
-        if ($gestor != 'todos') {
-            $gestorstr = " and c_cvge=:gestor ";
-        }
-        $gestorstr .= $this->getTipoStr($tipo);
-        if ($cliente != 'todos') {
-            $clientestr = " and c_cvba=:cliente ";
-        }
-        $querymain = "select Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
+    public function getProms($bdc) {
+        $result = [];
+        $gestorstr = $bdc->getGestorString();
+        $clientestr = $bdc->getClienteString();
+        $querymain = "select id_cuenta, Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
     saldo_descuento_1 as 'SALDO CAPITAL s/i',saldo_total as 'SALDO TOTAL',
     pagos_vencidos*30 as 'MORA',n_prom as 'TOTAL PROMESA',
     d_prom1 as 'FECHA PROMESA 1',n_prom1 as 'MONTO PROMESA 1',
     d_prom2 as 'FECHA PROMESA 2',n_prom2 as 'MONTO PROMESA 2',
-    max(folio) AS 'FOLIO',c_motiv AS 'MOTIVADOR',c_cnp AS 'CAUSA NO PAGO',
+    c_motiv AS 'MOTIVADOR',c_cnp AS 'CAUSA NO PAGO',
     resumen.cliente AS 'CLIENTE',
-    status_de_credito AS 'CAMPANA',d_fech AS 'FECHA GESTION',
-    max(pagos.fecha) AS 'FECHA PAGO',sum(monto) AS 'MONTO PAGO',max(confirmado) as 'CONFIRMADO'
+    status_de_credito AS 'CAMPANA',d_fech AS 'FECHA GESTION'
 from resumen join historia h1 on c_cont=id_cuenta
-left join folios on id=id_cuenta and fecha>=d_fech
 left join pagos using (id_cuenta)
 where n_prom>0
 and d_fech between :fecha1 and :fecha2
 and d_prom between :fecha3 and :fecha4
 and not exists (select * from historia h2 where h1.c_cont=h2.c_cont
 and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
-" . $gestorstr . $clientestr . "
-and status_de_credito not like '%tivo' and c_cniv is null
-group by id_cuenta ORDER BY d_fech,c_hrin
+".$gestorstr.$clientestr."
+and status_de_credito NOT REGEXP '-' and c_cniv is null
+ORDER BY d_fech,c_hrin
     ";
         $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':fecha1', $fecha1);
-        $stm->bindParam(':fecha2', $fecha2);
-        $stm->bindParam(':fecha3', $fecha3);
-        $stm->bindParam(':fecha4', $fecha4);
-        if ($gestor != 'todos') {
-            $stm->bindParam(':gestor', $gestor);
+        $stm->bindParam(':fecha1', $bdc->fecha1);
+        $stm->bindParam(':fecha2', $bdc->fecha2);
+        $stm->bindParam(':fecha3', $bdc->fecha3);
+        $stm->bindParam(':fecha4', $bdc->fecha4);
+        if ($bdc->hasGestor()) {
+            $stm->bindParam(':gestor', $bdc->gestor);
         }
-        if ($cliente != 'todos') {
-            $stm->bindParam(':cliente', $cliente);
+        if ($bdc->hasCliente()) {
+            $stm->bindParam(':cliente', $bdc->cliente);
         }
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $main = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $querypagos = "SELECT MAX(fecha) AS 'FECHA PAGO',
+            SUM(monto) AS 'MONTO PAGO',MAX(confirmado) as 'CONFIRMADO'
+            FROM pagos WHERE id_cuenta = :id";
+        $stp = $this->pdo->prepare($querypagos);
+        foreach ($main as $m) {
+            $stp->bindParam(':id', $m['id_cuenta']);
+            $stp->execute();
+            $pagos = $stp->fetch(\PDO::FETCH_ASSOC);
+            $merged = array_merge($m, $pagos);
+            $result[] = $merged;
+        }
         return $result;
     }
 

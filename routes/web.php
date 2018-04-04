@@ -21,10 +21,6 @@ Route::get('/', function () {
 Route::get('/breaks/{capt}', 'BreaksController@index');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/reports', function (Request $r) {
-        $capt = auth()->user()->iniciales;
-        return view('reports')->with('capt', $capt);
-    });
     
     Route::get('/ultima', 'ResumenController@ultima');
     Route::get('/resumen', 'ResumenController@index');
@@ -42,8 +38,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', function () {
         return view('logout');
     });
-    
-    // Admin only
+});
+Route::middleware(['auth','admin'])->group(function () {    // Admin only
+    Route::get('/reports', function (Request $r) {
+        $capt = auth()->user()->iniciales;
+        return view('reports')->with('capt', $capt);
+    });
     Route::get('/ultimo_mejor', 'BestController@index');
     Route::get('/queues', 'QueuesController@index');
     Route::get('/queues/{gestor}', 'QueuesController@change');
@@ -66,6 +66,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/breakadmin', 'BreaksController@cambiar');
     Route::post('/breakadmin', 'BreaksController@agregar');
     Route::resource('/trouble', 'TroubleController');
+    Route::get('/bigproms/make', 'BigpromsController@makeReport');
+    Route::get('/bigproms', 'BigpromsController@index');
+    Route::get('/bigquery/make', 'BigqueryController@makeReport');
+    Route::get('/bigquery', 'BigqueryController@index');
+    Route::get('/bigpagos/make', 'BigpagosController@makeReport');
+    Route::get('/bigpagos', 'BigpagosController@index');
+    Route::get('/checkoutlist/{gestor}', 'CheckController@listing');
+    Route::get('/checkout', 'CheckController@checkout');
+    Route::post('/checkout', 'CheckController@assign');
 });
 Auth::routes();
 

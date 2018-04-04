@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\CheckClass;
+use Illuminate\Support\Facades\View;
+
+class CheckController extends Controller
+{
+    /**
+     *
+     * @var CheckClass
+     */
+    private $cc;
+    
+    public function __construct() {
+        $this->cc = new CheckClass();
+    }
+    
+    /**
+     * 
+     * @param Request $r
+     * @return View
+     */
+    public function assign(Request $r) {
+        $this->cc->setVars($r);
+        $this->cc->insertVasign();
+        $list = $this->cc->listVasign($r->gestor);
+        $view = $this->checkout($list, $r->gestor, $r->tipo);
+        return $view;
+    }
+    
+    /**
+     * 
+     * @param string $gestor
+     * @return View
+     */
+    public function listing($gestor) {
+        $visitador = $this->cc->getCompleto($gestor);
+        $capt = $this->cc->getCompleto(auth()->user()->iniciales);
+        $list = $this->cc->listVasign($gestor);
+        $cuentas = count($list);
+        $saldos = array_sum(array_column($list, 'saldo_total'));
+        $view = view('checkoutlist')
+        ->with('visitador', $visitador)
+        ->with('capt', $capt)
+        ->with('list', $list)
+        ->with('cuentas', $cuentas)
+        ->with('saldos', $saldos);
+        return $view;
+    }
+    
+    /**
+     * 
+     * @param array $list
+     * @param string $gestor
+     * @param string $tipo
+     * @return View
+     */
+    public function checkout(array $list = [], $gestor = '', $tipo = '') {
+        $gestores = $this->cc->getVisitadores();
+        $view = view('checkout')
+        ->with('gestor', $gestor)
+        ->with('gestores', $gestores)
+        ->with('tipo', $tipo)
+        ->with('list', $list);
+        return $view;
+    }
+}
