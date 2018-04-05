@@ -8,10 +8,10 @@
     <body>
         <div id="vtable">
             <h1>{{ message }}</h1>
-            <form id='asigform' action='/checkout' method='post'>
-                <input type="hidden" name="_token" value="{{ csrf_token()) }}">
+            <form id='asigform' action='/checkboth' method='post'>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <span class="formcap">Visitador:</span>
-                <select name="gestor" onmouseup="this.form.submit;">
+                <select name="gestor" id="gestor">
                     <option value='' {% if gestor is empty %}selected{% endif %}></option>
                     {% for g in gestores %}
                         <option value="{{ g.iniciales }}" {% if g.iniciales == gestor %}selected{% endif %}>{{ g.completo }}</option>
@@ -69,10 +69,13 @@
             {% if gestor is not empty %}
                     $('#CUENTA').focus();
             {% else %}
-                    $('#CUENTA').disable();
+                    $('#CUENTA').prop( "disabled", true );
             {% endif %}
                     $('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
-                });
+            });
+			$('#gestor').change(function() {
+				window.location.href = '/checkboth/'+$(this).val();
+			});
         </script>
     </body>
 </html>

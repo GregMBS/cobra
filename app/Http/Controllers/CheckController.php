@@ -32,7 +32,7 @@ class CheckController extends Controller
     }
     
     /**
-     * 
+     *
      * @param Request $r
      * @return View
      */
@@ -44,7 +44,20 @@ class CheckController extends Controller
         return $view;
     }
     
-    /**
+        /**
+     * 
+     * @param Request $r
+     * @return View
+     */
+    public function receive(Request $r) {
+        $this->cc->setVars($r);
+        $this->cc->updateVasign();
+        $list = $this->cc->listVasign($r->gestor);
+        $view = $this->checkin($list, $r->gestor, $r->tipo, $r->fechaout);
+        return $view;
+    }
+    
+/**
      * 
      * @param string $gestor
      * @return View
@@ -62,6 +75,16 @@ class CheckController extends Controller
         ->with('cuentas', $cuentas)
         ->with('saldos', $saldos);
         return $view;
+    }   
+    
+    /**
+     * 
+     * @param string $gestor
+     * @return View
+     */
+    public function checkoutAjax($gestor) {
+        $list = $this->cc->listVasign($gestor);
+        return $this->checkout($list, $gestor);
     }
     
     /**
@@ -73,14 +96,55 @@ class CheckController extends Controller
      */
     public function checkout(array $list = [], $gestor = '', $tipo = '') {
         $gestores = $this->cc->getVisitadores();
+        $counts = $this->cc->countInOut($gestor);
         $view = view('checkout')
         ->with('gestor', $gestor)
         ->with('gestores', $gestores)
         ->with('tipo', $tipo)
-        ->with('list', $list);
+        ->with('list', $list)
+        ->with('counts', $counts);
         return $view;
     }
-
+    
+    /**
+     *
+     * @param string $gestor
+     * @return View
+     */
+    public function checkinAjax($gestor) {
+        $list = $this->cc->listVasign($gestor);
+        return $this->checkin($list, $gestor);
+    }
+    
+    /**
+     *
+     * @param array $list
+     * @param string $gestor
+     * @param string $tipo
+     * @return View
+     */
+    public function checkin(array $list = [], $gestor = '', $tipo = '') {
+        $gestores = $this->cc->getVisitadores();
+        $counts = $this->cc->countInOut($gestor);
+        $view = view('checkin')
+        ->with('gestor', $gestor)
+        ->with('gestores', $gestores)
+        ->with('tipo', $tipo)
+        ->with('list', $list)
+        ->with('counts', $counts);
+        return $view;
+    }
+    
+    /**
+     *
+     * @param string $gestor
+     * @return View
+     */
+    public function checkbothAjax($gestor) {
+        $list = $this->cc->listVasign($gestor);
+        return $this->checkboth($list, $gestor);
+    }
+    
     /**
      * 
      * @param array $list
@@ -91,12 +155,14 @@ class CheckController extends Controller
      */
     public function checkboth(array $list = [], $gestor = '', $tipo = '', $fechaout = '') {
         $gestores = $this->cc->getVisitadores();
-        $view = view('checkout')
+        $counts = $this->cc->countInOut($gestor);
+        $view = view('checkboth')
         ->with('gestor', $gestor)
         ->with('gestores', $gestores)
         ->with('tipo', $tipo)
         ->with('fechaout', $fechaout)
-        ->with('list', $list);
+        ->with('list', $list)
+        ->with('counts', $counts);
         return $view;
     }
     

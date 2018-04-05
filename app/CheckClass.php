@@ -105,7 +105,7 @@ and status_de_credito not regexp '-' LIMIT 1";
 
     public function insertVasignBoth() {
         $queryins = "INSERT INTO vasign (cuenta, gestor, fechaout, fechain,c_cont)
-VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
+VALUES (:cuenta, :gestor, :fechaout, now(), :id_cuenta)";
         $sti = $this->pdo->prepare($queryins);
         $sti->bindParam(':cuenta', $this->CUENTA);
         $sti->bindParam(':gestor', $this->gestor);
@@ -160,11 +160,11 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
      * @return array
      */
     public function countInOut($gestor) {
-        $query = "select sum(fechaout>curdate()) as countOut,
-    sum(fechain>curdate()) as countIn 
+        $query = "select sum(fechaout>curdate()) as asig,
+    sum(fechain>curdate()) as recib 
     from vasign
 where gestor=:gestor";
-        $stc = $this->pdo->query($query);
+        $stc = $this->pdo->prepare($query);
         $stc->bindParam(':gestor', $gestor);
         $stc->execute();
         $result = $stc->fetch();
@@ -215,19 +215,14 @@ join dictamenes on dictamen = status_aarsa " . $gstring;
         return $resultn['completo'];
     }
 
-    /**
-     * 
-     * @param string $tipo
-     * @param string $CUENTA
-     */
-    public function updateVasign($tipo, $CUENTA) {
-        if ($tipo == 'id_cuenta') {
+    public function updateVasign() {
+        if ($this->tipo == 'id_cuenta') {
             $querycta = "select id_cuenta from resumen where id_cuenta = :cuenta";
         } else {
             $querycta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
         }
         $stc = $this->pdo->prepare($querycta);
-        $stc->bindParam(':cuenta', $CUENTA);
+        $stc->bindParam(':cuenta', $this->CUENTA);
         $stc->execute();
         $resultcc = $stc->fetchAll(\PDO::FETCH_ASSOC);
         foreach ($resultcc as $answercc) {

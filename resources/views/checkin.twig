@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>COBRA Visitador Asignaciones y Recepciones</title>
+        <title>COBRA Visitador Recepciones</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
     </head>
     <body>
         <div id="vtable">
             <h1>{{ message }}</h1>
-            <form id='asigform' action='/checkout' method='post'>
+            <form id='asigform' action='/checkin' method='post'>
             	<input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <span class="formcap">Visitador:</span>
                 <select name="gestor" id="gestor">
