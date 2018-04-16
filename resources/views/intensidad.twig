@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Query de las Intensidad</title>
+<link rel="Stylesheet"
+	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />
+</head>
+<body>
+	<button
+		onclick="window.location = '/reports'">Regressar
+		a la plantilla administrativa</button>
+	<br>
+	<form action="/intensidad" method="post" name="queryparms">
+		{{ csrf_field() }}
+		<p>
+			HECHO de: <input class="fecha" name="fecha1"> &nbsp; a:
+			&nbsp; <input class="fecha" name="fecha2">
+		</p>
+		<input type='submit' name='go' value='Query Intensidad'>
+	</form>
+	<script type="text/javascript" charset="utf8"
+		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" charset="utf8"
+		src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('.fecha').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+		});
+	</script>
+</body>
+</html>
