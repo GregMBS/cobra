@@ -10,7 +10,7 @@
     </head>
     <body>
         <h1>Queue MANUAL</h1>
-        <button onClick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar al administraci&oacute;n</button>
+        <button onClick="window.location = '/reports'">Regresar al administración</button>
         <table id='buscartab' class='ui-widget'>
             <thead class='ui-widget-header'>
                 <tr>
@@ -24,32 +24,21 @@
                 </tr>
             </thead>
             <tbody class='ui-widget-content'>
-                <?php
-                foreach ($result as $answer) {
-                    $cliente = $answer['cliente'];
-                    $segmento = $answer['segmento'];
-                    $asignado = $answer['asignado'];
-                    $total = $answer['total'];
-                    $normal = $answer['normal'];
-                    $largo = $answer['largo'];
-                    ?>
+                {% for r in result %}
                     <tr>
-                        <td><?php echo $cliente; ?></td>
-                        <td><?php echo $segmento; ?></td>
-                        <td><?php echo $asignado; ?></td>
-                        <td><?php echo $total; ?></td>
-                        <td><?php echo $normal; ?></td>
-                        <td><?php echo $largo; ?></td>
+                        <td>{{ r.cliente }}?></td>
+                        <td>{{ r.segmento }}</td>
+                        <td>{{ r.asignado }}</td>
+                        <td>{{ r.total }}</td>
+                        <td>{{ r.normal }}</td>
+                        <td>{{ r.largo }}</td>
                         <td>
-                            <form action="speclistman.php" method="get">
-                                <input type="hidden" name="capt" value="<?php echo $capt; ?>" />
-                                <input type="hidden" name="cliente" value="<?php echo $cliente; ?>" />
-                                <input type="hidden" name="sdc" value="<?php echo $segmento; ?>" />
+                            <form action="/speclistman/{{ r.cliente }}/{{ r.segmento }}" method="get">
                                 <button>REPORTE</button>
                             </form>
                         </td>
                     </tr>
-                <?php } ?>
+                {% endfor %}
             </tbody>
         </table>
         <script LANGUAGE="JavaScript" TYPE="text/JavaScript">

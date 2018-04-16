@@ -31,7 +31,7 @@ max(if(n_prom >0,1,0)) as prom,c_cvge,c_hrin
 from historia where d_fech>=curdate()-interval 3 month 
 and day(d_fech)<day(curdate())
 and c_cont>0
-group by c_cont,mdf) as tmp
+group by c_cvba,mdf,c_cont,c_cvge,c_hrin) as tmp
 group by c_cvba,mdf;
 ";
         $result = $this->pdo->query($querymain);

@@ -40,8 +40,8 @@ class GestorClass extends BaseClass {
      */
     function getPagosReport($gestor) {
         $query = "SELECT d_prom, cuenta, n_prom, c_cvge, "
-                . "ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, "
-                . "cliente,id_cuenta,saldo_descuento_1 "
+                . "ejecutivo_asignado_call_center, status_aarsa, saldo_total, "
+                . "cliente,id_cuenta,saldo_descuento_2 "
                 . "FROM historia JOIN resumen on c_cont=id_cuenta "
                 . "WHERE n_prom>0 AND c_cvge =:gestor "
                 . "GROUP BY cuenta ORDER BY c_cvge,d_prom,cliente,cuenta";

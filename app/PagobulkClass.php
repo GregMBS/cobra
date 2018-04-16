@@ -10,9 +10,6 @@ namespace App;
 
 use PDOStatement;
 
-require_once 'BaseClass.php';
-require_once 'PagobulkRowClass.php';
-
 /**
  * Description of PagobulkClass
  *

@@ -23,18 +23,15 @@ class DhClass extends BaseClass {
      * @return array
      */
     public function getPromesas($gestor, $fecha) {
-        $query = "select numero_de_cuenta,nombre_deudor,saldo_total,
+        $query = "select numero_de_cuenta,nombre_deudor,
 status_de_credito,ejecutivo_asignado_call_center,
-pagos_vencidos,status_aarsa,
-saldo_descuento_1,producto,estado_deudor,ciudad_deudor,cliente,id_cuenta,
-max(n_prom) as monto_promesa,max(d_prom) as fecha_promesa, v_cc as vcc
+status_aarsa,saldo_descuento_2,cliente,id_cuenta,
+max(n_prom) as monto_promesa,max(d_prom) as fecha_promesa
 from resumen
 join historia on id_cuenta=c_cont
-left join dictamenes on dictamen = status_aarsa
 where c_cvge=:gestor and d_fech=:fecha and n_prom>0
 group by id_cuenta
-ORDER BY
-saldo_total desc, pagos_vencidos";
+ORDER BY saldo_descuento_2 desc";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
@@ -50,16 +47,14 @@ saldo_total desc, pagos_vencidos";
      * @return array
      */
     public function getGestiones($gestor, $fecha) {
-        $query = "select numero_de_cuenta,nombre_deudor,saldo_total,
+        $query = "select numero_de_cuenta,nombre_deudor,
 status_de_credito,ejecutivo_asignado_call_center,
-pagos_vencidos,c_cvst,
-saldo_descuento_1,producto,estado_deudor,ciudad_deudor,cliente,id_cuenta,
-n_prom,d_prom,v_cc from resumen
-join historia on id_cuenta=c_cont
-join dictamenes on dictamen=status_aarsa
+status_aarsa,saldo_descuento_2,cliente,id_cuenta,
+d_fech,c_hrin,c_cvst,c_contan 
+from resumen
+join historia on c_cont=id_cuenta
 where c_cvge=:gestor and d_fech=:fecha
-ORDER BY
-saldo_total desc, pagos_vencidos,d_fech,c_hrin";
+ORDER BY d_fech,c_hrin";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);

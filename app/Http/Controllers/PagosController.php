@@ -33,4 +33,25 @@ class PagosController extends Controller
         ->with('pagos', $pagos);
         return $view;
     }
+    
+    /**
+     * 
+     * @return View
+     */
+    public function summary() {
+        $resultAct = $this->pc->summaryThisMonth();
+        $resultActGest = $this->pc->byGestorThisMonth();
+        $resultActDet = $this->pc->detailsThisMonth();
+        $resultPrev = $this->pc->summaryLastMonth();
+        $resultPrevGest = $this->pc->byGestorLastMonth();
+        $resultPrevDet = $this->pc->detailsLastMonth();
+        $view = view('pagosum')
+        ->with('resultAct', $resultAct)
+        ->with('resultActGest', $resultActGest)
+        ->with('resultActDet', $resultActDet)
+        ->with('resultPrev', $resultPrev)
+        ->with('resultPrevGest', $resultPrevGest)
+        ->with('resultPrevDet', $resultPrevDet);
+        return $view;
+    }
 }

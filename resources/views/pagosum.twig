@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<title>Pagos del mes actual</title>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
+    </head>
+    <body>
+	<button onclick="window.location = '/reports'">Regressar a la plantilla administrativa</button><br>
+	<h2>Mes Actual</h2>
+	<table class="ui-widget">
+	    <thead class="ui-widget-header">
+		<tr>
+		    <th>Cliente</th>
+		    <th>Campa&ntilde;a</th>
+		    <th>Monto Pago Capturado</th>
+		    <th>Monto Pago Confirmado</th>
+		</tr>
+	    </thead>
+	    <tbody class="ui-widget-content">
+		{% for ra in resultAct %}
+			{% set sdc = ra.sdc %}
+			{% if ra.sdc is empty %}
+				{% set sdc = 'TOTAL' %}
+			{% endif %}
+			<tr>
+			    <td>{{ ra.cli }}</td>
+			    <td>{{ sdc }}</td>
+			    <td class="num">{{ ra.sm | number_format(2, '.', ',') }}</td>
+			    <td class="num">{{ ra.smc | number_format(2, '.', ',') }}</td>
+			</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+	<table class="ui-widget">
+	    <thead class="ui-widget-header">
+		<tr>
+		    <th>Gestor</th>
+		    <th>Cliente</th>
+		    <th>Monto Pago Capturado</th>
+		    <th>Monto Pago Confirmado</th>
+		</tr>
+	    </thead>
+	    <tbody class="ui-widget-content">
+		{% for rag in resultActGest %}
+			<tr>
+			    <td>{{ rag.gestor }}</td>
+			    <td>{{ rag.cliente }}</td>
+			    <td class="num">{{ rag.sm | number_format(2, '.', ',') }}</td>
+			    <td class="num">{{ rag.smc | number_format(2, '.', ',') }}</td>
+			</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+	<table class="ui-widget">
+	    <thead class="ui-widget-header">
+		<tr>
+		    <th>Cuenta</th>
+		    <th>Fecha</th>
+		    <th>Monto</th>
+		    <th>Cliente</th>
+		    <th>Gestor</th>
+		    <th>Confirmado</th>
+		</tr>
+	    </thead>
+	    <tbody class="ui-widget-content">
+		{% for rad in resultActDet %}
+			<tr>
+			    <td>{{ rad.cuenta }}</td>
+			    <td>{{ rad.fecha }}</td>
+			    <td class="num">{{ rad.monto | number_format(2, '.', ',') }}</td>
+			    <td>{{ rad.cliente }}</td>
+			    <td>{{ rad.gestor }}</td>
+			    <td>{{ rad.confirmado }}</td>
+			</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+	<h2>Mes Anterior</h2>
+	<table class="ui-widget">
+	    <thead class="ui-widget-header">
+		<tr>
+		    <th>Cliente</th>
+		    <th>Campa&ntilde;a</th>
+		    <th>Monto Pago Capturado</th>
+		    <th>Monto Pago Confirmado</th>
+		</tr>
+	    </thead>
+	    <tbody class="ui-widget-content">
+		{% for rp in resultPrev %}
+			{% set sdcp = rp.sdc %}
+			{% if rp.sdc is empty %}
+				{% set sdcp = 'TOTAL' %}
+			{% endif %}
+			<tr>
+			    <td>{{ rp.cli }}</td>
+			    <td>{{ sdcp }}</td>
+			    <td class="num">{{ rp.sm | number_format(2, '.', ',') }}</td>
+			    <td class="num">{{ rp.smc | number_format(2, '.', ',') }}</td>
+			</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+	<table class="ui-widget">
+	    <thead class="ui-widget-header">
+		<tr>
+		    <th>Gestor</th>
+		    <th>Cliente</th>
+		    <th>Monto Pago Capturado</th>
+		    <th>Monto Pago Confirmado</th>
+		</tr>
+	    </thead>
+	    <tbody class="ui-widget-content">
+		{% for rpg in resultPrevGest %}
+			<tr>
+			    <td>{{ rpg.gestor }}</td>
+			    <td>{{ rpg.cliente }}</td>
+			    <td class="num">{{ rpg.sm | number_format(2, '.', ',') }}</td>
+			    <td class="num">{{ rpg.smc | number_format(2, '.', ',') }}</td>
+			</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+	<table class="ui-widget">
+	    <thead class="ui-widget-header">
+		<tr>
+		    <th>Cuenta</th>
+		    <th>Fecha</th>
+		    <th>Monto</th>
+		    <th>Cliente</th>
+		    <th>Gestor</th>
+		    <th>Confirmado</th>
+		</tr>
+	    </thead>
+	    <tbody class="ui-widget-content">
+		{% for rpd in resultPrevDet %}
+			<tr>
+			    <td>{{ rpd.cuenta }}</td>
+			    <td>{{ rpd.fecha }}</td>
+			    <td class="num">{{ rpd.monto | number_format(2, '.', ',') }}</td>
+			    <td>{{ rpd.cliente }}</td>
+			    <td>{{ rpd.gestor }}</td>
+			    <td>{{ rpd.confirmado }}</td>
+			</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+    </body>
+</html>

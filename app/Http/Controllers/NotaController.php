@@ -20,7 +20,7 @@ class NotaController extends Controller
     }
     
     /**
-     * 
+     *
      * @param int $id_cuenta
      * @return View
      */
@@ -37,7 +37,23 @@ class NotaController extends Controller
         return $view;
     }
     
-    /**
+        /**
+     * 
+     * @param int $id_cuenta
+     * @return View
+     */
+    public function indexAdmin($id_cuenta = 0)
+    {
+        $cuenta = $this->nc->getCuentaFromId($id_cuenta);
+        $notas = $this->nc->listAllNotas();
+        $view = view('notas')
+        ->with('id_cuenta', $id_cuenta)
+        ->with('cuenta', $cuenta)
+        ->with('notas', $notas);
+        return $view;
+    }
+    
+/**
      *
      * @param int $nota_id
      * @return View

@@ -132,7 +132,8 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      */
     public function listAllNotas()
     {
-        $querysub = "SELECT auto,fecha,hora,nota,c_cvge " . "FROM notas " . "WHERE borrado=0 ORDER BY fecha desc,hora desc";
+        $querysub = "SELECT auto,fecha,hora,nota,c_cvge FROM notas 
+WHERE borrado=0 ORDER BY fecha desc,hora desc";
         $rowsub = $this->pdo->query($querysub);
         return $rowsub;
     }

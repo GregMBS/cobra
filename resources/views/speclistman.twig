@@ -35,23 +35,19 @@
                 </tr>
             </thead>
             <tbody class="ui-widget-content">
-                <?php
-                foreach ($result as $row) {
-                    ?>
+                {% for r in result %}
                     <tr>
-                        <td class="number"><?php echo $row['numero_de_cuenta']; ?></td>
-                        <td><?php echo $row['nombre_deudor']; ?></td>
-                        <td><?php echo $row['cli']; ?></td>
-                        <td><?php echo $row['status_de_credito']; ?></td>
-                        <td class="number"><?php echo $row['saldo_total']; ?></td>
-                        <td><?php echo $row['status_aarsa']; ?></td>
-                        <td><?php echo $row['ejecutivo_asignado_call_center']; ?></td>
-                        <td><?php echo $row['fecha_ultima_gestion']; ?></td>
-                        <td><?php echo ($row['especial'] - 1); ?></td>
+                        <td class="number">{{ r.numero_de_cuenta }}</td>
+                        <td>{{ r.nombre_deudor }}</td>
+                        <td>{{ r.cli }}</td>
+                        <td>{{ r.status_de_credito }}</td>
+                        <td class="number">{{ r.saldo_total }}</td>
+                        <td>{{ r.status_aarsa }}</td>
+                        <td>{{ r.ejecutivo_asignado_call_center }}</td>
+                        <td>{{ r.fecha_ultima_gestion }}</td>
+                        <td>{{ r.especial - 1 }}</td>
                     </tr>
-                    <?php
-                }
-                ?>
+                    {% endfor %}
             </tbody>
         </table>
         <script>
