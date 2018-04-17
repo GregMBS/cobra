@@ -128,7 +128,7 @@ class CargaController extends Controller
             $countUpload = 0;
             foreach ($reader->getSheetIterator() as $sheet) {
                 if ($firstSheet) {
-                    foreach ($sheet->getRowInterface() as $row) {
+                    foreach ($sheet->getRowIterator() as $row) {
                         dd($row);
                         if ($firstRow) {
                             $this->validateHeader($row);
