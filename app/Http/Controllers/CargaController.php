@@ -63,12 +63,15 @@ class CargaController extends Controller
     private function getReader($ext)
     {
         $rf = new ReaderFactory();
-        dd($ext);
         switch ($ext) {
+            case 'text/plain':
+                $reader = $rf->create(Type::CSV);
+                break;
+                
             case 'text/csv':
                 $reader = $rf->create(Type::CSV);
                 break;
-
+                
             case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
                 $reader = $rf->create(Type::XLSX);
                 break;
