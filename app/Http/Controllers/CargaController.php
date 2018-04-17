@@ -109,7 +109,7 @@ class CargaController extends Controller
      * @param Request $r
      * @return View
      */
-    public function load(Request $r)
+    public function cargar(Request $r)
     {
         $this->validate($r, $this->rules);
         if ($r->file('file')->isValid()) {

@@ -102,7 +102,7 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/notadmin', 'NotaController@indexAdmin');
     Route::post('/notadmin', 'NotaController@addAdmin');
     Route::get('/carga', 'CargaController@index');
-    Route::post('/carga', 'CargaController@load');
+    Route::post('/carga', 'CargaController@cargar');
 });
 Auth::routes();
 
