@@ -101,6 +101,8 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/inventarioRapid', 'InventarioController@makeRapidReport');
     Route::get('/notadmin', 'NotaController@indexAdmin');
     Route::post('/notadmin', 'NotaController@addAdmin');
+    Route::get('/carga', 'CargaController@index');
+    Route::post('/carga', 'CargaController@load');
 });
 Auth::routes();
 
