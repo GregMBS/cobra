@@ -43,8 +43,8 @@ class CargaController extends Controller
         $view = view('carga')->with('clientes', $clientes);
         return $view;
     }
-    
-        /**
+
+    /**
      *
      * @return View
      */
@@ -55,7 +55,7 @@ class CargaController extends Controller
         return $view;
     }
 
-/**
+    /**
      *
      * @param string $ext
      * @throws InvalidFileException
@@ -68,11 +68,11 @@ class CargaController extends Controller
             case 'text/plain':
                 $reader = $rf->create(Type::CSV);
                 break;
-                
+
             case 'text/csv':
                 $reader = $rf->create(Type::CSV);
                 break;
-                
+
             case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
                 $reader = $rf->create(Type::XLSX);
                 break;
@@ -87,29 +87,30 @@ class CargaController extends Controller
         }
         return $reader;
     }
-    
+
     /**
-     * 
+     *
      * @param array $row
      * @throws Exception
      */
-    private function validateHeader(array $row) {
+    private function validateHeader(array $row)
+    {
         if ($this->cc->hasDuplicates($row)) {
             throw new Exception('Duplicate Column Names');
         }
         if ($this->cc->badName($row)) {
             throw new Exception('Invalid Column Name');
         }
-        if (!in_array('cliente', $row)) {
+        if (! in_array('cliente', $row)) {
             throw new Exception('Missing Cliente');
         }
-        if (!in_array('numero_de_cuenta', $row)) {
+        if (! in_array('numero_de_cuenta', $row)) {
             throw new Exception('Missing Cuenta');
         }
     }
 
     /**
-     * 
+     *
      * @param Request $r
      * @return View
      */
@@ -123,24 +124,20 @@ class CargaController extends Controller
             $reader = $this->getReader($ext);
             $reader->open($filePath);
             $firstRow = true;
-            $firstSheet = true;
             $data = array();
             $countUpload = 0;
             foreach ($reader->getSheetIterator() as $sheet) {
-                if ($firstSheet) {
-                    foreach ($sheet->getRowIterator() as $row) {
-                        if ($firstRow) {
-                            dd($row);
-                            $this->validateHeader($row);
-                            $header = $row;
-                            $firstRow = false;
-                        } else {
-                            $data[] = $row;
-                            $countUpload++;
-                        }
+                foreach ($sheet->getRowIterator() as $row) {
+                    if ($firstRow) {
+                        dd($row);
+                        $this->validateHeader($row);
+                        $header = $row;
+                        $firstRow = false;
+                    } else {
+                        $data[] = $row;
+                        $countUpload ++;
                     }
                 }
-                $firstSheet = false;
             }
             $this->cc->prepareTemp($header);
             $countLoaded = $this->cc->loadData($data, $header);
@@ -148,10 +145,7 @@ class CargaController extends Controller
             $countInserted = $this->cc->insertIntoResumen($header);
             $this->cc->updateClientes();
             $this->cc->updatePagos();
-            $msg = '<p>Uploaded: ' . $countUpload . '<br>' .
-                'Loaded: ' . $countLoaded . '<br>'.
-                'Updated: ' . $countUpdated . '<br>'.
-                'Updated: ' . $countInserted . '</p>';
+            $msg = '<p>Uploaded: ' . $countUpload . '<br>' . 'Loaded: ' . $countLoaded . '<br>' . 'Updated: ' . $countUpdated . '<br>' . 'Updated: ' . $countInserted . '</p>';
             return $this->indexMsg($msg);
         }
     }
