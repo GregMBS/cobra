@@ -108,7 +108,7 @@ class CargaController extends Controller
             $firstRow = true;
             $data = array();
             $countUpload = 0;
-            foreach (fgetcsv($handle) as $row) {
+            while ($row = fgetcsv($handle, 100000, ",")) {
                 if ($firstRow) {
                     dd($row);
                     $this->validateHeader($row);
