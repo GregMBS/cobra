@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use Dotenv\Exception\InvalidFileException;
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Reader\ReaderInterface;
+use Box\Spout\Reader\SheetInterface;
 use Box\Spout\Common\Type;
 use Exception;
 
@@ -127,7 +128,7 @@ class CargaController extends Controller
             $countUpload = 0;
             foreach ($reader->getSheetIterator() as $sheet) {
                 if ($firstSheet) {
-                    foreach ($sheet->getRowIterator() as $row) {
+                    foreach ($sheet->SheetInterface->getRowInterface() as $row) {
                         dd($row);
                         if ($firstRow) {
                             $this->validateHeader($row);
