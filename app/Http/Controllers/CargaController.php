@@ -63,6 +63,7 @@ class CargaController extends Controller
     private function getReader($ext)
     {
         $rf = new ReaderFactory();
+        dd($ext);
         switch ($ext) {
             case 'csv':
                 $reader = $rf->create(Type::CSV);
