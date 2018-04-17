@@ -24,7 +24,6 @@ class CargaController extends Controller
      * @var array
      */
     private $rules = [
-        'cliente' => 'required|max:255',
         'file' => 'required|file'
     ];
 
