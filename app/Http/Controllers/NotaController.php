@@ -46,8 +46,9 @@ class NotaController extends Controller
     {
         $cuenta = $this->nc->getCuentaFromId($id_cuenta);
         $notas = $this->nc->listAllNotas();
-        $view = view('notas')
-        ->with('id_cuenta', $id_cuenta)
+        $gestores = $this->nc->listUsers();
+        $view = view('notadmin')
+        ->with('gestores', $gestores)
         ->with('cuenta', $cuenta)
         ->with('notas', $notas);
         return $view;
@@ -66,7 +67,7 @@ class NotaController extends Controller
     }
     
     /**
-     * 
+     *
      * @param Request $r
      * @return View
      */
@@ -82,5 +83,22 @@ class NotaController extends Controller
         $NOTA = $r->nota;
         $id_cuenta = $this->nc->insertNota($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $cuenta, $C_CONT);
         return $this->index($id_cuenta);
+    }
+    
+    /**
+     *
+     * @param Request $r
+     * @return View
+     */
+    public function addAdmin(Request $r)
+    {
+        $capt = auth()->user()->iniciales;
+        $C_CONT = $r->C_CONT;
+        $FECHA = $r->fecha;
+        $HORA = $r->hora.':'.$r->min;
+        $NOTA = $r->nota;
+        $target = $r->target;
+        $this->nc->insertNotaAdmin($target, $capt, $FECHA, $HORA, $NOTA);
+        return $this->indexAdmin($C_CONT);
     }
 }

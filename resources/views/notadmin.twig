@@ -41,6 +41,7 @@
                 </table>
             </div>
         <form action="/addNotaAdmin" method="post" name="notas">
+        	{{ csrf_field()) }}
             <label for='fecha'>Fecha</label>
             <input type="text" name="fecha" id="fecha" value="" size=15 /><br>
             <label for='hora'>Hora</label>
@@ -52,18 +53,29 @@
             <input type="hidden" name="C_CONT" readonly="readonly" value='{{ id_cuenta }}' /><br>
             <input type="submit" name="go" value="GUARDAR">
         </form>
-        <form action="<?php echo $page ?>" method="get" name="notas">
-            <span class="formcap">Gestor</span><SELECT NAME="target">
-                <OPTION VALUE='todos'>todos</option>
-<?php
-foreach ($rowt as $answert) {
-    ?>
-                    <option value='<?php echo $answert['iniciales']; ?>'><?php echo $answert[0]; ?></option>
-                <?php } ?>
-            </SELECT><br>
-            <input type="hidden" name="D_FECH" readonly="readonly" value=<?php echo date('Y-m-d'); ?> />
-            <input type="hidden" name="C_HORA" readonly="readonly" value=<?php echo date('H:i:s'); ?> />
+        <form action="/notadmin" method="post" name="notas">
+            <label for="target">Gestor:</label>
+                    <select name="target" id="target">
+                        <option value="todos" style="font-size:120%;">todos</option>
+                        {% for g in gestores %}
+                            <option value="{{ g }}" style="font-size:120%;">{{ g }}</option>
+                        {% endfor %}
+                    </select>
             <input type="submit" name="go" value="GUARDAR">
         </form>
+       <script>
+            $(function () {
+                $('#hora').spinner({
+                    min: 0,
+                    max: 23
+                });
+                $('#min').spinner({
+                    min: 0,
+                    max: 55,
+                    step: 5
+                });
+                $('#fecha').datepicker();
+            });
+        </script>
     </body>
 </html>

@@ -169,11 +169,17 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
      */
     public function listUsers()
     {
-        $queryt = "SELECT iniciales FROM nombres " . "ORDER BY iniciales";
-        $rowt = $this->pdo->query($queryt);
-        return $rowt;
+        $query = "SELECT iniciales FROM users
+                    WHERE tipo <> ''
+                UNION
+                SELECT iniciales FROM nombres
+                    WHERE tipo <> ''";
+        $stq = $this->pdo->query($query);
+        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $gestores = array_column($result, 'iniciales');
+        return $gestores;
     }
-
+    
     /**
      *
      * @param string $capt

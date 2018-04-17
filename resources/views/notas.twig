@@ -39,7 +39,8 @@
                 </table>
             </div>
 <?php } ?>
-        <form action="addNota" method="post" name="notas">
+        <form action="/notas" method="post" name="notas">
+        	{{ csrf_field()) }}
             <label for='fecha'>Fecha</label>
             <input type="text" name="fecha" id="fecha" value="" size=15 /><br>
             <label for='hora'>Hora</label>

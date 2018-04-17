@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/resumen', 'ResumenController@index');
     Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
     Route::get('/notas/{id_cuenta}', 'NotaController@index');
+    Route::post('/notas', 'NotaController@add');
     Route::get('/migo', 'MigoController@getList');
     Route::get('/queuesg', 'GestorQueuesController@index');
     Route::get('/newqueue', 'GestorQueuesController@changeQueue');
@@ -98,6 +99,8 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/inventario', 'InventarioController@makeReport');
     Route::get('/inventarioRapid', 'InventarioController@indexRapid');
     Route::post('/inventarioRapid', 'InventarioController@makeRapidReport');
+    Route::get('/notadmin', 'NotaController@indexAdmin');
+    Route::post('/notadmin', 'NotaController@addAdmin');
 });
 Auth::routes();
 
