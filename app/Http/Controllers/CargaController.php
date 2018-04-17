@@ -101,14 +101,12 @@ class CargaController extends Controller
         $this->validate($r, $this->rules);
         if ($r->file('file')->isValid()) {
             $file = $r->file('file');
-            $filePath = $file->getPath();
-            $handle = fopen($filePath, "r");
             $ext = strtolower($file->getMimeType());
             $this->getReader($ext);
             $firstRow = true;
             $data = array();
             $countUpload = 0;
-            while ($row = fgetcsv($handle, 0, ",")) {
+            while ($row = fgetcsv($file, 0, ",")) {
                 dd($row);
                 if ($firstRow) {
                     dd($row);
