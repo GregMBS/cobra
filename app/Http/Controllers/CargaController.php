@@ -134,6 +134,7 @@ class CargaController extends Controller
                         $header = $row;
                         $firstRow = false;
                     } else {
+                        dd($row);
                         $data[] = $row;
                         $countUpload ++;
                     }
