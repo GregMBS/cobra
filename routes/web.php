@@ -94,6 +94,10 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/pagobulk', 'PagobulkController@confirm');
     Route::get('/intensidad', 'IntensidadController@index');
     Route::post('/intensidad', 'IntensidadController@makeReport');
+    Route::get('/inventario', 'InventarioController@index');
+    Route::post('/inventario', 'InventarioController@makeReport');
+    Route::get('/inventarioRapid', 'InventarioController@indexRapid');
+    Route::post('/inventarioRapid', 'InventarioController@makeRapidReport');
 });
 Auth::routes();
 
