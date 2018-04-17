@@ -130,6 +130,7 @@ class CargaController extends Controller
                 if ($firstSheet) {
                     foreach ($sheet->getRowIterator() as $row) {
                         if ($firstRow) {
+                            dd($row);
                             $this->validateHeader($row);
                             $header = $row;
                             $firstRow = false;
