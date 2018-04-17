@@ -4,11 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CargaClass;
 use Illuminate\Support\Facades\View;
-use Dotenv\Exception\InvalidFileException;
-use Box\Spout\Reader\ReaderFactory;
-use Box\Spout\Reader\ReaderInterface;
-use Box\Spout\Reader\SheetInterface;
-use Box\Spout\Common\Type;
 use Exception;
 
 class CargaController extends Controller
@@ -58,34 +53,21 @@ class CargaController extends Controller
     /**
      *
      * @param string $ext
-     * @throws InvalidFileException
-     * @return ReaderInterface
+     * @throws Exception
      */
     private function getReader($ext)
     {
-        $rf = new ReaderFactory();
         switch ($ext) {
             case 'text/plain':
-                $reader = $rf->create(Type::CSV);
                 break;
 
             case 'text/csv':
-                $reader = $rf->create(Type::CSV);
-                break;
-
-            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                $reader = $rf->create(Type::XLSX);
-                break;
-
-            case 'application/vnd.oasis.opendocument.spreadsheet':
-                $reader = $rf->create(Type::ODS);
                 break;
 
             default:
-                throw new InvalidFileException('Excel(XLSX), LibreOffice(ODS), o CSV');
+                throw new Exception('CSV only');
                 break;
         }
-        return $reader;
     }
 
     /**
@@ -120,26 +102,25 @@ class CargaController extends Controller
         if ($r->file('file')->isValid()) {
             $file = $r->file('file');
             $filePath = $file->getPath();
+            $handle = fopen($filePath, "r");
             $ext = strtolower($file->getMimeType());
-            $reader = $this->getReader($ext);
-            $reader->open($filePath);
+            $this->getReader($ext);
             $firstRow = true;
             $data = array();
             $countUpload = 0;
-            foreach ($reader->getSheetIterator() as $sheet) {
-                foreach ($sheet->getRowIterator() as $row) {
-                    if ($firstRow) {
-                        dd($row);
-                        $this->validateHeader($row);
-                        $header = $row;
-                        $firstRow = false;
-                    } else {
-                        dd($row);
-                        $data[] = $row;
-                        $countUpload ++;
-                    }
+            foreach (fgetcsv($handle) as $row) {
+                if ($firstRow) {
+                    dd($row);
+                    $this->validateHeader($row);
+                    $header = $row;
+                    $firstRow = false;
+                } else {
+                    dd($row);
+                    $data[] = $row;
+                    $countUpload ++;
                 }
             }
+
             $this->cc->prepareTemp($header);
             $countLoaded = $this->cc->loadData($data, $header);
             $countUpdated = $this->cc->updateResumen($header);
