@@ -126,9 +126,9 @@ class CargaController extends Controller
             $data = array();
             $countUpload = 0;
             foreach ($reader->getSheetIterator() as $sheet) {
-                dd($sheet);
                 if ($firstSheet) {
                     foreach ($sheet->getRowIterator() as $row) {
+                        dd($row);
                         if ($firstRow) {
                             $this->validateHeader($row);
                             $header = $row;
@@ -140,6 +140,7 @@ class CargaController extends Controller
                     }
                 }
                 $firstSheet = false;
+                dd($sheet);
             }
             dd($reader);
             $this->cc->prepareTemp($header);
