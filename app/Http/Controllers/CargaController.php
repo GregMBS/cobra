@@ -122,10 +122,11 @@ class CargaController extends Controller
             $reader = $this->getReader($ext);
             $reader->open($filePath);
             $firstRow = true;
+            $firstSheet = true;
             $data = array();
             $countUpload = 0;
             foreach ($reader->getSheetIterator() as $sheet) {
-                if ($sheet->getIndex() === 0) {
+                if ($firstSheet) {
                     foreach ($sheet->getRowIterator() as $row) {
                         if ($firstRow) {
                             $this->validateHeader($row);
@@ -137,6 +138,7 @@ class CargaController extends Controller
                         }
                     }
                 }
+                $firstSheet = false;
             }
             $this->cc->prepareTemp($header);
             $countLoaded = $this->cc->loadData($data, $header);
