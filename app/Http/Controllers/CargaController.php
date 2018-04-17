@@ -126,6 +126,7 @@ class CargaController extends Controller
             $data = array();
             $countUpload = 0;
             foreach ($reader->getSheetIterator() as $sheet) {
+                dd($sheet);
                 if ($firstSheet) {
                     foreach ($sheet->getRowIterator() as $row) {
                         if ($firstRow) {
