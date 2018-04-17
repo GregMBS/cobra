@@ -140,7 +140,7 @@ class CargaController extends Controller
                 }
                 $firstSheet = false;
             }
-            dd($data);
+            dd($reader);
             $this->cc->prepareTemp($header);
             $countLoaded = $this->cc->loadData($data, $header);
             $countUpdated = $this->cc->updateResumen($header);
