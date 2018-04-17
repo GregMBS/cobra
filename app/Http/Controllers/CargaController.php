@@ -115,7 +115,7 @@ class CargaController extends Controller
         if ($r->file('file')->isValid()) {
             $file = $r->file('file');
             $filePath = $file->getPath();
-            $ext = strtolower($file->getExtension());
+            $ext = strtolower($file->extension());
             $reader = $this->getReader($ext);
             $reader->open($filePath);
             $firstRow = true;
