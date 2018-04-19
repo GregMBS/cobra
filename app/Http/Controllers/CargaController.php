@@ -103,9 +103,12 @@ class CargaController extends Controller
             $file = $r->file('file');
             $ext = strtolower($file->getMimeType());
             $this->getReader($ext);
-            $firstRow = true;
-            $data = array();
-            $countUpload = 0;
+            $csv = array_map('str_getcsv', $file);
+            array_walk($csv, function(&$a) use ($csv) {
+                $a = array_combine($csv[0], $a);
+            });
+            array_shift($csv); # remove column header
+            dd($csv);    
             while ($row = fgetcsv($file, 0, ",")) {
                 dd($row);
                 if ($firstRow) {
