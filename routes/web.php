@@ -57,6 +57,7 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/segmento/borrar', 'SegmentController@borrar');
     Route::post('/segmento/inactivar', 'SegmentController@inactivar');
     Route::post('/segmento/agregar', 'SegmentController@agregar');
+    Route::post('/segmento/agregartodo', 'SegmentController@agregartodo');
     Route::post('/segmento/segment/agregartodo', 'SegmentController@segment/agregartodo');
     Route::get('/gestoradmin', 'GestoradminController@index');
     Route::get('/gestor/add', 'GestoradminController@agregar');
@@ -103,6 +104,7 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/notadmin', 'NotaController@addAdmin');
     Route::get('/carga', 'CargaController@index');
     Route::post('/carga', 'CargaController@cargar');
+    Route::get('/horarios', 'HorariosController@index');
 });
 Auth::routes();
 

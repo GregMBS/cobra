@@ -24,6 +24,6 @@
 		<input type="file" name="file" id="file"><br>
 		<button type="submit" name="go" value="cargar">Elegir archivo</button>
 	</form>
-	{{ msg | default() }}
+	{{ msg | raw | default() }}
 </body>
 </html>

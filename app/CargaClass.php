@@ -121,14 +121,13 @@ class CargaClass extends BaseClass
      */
     public function loadData(array $data, array $columnNames)
     {
-        $count = 0;
         $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
         foreach ($data as $row) {
-            if ($count > 0) {
-                $limpio = str_replace("'", "", $row);
-                $queryload .= "('" . implode("','", $limpio) . "'),";
+            if (is_array($row)) {
+                $clean = array_map('trim', $row);
+                $string = implode("','", $clean);
+                $queryload .= "('" . $string . "'),";
             }
-            $count ++;
         }
         $queryloadtrim = rtrim($queryload, ",");
         try {

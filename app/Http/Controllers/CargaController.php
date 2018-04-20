@@ -101,26 +101,24 @@ class CargaController extends Controller
         $this->validate($r, $this->rules);
         if ($r->file('file')->isValid()) {
             $file = $r->file('file');
+            $data = file($file);
             $ext = strtolower($file->getMimeType());
             $this->getReader($ext);
-            $csv = array_map('str_getcsv', $file);
-            array_walk($csv, function(&$a) use ($csv) {
+            $csv = array_map('str_getcsv', $data);
+            array_walk($csv, function (&$a) use ($csv) {
                 $a = array_combine($csv[0], $a);
             });
-            array_shift($csv); # remove column header
-            dd($csv);    
-            while ($row = fgetcsv($file, 0, ",")) {
-                dd($row);
+            array_shift($csv); // remove column header
+            $firstRow = true;
+            $countUpload = 0;
+            foreach ($csv as $row) {
                 if ($firstRow) {
-                    dd($row);
-                    $this->validateHeader($row);
-                    $header = $row;
+                    $this->validateHeader(array_keys($row));
+                    $header = array_keys($row);
                     $firstRow = false;
-                } else {
-                    dd($row);
-                    $data[] = $row;
-                    $countUpload ++;
                 }
+                $data[] = $row;
+                $countUpload ++;
             }
 
             $this->cc->prepareTemp($header);
@@ -129,7 +127,7 @@ class CargaController extends Controller
             $countInserted = $this->cc->insertIntoResumen($header);
             $this->cc->updateClientes();
             $this->cc->updatePagos();
-            $msg = '<p>Uploaded: ' . $countUpload . '<br>' . 'Loaded: ' . $countLoaded . '<br>' . 'Updated: ' . $countUpdated . '<br>' . 'Updated: ' . $countInserted . '</p>';
+            $msg = '<p>Uploaded: ' . $countUpload . '<br>' . 'Loaded: ' . $countLoaded . '<br>' . 'Updated: ' . $countUpdated . '<br>' . 'Inserted: ' . $countInserted . '</p>';
             return $this->indexMsg($msg);
         }
     }
