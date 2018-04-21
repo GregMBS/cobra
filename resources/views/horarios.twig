@@ -128,7 +128,9 @@ th, th {
 			</tr>
 			<tr>
 				<td class="heavy">CUENTAS</td>
+                {% set sumcta = 0 %}
 				{% for i in 1..dhoy %}
+				{% set sumcta = sumcta + data[gestor][i].cuentas %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].cuentas == 0 %}
 				{% set zeros = ' zeros' %}
@@ -138,33 +140,39 @@ th, th {
 				</a>
 				</td>
 				{% endfor %}
-				<td></td>
+				<td>{{ sumcta }}</td>
 			</tr>
 			<tr>
 				<td class="heavy">CONTACTOS</td>
+                {% set sumcont = 0 %}
 				{% for i in 1..dhoy %}
+				{% set sumcont = sumcont + data[gestor][i].contactos %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].contactos == 0 %}
 				{% set zeros = ' zeros' %}
 				{% endif %}
 				<td class="light{{ zeros }}">{{ data[gestor][i].contactos }}</td>
 				{% endfor %}
-				<td></td>
+				<td>{{ sumcont }}</td>
 			</tr>
 			<tr>
 				<td class="heavy">NO CONTACTOS</td>
+                {% set sumnoc = 0 %}
 				{% for i in 1..dhoy %}
+				{% set sumnoc = sumnoc + data[gestor][i].nocontactos %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].nocontactos == 0 %}
 				{% set zeros = ' zeros' %}
 				{% endif %}
 				<td class="light{{ zeros }}">{{ data[gestor][i].nocontactos }}</td>
 				{% endfor %}
-				<td></td>
+				<td>{{ sumnoc }}</td>
 			</tr>
 			<tr>
 				<td class="heavy">PROMESAS</td>
+                {% set sumprom = 0 %}
 				{% for i in 1..dhoy %}
+				{% set sumprom = sumprom + data[gestor][i].promesas %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].promesas == 0 %}
 				{% set zeros = ' zeros' %}
@@ -174,18 +182,20 @@ th, th {
 				</a>
 				</td>
 				{% endfor %}
-				<td></td>
+				<td>{{ sumprom }}</td>
 			</tr>
 			<tr>
 				<td class="heavy">PAGOS</td>
+                {% set sumpag = 0 %}
 				{% for i in 1..dhoy %}
+				{% set sumpag = sumpag + data[gestor][i].pagos %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].pagos == 0 %}
 				{% set zeros = ' zeros' %}
 				{% endif %}
 				<td class="light{{ zeros }}">{{ data[gestor][i].pagos }}</td>
 				{% endfor %}
-				<td></td>
+				<td>{{ sumpag }}</td>
 			</tr>
 			<tr style="height: 2em"></tr>
 		</tbody>
