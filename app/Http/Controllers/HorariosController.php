@@ -14,49 +14,48 @@ class HorariosController extends Controller
      * @var HorariosClass
      */
     private $hc;
-    
+
     /**
      *
      * @var HorariosAllClass
      */
     private $hac;
-    
+
     private $yr;
     private $mes;
     private $yrmes;
-    
+
     /**
-     * 
+     *
      * @var int
      */
     private $dhoy;
-    
+
     /**
-     * 
+     *
      * @var string
      */
     private $hoy;
-    
-    private $dst = '';
-    
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->hc = new HorariosClass();
         $this->hac = new HorariosAllClass();
-        $this->yr              = date('Y');
-        $this->mes             = date('m');
-        $this->dhoy            = date('d');
-        $this->hoy             = date('Y-m-d');
-        $this->yrmes           = date('Y-m-');
+        $this->yr = date('Y');
+        $this->mes = date('m');
+        $this->dhoy = date('d');
+        $this->hoy = date('Y-m-d');
+        $this->yrmes = date('Y-m-');
     }
-    
+
     /**
-     * 
+     *
      * @return View
      */
     public function index()
     {
         $output = array();
+        $summary = array();
         $gestores = $this->hc->listGestores();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
         foreach ($gestores as $gestor) {
@@ -79,12 +78,25 @@ class HorariosController extends Controller
             }
             $output[$c_cvge] = $row;
         }
+        for ($i = 1; $i <= $this->dhoy; $i++) {
+            $dataSum = new HorariosDataClass($i);
+            $mainSum = $this->hac->getCurrentMain($i);
+            $dataSum->gestiones = $mainSum['gestiones'];
+            $dataSum->cuentas = $mainSum['cuentas'];
+            $dataSum->contactos = $mainSum['contactos'];
+            $dataSum->nocontactos = $mainSum['nocontactos'];
+            $dataSum->promesas = $mainSum['promesas'];
+            $dataSum->pagos = $this->hac->getPagos($i);
+            $summary[$i] = $dataSum;
+        }
+        $c_cvge = array_column($gestores, 'c_cvge');
         $view = view('horarios')
-        ->with('yrmes', $this->yrmes)
-        ->with('gestores', array_column($gestores, 'c_cvge'))
-        ->with('dhoy', $this->dhoy)
-        ->with('dowArray', $dowArray)
-        ->with('data', $output);
+            ->with('yrmes', $this->yrmes)
+            ->with('gestores', $c_cvge)
+            ->with('dhoy', $this->dhoy)
+            ->with('dowArray', $dowArray)
+            ->with('data', $output)
+            ->with('summary', $summary);
         return $view;
     }
 }

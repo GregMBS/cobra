@@ -20,18 +20,8 @@ tr:hover {
 	font-size: 10pt;
 }
 
-.heavytot {
-	font-weight: bold;
-	font-size: 10pt;
-	text-align: right;
-}
-
 th, th {
 	text-align: center;
-}
-
-.zeros {
-	color: red;
 }
 </style>
 </head>
@@ -54,9 +44,9 @@ th, th {
 				{% for i in 1..dhoy %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].start == 0 %}
-				{% set zeros = ' zeros' %}
+				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
-				<td class="light{{ zeros }}">{{ data[gestor][i].start }}</td>
+				<td class="light"{{ zeros }}>{{ data[gestor][i].start }}</td>
 				{% endfor %}
 				<td></td>
 			</tr>
@@ -65,9 +55,9 @@ th, th {
 				{% for i in 1..dhoy %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].stop == 0 %}
-				{% set zeros = ' zeros' %}
+				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
-				<td class="light{{ zeros }}">{{ data[gestor][i].stop }}</td>
+				<td class="light"{{ zeros }}>{{ data[gestor][i].stop }}</td>
 				{% endfor %}
 				<td></td>
 			</tr>
@@ -117,7 +107,7 @@ th, th {
 				{% set sumgest = sumgest + data[gestor][i].gestiones %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].gestiones == 0 %}
-				{% set zeros = ' zeros' %}
+				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
 				<a href='/ddh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].gestiones }}
@@ -133,7 +123,7 @@ th, th {
 				{% set sumcta = sumcta + data[gestor][i].cuentas %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].cuentas == 0 %}
-				{% set zeros = ' zeros' %}
+				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
 				<a href='/ddh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].cuentas }}
@@ -149,9 +139,9 @@ th, th {
 				{% set sumcont = sumcont + data[gestor][i].contactos %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].contactos == 0 %}
-				{% set zeros = ' zeros' %}
+				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
-				<td class="light{{ zeros }}">{{ data[gestor][i].contactos }}</td>
+				<td class="light"{{ zeros }}>{{ data[gestor][i].contactos }}</td>
 				{% endfor %}
 				<td>{{ sumcont }}</td>
 			</tr>
@@ -162,9 +152,9 @@ th, th {
 				{% set sumnoc = sumnoc + data[gestor][i].nocontactos %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].nocontactos == 0 %}
-				{% set zeros = ' zeros' %}
+				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
-				<td class="light{{ zeros }}">{{ data[gestor][i].nocontactos }}</td>
+				<td class="light"{{ zeros }}>{{ data[gestor][i].nocontactos }}</td>
 				{% endfor %}
 				<td>{{ sumnoc }}</td>
 			</tr>
@@ -175,7 +165,7 @@ th, th {
 				{% set sumprom = sumprom + data[gestor][i].promesas %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].promesas == 0 %}
-				{% set zeros = ' zeros' %}
+				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
 				<a href='/pdh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].promesas }}
@@ -191,9 +181,9 @@ th, th {
 				{% set sumpag = sumpag + data[gestor][i].pagos %}
 				{% set zeros = '' %}
 				{% if data[gestor][i].pagos == 0 %}
-				{% set zeros = ' zeros' %}
+				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
-				<td class="light{{ zeros }}">{{ data[gestor][i].pagos }}</td>
+				<td class="light"{{ zeros }}>{{ data[gestor][i].pagos }}</td>
 				{% endfor %}
 				<td>{{ sumpag }}</td>
 			</tr>
@@ -201,6 +191,89 @@ th, th {
 		</tbody>
 	</table>
 	{% endfor %}
+	<table class="ui-widget">
+		<thead class="ui-widget-header">
+		<tr>
+			<th>TOTAL</th>
+            {% for i in 1..dhoy %}
+				<th>{{ dowArray[i] }} {{ i }}</th>
+            {% endfor %}
+			<th>TOTAL</th>
+		</tr>
+		</thead>
+		<tbody class="ui-widget-content">
+		<tr>
+			<td class="heavy">GESTIONES</td>
+            {% set sumgest = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumgest = sumgest + summary[i].gestiones %}
+                {% set zeros = '' %}
+                {% if summary.gestiones == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+				<td>
+					{{ summary[i].gestiones }}
+				</td>
+            {% endfor %}
+			<th>{{ sumgest }}</th>
+		</tr>
+		<tr>
+			<td class="heavy">CUENTAS</td>
+            {% set sumcta = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumcta = sumcta + summary[i].cuentas %}
+                {% set zeros = '' %}
+                {% if summary.cuentas == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+				<td>
+					{{ summary[i].cuentas }}
+				</td>
+            {% endfor %}
+			<td>{{ sumcta }}</td>
+		</tr>
+		<tr>
+			<td class="heavy">CONTACTOS</td>
+            {% set sumcont = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumcont = sumcont +summary[i].contactos %}
+                {% set zeros = '' %}
+                {% if summary[i].contactos == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+				<td class="light"{{ zeros }}>{{ summary[i].contactos }}</td>
+            {% endfor %}
+			<td>{{ sumcont }}</td>
+		</tr>
+		<tr>
+			<td class="heavy">NO CONTACTOS</td>
+            {% set sumnoc = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumnoc = sumnoc + summary[i].nocontactos %}
+                {% set zeros = '' %}
+                {% ifsummary[i].nocontactos == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+				<td class="light"{{ zeros }}>{{ summary[i].nocontactos }}</td>
+            {% endfor %}
+			<td>{{ sumnoc }}</td>
+		</tr>
+		<tr>
+			<td class="heavy">PROMESAS</td>
+            {% set sumprom = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumprom = sumprom + summary[i].promesas %}
+                {% set zeros = '' %}
+                {% if summary[i].promesas == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+				<td>
+					{{ summary[i].promesas td>
+            {% endfor %}
+			<td>{{ sumprom }}</td>
+		</tr>
+		</tbody>
+	</table>
 </body>
 </html>
 
