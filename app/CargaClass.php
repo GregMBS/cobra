@@ -121,6 +121,7 @@ class CargaClass extends BaseClass
      */
     public function loadData(array $data, array $columnNames)
     {
+        /** @noinspection SyntaxError */
         $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
         foreach ($data as $row) {
             if (is_array($row)) {
@@ -162,6 +163,7 @@ class CargaClass extends BaseClass
     public function updateResumen(array $columnNames)
     {
         $fields = $this->prepareUpdate($columnNames);
+        /** @noinspection SyntaxError */
         $queryupd = "UPDATE temp, resumen
             SET " . $fields . " 
             where temp.numero_de_cuenta=resumen.numero_de_cuenta";

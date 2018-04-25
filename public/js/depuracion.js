@@ -196,13 +196,6 @@ function validate_form(tf, evt, minprom, authorized, at) {
 		tf.ACCION.style.backgroundColor = "yellow";
 		flag = 1;
 	}
-	// If you know the number, you called it
-	if ((tf.ACCION.value.indexOf("L") != 0)
-			&& (parseInt(tf.C_TELE.value) == tf.C_TELE.value)) {
-		alerttxt = alerttxt + 'ACCION equivocada\n';
-		tf.ACCION.style.backgroundColor = "yellow";
-		flag = 1;
-	}
 	// Inbounds need motivation and carga/parentesco
 	if (tf.C_TELE.value === 'Entrante') {
 		if (validate_required(tf.C_MOTIV) === false) {
@@ -467,16 +460,16 @@ function validate_form(tf, evt, minprom, authorized, at) {
 		}
 	}
 	// monto de promesa can only have numbers and one decimal point.
-	if ((n1.toString()).match(/[0-9\.]/)) {
-		flag = flag;
+    if ((n1.toString()).match(/[0-9.]/)) {
+        //flag = flag;
 	} else {
 		alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n'
 				+ 'No puede dejar campo blanco. Usa 0.' + '\n';
 		tf.N_PROM1.style.backgroundColor = "yellow";
 		flag = 1;
 	}
-	if ((n2.toString()).match(/[0-9\.]/)) {
-		flag = flag;
+    if ((n2.toString()).match(/[0-9.]/)) {
+        //flag = flag;
 	} else {
 		alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n'
 				+ 'No puede dejar campo blanco. Usa 0.' + '\n';
@@ -484,8 +477,8 @@ function validate_form(tf, evt, minprom, authorized, at) {
 		flag = 1;
 	}
 	// monto de pago can only have numbers and one decimal point.
-	if ((npa.toString()).match(/[0-9\.]/)) {
-		flag = flag;
+    if ((npa.toString()).match(/[0-9.]/)) {
+        //flag = flag;
 	} else {
 		alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n';
 		tf.N_PAGO.style.backgroundColor = "yellow";
@@ -494,7 +487,7 @@ function validate_form(tf, evt, minprom, authorized, at) {
 	// new telephones can only have numbers
 	if (cnt !== null) {
 		if ((cnt.toString()).match(/[0-9]/)) {
-			flag = flag;
+            //flag = flag;
 		} else {
 			alerttxt = alerttxt
 					+ 'No puede usarse un separador o letras en telefonos'
@@ -512,7 +505,7 @@ function validate_form(tf, evt, minprom, authorized, at) {
 	}
 	if (co2 !== null) {
 		if ((co2.toString()).match(/[0-9]/)) {
-			flag = flag;
+            //flag = flag;
 		}
 		// else
 		// {alerttxt=alerttxt+'No puede usarse un separador o letras en

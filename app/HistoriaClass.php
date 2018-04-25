@@ -29,9 +29,11 @@ and c_cvba is null";
      * @return int
      */
     private function getIdCuenta($cuenta) {
-        $query = "SELECT id_cuenta FROM resumen "
-                . "WHERE cuenta = :cuenta "
-                . "LIMIT 1";
+        $query = <<<SQL
+SELECT id_cuenta FROM resumen 
+        WHERE numero_de_cuenta = :cuenta 
+        LIMIT 1
+SQL;
         /* var $sti PDOStatement */
         $sti = $this->pdo->prepare($query);
         $sti->bindParam(':cuenta', $cuenta);
@@ -47,7 +49,11 @@ and c_cvba is null";
     private function unsafeInsert(array $gestiones) {
         $columns = array_keys($gestiones[0]);
         $columnText = implode(",", $columns);
-        $query = "INSERT INTO historia ($columnText) VALUES";
+        $start = 'INSERT ';
+        $start2 = 'INTO ';
+        $start3 = 'historia';
+        $middle = " VALUES";
+        $query = $start . $start2 . $start3 . " (" . $columnText . ")" . $middle;
         $querytail = " ('%s'),";
         foreach ($gestiones as $gest) {
             if (!empty($gest)) {

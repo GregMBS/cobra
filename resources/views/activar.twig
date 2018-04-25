@@ -7,11 +7,11 @@
     <body>
         <form action="/activar" method="post" name="cargar">
         {{ csrf_field() }}
-        <p>
+            <div>
             <p>Usa numero de cuenta</p>
             <textarea name='data' rows='20' cols='50'></textarea>
             <button type="submit" name="go" value="cargar">Cargar</button>
-        </p>
+            </div>
     </form>
     {{ msg }}
     <button onclick="window.location = '/reports'">

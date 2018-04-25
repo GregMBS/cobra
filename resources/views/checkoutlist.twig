@@ -8,15 +8,15 @@
 	type="text/css" media="all" />
 </head>
 <body>
-	<button onclick="window.location = '/reports'">Regressar a la
+<button onclick="window.location = '/reports'">Regresar a la
 		plantilla administrativa</button>
 	<br>
 	<div id="vtable">
-		<br>Visitador:
+        <p>Visitador:
 		{{ visitador }}
 		<br> Autorizó por:
 		{{ capt }}
-		</br> Fecha:
+            <br> Fecha:
 		{{ "now"|date("Y-m-d") }}
 		</p>
 		<table class="ui-widget">

@@ -13,7 +13,7 @@ $(function() {
     if (notalert > 0) {
         $('#notasq input').css('backgroundColor', 'red');
     }
-    if (tipo == 'visitador') {
+    if ('visitador' === tipo) {
         $('#databox').hide();
         $('#prombox').hide();
         $('#nuevoboxt').hide();
@@ -25,8 +25,9 @@ $(function() {
         $('#visitbox').show();
     }
     var inactivo = new RegExp('-');
-    if (inactivo.test(sdc) && (tipo != 'admin')) {
-        $('#GUARTbutt').hide();
+    var isAdmin = ('admin' !== tipo);
+    if (inactivo.test(sdc) && isAdmin) {
+        $('#GUARDbutt').hide();
     }
     openSearch();
 });
@@ -47,7 +48,8 @@ function clock() {
     if (timemin > 4) {
         $("#clock").css('backgroundColor', 'red');
     }
-    if (timenow % 2 == 0) {
+    var evenodd = parseInt(timenow) % 2;
+    if (0 === evenodd) {
         $("#clock").css('backgroundColor', 'green');
     }
 }

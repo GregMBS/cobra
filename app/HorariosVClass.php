@@ -31,12 +31,14 @@ class HorariosVClass extends BaseClass {
      * @return array
      */
     public function listVisitadores() {
-        $query = 'select distinct c_visit as completo, c_visit as iniciales
+        $query = <<<SQL
+            select distinct c_visit as completo, c_visit as iniciales
 from historia 
 where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())
-and c_visit <> ""
-order by c_visit';
+and c_visit <> ''
+order by c_visit
+SQL;
         $result = $this->pdo->query($query);
         return $result->fetchAll(\PDO::FETCH_ASSOC);
     }

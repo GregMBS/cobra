@@ -22,11 +22,11 @@
                 <tbody class="ui-widget-content">
                     {% for n in notas %}
                             <tr>
-                                <td>{{ n.c_cvge }}</th>
+                                <td>{{ n.c_cvge }}</td>
                                 <td>{{ n.fecha }}</td>
                                 <td>{{ n.hora }}</td>
                                 <td>{{ n.cuenta }}</td>
-                                <td colspan=5>{{ n.nota | e }}</th>
+                                <td colspan=5>{{ n.nota | e }}</td>
                                 <td>
                                     <form action="/notadmin" method="post" name="lista{{ n.auto }}">
                                     	{{ csrf_field() }}
@@ -49,7 +49,7 @@
             <label for='min'>Min</label>
             <input type="text" name="min" id="min" value="" /><br>
             <label for='"nota"'>Nota</label>
-            <textarea rows="2" cols="40" name="nota" id=""nota""></textarea><br>
+            <textarea rows="2" cols="40" name="nota" id="nota"></textarea><br>
             <input type="hidden" name="C_CONT" readonly="readonly" value='{{ id_cuenta }}' /><br>
             <input type="submit" name="go" value="GUARDAR">
         </form>

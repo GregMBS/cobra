@@ -12,11 +12,9 @@
 	type="text/javascript"></script>
 </head>
 <body>
-	<button
-		onclick="window.location = 'reports.php?capt=<?php
-        echo $capt;
-        ?>'">Regressar
-		a la plantilla administrativa</button>
+<button onclick="window.location = '/reports'">
+	Regresar a la plantilla administrativa
+</button>
 	<br>
 	<form action="<?php echo $here; ?>" method="get" name="queryparms">
 		<input type="hidden" name="capt" value="<?php echo $capt ?>">
@@ -24,7 +22,7 @@
 			HECHO de: <input class="fecha" name="fecha1"> &nbsp; a:
 			&nbsp; <input class="fecha" name="fecha2">
 		</p>
-		<input type='submit' name='go' value='Telefonos'>
+		<input type='submit' name='go' value='Teléfonos'>
 	</form>
 	<script type="text/javascript">
 				$(function() {

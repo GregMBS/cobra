@@ -14,14 +14,16 @@ namespace App;
  * @author gmbs
  *
  */
-class IntensidadClass extends BaseClass {
+class IntensidadClass extends BaseClass
+{
 
     /**
-     * 
+     *
      * @param string $direction
      * @return string
      */
-    private function cleanDirection($direction) {
+    private function cleanDirection($direction)
+    {
         $haystack = array('asc', 'ASC', 'desc', 'DESC');
         if (!in_array($direction, $haystack)) {
             $direction = 'ASC';
@@ -30,13 +32,14 @@ class IntensidadClass extends BaseClass {
     }
 
     /**
-     * 
+     *
      * @param string $query
      * @param string $fecha1
      * @param string $fecha2
      * @return array
      */
-    private function getIntensidad($query, $fecha1, $fecha2) {
+    private function getIntensidad($query, $fecha1, $fecha2)
+    {
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':fecha1', $fecha1);
         $stq->bindParam(':fecha2', $fecha2);
@@ -46,12 +49,13 @@ class IntensidadClass extends BaseClass {
     }
 
     /**
-     * 
+     *
      * @param string $fecha1
      * @param string $fecha2
      * @return array
      */
-    public function getByCuenta($fecha1, $fecha2) {
+    public function getByCuenta($fecha1, $fecha2)
+    {
         $query = "SELECT numero_de_cuenta,count(distinct auto) as 'intensidad'
 from resumen
 left join historia on c_cont=id_cuenta
@@ -64,12 +68,13 @@ group by numero_de_cuenta
     }
 
     /**
-     * 
+     *
      * @param string $fecha1
      * @param string $fecha2
      * @return array
      */
-    public function getBySegmento($fecha1, $fecha2) {
+    public function getBySegmento($fecha1, $fecha2)
+    {
         $query = "SELECT cliente,status_de_credito as 'segmento',queue,
             count(1) as 'intensidad'
 from historia,resumen,dictamenes
@@ -84,25 +89,31 @@ with rollup";
     }
 
     /**
-     * 
+     *
      * @param string $direction
      * @return array
-     * 
+     *
      */
-    public function getGestionDates($direction) {
+    public function getGestionDates($direction)
+    {
         $dir = $this->cleanDirection($direction);
-        $query = "SELECT distinct d_fech FROM historia
+        $start = <<<SQL
+        SELECT distinct d_fech FROM historia
         where d_fech>last_day(curdate()-interval 1 year)
-        ORDER BY d_fech $dir limit 360";
+        ORDER BY d_fech 
+SQL;
+        $end = " limit 360";
+        $query = $start . $dir . $end;
         $result = $this->pdo->query($query);
         return $result;
     }
 
     /**
-     * 
+     *
      * @return array
      */
-    public function getGestionClientes() {
+    public function getGestionClientes()
+    {
         $query = "SELECT distinct c_cvba FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         limit 10

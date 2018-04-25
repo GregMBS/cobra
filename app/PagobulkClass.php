@@ -15,9 +15,11 @@ use PDOStatement;
  *
  * @author gmbs
  */
-class PagobulkClass extends BaseClass {
+class PagobulkClass extends BaseClass
+{
 
-    private function buildTemp() {
+    private function buildTemp()
+    {
         $queryDropTemp = "DROP TABLE IF EXISTS pagotemp";
         $this->pdo->query($queryDropTemp);
         $queryBuildTemp = "CREATE TABLE pagotemp 
@@ -32,10 +34,11 @@ class PagobulkClass extends BaseClass {
     }
 
     /**
-     * 
+     *
      * @return PDOStatement
      */
-    private function pagoClean() {
+    private function pagoClean()
+    {
         $querypagoclean = "delete from pagos
 where confirmado=0 and cuenta=:cuenta
  and fecha<=:fecha";
@@ -44,10 +47,11 @@ where confirmado=0 and cuenta=:cuenta
     }
 
     /**
-     * 
+     *
      * @return PDOStatement
      */
-    private function addTemp() {
+    private function addTemp()
+    {
         $queryAddTemp = "INSERT INTO pagotemp 
                 SELECT :cuenta, :fecha, :monto, 
                 cliente, :c_cvge, 1 AS 'confirmado', id_cuenta
@@ -58,26 +62,30 @@ where confirmado=0 and cuenta=:cuenta
     }
 
     /**
-     * 
+     *
      * @return PDOStatement
      */
-    private function findGestor() {
-        $queryFindGestor = "SELECT c_cvge FROM historia "
-                . "WHERE d_fech <= :fecha "
-                . "AND cuenta = :cuenta "
-                . "AND n_prom > 0"
-                . "ORDER BY d_fech DESC, c_hrin DESC "
-                . "LIMIT 1";
+    private function findGestor()
+    {
+        $queryFindGestor = <<<SQL
+        SELECT c_cvge FROM historia 
+                WHERE d_fech <= :fecha 
+                AND cuenta = :cuenta 
+                AND n_prom > 0 
+                ORDER BY d_fech DESC, c_hrin DESC 
+                LIMIT 1
+SQL;
         $stpf = $this->pdo->prepare($queryFindGestor);
         return $stpf;
     }
 
     /**
-     * 
+     *
      * @param PDOStatement $stm
      * @return boolean
      */
-    private function testPDOStatement($stm) {
+    private function testPDOStatement($stm)
+    {
         if (is_a($stm, 'PDOStatement')) {
             return true;
         } else {
@@ -86,11 +94,12 @@ where confirmado=0 and cuenta=:cuenta
     }
 
     /**
-     * 
+     *
      * @param string $input
      * @return array
      */
-    private function dataToArray($input) {
+    private function dataToArray($input)
+    {
         $array_csv = array();
         $lines = explode("\n", $input);
         foreach ($lines as $line) {
@@ -100,10 +109,11 @@ where confirmado=0 and cuenta=:cuenta
     }
 
     /**
-     * 
+     *
      * @param PagobulkRowClass $rc
      */
-    private function cleanPago(PagobulkRowClass $rc) {
+    private function cleanPago(PagobulkRowClass $rc)
+    {
         $stpc = $this->pagoClean();
         $stpc->bindParam(':cuenta', $rc->getCuenta());
         $stpc->bindParam(':fecha', $rc->getFecha());
@@ -111,11 +121,12 @@ where confirmado=0 and cuenta=:cuenta
     }
 
     /**
-     * 
+     *
      * @param PagobulkRowClass $rc
-     * 
+     *
      */
-    private function getGestor(PagobulkRowClass $rc) {
+    private function getGestor(PagobulkRowClass $rc)
+    {
         $stpf = $this->findGestor();
         $stpf->bindParam(':cuenta', $rc->getCuenta());
         $stpf->bindParam(':fecha', $rc->getFecha());
@@ -130,10 +141,11 @@ where confirmado=0 and cuenta=:cuenta
     }
 
     /**
-     * 
+     *
      * @param PagobulkRowClass $rc
      */
-    private function fillTemp(PagobulkRowClass $rc) {
+    private function fillTemp(PagobulkRowClass $rc)
+    {
         $stpa = $this->addTemp();
         $stpa->bindParam(':cuenta', $rc->getCuenta());
         $stpa->bindParam(':fecha', $rc->getFecha());
@@ -143,13 +155,14 @@ where confirmado=0 and cuenta=:cuenta
     }
 
     /**
-     * 
+     *
      * @param string $input
      * @return string
      */
-    public function main($input) {
+    public function main($input)
+    {
         $array = $this->dataToArray($input);
-        $icount=count($array);
+        $icount = count($array);
         $this->buildTemp();
         $count = 0;
         foreach ($array as $row) {
@@ -162,18 +175,19 @@ where confirmado=0 and cuenta=:cuenta
             }
         }
         $countfin = $this->finish();
-        return $countfin . " pagos cargados de $count validas de $icount" ;
+        return $countfin . " pagos cargados de $count validas de $icount";
     }
 
     /**
-     * 
+     *
      * @return int
      */
-    private function finish() {
+    private function finish()
+    {
         $querypagoins = "INSERT IGNORE INTO pagos "
-                . "(cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta) "
-                . "SELECT cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta "
-                . "FROM pagotemp";
+            . "(cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta) "
+            . "SELECT cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta "
+            . "FROM pagotemp";
         $q = $this->pdo->prepare($querypagoins);
         $q->execute();
         $count = $q->rowCount();

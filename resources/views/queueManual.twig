@@ -2,32 +2,32 @@
 
 <html>
 <head>
-<title>Queue Manual</title>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
-	type="text/css" media="all" />
+    <title>Queue Manual</title>
+    <link rel="stylesheet"
+          href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
+          type="text/css" media="all"/>
 </head>
 <body>
-	<form action="/queueManual" method="post" name="cargar">
-		{{ csrf_field() }}
-		<p>Usa formato CUENTA,CUENTA,CUENTA,...</p>
-		<label for="clientea">CLIENTE PARA CARGAR</label> <select
-			name="clientea" id="cliente">
-			{% for c in clientes %}
-			<option value="{{ c }}">{{ c }}</option>
-			{% endfor %}
-		</select><br>
-		<textarea name='data' rows='20' cols='50'></textarea>
-		<br>
-		<button type="submit" name="go" value="cargar">Cargar</button>
-		<hr>
-		<p>BORRAR QUEUE MANUAL (opcional)</p>
-		<button type="submit" name="go" value="borrar">Borrar</button>
-		</p>
-	</form>
-	{{ msg }}
-	<button onclick="window.location = '/reports'">Regressar a la
-		plantilla administrativa</button>
-	<br>
+<form action="/queueManual" method="post" name="cargar">
+    {{ csrf_field() }}
+    <p>Usa formato CUENTA,CUENTA,CUENTA,...</p>
+    <label for="clientea">CLIENTE PARA CARGAR</label> <select
+            name="clientea" id="cliente">
+        {% for c in clientes %}
+            <option value="{{ c }}">{{ c }}</option>
+        {% endfor %}
+    </select><br>
+    <textarea name='data' rows='20' cols='50'></textarea>
+    <br>
+    <button type="submit" name="go" value="cargar">Cargar</button>
+    <hr>
+    <p>BORRAR QUEUE MANUAL (opcional)</p>
+    <button type="submit" name="go" value="borrar">Borrar</button>
+</form>
+{{ msg }}
+<button onclick="window.location = '/reports'">Regresar a la
+    plantilla administrativa
+</button>
+<br>
 </body>
 </html>

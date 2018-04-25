@@ -14,14 +14,16 @@ namespace App;
  * @author gmbs
  *
  */
-class BigClass extends BaseClass {
+class BigClass extends BaseClass
+{
 
     /**
-     * 
+     *
      * @param string $direction
      * @return string
      */
-    private function cleanDirection($direction) {
+    private function cleanDirection($direction)
+    {
         $haystack = array('asc', 'ASC', 'desc', 'DESC');
         if (!in_array($direction, $haystack)) {
             $direction = 'ASC';
@@ -30,11 +32,12 @@ class BigClass extends BaseClass {
     }
 
     /**
-     * 
+     *
      * @param string $gestor
      * @return string
      */
-    private function getGestorStr($gestor) {
+    private function getGestorStr($gestor)
+    {
         if ($gestor != 'todos') {
             $gestorstr = " and c_cvge = :gestor ";
         } else {
@@ -44,11 +47,12 @@ class BigClass extends BaseClass {
     }
 
     /**
-     * 
+     *
      * @param string $cliente
      * @return string
      */
-    private function getClienteStr($cliente) {
+    private function getClienteStr($cliente)
+    {
         if ($cliente != 'todos') {
             $clientestr = " and cliente = :cliente ";
         } else {
@@ -58,13 +62,14 @@ class BigClass extends BaseClass {
     }
 
     /**
-     * 
+     *
      * @param string $queryFront
      * @param string $queryBack
      * @param BigDataClass $bdc
      * @return array
      */
-    private function getHistoria($queryFront, $queryBack, BigDataClass $bdc) {
+    private function getHistoria($queryFront, $queryBack, BigDataClass $bdc)
+    {
         $gestorstr = $bdc->getGestorString();
         $clientestr = $bdc->getClienteString();
         $query = $queryFront . $gestorstr . $clientestr . $queryBack;
@@ -83,11 +88,12 @@ class BigClass extends BaseClass {
     }
 
     /**
-     * 
+     *
      * @param BigDataClass $bdc
      * @return array
      */
-    public function getAllPagos(BigDataClass $bdc) {
+    public function getAllPagos(BigDataClass $bdc)
+    {
         $queryFront = "select Status_aarsa AS 'STATUS',ejecutivo_asignado_call_center AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
     saldo_descuento_2 as 'SALDO MINIMO',saldo_total as 'SALDO TOTAL',
@@ -106,16 +112,17 @@ and pagos.fecha between :fecha1 and :fecha2
         $queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
 group by resumen.id_cuenta ORDER BY d_fech,c_hrin";
         $data = $this->getHistoria(
-                $queryFront, $queryBack, $bdc);
+            $queryFront, $queryBack, $bdc);
         return $data;
     }
 
     /**
-     * 
+     *
      * @param BigDataClass $bdc
      * @return array
      */
-    public function getBigGestiones(BigDataClass $bdc) {
+    public function getBigGestiones(BigDataClass $bdc)
+    {
         $queryFront = "SELECT numero_de_cuenta as 'cuenta',
         nombre_deudor as 'nombre',
     resumen.cliente as 'cliente',status_de_credito as 'segmento',
@@ -138,11 +145,12 @@ where d_fech between :fecha1 and :fecha2
     }
 
     /**
-     * 
+     *
      * @param BigDataClass $bdc
      * @return array
      */
-    public function getAllGestiones(BigDataClass $bdc) {
+    public function getAllGestiones(BigDataClass $bdc)
+    {
         $queryFront = "SELECT numero_de_cuenta,nombre_deudor,
             resumen.cliente,status_de_credito,saldo_total,queue,h1.*
     from resumen join historia h1 on c_cont=id_cuenta
@@ -157,31 +165,37 @@ ORDER BY d_fech,c_hrin";
     }
 
     /**
-     * 
+     *
      * @param string $direction
      * @return array
      */
-    public function getGestionDates($direction) {
+    public function getGestionDates($direction)
+    {
         $dir = $this->cleanDirection($direction);
-        $query = "SELECT distinct d_fech FROM historia
-        where d_fech>last_day(curdate()-interval 1 year)
-        ORDER BY d_fech $dir limit 360";
+        $start = "SELECT distinct d_fech FROM historia
+        WHERE d_fech>LAST_DAY(CURDATE()-INTERVAL 1 YEAR)
+        ORDER BY d_fech ";
+        $end = " LIMIT 360";
+        $query = $start . $dir . $end;
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_BOTH);
         return $result;
     }
 
     /**
-     * 
+     *
      * @param string $direction
      * @return array
      */
-    public function getPromDates($direction) {
+    public function getPromDates($direction)
+    {
         $dir = $this->cleanDirection($direction);
-        $query = "SELECT distinct d_prom FROM historia
+        $start = "SELECT distinct d_prom FROM historia
         where d_fech>last_day(curdate()-interval 5 week)
         and n_prom > 0
-        ORDER BY d_fech $dir limit 60";
+        ORDER BY d_fech ";
+        $end = " limit 60";
+        $query = $start . $dir . $end;
         $stq = $this->pdo->prepare($query);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
@@ -189,25 +203,29 @@ ORDER BY d_fech,c_hrin";
     }
 
     /**
-     * 
+     *
      * @param string $direction
      * @return array
      */
-    public function getPagosDates($direction) {
+    public function getPagosDates($direction)
+    {
         $dir = $this->cleanDirection($direction);
-        $query = "SELECT distinct fecha FROM pagos
+        $start = "SELECT distinct fecha FROM pagos
         where fecha>last_day(curdate()-interval 2 month)
-        ORDER BY fecha $dir limit 60";
+        ORDER BY fecha ";
+        $end = " limit 60";
+        $query = $start . $dir . $end;
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_BOTH);
         return $result;
     }
 
     /**
-     * 
+     *
      * @return string[]
      */
-    public function getGestionClientes() {
+    public function getGestionClientes()
+    {
         $query = "SELECT distinct c_cvba FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         limit 10
@@ -219,10 +237,11 @@ ORDER BY d_fech,c_hrin";
     }
 
     /**
-     * 
+     *
      * @return array
      */
-    public function getPagosClientes() {
+    public function getPagosClientes()
+    {
         $query = "SELECT distinct cliente FROM pagos
         where fecha>last_day(curdate()-interval 2 month)
         limit 10
@@ -233,10 +252,11 @@ ORDER BY d_fech,c_hrin";
     }
 
     /**
-     * 
+     *
      * @return string[]
      */
-    public function getGestionGestores() {
+    public function getGestionGestores()
+    {
         $query = "SELECT distinct c_cvge FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvge
@@ -248,10 +268,11 @@ ORDER BY d_fech,c_hrin";
     }
 
     /**
-     * 
+     *
      * @return array
      */
-    public function getPagosGestores() {
+    public function getPagosGestores()
+    {
         $query = "SELECT distinct gestor FROM pagos
         where fecha>last_day(curdate()-interval 2 month)
         order by gestor
@@ -262,15 +283,17 @@ ORDER BY d_fech,c_hrin";
     }
 
     /**
-     * 
+     *
      * @param BigDataClass $bdc
      * @return array
      */
-    public function getProms($bdc) {
+    public function getProms($bdc)
+    {
         $result = [];
         $gestorstr = $bdc->getGestorString();
         $clientestr = $bdc->getClienteString();
-        $querymain = "select id_cuenta, Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
+        $start = <<<SQL
+select id_cuenta, Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
     saldo_descuento_1 as 'SALDO CAPITAL s/i',saldo_total as 'SALDO TOTAL',
     pagos_vencidos*30 as 'MORA',n_prom as 'TOTAL PROMESA',
@@ -286,10 +309,9 @@ and d_fech between :fecha1 and :fecha2
 and d_prom between :fecha3 and :fecha4
 and not exists (select * from historia h2 where h1.c_cont=h2.c_cont
 and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
-".$gestorstr.$clientestr."
-and status_de_credito NOT REGEXP '-' and c_cniv is null
-ORDER BY d_fech,c_hrin
-    ";
+SQL;
+        $end = " and status_de_credito NOT REGEXP '-' and c_cniv is null ORDER BY d_fech,c_hrin";
+        $querymain = $start . $gestorstr . $clientestr . $end;
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':fecha1', $bdc->fecha1);
         $stm->bindParam(':fecha2', $bdc->fecha2);
@@ -308,11 +330,13 @@ ORDER BY d_fech,c_hrin
             FROM pagos WHERE id_cuenta = :id";
         $stp = $this->pdo->prepare($querypagos);
         foreach ($main as $m) {
-            $stp->bindParam(':id', $m['id_cuenta']);
+            $obj = (object)$m;
+            $id_cuenta = $obj->id_cuenta;
+            $stp->bindParam(':id', $id_cuenta);
             $stp->execute();
             $pagos = $stp->fetch(\PDO::FETCH_ASSOC);
             $merged = array_merge($m, $pagos);
-            $result[] = $merged;
+            array_push($result, $merged);
         }
         return $result;
     }

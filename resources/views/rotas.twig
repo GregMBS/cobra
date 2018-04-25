@@ -23,10 +23,6 @@ body {
 	padding: 0
 }
 
-#rotasTable tr.even {
-	background-color: white
-}
-
 #rotasTable tr.odd {
 	background-color: #dddddd
 }
@@ -42,7 +38,7 @@ td {
 </head>
 <body>
 {% if tipo == 'admin' %}
-<button onclick="window.location = 'reports'">Regressar a la plantilla administrativa</button><br>
+    <button onclick="window.location = 'reports'">Regresar a la plantilla administrativa</button><br>
 {% else %}
 <button onclick="window.close()">Cerrar</button><br>
 {% endif %}

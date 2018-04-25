@@ -1,20 +1,21 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>Inactivar Cuentas</title>
-    </head>
-    <body>
-        <form action="/inactivar" method="post" name="cargar">
-        {{ csrf_field() }}
-        <p>
-            <p>Usa numero de cuenta</p>
-            <textarea name='data' rows='20' cols='50'></textarea>
-            <button type="submit" name="go" value="cargar">Cargar</button>
-        </p>
-    </form>
-    {{ msg }}
-    <button onclick="window.location = '/reports'">
-        Regresar a la plantilla administrativa
-    </button><br>
+<head>
+    <title>Inactivar Cuentas</title>
+</head>
+<body>
+<form action="/inactivar" method="post" name="cargar">
+    {{ csrf_field() }}
+    <div>
+        <p>Usa numero de cuenta</p>
+        <textarea name='data' rows='20' cols='50'></textarea>
+        <button type="submit" name="go" value="cargar">Cargar</button>
+    </div>
+</form>
+{{ msg }}
+<button onclick="window.location = '/reports'">
+    Regresar a la plantilla administrativa
+</button>
+<br>
 </body>
 </html>

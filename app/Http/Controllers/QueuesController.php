@@ -54,12 +54,15 @@ class QueuesController extends Controller
                 
                 case 'INTRO TODOS':
                     $this->qc->updateQueueAll($cliente, $sdc, $status);
+                    break;
                 
                 case 'BLOQUEAR TODOS':
                     $this->qc->blockQueueAll($cliente, $sdc, $status);
+                    break;
                 
                 case 'DESBLOQUEAR TODOS':
                     $this->qc->unblockQueueAll($cliente, $sdc, $status);
+                    break;
             }
         } else {
             
@@ -67,12 +70,15 @@ class QueuesController extends Controller
                 
                 case 'INTRO':
                     $this->qc->updateQueue($r->camp, $gestor);
+                    break;
                 
                 case 'BLOQUEAR':
                     $this->qc->blockQueue($r->camp, $gestor);
+                    break;
                 
                 case 'DESBLOQUEAR':
                     $this->qc->unblockQueue($r->camp, $gestor);
+                    break;
             }
         }
         $view = $this->index();

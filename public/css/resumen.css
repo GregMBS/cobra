@@ -380,8 +380,7 @@ ul.tabs li {
 	float: left;
 	padding: 0;
 	margin: 0;
-	padding-top: 0;
-	background: url('/tab_right.png') no-repeat right top;
+    background: url('/img/tab_right.png') no-repeat right top;
 	margin-right: 1px;
 }
 
@@ -390,7 +389,7 @@ ul.tabs li a {
 	padding: 0 10px;
 	color: #fff;
 	text-decoration: none;
-	background: url('/tab_left.png') no-repeat left top;
+    background: url('/img/tab_left.png') no-repeat left top;
 }
 
 ul.tabs li a:hover {
@@ -404,7 +403,7 @@ ul.tabs li a:hover {
 
 #ngclass.med {
 	background-color: yellow;
-	color: blask;
+    color: blaCk;
 }
 
 #ngclass.high {

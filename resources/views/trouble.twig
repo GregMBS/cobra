@@ -14,7 +14,7 @@
     </head>
     <body>
         <form action="/trouble" method="POST">
-        	<input name="_token" type="hidden" value="{{ csrf_token() }}">
+            {{ csrf_field() }}
             <label for="fuente">Fuente de problema</label>
             <select name='fuente' id='fuente'>
                 <option value='COBRA'>COBRA</option>
