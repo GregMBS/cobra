@@ -160,16 +160,6 @@ order by cliente,gestor,fecha";
 
     /**
      * 
-     */
-    private function updateAllUltimoPagos() {
-        $querypup = "update resumen,pagos 
-                set fecha_de_ultimo_pago = fecha, monto_ultimo_pago = monto 
-                where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
-        $this->pdo->query($querypup);
-    }
-
-    /**
-     * 
      * @param string $capt
      * @param string $CUENTA
      * @return string

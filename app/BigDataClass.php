@@ -2,7 +2,6 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 
 /**
@@ -94,10 +93,6 @@ class BigDataClass
         return $this;
     }
     
-    /**
-     * 
-     * @return Collection
-     */
     private function alignDates() {
         $array = [$this->fecha1, $this->fecha2];
         sort($array);

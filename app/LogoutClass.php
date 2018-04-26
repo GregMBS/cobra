@@ -48,7 +48,7 @@ class LogoutClass extends BaseClass {
     private function getLogoutDatetime($capt, $why) {
         $dt = Carbon::now();
         if ($why == 'forgot') {
-            $why = 'salir';
+            /** @var \PDOStatement $stl */
             $stl = $this->pdo->prepare($this->queryldt);
             $stl->bindParam(':capt', $capt);
             $stl->execute();

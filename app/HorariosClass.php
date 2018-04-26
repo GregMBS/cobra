@@ -50,7 +50,7 @@ class HorariosClass extends BaseClass
 from nombres join historia on iniciales=c_visit
 where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())
-order by usuaria;';
+order by iniciales;';
         $result = $this->pdo->query($query);
         return $result->fetchAll(\PDO::FETCH_ASSOC);
     }

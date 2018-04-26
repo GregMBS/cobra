@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 Route::middleware(['auth','admin'])->group(function () {    // Admin only
-    Route::get('/reports', function (Request $r) {
+    Route::get('/reports', function () {
         $capt = auth()->user()->iniciales;
         return view('reports')->with('capt', $capt);
     });
@@ -107,6 +107,9 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/carga', 'CargaController@index');
     Route::post('/carga', 'CargaController@cargar');
     Route::get('/horarios', 'HorariosController@index');
+    Route::get('/horariosv', 'HorariosController@indexV');
+    Route::get('/perfmes', 'PerfmesController@index');
+    Route::get('/perfmesv', 'PerfmesController@indexV');
 });
 Auth::routes();
 

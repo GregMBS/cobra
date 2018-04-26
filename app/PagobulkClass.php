@@ -81,20 +81,6 @@ SQL;
 
     /**
      *
-     * @param PDOStatement $stm
-     * @return boolean
-     */
-    private function testPDOStatement($stm)
-    {
-        if (is_a($stm, 'PDOStatement')) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     *
      * @param string $input
      * @return array
      */
@@ -184,10 +170,10 @@ SQL;
      */
     private function finish()
     {
-        $querypagoins = "INSERT IGNORE INTO pagos "
-            . "(cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta) "
-            . "SELECT cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta "
-            . "FROM pagotemp";
+        $querypagoins = "INSERT IGNORE INTO pagos 
+        (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta) 
+        SELECT cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta 
+        FROM pagotemp";
         $q = $this->pdo->prepare($querypagoins);
         $q->execute();
         $count = $q->rowCount();

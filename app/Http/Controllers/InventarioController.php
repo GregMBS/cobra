@@ -23,7 +23,6 @@ class InventarioController extends Controller
      *
      * @param Request $r
      * @param OutputClass $oc
-     * @return View
      */
     public function makeReport(Request $r, OutputClass $oc) {
         $cliente    = $r->cliente;
@@ -37,7 +36,6 @@ class InventarioController extends Controller
      * 
      * @param Request $r
      * @param OutputClass $oc
-     * @return View
      */
     public function makeRapidReport(Request $r, OutputClass $oc) {
         $cliente    = $r->cliente;

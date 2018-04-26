@@ -154,19 +154,6 @@ and especial > 0";
 
     /**
      *
-     * @param int $id_cuenta
-     * @return \PDOStatement
-     */
-    private function prepareQuicksearch($id_cuenta)
-    {
-        $querymain = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta LIMIT 1";
-        $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':id_cuenta', $id_cuenta);
-        return $stm;
-    }
-
-    /**
-     *
      * @param \PDOStatement $stm
      * @return array
      */

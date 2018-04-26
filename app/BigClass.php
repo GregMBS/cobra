@@ -33,36 +33,6 @@ class BigClass extends BaseClass
 
     /**
      *
-     * @param string $gestor
-     * @return string
-     */
-    private function getGestorStr($gestor)
-    {
-        if ($gestor != 'todos') {
-            $gestorstr = " and c_cvge = :gestor ";
-        } else {
-            $gestorstr = "";
-        }
-        return $gestorstr;
-    }
-
-    /**
-     *
-     * @param string $cliente
-     * @return string
-     */
-    private function getClienteStr($cliente)
-    {
-        if ($cliente != 'todos') {
-            $clientestr = " and cliente = :cliente ";
-        } else {
-            $clientestr = "";
-        }
-        return $clientestr;
-    }
-
-    /**
-     *
      * @param string $queryFront
      * @param string $queryBack
      * @param BigDataClass $bdc

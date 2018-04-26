@@ -13,11 +13,6 @@ class MigoController extends Controller
      */
     private $mc;
     
-    /**
-     * @var string
-     */
-    private $capt;
-    
     public function __construct() {
         $this->mc = new MigoClass();
     }

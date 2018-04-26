@@ -24,10 +24,8 @@ class IntensidadController extends Controller
     /**
      * 
      * @param Request $r
-     * @param OutputClass $oc
-     * @return View
      */
-    public function makeReport(Request $r, OutputClass $oc) {
+    public function makeReport(Request $r) {
         $fechaArray = array($r->fecha1, $r->fecha2);
         sort($fechaArray);
         $fecha1 = $fechaArray[0];

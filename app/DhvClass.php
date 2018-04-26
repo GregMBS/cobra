@@ -1,4 +1,6 @@
 <?php
+namespace App;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,18 +13,8 @@
  * @author gmbs
  *
  */
-class DhvClass
+class DhvClass extends BaseClass
 {
-    /**
-     * @var PDO $pdo
-     */
-    protected $pdo;
-
-    public function __construct($pdo)
-    {
-        $this->pdo = $pdo;
-    }
-
     public function getPromesas($gestor, $fecha)
     {
         $query  = "select numero_de_cuenta,nombre_deudor,saldo_total,

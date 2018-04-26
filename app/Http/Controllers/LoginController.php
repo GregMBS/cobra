@@ -43,10 +43,9 @@ class LoginController extends Controller
     /**
      * 
      * @param string $why
-     * @param Request $r
      * @return RedirectResponse
      */
-    public function logout($why, Request $r)
+    public function logout($why)
     {
         $terminal = arraY(
             'salir',

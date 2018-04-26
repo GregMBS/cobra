@@ -53,7 +53,7 @@ class CheckController extends Controller
         $this->cc->setVars($r);
         $this->cc->updateVasign();
         $list = $this->cc->listVasign($r->gestor);
-        $view = $this->checkin($list, $r->gestor, $r->tipo, $r->fechaout);
+        $view = $this->checkin($list, $r->gestor, $r->tipo);
         return $view;
     }
     

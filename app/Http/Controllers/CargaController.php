@@ -130,5 +130,6 @@ class CargaController extends Controller
             $msg = '<p>Uploaded: ' . $countUpload . '<br>' . 'Loaded: ' . $countLoaded . '<br>' . 'Updated: ' . $countUpdated . '<br>' . 'Inserted: ' . $countInserted . '</p>';
             return $this->indexMsg($msg);
         }
+        return $this->index();
     }
 }

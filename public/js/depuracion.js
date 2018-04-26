@@ -36,14 +36,12 @@ function validate_date(f) {
 
 function validate_form(tf, evt, minprom, authorized, at) {
 	// initialize
-	var alertstr = ' ';
 	var alerttxt = ' ';
 	var flag = 0;
 	var aflag = 0;
 	var npa = 0;
 	var n1 = 0;
 	var n2 = 0;
-	var np = 0;
 	var npo = 0;
 	np = parseFloat(tf.N_PROM1.value) + parseFloat(tf.N_PROM2.value);
 	var cvt = "";
@@ -65,9 +63,6 @@ function validate_form(tf, evt, minprom, authorized, at) {
 	if (typeof (tf.N_PROM2) !== "undefined") {
 		n2 = parseFloat(tf.N_PROM2.value);
 	}
-	if (typeof (tf.N_PROM_OLD) !== "undefined") {
-		npo = parseFloat(tf.N_PROM_OLD.value);
-	}
 	if (typeof (tf.C_CVST) !== "undefined") {
 		cvt = trim(tf.C_CVST.value);
 	}
@@ -85,9 +80,6 @@ function validate_form(tf, evt, minprom, authorized, at) {
 	}
 	if (typeof (tf.D_PROM2.value) !== "undefined") {
 		dp2 = tf.D_PROM2.value;
-	}
-	if (typeof (tf.D_PROM1_OLD.value) !== "undefined") {
-		dpo = tf.D_PROM1_OLD.value;
 	}
 	if (typeof (tf.D_PAGO.value) !== "undefined") {
 		dpago = tf.D_PAGO.value;
@@ -530,7 +522,6 @@ function validate_form(tf, evt, minprom, authorized, at) {
 			flag = 1;
 		}
 		if (authorized < 1) {
-			aflag = flag;
 			// if (dp1.substr(0,7)!==tf.D_FECH.value.substr(0,7))
 			// {alerttxt=alerttxt+'Promesas en el mes siguiente necesita
 			// autorización\n';flag=1;}

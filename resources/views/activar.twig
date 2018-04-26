@@ -8,8 +8,8 @@
         <form action="/activar" method="post" name="cargar">
         {{ csrf_field() }}
             <div>
-            <p>Usa numero de cuenta</p>
-            <textarea name='data' rows='20' cols='50'></textarea>
+            <label for="data">Usa numero de cuenta</label><br>
+            <textarea name='data' id="data" rows='20' cols='50'></textarea>
             <button type="submit" name="go" value="cargar">Cargar</button>
             </div>
     </form>

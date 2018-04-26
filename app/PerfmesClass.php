@@ -38,7 +38,8 @@ class PerfmesClass extends BaseClass
             and d_fech<=last_day(curdate() - interval 1 month)
             and c_msge is null
             order by c_cvge limit 100;';
-		$result	 = $this->pdo->query($query);
+		$stq= $this->pdo->query($query);
+		$result = $stq->fetchAll(\PDO::FETCH_ASSOC);
 		return $result;
 	}
 
@@ -52,8 +53,9 @@ class PerfmesClass extends BaseClass
 			from nombres join historia on iniciales=c_visit
             where d_fech>last_day(curdate() - interval 2 month)
             and d_fech<=last_day(curdate() - interval 1 month)
-	    order by usuaria;';
-		$result	 = $this->pdo->query($query);
+	    order by iniciales;';
+		$stq	 = $this->pdo->query($query);
+		$result = $stq->fetchAll(\PDO::FETCH_ASSOC);
 		return $result;
 	}
 
@@ -77,7 +79,7 @@ class PerfmesClass extends BaseClass
 		$stq->bindParam(':gestor', $gestor);
 		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(\PDO::FETCH_ASSOC);
+		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -99,11 +101,16 @@ class PerfmesClass extends BaseClass
             and c_cniv is null and c_cont>0
             and D_FECH=last_day(curdate() - interval 2 month) + interval :dom day
             group by D_FECH";
-		$stq	 = $this->pdo->prepare($query);
-		$stq->bindParam(':gestor', $gestor);
-		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
-		$stq->execute();
-		return $stq->fetchAll(\PDO::FETCH_ASSOC);
+		try {
+            $stq = $this->pdo->prepare($query);
+            $stq->bindParam(':gestor', $gestor);
+            $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
+            $stq->execute();
+            $result = $stq->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+		    dd($e);
+        }
 	}
 
 	/**
@@ -129,7 +136,7 @@ class PerfmesClass extends BaseClass
 		$stq->bindParam(':visitador', $visitador);
 		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(\PDO::FETCH_ASSOC);
+		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -176,7 +183,7 @@ class PerfmesClass extends BaseClass
 		$stq->bindParam(':dow', $dow, \PDO::PARAM_INT);
 		$stq->bindParam(':tiempo', $tiempo);
 		$stq->execute();
-		return $stq->fetchAll(\PDO::FETCH_ASSOC);
+		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -194,7 +201,7 @@ class PerfmesClass extends BaseClass
 		$stq->bindParam(':gestor', $gestor);
 		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(\PDO::FETCH_ASSOC);
+		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -215,7 +222,7 @@ class PerfmesClass extends BaseClass
 		$stq->bindParam(':visitador', $visitador);
 		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
 		$stq->execute();
-		return $stq->fetchAll(\PDO::FETCH_ASSOC);
+		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -255,7 +262,7 @@ class PerfmesClass extends BaseClass
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':gestor', $gestor);
 		$stq->execute();
-		return $stq->fetchAll(\PDO::FETCH_ASSOC);
+		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -273,4 +280,21 @@ and d_fech<=last_day(curdate()-interval 1 month)
 		$result	 = $this->pdo->query($query);
 		return $result;
 	}
+
+    /**
+     *
+     * @param string $yr
+     * @param string $mes
+     * @param int $dhoy
+     * @return string[]
+     */
+    public function dowArray($yr, $mes, $dhoy)
+    {
+        $dow = array();
+        for ($i = 1; $i <= $dhoy; $i ++) {
+            $dow[$i] = date("l", strtotime($yr . "-" . $mes . "-" . $i));
+        }
+        return $dow;
+    }
+
 }

@@ -27,11 +27,11 @@ th, th {
 </head>
 <body>
 	<h2>HORARIOS</h2>
-    {% for gestor in gestores %}
+    {% for visitador in visitadores %}
         <table class="ui-widget">
             <thead class="ui-widget-header">
             <tr>
-                <th><a href='/gestor/{{ gestor }}'>{{ gestor }}</a></th>
+                <th><a href='/visitador/{{ visitador }}'>{{ visitador }}</a></th>
                 {% for i in 1..dhoy %}
                     <th>{{ dowArray[i] }} {{ i }}</th>
                 {% endfor %}
@@ -40,77 +40,16 @@ th, th {
             </thead>
             <tbody class="ui-widget-content">
             <tr>
-                <td class="heavy">LOGIN</td>
-                {% for i in 1..dhoy %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].start == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].start }}</td>
-                {% endfor %}
-                <td></td>
-            </tr>
-            <tr>
-                <td class="heavy">LOGOUT</td>
-                {% for i in 1..dhoy %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].stop == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].stop }}</td>
-                {% endfor %}
-                <td></td>
-            </tr>
-            <tr>
-                <td class="heavy">HORAS</td>
-                {% set sumdiff = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumdiff = sumdiff + data[gestor][i].diff %}
-                    {% if data[gestor][i].diff == 0 %}
-                        <td></td>
-                    {% else %}
-                        <td class="light">{{ data[gestor][i].diff | date('H:i:s') }}</td>
-                    {% endif %}
-                {% endfor %}
-                <th>{{ sumdiff | date('d \\dí\\a\\s H:i:s') }}</th>
-            </tr>
-            <tr>
-                <td class="heavy">TIEMPO BREAK</td>
-                {% set sumbreak = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumbreak = sumbreak + data[gestor][i].break %}
-                    {% if data[gestor][i].break == 0 %}
-                        <td class="light"></td>
-                    {% else %}
-                        <td class="light">{{ data[gestor][i].break | date('H:i:s') }}</td>
-                    {% endif %}
-                {% endfor %}
-                <th>{{ sumbreak | date('H:i:s') }}</th>
-            </tr>
-            <tr>
-                <td class="heavy">TIEMPO BAÑO</td>
-                {% set sumbano = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumbano = sumbano + data[gestor][i].bano %}
-                    {% if data[gestor][i].bano == 0 %}
-                        <td class="light"></td>
-                    {% else %}
-                        <td class="light">{{ data[gestor][i].bano | date('H:i:s') }}</td>
-                    {% endif %}
-                {% endfor %}
-                <th>{{ sumbano | date('H:i:s') }}</th>
-            </tr>
-            <tr>
                 <td class="heavy">GESTIONES</td>
                 {% set sumgest = 0 %}
                 {% for i in 1..dhoy %}
-                    {% set sumgest = sumgest + data[gestor][i].gestiones %}
+                    {% set sumgest = sumgest + data[visitador][i].gestiones %}
                     {% set zeros = '' %}
-                    {% if data[gestor][i].gestiones == 0 %}
+                    {% if data[visitador][i].gestiones == 0 %}
                         {% set zeros = ' style="color:red;"' %}
                     {% endif %}
                     <td>
-                        <a href='/ddh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].gestiones }}
+                        <a href='/ddh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[visitador][i].gestiones }}
                         </a>
                     </td>
                 {% endfor %}
@@ -120,13 +59,13 @@ th, th {
                 <td class="heavy">CUENTAS</td>
                 {% set sumcta = 0 %}
                 {% for i in 1..dhoy %}
-                    {% set sumcta = sumcta + data[gestor][i].cuentas %}
+                    {% set sumcta = sumcta + data[visitador][i].cuentas %}
                     {% set zeros = '' %}
-                    {% if data[gestor][i].cuentas == 0 %}
+                    {% if data[visitador][i].cuentas == 0 %}
                         {% set zeros = ' style="color:red;"' %}
                     {% endif %}
                     <td>
-                        <a href='/ddh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].cuentas }}
+                        <a href='/ddh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[visitador][i].cuentas }}
                         </a>
                     </td>
                 {% endfor %}
@@ -136,12 +75,12 @@ th, th {
                 <td class="heavy">CONTACTOS</td>
                 {% set sumcont = 0 %}
                 {% for i in 1..dhoy %}
-                    {% set sumcont = sumcont + data[gestor][i].contactos %}
+                    {% set sumcont = sumcont + data[visitador][i].contactos %}
                     {% set zeros = '' %}
-                    {% if data[gestor][i].contactos == 0 %}
+                    {% if data[visitador][i].contactos == 0 %}
                         {% set zeros = ' style="color:red;"' %}
                     {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].contactos }}</td>
+                    <td class="light"{{ zeros }}>{{ data[visitador][i].contactos }}</td>
                 {% endfor %}
                 <td>{{ sumcont }}</td>
             </tr>
@@ -149,12 +88,12 @@ th, th {
                 <td class="heavy">NO CONTACTOS</td>
                 {% set sumnoc = 0 %}
                 {% for i in 1..dhoy %}
-                    {% set sumnoc = sumnoc + data[gestor][i].nocontactos %}
+                    {% set sumnoc = sumnoc + data[visitador][i].nocontactos %}
                     {% set zeros = '' %}
-                    {% if data[gestor][i].nocontactos == 0 %}
+                    {% if data[visitador][i].nocontactos == 0 %}
                         {% set zeros = ' style="color:red;"' %}
                     {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].nocontactos }}</td>
+                    <td class="light"{{ zeros }}>{{ data[visitador][i].nocontactos }}</td>
                 {% endfor %}
                 <td>{{ sumnoc }}</td>
             </tr>
@@ -162,13 +101,13 @@ th, th {
                 <td class="heavy">PROMESAS</td>
                 {% set sumprom = 0 %}
                 {% for i in 1..dhoy %}
-                    {% set sumprom = sumprom + data[gestor][i].promesas %}
+                    {% set sumprom = sumprom + data[visitador][i].promesas %}
                     {% set zeros = '' %}
-                    {% if data[gestor][i].promesas == 0 %}
+                    {% if data[visitador][i].promesas == 0 %}
                         {% set zeros = ' style="color:red;"' %}
                     {% endif %}
                     <td>
-                        <a href='/pdh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].promesas }}
+                        <a href='/pdh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[visitador][i].promesas }}
                         </a>
                     </td>
                 {% endfor %}
@@ -178,12 +117,12 @@ th, th {
                 <td class="heavy">PAGOS</td>
                 {% set sumpag = 0 %}
                 {% for i in 1..dhoy %}
-                    {% set sumpag = sumpag + data[gestor][i].pagos %}
+                    {% set sumpag = sumpag + data[visitador][i].pagos %}
                     {% set zeros = '' %}
-                    {% if data[gestor][i].pagos == 0 %}
+                    {% if data[visitador][i].pagos == 0 %}
                         {% set zeros = ' style="color:red;"' %}
                     {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].pagos }}</td>
+                    <td class="light"{{ zeros }}>{{ data[visitador][i].pagos }}</td>
                 {% endfor %}
                 <td>{{ sumpag }}</td>
             </tr>
@@ -203,7 +142,7 @@ th, th {
         </thead>
         <tbody class="ui-widget-content">
         <tr>
-            <td class="heavy">GESTIONES</td>
+            <td class="heavy">VISITAS</td>
             {% set sumgest = 0 %}
             {% for i in 1..dhoy %}
                 {% set sumgest = sumgest + summary[i].gestiones %}

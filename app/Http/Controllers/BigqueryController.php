@@ -24,7 +24,6 @@ class BigqueryController extends Controller
      * 
      * @param Request $r
      * @param OutputClass $oc
-     * @return View
      */
     public function makeReport(Request $r, OutputClass $oc) {
         $bdc = new BigDataClass($r);

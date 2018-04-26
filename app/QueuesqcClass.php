@@ -101,31 +101,7 @@ and queue = :queue ";
         return $result;
     }
 
-    /**
-     *
-     * @param string $CLIENTE
-     * @param string $SDC
-     * @param string $QUEUE
-     * @return array
-     */
-    private function getReportSub($CLIENTE, $SDC, $QUEUE)
-    {
-        $querysub = $this->reportsubhead . " and status_de_credito not regexp '-'";
-        if ($SDC != '') {
-            $querysub = $this->reportsubhead . " and status_de_credito = :sdc";
-        }
-        $stc = $this->pdo->prepare($querysub);
-        $stc->bindParam(':cliente', $CLIENTE);
-        $stc->bindParam(':queue', $QUEUE);
-        if (! empty($SDC)) {
-            $stc->bindParam(':sdc', $SDC);
-        }
-        $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    /**
+   /**
      *
      * @return array
      */

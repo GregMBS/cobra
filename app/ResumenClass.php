@@ -104,37 +104,6 @@ SQL;
 
     /**
      *
-     * @param string $dirty
-     * @return string
-     */
-    private function cleanFind($dirty)
-    {
-        $upper = strtoupper($dirty);
-        $stripped = strip_tags($upper);
-        $trimmed = trim($stripped);
-        return $trimmed;
-    }
-
-    /**
-     *
-     * @param string $field
-     * @return boolean
-     */
-    private function fieldCheck($field)
-    {
-        $valid = false;
-        $q = $this->pdo->query("SHOW FIELDS FROM resumen");
-        foreach ($q as $row) {
-            if ($row['Field'] == $field) {
-                $valid = true;
-                break;
-            }
-        }
-        return $valid;
-    }
-
-    /**
-     *
      * @param string $mytipo
      * @return string[]
      */
@@ -337,23 +306,6 @@ AND c_cont <> 0
 
     /**
      *
-     * @param string $capt
-     * @return array
-     */
-    private function getQueueList($capt)
-    {
-        $queryfilt = "SELECT cliente,sdc,queue FROM queuelist 
-WHERE gestor = :capt 
-ORDER BY cliente,sdc,queue";
-        $stf = $this->pdo->prepare($queryfilt);
-        $stf->bindParam(':capt', $capt);
-        $stf->execute();
-        $resultfilt = $stf->fetchAll();
-        return $resultfilt;
-    }
-
-    /**
-     *
      * @param int $id_cuenta
      * @return string
      */
@@ -371,17 +323,6 @@ ORDER BY cliente,sdc,queue";
             $tl = $result['tl'];
         }
         return $tl;
-    }
-
-    /**
-     *
-     * @param string $string
-     * @return float
-     */
-    private function demonitize($string)
-    {
-        $number = str_replace('$', '', str_replace(',', '', $string));
-        return $number;
     }
 
     /**
@@ -424,42 +365,6 @@ ORDER BY cliente,sdc,queue";
 
     /**
      *
-     * @param string $capt
-     * @param int $id_cuenta
-     */
-    private function setSlice($capt, $id_cuenta)
-    {
-        $qsliced = "delete from rslice where user = :capt";
-        $std = $this->pdo->prepare($qsliced);
-        $std->bindParam(':capt', $capt);
-        $std->execute();
-
-        $qslice = "replace into rslice select *, :capt, now() from resumen "
-            . "where id_cuenta = :id_cuenta";
-        $sts = $this->pdo->prepare($qslice);
-        $sts->bindParam(':capt', $capt);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $sts->execute();
-    }
-
-    /**
-     *
-     * @param int $id_cuenta
-     * @return array
-     */
-    private function getLastStatus($id_cuenta)
-    {
-        $querycom = "select c_cvst,cuando from historia where c_cont = :id_cuenta "
-            . "order by d_fech desc, c_hrin desc limit 1";
-        $stl = $this->pdo->prepare($querycom);
-        $stl->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stl->execute();
-        $result = $stl->fetch(\PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    /**
-     *
      * @param int $id_cuenta
      * @return array
      */
@@ -480,60 +385,6 @@ order by d_fech desc, c_hrin desc limit 1";
         $stp->execute();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
         return $result;
-    }
-
-    /**
-     *
-     * @param int $id_cuenta
-     * @return array
-     */
-    private function getTimeCheck($id_cuenta)
-    {
-        $querycheck = "SELECT timelock, locker, time_to_sec(timediff(now(),timelock))/60 as sofar "
-            . "FROM resumen "
-            . "WHERE id_cuenta = :id_cuenta";
-        $stc = $this->pdo->prepare($querycheck);
-        $stc->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    /**
-     *
-     * @param string $capt
-     * @param int $id_cuenta
-     * @param string $mytipo
-     */
-    private function setLocks($capt, $id_cuenta, $mytipo)
-    {
-        $queryunlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
-            . "WHERE locker = :capt";
-        $stu = $this->pdo->prepare($queryunlock);
-        $stu->bindParam(':capt', $capt);
-        $querylock = "UPDATE resumen SET timelock = now(), locker = :capt "
-            . "WHERE id_cuenta = :id_cuenta";
-        if ($mytipo == 'admin') {
-            $querylock = "SELECT :capt, :id_cuenta";
-        }
-        $stl = $this->pdo->prepare($querylock);
-        $stl->bindParam(':capt', $capt);
-        $stl->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $queryunlockslice = "UPDATE rslice SET timelock = NULL, locker = NULL "
-            . "WHERE locker = :capt";
-        $stus = $this->pdo->prepare($queryunlockslice);
-        $stus->bindParam(':capt', $capt);
-        $querylockslice = "UPDATE rslice SET timelock = now(), locker = :capt "
-            . "WHERE id_cuenta= :id_cuenta";
-        $stls = $this->pdo->prepare($querylockslice);
-        $stls->bindParam(':capt', $capt);
-        $stls->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $this->pdo->beginTransaction();
-        $stu->execute();
-        $stl->execute();
-        $stus->execute();
-        $stls->execute();
-        $this->pdo->commit();
     }
 
     /**

@@ -18,18 +18,6 @@ class CargaClass extends BaseClass
 {
 
     /**
-     *
-     * @var array
-     */
-    private $internal = array(
-        'id_cuenta',
-        'especial',
-        'fecha_de_actualizacion',
-        'locker',
-        'timelock'
-    );
-    
-    /**
      * 
      * @var array
      */
@@ -89,6 +77,7 @@ class CargaClass extends BaseClass
     /**
      *
      * @param array $columnNames
+     * @throws Exception
      */
     public function prepareTemp(array $columnNames)
     {
@@ -122,7 +111,9 @@ class CargaClass extends BaseClass
     public function loadData(array $data, array $columnNames)
     {
         /** @noinspection SyntaxError */
-        $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
+        $queryloadfront = "INSERT INTO" . " temp (";
+        $queryloadend =") VALUES ";
+        $queryload = $queryloadfront . implode(",", $columnNames) . $queryloadend;
         foreach ($data as $row) {
             if (is_array($row)) {
                 $clean = array_map('trim', $row);
@@ -164,9 +155,9 @@ class CargaClass extends BaseClass
     {
         $fields = $this->prepareUpdate($columnNames);
         /** @noinspection SyntaxError */
-        $queryupd = "UPDATE temp, resumen
-            SET " . $fields . " 
-            where temp.numero_de_cuenta=resumen.numero_de_cuenta";
+        $queryupdstart = "UPDATE temp, resumen " . " SET ";
+        $queryupdend = " WHERE temp.numero_de_cuenta=resumen.numero_de_cuenta";
+        $queryupd = $queryupdstart . $fields . $queryupdend;
         try {
             $stu = $this->pdo->prepare($queryupd);
             $stu->execute();

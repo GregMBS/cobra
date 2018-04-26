@@ -44,11 +44,14 @@
 	</div>
 	<script>
             $(function () {
+                var cliente = $('#cliente');
+                var sdc = $('#sdc');
+                var queue = $('#queue');
                 $("button").button();
                 $("#intro").button();
-                $("#cliente").empty().css("text-align", "left");
-                $("#sdc").empty();
-                $("#queue").empty();
+                cliente.empty().css("text-align", "left");
+                sdc.empty();
+                queue.empty();
                 $("body").css("font-size", "10pt").css("text-align", "center");
                 $("div").css("float", "left");
                 $(".introb").css("clear", "left");
@@ -56,11 +59,11 @@
                     var data = '<div class="column"><input class="columnc" '
                             +'type="radio" name="cliente" value="' + value.cliente 
                             + '" />' + value.cliente + '</div>';
-                    $('#cliente').append(data);
+                    cliente.append(data);
                 });
-                $("#cliente").change(function () {
-                    $("#sdc").empty();
-                    $("#queue").empty();
+                cliente.change(function () {
+                    sdc.empty();
+                    queue.empty();
                     var data2 = $('input[name=cliente]:checked').val();
                     $.each({{ arrays|raw }}, function (index, sdc) {
                         if (sdc.cliente === data2) {
@@ -68,16 +71,16 @@
                             if (st === '') {
                                 st = 'TODOS';
                             }
-                            data3 = '<div class="column"><input class="columns" '
+                            var data3 = '<div class="column"><input class="columns" '
                                     +'type="radio" name="sdc" value="' 
                                     + sdc.sdc + '" />' + st + '</div>';
-                            $('#sdc').append(data3);
+                            sdc.append(data3);
                         }
                     });
-                    $("#sdc").css("text-align", "left");
+                    sdc.css("text-align", "left");
                 });
-                $("#sdc").change(function () {
-                    $("#queue").empty();
+                sdc.change(function () {
+                    queue.empty();
                     var data2 = $('input[name=cliente]:checked').val();
                     var data4 = $('input[name=sdc]:checked').val();
                     $.each({{ arrayq|raw }}, function (index, que) {
@@ -86,13 +89,13 @@
                             if (qt === '') {
                                 qt = 'TODOS';
                             }
-                            data5 = '<div class="column"><input class="columnq" '
+                            var data5 = '<div class="column"><input class="columnq" '
                                     +'type="radio" name="queue" value="' 
                                     + que.status_aarsa + '" />' + qt + '</div>';
-                            $('#queue').append(data5);
+                            queue.append(data5);
                         }
                     });
-                    $("#queue").css("text-align", "left");
+                    queue.css("text-align", "left");
                 });
             });
         </script>

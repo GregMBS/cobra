@@ -40,10 +40,9 @@ class SegmentController extends Controller
 
     /**
      *
-     * @param Request $r
      * @return View
      */
-    public function agregartodo(Request $r)
+    public function agregartodo()
     {
         $this->sc->addAllSegmentos();
         $view = $this->index();
