@@ -81,11 +81,13 @@ class HorariosController extends Controller
         for ($i = 1; $i <= $this->dhoy; $i++) {
             $dataSum = new HorariosDataClass($i);
             $mainSum = $this->hac->getCurrentMain($i);
-            $dataSum->gestiones = $mainSum['gestiones'];
-            $dataSum->cuentas = $mainSum['cuentas'];
-            $dataSum->contactos = $mainSum['contactos'];
-            $dataSum->nocontactos = $mainSum['nocontactos'];
-            $dataSum->promesas = $mainSum['promesas'];
+            if ($mainSum) {
+                $dataSum->gestiones = $mainSum['gestiones'];
+                $dataSum->cuentas = $mainSum['cuentas'];
+                $dataSum->contactos = $mainSum['contactos'];
+                $dataSum->nocontactos = $mainSum['nocontactos'];
+                $dataSum->promesas = $mainSum['promesas'];
+            }
             $dataSum->pagos = $this->hac->getPagos($i);
             $summary[$i] = $dataSum;
         }

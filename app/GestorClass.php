@@ -16,22 +16,16 @@ namespace App;
 class GestorClass extends BaseClass {
 
     /**
-     * 
-     * @param string $CUENTA
-     * @param string $CLIENTE
-     * @return array
+     * @var string
      */
-    function getPagos($CUENTA, $CLIENTE) {
-        $querypag = "select sum(monto) as sm, max(fecha) as mf "
-                . "from pagos "
-                . "where CUENTA=:cuenta and CLIENTE=':cliente";
-        $stp = $this->pdo->prepare($querypag);
-        $stp->bindParam(':cuenta', $CUENTA);
-        $stp->bindParam(':cliente', $CLIENTE);
-        $stp->execute();
-        $resultp = $stp->fetchAll(\PDO::FETCH_ASSOC);
-        return $resultp;
-    }
+    private $query = "SELECT d_prom, historia.cuenta, n_prom, c_cvge, 
+    ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, 
+    cliente,resumen.id_cuenta,saldo_descuento_1, monto, fecha 
+    FROM historia 
+    JOIN resumen on c_cont = resumen.id_cuenta 
+    LEFT JOIN pagos on pagos.id_cuenta = resumen.id_cuenta and fecha >= d_fech
+    WHERE n_prom>0 AND c_cvge = :gestor 
+    GROUP BY cuenta ORDER BY c_cvge,d_prom,cliente,cuenta";
 
     /**
      * 
@@ -39,13 +33,7 @@ class GestorClass extends BaseClass {
      * @return array
      */
     function getPagosReport($gestor) {
-        $query = "SELECT d_prom, cuenta, n_prom, c_cvge, "
-                . "ejecutivo_asignado_call_center, status_aarsa, saldo_total, "
-                . "cliente,id_cuenta,saldo_descuento_2 "
-                . "FROM historia JOIN resumen on c_cont=id_cuenta "
-                . "WHERE n_prom>0 AND c_cvge =:gestor "
-                . "GROUP BY cuenta ORDER BY c_cvge,d_prom,cliente,cuenta";
-        $stq = $this->pdo->prepare($query);
+        $stq = $this->pdo->prepare($this->query);
         $stq->bindParam(':gestor', $gestor);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);

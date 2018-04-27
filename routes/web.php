@@ -110,6 +110,7 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/horariosv', 'HorariosController@indexV');
     Route::get('/perfmes', 'PerfmesController@index');
     Route::get('/perfmesv', 'PerfmesController@indexV');
+    Route::get('/gestor/{gestor}', 'GestorController@show');
 });
 Auth::routes();
 

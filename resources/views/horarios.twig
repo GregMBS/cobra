@@ -251,7 +251,7 @@ th, th {
             {% for i in 1..dhoy %}
                 {% set sumnoc = sumnoc + summary[i].nocontactos %}
                 {% set zeros = '' %}
-                {% ifsummary[i].nocontactos == 0 %}
+                {% if summary[i].nocontactos == 0 %}
                     {% set zeros = ' style="color:red;"' %}
                 {% endif %}
 				<td class="light"{{ zeros }}>{{ summary[i].nocontactos }}</td>
@@ -268,7 +268,7 @@ th, th {
                     {% set zeros = ' style="color:red;"' %}
                 {% endif %}
 				<td>
-					{{ summary[i].promesas td>
+					{{ summary[i].promesas }} </td>
             {% endfor %}
 			<td>{{ sumprom }}</td>
 		</tr>

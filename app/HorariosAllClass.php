@@ -36,7 +36,7 @@ class HorariosAllClass extends BaseClass
         $stq   = $this->pdo->prepare($query);
         $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetchAll(\PDO::FETCH_ASSOC);
+        return $stq->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -51,7 +51,7 @@ class HorariosAllClass extends BaseClass
         $stq   = $this->pdo->prepare($query);
         $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetchAll(\PDO::FETCH_ASSOC);
+        return $stq->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
