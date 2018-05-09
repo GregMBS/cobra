@@ -619,11 +619,9 @@
                                     ?>'><br>
                                                                             <?php
                                                                         }
-                                                                        if (substr($cliente,
-                                                                                0,
-                                                                                8)
-                                                                            == "JURIDICO") {
+                                                                        if (!empty($avapar) {
                                                                             ?>
+<span class='formcapa'>Numero de Cliente</span>
                                     <input type='text' name=nss readonly='readonly' value='<?php
                                     if (isset($avapar)) {
                                         echo $avapar;
