@@ -619,7 +619,7 @@
                                     ?>'><br>
                                                                             <?php
                                                                         }
-                                                                        if (!empty($avapar) {
+                                                                        if (!empty($avapar)) {
                                                                             ?>
 <span class='formcapa'>Numero de Cliente</span>
                                     <input type='text' name=nss readonly='readonly' value='<?php
