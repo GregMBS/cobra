@@ -621,7 +621,7 @@
                                                                         }
                                                                         if (!empty($avapar)) {
                                                                             ?>
-<span class='formcapa'>Numero de Cliente</span>
+<span class='formcapa'>Referencia OXXO</span>
                                     <input type='text' name=nss readonly='readonly' value='<?php
                                     if (isset($avapar)) {
                                         echo $avapar;
