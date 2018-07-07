@@ -619,11 +619,9 @@
                                     ?>'><br>
                                                                             <?php
                                                                         }
-                                                                        if (substr($cliente,
-                                                                                0,
-                                                                                8)
-                                                                            == "JURIDICO") {
+                                                                        if (!empty($avapar)) {
                                                                             ?>
+<span class='formcapa'>Referencia OXXO</span>
                                     <input type='text' name=nss readonly='readonly' value='<?php
                                     if (isset($avapar)) {
                                         echo $avapar;
@@ -705,7 +703,7 @@
                 </div>
                 <div id="REFERENCIAS">
                     <?php if (isset($nombre_deudor_alterno)) { ?>
-                        <span class='formcaps'>Aval</span><input type='text' name=nombre_deudor_alterno id="nombre_deudor_alterno" readonly='readonly' value='<?php
+                        <span class='formcaps'>Recadero</span><input type='text' name=nombre_deudor_alterno id="nombre_deudor_alterno" readonly='readonly' value='<?php
                         if (isset($nombre_deudor_alterno)) {
                             echo htmlentities($nombre_deudor_alterno);
                         }
@@ -714,7 +712,7 @@
                                                              }
                                                              if (isset($domicilio_deudor_alterno)) {
                                                                  ?>
-                        <br><span class='formcaps'>Dirección Aval</span>
+                        <br><span class='formcaps'>Dirección Recadero</span>
                         <textarea readonly='readonly'><?php
                             echo $domicilio_deudor_alterno."\n".
                             $colonia_deudor_alterno."\n".
@@ -731,40 +729,6 @@
                             $colonia_deudor_alterno_2a."\n".
                             $ciudad_deudor_alterno_2a."\n".
                             $estado_deudor_alterno_2a;
-                            ?>
-                        </textarea>
-                        <?php
-                    }
-                    if (isset($nombre_deudor_alterno_2)) {
-                        ?>
-                        <br><span class='formcaps'>Aval 2</span><input type='text' name=nombre_deudor_alterno_2
-                                                                       id="nombre_deudor_alterno_2" readonly='readonly'
-                                                                       value='<?php
-                                                                       if (isset($nombre_deudor_alterno_2)) {
-                                                                           echo htmlentities($nombre_deudor_alterno_2);
-                                                                       }
-                                                                       ?>'>
-                                                                       <?php
-                                                                   }
-                                                                   if (isset($domicilio_deudor_alterno_2)) {
-                                                                       ?>
-                        <br><span class='formcaps'>Dirección Aval 2</span>
-                        <textarea readonly='readonly'><?php
-                            echo $domicilio_deudor_alterno_2."\n".
-                            $colonia_deudor_alterno_2."\n".
-                            $ciudad_deudor_alterno_2."\n".
-                            $estado_deudor_alterno_2;
-                            ?>
-                        </textarea>
-                        <?php
-                    }
-                    if (isset($domicilio_deudor_alterno_2b)) {
-                        ?>
-                        <textarea readonly='readonly'><?php
-                            echo $domicilio_deudor_alterno_2b."\n".
-                            $colonia_deudor_alterno_2b."\n".
-                            $ciudad_deudor_alterno_2b."\n".
-                            $estado_deudor_alterno_2b;
                             ?>
                         </textarea>
                         <?php
@@ -1608,7 +1572,7 @@
                     <span class="formcap" id="pcap">Parentesco/Cargo</span>
                     <select name="C_CARG">
                         <option value="">&nbsp;</option>
-                        <option value="Aval">Aval</option>
+                        <option value="Aval">Aval/Recadero</option>
                         <option value="Conyuge">C&oacute;nyuge</option>
                         <option value="Deudor">Deudor</option>
                         <option value="Familiar">Familiar</option>
@@ -1883,7 +1847,7 @@
                             <td id="pcap2">Parentesco/Cargo</td>
                             <td><select name="C_CARG">
                                     <option value="">&nbsp;</option>
-                                    <option value="Aval">Aval</option>
+                                    <option value="Aval">Aval/Recadero</option>
                                     <option value="Conyuge">C&oacute;nyuge</option>
                                     <option value="Deudor">Deudor</option>
                                     <option value="Familiar">Familiar</option>
