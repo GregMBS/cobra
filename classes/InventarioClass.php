@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 /**
@@ -33,7 +27,8 @@ class InventarioClass {
     domicilio_deudor,colonia_deudor,ciudad_deudor, estado_deudor,cp_deudor,
     tel_1 as 'tel_casa', tel_2 as 'tel_cel',
     ejecutivo_asignado_call_center, ejecutivo_asignado_domiciliario,
-count(historia.auto) as gestiones, sum(c_carg<>'') as contactos, fecha_de_asignacion
+    count(historia.auto) as gestiones, sum(c_carg<>'') as contactos, fecha_de_asignacion, 
+    fecha_de_ultimo_pago, monto_ultimo_pago
     from resumen 
 left join dictamenes d1 on status_aarsa=d1.dictamen
 left join historia on id_cuenta=c_cont
