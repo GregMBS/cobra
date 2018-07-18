@@ -12,11 +12,12 @@ class BestClass extends BaseClass
 {
 
     public function getResumenData() {
-        $query = "select id_cuenta,numero_de_cuenta,status_de_credito,
+        $query = "select ejecutivo_asignado_call_center,numero_de_cuenta,nombre_deudor,
+        cliente,status_de_credito,id_cuenta,
         saldo_total,saldo_descuento_1,saldo_descuento_2,
         date(fecha_ultima_gestion) as 'fecha gestion',
         time(fecha_ultima_gestion) as 'hora gestion',
-        nombre_deudor,producto,subproducto,status_aarsa as 'estatus',
+        producto,subproducto,status_aarsa as 'estatus',
         tel_1 as 'tel_casa', tel_2 as 'tel_cel', 
         fecha_de_ultimo_pago, monto_ultimo_pago
         from resumen
