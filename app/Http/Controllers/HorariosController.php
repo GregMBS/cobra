@@ -49,6 +49,30 @@ class HorariosController extends Controller
     }
 
     /**
+     * @param $c_cvge
+     * @return array
+     */
+    private function packData($c_cvge) {
+        $row = array();
+        for ($i = 1; $i <= $this->dhoy; $i++) {
+            $data = new HorariosDataClass($i);
+            $startStop = $this->hc->getStartStopDiff($c_cvge, $i);
+            $data->start = $startStop['start'];
+            $data->stop = $startStop['stop'];
+            $data->diff = $startStop['diff'];
+            $main = $this->hc->getCurrentMain($c_cvge, $i);
+            $data->gestiones = $main['gestiones'];
+            $data->cuentas = $main['cuentas'];
+            $data->contactos = $main['contactos'];
+            $data->nocontactos = $main['nocontactos'];
+            $data->promesas = $main['promesas'];
+            $data->pagos = 0;
+            $row[$i] = $data;
+        }
+        return $row;
+    }
+
+    /**
      *
      * @return View
      */
@@ -60,23 +84,7 @@ class HorariosController extends Controller
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
         foreach ($gestores as $gestor) {
             $c_cvge = $gestor['c_cvge'];
-            $row = array();
-            for ($i = 1; $i <= $this->dhoy; $i++) {
-                $data = new HorariosDataClass($i);
-                $startStop = $this->hc->getStartStopDiff($c_cvge, $i);
-                $data->start = $startStop['start'];
-                $data->stop = $startStop['stop'];
-                $data->diff = $startStop['diff'];
-                $main = $this->hc->getCurrentMain($c_cvge, $i);
-                $data->gestiones = $main['gestiones'];
-                $data->cuentas = $main['cuentas'];
-                $data->contactos = $main['contactos'];
-                $data->nocontactos = $main['nocontactos'];
-                $data->promesas = $main['promesas'];
-                $data->pagos = 0;
-                $row[$i] = $data;
-            }
-            $output[$c_cvge] = $row;
+            $output[$c_cvge] = $this->packData($c_cvge);
         }
         for ($i = 1; $i <= $this->dhoy; $i++) {
             $dataSum = new HorariosDataClass($i);
@@ -109,23 +117,11 @@ class HorariosController extends Controller
     public function indexV()
     {
         $output = array();
-        $summary = array();
         $visitadores = $this->hc->listVisitadores();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
         foreach ($visitadores as $visitador) {
             $c_visit = $visitador['iniciales'];
-            $row = array();
-            for ($i = 1; $i <= $this->dhoy; $i++) {
-                $data = new HorariosDataClass($i);
-                $main = $this->hc->getVisitadorMain($c_visit, $i);
-                $data->gestiones = $main['gestiones'];
-                $data->cuentas = $main['cuentas'];
-                $data->contactos = $main['contactos'];
-                $data->nocontactos = $main['nocontactos'];
-                $data->promesas = $main['promesas'];
-                $data->pagos = 0;
-                $row[$i] = $data;
-            }
+            $row = $this->packVisit($c_visit);
             $output[$c_visit] = $row;
         }
         $c_visit = array_column($visitadores, 'iniciales');
@@ -146,15 +142,27 @@ class HorariosController extends Controller
     public function show($c_cvge)
     {
         $output = array();
-        $row = array();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
+        $output[] = $this->packData($c_cvge);
+        $view = view('horario')
+            ->with('yrmes', $this->yrmes)
+            ->with('gestor', $c_cvge)
+            ->with('dhoy', $this->dhoy)
+            ->with('dowArray', $dowArray)
+            ->with('data', $output);
+        return $view;
+    }
+
+    /**
+     * @param $c_visit
+     * @return array
+     */
+    private function packVisit($c_visit): array
+    {
+        $row = array();
         for ($i = 1; $i <= $this->dhoy; $i++) {
             $data = new HorariosDataClass($i);
-            $startStop = $this->hc->getStartStopDiff($c_cvge, $i);
-            $data->start = $startStop['start'];
-            $data->stop = $startStop['stop'];
-            $data->diff = $startStop['diff'];
-            $main = $this->hc->getCurrentMain($c_cvge, $i);
+            $main = $this->hc->getVisitadorMain($c_visit, $i);
             $data->gestiones = $main['gestiones'];
             $data->cuentas = $main['cuentas'];
             $data->contactos = $main['contactos'];
@@ -163,13 +171,6 @@ class HorariosController extends Controller
             $data->pagos = 0;
             $row[$i] = $data;
         }
-        $output[] = $row;
-        $view = view('horario')
-            ->with('yrmes', $this->yrmes)
-            ->with('gestor', $c_cvge)
-            ->with('dhoy', $this->dhoy)
-            ->with('dowArray', $dowArray)
-            ->with('data', $output);
-        return $view;
+        return $row;
     }
 }

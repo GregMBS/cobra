@@ -19,7 +19,7 @@ class CsvClass {
      * 
      * @param array $array
      */
-    function outputCSV($array) {
+    private function outputCSV($array) {
         $file = fopen('php://output', 'w'); // this file actual writes to php output
         fputcsv($file, $array);
         fclose($file);
@@ -30,9 +30,9 @@ class CsvClass {
      * @param array $array
      * @return string
      */
-    function getCSV($array) {
+    public function getCSV($array) {
         ob_start(); // buffer the output ...
-        outputCSV($array);
+        $this->outputCSV($array);
         return ob_get_clean(); // ... then return it as a string!
     }
 

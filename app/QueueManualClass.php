@@ -52,7 +52,7 @@ AND cliente=:clientea";
     public function listClients() {
         $query = "SELECT cliente FROM clientes";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -74,7 +74,7 @@ WHERE
         AND status_de_credito NOT REGEXP '-'
 GROUP BY cliente , status_de_credito , ejecutivo_asignado_call_center";
         $result = $this->pdo->query($querymain);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\IntensidadClass;
-use App\OutputClass;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\WriterFactory;
 
@@ -20,10 +19,13 @@ class IntensidadController extends Controller
     public function __construct() {
         $this->ic = new IntensidadClass();
     }
-    
+
     /**
-     * 
      * @param Request $r
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function makeReport(Request $r) {
         $fechaArray = array($r->fecha1, $r->fecha2);

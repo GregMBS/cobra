@@ -92,9 +92,9 @@ class CargaController extends Controller
     }
 
     /**
-     *
      * @param Request $r
      * @return View
+     * @throws Exception
      */
     public function cargar(Request $r)
     {

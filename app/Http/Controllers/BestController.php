@@ -23,10 +23,13 @@ class BestController extends Controller
     public function __construct() {
         $this->bc = new BestClass();
     }
-    
+
     /**
-     * 
      * @param array $output
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     private function writeXLSX(array $output) {
         $writer = WriterFactory::create(Type::XLSX);
@@ -34,7 +37,13 @@ class BestController extends Controller
         $writer->addRows($output); // add multiple rows at a time
         $writer->close();
     }
-    
+
+    /**
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     */
     public function index() {
         $data = [];
         $this->filename = "Ultimo_y_mejor_".date('ymd').".xlsx";

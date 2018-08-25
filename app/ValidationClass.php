@@ -127,6 +127,8 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     public function countVisitErrors($gestion)
     {
         $output = new ValidationErrorClass();
+        $errorv = '';
+        $flagmsgv = '';
         $requiredArray = array(
             array(
                 empty($gestion['C_CVST']),
@@ -209,14 +211,14 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     }
 
     /**
-     *
-     * @param array $gestion
-     * @return array
+     * @param $gestion
+     * @return ValidationErrorClass
      */
     public function countGestionErrors($gestion)
     {
         $output = new ValidationErrorClass();
-        
+        $error = '';
+        $flagmsg = '';
         $requiredArray = array(
             array(
                 empty($gestion['C_CVST']),

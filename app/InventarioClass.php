@@ -118,7 +118,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
     public function listClients() {
         $queryc = "SELECT cliente FROM clientes";
         $resultc = $this->pdo->query($queryc);
-        return $resultc;
+        return $resultc->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

@@ -35,7 +35,7 @@ group by c_cvba,mdf,c_cont,c_cvge,c_hrin) as tmp
 group by c_cvba,mdf;
 ";
         $result = $this->pdo->query($querymain);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

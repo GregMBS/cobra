@@ -115,18 +115,7 @@ class PerfmesController extends Controller
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
         foreach ($visitadores as $visitador) {
             $c_visit = $visitador['iniciales'];
-            $row = array();
-            for ($i = 1; $i <= $this->dhoy; $i++) {
-                $data = new HorariosDataClass($i);
-                $main = $this->hc->getVisitadorMain($c_visit, $i);
-                $data->gestiones = $main['gestiones'];
-                $data->cuentas = $main['cuentas'];
-                $data->contactos = $main['contactos'];
-                $data->nocontactos = $main['nocontactos'];
-                $data->promesas = $main['promesas'];
-                $data->pagos = 0;
-                $row[$i] = $data;
-            }
+            $row = $this->packVisit($c_visit);
             $output[$c_visit] = $row;
         }
         $c_visit = array_column($visitadores, 'iniciales');
@@ -137,5 +126,26 @@ class PerfmesController extends Controller
             ->with('dowArray', $dowArray)
             ->with('data', $output);
         return $view;
+    }
+
+    /**
+     * @param $c_visit
+     * @return array
+     */
+    private function packVisit($c_visit): array
+    {
+        $row = array();
+        for ($i = 1; $i <= $this->dhoy; $i++) {
+            $data = new HorariosDataClass($i);
+            $main = $this->hc->getVisitadorMain($c_visit, $i);
+            $data->gestiones = $main['gestiones'];
+            $data->cuentas = $main['cuentas'];
+            $data->contactos = $main['contactos'];
+            $data->nocontactos = $main['nocontactos'];
+            $data->promesas = $main['promesas'];
+            $data->pagos = 0;
+            $row[$i] = $data;
+        }
+        return $row;
     }
 }

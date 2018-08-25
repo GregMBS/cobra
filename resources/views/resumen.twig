@@ -236,7 +236,7 @@
     </div>
     <div id="VISITA">
         <form action="/captura" method="post" id="capturaform"
-              onSubmit="return validate_form (this, event, {{ r.saldo_descuento_2 }}, {{ authval }}, ' ');">
+              onSubmit="return validate_form (this, event, {{ r.saldo_descuento_2 }}, {{ authval }});">
             {{ csrf_field() }}
             <div class="noshow">
                 <input type="text" name="error" readonly="readonly" value="1">
@@ -572,7 +572,7 @@
         {% set authval = 1 %}
     {% endif %}
     <form action="/gestion" method="post" id="gestionform"
-          onSubmit="return validate_form (this, event, {{ r.saldo_descuento_2 }}, {{ authval }}, ' ');">
+          onSubmit="return validate_form (this, event, {{ r.saldo_descuento_2 }}, {{ authval }});">
         {{ csrf_field() }}
         <table id="databox">
             {% if tipo == 'admin' %}

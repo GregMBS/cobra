@@ -32,7 +32,7 @@ class GestorClass extends BaseClass {
      * @param string $gestor
      * @return array
      */
-    function getPagosReport($gestor) {
+    public function getPagosReport($gestor) {
         $stq = $this->pdo->prepare($this->query);
         $stq->bindParam(':gestor', $gestor);
         $stq->execute();

@@ -140,12 +140,12 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :id_cuenta)";
     {
         $query = "SELECT iniciales,completo FROM users where tipo IN ('visitador','admin')";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
-     *
      * @return array
+     * @throws \Exception
      */
     public function getOneMonth()
     {

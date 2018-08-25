@@ -111,6 +111,7 @@ class PerfmesClass extends BaseClass
         } catch (\PDOException $e) {
 		    dd($e);
         }
+        return array();
 	}
 
 	/**
@@ -278,7 +279,7 @@ where d_fech>last_day(curdate()-interval 2 month)
 and d_fech<=last_day(curdate()-interval 1 month)
 ) as tmp";
 		$result	 = $this->pdo->query($query);
-		return $result;
+		return $result->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
     /**

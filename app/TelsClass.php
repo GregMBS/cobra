@@ -58,8 +58,11 @@ from resumen
 where status_de_credito not regexp "-"';
 
     /**
-     * 
-     * @param array $result
+     * @param $result
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function outputDocument($result) {
         $filename = "Query_de_telefonos_" . date('ymd') . ".xlsx";

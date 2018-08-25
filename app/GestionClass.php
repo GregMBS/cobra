@@ -382,8 +382,7 @@ and id_cuenta = :c_cont";
     }
 
     /**
-     *
-     * @param array $gestion
+     * @param $gestion
      * @return ValidationErrorClass
      */
     public function doGestion($gestion)

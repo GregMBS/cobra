@@ -19,8 +19,13 @@ use Box\Spout\Common\Type;
 class OutputClass {
 
     /**
-     * 
-     * @param array $array
+     * @param $filename
+     * @param $array
+     * @param $headers
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     private function outputCSV($filename, $array, $headers) {
         $writer = WriterFactory::create(Type::CSV); // for CSV files
@@ -29,21 +34,28 @@ class OutputClass {
         $writer->addRows($array); // add multiple rows at a time
         $writer->close();
     }
-    
+
     /**
-     * 
-     * @param string $filename
-     * @param array $data
-     * @param array $headers
+     * @param $filename
+     * @param $data
+     * @param $headers
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function writeCSVFile($filename, $data, $headers) {
         $this->outputCSV($filename, $data, $headers);
     }
 
     /**
-     * 
-     * @param array $array
-     * @param array $headers
+     * @param $filename
+     * @param $array
+     * @param $headers
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     private function outputXLSX($filename, $array, $headers) {
         $writer = WriterFactory::create(Type::XLSX); // for CSV files
@@ -52,12 +64,15 @@ class OutputClass {
         $writer->addRows($array); // add multiple rows at a time
         $writer->close();
     }
-    
+
     /**
-     * 
-     * @param string $filename
-     * @param array $data
-     * @param array $headers
+     * @param $filename
+     * @param $data
+     * @param $headers
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function writeXLSXFile($filename, $data, $headers) {
         $this->outputXLSX($filename, $data, $headers);

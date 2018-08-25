@@ -135,7 +135,7 @@ class GestoradminClass extends BaseClass {
     WHERE iniciales <> 'gmbs')    
     order by tipo, iniciales";
         $result = $this->pdo->query($querymain);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

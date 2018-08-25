@@ -18,11 +18,14 @@ class InventarioController extends Controller
     public function __construct() {
         $this->ic = new InventarioClass();
     }
-    
+
     /**
-     *
      * @param Request $r
      * @param OutputClass $oc
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function makeReport(Request $r, OutputClass $oc) {
         $cliente    = $r->cliente;
@@ -31,11 +34,14 @@ class InventarioController extends Controller
         $headers  = array_keys($result[0]);
         $oc->writeXLSXFile($filename, $result, $headers);
     }
-    
-        /**
-     * 
+
+    /**
      * @param Request $r
      * @param OutputClass $oc
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function makeRapidReport(Request $r, OutputClass $oc) {
         $cliente    = $r->cliente;

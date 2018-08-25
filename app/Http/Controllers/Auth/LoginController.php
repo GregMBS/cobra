@@ -48,12 +48,11 @@ class LoginController extends Controller
     {
         return 'iniciales';
     }
-    
+
     /**
-     * Handle a login request to the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function login(Request $request)
     {
@@ -64,7 +63,7 @@ class LoginController extends Controller
         // the IP address of the client making these requests into this application.
         if ($this->hasTooManyLoginAttempts($request)) {
 //            $this->fireLockoutEvent($request);
-
+            abort(429);
 //            return $this->sendLockoutResponse($request);
         }
         

@@ -34,15 +34,13 @@ function validate_date(f) {
 	}
 }
 
-function validate_form(tf, evt, minprom, authorized, at) {
+function validate_form(tf, evt, minprom, authorized) {
 	// initialize
 	var alerttxt = ' ';
 	var flag = 0;
-	var aflag = 0;
 	var npa = 0;
 	var n1 = 0;
 	var n2 = 0;
-	var npo = 0;
 	np = parseFloat(tf.N_PROM1.value) + parseFloat(tf.N_PROM2.value);
 	var cvt = "";
 	var ccn = " ";
@@ -50,9 +48,7 @@ function validate_form(tf, evt, minprom, authorized, at) {
 	var co2 = "";
 	var dp1 = "0000-00-00";
 	var dp2 = "0000-00-00";
-	var dpo = "0000-00-00";
 	var dpago = "0000-00-00";
-	var minprom2 = minprom * 0.95;
 	// actual sum de promesa
 	if (typeof (tf.N_PAGO) !== "undefined") {
 		npa = parseFloat(tf.N_PAGO.value);

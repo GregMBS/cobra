@@ -1,21 +1,15 @@
-function validate_form2(tf, evt, minprom, authorized, at) {
+function validate_form2(tf, evt, minprom) {
 //initialize 
     var alerttxt = ' ';
     var flag = 0;
     var npa = 0;
     var n1 = 0;
-    var n2 = 0;
-    var npo = 0;
     np = parseFloat(tf.N_PROMv.value);
     var cvt = "";
-    var ccn = " ";
     var cnt = "";
     var co2 = "";
     var dp1 = "0000-00-00";
-    var dp2 = "0000-00-00";
-    var dpo = "0000-00-00";
     var dpago = "0000-00-00";
-    var minprom2 = minprom * 0.95;
 //actual sum de promesa
     if (typeof(tf.N_PAGOv) !== "undefined") {
         npa = parseFloat(tf.N_PAGOv.value);

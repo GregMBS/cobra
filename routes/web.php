@@ -12,7 +12,6 @@
  */
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('index');
@@ -112,6 +111,10 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/perfmesv', 'PerfmesController@indexV');
     Route::get('/gestor/{gestor}', 'GestorController@show');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

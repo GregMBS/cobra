@@ -63,11 +63,12 @@ function openSearch() {
 }
 
 function tooLong(e) {
-    if ($("#C_OBSE1").val().length > 250) {
-    	$("#C_OBSE1").val($("#C_OBSE1").val().replace(' 	', ' '));
-    	$("#C_OBSE1").val($("#C_OBSE1").val().substr(0, 200));
+    var obse = $("#C_OBSE1");
+    if (obse.val().length > 250) {
+        obse.val(obse.val().replace(' 	', ' '));
+        obse.val(obse.val().substr(0, 200));
         confirm('GESTION demasiado largo');
-        $("#C_OBSE1").css('backgroundColor',"yellow");
+        obse.css('backgroundColor',"yellow");
         return false;
     }
 }
@@ -88,25 +89,22 @@ function cancelbox(boxname) {
 }
 
 function statusChange(thisform) {
-    with(thisform) {
-        if (C_CVST.substr(0, 3) === "PAG") {
+    if (thisform.C_CVST.substr(0, 3) === "PAG") {
             $("#pagocapt").css('backgroundColor', "yellow");
             $("#pagocapt2").css('backgroundColor', "yellow");
             $("#pagocaptv").css('backgroundColor', "yellow");
-        }
     }
 }
 
 function addToTels(pos, tel) {
-	$("#C_TELE").options[pos] = new Option(tel.value, tel.value, true, true);
-	$("#C_TELE").options[pos].css('fontWeight', "bold");
-	$("#C_TELE").options[pos].css('backgroundColor', "green");
+    var tele = $("#C_TELE");
+    tele.options[pos] = new Option(tel.value, tel.value, true, true);
+    tele.options[pos].css('fontWeight', "bold");
+    tele.options[pos].css('backgroundColor', "green");
 }
 
 function npromChange(thisform) {
-    with(thisform) {
-        N_PROM.value = (N_PROM1.value * 1) + (N_PROM2.value * 1);
-    }
+    thisform.N_PROM.value = (thisform.N_PROM1.value * 1) + (thisform.N_PROM2.value * 1);
 }
 
 

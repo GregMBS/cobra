@@ -27,7 +27,7 @@ where fecha>last_day(curdate()-interval 1 month)
 and status_de_credito not like '%vo'
 group by cli, sdc with rollup";
         $resultAct = $this->pdo->query($queryAct);
-        return $resultAct;
+        return $resultAct->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -41,7 +41,7 @@ from pagos
 where fecha>last_day(curdate()-interval 1 month)
 group by gestor,cliente";
         $resultActGest = $this->pdo->query($queryActGest);
-        return $resultActGest;
+        return $resultActGest->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -54,7 +54,7 @@ from pagos
 where fecha>last_day(curdate()-interval 1 month)
 order by cliente,gestor,fecha";
         $resultActDet = $this->pdo->query($queryActDet);
-        return $resultActDet;
+        return $resultActDet->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -70,7 +70,7 @@ and fecha>last_day(curdate()-interval 2 month)
 and status_de_credito not like '%vo'
 group by cli, sdc with rollup";
         $resultAnt = $this->pdo->query($queryAnt);
-        return $resultAnt;
+        return $resultAnt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -85,7 +85,7 @@ where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 group by gestor,cliente";
         $resultAntGest = $this->pdo->query($queryAntGest);
-        return $resultAntGest;
+        return $resultAntGest->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -99,7 +99,7 @@ where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 order by cliente,gestor,fecha";
         $resultAntDet = $this->pdo->query($queryAntDet);
-        return $resultAntDet;
+        return $resultAntDet->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

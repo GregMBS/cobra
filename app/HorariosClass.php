@@ -162,7 +162,7 @@ order by iniciales;';
     public function getTiempoDiffNTP($gestor, $dom, $tipo)
     {
         $data = $this->getTiempoDiff($gestor, $dom, $tipo);
-        $diffs = $this->getNTPDiff($gestor, $dom, data['tiempo']);
+        $diffs = $this->getNTPDiff($gestor, $dom, $data['tiempo']);
         $diffsum = array_sum(array_column($diffs, 'diff'));
         $data['diff'] = $diffsum;
         return $data;
@@ -280,7 +280,7 @@ dayofweek(d_fech)>1 and day(d_fech)>15 as ss from historia
 where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())) as tmp";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

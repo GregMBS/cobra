@@ -135,7 +135,7 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
         $querysub = "SELECT auto,fecha,hora,nota,c_cvge FROM notas 
 WHERE borrado=0 ORDER BY fecha desc,hora desc";
         $rowsub = $this->pdo->query($querysub);
-        return $rowsub;
+        return $rowsub->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

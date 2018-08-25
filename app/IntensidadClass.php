@@ -105,7 +105,7 @@ SQL;
         $end = " limit 360";
         $query = $start . $dir . $end;
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -119,7 +119,7 @@ SQL;
         limit 10
 	";
         $result = $this->pdo->query($query);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

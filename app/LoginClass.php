@@ -16,23 +16,11 @@ namespace App;
 class LoginClass extends BaseClass {
 
     /**
-     * 
-     * @param string $capt
-     * @param string $pw
+     * @param User $user
      * @return array
      */
-    public function getUserData($capt, $pw) {
-        $queryg = "SELECT iniciales, enlace, tipo "
-                . "FROM users JOIN grupos ON grupo=tipo "
-                . "WHERE passw = sha(:pw) "
-                . "AND LOWER(iniciales) = LOWER(:capt) "
-                . "LIMIT 1";
-        $stg = $this->pdo->prepare($queryg);
-        $stg->bindParam(':pw', $pw);
-        $stg->bindParam(':capt', $capt);
-        $stg->execute();
-        $resultg = $stg->fetch(\PDO::FETCH_ASSOC);
-        return $resultg;
+    public function getUserData(User $user) {
+        return $user->toArray();
     }
 
     /**

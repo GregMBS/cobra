@@ -19,11 +19,14 @@ class BigqueryController extends Controller
     public function __construct() {
         $this->bc = new BigClass();
     }
-    
+
     /**
-     * 
      * @param Request $r
      * @param OutputClass $oc
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function makeReport(Request $r, OutputClass $oc) {
         $bdc = new BigDataClass($r);

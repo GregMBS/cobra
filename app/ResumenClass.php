@@ -66,12 +66,13 @@ SQL;
             'PROMESA DE DACION EN PAGO',
             'PROMESA DE EVPN',
             'SENTENCIA',
-            'NO OFRECER SOLUCION'
+            'NO OFRECER SOLUCION',
+            'DACION EN PAGO',
+            'FIRMO CONVENIO JUDICIAL',
+            'FIRMO CONVENIO',
+            'CUENTA DEMANDADA'
         );
         if (in_array($stat, $red)) {
-            $highstr = " class='deudor'";
-        }
-        if (($stat == 'DACION EN PAGO') || ($stat == 'FIRMO CONVENIO JUDICIAL') || ($stat == 'FIRMO CONVENIO') || ($stat == 'CUENTA DEMANDADA')) {
             $highstr = " class='deudor'";
         }
         if ($stat == 'VALIDACION') {
@@ -109,25 +110,28 @@ SQL;
      */
     public function getDict($mytipo)
     {
-        $query = "SELECT dictamen,v_cc,judicial "
-            . "FROM dictamenes "
-            . "where callcenter=1 "
-            . "order by dictamen";
-        if ($mytipo == 'visitador') {
+        if (!empty($mytipo)) {
             $query = "SELECT dictamen,v_cc,judicial "
                 . "FROM dictamenes "
-                . "where visitas=1 "
+                . "where callcenter=1 "
                 . "order by dictamen";
+            if ($mytipo == 'visitador') {
+                $query = "SELECT dictamen,v_cc,judicial "
+                    . "FROM dictamenes "
+                    . "where visitas=1 "
+                    . "order by dictamen";
+            }
+            if ($mytipo == 'admin') {
+                $query = "SELECT dictamen,v_cc,judicial "
+                    . "FROM dictamenes "
+                    . "order by dictamen";
+            }
+            $result = $this->pdo->query($query);
+            $all = $result->fetchAll();
+            $output = array_column($all, 0);
+            return $output;
         }
-        if ($mytipo == 'admin') {
-            $query = "SELECT dictamen,v_cc,judicial "
-                . "FROM dictamenes "
-                . "order by dictamen";
-        }
-        $result = $this->pdo->query($query);
-        $all = $result->fetchAll();
-        $output = array_column($all, 0);
-        return $output;
+        return array();
     }
 
     /**
@@ -265,7 +269,7 @@ SQL;
     where completo<>'' 
 and tipo IN ('visitador','admin')";
         $resultGestorV = $this->pdo->query($queryGestorV);
-        return $resultGestorV;
+        return $resultGestorV->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

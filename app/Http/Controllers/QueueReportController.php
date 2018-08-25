@@ -6,6 +6,10 @@ use App\QueuesqcClass;
 
 class QueueReportController extends Controller
 {
+    /**
+     * @var QueuesqcClass 
+     */
+    private $qc;
     
     public function __construct()
     {

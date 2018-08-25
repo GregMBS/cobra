@@ -57,8 +57,8 @@ SQL;
         $querytail = " ('%s'),";
         foreach ($gestiones as $gest) {
             if (!empty($gest)) {
-                $gestText = implode("','", $gest);
-                $data = vsprintf($querytail, $gestText);
+                // $gestText = implode("','", $gest);
+                $data = vsprintf($querytail, $gest);
                 $query .= $data;
             }
         }

@@ -27,7 +27,7 @@ fecha_ultima_gestion
 FROM resumen
 where status_de_credito not regexp '-'";
         $result = $this->pdo->query($querymain);
-        return $result;
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

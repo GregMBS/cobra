@@ -22,10 +22,6 @@ class BaseClass {
      */
     protected $pdo;
 
-    /**
-     * 
-     * @param \PDO $pdo
-     */
     public function __construct() {
         $this->pdo = DB::connection()->getPdo();
     }
