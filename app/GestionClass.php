@@ -382,10 +382,10 @@ and id_cuenta = :c_cont";
     }
 
     /**
-     * @param $gestion
+     * @param array $gestion
      * @return ValidationErrorClass
      */
-    public function doGestion($gestion)
+    public function doGestion(array $gestion)
     {
         $vc = new ValidationClass();
         $valid = $vc->countGestionErrors($gestion);

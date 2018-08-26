@@ -8,6 +8,7 @@
 
 namespace App;
 
+use http\Exception\UnexpectedValueException;
 use PDO;
 
 /**
@@ -104,34 +105,39 @@ SQL;
     }
 
     /**
-     *
-     * @param string $mytipo
+     * @param $mytipo
      * @return string[]
+     * @throws \UnexpectedValueException
      */
     public function getDict($mytipo)
     {
-        if (!empty($mytipo)) {
-            $query = "SELECT dictamen,v_cc,judicial "
-                . "FROM dictamenes "
-                . "where callcenter=1 "
-                . "order by dictamen";
-            if ($mytipo == 'visitador') {
+
+        switch ($mytipo) {
+            case 'callcenter':
+                $query = "SELECT dictamen,v_cc,judicial "
+                    . "FROM dictamenes "
+                    . "where callcenter=1 "
+                    . "order by dictamen";
+                break;
+            case 'visitador':
                 $query = "SELECT dictamen,v_cc,judicial "
                     . "FROM dictamenes "
                     . "where visitas=1 "
                     . "order by dictamen";
-            }
-            if ($mytipo == 'admin') {
+                break;
+
+            case 'admin':
                 $query = "SELECT dictamen,v_cc,judicial "
                     . "FROM dictamenes "
                     . "order by dictamen";
-            }
-            $result = $this->pdo->query($query);
-            $all = $result->fetchAll();
-            $output = array_column($all, 0);
-            return $output;
+                break;
+            default:
+                throw new UnexpectedValueException('Tipo de usuario no es correcto.');
         }
-        return array();
+        $result = $this->pdo->query($query);
+        $all = $result->fetchAll();
+        $output = array_column($all, 0);
+        return $output;
     }
 
     /**

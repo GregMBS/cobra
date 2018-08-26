@@ -3,10 +3,11 @@ namespace App\Http\Controllers;
 
 use App\ResumenClass;
 use App\ResumenQueuesClass;
+use App\ValidationClass;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\GestionClass;
-use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\View\View;
 use App\NotaClass;
 use App\ReferenciaClass;
 
@@ -43,6 +44,30 @@ class ResumenController extends Controller
      */
     private $fc;
 
+    /**
+     * @var array
+     */
+    private $gestionValidator = array(
+        [
+            'C_CVST' => 'required',
+            'C_TELE' => 'required',
+            'ACCION' => 'required',
+            'C_OBSE1' => 'required|min:3|max:250'
+        ]
+    );
+
+    /**
+     * @var array
+     */
+    private $visitValidator = array(
+        [
+            'C_CVST' => 'required',
+            'C_VISIT' => 'required',
+            'ACCION' => 'required',
+            'C_OBSE1' => 'required|min:3|max:250'
+        ]
+    );
+
     public function __construct()
     {
         $this->rc = new ResumenClass();
@@ -56,9 +81,9 @@ class ResumenController extends Controller
     private function getFields(Request $r)
     {
         $tl = date('r');
-        $findo = $r->find;
+        $find0 = $r->find;
         $field = $r->field;
-        $find = $this->rc->cleanFind($findo);
+        $find = $this->rc->cleanFind($find0);
         $notas = $this->rc->notAlert($capt);
     }
     */
@@ -93,7 +118,7 @@ class ResumenController extends Controller
         return $view;
     }
 
-/**
+    /**
      *
      * @return RedirectResponse
      */
@@ -103,16 +128,19 @@ class ResumenController extends Controller
     }
 
     /**
-     *
      * @param Request $r
+     * @return View
      */
     public function capture(Request $r)
     {
-        if (($r->has('C_CVST') && ($r->has('C_VISIT')))) {
-            $gestion = $r->all();
-            $valid = $this->gc->doVisit($gestion);
+        $r->validate($this->visitValidator);
+        $vc = new ValidationClass();
+        $valid = $vc->countVisitErrors($r->all());
+        if ($valid->flag) {
+            return $this->ultima()->with($valid);
         }
-        $view = $this->ultima()->with('valid', $valid);
+        $this->gc->doVisit($r->all());
+        $view = $this->index();
         return $view;
     }
 
@@ -137,11 +165,14 @@ class ResumenController extends Controller
      */
     public function gestion(Request $r)
     {
-        if (($r->has('C_CVST') && ($r->has('C_CVGE')))) {
-            $gestion = $r->all();
-            $valid = $this->gc->doGestion($gestion);
+        $r->validate($this->gestionValidator);
+        $vc = new ValidationClass();
+        $valid = $vc->countGestionErrors($r->all());
+        if ($valid->flag) {
+            return $this->ultima()->with($valid);
         }
-        $view = $this->index()->with('valid', $valid);
+        $this->gc->doGestion($r->all());
+        $view = $this->index();
         return $view;
     }
 
@@ -189,7 +220,11 @@ class ResumenController extends Controller
         $gestores = $this->rc->getGestorList();
         $cnp = $this->rc->getCnp();
         $referencias = $this->fc->index($id_cuenta);
-        $view = view('resumen')
+        /**
+         * @var View
+         */
+        $baseView = view('resumen');
+        $view = $baseView
         ->with('r', $result)
         ->with('history', $history)
         ->with('notas', $notas)
