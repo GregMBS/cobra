@@ -103,7 +103,7 @@ telefonos_marcados regexp :find) or
                 $output = $this->telstring;
                 break;
             default:
-                $output = '';
+                $output = "where id_cuenta = :find order by id_cuenta ";
                 break;
         }
         return $output;
@@ -151,8 +151,9 @@ telefonos_marcados regexp :find) or
         $query = "SELECT cliente FROM clientes";
         $stc = $this->pdo->prepare($query);
         $stc->execute();
-        $result = $stc->fetchColumn(0);
-        return $result;
+        $result = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        $clients = array_column($result, 'cliente');
+        return $clients;
     }
 
 }

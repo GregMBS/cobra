@@ -11,8 +11,6 @@ namespace App;
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 
-require_once 'vendor/autoload.php';
-
 /**
  * Description of UploadClass
  *

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ActivarClass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\View\View;
 
 class ActivarController extends Controller
 {
@@ -36,10 +36,9 @@ class ActivarController extends Controller
      */
     public function activar(Request $r) {
         $data = $r->data;
-        $ctas = $this->parseData($data);
-        $this->ac->activateCuentas($ctas);
-        $count = count($ctas);
-        $msg = $count . 'cuentas activadas.';
+        $cuentas = $this->parseData($data);
+        $count = $this->ac->activateCuentas($cuentas);
+        $msg = $count['active'] . 'cuentas activadas de ' . count($cuentas);
         $view = view('activar')->with('msg', $msg);
         return $view;
     }
@@ -51,10 +50,12 @@ class ActivarController extends Controller
      */
     public function inactivar(Request $r) {
         $data = $r->data;
-        $ctas = $this->parseData($data);
-        $this->ac->inactivateCuentas($ctas);
-        $count = count($ctas);
-        $msg = $count . 'cuentas inactivadas.';
+        /**
+         * @var array
+         */
+        $cuentas = $this->parseData($data);
+        $count = $this->ac->inactivateCuentas($cuentas);
+        $msg = $count['inactive'] . 'cuentas inactivadas de ' . count($cuentas);
         $view = view('inactivar')->with('msg', $msg);
         return $view;
     }
@@ -63,7 +64,7 @@ class ActivarController extends Controller
      *
      * @return View
      */
-    public function actShow() {
+    public function activeShow() {
         $view = view('activar')->with('msg', '');
         return $view;
     }
@@ -72,7 +73,7 @@ class ActivarController extends Controller
      *
      * @return View
      */
-    public function inactShow() {
+    public function inactiveShow() {
         $view = view('inactivar')->with('msg', '');
         return $view;
     }

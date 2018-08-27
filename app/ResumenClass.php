@@ -107,7 +107,7 @@ SQL;
     /**
      * @param $mytipo
      * @return string[]
-     * @throws \UnexpectedValueException
+     * @throws \Exception
      */
     public function getDict($mytipo)
     {
@@ -132,7 +132,7 @@ SQL;
                     . "order by dictamen";
                 break;
             default:
-                throw new UnexpectedValueException('Tipo de usuario no es correcto.');
+                throw new \Exception('Tipo de usuario no es correcto.');
         }
         $result = $this->pdo->query($query);
         $all = $result->fetchAll();

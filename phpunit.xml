@@ -20,7 +20,16 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
+            <exclude>
+                <directory suffix=".php">vendor</directory>
+            </exclude>
         </whitelist>
+        <blacklist>
+            <directory>bootstrap</directory>
+            <directory>config</directory>
+            <directory>storage</directory>
+            <directory>vendor</directory>
+        </blacklist>
     </filter>
     <php>
         <env name="APP_ENV" value="testing"/>

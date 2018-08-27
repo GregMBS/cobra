@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use App\Dictamen;
 use App\ResumenClass;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ResumenClassTest extends TestCase
 {
@@ -74,6 +72,9 @@ class ResumenClassTest extends TestCase
         $this->assertEquals(0, $id_cuenta);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetDict()
     {
         $rc = new ResumenClass();
@@ -89,10 +90,8 @@ class ResumenClassTest extends TestCase
         $this->assertNotContains('TEL OCUPADA', $dictamenes);
         $this->assertContains('Habitada por familiar no valido', $dictamenes);
         $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
-        $dictamenes = $rc->getDict('');
-        $this->assertNotContains('TEL OCUPADA', $dictamenes);
-        $this->assertNotContains('Habitada por familiar no valido', $dictamenes);
-        $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
+        $this->expectExceptionMessage("Tipo de usuario no es correcto.");
+        $rc->getDict('');
     }
 
     public function testGetDictV()
