@@ -116,7 +116,7 @@ SQL;
             $stm->execute();
             $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            dd($e->getMessage(), $stm);
+            $result = [];
         }
 
         return $result;
