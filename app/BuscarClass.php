@@ -28,25 +28,19 @@ SQL;
      *
      * @var string
      */
-    private $telstringNorm = <<<SQL
-WHERE (concat_ws('', tel_1, tel_2, tel_3, tel_4, tel_1_alterno, tel_2_alterno, tel_3_alterno, tel_4_alterno, tel_1_laboral, tel_2_laboral, tel_1_verif, tel_2_verif, tel_3_verif, tel_4_verif) regexp :find) 
-SQL;
+    private $telstring = "WHERE (concat_ws(',', tel_1, tel_2, tel_3, tel_4) regexp :find)";
 
     /**
      *
      * @var string
      */
-    private $telstringRef1 = <<<SQL
- OR (id_cuenta IN (SELECT id_cuenta FROM referencias WHERE tel_1 REGEXP :find)) 
-SQL;
+    private $telstring1 = " JOIN referencias USING (id_cuenta)";
 
     /**
      *
      * @var string
      */
-    private $telstringRef2 = <<<SQL
- OR (id_cuenta IN (SELECT id_cuenta FROM referencias WHERE tel_2 REGEXP :find))
-SQL;
+    private $telstring2 = " WHERE (concat_ws(',', referencias.tel_1, referencias.tel_2) regexp :find)";
 
 
     /**
@@ -82,7 +76,10 @@ SQL;
                 $output = "where domicilio_deudor regexp :find ";
                 break;
             case 'TELS':
-                $output = $this->telstringNorm . $this->telstringRef1 . $this->telstringRef2;
+                $output = $this->telstring;
+                break;
+            case 'REFS':
+                $output = $this->telstring1 . $this->telstring2;
                 break;
             default:
                 $output = "where id_cuenta = :find order by id_cuenta ";
@@ -99,21 +96,21 @@ SQL;
      * @return array
      */
     public function searchAccounts($field, $find, $CLIENTE) {
+        $cliFlag = 0;
         if ($field == 'ROBOT') {
             $querymain = $this->robotstring;
         } else {
             $querymain = $this->queryhead . $this->searchField($field);
         }
-        $cliFlag = 0;
         if ((isset($querymain)) && (strlen($CLIENTE) > 1)) {
             $querymain = $querymain . " and cliente = :cliente ";
             $cliFlag = 1;
         }
         $querymain .= " LIMIT 10000";
         $stm = $this->pdo->prepare($querymain);
+        $stm->bindParam(':find', $find);
         try {
-            $stm->bindParam(':find', $find);
-            if ($cliFlag == 1) {
+            if ($cliFlag === 1) {
                 $stm->bindParam(':cliente', $CLIENTE);
             }
             $stm->execute();
