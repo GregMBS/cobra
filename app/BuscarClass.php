@@ -13,7 +13,8 @@ namespace App;
  *
  * @author gmbs
  */
-class BuscarClass extends BaseClass {
+class BuscarClass extends BaseClass
+{
 
     /**
      *
@@ -54,11 +55,12 @@ SQL;
 			WHERE c_tele REGEXP :find and c_cont=id_cuenta";
 
     /**
-     * 
+     *
      * @param string $field
      * @return string
      */
-    private function searchField($field) {
+    private function searchField($field)
+    {
         switch ($field) {
             case 'id_cuenta':
                 $output = "where id_cuenta = :find order by id_cuenta ";
@@ -89,13 +91,14 @@ SQL;
     }
 
     /**
-     * 
+     *
      * @param string $field
      * @param string $find
      * @param string $CLIENTE
      * @return array
      */
-    public function searchAccounts($field, $find, $CLIENTE) {
+    public function searchAccounts($field, $find, $CLIENTE)
+    {
         $cliFlag = 0;
         if ($field == 'ROBOT') {
             $querymain = $this->robotstring;
@@ -109,24 +112,20 @@ SQL;
         $querymain .= " LIMIT 10000";
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':find', $find);
-        try {
-            if ($cliFlag === 1) {
-                $stm->bindParam(':cliente', $CLIENTE);
-            }
-            $stm->execute();
-            $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
-            $result = [];
+        if ($cliFlag === 1) {
+            $stm->bindParam(':cliente', $CLIENTE);
         }
-
+        $stm->execute();
+        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 
     /**
-     * 
+     *
      * @return array
      */
-    public function listClients() {
+    public function listClients()
+    {
         $query = "SELECT cliente FROM clientes";
         $stc = $this->pdo->prepare($query);
         $stc->execute();
