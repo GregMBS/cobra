@@ -30,7 +30,7 @@ class TroubleController extends Controller
     public function index()
     {
         $trouble = $this->tc->listTrouble();
-        return view('troubleadmin')->with('trouble', $trouble);
+        return view('troubleAdmin')->with('trouble', $trouble);
     }
 
     /**

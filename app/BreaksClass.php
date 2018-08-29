@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 namespace App;
 
 /**
@@ -88,18 +89,13 @@ order by c_cvge,c_cvst,c_hrin";
             WHERE auto=:auto";
         try {
             $stu = $this->pdo->prepare($query);
+            $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
+            $stu->bindParam(':tipo', $tipo);
+            $stu->bindParam(':empieza', $empieza);
+            $stu->bindParam(':termina', $termina);
         } catch (\PDOException $e) {
             dd($e);
         }
-        $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
-        $stu->bindParam(':tipo', $tipo);
-        $stu->bindParam(':empieza', $empieza);
-        $stu->bindParam(':termina', $termina);
-        try {
-            $stu->execute();
-        } catch (\PDOException $e) {
-            dd($e);
-        }        
     }
 
     /**
@@ -162,16 +158,17 @@ order by c_cvge,c_cvst,c_hrin";
         $gestores = array_column($result, 'iniciales');
         return $gestores;
     }
-    
+
     /**
-     * 
+     *
      * @param string $capt
      * @return array
      */
-    public function breaksPageData($capt) {
+    public function breaksPageData($capt)
+    {
         $main = $this->getMainBreaksTable($capt);
         if ($main) {
-            $main['formatstr']	 = ' class="late"';
+            $main['formatstr'] = ' class="late"';
             $main['ntp'] = date('H:i:s');
             foreach ($main as &$m) {
                 $times = $this->getTimes($m['diff'], $m['c_cvge']);

@@ -10,6 +10,8 @@ namespace App;
 
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
+use Box\Spout\Reader\XLSX\Reader;
+use Box\Spout\Reader\XLSX\Sheet;
 
 /**
  * Description of UploadClass
@@ -22,13 +24,20 @@ class UploadClass {
 
         $data = array();
         try {
+            /**
+             * @var Reader $reader
+             */
             $reader = ReaderFactory::create(Type::XLSX);
             $reader->open($filename);
-
-            $reader->nextSheet();
+            $sheets = $reader->getSheetIterator();
+            /**
+             * @var Sheet $sheet
+             */
+            $sheet = $sheets->current();
             $i = 0;
-            while ($reader->hasNextRow()) {
-                $row = $reader->nextRow();
+            $titles = [];
+            $rows = $sheet->getRowIterator();
+            foreach ($rows as $row) {
                 if ($i == 0) {
                     $titles = $row;
                 } 

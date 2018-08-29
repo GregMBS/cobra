@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\BuscarClass;
+use View;
 
 class BuscarController extends Controller
 {
@@ -43,7 +43,6 @@ class BuscarController extends Controller
      * @param string $find
      * @param string $from
      * @param string $cliente
-     * @param int $id_cuenta
      * @return View
      */
     private function returnView($field, $find, $from, $cliente) {
@@ -52,8 +51,11 @@ class BuscarController extends Controller
         $view = view('buscar')
         ->with('field', $field)
         ->with('find', $find)
-        ->with('from', $from)
-        ->with('capt', auth()->user()->iniciales)
+        ->with('from', $from);
+        /**
+         * @var View $view
+         */
+        $view = $view->with('capt', auth()->user()->iniciales)
         ->with('result', $result)
         ->with('resultcl', $clienteList);
         return $view;

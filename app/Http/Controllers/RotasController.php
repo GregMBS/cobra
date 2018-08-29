@@ -15,7 +15,7 @@ class RotasController extends Controller
     public function index(RotasClass $rc) {
         $capt = auth()->user()->iniciales;
         $tipo = auth()->user()->tipo;
-        $result = $rc->getRotas($capt, $tipo);
+        $result = $rc->getRotas($tipo, $capt);
         $view = view('rotas')->with('result', $result)->with('tipo', $tipo);
         return $view;
     }

@@ -36,6 +36,7 @@ and queue = :queue ";
      *
      * @var string
      */
+    /*
     private $reportsubhead = "select count(1) as ctt,
 sum(fecha_ultima_gestion>curdate()) as ctd,
 sum(fecha_ultima_gestion>curdate() - interval 6 day) as ctw,
@@ -48,7 +49,7 @@ from resumen
 join dictamenes on status_aarsa=dictamen
 where cliente = :cliente
 and queue = :queue ";
-
+*/
     /**
      *
      * @param string $CLIENTE

@@ -120,7 +120,7 @@ select distinct cliente,sdc from queuelist";
 	 * @param  string $cliente  [description]
 	 * @param  string $segmento [description]
 	 */
-	public function inactivateSegmento($cliente, $segmento) {
+	public function inactivarSegmento($cliente, $segmento) {
 		$query = "update resumen
 set status_de_credito = concat(status_de_credito,'-inactivo')
 where status_de_credito = :segmento

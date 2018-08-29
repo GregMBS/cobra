@@ -133,14 +133,13 @@ AND NOT EXISTS (
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
-    
-/**
-     *
-     * @param string $capt
-     * @param string $d_prom
+
+    /**
+     * @param $tipo
+     * @param $capt
      * @return array
      */
-    public function getRotas($capt, $tipo)
+    public function getRotas($tipo, $capt)
     {
         $result = [];
         $fromResumen = $this->fromResumen();

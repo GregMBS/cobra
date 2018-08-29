@@ -10,6 +10,7 @@ use App\GestionClass;
 use Illuminate\Contracts\View\View;
 use App\NotaClass;
 use App\ReferenciaClass;
+use Validator;
 
 class ResumenController extends Controller
 {
@@ -91,6 +92,7 @@ class ResumenController extends Controller
     /**
      *
      * @return View
+     * @throws \Exception
      */
     public function ultima()
     {
@@ -107,6 +109,7 @@ class ResumenController extends Controller
      * 
      * @param int $id_cuenta
      * @return View
+     * @throws \Exception
      */
     public function find($id_cuenta)
     {
@@ -130,10 +133,11 @@ class ResumenController extends Controller
     /**
      * @param Request $r
      * @return View
+     * @throws \Exception
      */
     public function capture(Request $r)
     {
-        $r->validate($this->visitValidator);
+        Validator::make($r->all(), $this->visitValidator);
         $vc = new ValidationClass();
         $valid = $vc->countVisitErrors($r->all());
         if ($valid->flag) {
@@ -145,9 +149,9 @@ class ResumenController extends Controller
     }
 
     /**
-     *
      * @param Request $r
      * @return View
+     * @throws \Exception
      */
     public function addNew(Request $r)
     {
@@ -159,13 +163,13 @@ class ResumenController extends Controller
     }
 
     /**
-     * 
      * @param Request $r
      * @return View
+     * @throws \Exception
      */
     public function gestion(Request $r)
     {
-        $r->validate($this->gestionValidator);
+        Validator::make($r->all(), $this->gestionValidator);
         $vc = new ValidationClass();
         $valid = $vc->countGestionErrors($r->all());
         if ($valid->flag) {
@@ -179,6 +183,7 @@ class ResumenController extends Controller
     /**
      *
      * @return View
+     * @throws \Exception
      */
     public function index()
     {
@@ -191,16 +196,16 @@ class ResumenController extends Controller
         $view = $this->buildView($result, $history, $from, $capt);
         return $view;
     }
-    
+
     /**
-     * 
      * @param array $result
      * @param array $history
      * @param string $from
      * @param string $capt
-     * @return View
+     * @return mixed
+     * @throws \Exception
      */
-    private function buildView($result, $history, $from, $capt) {
+    private function buildView(array $result, array $history, $from, $capt) {
         $id_cuenta = $result['id_cuenta'];
         $tipo = auth()->user()->tipo;
         $camp = auth()->user()->camp;
@@ -224,6 +229,7 @@ class ResumenController extends Controller
          * @var View
          */
         $baseView = view('resumen');
+        /** @noinspection PhpUndefinedMethodInspection */
         $view = $baseView
         ->with('r', $result)
         ->with('history', $history)

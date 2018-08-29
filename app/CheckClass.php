@@ -156,6 +156,9 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :id_cuenta)";
         $interval = new \DateInterval('P1D');
         $daterange = new \DatePeriod($begin, $interval, $end);
 
+        /**
+         * @var \DateTime $date
+         */
         foreach ($daterange as $date) {
             $output[] = $date->format("Y-m-d");
         }

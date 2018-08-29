@@ -6,7 +6,6 @@ use App\QuickBreaksClass;
 use App\QuickHoyClass;
 use App\QuickPorHoraClass;
 use Illuminate\Support\Facades\View;
-use Illuminate\Http\Request;
 
 class QuickController extends Controller
 {
@@ -35,11 +34,7 @@ class QuickController extends Controller
      */
     private $qp;
     
-    /**
-     * 
-     * @param Request $r
-     */
-    public function __construct(Request $r)
+    public function __construct()
     {
         $this->qa = new QuickAhoraClass();
         $this->qh = new QuickHoyClass();
@@ -60,8 +55,8 @@ class QuickController extends Controller
         $view = view('quick')
         ->with('resultAhora', $resultAhora)
         ->with('resultHoy', $resultHoy)
-        ->with('resultBreaks', $resultBreaks)
-        ->with('resultPorHora', $resultPorHora);
+        ->with('resultBreaks', $resultBreaks);
+        $view = $view->with('resultPorHora', $resultPorHora);
         return $view;
     }
 }

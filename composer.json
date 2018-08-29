@@ -9,8 +9,8 @@
 	"type" : "project",
 	"require" : {
 		"php": ">=7.0.0",
-		"ext-PDO": "^7.2",
-		"ext-json": "^1.6",
+		"ext-PDO": "*",
+		"ext-json": "*",
 		"barryvdh/laravel-ide-helper": "^2.4",
 		"box/spout": "~2.7",
 		"fideloper/proxy": "~3.3",

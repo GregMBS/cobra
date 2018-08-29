@@ -364,6 +364,31 @@ and id_cuenta = :c_cont";
     }
 
     /**
+     * 90 days
+     *
+     * @param string $C_CVST
+     * @param int $C_CONT
+     * @return string
+     */
+    private function getBest($C_CVST, $C_CONT)
+    {
+        $best = $C_CVST;
+        $querybest = "select c_cvst,v_cc from historia,dictamenes"
+            . " where c_cvst=dictamen and c_cont = :C_CONT"
+            . " and d_fech>last_day(curdate()-interval 90 day)"
+            . " order by v_cc LIMIT 1";
+        $stb = $this->pdo->prepare($querybest);
+        $stb->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $result = $stb->fetch(\PDO::FETCH_ASSOC);
+        if (isset($result['c_cvst'])) {
+            $best = $result['c_cvst'];
+        }
+        return $best;
+    }
+
+
+
+    /**
      * 
      * @param array $gestion
      * @return ValidationErrorClass

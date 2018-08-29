@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Box\Spout\Writer\Common\Sheet;
+use Box\Spout\Writer\XLSX\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\IntensidadClass;
@@ -26,6 +28,7 @@ class IntensidadController extends Controller
      * @throws \Box\Spout\Common\Exception\InvalidArgumentException
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     * @throws \Box\Spout\Writer\Exception\InvalidSheetNameException
      */
     public function makeReport(Request $r) {
         $fechaArray = array($r->fecha1, $r->fecha2);
@@ -44,8 +47,14 @@ class IntensidadController extends Controller
             $output[] = $row;
             $i++;
         }
+        /**
+         * @var Writer $writer
+         */
         $writer = WriterFactory::create(Type::XLSX);
         $writer->openToBrowser($filename); // stream data directly to the browser
+        /**
+         * @var Sheet $sheet
+         */
         $sheet = $writer->getCurrentSheet();
         $sheet->setName('PorCuenta');
         $writer->addRows($output); // add multiple rows at a time

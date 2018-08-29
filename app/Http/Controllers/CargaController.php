@@ -111,6 +111,7 @@ class CargaController extends Controller
             array_shift($csv); // remove column header
             $firstRow = true;
             $countUpload = 0;
+            $header = [];
             foreach ($csv as $row) {
                 if ($firstRow) {
                     $this->validateHeader(array_keys($row));

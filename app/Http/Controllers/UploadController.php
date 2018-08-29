@@ -45,7 +45,7 @@ class UploadController extends Controller
         $INFONAVIT = new InfonavitClass($data);
         $gestion = $INFONAVIT->getGestion();
         $this->hc->insertGestiones($gestion);
-        $view = view('INFONAVITupload');
+        $view = view('INFONAVITUpload');
         return $view;
     }
 }
