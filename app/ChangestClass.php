@@ -16,27 +16,44 @@ namespace App;
 class ChangestClass extends BaseClass {
 
     /**
-     * 
-     * @param string $TAGS
+     *
+     * @param bool $inactivo
      * @param int $C_CONT
+     * @return bool
      */
-    public function updateResumen($TAGS, $C_CONT) {
-        $queryup = "UPDATE resumen
+    public function updateResumen($inactivo, $C_CONT) {
+        $tags = $this->getTags($C_CONT, $inactivo);
+        $query = "UPDATE resumen
 SET status_de_credito=:tags
 WHERE id_cuenta=:C_CONT";
-        $stu = $this->pdo->prepare($queryup);
-        $stu->bindParam(':tags', $TAGS);
+        $stu = $this->pdo->prepare($query);
+        $stu->bindParam(':tags', $tags);
         $stu->bindParam(':C_CONT', $C_CONT);
         $stu->execute();
+        $queryCheck = "SELECT COUNT(1) as ct FROM resumen 
+WHERE status_de_credito=:tags
+AND id_cuenta=:C_CONT";
+        $stc = $this->pdo->prepare($queryCheck);
+        $stc->bindParam(':tags', $tags);
+        $stc->bindParam(':C_CONT', $C_CONT);
+        $stc->execute();
+        $count = $stc->fetch(\PDO::FETCH_ASSOC);
+        return ($count['ct'] === 1);
     }
     
     /**
      * 
-     * @param string $sdc
+     * @param int $C_CONT
      * @param bool $inactivo
      * @return string
      */
-    public function getTags($sdc,$inactivo) {
+    private function getTags($C_CONT, $inactivo) {
+        $query = "SELECT status_de_credito FROM resumen where id_cuenta = :id_cuenta";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':id_cuenta', $C_CONT, \PDO::PARAM_INT);
+        $stq->execute();
+        $cuenta = $stq->fetch(\PDO::FETCH_ASSOC);
+        $sdc = $cuenta['status_de_credito'];
         $tagArray      = explode('-', $sdc);
         $trimmed       = trim($tagArray[0]);
         if ($inactivo) {
@@ -45,29 +62,6 @@ WHERE id_cuenta=:C_CONT";
             $TAGS = $trimmed;
         }
         return $TAGS;
-    }
-
-    /**
-     * 
-     * @param string $field
-     * @param string $find
-     * @param string $CLIENTE
-     * @return array
-     */
-    public function getReport($field, $find, $CLIENTE) {
-        $bc = new BuscarClass();
-        $result = $bc->searchAccounts($field, $find, $CLIENTE);
-        return $result;
-    }
-
-    /**
-     * 
-     * @return string[]
-     */
-    public function listClientes() {
-        $bc = new BuscarClass();
-        $resultcl = $bc->listClients();
-        return $resultcl;
     }
 
 }

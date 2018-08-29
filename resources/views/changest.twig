@@ -41,15 +41,12 @@
 				<td>{{ row.nombre_deudor }}</td>
 				<td>{{ row.cliente }}</td>
 				<td>{{ row.status_de_credito }}<br>
-					<form method='get' action='changest' name='{{ row.id_cuenta }}'>
+					<form method='post' action='changest' name='{{ row.id_cuenta }}'>
 						INACTIVO<input type="checkbox" name="inactivo" value="inactivo"
 							{% if row.status_de_credito matches '/-/' %} checked=checked
-							{% endif %} /> <input type="hidden" name="C_CONT"
-							value="{{ row.id_cuenta }}"> <input type="hidden"
-							name="CLIENTE" value="{{ row.cliente }}"> <input
-							type="hidden" name="SDC" value="{{ row.status_de_credito }}">
-						<input type="hidden" name="capt" value="{{ capt }}"> <input
-							type="submit" name="go" value="CAMBIAR">
+							{% endif %} />
+						<input type="hidden" name="C_CONT" value="{{ row.id_cuenta }}">
+						<input type="submit" name="go" value="CAMBIAR">
 					</form></td>
 			</tr>
 			{% endfor %}

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\BuscarClass;
 use App\ChangestClass;
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+use View;
 
 class ChangestController extends Controller
 {
@@ -36,12 +37,9 @@ class ChangestController extends Controller
         $field     = 'id_cuenta';
         $find      = $r->C_CONT;
         $from = $r->path();
-        $cliente = $r->cliente;
-        $sdc = $r->sdc;
         $inactivo = $r->has('inactivo');
-        $tags = $this->cc->getTags($sdc, $inactivo);
-        $this->cc->updateResumen($tags, $find);
-        $view = $this->returnView($field, $find, $from, $cliente);
+        $this->cc->updateResumen($inactivo, $find);
+        $view = $this->returnView($field, $find, $from, '');
         return $view;
     }
     
@@ -55,10 +53,11 @@ class ChangestController extends Controller
      */
     private function returnView($field, $find, $from, $cliente) {
         $result = [];
+        $bc = new BuscarClass();
         if (!empty($find)) {
-            $result = $this->cc->getReport($field, $find, $cliente);
+            $result = $bc->searchAccounts($field, $find, $cliente);
         }
-        $clienteList = $this->cc->listClientes();
+        $clienteList = $bc->listClients();
         $view = view('changest')
         ->with('field', $field)
         ->with('find', $find)
