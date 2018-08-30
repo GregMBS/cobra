@@ -81,8 +81,8 @@ class BigGestionClassTest extends TestCase
     {
         $r = new Request();
         $dataClass = new BigDataClass($r);
-        $dataClass->gestor = 'todos';
-        $dataClass->cliente = 'todos';
+        $dataClass->gestor = 'aaron';
+        $dataClass->cliente = 'CARTERA';
         $bc = new BigGestionClass();
         $report = $bc->getAllGestiones($dataClass);
         $first = $report[0];
@@ -107,4 +107,14 @@ class BigGestionClassTest extends TestCase
         $this->assertNotEmpty($gestores);
     }
 
+    public function testGestionDates()
+    {
+        $bc = new BigGestionClass();
+        $dirs = ['asc', 'ASC', 'desc', 'DESC', ''];
+        foreach ($dirs as $dir) {
+            $dates = $bc->getGestionDates($dir);
+            $this->assertInternalType('array', $dates);
+            $this->assertNotEmpty($dates);
+        }
+    }
 }
