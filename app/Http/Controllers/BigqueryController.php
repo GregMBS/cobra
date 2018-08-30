@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\BigClass;
+use App\BigGestionClass;
 use App\BigDataClass;
 use App\OutputClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 class BigqueryController extends Controller
 {
     /**
      * 
-     * @var BigClass
+     * @var BigGestionClass
      */
     private $bc;
     
     public function __construct() {
-        $this->bc = new BigClass();
+        $this->bc = new BigGestionClass();
     }
 
     /**

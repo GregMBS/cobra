@@ -3,9 +3,8 @@
 namespace App;
 
 /**
- * Description of BigClass
- *
- * @author gmbs
+ * Class QuickAhoraClass
+ * @package App
  */
 class QuickAhoraClass extends BaseClass
 {

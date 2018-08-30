@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\BigClass;
+use App\BigPromClass;
 use App\BigDataClass;
 use App\OutputClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 class BigpromsController extends Controller
 {
     /**
      * 
-     * @var BigClass
+     * @var BigPromClass
      */
     private $bc;
     
     public function __construct() {
-        $this->bc = new BigClass();
+        $this->bc = new BigPromClass();
     }
 
     /**
@@ -43,8 +43,8 @@ class BigpromsController extends Controller
      * @return View
      */
     public function index() {
-        $gestores = $this->bc->getGestionGestores();
-        $clientes = $this->bc->getGestionClientes();
+        $gestores = $this->bc->getPromGestores();
+        $clientes = $this->bc->getPromClientes();
         return view('bigproms')
         ->with('gestores', $gestores)
         ->with('clientes', $clientes);

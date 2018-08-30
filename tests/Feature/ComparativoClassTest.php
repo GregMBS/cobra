@@ -3,14 +3,14 @@
 namespace Tests\Feature;
 
 use App\ComparativoClass;
-use Tests\TestCase;
+use Tests\ReportTest;
 
-class ComparativoClassTest extends TestCase
+class ComparativoClassTest extends ReportTest
 {
     /**
      * @var array
      */
-    private $keys = [
+    protected $keys = [
         "c_cvba",
         "mdf",
         "sg",
@@ -20,19 +20,11 @@ class ComparativoClassTest extends TestCase
         "ch"
     ];
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    protected $class;
+
     public function testGetReport()
     {
-        $cc = new ComparativoClass();
-        $report = $cc->getReport();
-        $this->assertGreaterThan(0, count($report));
-        $first = $report[0];
-        $keys = array_keys($first);
-        $this->assertEquals(count($this->keys), count($keys));
-        $this->assertEquals($this->keys, $keys);
+        $this->class = new ComparativoClass();
+        parent::testGetReport();
     }
 }

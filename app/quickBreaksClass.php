@@ -3,7 +3,7 @@
 namespace App;
 
 /**
- * Description of BigClass
+ * Description of QuickBreaksClass
  *
  * @author gmbs
  */
