@@ -62,6 +62,7 @@ class BigGestionClass extends BaseClass
      * @param BigDataClass $bdc
      * @return array
      */
+    /*
     public function getBigGestiones(BigDataClass $bdc)
     {
         $queryFront = "SELECT numero_de_cuenta as 'cuenta',
@@ -84,7 +85,7 @@ where d_fech between :fecha1 and :fecha2
         $data = $this->getHistoria($queryFront, $queryBack, $bdc);
         return $data;
     }
-
+*/
     /**
      *
      * @param BigDataClass $bdc
@@ -99,7 +100,7 @@ join dictamenes on status_aarsa=dictamen
 where d_fech between :fecha1 and :fecha2
 ";
 
-        $queryBack = "and status_de_credito not like '%tivo'
+        $queryBack = "and status_de_credito not regexp '-'
 ORDER BY d_fech,c_hrin";
         $data = $this->getHistoria($queryFront, $queryBack, $bdc);
         return $data;
