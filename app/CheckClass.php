@@ -133,17 +133,6 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :id_cuenta)";
     }
 
     /**
-     *
-     * @return array
-     */
-    public function getVisitadores()
-    {
-        $query = "SELECT iniciales,completo FROM users where tipo IN ('visitador','admin')";
-        $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    /**
      * @return array
      * @throws \Exception
      */
@@ -213,23 +202,6 @@ SQL;
         $stm->execute();
         $resultmain = $stm->fetchAll();
         return $resultmain;
-    }
-
-    /**
-     *
-     * @param string $gestor
-     * @return string
-     */
-    public function getCompleto($gestor)
-    {
-        $query = "SELECT completo FROM users
-            WHERE iniciales=:gestor
-            LIMIT 1";
-        $stn = $this->pdo->prepare($query);
-        $stn->bindParam(':gestor', $gestor);
-        $stn->execute();
-        $resultn = $stn->fetch(\PDO::FETCH_ASSOC);
-        return $resultn['completo'];
     }
 
     public function updateVasign()

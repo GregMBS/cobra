@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\NotaClass;
+use App\ResumenClass;
+use App\UserClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -13,10 +15,23 @@ class NotaController extends Controller
      * @var NotaClass
      */
     private $nc;
-    
-        
+
+    /**
+     *
+     * @var UserClass
+     */
+    private $uc;
+
+    /**
+     *
+     * @var ResumenClass
+     */
+    private $rc;
+
     public function __construct() {
         $this->nc = new NotaClass();
+        $this->uc = new UserClass();
+        $this->rc = new ResumenClass();
     }
     
     /**
@@ -26,7 +41,7 @@ class NotaController extends Controller
      */
     public function index($id_cuenta = 0)
     {
-        $cuenta = $this->nc->getCuentaFromId($id_cuenta);
+        $cuenta = $this->rc->getCuentaFromId($id_cuenta);
         $capt = auth()->user()->iniciales;
         $notas = $this->nc->listMyNotas($capt);
         $view = view('notas')
@@ -44,9 +59,9 @@ class NotaController extends Controller
      */
     public function indexAdmin($id_cuenta = 0)
     {
-        $cuenta = $this->nc->getCuentaFromId($id_cuenta);
+        $cuenta = $this->rc->getCuentaFromId($id_cuenta);
         $notas = $this->nc->listAllNotas();
-        $gestores = $this->nc->listUsers();
+        $gestores = $this->uc->listUsers();
         $view = view('notadmin')
         ->with('gestores', $gestores)
         ->with('cuenta', $cuenta)
@@ -77,7 +92,7 @@ class NotaController extends Controller
         $D_FECH = date('Y-m-d');
         $C_HORA = date('H:i:s');
         $C_CONT = $r->C_CONT;
-        $cuenta = $this->nc->getCuentaFromId($C_CONT);
+        $cuenta = $this->rc->getCuentaFromId($C_CONT);
         $FECHA = $r->fecha;
         $HORA = $r->hora.':'.$r->min;
         $NOTA = $r->nota;

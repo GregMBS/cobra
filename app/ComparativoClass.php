@@ -20,7 +20,8 @@ class ComparativoClass extends BaseClass {
      * @return array
      */
     public function getReport() {
-        $querymain = "select c_cvba, mdf, sum(gest) as sg, sum(contact) as sc,
+        $querymain = <<<SQL
+select c_cvba, mdf, sum(gest) as sg, sum(contact) as sc,
     sum(prom) as sp, count(distinct c_cvge) as cg,
     count(distinct c_cvge,hour(c_hrin)) as ch
 from (
@@ -32,8 +33,8 @@ from historia where d_fech>=curdate()-interval 3 month
 and day(d_fech)<day(curdate())
 and c_cont>0
 group by c_cvba,mdf,c_cont,c_cvge,c_hrin) as tmp
-group by c_cvba,mdf;
-";
+group by c_cvba,mdf
+SQL;
         $result = $this->pdo->query($querymain);
         return $result->fetchAll(\PDO::FETCH_ASSOC);
     }

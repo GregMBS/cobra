@@ -48,12 +48,13 @@ SQL;
      *
      * @var string
      */
+    /*
     private $robotstring = "SELECT SQL_NO_CACHE
 			distinct numero_de_cuenta,nombre_deudor, cliente,
 			id_cuenta, status_de_credito
 			FROM resumen, historia
 			WHERE c_tele REGEXP :find and c_cont=id_cuenta";
-
+    */
     /**
      *
      * @param string $field
@@ -100,11 +101,8 @@ SQL;
     public function searchAccounts($field, $find, $CLIENTE)
     {
         $cliFlag = 0;
-        if ($field == 'ROBOT') {
-            $querymain = $this->robotstring;
-        } else {
-            $querymain = $this->queryhead . $this->searchField($field);
-        }
+        $querymain = $this->queryhead . $this->searchField($field);
+
         if ((isset($querymain)) && (strlen($CLIENTE) > 1)) {
             $querymain = $querymain . " and cliente = :cliente ";
             $cliFlag = 1;

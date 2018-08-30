@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\UserClass;
 use Illuminate\Support\Facades\View;
 use App\BreaksClass;
 use Illuminate\Http\Request;
@@ -13,9 +14,16 @@ class BreaksController extends Controller
      * @var BreaksClass
      */
     private $bc;
-    
+
+    /**
+     *
+     * @var UserClass
+     */
+    private $uc;
+
     public function __construct() {
         $this->bc = new BreaksClass();
+        $this->uc = new UserClass();
     }
     
     /**
@@ -35,7 +43,7 @@ class BreaksController extends Controller
      */
     public function admindex() {
         $breaks = $this->bc->listBreaks();
-        $gestores = $this->bc->listGestores();
+        $gestores = $this->uc->listUsers();
         $view = view('breakadmin')
         ->with('breaks', $breaks)
         ->with('gestores', $gestores);

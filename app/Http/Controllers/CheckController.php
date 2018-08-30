@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CheckClass;
+use App\UserClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -13,9 +14,16 @@ class CheckController extends Controller
      * @var CheckClass
      */
     private $cc;
-    
+
+    /**
+     *
+     * @var UserClass
+     */
+    private $uc;
+
     public function __construct() {
         $this->cc = new CheckClass();
+        $this->uc = new UserClass();
     }
     
     /**
@@ -63,8 +71,8 @@ class CheckController extends Controller
      * @return View
      */
     public function listing($gestor) {
-        $visitador = $this->cc->getCompleto($gestor);
-        $capt = $this->cc->getCompleto(auth()->user()->iniciales);
+        $visitador = $this->uc->getCompleto($gestor);
+        $capt = $this->uc->getCompleto(auth()->user()->iniciales);
         $list = $this->cc->listVasign($gestor);
         $cuentas = count($list);
         $saldos = array_sum(array_column($list, 'saldo_total'));
@@ -95,7 +103,7 @@ class CheckController extends Controller
      * @return View
      */
     public function checkout(array $list = [], $gestor = '', $tipo = '') {
-        $gestores = $this->cc->getVisitadores();
+        $gestores = $this->uc->getVisitadores();
         $counts = $this->cc->countInOut($gestor);
         $view = view('checkout')
         ->with('gestor', $gestor)
@@ -124,7 +132,7 @@ class CheckController extends Controller
      * @return View
      */
     public function checkin(array $list = [], $gestor = '', $tipo = '') {
-        $gestores = $this->cc->getVisitadores();
+        $gestores = $this->uc->getVisitadores();
         $counts = $this->cc->countInOut($gestor);
         $view = view('checkin')
         ->with('gestor', $gestor)
@@ -154,7 +162,7 @@ class CheckController extends Controller
      * @return View
      */
     public function checkboth(array $list = [], $gestor = '', $tipo = '', $fechaout = '') {
-        $gestores = $this->cc->getVisitadores();
+        $gestores = $this->uc->getVisitadores();
         $counts = $this->cc->countInOut($gestor);
         $view = view('checkboth')
         ->with('gestor', $gestor)
@@ -165,5 +173,22 @@ class CheckController extends Controller
         ->with('counts', $counts);
         return $view;
     }
-    
+
+    /**
+     *
+     * @param string $gestor
+     * @return string
+     */
+    public function getCompleto($gestor)
+    {
+        $query = "SELECT completo FROM users
+            WHERE iniciales=:gestor
+            LIMIT 1";
+        $stn = $this->pdo->prepare($query);
+        $stn->bindParam(':gestor', $gestor);
+        $stn->execute();
+        $resultn = $stn->fetch(\PDO::FETCH_ASSOC);
+        return $resultn['completo'];
+    }
+
 }

@@ -144,23 +144,6 @@ order by c_cvge,c_cvst,c_hrin";
 
     /**
      *
-     * @return array
-     */
-    public function listGestores()
-    {
-        $query = "SELECT iniciales FROM users 
-                    WHERE tipo <> ''
-                UNION
-                SELECT iniciales FROM nombres 
-                    WHERE tipo <> ''";
-        $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        $gestores = array_column($result, 'iniciales');
-        return $gestores;
-    }
-
-    /**
-     *
      * @param string $capt
      * @return array
      */

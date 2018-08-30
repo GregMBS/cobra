@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\UserClass;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\QueuesgClass;
@@ -14,9 +15,16 @@ class GestorQueuesController extends Controller
      */
     private $qc;
 
+    /**
+     *
+     * @var UserClass
+     */
+    private $uc;
+
     public function __construct()
     {
         $this->qc = new QueuesgClass();
+        $this->uc = new UserClass();
     }
 
     /**
@@ -33,7 +41,7 @@ class GestorQueuesController extends Controller
         $queue = $r->queue;
         $camp = $this->qc->getCamp($cliente, $queue, $sdc, $capt);
         if ($camp >= 0) {
-            $this->qc->setCamp($camp, $capt);
+            $this->uc->setCamp($camp, $capt);
             $msg = "Se elige queue " . $cliente . " " . $sdc . " " . $queue;
         }
         return $this->index($msg);

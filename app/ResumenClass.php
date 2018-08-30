@@ -455,4 +455,24 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         return $count;
     }
 
+    /**
+     *
+     * @param int $id_cuenta
+     * @return string
+     */
+    public function getCuentaFromId($id_cuenta = 0)
+    {
+        $cuenta = '';
+        if ($id_cuenta > 0) {
+            $query = "SELECT numero_de_cuenta FROM resumen 
+                    WHERE id_cuenta = :id_cuenta";
+            $stq = $this->pdo->prepare($query);
+            $stq->bindParam(':id_cuenta', $id_cuenta);
+            $stq->execute();
+            $result = $stq->fetch(\PDO::FETCH_ASSOC);
+            $cuenta = $result['numero_de_cuenta'];
+        }
+        return $cuenta;
+    }
+
 }

@@ -165,23 +165,6 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
 
     /**
      *
-     * @return array
-     */
-    public function listUsers()
-    {
-        $query = "SELECT iniciales FROM users
-                    WHERE tipo <> ''
-                UNION
-                SELECT iniciales FROM nombres
-                    WHERE tipo <> ''";
-        $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        $gestores = array_column($result, 'iniciales');
-        return $gestores;
-    }
-    
-    /**
-     *
      * @param string $capt
      * @param string $fechahora
      * @return array
@@ -218,25 +201,5 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
         }
         ;
         return $output;
-    }
-
-    /**
-     * 
-     * @param int $id_cuenta
-     * @return string
-     */
-    public function getCuentaFromId($id_cuenta = 0)
-    {
-        $cuenta = '';
-        if ($id_cuenta > 0) {
-            $query = "SELECT numero_de_cuenta FROM resumen 
-                    WHERE id_cuenta = :id_cuenta";
-            $stq = $this->pdo->prepare($query);
-            $stq->bindParam(':id_cuenta', $id_cuenta);
-            $stq->execute();
-            $result = $stq->fetch(\PDO::FETCH_ASSOC);
-            $cuenta = $result['numero_de_cuenta'];
-        }
-        return $cuenta;
     }
 }
