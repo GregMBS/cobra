@@ -90,4 +90,21 @@ class BigGestionClassTest extends TestCase
         $this->assertEquals(count($this->keys), count($keys));
         $this->assertEquals($this->keys, $keys);
     }
+
+    public function testGetGestionClientes()
+    {
+        $bc = new BigGestionClass();
+        $clientes = $bc->getGestionClientes();
+        $this->assertInternalType('array', $clientes);
+        $this->assertNotEmpty($clientes);
+    }
+
+    public function testGetGestionGestores()
+    {
+        $bc = new BigGestionClass();
+        $gestores = $bc->getGestionGestores();
+        $this->assertInternalType('array', $gestores);
+        $this->assertNotEmpty($gestores);
+    }
+
 }

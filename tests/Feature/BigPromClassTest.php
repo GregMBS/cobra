@@ -52,4 +52,20 @@ class BigPromClassTest extends TestCase
         $this->assertEquals(count($this->keys), count($keys));
         $this->assertEquals($this->keys, $keys);
     }
+
+    public function testGetPromClientes()
+    {
+        $bc = new BigPromClass();
+        $clientes = $bc->getPromClientes();
+        $this->assertInternalType('array', $clientes);
+        $this->assertNotEmpty($clientes);
+    }
+
+    public function testGetPromGestores()
+    {
+        $bc = new BigPromClass();
+        $gestores = $bc->getPromGestores();
+        $this->assertInternalType('array', $gestores);
+        $this->assertNotEmpty($gestores);
+    }
 }
