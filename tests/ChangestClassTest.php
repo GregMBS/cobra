@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\ChangestClass;
-use Tests\TestCase;
+
 
 class ChangestClassTest extends TestCase
 {

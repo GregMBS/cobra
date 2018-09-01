@@ -146,10 +146,9 @@ ORDER BY d_fech,c_hrin";
      */
     public function getGestionGestores()
     {
-        $query = "SELECT distinct c_cvge FROM historia
+        $query = "SELECT c_cvge, count(1) FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
-        order by c_cvge
-        limit 1000";
+        group by c_cvge";
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         $gestores = array_column($result, 'c_cvge');

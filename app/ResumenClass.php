@@ -131,7 +131,7 @@ SQL;
                     . "order by dictamen";
                 break;
             default:
-                throw new \Exception('Tipo de usuario no es correcto.');
+                throw new \UnexpectedValueException('Tipo de usuario no es correcto.');
         }
         $result = $this->pdo->query($query);
         $all = $result->fetchAll();
@@ -356,16 +356,18 @@ AND c_cont <> 0
      */
     public function getPromData($id_cuenta)
     {
-        $queryprom = "select n_prom as N_PROM_OLD, d_prom as D_PROM_OLD,
-    n_prom1 as N_PROM1_OLD, d_prom1 as D_PROM1_OLD,
-    n_prom2 as N_PROM2_OLD, d_prom2 as D_PROM2_OLD,
-    n_prom3 as N_PROM3_OLD, d_prom1 as D_PROM1_OLD,
-    n_prom1 as N_PROM1_OLD, d_prom1 as D_PROM1_OLD
+        $queryprom = <<<SQL
+select N_PROM as N_PROM_OLD, D_PROM as D_PROM_OLD,
+    N_PROM1 as N_PROM1_OLD, D_PROM1 as D_PROM1_OLD,
+    N_PROM2 as N_PROM2_OLD, D_PROM2 as D_PROM2_OLD,
+    N_PROM3 as N_PROM3_OLD, D_PROM3 as D_PROM3_OLD,
+    n_prom4 as N_PROM4_OLD, d_prom4 as D_PROM4_OLD
 from historia 
 where c_cont = :id_cuenta 
 and n_prom>0 
 and c_cvst like 'PROMESA DE%'
-order by d_fech desc, c_hrin desc limit 1";
+order by d_fech desc, c_hrin desc limit 1
+SQL;
         $stp = $this->pdo->prepare($queryprom);
         $stp->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $stp->execute();

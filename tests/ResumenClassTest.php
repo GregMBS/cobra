@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\Dictamen;
 use App\ResumenClass;
-use Tests\TestCase;
+
 
 class ResumenClassTest extends TestCase
 {
@@ -97,9 +97,13 @@ class ResumenClassTest extends TestCase
     public function testGetDictV()
     {
         $rc = new ResumenClass();
-        $dictamenes = $rc->getDictV();
-        $this->assertNotContains('TEL OCUPADA', $dictamenes);
-        $this->assertContains('Habitada por familiar no valido', $dictamenes);
-        $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
+        try {
+            $dictamenes = $rc->getDictV();
+            $this->assertNotContains('TEL OCUPADA', $dictamenes);
+            $this->assertContains('Habitada por familiar no valido', $dictamenes);
+            $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
+        } catch (\Exception $e) {
+            $this->assertEquals('', $e->getMessage());
+        }
     }
 }

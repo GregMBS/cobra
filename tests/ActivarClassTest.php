@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\ActivarClass;
-use Tests\TestCase;
 
 class ActivarClassTest extends TestCase
 {

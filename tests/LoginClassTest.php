@@ -1,11 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\LoginClass;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
 
 class LoginClassTest extends TestCase
 {
@@ -23,7 +21,11 @@ class LoginClassTest extends TestCase
     {
         $this->lc = new LoginClass();
         auth()->onceUsingId(1);
-        $user = auth()->user();
+        $id = auth()->id();
+        /**
+         * @var User
+         */
+        $user = User::find($id);
         $userArray = $this->lc->getUserData($user);
         $this->assertArrayHasKey('id', $userArray);
         $this->assertTrue($userArray['id'] === 1);

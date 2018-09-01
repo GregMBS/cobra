@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\BigDataClass;
 use App\BigGestionClass;
 use Illuminate\Http\Request;
-use Tests\TestCase;
+
 
 class BigGestionClassTest extends TestCase
 {
@@ -80,15 +80,40 @@ class BigGestionClassTest extends TestCase
     public function testGetAllGestiones()
     {
         $r = new Request();
+        $r->query->add(
+            [
+                'tipo' => 'visits',
+                'fecha1' => '2018-12-12',
+                'fecha2' => '2008-12-12'
+            ]
+        );
         $dataClass = new BigDataClass($r);
-        $dataClass->gestor = 'aaron';
-        $dataClass->cliente = 'CARTERA';
         $bc = new BigGestionClass();
         $report = $bc->getAllGestiones($dataClass);
-        $first = $report[0];
-        $keys = array_keys($first);
-        $this->assertEquals(count($this->keys), count($keys));
-        $this->assertEquals($this->keys, $keys);
+        if (count($report) > 0) {
+            $first = $report[0];
+            $keys = array_keys($first);
+            $this->assertEquals(count($this->keys), count($keys));
+            $this->assertEquals($this->keys, $keys);
+        }
+        $r->query->add(
+            [
+                'gestor' => 'miguel',
+                'cliente' => 'GCYC',
+                'tipo' => 'telef',
+                'fecha1' => '2018-12-12',
+                'fecha2' => '2008-12-12'
+            ]
+        );
+        $dataClass = new BigDataClass($r);
+        $bc = new BigGestionClass();
+        $report = $bc->getAllGestiones($dataClass);
+        if (count($report) > 0) {
+            $first = $report[0];
+            $keys = array_keys($first);
+            $this->assertEquals(count($this->keys), count($keys));
+            $this->assertEquals($this->keys, $keys);
+        }
     }
 
     public function testGetGestionClientes()

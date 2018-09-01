@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\ComparativoClass;
-use Tests\ReportTest;
+
 
 class ComparativoClassTest extends ReportTest
 {

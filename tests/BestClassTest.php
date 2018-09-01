@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\BestClass;
-use Tests\ReportTest;
 
 class BestClassTest extends ReportTest
 {

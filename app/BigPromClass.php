@@ -42,7 +42,7 @@ class BigPromClass extends BaseClass
         $start = "SELECT distinct d_prom FROM historia
         where d_fech>last_day(curdate()-interval 5 week)
         and n_prom > 0
-        ORDER BY d_fech ";
+        ORDER BY d_prom ";
         $end = " limit 60";
         $query = $start . $dir . $end;
         $stq = $this->pdo->prepare($query);
@@ -79,7 +79,8 @@ and d_prom between :fecha3 and :fecha4
 and not exists (select * from historia h2 where h1.c_cont=h2.c_cont
 and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
 SQL;
-        $end = " and status_de_credito NOT REGEXP '-' and c_cniv is null ORDER BY d_fech,c_hrin";
+        $end = " and status_de_credito NOT REGEXP '-' and c_visit is null 
+        ORDER BY d_fech,c_hrin";
         $querymain = $start . $gestorstr . $clientestr . $end;
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':fecha1', $bdc->fecha1);
@@ -133,11 +134,10 @@ SQL;
      */
     public function getPromGestores()
     {
-        $query = "SELECT distinct c_cvge FROM historia
+        $query = "SELECT c_cvge, count(1) FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         and N_PROM>0
-        order by c_cvge
-        limit 1000";
+        group by c_cvge";
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         $gestores = array_column($result, 'c_cvge');

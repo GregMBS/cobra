@@ -41,18 +41,6 @@ and c_hrin>:tiempo";
     /**
      *
      * @param string $capt
-     */
-    public function clearUserlog($capt)
-    {
-        $queryl = "delete from userlog where gestor = :capt";
-        $sdl = $this->pdo->prepare($queryl);
-        $sdl->bindParam(':capt', $capt);
-        $sdl->execute();
-    }
-
-    /**
-     *
-     * @param string $capt
      * @return array
      */
     private function getMainBreaksTable($capt)

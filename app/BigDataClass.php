@@ -159,13 +159,7 @@ class BigDataClass
             case 'telef':
                 $tipostr = " and c_visit IS NULL and c_msge is null ";
                 break;
-            case 'admin':
-                $tipostr = " and c_msge <> '' ";
-                break;
-            case 'noadmin':
-                $tipostr = " and c_msge IS NULL ";
-                break;
-            default :
+           default :
                 $tipostr = " ";
                 break;
         }

@@ -1,11 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\ValidationClass;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ValidationClassTest extends TestCase
 {
