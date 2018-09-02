@@ -75,18 +75,22 @@ class SegmentadminClass extends BaseClass {
 	 * @return array
 	 */
 	public function listQueuedSegmentos() {
-		$querytempr = "create temporary table csdcr
-select cliente, status_de_credito, count(id_cuenta) as counter from resumen
-where status_de_credito not regexp '-'
-group by cliente, status_de_credito";
+		$querytempr = <<<SQL
+CREATE TEMPORARY TABLE csdcr
+SELECT cliente, status_de_credito, COUNT(id_cuenta) AS counter FROM resumen
+WHERE status_de_credito NOT REGEXP '-'
+GROUP BY cliente, status_de_credito
+SQL;
 		$this->pdo->query($querytempr);
-		$query = "SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, min(q.auto) as id
+		$query = <<<SQL
+SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, min(q.auto) as id
     FROM queuelist q
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
     group by q.cliente,sdc
-    ";
+    
+SQL;
 		$stq = $this->pdo->query($query);
 		$result = $stq->fetchAll(\PDO::FETCH_BOTH);
 		return $result;

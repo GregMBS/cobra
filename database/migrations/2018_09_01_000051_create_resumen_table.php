@@ -132,14 +132,14 @@ class CreateResumenTable extends Migration
             $table->string('nrpp', 11)->nullable()->default(null);
             $table->string('parentesco_aval')->nullable()->default(null);
             $table->tinyInteger('localizar')->nullable()->default(null);
-            $table->dateTime('fecha_ultima_gestion')->default('0000-00-00 00:00:00');
+            $table->dateTime('fecha_ultima_gestion')->default('2001-01-01 00:00:00');
             $table->string('empresa')->nullable()->default(null);
             $table->dateTime('timelock')->nullable()->default(null);
             $table->string('locker')->nullable()->default(null);
             $table->date('fecha_convenio')->nullable()->default(null);
             $table->tinyInteger('especial')->default('0');
             $table->string('direccion_nueva')->nullable()->default(null);
-            $table->dateTime('norobot')->default('0000-00-00 00:00:00');
+            $table->dateTime('norobot')->default('2001-01-01 00:00:00');
 
             $table->index(["locker", "timelock"], 'whose');
 

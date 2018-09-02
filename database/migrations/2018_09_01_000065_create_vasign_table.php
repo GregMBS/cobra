@@ -25,7 +25,7 @@ class CreateVasignTable extends Migration
             $table->engine = 'MyISAM';
             $table->increments('auto');
             $table->string('cuenta');
-            $table->string('gestor');
+            $table->string('gestor', 255);
             $table->dateTime('fechaout');
             $table->dateTime('fechain')->nullable()->default(null);
             $table->integer('c_cont');

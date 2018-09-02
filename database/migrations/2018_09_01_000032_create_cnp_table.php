@@ -23,7 +23,7 @@ class CreateCnpTable extends Migration
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'MyISAM';
-            $table->string('status')->nullable()->default(null);
+            $table->string('status', 255)->nullable()->default(null);
             $table->increments('auto');
             $table->string('acr')->nullable()->default(null);
 

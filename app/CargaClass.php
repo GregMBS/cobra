@@ -176,7 +176,8 @@ class CargaClass extends BaseClass
     public function insertIntoResumen(array $columnNames)
     {
         $fields = implode(',', $columnNames);
-        $queryins = "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
+        /** @var string $queryins */
+        $queryins = "insert ignore into resumen ($fields) select $fields from temp";
 
         try {
             $sti = $this->pdo->prepare($queryins);
@@ -191,7 +192,7 @@ class CargaClass extends BaseClass
      */
     public function updateClientes()
     {
-        $query = "INSERT IGNORE INTO clientes " . "SELECT cliente FROM resumen";
+        $query = "INSERT IGNORE INTO clientes SELECT cliente FROM resumen";
         $this->pdo->query($query);
     }
 

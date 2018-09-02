@@ -226,4 +226,22 @@ SQL;
         $sti->bindParam(':id_cuenta', $C_CONT);
         $sti->execute();
     }
+
+    /**
+     *
+     * @param string $gestor
+     * @return string
+     */
+    public function getCompleto($gestor)
+    {
+        $query = "SELECT completo FROM users
+            WHERE iniciales=:gestor
+            LIMIT 1";
+        $stn = $this->pdo->prepare($query);
+        $stn->bindParam(':gestor', $gestor);
+        $stn->execute();
+        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        return $result['completo'];
+    }
+
 }

@@ -23,7 +23,7 @@ class CreateHistgestTable extends Migration
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('auto')->default('0');
+            $table->integer('auto')->default('0');
             $table->string('c_cvge')->nullable()->default(null);
 
             $table->index(["auto", "c_cvge"], 'cover');

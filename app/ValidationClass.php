@@ -155,7 +155,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
             array(
                 ($gestion['N_PAGO'] == 0),
                 (in_array($gestion['C_CVST'], $this->paid)),
-                '<ago necesita monto<br>'
+                'pago necesita monto<br>'
             ),
             array(
                 ($gestion['N_PROM'] == 0),

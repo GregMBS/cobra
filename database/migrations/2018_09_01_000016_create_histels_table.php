@@ -23,7 +23,7 @@ class CreateHistelsTable extends Migration
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('htel')->default('');
+            $table->string('htel')->default('');
         });
     }
 

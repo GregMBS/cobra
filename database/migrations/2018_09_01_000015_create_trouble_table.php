@@ -30,7 +30,7 @@ class CreateTroubleTable extends Migration
             $table->string('fuente')->nullable()->default(null);
             $table->string('descripcion')->nullable()->default(null);
             $table->string('error_msg')->nullable()->default(null);
-            $table->dateTime('fechacomp')->default('0000-00-00 00:00:00');
+            $table->dateTime('fechacomp')->default('2001-01-01 00:00:00');
             $table->string('it_guy')->nullable()->default(null);
             $table->string('reparacion')->nullable()->default(null);
         });

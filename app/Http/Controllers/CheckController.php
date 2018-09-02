@@ -71,8 +71,8 @@ class CheckController extends Controller
      * @return View
      */
     public function listing($gestor) {
-        $visitador = $this->uc->getCompleto($gestor);
-        $capt = $this->uc->getCompleto(auth()->user()->iniciales);
+        $visitador = $this->cc->getCompleto($gestor);
+        $capt = $this->cc->getCompleto(auth()->user()->iniciales);
         $list = $this->cc->listVasign($gestor);
         $cuentas = count($list);
         $saldos = array_sum(array_column($list, 'saldo_total'));
@@ -181,14 +181,8 @@ class CheckController extends Controller
      */
     public function getCompleto($gestor)
     {
-        $query = "SELECT completo FROM users
-            WHERE iniciales=:gestor
-            LIMIT 1";
-        $stn = $this->pdo->prepare($query);
-        $stn->bindParam(':gestor', $gestor);
-        $stn->execute();
-        $resultn = $stn->fetch(\PDO::FETCH_ASSOC);
-        return $resultn['completo'];
+        $completo = $this->cc->getCompleto($gestor);
+        return $completo;
     }
 
 }

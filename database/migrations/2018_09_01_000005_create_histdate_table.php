@@ -23,7 +23,7 @@ class CreateHistdateTable extends Migration
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('auto')->default('0');
+            $table->integer('auto')->default('0');
             $table->date('d_fech')->nullable()->default(null);
 
             $table->index(["d_fech"], 'fecha');

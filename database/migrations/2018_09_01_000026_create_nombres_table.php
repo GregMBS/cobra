@@ -26,7 +26,7 @@ class CreateNombresTable extends Migration
             $table->string('USUARIA', 20);
             $table->string('INICIALES', 20)->nullable()->default(null);
             $table->string('COMPLETO')->nullable()->default(null);
-            $table->string('TIPO')->nullable()->default(null);
+            $table->string('TIPO', 20)->nullable()->default(null);
             $table->string('TICKET')->nullable()->default(null);
             $table->integer('camp')->default('0');
             $table->string('turno')->nullable()->default(null);

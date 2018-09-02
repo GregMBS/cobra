@@ -25,7 +25,7 @@ class CreatePagosTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('auto');
             $table->string('cuenta', 50)->default('0');
-            $table->date('fecha')->default('0000-00-00');
+            $table->date('fecha')->default('2001-01-01');
             $table->decimal('monto', 10, 2)->default('0.00');
             $table->string('cliente');
             $table->string('gestor')->nullable()->default(null);
