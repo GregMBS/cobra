@@ -18,6 +18,7 @@ class GestorClass extends BaseClass {
     /**
      * @var string
      */
+    /*
     private $query = "SELECT d_prom, historia.cuenta, n_prom, c_cvge, 
     ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, 
     cliente,resumen.id_cuenta,saldo_descuento_1, monto, fecha 
@@ -26,12 +27,13 @@ class GestorClass extends BaseClass {
     LEFT JOIN pagos on pagos.id_cuenta = resumen.id_cuenta and fecha >= d_fech
     WHERE n_prom>0 AND c_cvge = :gestor 
     GROUP BY cuenta ORDER BY c_cvge,d_prom,cliente,cuenta";
-
+*/
     /**
      * 
      * @param string $gestor
      * @return array
      */
+    /*
     public function getPagosReport($gestor) {
         $stq = $this->pdo->prepare($this->query);
         $stq->bindParam(':gestor', $gestor);
@@ -39,5 +41,5 @@ class GestorClass extends BaseClass {
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
-
+*/
 }

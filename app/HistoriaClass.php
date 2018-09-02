@@ -75,22 +75,48 @@ SQL;
     }
 
     /**
-     * 
+     * @param int $C_CONT
+     * @return mixed | array
+     */
+    private function getCurrentTels($C_CONT)
+    {
+        $querys = "SELECT tel_1_verif, tel_2_verif, tel_3_verif, tel_4_verif 
+        FROM resumen 
+        WHERE id_cuenta = :C_CONT";
+        $sts = $this->pdo->prepare($querys);
+        $sts->bindParam(':C_CONT',$C_CONT, \PDO::PARAM_INT);
+        $sts->execute();
+        $result = $sts->fetch(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    /**
      * @param int $C_CONT
      * @param string $tele
+     * @return array
      */
     public function addNewTel($C_CONT, $tele) {
         $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
-        $queryntel = "UPDATE resumen "
-                . "SET tel_4_verif = tel_3_verif,"
-                . "tel_3_verif = tel_2_verif,"
-                . "tel_2_verif = tel_1_verif,"
-                . "tel_1_verif = :tel "
-                . "WHERE id_cuenta = :C_CONT";
+        $telArray = $this->getCurrentTels($C_CONT);
+        $queryntel = <<<SQL
+UPDATE resumen 
+        SET tel_4_verif = :tel3,
+        tel_3_verif = :tel2,
+        tel_2_verif = :tel1,
+        tel_1_verif = :tel 
+        WHERE id_cuenta = :C_CONT
+SQL;
+        $newTels = [$tel, $telArray['tel_1_verif'], $telArray['tel_2_verif'], $telArray['tel_3_verif']];
         $stn = $this->pdo->prepare($queryntel);
-        $stn->bindParam(':tel', $tel);
+        $stn->bindParam(':tel3', $newTels[3]);
+        $stn->bindParam(':tel2', $newTels[2]);
+        $stn->bindParam(':tel1', $newTels[1]);
+        $stn->bindParam(':tel', $newTels[0]);
         $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $stn->execute();
+        $telCheck = $this->getCurrentTels($C_CONT);
+        $diff = array_diff($newTels, $telCheck);
+        return $diff;
     }
 
 }
