@@ -70,7 +70,7 @@ ORDER BY saldo_total desc";
      * @param string $queue
      * @return array
      */
-    public function getReport($rato, $cliente, $sdc, $queue) {
+    public function getSpecListReport($rato, $cliente, $sdc, $queue) {
         $ratostr = $this->getRatostr($rato);
         $sdcstr = 'AND status_de_credito not regexp "-" ';
         if (!(empty($sdc))) {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
 use App\BuscarClass;
-
+use Tests\TestCase;
 
 class BuscarClassTest extends TestCase
 {

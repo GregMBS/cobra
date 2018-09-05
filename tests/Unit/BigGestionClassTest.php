@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
 use App\BigDataClass;
 use App\BigGestionClass;
 use Illuminate\Http\Request;
+use Tests\TestCase;
 
 
 class BigGestionClassTest extends TestCase

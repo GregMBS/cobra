@@ -28,7 +28,7 @@ class SpeclistController extends Controller
         $queue	 = $r->queue;
         $sdc	 = $r->status_de_credito;
         $rato	 = $r->rato;
-        $result = $this->sc->getReport($rato, $cliente, $sdc, $queue);
+        $result = $this->sc->getSpecListReport($rato, $cliente, $sdc, $queue);
         $view = view('speclistqc')
         ->with('result', $result);
         return $view;

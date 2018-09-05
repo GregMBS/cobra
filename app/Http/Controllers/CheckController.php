@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\CheckClass;
 use App\UserClass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use View;
 
 class CheckController extends Controller
 {
@@ -32,7 +32,6 @@ class CheckController extends Controller
      * @return View
      */
     public function assign(Request $r) {
-        $this->cc->setVars($r);
         $this->cc->insertVasign();
         $list = $this->cc->listVasign($r->gestor);
         $view = $this->checkout($list, $r->gestor, $r->tipo);
@@ -45,10 +44,9 @@ class CheckController extends Controller
      * @return View
      */
     public function assignBoth(Request $r) {
-        $this->cc->setVars($r);
-        $this->cc->insertVasignBoth();
+        $this->cc->insertVasignBoth($r);
         $list = $this->cc->listVasign($r->gestor);
-        $view = $this->checkboth($list, $r->gestor, $r->tipo, $r->fechaout);
+        $view = $this->checkBoth($list, $r->gestor, $r->tipo, $r->fechaout);
         return $view;
     }
     
@@ -58,8 +56,7 @@ class CheckController extends Controller
      * @return View
      */
     public function receive(Request $r) {
-        $this->cc->setVars($r);
-        $this->cc->updateVasign();
+        $this->cc->updateVasign($r);
         $list = $this->cc->listVasign($r->gestor);
         $view = $this->checkin($list, $r->gestor, $r->tipo);
         return $view;
@@ -148,9 +145,9 @@ class CheckController extends Controller
      * @param string $gestor
      * @return View
      */
-    public function checkbothAjax($gestor) {
+    public function checkBothAjax($gestor) {
         $list = $this->cc->listVasign($gestor);
-        return $this->checkboth($list, $gestor);
+        return $this->checkBoth($list, $gestor);
     }
     
     /**
@@ -161,7 +158,7 @@ class CheckController extends Controller
      * @param string $fechaout
      * @return View
      */
-    public function checkboth(array $list = [], $gestor = '', $tipo = '', $fechaout = '') {
+    private function checkBoth(array $list = [], $gestor = '', $tipo = '', $fechaout = '') {
         $gestores = $this->uc->getVisitadores();
         $counts = $this->cc->countInOut($gestor);
         $view = view('checkboth')

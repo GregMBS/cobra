@@ -13,7 +13,7 @@ namespace App;
  *
  * @author gmbs
  */
-class SpeclistmanClass extends BaseClass {
+class SpecListManClass extends BaseClass {
 
     /**
      * 
@@ -21,8 +21,9 @@ class SpeclistmanClass extends BaseClass {
      * @param string $sdc
      * @return array
      */
-    public function getReport($cliente, $sdc) {
-        $querymain = "SELECT numero_de_cuenta, nombre_deudor, saldo_total, status_aarsa,
+    public function getSpecListManReport($cliente, $sdc) {
+        $querymain = <<<SQL
+SELECT numero_de_cuenta, nombre_deudor, saldo_total, status_aarsa,
 ejecutivo_asignado_call_center, status_de_credito, 
 resumen.cliente as cli, fecha_ultima_gestion, especial 
 FROM resumen 
@@ -32,7 +33,8 @@ WHERE resumen.cliente = :cliente
 AND status_de_credito = :sdc
 AND especial > 0
 GROUP BY id_cuenta
-ORDER BY especial, saldo_descuento_1 desc";
+ORDER BY especial, saldo_descuento_1 desc
+SQL;
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':cliente', $cliente);
         $stm->bindParam(':sdc', $sdc);

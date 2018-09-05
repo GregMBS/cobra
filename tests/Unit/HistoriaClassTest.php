@@ -19,4 +19,5 @@ class HistoriaClassTest extends TestCase
         $result = $hc->addNewTel(100, 888888888);
         $this->assertEmpty($result);
     }
+
 }

@@ -156,7 +156,7 @@ SQL;
      */
     public function getMotiv()
     {
-        $query = "SELECT motiv FROM motivadores order by motiv";
+        $query = "SELECT * FROM motivadores order by motiv";
         $result = $this->pdo->query($query);
         $all = $result->fetchAll();
         $output = array_column($all, 0);
@@ -225,8 +225,8 @@ SQL;
         $stbn = $this->pdo->prepare($this->badNoQuery);
         $stbn->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $stbn->execute();
-        $answerbadno = $stbn->fetch();
-        return $answerbadno;
+        $answerBadNo = $stbn->fetch(PDO::FETCH_ASSOC);
+        return $answerBadNo;
     }
 
     /**
@@ -236,18 +236,18 @@ SQL;
      */
     public function getHistory($id_cuenta)
     {
-        $querysub = "SELECT c_cvst,concat(d_fech,' ',c_hrin) as fecha,
+        $query = "SELECT c_cvst,concat(d_fech,' ',c_hrin) as fecha,
                     c_cvge,c_tele,left(c_obse1,50) as short,c_obse1,
                     auto,c_cniv 
                     FROM historia 
                     WHERE c_cont=:id_cuenta 
                     AND c_cont > 0  
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
-        $sts = $this->pdo->prepare($querysub);
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $sts->execute();
-        $rowsub = $sts->fetchAll();
-        return $rowsub;
+        $row = $sts->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
     }
 
     /**
@@ -256,10 +256,14 @@ SQL;
      */
     public function getGestorList()
     {
-        $query = "SELECT iniciales FROM nombres 
-    ORDER BY usuaria";
+        $query = <<<SQL
+(SELECT iniciales FROM nombres)
+        UNION
+        (SELECT iniciales FROM users)
+    ORDER BY iniciales
+SQL;
         $result = $this->pdo->query($query);
-        $all = $result->fetchAll();
+        $all = $result->fetchAll(PDO::FETCH_NUM);
         $output = array_column($all, 0);
         return $output;
     }
@@ -270,9 +274,16 @@ SQL;
      */
     public function getVisitadorList()
     {
-        $queryGestorV = "SELECT usuaria,completo FROM nombres 
+        $queryGestorV = <<<SQL
+(SELECT iniciales,completo FROM nombres 
     where completo<>'' 
-and tipo IN ('visitador','admin')";
+and tipo IN ('visitador','admin'))
+UNION
+(SELECT iniciales,completo FROM users 
+    where completo<>'' 
+and tipo IN ('visitador','admin'))
+ORDER BY iniciales
+SQL;
         $resultGestorV = $this->pdo->query($queryGestorV);
         return $resultGestorV->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -283,11 +294,9 @@ and tipo IN ('visitador','admin')";
      */
     public function getClientList()
     {
-        $query = "SELECT cliente FROM clientes;";
-        $result = $this->pdo->query($query);
-        $all = $result->fetchAll();
-        $output = array_column($all, 0);
-        return $output;
+        $clientes = Cliente::get()->toArray();
+        $names = array_column($clientes, 'cliente');
+        return $names;
     }
 
     /**
@@ -297,20 +306,9 @@ and tipo IN ('visitador','admin')";
      */
     public function getNumGests($capt)
     {
-        $cng = 0;
-        $query = "SELECT count(1) as cng FROM historia 
-WHERE c_cvge=:capt 
-AND d_fech=curdate()
-AND c_cont <> 0
-";
-        $stn = $this->pdo->prepare($query);
-        $stn->bindParam(':capt', $capt);
-        $stn->execute();
-        $result = $stn->fetch();
-        if ($result['cng'] > 0) {
-            $cng = $result['cng'];
-        }
-        return $cng;
+        $today = date('Y-m-d');
+        $count = Historia::whereCCvge($capt)->whereDFech($today)->where('c_cont', '<>', 0)->count();
+        return $count;
     }
 
     /**
@@ -341,12 +339,10 @@ AND c_cont <> 0
      */
     public function getUserData($capt)
     {
-        $queryg = "SELECT usuaria,tipo,camp FROM nombres WHERE iniciales = :capt LIMIT 1";
-        $stg = $this->pdo->prepare($queryg);
-        $stg->bindParam(':capt', $capt);
-        $stg->execute();
-        $result = $stg->fetch(\PDO::FETCH_ASSOC);
-        return $result;
+        $nombre = Nombre::where('iniciales','=' , $capt)->get();
+        $user = User::where('iniciales','=' , $capt)->get();
+        $result = $nombre->merge($user);
+        return $result->first()->toArray();
     }
 
     /**
@@ -402,18 +398,10 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countGestiones($id_cuenta)
     {
-        $query = "SELECT COUNT(1) as gest FROM historia 
-                WHERE c_cont = :id_cuenta
-                AND c_cont > 0";
-        $stg = $this->pdo->prepare($query);
-        $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $stg->execute();
-        $result = $stg->fetch(PDO::FETCH_ASSOC);
-        $count = $result['gest'];
-        if (empty($count)) {
-            $count = 0;
-        }
-        return $count;
+        $gestiones = Historia::whereCCont($id_cuenta)
+            ->where('c_cont', '>', 0)
+            ->count();
+        return $gestiones;
     }
 
     /**
@@ -423,18 +411,10 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countPromesas($id_cuenta)
     {
-        $query = "SELECT COUNT(1) as prom FROM historia 
-                WHERE c_cont = :id_cuenta 
-                AND n_prom > 0";
-        $stg = $this->pdo->prepare($query);
-        $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $stg->execute();
-        $result = $stg->fetch(PDO::FETCH_ASSOC);
-        $count = $result['prom'];
-        if (empty($count)) {
-            $count = 0;
-        }
-        return $count;
+        $promesas = Historia::whereCCont($id_cuenta)
+            ->where('n_prom', '>', 0)
+            ->count();
+        return $promesas;
     }
 
     /**
@@ -444,17 +424,8 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countPagos($id_cuenta)
     {
-        $query = "SELECT COUNT(1) as pag FROM pagos 
-                WHERE id_cuenta = :id_cuenta";
-        $stg = $this->pdo->prepare($query);
-        $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $stg->execute();
-        $result = $stg->fetch(PDO::FETCH_ASSOC);
-        $count = $result['pag'];
-        if (empty($count)) {
-            $count = 0;
-        }
-        return $count;
+        $pagos = Pago::whereIdCuenta($id_cuenta)->count();
+        return $pagos;
     }
 
     /**
@@ -466,13 +437,8 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
     {
         $cuenta = '';
         if ($id_cuenta > 0) {
-            $query = "SELECT numero_de_cuenta FROM resumen 
-                    WHERE id_cuenta = :id_cuenta";
-            $stq = $this->pdo->prepare($query);
-            $stq->bindParam(':id_cuenta', $id_cuenta);
-            $stq->execute();
-            $result = $stq->fetch(\PDO::FETCH_ASSOC);
-            $cuenta = $result['numero_de_cuenta'];
+            $resumen = Resumen::whereIdCuenta($id_cuenta)->first();
+            $cuenta = $resumen->numero_de_cuenta;
         }
         return $cuenta;
     }

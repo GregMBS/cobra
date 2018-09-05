@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
 use App\LoginClass;
 use App\User;
+use Tests\TestCase;
 
 class LoginClassTest extends TestCase
 {

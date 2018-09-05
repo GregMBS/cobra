@@ -11,11 +11,11 @@ namespace App;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Description of ActivarClass
+ * Base Class
  *
  * @author gmbs
  */
-class BaseClass {
+abstract class BaseClass {
 
     /**
      * @var \PDO $pdo
@@ -24,5 +24,10 @@ class BaseClass {
 
     public function __construct() {
         $this->pdo = DB::connection()->getPdo();
+    }
+
+    public function getReport()
+    {
+        return [];
     }
 }

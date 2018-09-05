@@ -39,10 +39,11 @@ class BigPromClass extends BaseClass
     public function getPromDates($direction)
     {
         $dir = $this->cleanDirection($direction);
-        $start = "SELECT distinct d_prom FROM historia
-        where d_fech>last_day(curdate()-interval 5 week)
-        and n_prom > 0
-        ORDER BY d_prom ";
+        $start = <<<SQL
+SELECT distinct d_prom FROM historia
+        where n_prom > 0
+        ORDER BY d_prom 
+SQL;
         $end = " limit 60";
         $query = $start . $dir . $end;
         $stq = $this->pdo->prepare($query);

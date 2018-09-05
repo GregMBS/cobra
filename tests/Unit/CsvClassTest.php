@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
 use App\CsvClass;
+use Tests\TestCase;
 
 class CsvClassTest extends TestCase
 {

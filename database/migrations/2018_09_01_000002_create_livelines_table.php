@@ -23,7 +23,7 @@ class CreateLivelinesTable extends Migration
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'MyISAM';
-            $table->increments('c_tele');
+            $table->string('c_tele');
 
             $table->index(["c_tele"], 'new_index');
         });

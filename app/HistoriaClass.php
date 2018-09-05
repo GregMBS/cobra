@@ -29,17 +29,10 @@ and c_cvba is null";
      * @return int
      */
     private function getIdCuenta($cuenta) {
-        $query = <<<SQL
-SELECT id_cuenta FROM resumen 
-        WHERE numero_de_cuenta = :cuenta 
-        LIMIT 1
-SQL;
-        /* var $sti PDOStatement */
-        $sti = $this->pdo->prepare($query);
-        $sti->bindParam(':cuenta', $cuenta);
-        $sti->execute();
-        $result = $sti->fetch(\PDO::FETCH_ASSOC);
-        return $result['id_cuenta'];
+        $resumen = Resumen::where('numero_de_cuenta', '=', $cuenta)
+            ->first();
+        $id_cuenta = $resumen->id_cuenta;
+        return $id_cuenta;
     }
     
     /**
@@ -54,11 +47,11 @@ SQL;
         $start3 = 'historia';
         $middle = " VALUES";
         $query = $start . $start2 . $start3 . " (" . $columnText . ")" . $middle;
-        $querytail = " ('%s'),";
-        foreach ($gestiones as $gest) {
-            if (!empty($gest)) {
-                // $gestText = implode("','", $gest);
-                $data = vsprintf($querytail, $gest);
+        $queryTail = " ('%s'),";
+        foreach ($gestiones as $gestion) {
+            if (!empty($gestion)) {
+                // $gestionText = implode("','", $gestion);
+                $data = vsprintf($queryTail, $gestion);
                 $query .= $data;
             }
         }
@@ -80,10 +73,10 @@ SQL;
      */
     private function getCurrentTels($C_CONT)
     {
-        $querys = "SELECT tel_1_verif, tel_2_verif, tel_3_verif, tel_4_verif 
+        $query = "SELECT tel_1_verif, tel_2_verif, tel_3_verif, tel_4_verif 
         FROM resumen 
         WHERE id_cuenta = :C_CONT";
-        $sts = $this->pdo->prepare($querys);
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':C_CONT',$C_CONT, \PDO::PARAM_INT);
         $sts->execute();
         $result = $sts->fetch(\PDO::FETCH_ASSOC);
@@ -98,7 +91,7 @@ SQL;
     public function addNewTel($C_CONT, $tele) {
         $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
         $telArray = $this->getCurrentTels($C_CONT);
-        $queryntel = <<<SQL
+        $query = <<<SQL
 UPDATE resumen 
         SET tel_4_verif = :tel3,
         tel_3_verif = :tel2,
@@ -107,7 +100,7 @@ UPDATE resumen
         WHERE id_cuenta = :C_CONT
 SQL;
         $newTels = [$tel, $telArray['tel_1_verif'], $telArray['tel_2_verif'], $telArray['tel_3_verif']];
-        $stn = $this->pdo->prepare($queryntel);
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':tel3', $newTels[3]);
         $stn->bindParam(':tel2', $newTels[2]);
         $stn->bindParam(':tel1', $newTels[1]);

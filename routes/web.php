@@ -10,6 +10,8 @@
  * | contains the "web" middleware group. Now create something great!
  * |
  */
+
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +45,11 @@ Route::middleware('auth')->group(function () {
 });
 Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/reports', function () {
-        $capt = auth()->user()->iniciales;
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+        $capt = $user->iniciales;
         return view('reports')->with('capt', $capt);
     });
     Route::get('/ultimo_mejor', 'BestController@index');
@@ -82,8 +88,8 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/checkin', 'CheckController@checkin');
     Route::get('/checkin/{gestor}', 'CheckController@checkinAjax');
     Route::post('/checkin', 'CheckController@receive');
-    Route::get('/checkboth', 'CheckController@checkboth');
-    Route::get('/checkboth/{gestor}', 'CheckController@checkbothAjax');
+    Route::get('/checkboth', 'CheckController@checkBoth');
+    Route::get('/checkboth/{gestor}', 'CheckController@checkBothAjax');
     Route::post('/checkboth', 'CheckController@assignboth');
     Route::get('/pdh/{gestor}/{fecha}', 'DhController@promesas');
     Route::get('/ddh/{gestor}/{fecha}', 'DhController@gestiones');

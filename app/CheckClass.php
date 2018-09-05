@@ -49,7 +49,10 @@ class CheckClass extends BaseClass
      */
     private $fechaout;
 
-    public function setVars(Request $r)
+    /**
+     * @param Request $r
+     */
+    private function setVars(Request $r)
     {
         $this->gestor = $r->gestor;
         $this->tipo = $r->tipo;
@@ -107,8 +110,12 @@ and status_de_credito not regexp '-' LIMIT 1";
         return $numero_de_cuenta;
     }
 
-    public function insertVasignBoth()
+    /**
+     * @param $r
+     */
+    public function insertVasignBoth($r)
     {
+        $this->setVars($r);
         $queryins = "INSERT INTO vasign (cuenta, gestor, fechaout, fechain,c_cont)
 VALUES (:cuenta, :gestor, :fechaout, now(), :id_cuenta)";
         $sti = $this->pdo->prepare($queryins);
@@ -204,8 +211,12 @@ SQL;
         return $resultmain;
     }
 
-    public function updateVasign()
+    /**
+     * @param $r
+     */
+    public function updateVasign($r)
     {
+        $this->setVars($r);
         if ($this->tipo == 'id_cuenta') {
             $querycta = "select id_cuenta from resumen where id_cuenta = :cuenta";
         } else {
@@ -234,14 +245,8 @@ SQL;
      */
     public function getCompleto($gestor)
     {
-        $query = "SELECT completo FROM users
-            WHERE iniciales=:gestor
-            LIMIT 1";
-        $stn = $this->pdo->prepare($query);
-        $stn->bindParam(':gestor', $gestor);
-        $stn->execute();
-        $result = $stn->fetch(\PDO::FETCH_ASSOC);
-        return $result['completo'];
+        $result = User::whereIniciales($gestor)->firstOrFail();
+        return $result->completo;
     }
 
 }

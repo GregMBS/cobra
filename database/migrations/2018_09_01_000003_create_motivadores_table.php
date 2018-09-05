@@ -23,7 +23,7 @@ class CreateMotivadoresTable extends Migration
         if (Schema::hasTable($this->set_schema_table)) return;
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'MyISAM';
-            $table->increments('motiv');
+            $table->string('motiv');
             $table->tinyInteger('callcenter')->nullable()->default(null);
             $table->tinyInteger('visitas')->nullable()->default(null);
             $table->tinyInteger('judicial')->nullable()->default(null);
