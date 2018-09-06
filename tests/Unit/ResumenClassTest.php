@@ -295,4 +295,33 @@ class ResumenClassTest extends TestCase
         $this->assertNotEquals('', $cuenta);
 
     }
+
+    public function testGetPromData()
+    {
+        $testProm = [
+            "N_PROM_OLD" => "1896.56",
+            "N_PROM1_OLD" => "1896.56",
+            "N_PROM2_OLD" => "0.00",
+            "N_PROM3_OLD" => null,
+            "N_PROM4_OLD" => null,
+            "D_PROM_OLD" => "2012-06-15",
+            "D_PROM1_OLD" => "2012-06-15",
+            "D_PROM2_OLD" => "0000-00-00",
+            "D_PROM3_OLD" => null,
+            "D_PROM4_OLD" => null
+        ];
+        $rc = new ResumenClass();
+        $id_cuenta = 1;
+        $promesas = $rc->getPromData($id_cuenta);
+        $this->assertEquals($testProm, $promesas);
+    }
+
+    public function testGetTimelock()
+    {
+        $now = date('r');
+        $rc = new ResumenClass();
+        $id_cuenta = 1;
+        $timeLock = $rc->getTimelock($id_cuenta);
+        $this->assertEquals($now, $timeLock);
+    }
 }

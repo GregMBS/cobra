@@ -8,6 +8,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use PDO;
 
 /**
@@ -319,6 +320,7 @@ SQL;
     public function getTimelock($id_cuenta)
     {
         $tl = date('r');
+        /*
         $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') as tl
             FROM resumen 
             WHERE id_cuenta = :id_cuenta";
@@ -328,6 +330,16 @@ SQL;
         $result = $sts->fetch(\PDO::FETCH_ASSOC);
         if ($result['tl']) {
             $tl = $result['tl'];
+        }
+        return $tl;
+        */
+        $resumen = Resumen::whereIdCuenta($id_cuenta)->first();
+        /**
+         * @var Carbon $time
+         */
+        $time = $resumen->timelock;
+        if ($time) {
+            $tl = $time->format('r');
         }
         return $tl;
     }
@@ -352,23 +364,25 @@ SQL;
      */
     public function getPromData($id_cuenta)
     {
-        $queryprom = <<<SQL
-select N_PROM as N_PROM_OLD, D_PROM as D_PROM_OLD,
-    N_PROM1 as N_PROM1_OLD, D_PROM1 as D_PROM1_OLD,
-    N_PROM2 as N_PROM2_OLD, D_PROM2 as D_PROM2_OLD,
-    N_PROM3 as N_PROM3_OLD, D_PROM3 as D_PROM3_OLD,
-    n_prom4 as N_PROM4_OLD, d_prom4 as D_PROM4_OLD
-from historia 
-where c_cont = :id_cuenta 
-and n_prom>0 
-and c_cvst like 'PROMESA DE%'
-order by d_fech desc, c_hrin desc limit 1
-SQL;
-        $stp = $this->pdo->prepare($queryprom);
-        $stp->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stp->execute();
-        $result = $stp->fetch(\PDO::FETCH_ASSOC);
-        return $result;
+       $promesa = Historia::whereCCont($id_cuenta)
+            ->where('n_prom', '>', 0)
+            ->where('c_cvst', 'LIKE', 'PROMESA DE%')
+            ->orderByDesc('d_fech')
+            ->orderByDesc('c_hrin')
+            ->first();
+        $array = array(
+                'N_PROM_OLD' => $promesa->N_PROM,
+                'N_PROM1_OLD' => $promesa->N_PROM1,
+                'N_PROM2_OLD' => $promesa->N_PROM2,
+                'N_PROM3_OLD' => $promesa->N_PROM3,
+                'N_PROM4_OLD' => $promesa->N_PROM4,
+                'D_PROM_OLD' => $promesa->D_PROM,
+                'D_PROM1_OLD' => $promesa->D_PROM1,
+                'D_PROM2_OLD' => $promesa->D_PROM2,
+                'D_PROM3_OLD' => $promesa->D_PROM3,
+                'D_PROM4_OLD' => $promesa->D_PROM4
+            );
+        return $array;
     }
 
     /**
