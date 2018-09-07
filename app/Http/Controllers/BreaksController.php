@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\UserClass;
-use Illuminate\Support\Facades\View;
+use View;
 use App\BreaksClass;
 use Illuminate\Http\Request;
 
@@ -44,16 +44,16 @@ class BreaksController extends Controller
     public function admindex() {
         $breaks = $this->bc->listBreaks();
         $gestores = $this->uc->listUsers();
-        $view = view('breakadmin')
+        $view = view('breakAdmin')
         ->with('breaks', $breaks)
         ->with('gestores', $gestores);
         return $view;
     }
-    
+
     /**
-     * 
      * @param int $auto
      * @return View
+     * @throws \Exception
      */
     public function borrar($auto) {
         $this->bc->deleteBreak($auto);

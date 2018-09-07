@@ -27,7 +27,7 @@
 			{% for b in breaks %}
 			<tr>
 				<td>
-        			<form method="post" action="/breakadmin" id="{{ b.auto }}">
+        			<form method="post" action="/breakAdmin" id="{{ b.auto }}">
         				<input name="auto" type="hidden" value="{{ b.auto }}">
         				<input name="_method" type="hidden" value="PUT">
         				<input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
@@ -35,7 +35,7 @@
 					{{ b.gestor }}
 				</td>
 				<td>
-					<select name="tipo" form="{{ b.auto }}">
+					<select name="tipo" form="{{ b.auto }}" title="tipo">
 						<option value=""></option>
 						{% set selected = '' %}
 						{% if b.tipo == 'break' %}
@@ -50,18 +50,18 @@
 					</select>
 				</td>
 				<td>
-					<input type="time" name="empieza" form="{{ b.auto }}"
+					<input type="time" name="empieza" form="{{ b.auto }}" title="empieza"
 						value="{{ b.empieza|date('H:i') }}">
 				</td>
 				<td>
-					<input type="time" name="termina" form="{{ b.auto }}"
+					<input type="time" name="termina" form="{{ b.auto }}" title="termina"
 						value="{{ b.termina|date('H:i') }}">
 				</td>
 				<td>
 					<input type="submit" name="go" form="{{ b.auto }}" value="CAMBIAR">
 				</td>
 				<td>
-					<form action="/breakadmin/{{ b.auto }}" method="post">
+					<form action="/breakAdmin/{{ b.auto }}" method="post">
 						<input name="_method" type="hidden" value="DELETE">
 						<input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
 						<input type="submit" name="go" value="BORRAR">
@@ -73,9 +73,9 @@
 		<tfoot class="ui-widget-footer">
 			<tr>
 				<td>
-					<form method="post" action="/breakadmin" id="add">
+					<form method="post" action="/breakAdmin" id="add">
 						<input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
-						<select name="gestor">
+						<select name="gestor" title="gestor">
 							<option value=""></option>
 						    {% for g in gestores %}
 							<option value='{{ g }}'>{{ g }}</option>
@@ -84,20 +84,20 @@
 					</form>
 				</td>
 				<td>
-					<select name="tipo" form="add">
+					<select name="tipo" form="add" title="tipo">
 						<option value=""></option>
 						<option value="break">break (30 min)</option>
 						<option value="bano">baño (10 min)</option>
 					</select>
 				</td>
 				<td>
-					<input type="time" name="empieza" form="add">
+					<input type="time" name="empieza" form="add" title="empieza">
 				</td>
 				<td>
-					<input type="time" name="termina" form="add">
+					<input type="time" name="termina" form="add" title="termina">
 				</td>
 				<td>
-					<input type="submit" name="go"  form="add"value="AGREGAR">
+					<input type="submit" name="go" form="add" value="AGREGAR">
 				</td>
 			</tr>
 		</tfoot>

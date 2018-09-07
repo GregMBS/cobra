@@ -70,10 +70,10 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/gestor/add', 'GestoradminController@agregar');
     Route::get('/gestor/change', 'GestoradminController@cambiar');
     Route::get('/gestor/delete', 'GestoradminController@borrar');
-    Route::get('/breakadmin', 'BreaksController@admindex');
-    Route::delete('/breakadmin/{auto}', 'BreaksController@borrar');
-    Route::put('/breakadmin', 'BreaksController@cambiar');
-    Route::post('/breakadmin', 'BreaksController@agregar');
+    Route::get('/breakAdmin', 'BreaksController@admindex');
+    Route::delete('/breakAdmin/{auto}', 'BreaksController@borrar');
+    Route::put('/breakAdmin', 'BreaksController@cambiar');
+    Route::post('/breakAdmin', 'BreaksController@agregar');
     Route::resource('/trouble', 'TroubleController');
     Route::get('/bigproms/make', 'BigpromsController@makeReport');
     Route::get('/bigproms', 'BigpromsController@index');

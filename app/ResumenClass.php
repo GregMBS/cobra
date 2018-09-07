@@ -387,22 +387,22 @@ SQL;
 
     /**
      *
-     * @param int $ID_CUENTA
+     * @param int $id_cuenta
      * @return array
      */
-    public function listVisits($ID_CUENTA)
+    public function listVisits($id_cuenta)
     {
-        $querysub = "SELECT c_cvst, concat(d_fech,' ',c_hrin) as fh,
+        $query = "SELECT c_cvst, concat(d_fech,' ',c_hrin) as fh,
 	if(c_visit is null,c_cvge,c_visit) as gestor,
 	left(c_obse1,50) as short, c_obse1, auto
 	FROM historia
 WHERE (historia.C_CONT=:id_cuenta) AND (c_visit <> '')
 ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
-        $sts = $this->pdo->prepare($querysub);
-        $sts->bindParam(':id_cuenta', $ID_CUENTA, \PDO::PARAM_INT);
+        $sts = $this->pdo->prepare($query);
+        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $sts->execute();
-        $rowsub = $sts->fetchAll(\PDO::FETCH_ASSOC);
-        return $rowsub;
+        $row = $sts->fetchAll(\PDO::FETCH_ASSOC);
+        return $row;
     }
 
     /**

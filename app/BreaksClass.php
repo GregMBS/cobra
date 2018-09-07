@@ -70,32 +70,22 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function updateBreak($auto, $tipo, $empieza, $termina)
     {
-        $query = "UPDATE breaks
-            SET tipo=:tipo,
-            empieza=:empieza,
-            termina=:termina
-            WHERE auto=:auto";
-        try {
-            $stu = $this->pdo->prepare($query);
-            $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
-            $stu->bindParam(':tipo', $tipo);
-            $stu->bindParam(':empieza', $empieza);
-            $stu->bindParam(':termina', $termina);
-        } catch (\PDOException $e) {
-            dd($e);
-        }
+        $break = Breaks::find($auto);
+        $break->tipo = $tipo;
+        $break->empieza = $empieza;
+        $break->termina = $termina;
+        $break->save();
     }
 
     /**
-     *
      * @param int $auto
+     * @return bool|null
+     * @throws \Exception
      */
     public function deleteBreak($auto)
     {
-        $queryb = "DELETE FROM breaks WHERE auto=:auto";
-        $stb = $this->pdo->prepare($queryb);
-        $stb->bindParam(':auto', $auto, \PDO::PARAM_INT);
-        $stb->execute();
+        $check = Breaks::find($auto)->delete();
+        return $check;
     }
 
     /**
@@ -107,14 +97,13 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function insertBreak($gestor, $tipo, $empieza, $termina)
     {
-        $queryin = "INSERT INTO breaks (gestor, tipo, empieza, termina)
-	VALUES (:gestor,:tipo,:empieza,:termina)";
-        $sta = $this->pdo->prepare($queryin);
-        $sta->bindParam(':gestor', $gestor);
-        $sta->bindParam(':tipo', $tipo);
-        $sta->bindParam(':empieza', $empieza);
-        $sta->bindParam(':termina', $termina);
-        $sta->execute();
+        /** @var Breaks $break */
+        $break = new Breaks();
+        $break->gestor = $gestor;
+        $break->tipo = $tipo;
+        $break->empieza = $empieza;
+        $break->termina = $termina;
+        $break->save();
     }
 
     /**
@@ -123,10 +112,7 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function listBreaks()
     {
-        $query = "SELECT auto, gestor, tipo, empieza, termina FROM breaks 
-    order by gestor,empieza";
-        $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
+        $result = Breaks::all()->toArray();
         return $result;
     }
 

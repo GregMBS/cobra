@@ -324,4 +324,23 @@ class ResumenClassTest extends TestCase
         $timeLock = $rc->getTimelock($id_cuenta);
         $this->assertEquals($now, $timeLock);
     }
+
+    public function testListVisits()
+    {
+        $testKeys = [
+            'c_cvst',
+            'fh',
+            'gestor',
+            'short',
+            'c_obse1',
+            'auto'
+        ];
+        $rc = new ResumenClass();
+        $id_cuenta = 1;
+        $visits = $rc->listVisits($id_cuenta);
+        $this->assertGreaterThan(0, count($visits));
+        $visit = $visits[0];
+        $key = array_keys($visit);
+        $this->assertEquals($testKeys, $key);
+    }
 }

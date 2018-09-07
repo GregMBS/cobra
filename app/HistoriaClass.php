@@ -15,6 +15,10 @@ namespace App;
  */
 class HistoriaClass extends BaseClass {
 
+    /**
+     * Unsafely fill c_cont and c_cvba in historias where they are missing.
+     * Behavior undefined when there is the inevitable conflict in numero_de_cuenta.
+     */
     private function fillGaps() {
         $query = "update resumen,historia
 set c_cont=id_cuenta,c_cvba=cliente
@@ -24,7 +28,9 @@ and c_cvba is null";
     }
 
     /**
-     * 
+     * Unsafely obtain id_cuenta from numero_de_cuenta.
+     * Behavior undefined when there is the inevitable conflict in numero_de_cuenta.
+     *
      * @param string $cuenta
      * @return int
      */
@@ -34,37 +40,25 @@ and c_cvba is null";
         $id_cuenta = $resumen->id_cuenta;
         return $id_cuenta;
     }
-    
+
     /**
-     * 
+     * This is actually the SAFEST part of the process, believe it or not.
+     *
      * @param array $gestiones
+     * @return bool
      */
     private function unsafeInsert(array $gestiones) {
-        $columns = array_keys($gestiones[0]);
-        $columnText = implode(",", $columns);
-        $start = 'INSERT ';
-        $start2 = 'INTO ';
-        $start3 = 'historia';
-        $middle = " VALUES";
-        $query = $start . $start2 . $start3 . " (" . $columnText . ")" . $middle;
-        $queryTail = " ('%s'),";
-        foreach ($gestiones as $gestion) {
-            if (!empty($gestion)) {
-                // $gestionText = implode("','", $gestion);
-                $data = vsprintf($queryTail, $gestion);
-                $query .= $data;
-            }
-        }
-        $clean = trim($query, ',');
-        $stc = $this->pdo->prepare($clean);
-        $stc->execute();
+        $test = Historia::insert($gestiones);
+        return $test;
     }
 
     public function insertGestiones($gestiones) {
-        $this->unsafeInsert($gestiones);
-        $id_cuenta = $this->getIdCuenta($gestiones['CUENTA']);
-        $this->fillGaps();
-        $this->addNewTel($id_cuenta, $gestiones['C_NTEL']);
+        $ok = $this->unsafeInsert($gestiones);
+        if ($ok) {
+            $id_cuenta = $this->getIdCuenta($gestiones['CUENTA']);
+            $this->fillGaps();
+            $this->addNewTel($id_cuenta, $gestiones['C_NTEL']);
+        }
     }
 
     /**
