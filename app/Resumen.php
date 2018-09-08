@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Resumen
  * @package App
- * @method Resumen whereIdCuenta($id_cuenta)
+ * @method static whereIdCuenta(int $id_cuenta)
+ * @method static whereNumeroDeCuenta(string $cuenta)
  */
 class Resumen extends Model
 {

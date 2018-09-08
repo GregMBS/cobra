@@ -9,7 +9,8 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
+use Request;
 
 /**
  * Description of CheckClass
@@ -47,7 +48,7 @@ class CheckClass extends BaseClass
      *
      * @var Carbon
      */
-    private $fechaout;
+    private $fechaOut;
 
     /**
      * @param Request $r
@@ -58,30 +59,30 @@ class CheckClass extends BaseClass
         $this->tipo = $r->tipo;
         if ($this->tipo == 'numero_de_cuenta') {
             $this->CUENTA = $r->CUENTA;
-            $this->id_cuenta = $this->getIdCuentafromCuenta($this->CUENTA);
+            $this->id_cuenta = $this->getIdCuentaFromCuenta($this->CUENTA);
         } else {
             $this->id_cuenta = $r->CUENTA;
-            $this->CUENTA = $this->getCuentafromIdCuenta($this->id_cuenta);
+            $this->CUENTA = $this->getCuentaFromIdCuenta($this->id_cuenta);
         }
-        $this->fechaout = new Carbon($r->fechaout);
+        $this->fechaOut = new Carbon($r->fechaout);
     }
 
     /**
      *
-     * @param string $CUENTA
+     * @param string $cuenta
      * @return int
      */
-    private function getIdCuentafromCuenta($CUENTA)
+    private function getIdCuentaFromCuenta($cuenta)
     {
-        $querycc = "select id_cuenta from resumen
-where numero_de_cuenta=:cuenta 
-and status_de_credito not regexp '-' LIMIT 1";
-        $stcc = $this->pdo->prepare($querycc);
-        $stcc->bindParam(':cuenta', $CUENTA);
-        $stcc->execute();
-        $resultcc = $stcc->fetch(\PDO::FETCH_ASSOC);
-        if (isset($resultcc['id_cuenta'])) {
-            $id_cuenta = $resultcc['id_cuenta'];
+        /**
+         * @var Collection $resumen
+         * @method Resumen whereNumeroDeCuenta($cuenta)
+         */
+        $resumen = Resumen::whereNumeroDeCuenta($cuenta)
+            ->where('status_de_credito', 'NOT REGEXP', '-')->get();
+        if (count($resumen) >0) {
+            $cuenta = $resumen->first();
+            $id_cuenta = $cuenta->id_cuenta;
         } else {
             $id_cuenta = 0;
         }
@@ -93,17 +94,17 @@ and status_de_credito not regexp '-' LIMIT 1";
      * @param int $id_cuenta
      * @return string
      */
-    private function getCuentafromIdCuenta($id_cuenta)
+    private function getCuentaFromIdCuenta($id_cuenta)
     {
-        $querycc = "select numero_de_cuenta from resumen
-where id_cuenta=:id_cuenta 
-and status_de_credito not regexp '-' LIMIT 1";
-        $stcc = $this->pdo->prepare($querycc);
-        $stcc->bindParam(':id_cuenta', $id_cuenta);
-        $stcc->execute();
-        $resultcc = $stcc->fetch(\PDO::FETCH_ASSOC);
-        if (isset($resultcc['numero_de_cuenta'])) {
-            $numero_de_cuenta = $resultcc['numero_de__cuenta'];
+        /**
+         * @var Collection $resumen
+         * @method Resumen whereIdCuenta($id_cuenta)
+         */
+        $resumen = Resumen::whereIdCuenta($id_cuenta)
+            ->where('status_de_credito', 'NOT REGEXP', '-')->get();
+        if (count($resumen) >0) {
+            $cuenta = $resumen->first();
+            $numero_de_cuenta = $cuenta->numero_de_cuenta;
         } else {
             $numero_de_cuenta = '';
         }
@@ -116,23 +117,23 @@ and status_de_credito not regexp '-' LIMIT 1";
     public function insertVasignBoth($r)
     {
         $this->setVars($r);
-        $queryins = "INSERT INTO vasign (cuenta, gestor, fechaout, fechain,c_cont)
-VALUES (:cuenta, :gestor, :fechaout, now(), :id_cuenta)";
-        $sti = $this->pdo->prepare($queryins);
+        $query = "INSERT INTO vasign (cuenta, gestor, fechaOut, fechaIn, c_cont)
+VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':cuenta', $this->CUENTA);
         $sti->bindParam(':gestor', $this->gestor);
-        $sti->bindParam(':fechaout', $this->fechaout);
+        $sti->bindParam(':fechaOut', $this->fechaOut);
         $sti->bindParam(':id_cuenta', $this->id_cuenta);
         $sti->execute();
     }
 
     public function insertVasign()
     {
-        $queryins = "INSERT INTO vasign
-			(cuenta, gestor, fechaout, c_cont)
+        $query = "INSERT INTO vasign
+			(cuenta, gestor, fechaOut, c_cont)
 			VALUES 
 			(:cuenta, :gestor, now(), :id_cuenta)";
-        $sti = $this->pdo->prepare($queryins);
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':cuenta', $this->CUENTA);
         $sti->bindParam(':gestor', $this->gestor);
         $sti->bindParam(':id_cuenta', $this->id_cuenta);
@@ -147,15 +148,16 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :id_cuenta)";
     {
         $output = array();
         $end = new \DateTime();
-        $begin = $end->modify('-1 month');
+        $begin = new \DateTime();
+        $begin = $begin->modify('-1 month');
 
         $interval = new \DateInterval('P1D');
-        $daterange = new \DatePeriod($begin, $interval, $end);
+        $dateRange = new \DatePeriod($begin, $interval, $end);
 
         /**
          * @var \DateTime $date
          */
-        foreach ($daterange as $date) {
+        foreach ($dateRange as $date) {
             $output[] = $date->format("Y-m-d");
         }
         return $output;
@@ -168,14 +170,14 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :id_cuenta)";
      */
     public function countInOut($gestor)
     {
-        $query = "select sum(fechaout>curdate()) as asig,
-    sum(fechain>curdate()) as recib 
+        $query = "select sum(fechaOut > curdate()) as asig,
+    sum(fechaIn > curdate()) as recib 
     from vasign
 where gestor=:gestor";
         $stc = $this->pdo->prepare($query);
         $stc->bindParam(':gestor', $gestor);
         $stc->execute();
-        $result = $stc->fetch();
+        $result = $stc->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -184,69 +186,66 @@ where gestor=:gestor";
      * @param string $gestor
      * @return array
      */
-    public function listVasign($gestor)
+    public function listVasign($gestor = '')
     {
-        if (!empty($gestor)) {
-            $gstring = "WHERE gestor = :gestor "
-                . "ORDER BY fechain DESC";
+        $cuentas = Resumen::join('vasign', 'id_cuenta', '=', 'c_cont')
+            ->join('users', 'iniciales', '=', 'gestor')
+            ->join('dictamenes', 'dictamen', '=', 'status_aarsa');
+        if (empty($gestor)) {
+            $cuentas = $cuentas->orderBy('gestor')
+                ->orderByDesc('fechaIn')
+                ->orderByDesc('fechaOut')
+                ->orderBy('numero_de_cuenta');
         } else {
-            $gstring = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
+            $cuentas = $cuentas->where('gestor', '=', $gestor)
+                ->orderByDesc('fechaIn');
         }
-
-        $start = <<<SQL
-select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
-queue, completo, fechaout, fechain, gestor
-from resumen 
-join vasign on id_cuenta=c_cont 
-join users on iniciales=gestor 
-join dictamenes on dictamen = status_aarsa 
-SQL;
-        $querymain = $start . $gstring;
-        $stm = $this->pdo->prepare($querymain);
-        if (!empty($gestor)) {
-            $stm->bindParam(':gestor', $gestor);
-        }
-        $stm->execute();
-        $resultmain = $stm->fetchAll();
-        return $resultmain;
+        $result = $cuentas->get()->toArray();
+        return $result;
     }
 
     /**
      * @param $r
+     * @return mixed
      */
     public function updateVasign($r)
     {
         $this->setVars($r);
-        if ($this->tipo == 'id_cuenta') {
-            $querycta = "select id_cuenta from resumen where id_cuenta = :cuenta";
-        } else {
-            $querycta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
+        /**
+         * @var int $C_CONT
+         */
+        $C_CONT = $this->id_cuenta;
+        /**
+         * @var string $now
+         */
+        $now = date('Y-m-d');
+        /**
+         * @var Vasign $vasign
+         */
+        $vasign = Vasign::whereCuenta($C_CONT)
+            ->whereNull('fechaIn')
+            ->get();
+        if (count($vasign) > 0) {
+            $vasign->fechaIn = $now;
+            $vasign->save;
         }
-        $stc = $this->pdo->prepare($querycta);
-        $stc->bindParam(':cuenta', $this->CUENTA);
-        $stc->execute();
-        $resultcc = $stc->fetchAll(\PDO::FETCH_ASSOC);
-        foreach ($resultcc as $answercc) {
-            $C_CONT = $answercc['id_cuenta'];
-        }
-        $queryins = "update vasign set fechain=now()
-	where c_cont = :id_cuenta
-	and fechain is null
-	limit 1";
-        $sti = $this->pdo->prepare($queryins);
-        $sti->bindParam(':id_cuenta', $C_CONT);
-        $sti->execute();
+        return $vasign->toArray();
     }
 
     /**
      *
      * @param string $gestor
      * @return string
+     * @throws \Exception
      */
     public function getCompleto($gestor)
     {
-        $result = User::whereIniciales($gestor)->firstOrFail();
-        return $result->completo;
+        try {
+            $result = User::whereIniciales($gestor)->get()->first();
+            return $result->completo;
+        } catch (\Exception $e) {
+            return '';
+        }
     }
 
 }

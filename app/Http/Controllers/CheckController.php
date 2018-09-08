@@ -61,11 +61,11 @@ class CheckController extends Controller
         $view = $this->checkin($list, $r->gestor, $r->tipo);
         return $view;
     }
-    
-/**
-     * 
+
+    /**
      * @param string $gestor
-     * @return View
+     * @return mixed
+     * @throws \Exception
      */
     public function listing($gestor) {
         $visitador = $this->cc->getCompleto($gestor);
@@ -73,10 +73,14 @@ class CheckController extends Controller
         $list = $this->cc->listVasign($gestor);
         $cuentas = count($list);
         $saldos = array_sum(array_column($list, 'saldo_total'));
+        /**
+         * @var View $view
+         */
         $view = view('checkoutlist')
         ->with('visitador', $visitador)
         ->with('capt', $capt)
-        ->with('list', $list)
+        ->with('list', $list);
+        $view = $view
         ->with('cuentas', $cuentas)
         ->with('saldos', $saldos);
         return $view;
@@ -175,6 +179,7 @@ class CheckController extends Controller
      *
      * @param string $gestor
      * @return string
+     * @throws \Exception
      */
     public function getCompleto($gestor)
     {

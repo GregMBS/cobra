@@ -221,8 +221,7 @@ group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
      */
     public function listClientes()
     {
-        $bc = new BuscarClass();
-        $result = $bc->listClients();
+        $result = Cliente::all()->toArray();
         return $result;
     }
 }
