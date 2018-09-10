@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
+use View;
 use App\SpeclistqcClass;
-use Illuminate\Http\Request;
+use Request;
 
 class SpeclistController extends Controller
 {
@@ -19,16 +19,14 @@ class SpeclistController extends Controller
     }
 
     /**
-     * 
+     *
+     * @param Request $r
      * @return View
      */
     public function index(Request $r)
     {
-        $cliente = $r->cliente;
-        $queue	 = $r->queue;
-        $sdc	 = $r->status_de_credito;
-        $rato	 = $r->rato;
-        $result = $this->sc->getSpecListReport($rato, $cliente, $sdc, $queue);
+        $data = collect($r->all());
+        $result = $this->sc->getSpecListReport($data);
         $view = view('speclistqc')
         ->with('result', $result);
         return $view;

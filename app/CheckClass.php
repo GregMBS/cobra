@@ -1,16 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
-use Request;
+use Illuminate\Support\Collection;
 
 /**
  * Description of CheckClass
@@ -51,9 +44,9 @@ class CheckClass extends BaseClass
     private $fechaOut;
 
     /**
-     * @param Request $r
+     * @param Collection $r
      */
-    private function setVars(Request $r)
+    private function setVars(Collection $r)
     {
         $this->gestor = $r->gestor;
         $this->tipo = $r->tipo;
@@ -75,7 +68,7 @@ class CheckClass extends BaseClass
     private function getIdCuentaFromCuenta($cuenta)
     {
         /**
-         * @var Collection $resumen
+         * @var Resumen|\Illuminate\Database\Eloquent\Collection $resumen
          * @method Resumen whereNumeroDeCuenta($cuenta)
          */
         $resumen = Resumen::whereNumeroDeCuenta($cuenta)
@@ -97,7 +90,7 @@ class CheckClass extends BaseClass
     private function getCuentaFromIdCuenta($id_cuenta)
     {
         /**
-         * @var Collection $resumen
+         * @var Resumen $resumen
          * @method Resumen whereIdCuenta($id_cuenta)
          */
         $resumen = Resumen::whereIdCuenta($id_cuenta)
@@ -112,9 +105,9 @@ class CheckClass extends BaseClass
     }
 
     /**
-     * @param $r
+     * @param Collection $r
      */
-    public function insertVasignBoth($r)
+    public function insertVasignBoth(Collection $r)
     {
         $this->setVars($r);
         $query = "INSERT INTO vasign (cuenta, gestor, fechaOut, fechaIn, c_cont)
@@ -127,8 +120,12 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
         $sti->execute();
     }
 
-    public function insertVasign()
+    /**
+     * @param Collection $r
+     */
+    public function insertVasign(Collection $r)
     {
+        $this->setVars($r);
         $query = "INSERT INTO vasign
 			(cuenta, gestor, fechaOut, c_cont)
 			VALUES 
@@ -205,7 +202,7 @@ where gestor=:gestor";
     }
 
     /**
-     * @param $r
+     * @param Collection $r
      * @return mixed
      */
     public function updateVasign($r)

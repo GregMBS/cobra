@@ -85,8 +85,8 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/checkout', 'CheckController@checkout');
     Route::get('/checkout/{gestor}', 'CheckController@checkoutAjax');
     Route::post('/checkout', 'CheckController@assign');
-    Route::get('/checkin', 'CheckController@checkin');
-    Route::get('/checkin/{gestor}', 'CheckController@checkinAjax');
+    Route::get('/checkin', 'CheckController@checkIn');
+    Route::get('/checkin/{gestor}', 'CheckController@checkInAjax');
     Route::post('/checkin', 'CheckController@receive');
     Route::get('/checkboth', 'CheckController@checkBoth');
     Route::get('/checkboth/{gestor}', 'CheckController@checkBothAjax');

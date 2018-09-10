@@ -32,7 +32,8 @@ class CheckController extends Controller
      * @return View
      */
     public function assign(Request $r) {
-        $this->cc->insertVasign();
+        $data = collect($r->all());
+        $this->cc->insertVasign($data);
         $list = $this->cc->listVasign($r->gestor);
         $view = $this->checkout($list, $r->gestor, $r->tipo);
         return $view;
@@ -44,21 +45,23 @@ class CheckController extends Controller
      * @return View
      */
     public function assignBoth(Request $r) {
-        $this->cc->insertVasignBoth($r);
+        $data = collect($r->all());
+        $this->cc->insertVasignBoth($data);
         $list = $this->cc->listVasign($r->gestor);
         $view = $this->checkBoth($list, $r->gestor, $r->tipo, $r->fechaout);
         return $view;
     }
     
-        /**
+    /**
      * 
      * @param Request $r
      * @return View
      */
     public function receive(Request $r) {
-        $this->cc->updateVasign($r);
+        $data = collect($r->all());
+        $this->cc->updateVasign($data);
         $list = $this->cc->listVasign($r->gestor);
-        $view = $this->checkin($list, $r->gestor, $r->tipo);
+        $view = $this->checkIn($list, $r->gestor, $r->tipo);
         return $view;
     }
 
@@ -75,12 +78,12 @@ class CheckController extends Controller
         $saldos = array_sum(array_column($list, 'saldo_total'));
         /**
          * @var View $view
+         * @method static View with(string $label, mixed $value)
          */
-        $view = view('checkoutlist')
+        $view = view('checkOutList')
         ->with('visitador', $visitador)
         ->with('capt', $capt)
-        ->with('list', $list);
-        $view = $view
+        ->with('list', $list)
         ->with('cuentas', $cuentas)
         ->with('saldos', $saldos);
         return $view;
@@ -120,7 +123,7 @@ class CheckController extends Controller
      * @param string $gestor
      * @return View
      */
-    public function checkinAjax($gestor) {
+    public function checkInAjax($gestor) {
         $list = $this->cc->listVasign($gestor);
         return $this->checkin($list, $gestor);
     }
@@ -132,10 +135,10 @@ class CheckController extends Controller
      * @param string $tipo
      * @return View
      */
-    public function checkin(array $list = [], $gestor = '', $tipo = '') {
+    public function checkIn(array $list = [], $gestor = '', $tipo = '') {
         $gestores = $this->uc->getVisitadores();
         $counts = $this->cc->countInOut($gestor);
-        $view = view('checkin')
+        $view = view('checkIn')
         ->with('gestor', $gestor)
         ->with('gestores', $gestores)
         ->with('tipo', $tipo)
@@ -159,17 +162,17 @@ class CheckController extends Controller
      * @param array $list
      * @param string $gestor
      * @param string $tipo
-     * @param string $fechaout
+     * @param string $fechaOut
      * @return View
      */
-    private function checkBoth(array $list = [], $gestor = '', $tipo = '', $fechaout = '') {
+    private function checkBoth(array $list = [], $gestor = '', $tipo = '', $fechaOut = '') {
         $gestores = $this->uc->getVisitadores();
         $counts = $this->cc->countInOut($gestor);
-        $view = view('checkboth')
+        $view = view('checkBoth')
         ->with('gestor', $gestor)
         ->with('gestores', $gestores)
         ->with('tipo', $tipo)
-        ->with('fechaout', $fechaout)
+        ->with('fechaOut', $fechaOut)
         ->with('list', $list)
         ->with('counts', $counts);
         return $view;

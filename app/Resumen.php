@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @method static whereIdCuenta(int $id_cuenta)
  * @method static whereNumeroDeCuenta(string $cuenta)
+ * @method static where(string $column, string $operator, mixed $value)
  */
 class Resumen extends Model
 {

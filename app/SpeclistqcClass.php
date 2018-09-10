@@ -8,6 +8,8 @@
 
 namespace App;
 
+use Illuminate\Support\Collection;
+
 /**
  * Description of SpeclistqcClass
  *
@@ -63,25 +65,21 @@ ORDER BY saldo_total desc";
     }
 
     /**
-     * 
-     * @param string $rato
-     * @param string $cliente
-     * @param string $sdc
-     * @param string $queue
+     * @param Collection $data
      * @return array
      */
-    public function getSpecListReport($rato, $cliente, $sdc, $queue) {
-        $ratostr = $this->getRatostr($rato);
-        $sdcstr = 'AND status_de_credito not regexp "-" ';
-        if (!(empty($sdc))) {
-            $sdcstr = "AND status_de_credito=:sdc ";
+    public function getSpecListReport(Collection $data) {
+        $ratoStr = $this->getRatostr($data->rato);
+        $sdcStr = 'AND status_de_credito not regexp "-" ';
+        if (!(empty($data->sdc))) {
+            $sdcStr = "AND status_de_credito=:sdc ";
         }
-        $querymain = $this->queryhead . $sdcstr . $ratostr . $this->querytail;
+        $querymain = $this->queryhead . $sdcStr . $ratoStr . $this->querytail;
         $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':cliente', $cliente);
-        $stm->bindParam(':queue', $queue);
-        if (!(empty($sdc))) {
-            $stm->bindParam(':sdc', $sdc);
+        $stm->bindParam(':cliente', $data->cliente);
+        $stm->bindParam(':queue', $data->queue);
+        if (!(empty($data->sdc))) {
+            $stm->bindParam(':sdc', $data->sdc);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
