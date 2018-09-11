@@ -15,7 +15,42 @@ namespace App;
  */
 class PerfmesClass extends BaseClass
 {
-	/**
+    /**
+     * @var false|string
+     */
+    public $yr;
+
+    /**
+     * @var false|string
+     */
+    public $mes;
+
+    /**
+     * @var false|string
+     */
+    public $diaHoy;
+
+    /**
+     * @var false|string
+     */
+    private $hoy;
+
+    /**
+     * @var false|string
+     */
+    private $yrmes;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->yr = date('Y',strtotime("last day of previous month"));
+        $this->mes = date('m',strtotime("last day of previous month"));
+        $this->diaHoy = date('d',strtotime("last day of previous month"));
+        $this->hoy = date('Y-m-d',strtotime("last day of previous month"));
+        $this->yrmes = date('Y-m-',strtotime("last day of previous month"));
+    }
+
+    /**
 	 *
 	 * @param float $dec
 	 * @return string
@@ -65,10 +100,10 @@ class PerfmesClass extends BaseClass
 	 * @param integer $dom
 	 * @return array
 	 */
-	public function getStartStopDiff($gestor, $dom)
+	private function getStartStopDiff($gestor, $dom)
 	{
 		$query	 = "select min(C_HRIN) as start, max(C_HRFI) as stop,
-            time_to_sec(timediff(max(C_HRFI),min(C_HRIN))) as diff
+            TIME_TO_SEC(TIMEDIFF(max(C_HRFI),min(C_HRIN))) as diff
             from historia
             where c_cvge=:gestor and c_msge is null
             and c_cniv is null
@@ -88,7 +123,7 @@ class PerfmesClass extends BaseClass
 	 * @param int $dom
 	 * @return array
 	 */
-	public function getCurrentMain($gestor, $dom)
+	private function getCurrentMain($gestor, $dom)
 	{
 		$query	 = "select count(distinct c_cont) as cuentas,
             sum(c_cvst like 'PROMESA DE%') as promesas,
@@ -193,7 +228,7 @@ class PerfmesClass extends BaseClass
 	 * @param int $dom
 	 * @return array
 	 */
-	public function getPagos($gestor, $dom)
+	private function getPagos($gestor, $dom)
 	{
 		$query	 = "select count(1) as ct from pagos
             where gestor=:gestor
@@ -234,12 +269,12 @@ class PerfmesClass extends BaseClass
 	 */
 	public function countVisitsAssigned($visitador, $dom)
 	{
-		$query	 = "select count(fechaout) as co, count(fechain) as ci
+		$query	 = "select count(fechaOut) as co, count(fechaIn) as ci
 			from vasign
 			where gestor = :visitador
-			and fechaout>last_day(curdate()-interval 2 month)
-			and fechaout<last_day(curdate())+interval 1 month+interval 1 day
-			and day(fechaout) = :dom";
+			and fechaOut>last_day(curdate()-interval 2 month)
+			and fechaOut<last_day(curdate())+interval 1 month+interval 1 day
+			and day(fechaOut) = :dom";
 		$stq	 = $this->pdo->prepare($query);
 		$stq->bindParam(':visitador', $visitador);
 		$stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
@@ -273,8 +308,8 @@ class PerfmesClass extends BaseClass
 	public function countVisitadorDays()
 	{
 		$query	 = "select sum(fs) as sfs,sum(ss) as sss from
-(select distinct d_fech,dayofweek(d_fech)>1 and day(d_fech)<16 as fs,
-dayofweek(d_fech)>1 and day(d_fech)>15 as ss from historia
+(select distinct d_fech,DAYOFWEEK(d_fech)>1 and day(d_fech)<16 as fs,
+DAYOFWEEK(d_fech)>1 and day(d_fech)>15 as ss from historia
 where d_fech>last_day(curdate()-interval 2 month)
 and d_fech<=last_day(curdate()-interval 1 month)
 ) as tmp";
@@ -298,4 +333,35 @@ and d_fech<=last_day(curdate()-interval 1 month)
         return $dow;
     }
 
+    /**
+     * @return array
+     */
+    public function getReport()
+    {
+        $output = array();
+        $gestores = $this->listGestores();
+        foreach ($gestores as $gestor) {
+            $c_cvge = $gestor['c_cvge'];
+            $row = array();
+            for ($i = 1; $i <= $this->diaHoy; $i++) {
+                $data = new HorariosDataClass($i);
+                $startStop = $this->getStartStopDiff($c_cvge, $i);
+                $data->start = $startStop['start'];
+                $data->stop = $startStop['stop'];
+                $data->diff = $startStop['diff'];
+                $main = $this->getCurrentMain($c_cvge, $i);
+                if ($main) {
+                    $data->gestiones = $main['gestiones'];
+                    $data->cuentas = $main['cuentas'];
+                    $data->contactos = $main['contactos'];
+                    $data->nocontactos = $main['nocontactos'];
+                    $data->promesas = $main['promesas'];
+                    $data->pagos = $this->getPagos($c_cvge, $i);
+                }
+                $row[$i] = $data;
+            }
+            $output[$c_cvge] = $row;
+        }
+        return $output;
+    }
 }

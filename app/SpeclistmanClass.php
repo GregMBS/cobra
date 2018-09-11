@@ -8,6 +8,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  * Description of SpeclistmanClass
  *
@@ -21,25 +23,22 @@ class SpecListManClass extends BaseClass {
      * @param string $sdc
      * @return array
      */
-    public function getSpecListManReport($cliente, $sdc) {
-        $querymain = <<<SQL
-SELECT numero_de_cuenta, nombre_deudor, saldo_total, status_aarsa,
-ejecutivo_asignado_call_center, status_de_credito, 
-resumen.cliente as cli, fecha_ultima_gestion, especial 
-FROM resumen 
-JOIN dictamenes ON dictamen = status_aarsa
-LEFT JOIN pagos using (id_cuenta)
-WHERE resumen.cliente = :cliente
-AND status_de_credito = :sdc
-AND especial > 0
-GROUP BY id_cuenta
-ORDER BY especial, saldo_descuento_1 desc
-SQL;
-        $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':cliente', $cliente);
-        $stm->bindParam(':sdc', $sdc);
-        $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+    public function getReport($cliente, $sdc) {
+        /**
+         * @var Builder $result
+         */
+        $result = Resumen::join('dictamenes', 'dictamen', '=', 'status_aarsa')
+            ->leftJoin('pagos', 'pagos.id_cuenta', '=', 'resumen.id_cuenta')
+            ->where('resumen.cliente', '=', $cliente)
+            ->whereStatusDeCredito($sdc);
+        $result = $result->where('especial', '>', 0)
+            ->distinct()
+            ->select(['numero_de_cuenta', 'nombre_deudor', 'saldo_total', 'status_aarsa',
+'ejecutivo_asignado_call_center', 'status_de_credito',
+'resumen.cliente as cli', 'fecha_ultima_gestion', 'especial', 'saldo_descuento_2'])
+            ->orderBy('especial')
+            ->orderByDesc('saldo_descuento_2')
+            ->get();
         return $result;
     }
 

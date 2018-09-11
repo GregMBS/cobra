@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static whereIdCuenta(int $id_cuenta)
  * @method static whereNumeroDeCuenta(string $cuenta)
  * @method static whereEjecutivoAsignadoCallCenter(string $gestor)
+ * @method static whereStatusDeCredito(string $sdc)
  * @method static where(string $column, string $operator, mixed $value)
  */
 class Resumen extends Model

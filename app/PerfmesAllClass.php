@@ -90,4 +90,24 @@ class PerfmesAllClass extends BaseClass
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result['ct'];
     }
+
+    /**
+     * @param int $diaHoy
+     */
+    public function getReport($diaHoy)
+    {
+        for ($i = 1; $i <= $diaHoy; $i++) {
+            $dataSum = new HorariosDataClass($i);
+            $mainSum = $this->getCurrentMain($i);
+            if ($mainSum) {
+                $dataSum->gestiones = $mainSum['gestiones'];
+                $dataSum->cuentas = $mainSum['cuentas'];
+                $dataSum->contactos = $mainSum['contactos'];
+                $dataSum->nocontactos = $mainSum['nocontactos'];
+                $dataSum->promesas = $mainSum['promesas'];
+                $dataSum->pagos = $this->getPagos($i);
+            }
+            $summary[$i] = $dataSum;
+        }
+    }
 }
