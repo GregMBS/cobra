@@ -24,27 +24,21 @@ class QueuesgClass extends BaseClass {
      * @return int
      */
     public function getCamp($cliente, $queue, $sdc, $capt) {
-        $queryqueue  = "select camp from queuelist
-    where cliente=:cliente
-    and status_aarsa=:queue
-    and sdc=:sdc
-    and gestor=:capt
-    and bloqueado=0 limit 1
-    ";
-        $stq         = $this->pdo->prepare($queryqueue);
-        $stq->bindParam(':cliente', $cliente);
-        $stq->bindParam(':queue', $queue);
-        $stq->bindParam(':sdc', $sdc);
-        $stq->bindParam(':capt', $capt);
-        $stq->execute();
-        $resultqueue = $stq->fetch(\PDO::FETCH_ASSOC);
-        $camp = $resultqueue['camp'];
-        if ($camp) {
+        try {
+            /**
+             * @var Queuelist $queuelist
+             */
+            $queuelist = Queuelist::whereCliente($cliente);
+            $queuelist = $queuelist->whereStatusAarsa($queue);
+            $queuelist = $queuelist->whereSdc($sdc);
+            $queuelist = $queuelist->whereGestor($capt);
+            $queuelist = $queuelist->whereBloqueado(0);
+            $queuelist = $queuelist->firstOrFail();
+            $camp = $queuelist->camp;
             return $camp;
-        } else {
+        } catch (\Exception $e) {
             return -1;
         }
-        
     }
     
     /**
@@ -52,12 +46,13 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getClients() {
-        $query  = "SELECT distinct cliente
-        FROM queuelist where cliente<>''
-        ORDER BY cliente";
-        $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        /**
+         * @var Cliente $clientes
+         */
+        $clientes = Queuelist::distinct()->select(['cliente'])
+            ->where('cliente', '<>', '');
+        $clientes = $clientes->orderBy('cliente')->get()->pluck('cliente');
+        return $clientes->toArray();
     }
     
     /**
@@ -66,13 +61,16 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getSdcClients($capt) {
-        $querys  = "SELECT distinct sdc,cliente
-        FROM queuelist WHERE gestor = :capt and bloqueado=0 and cliente<>''
-        ORDER BY cliente,sdc";
-        $sts = $this->pdo->prepare($querys);
-        $sts->bindParam(':capt', $capt);
-        $sts->execute();
-        $results=$sts->fetchAll(\PDO::FETCH_ASSOC);
+        /**
+         * @var Queuelist $results
+         */
+        $results = Queuelist::distinct()->select(['cliente', 'sdc'])
+            ->whereGestor($capt);
+        $results = $results->whereBloqueado(0);
+        $results = $results->where('cliente', '<>', '');
+        $results = $results->orderBy('cliente');
+        $results = $results->orderBy('sdc');
+        $results = $results->get()->pluck(['cliente', 'sdc']);
         return $results;
     }
     
@@ -82,13 +80,17 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getQueueSdcClients($capt) {
-        $querysa  = "SELECT distinct status_aarsa,sdc,cliente
-        FROM queuelist WHERE gestor = :capt and bloqueado = 0
-        ORDER BY cliente,sdc,status_aarsa";
-        $stsa = $this->pdo->prepare($querysa);
-        $stsa->bindParam(':capt', $capt);
-        $stsa->execute();
-        $resultsa=$stsa->fetchAll(\PDO::FETCH_ASSOC);
-        return $resultsa;
+        /**
+         * @var Queuelist $results
+         */
+        $results = Queuelist::distinct()->select(['cliente', 'sdc', 'status_aarsa'])
+            ->whereGestor($capt);
+        $results = $results->whereBloqueado(0);
+        $results = $results->where('cliente', '<>', '');
+        $results = $results->orderBy('cliente');
+        $results = $results->orderBy('sdc');
+        $results = $results->orderBy('status_aarsa');
+        $results = $results->get()->pluck(['cliente', 'sdc', 'status_aarsa']);
+        return $results;
     }
 }

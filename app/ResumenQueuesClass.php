@@ -24,16 +24,14 @@ class ResumenQueuesClass extends BaseClass
      */
     public function getMyQueue($capt, $camp)
     {
-        $queryquery = "SELECT cliente, status_aarsa as cr, sdc 
-        FROM queuelist 
-        WHERE gestor = :capt 
-        AND camp= :camp 
-        LIMIT 1";
-        $stq = $this->pdo->prepare($queryquery);
-        $stq->bindParam(':capt', $capt);
-        $stq->bindParam(':camp', $camp, \PDO::PARAM_INT);
-        $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        /**
+         * @var Queuelist $queueList
+         */
+        $queueList = Queuelist::whereGestor($capt);
+        $queueList = $queueList->whereCamp($camp);
+        $queueList = $queueList->firstOrFail();
+        $result = $queueList->toArray();
+        $result['cr'] = $result['status_aarsa'];
         return $result;
     }
 
@@ -45,15 +43,12 @@ class ResumenQueuesClass extends BaseClass
      */
     public function searchCount($field, $find)
     {
-        $querycount = "SELECT count(1) as ct 
-            FROM resumen 
-            WHERE " . $field . " = :find 
-            LIMIT 1";
-        $stc = $this->pdo->prepare($querycount);
-        $stc->bindParam(':find', $find);
-        $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
-        return $result['ct'];
+        /**
+         * @var Resumen $query
+         */
+        $query = Resumen::where($field, '=', $find);
+        $count = $query->count();
+        return $count;
     }
 
     /**
@@ -193,11 +188,12 @@ and especial > 0";
      */
     public function getOne($id_cuenta)
     {
-        $query = "SELECT * FROM resumen where id_cuenta = :id_cuenta LIMIT 1";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stm->execute();
-        $result = $stm->fetch(\PDO::FETCH_ASSOC);
+        /**
+         * @var Resumen $resumen
+         */
+        $resumen = Resumen::whereIdCuenta($id_cuenta);
+        $resumen = $resumen->firstOrFail();
+        $result = $resumen->toArray();
         return $result;
     }
 }

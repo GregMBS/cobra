@@ -8,7 +8,7 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\DB;
+use DB;
 
 /**
  * Base Class
@@ -26,8 +26,4 @@ abstract class BaseClass {
         $this->pdo = DB::connection()->getPdo();
     }
 
-    public function getReport()
-    {
-        return [];
-    }
 }

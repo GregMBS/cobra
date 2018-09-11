@@ -8,7 +8,6 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use PDO;
 
 /**
@@ -320,26 +319,15 @@ SQL;
     public function getTimelock($id_cuenta)
     {
         $tl = date('r');
-        /*
-        $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') as tl
-            FROM resumen 
-            WHERE id_cuenta = :id_cuenta";
-        $sts = $this->pdo->prepare($querytlock);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $sts->execute();
-        $result = $sts->fetch(\PDO::FETCH_ASSOC);
-        if ($result['tl']) {
-            $tl = $result['tl'];
-        }
-        return $tl;
-        */
-        $resumen = Resumen::whereIdCuenta($id_cuenta)->first();
+
         /**
-         * @var Carbon $time
+         * @var Resumen $query
          */
+        $query = Resumen::whereIdCuenta($id_cuenta);
+        $resumen = $query->first();
         $time = $resumen->timelock;
         if ($time) {
-            $tl = $time->format('r');
+            $tl = date('r', strtotime($time));
         }
         return $tl;
     }
@@ -451,7 +439,11 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
     {
         $cuenta = '';
         if ($id_cuenta > 0) {
-            $resumen = Resumen::whereIdCuenta($id_cuenta)->first();
+            /**
+             * @var Resumen $query
+             */
+            $query = Resumen::whereIdCuenta($id_cuenta);
+            $resumen = $query->first();
             $cuenta = $resumen->numero_de_cuenta;
         }
         return $cuenta;
