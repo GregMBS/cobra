@@ -147,10 +147,11 @@ AND NOT EXISTS (
             $id_cuenta = $row['id_cuenta'];
             if ($tipo == 'admin') {
                 $fromHistoria = $this->fromHistoriaAdmin($id_cuenta);
-            } else {
+            }
+            if ($tipo != 'admin') {
                 $fromHistoria = $this->fromHistoria($id_cuenta, $capt);
             }
-            if ($fromHistoria) {
+            if (!empty($fromHistoria)) {
                 $d_fech = $fromHistoria['d_fech'];
                 $fromPagos = $this->fromPagos($id_cuenta, $d_fech);
                 $result[] = array_merge($row, $fromHistoria, $fromPagos);

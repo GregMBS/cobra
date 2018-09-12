@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\SpeclistDataClass;
 use View;
 use App\SpeclistqcClass;
 use Request;
@@ -25,7 +26,7 @@ class SpeclistController extends Controller
      */
     public function index(Request $r)
     {
-        $data = collect($r->all());
+        $data = new SpeclistDataClass($r->all());
         $result = $this->sc->getSpecListReport($data);
         $view = view('speclistqc')
         ->with('result', $result);

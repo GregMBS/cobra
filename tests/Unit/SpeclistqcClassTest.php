@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\SpeclistDataClass;
 use App\SpeclistqcClass;
 use Illuminate\Http\Request;
 use Tests\TestCase;
@@ -32,26 +33,31 @@ class SpeclistqcClassTest extends TestCase
             13 => 'saldo_vencido'
         ];
         $r = new Request();
-        $data = collect($r->all());
-        $data->rato = '';
-        $data->cliente = 'GCyC';
-        $data->queue = 'SIN CONTACTOS';
+        $data = $r->all();
+        $data['rato'] = '';
+        $data['cliente'] = 'GCyC';
+        $data['queue'] = 'SIN CONTACTOS';
+        $data['sdc'] = '';
+        $dataClass = new SpeclistDataClass($data);
         $sc = new SpeclistqcClass();
-        $result = $sc->getSpecListReport($data);
+        $result = $sc->getSpecListReport($dataClass);
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);
         $this->assertEquals($testArray, $keys);
-        $data->cliente = '';
-        $data->sdc = 'VIG MORA 1';
-        $data->rato = 'diario';
-        $result = $sc->getSpecListReport($data);
+        $data['cliente'] = '';
+        $data['sdc'] = 'VIG MORA 1';
+        $data['rato'] = 'diario';
+        $dataClass = new SpeclistDataClass($data);
+        $result = $sc->getSpecListReport($dataClass);
         $this->assertEquals(0, count($result));
-        $data->rato = 'semanal';
-        $result = $sc->getSpecListReport($data);
+        $data['rato'] = 'semanal';
+        $dataClass = new SpeclistDataClass($data);
+        $result = $sc->getSpecListReport($dataClass);
         $this->assertEquals(0, count($result));
-        $data->rato = 'mensual';
-        $result = $sc->getSpecListReport($data);
+        $data['rato'] = 'mensual';
+        $dataClass = new SpeclistDataClass($data);
+        $result = $sc->getSpecListReport($dataClass);
         $this->assertEquals(0, count($result));
     }
 }

@@ -56,13 +56,12 @@ class SegmentController extends Controller
      */
     public function agregar(Request $r)
     {
-        $clientesegmento = explode(';', $r->cliseg);
-        $cliente = $clientesegmento[0];
+        $clienteSegmento = explode(';', $r->cliseg);
+        $cliente = $clienteSegmento[0];
         if (!empty($cliente)) {
-            if (count($clientesegmento) > 1) {
-                $segmento = $clientesegmento[1];
-            } else {
-                $segmento = '';
+            $segmento = '';
+            if (count($clienteSegmento) > 1) {
+                $segmento = $clienteSegmento[1];
             }
             $this->sc->agregarSegmento($cliente, $segmento);
         }

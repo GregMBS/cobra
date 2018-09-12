@@ -8,7 +8,6 @@
 
 namespace App;
 
-use Illuminate\Support\Collection;
 
 /**
  * Description of SpeclistqcClass
@@ -39,47 +38,22 @@ AND queue=:queue ";
     private $querytail = " GROUP BY id_cuenta
 ORDER BY saldo_total desc";
 
-
     /**
-     * 
-     * @param string $rato
-     * @return string
-     */
-    private function getRatostr($rato) {
-        switch ($rato) {
-            case 'diario':
-                $ratostr = " AND fecha_ultima_gestion>curdate() ";
-                break;
-            case 'semanal':
-                $ratostr = "AND week(fecha_ultima_gestion)=week(curdate())
-        AND year(fecha_ultima_gestion)=year(curdate()) ";
-                break;
-            case 'mensual':
-                $ratostr = "AND fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day ";
-                break;
-            default:
-                $ratostr = "";
-                break;
-        }
-        return $ratostr;
-    }
-
-    /**
-     * @param Collection $data
+     * @param SpeclistDataClass $data
      * @return array
      */
-    public function getSpecListReport(Collection $data) {
-        $ratoStr = $this->getRatostr($data->rato);
-        $sdcStr = 'AND status_de_credito not regexp "-" ';
-        if (!(empty($data->sdc))) {
-            $sdcStr = "AND status_de_credito=:sdc ";
-        }
+    public function getSpecListReport(SpeclistDataClass $data) {
+        $cliente = $data->cliente;
+        $queue = $data->queue;
+        $sdc = $data->sdc;
+        $ratoStr = $data->ratoString;
+        $sdcStr = $data->sdcString;
         $querymain = $this->queryhead . $sdcStr . $ratoStr . $this->querytail;
         $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':cliente', $data->cliente);
-        $stm->bindParam(':queue', $data->queue);
+        $stm->bindParam(':cliente', $cliente);
+        $stm->bindParam(':queue', $queue);
         if (!(empty($data->sdc))) {
-            $stm->bindParam(':sdc', $data->sdc);
+            $stm->bindParam(':sdc', $sdc);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);

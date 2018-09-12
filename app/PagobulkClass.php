@@ -118,10 +118,9 @@ SQL;
         $stpf->bindParam(':fecha', $rc->getFecha());
         $stpf->execute();
         $result = $stpf->fetch(\PDO::FETCH_ASSOC);
+        $c_cvge = '';
         if ($result) {
             $c_cvge = $result['c_cvge'];
-        } else {
-            $c_cvge = '';
         }
         $rc->setGestor($c_cvge);
     }

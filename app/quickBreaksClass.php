@@ -13,7 +13,7 @@ class QuickBreaksClass extends BaseClass
      *
      * @var string
      */
-    protected $createBreaktab          = "CREATE TEMPORARY TABLE  `breaktab` (
+    protected $createBreakTab          = "CREATE TEMPORARY TABLE  `breaktab` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) NOT NULL,
   `tipo` varchar(255),
@@ -27,7 +27,7 @@ class QuickBreaksClass extends BaseClass
      *
      * @var string
      */
-    protected $insertBreaktab          = "insert into breaktab (gestor,tipo,tiempo)
+    protected $insertBreakTab          = "insert into breaktab (gestor,tipo,tiempo)
 select c_cvge,c_cvst,c_hrin
 from historia where c_cont=0 and
 d_fech=curdate() and c_cvst<>'login' and c_cvst<>'salir'
@@ -46,7 +46,7 @@ group by gestor,tiempo";
      *
      * @var string
      */
-    protected $updateBreaktabDiff    = "update breaktab,ntpdiff set ntp=mntp,
+    protected $updateBreakTabDiff    = "update breaktab,ntpdiff set ntp=mntp,
 diff=(time_to_sec(mntp)-time_to_sec(ntpdiff.tiempo))/60
 where ntpdiff.gestor=breaktab.gestor and ntpdiff.tiempo=breaktab.tiempo";
     
@@ -68,7 +68,7 @@ where tipo<>'junta' group by gestor";
      *
      * @var string
      */
-    protected $queryBreaktab           = "SELECT * FROM breaktab";
+    protected $queryBreakTab           = "SELECT * FROM breaktab";
 
     /**
      * 
@@ -76,13 +76,13 @@ where tipo<>'junta' group by gestor";
      */
     public function getBreaks()
     {
-        $this->pdo->query($this->createBreaktab);
-        $this->pdo->query($this->insertBreaktab);
+        $this->pdo->query($this->createBreakTab);
+        $this->pdo->query($this->insertBreakTab);
         $this->pdo->query($this->createNtpdiff);
-        $this->pdo->query($this->updateBreaktabDiff);
+        $this->pdo->query($this->updateBreakTabDiff);
         $this->pdo->query($this->dropBreaktemp);
         $this->pdo->query($this->createBreaktemp);
-        $sta    = $this->pdo->query($this->queryBreaktab);
+        $sta    = $this->pdo->query($this->queryBreakTab);
         $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }

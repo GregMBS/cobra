@@ -56,10 +56,9 @@ AND id_cuenta=:C_CONT";
         $sdc = $cuenta['status_de_credito'];
         $tagArray      = explode('-', $sdc);
         $trimmed       = trim($tagArray[0]);
+        $TAGS = $trimmed;
         if ($inactivo) {
             $TAGS = $trimmed.'-inactivo';
-        } else {
-            $TAGS = $trimmed;
         }
         return $TAGS;
     }

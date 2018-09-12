@@ -137,7 +137,8 @@ class ResumenController extends Controller
      */
     public function capture(Request $r)
     {
-        Validator::make($r->all(), $this->visitValidator);
+        $validator = new Validator();
+        $validator->make($r->all(), $this->visitValidator);
         $vc = new ValidationClass();
         $valid = $vc->countVisitErrors($r->all());
         if ($valid->flag) {
@@ -169,7 +170,8 @@ class ResumenController extends Controller
      */
     public function gestion(Request $r)
     {
-        Validator::make($r->all(), $this->gestionValidator);
+        $validator = new Validator();
+        $validator->make($r->all(), $this->gestionValidator);
         $vc = new ValidationClass();
         $valid = $vc->countGestionErrors($r->all());
         if ($valid->flag) {
@@ -213,7 +215,7 @@ class ResumenController extends Controller
         $sdc = $queue['sdc'];
         $cr = $queue['cr'];
         $numgest = $this->rc->getNumGests($capt);
-        $tl = $this->rc->getTimelock($id_cuenta);
+        $tl = $this->rc->getTimeLock($id_cuenta);
         $notas = $this->nc->notAlert($capt);
         $acciones = $this->rc->getAccion();
         $accionesV = $this->rc->getAccionV();

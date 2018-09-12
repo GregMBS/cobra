@@ -93,10 +93,9 @@ class PagobulkRowClass {
      */
     private function setFecha($value) {
         $time = strtotime($value);
+        $date = date('Y-m-d');
         if ($time) {
             $date = date('Y-m-d', $time);
-        } else {
-            $date = date('Y-m-d');
         }
         $this->fecha = $date;
     }
@@ -133,7 +132,8 @@ class PagobulkRowClass {
      * @return boolean
      */
     private function validFecha() {
-        $d = DateTime::createFromFormat('Y-m-d', $this->fecha);
+        $dt = new DateTime();
+        $d = $dt->createFromFormat('Y-m-d', $this->fecha);
         return ($d && $d->format('Y-m-d') === $this->fecha);
     }
 
@@ -142,13 +142,11 @@ class PagobulkRowClass {
      * @return boolean
      */
     private function invalidMonto() {
-        $isnum = is_numeric($this->monto);
-        if ($isnum) {
-            $notzero = ($this->monto == 0);
-        } else {
-            $notzero = FALSE;
+        $isNum = is_numeric($this->monto);
+        if ($isNum) {
+            return ($this->monto == 0);
         }
-        return ($notzero);
+        return false;
     }
 
     /**

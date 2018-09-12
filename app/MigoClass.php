@@ -29,7 +29,8 @@ class MigoClass extends BaseClass
          * @var Builder $query
          * @var Collection $result
          */
-        $query = Resumen::where('status_de_credito', 'NOT REGEXP', '-');
+        $rc = new Resumen();
+        $query = $rc->where('status_de_credito', 'NOT REGEXP', '-');
         $result = $query->get();
         return $result->toArray();
     }
@@ -46,7 +47,8 @@ class MigoClass extends BaseClass
          * @var Builder $query
          * @var Collection $result
          */
-        $resumen = Resumen::whereEjecutivoAsignadoCallCenter($capt);
+        $rc = new Resumen();
+        $resumen = $rc->whereEjecutivoAsignadoCallCenter($capt);
         $query = $resumen->where('status_de_credito', 'NOT REGEXP', '-');
         $result = $query->get();
         return $result->toArray();

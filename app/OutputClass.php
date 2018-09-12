@@ -28,7 +28,8 @@ class OutputClass {
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     private function outputCSV($filename, $array, $headers) {
-        $writer = WriterFactory::create(Type::CSV); // for CSV files
+        $wf = new WriterFactory();
+        $writer = $wf->create(Type::CSV); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
         $writer->addRow($headers);
         $writer->addRows($array); // add multiple rows at a time
@@ -58,7 +59,8 @@ class OutputClass {
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     private function outputXLSX($filename, $array, $headers) {
-        $writer = WriterFactory::create(Type::XLSX); // for CSV files
+        $wf = new WriterFactory();
+        $writer = $wf->create(Type::XLSX); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
         $writer->addRow($headers);
         $writer->addRows($array); // add multiple rows at a time

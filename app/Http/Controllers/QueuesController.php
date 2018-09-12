@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
+use View;
 use App\QueuesClass;
 use Illuminate\Http\Request;
 
@@ -64,7 +64,8 @@ class QueuesController extends Controller
                     $this->qc->unblockQueueAll($cliente, $sdc, $status);
                     break;
             }
-        } else {
+        }
+        if ($gestor != 'todos') {
             
             switch ($r->go) {
                 

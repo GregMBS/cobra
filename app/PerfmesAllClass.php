@@ -93,9 +93,11 @@ class PerfmesAllClass extends BaseClass
 
     /**
      * @param int $diaHoy
+     * @return array
      */
     public function getReport($diaHoy)
     {
+        $summary = array();
         for ($i = 1; $i <= $diaHoy; $i++) {
             $dataSum = new HorariosDataClass($i);
             $mainSum = $this->getCurrentMain($i);
@@ -109,5 +111,6 @@ class PerfmesAllClass extends BaseClass
             }
             $summary[$i] = $dataSum;
         }
+        return $summary;
     }
 }

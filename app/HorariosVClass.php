@@ -159,10 +159,9 @@ SQL;
         $sum = 0;
         $html = '<tr><td class="heavy">' . $title . '</td>';
         for ($i = 1; $i <= $dhoy; $i++) {
+            $item = '';
             if (!is_null($array[$iniciales][$i])) {
                 $item = $array[$iniciales][$i];
-            } else {
-                $item = '';
             }
             if (is_numeric($item)) {
                 $sum += $item;

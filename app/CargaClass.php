@@ -52,20 +52,19 @@ class CargaClass extends BaseClass
     {
         if (count(array_unique($array)) < count($array)) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
      * 
-     * @param array $datanames
+     * @param array $dataNames
      * @return boolean
      */
-    public function badName(array $datanames)
+    public function badName(array $dataNames)
     {
         $ok = false;
-        foreach ($datanames as $name) {
+        foreach ($dataNames as $name) {
             $match = in_array($name, $this->CobraFields);
             if (!$match) {
                 $ok = true;
@@ -81,21 +80,21 @@ class CargaClass extends BaseClass
      */
     public function prepareTemp(array $columnNames)
     {
-        $querydrop = "DROP TABLE IF EXISTS temp";
+        $queryDrop = "DROP TABLE IF EXISTS temp";
         try {
-            $this->pdo->query($querydrop);
+            $this->pdo->query($queryDrop);
         } catch (\PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
-        $querystart = "CREATE TABLE temp " . "ENGINE=INNODB AUTO_INCREMENT=10 " . "DEFAULT CHARSET=utf8 " . "COLLATE=utf8_spanish_ci " . "SELECT " . implode(',', $columnNames) . " FROM resumen LIMIT 0";
+        $queryStart = "CREATE TABLE temp " . "ENGINE=INNODB AUTO_INCREMENT=10 " . "DEFAULT CHARSET=utf8 " . "COLLATE=utf8_spanish_ci " . "SELECT " . implode(',', $columnNames) . " FROM resumen LIMIT 0";
         try {
-            $this->pdo->query($querystart);
+            $this->pdo->query($queryStart);
         } catch (\PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
-        $queryindex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50))";
+        $queryIndex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50))";
         try {
-            $this->pdo->query($queryindex);
+            $this->pdo->query($queryIndex);
         } catch (\PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
@@ -111,19 +110,19 @@ class CargaClass extends BaseClass
     public function loadData(array $data, array $columnNames)
     {
         /** @noinspection SyntaxError */
-        $queryloadfront = "INSERT INTO" . " temp (";
-        $queryloadend =") VALUES ";
-        $queryload = $queryloadfront . implode(",", $columnNames) . $queryloadend;
+        $queryLoadFront = "INSERT INTO" . " temp (";
+        $queryLoadEnd =") VALUES ";
+        $queryLoad = $queryLoadFront . implode(",", $columnNames) . $queryLoadEnd;
         foreach ($data as $row) {
             if (is_array($row)) {
                 $clean = array_map('trim', $row);
                 $string = implode("','", $clean);
-                $queryload .= "('" . $string . "'),";
+                $queryLoad .= "('" . $string . "'),";
             }
         }
-        $queryloadtrim = rtrim($queryload, ",");
+        $queryLoadTrim = rtrim($queryLoad, ",");
         try {
-            $stl = $this->pdo->prepare($queryloadtrim);
+            $stl = $this->pdo->prepare($queryLoadTrim);
             $stl->execute();
         } catch (\PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
@@ -155,11 +154,11 @@ class CargaClass extends BaseClass
     {
         $fields = $this->prepareUpdate($columnNames);
         /** @noinspection SyntaxError */
-        $queryupdstart = "UPDATE temp, resumen " . " SET ";
-        $queryupdend = " WHERE temp.numero_de_cuenta=resumen.numero_de_cuenta";
-        $queryupd = $queryupdstart . $fields . $queryupdend;
+        $queryUpdateStart = "UPDATE temp, resumen " . " SET ";
+        $queryUpdateEnd = " WHERE temp.numero_de_cuenta=resumen.numero_de_cuenta";
+        $queryUpdate = $queryUpdateStart . $fields . $queryUpdateEnd;
         try {
-            $stu = $this->pdo->prepare($queryupd);
+            $stu = $this->pdo->prepare($queryUpdate);
             $stu->execute();
         } catch (\PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
@@ -176,11 +175,10 @@ class CargaClass extends BaseClass
     public function insertIntoResumen(array $columnNames)
     {
         $fields = implode(',', $columnNames);
-        /** @var string $queryins */
-        $queryins = "insert ignore into resumen ($fields) select $fields from temp";
+        $query = "insert ignore into resumen ($fields) select $fields from temp";
 
         try {
-            $sti = $this->pdo->prepare($queryins);
+            $sti = $this->pdo->prepare($query);
             $sti->execute();
         } catch (\PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
@@ -200,7 +198,7 @@ class CargaClass extends BaseClass
      */
     public function updatePagos()
     {
-        $querypagoins = "insert ignore into pagos (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta)
+        $query = "insert ignore into pagos (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta)
 select numero_de_cuenta, fecha_de_ultimo_pago, 
 monto_ultimo_pago, cliente, c_cvge, 1, id_cuenta 
 from resumen 
@@ -212,7 +210,7 @@ where h2.d_fech>h1.d_fech and h2.c_cont=h1.c_cont and h2.n_prom>0)
 and fecha_de_ultimo_pago<fecha_de_actualizacion 
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
-        $this->pdo->query($querypagoins);
+        $this->pdo->query($query);
     }
 
     /**

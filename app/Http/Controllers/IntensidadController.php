@@ -50,7 +50,8 @@ class IntensidadController extends Controller
         /**
          * @var Writer $writer
          */
-        $writer = WriterFactory::create(Type::XLSX);
+        $wf = new WriterFactory();
+        $writer = $wf->create(Type::XLSX);
         $writer->openToBrowser($filename); // stream data directly to the browser
         /**
          * @var Sheet $sheet

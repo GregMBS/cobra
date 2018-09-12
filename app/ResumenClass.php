@@ -49,7 +49,7 @@ SQL;
      */
     public function highhist($stat, $visit)
     {
-        $highstr = '';
+        $highlight = '';
         $red = array(
             'PROMESA DE PAGO TOTAL',
             'PROMESA DE PAGO PARCIAL',
@@ -73,15 +73,15 @@ SQL;
             'CUENTA DEMANDADA'
         );
         if (in_array($stat, $red)) {
-            $highstr = " class='deudor'";
+            $highlight = " class='deudor'";
         }
         if ($stat == 'VALIDACION') {
-            $highstr = " class='validacion'";
+            $highlight = " class='validacion'";
         }
         if (!empty($visit)) {
-            $highstr = " class='visit'";
+            $highlight = " class='visit'";
         }
-        return $highstr;
+        return $highlight;
     }
 
 
@@ -92,10 +92,10 @@ SQL;
      */
     public function lastGestion($capt)
     {
-        $queryult = "SELECT c_cont FROM historia WHERE c_cvge = :capt
+        $query = "SELECT c_cont FROM historia WHERE c_cvge = :capt
                      AND c_cont <> 0 
                      ORDER BY d_fech DESC, c_hrfi DESC LIMIT 1";
-        $stu = $this->pdo->prepare($queryult);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':capt', $capt);
         $stu->execute();
         $result = $stu->fetch(\PDO::FETCH_ASSOC);
@@ -222,10 +222,10 @@ SQL;
      */
     public function getBadNo($id_cuenta)
     {
-        $stbn = $this->pdo->prepare($this->badNoQuery);
-        $stbn->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stbn->execute();
-        $answerBadNo = $stbn->fetch(PDO::FETCH_ASSOC);
+        $stb = $this->pdo->prepare($this->badNoQuery);
+        $stb->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stb->execute();
+        $answerBadNo = $stb->fetch(PDO::FETCH_ASSOC);
         return $answerBadNo;
     }
 
@@ -316,14 +316,15 @@ SQL;
      * @param int $id_cuenta
      * @return string
      */
-    public function getTimelock($id_cuenta)
+    public function getTimeLock($id_cuenta)
     {
         $tl = date('r');
+        $rc = new Resumen();
 
         /**
          * @var Resumen $query
          */
-        $query = Resumen::whereIdCuenta($id_cuenta);
+        $query = $rc->whereIdCuenta($id_cuenta);
         $resumen = $query->first();
         $time = $resumen->timelock;
         if ($time) {
@@ -439,10 +440,11 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
     {
         $cuenta = '';
         if ($id_cuenta > 0) {
+            $rc = new Resumen();
             /**
              * @var Resumen $query
              */
-            $query = Resumen::whereIdCuenta($id_cuenta);
+            $query =$rc->whereIdCuenta($id_cuenta);
             $resumen = $query->first();
             $cuenta = $resumen->numero_de_cuenta;
         }

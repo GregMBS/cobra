@@ -60,6 +60,10 @@ class BigDataClass
      */
     public function __construct(Request $a)
     {
+        $this->fecha1 = new Carbon('2007-10-19');
+        $this->fecha2 = new Carbon('now');
+        $this->fecha3 = new Carbon('2007-10-19');
+        $this->fecha4 = new Carbon('now');
         if ($a->has('gestor')) {
             $this->gestor = $a->gestor;
         }
@@ -71,23 +75,15 @@ class BigDataClass
         }
         if (strtotime($a->fecha1)) {
             $this->fecha1 = new Carbon($a->fecha1);
-        } else {
-            $this->fecha1 = new Carbon('2007-10-19');
         }
         if (strtotime($a->fecha2)) {
             $this->fecha2 = new Carbon($a->fecha2);
-        } else {
-            $this->fecha2 = new Carbon('now');
         }
         if (strtotime($a->fecha3)) {
             $this->fecha3 = new Carbon($a->fecha3);
-        }else {
-            $this->fecha3 = new Carbon('2007-10-19');
         }
         if (strtotime($a->fecha4)) {
             $this->fecha4 = new Carbon($a->fecha4);
-        } else {
-            $this->fecha4 = new Carbon('now');
         }
         $this->alignDates();
         return $this;
@@ -154,16 +150,16 @@ class BigDataClass
     private function getTipoStr() {
         switch ($this->tipo) {
             case 'visits':
-                $tipostr = " and c_visit <> '' and c_msge is null ";
+                $tipoString = " and c_visit <> '' and c_msge is null ";
                 break;
             case 'telef':
-                $tipostr = " and c_visit IS NULL and c_msge is null ";
+                $tipoString = " and c_visit IS NULL and c_msge is null ";
                 break;
            default :
-                $tipostr = " ";
+               $tipoString = " ";
                 break;
         }
-        return $tipostr;
+        return $tipoString;
     }
     
     

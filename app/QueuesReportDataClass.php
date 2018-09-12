@@ -151,6 +151,6 @@ class QueuesReportDataClass
      * @var string
      */
     public $empm;
-    
+
 }
 

@@ -96,10 +96,10 @@ SQL;
         }
         $stm->execute();
         $main = $stm->fetchAll(\PDO::FETCH_ASSOC);
-        $querypagos = "SELECT MAX(fecha) AS 'FECHA PAGO',
+        $queryPagos = "SELECT MAX(fecha) AS 'FECHA PAGO',
             SUM(monto) AS 'MONTO PAGO',MAX(confirmado) as 'CONFIRMADO'
             FROM pagos WHERE id_cuenta = :id";
-        $stp = $this->pdo->prepare($querypagos);
+        $stp = $this->pdo->prepare($queryPagos);
         foreach ($main as $m) {
             $obj = (object)$m;
             $id_cuenta = $obj->id_cuenta;

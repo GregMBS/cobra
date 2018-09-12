@@ -15,10 +15,10 @@ class SegmentadminClass extends BaseClass {
 	 * @param string $segmento
 	 */
 	public function borrarSegmento($cliente, $segmento) {
-		$queryborrar = "DELETE FROM queuelist
+		$query = "DELETE FROM queuelist
             WHERE cliente=:cliente
             AND sdc=:segmento";
-		$stb = $this->pdo->prepare($queryborrar);
+		$stb = $this->pdo->prepare($query);
 		$stb->bindParam(':cliente', $cliente);
 		$stb->bindParam(':segmento', $segmento);
 		$stb->execute();
@@ -30,19 +30,19 @@ class SegmentadminClass extends BaseClass {
 	 * @param string $segmento
 	 */
 	public function agregarSegmento($cliente, $segmento) {
-		$querylistin = "INSERT IGNORE INTO queuelist
+        $query = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
             SELECT distinct gestor, :cliente, status_aarsa, updown1,
             orden1, 9999999, :segmento, 0
             FROM queuelist";
-		$stl = $this->pdo->prepare($querylistin);
+		$stl = $this->pdo->prepare($query);
 		$stl->bindParam(':cliente', $cliente);
 		$stl->bindParam(':segmento', $segmento);
 		$stl->execute();
-		$querylistcamp = "update queuelist
+		$queryUpdatecamp = "update queuelist
             set camp=auto where camp=9999999";
-		$this->pdo->query($querylistcamp);
+		$this->pdo->query($queryUpdatecamp);
 	}
 
 	/**

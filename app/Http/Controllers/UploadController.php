@@ -6,7 +6,7 @@ use App\HistoriaClass;
 use App\InfonavitClass;
 use App\UploadClass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use View;
 
 class UploadController extends Controller
 {
@@ -36,11 +36,10 @@ class UploadController extends Controller
         $file = $r->file('file');
         $ext = $file->extension();
         $size = $file->getSize();
+        $data = [];
         if (($ext == 'xlsx') && ($size > 0)) {
             $filename = $file->getFilename();
             $data = $this->uc->reader($filename);
-        } else {
-            $data = array();
         }
         $INFONAVIT = new InfonavitClass($data);
         $gestion = $INFONAVIT->getGestion();

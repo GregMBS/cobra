@@ -24,10 +24,11 @@ class UploadClass {
 
         $data = array();
         try {
+            $rf = new ReaderFactory();
             /**
              * @var Reader $reader
              */
-            $reader = ReaderFactory::create(Type::XLSX);
+            $reader = $rf->create(Type::XLSX);
             $reader->open($filename);
             $sheets = $reader->getSheetIterator();
             /**

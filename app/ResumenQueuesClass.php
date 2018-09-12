@@ -24,10 +24,11 @@ class ResumenQueuesClass extends BaseClass
      */
     public function getMyQueue($capt, $camp)
     {
+        $ql = new Queuelist();
         /**
          * @var Queuelist $queueList
          */
-        $queueList = Queuelist::whereGestor($capt);
+        $queueList = $ql->whereGestor($capt);
         $queueList = $queueList->whereCamp($camp);
         $queueList = $queueList->firstOrFail();
         $result = $queueList->toArray();
@@ -43,10 +44,11 @@ class ResumenQueuesClass extends BaseClass
      */
     public function searchCount($field, $find)
     {
+        $rc = new Resumen();
         /**
          * @var Resumen $query
          */
-        $query = Resumen::where($field, '=', $find);
+        $query = $rc->where($field, '=', $find);
         $count = $query->count();
         return $count;
     }
@@ -60,20 +62,17 @@ class ResumenQueuesClass extends BaseClass
      */
     private function prepareResumenMain($cliente, $sdc, $cr)
     {
+        $clientStr = " AND cliente = :cliente ";
+        $sdcStr = " AND status_de_credito = :sdc ";
+        $crStr = " AND queue = :cr ";
         if (empty($cliente)) {
             $clientStr = '';
-        } else {
-            $clientStr = " AND cliente = :cliente ";
         }
         if (empty($sdc)) {
             $sdcStr = " AND status_de_credito not regexp '-' ";
-        } else {
-            $sdcStr = " AND status_de_credito = :sdc ";
         }
         if (empty($cr)) {
             $crStr = " AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION') ";
-        } else {
-            $crStr = " AND queue = :cr ";
         }
 
         $start = "SELECT * FROM resumen 
@@ -188,11 +187,12 @@ and especial > 0";
      */
     public function getOne($id_cuenta)
     {
+        $rc = new Resumen();
         /**
-         * @var Resumen $resumen
+         * @var Resumen $query
          */
-        $resumen = Resumen::whereIdCuenta($id_cuenta);
-        $resumen = $resumen->firstOrFail();
+        $query = $rc->whereIdCuenta($id_cuenta);
+        $resumen = $query->firstOrFail();
         $result = $resumen->toArray();
         return $result;
     }

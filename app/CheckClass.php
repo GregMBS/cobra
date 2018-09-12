@@ -50,12 +50,11 @@ class CheckClass extends BaseClass
     {
         $this->gestor = $r->gestor;
         $this->tipo = $r->tipo;
+        $this->id_cuenta = $r->CUENTA;
+        $this->CUENTA = $this->getCuentaFromIdCuenta($this->id_cuenta);
         if ($this->tipo == 'numero_de_cuenta') {
             $this->CUENTA = $r->CUENTA;
             $this->id_cuenta = $this->getIdCuentaFromCuenta($this->CUENTA);
-        } else {
-            $this->id_cuenta = $r->CUENTA;
-            $this->CUENTA = $this->getCuentaFromIdCuenta($this->id_cuenta);
         }
         $this->fechaOut = new Carbon($r->fechaout);
     }
@@ -75,11 +74,9 @@ class CheckClass extends BaseClass
             ->where('status_de_credito', 'NOT REGEXP', '-')->get();
         if (count($resumen) >0) {
             $cuenta = $resumen->first();
-            $id_cuenta = $cuenta->id_cuenta;
-        } else {
-            $id_cuenta = 0;
+            return $cuenta->id_cuenta;
         }
-        return $id_cuenta;
+        return 0;
     }
 
     /**
@@ -90,18 +87,17 @@ class CheckClass extends BaseClass
     private function getCuentaFromIdCuenta($id_cuenta)
     {
         /**
-         * @var Resumen $resumen
+         * @var Resumen $query
          * @method Resumen whereIdCuenta($id_cuenta)
          */
-        $resumen = Resumen::whereIdCuenta($id_cuenta)
-            ->where('status_de_credito', 'NOT REGEXP', '-')->get();
+        $query = Resumen::whereIdCuenta($id_cuenta)
+            ->where('status_de_credito', 'NOT REGEXP', '-');
+        $resumen = $query->get();
         if (count($resumen) >0) {
             $cuenta = $resumen->first();
-            $numero_de_cuenta = $cuenta->numero_de_cuenta;
-        } else {
-            $numero_de_cuenta = '';
+            return $cuenta->numero_de_cuenta;
         }
-        return $numero_de_cuenta;
+        return '';
     }
 
     /**
@@ -188,16 +184,17 @@ where gestor=:gestor";
         $cuentas = Resumen::join('vasign', 'id_cuenta', '=', 'c_cont')
             ->join('users', 'iniciales', '=', 'gestor')
             ->join('dictamenes', 'dictamen', '=', 'status_aarsa');
-        if (empty($gestor)) {
-            $cuentas = $cuentas->orderBy('gestor')
+        if (!empty($gestor)) {
+            $cuentas = $cuentas->where('gestor', '=', $gestor)
+                ->orderByDesc('fechaIn');
+            $result = $cuentas->get()->toArray();
+            return $result;
+        }
+        $noGestor = $cuentas->orderBy('gestor')
                 ->orderByDesc('fechaIn')
                 ->orderByDesc('fechaOut')
                 ->orderBy('numero_de_cuenta');
-        } else {
-            $cuentas = $cuentas->where('gestor', '=', $gestor)
-                ->orderByDesc('fechaIn');
-        }
-        $result = $cuentas->get()->toArray();
+        $result = $noGestor->get()->toArray();
         return $result;
     }
 

@@ -35,8 +35,12 @@ and c_cvba is null";
      * @return int
      */
     private function getIdCuenta($cuenta) {
-        $resumen = Resumen::where('numero_de_cuenta', '=', $cuenta)
-            ->first();
+        /**
+         * @var Resumen $query
+         */
+        $rc = new Resumen();
+        $query = $rc->where('numero_de_cuenta', '=', $cuenta);
+        $resumen = $query->first();
         $id_cuenta = $resumen->id_cuenta;
         return $id_cuenta;
     }
@@ -48,7 +52,8 @@ and c_cvba is null";
      * @return bool
      */
     private function unsafeInsert(array $gestiones) {
-        $test = Historia::insert($gestiones);
+        $hc = new Historia();
+        $test = $hc->insert($gestiones);
         return $test;
     }
 

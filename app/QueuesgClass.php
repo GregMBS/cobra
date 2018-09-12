@@ -25,10 +25,11 @@ class QueuesgClass extends BaseClass {
      */
     public function getCamp($cliente, $queue, $sdc, $capt) {
         try {
+            $qc = new Queuelist();
             /**
              * @var Queuelist $queuelist
              */
-            $queuelist = Queuelist::whereCliente($cliente);
+            $queuelist = $qc->whereCliente($cliente);
             $queuelist = $queuelist->whereStatusAarsa($queue);
             $queuelist = $queuelist->whereSdc($sdc);
             $queuelist = $queuelist->whereGestor($capt);
@@ -46,10 +47,11 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getClients() {
+        $qc = new Queuelist();
         /**
          * @var Cliente $clientes
          */
-        $clientes = Queuelist::distinct()->select(['cliente'])
+        $clientes = $qc->distinct()->select(['cliente'])
             ->where('cliente', '<>', '');
         $clientes = $clientes->orderBy('cliente')->get()->pluck('cliente');
         return $clientes->toArray();
@@ -61,10 +63,11 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getSdcClients($capt) {
+        $qc = new Queuelist();
         /**
          * @var Queuelist $results
          */
-        $results = Queuelist::distinct()->select(['cliente', 'sdc'])
+        $results = $qc->distinct()->select(['cliente', 'sdc'])
             ->whereGestor($capt);
         $results = $results->whereBloqueado(0);
         $results = $results->where('cliente', '<>', '');
@@ -80,10 +83,11 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getQueueSdcClients($capt) {
+        $qc = new Queuelist();
         /**
          * @var Queuelist $results
          */
-        $results = Queuelist::distinct()->select(['cliente', 'sdc', 'status_aarsa'])
+        $results = $qc->distinct()->select(['cliente', 'sdc', 'status_aarsa'])
             ->whereGestor($capt);
         $results = $results->whereBloqueado(0);
         $results = $results->where('cliente', '<>', '');

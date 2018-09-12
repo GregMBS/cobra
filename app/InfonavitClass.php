@@ -36,13 +36,12 @@ class InfonavitClass {
      */
     private function excelDateToUnix($EXCEL_DATE) {
         $output = [];
+        $date = '';
+        $time = '00:00:00';
         if ($EXCEL_DATE > 0) {
             $UNIX_DATE = ($EXCEL_DATE - 25569) * 86400;
             $date = gmdate("Y-m-d", $UNIX_DATE);
             $time = gmdate('H:i:s', $UNIX_DATE);
-        } else {
-            $date = '';
-            $time = '00:00:00';
         }
         if (!$date) {
             $date = '';
@@ -57,10 +56,10 @@ class InfonavitClass {
     public function getGestion() {
         $result = array();
         foreach ($this->data as $row) {
-            $fechahora = $this->excelDateToUnix($row['startDate']);
-            $d_fech = $fechahora['date'];
-            $c_hrin = $fechahora['time'];
-            $c_hrfi = $fechahora['time'];
+            $fechaHora = $this->excelDateToUnix($row['startDate']);
+            $d_fech = $fechaHora['date'];
+            $c_hrin = $fechaHora['time'];
+            $c_hrfi = $fechaHora['time'];
             if (!empty($d_fech)) {
                 $temp = array(
                     'CUENTA' => $row['txtNC'],

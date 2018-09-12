@@ -57,8 +57,8 @@ order by c_cvge,c_cvst,c_hrin";
         $sdp = $this->pdo->prepare($query);
         $sdp->bindParam(':capt', $capt);
         $sdp->execute();
-        $resultp = $sdp->fetchAll();
-        return $resultp;
+        $result = $sdp->fetchAll();
+        return $result;
     }
 
     /**
@@ -70,7 +70,11 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function updateBreak($auto, $tipo, $empieza, $termina)
     {
-        $break = Breaks::find($auto);
+        $bc = new Breaks();
+        /**
+         * @var Breaks $break
+         */
+        $break = $bc->find($auto);
         $break->tipo = $tipo;
         $break->empieza = $empieza;
         $break->termina = $termina;
@@ -84,7 +88,12 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function deleteBreak($auto)
     {
-        $check = Breaks::find($auto)->delete();
+        $bc = new Breaks();
+        /**
+         * @var Breaks $break
+         */
+        $break = $bc->find($auto);
+        $check = $break->delete();
         return $check;
     }
 
@@ -112,7 +121,8 @@ order by c_cvge,c_cvst,c_hrin";
      */
     public function listBreaks()
     {
-        $result = Breaks::all()->toArray();
+        $bc = new Breaks();
+        $result = $bc->all()->toArray();
         return $result;
     }
 
