@@ -18,12 +18,20 @@ class BreaksClass extends BaseClass
 
     /**
      *
-     * @param string $TIEMPO
-     * @param string $GESTOR
+     * @param string $tiempo
+     * @param string $gestor
      * @return array
      */
-    private function getTimes($TIEMPO, $GESTOR)
+    private function getTimes($tiempo, $gestor)
     {
+        $hc = new Historia();
+        $query = $hc->selectRaw("time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
+min(c_hrin) as 'minhr'", ['tiempo' => $tiempo])
+            ->where('d_fech','=', date('Y-m-d'))
+            ->where('c_hrin', '>', $tiempo)
+            ->where('c_cvge', $gestor);
+        $result = $query->get()->toArray();
+        /*
         $query = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
 min(c_hrin) as 'minhr'
 from historia 
@@ -35,6 +43,7 @@ and c_hrin>:tiempo";
         dd($sdq, $TIEMPO, $GESTOR);
         $sdq->execute();
         $result = $sdq->fetch(\PDO::FETCH_ASSOC);
+        */
         return $result;
     }
 
@@ -45,6 +54,21 @@ and c_hrin>:tiempo";
      */
     private function getMainBreaksTable($capt)
     {
+        $hc = new Historia();
+        $query = $hc->where('c_cont', '=', 0)
+            ->where('d_fech','=', date('Y-m-d'))
+            ->whereNotIn('c_cvst', ['login', 'salir'])
+            ->where('c_cvge', $capt)
+            ->orderBy('c_cvge')
+            ->orderBy('c_cvst')
+            ->orderBy('c_hrin');
+        $main = $query->get()->toArray();
+        foreach ($main as &$m) {
+            $now = time();
+            $then = strtotime($m['d_fech'] . ' ' . $m['c_hrin']);
+            $m['diff'] = $now - $then;
+        }
+/*
         $query = "select auto,c_cvge,c_cvst,c_hrin,
 time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff'
 from historia 
@@ -58,26 +82,25 @@ order by c_cvge,c_cvst,c_hrin";
         $sdp->bindParam(':capt', $capt);
         $sdp->execute();
         $result = $sdp->fetchAll();
-        return $result;
+*/
+        return $main;
     }
 
     /**
      *
-     * @param int $auto
-     * @param string $tipo
-     * @param string $empieza
-     * @param string $termina
+     * @param BreaksDataClass $dataClass
      */
-    public function updateBreak($auto, $tipo, $empieza, $termina)
+    public function updateBreak(BreaksDataClass $dataClass)
     {
+        $data = $dataClass->getBreak();
         $bc = new Breaks();
         /**
          * @var Breaks $break
          */
-        $break = $bc->find($auto);
-        $break->tipo = $tipo;
-        $break->empieza = $empieza;
-        $break->termina = $termina;
+        $break = $bc->find($data->auto);
+        $break->tipo = $data->tipo;
+        $break->empieza = $data->empieza;
+        $break->termina = $data->termina;
         $break->save();
     }
 
@@ -98,20 +121,17 @@ order by c_cvge,c_cvst,c_hrin";
     }
 
     /**
-     *
-     * @param string $gestor
-     * @param string $tipo
-     * @param string $empieza
-     * @param string $termina
+     * @param BreaksDataClass $dataClass
      */
-    public function insertBreak($gestor, $tipo, $empieza, $termina)
+    public function insertBreak(BreaksDataClass $dataClass)
     {
+        $data = $dataClass->getBreak();
         /** @var Breaks $break */
         $break = new Breaks();
-        $break->gestor = $gestor;
-        $break->tipo = $tipo;
-        $break->empieza = $empieza;
-        $break->termina = $termina;
+        $break->gestor = $data->gestor;
+        $break->tipo = $data->tipo;
+        $break->empieza = $data->empieza;
+        $break->termina = $data->termina;
         $break->save();
     }
 

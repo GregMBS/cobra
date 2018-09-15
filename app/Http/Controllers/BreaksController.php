@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\BreaksDataClass;
 use App\UserClass;
 use View;
 use App\BreaksClass;
-use Illuminate\Http\Request;
+use Request;
 
 class BreaksController extends Controller
 {
@@ -66,7 +67,18 @@ class BreaksController extends Controller
      * @return View
      */
     public function cambiar(Request $r) {
-        $this->bc->updateBreak($r->auto, $r->tipo, $r->empieza, $r->termina);
+        $r->validate([
+            'auto' => 'required|exists:breaks|integer',
+            'tipo' => 'required',
+            'empieza' => 'required',
+            'termina' => 'required'
+        ]);
+        $break = new BreaksDataClass();
+        $break->setAuto($r->auto);
+        $break->setTipo($r->tipo);
+        $break->setEmpieza($r->empieza);
+        $break->setTermina($r->termina);
+        $this->bc->updateBreak($break);
         return $this->admindex();        
     }
 
@@ -76,7 +88,18 @@ class BreaksController extends Controller
      * @return View
      */
     public function agregar(Request $r) {
-        $this->bc->insertBreak($r->gestor, $r->tipo, $r->empieza, $r->termina);
+        $r->validate([
+            'gestor' => 'required',
+            'tipo' => 'required',
+            'empieza' => 'required',
+            'termina' => 'required'
+        ]);
+        $break = new BreaksDataClass();
+        $break->setGestor($r->gestor);
+        $break->setTipo($r->tipo);
+        $break->setEmpieza($r->empieza);
+        $break->setTermina($r->termina);
+        $this->bc->insertBreak($break);
         return $this->admindex();
     }
 }

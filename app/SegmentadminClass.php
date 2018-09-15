@@ -9,19 +9,22 @@ namespace App;
  */
 class SegmentadminClass extends BaseClass {
 
-	/**
-	 *
-	 * @param string $cliente
-	 * @param string $segmento
-	 */
+    /**
+     *
+     * @param string $cliente
+     * @param string $segmento
+     * @return boolean
+     * @throws \Exception
+     */
 	public function borrarSegmento($cliente, $segmento) {
-		$query = "DELETE FROM queuelist
-            WHERE cliente=:cliente
-            AND sdc=:segmento";
-		$stb = $this->pdo->prepare($query);
-		$stb->bindParam(':cliente', $cliente);
-		$stb->bindParam(':segmento', $segmento);
-		$stb->execute();
+	    $qc = new Queuelist();
+        /**
+         * @var Queuelist $query
+         */
+	    $query = $qc->whereCliente($cliente);
+	    $query = $query->whereSdc($segmento);
+	    $result = $query->delete();
+		return $result;
 	}
 
 	/**
@@ -40,34 +43,37 @@ class SegmentadminClass extends BaseClass {
 		$stl->bindParam(':cliente', $cliente);
 		$stl->bindParam(':segmento', $segmento);
 		$stl->execute();
-		$queryUpdatecamp = "update queuelist
+		$queryUpdateCamp = "update queuelist
             set camp=auto where camp=9999999";
-		$this->pdo->query($queryUpdatecamp);
+		$this->pdo->query($queryUpdateCamp);
 	}
 
 	/**
 	 *
 	 */
 	public function addAllSegmentos() {
-		$querycliseg = "SELECT DISTINCT cliente, status_de_credito "
-			. "FROM resumen "
-			. "WHERE status_de_credito NOT REGEXP '-'";
-		$result = $this->pdo->query($querycliseg);
-		$querylistin = "INSERT IGNORE INTO queuelist
+	    $rc = new Resumen();
+        /**
+         * @var Resumen $queryCS
+         */
+        $queryCS = $rc->distinct()->select(['cliente', 'status_de_credito'])
+            ->where('status_de_credito', 'NOT REGEXP', '-');
+	    $clientSdc = $queryCS->get();
+		$query = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
             SELECT distinct gestor, :cliente, status_aarsa, updown1,
             orden1, 9999999, :segmento, 0
             FROM queuelist";
-		$stl = $this->pdo->prepare($querylistin);
-		foreach ($result as $row) {
-			$stl->bindParam(':cliente', $row['cliente']);
-			$stl->bindParam(':segmento', $row['status_de_credito']);
+		$stl = $this->pdo->prepare($query);
+		foreach ($clientSdc as $row) {
+			$stl->bindParam(':cliente', $row->cliente);
+			$stl->bindParam(':segmento', $row->status_de_credito);
 			$stl->execute();
 		}
-		$querylistcamp = "update queuelist
+		$queryUpdate = "update queuelist
             set camp=auto where camp=9999999";
-		$this->pdo->query($querylistcamp);
+		$this->pdo->query($queryUpdate);
 	}
 
 	/**
@@ -75,17 +81,17 @@ class SegmentadminClass extends BaseClass {
 	 * @return array
 	 */
 	public function listQueuedSegmentos() {
-		$querytempr = <<<SQL
-CREATE TEMPORARY TABLE csdcr
+		$queryTemp = <<<SQL
+CREATE TEMPORARY TABLE temporal
 SELECT cliente, status_de_credito, COUNT(id_cuenta) AS counter FROM resumen
 WHERE status_de_credito NOT REGEXP '-'
 GROUP BY cliente, status_de_credito
 SQL;
-		$this->pdo->query($querytempr);
+		$this->pdo->query($queryTemp);
 		$query = <<<SQL
 SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, min(q.auto) as id
     FROM queuelist q
-    LEFT JOIN csdcr r
+    LEFT JOIN temporal r
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
     group by q.cliente,sdc
@@ -101,13 +107,13 @@ SQL;
 	 * @return array
 	 */
 	public function listUnqueuedSegments() {
-		$querytemp = "create temporary table csdc
+		$queryTemp = "create temporary table temporal
 select distinct cliente,sdc from queuelist";
-		$this->pdo->query($querytemp);
+		$this->pdo->query($queryTemp);
 		$query = "SELECT r.cliente as 'cliente',status_de_credito as 'sdc',
     count(1)
     FROM resumen r
-    LEFT JOIN csdc q
+    LEFT JOIN temporal q
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc is null
     AND r.cliente <> ''
@@ -119,11 +125,12 @@ select distinct cliente,sdc from queuelist";
 		return $result;
 	}
 
-	/**
-	 * inactivate accounts and remove segment from queuelist
-	 * @param  string $cliente  [description]
-	 * @param  string $segmento [description]
-	 */
+    /**
+     * inactivate accounts and remove segment from queuelist
+     * @param  string $cliente [description]
+     * @param  string $segmento [description]
+     * @throws \Exception
+     */
 	public function inactivarSegmento($cliente, $segmento) {
 		$query = "update resumen
 set status_de_credito = concat(status_de_credito,'-inactivo')

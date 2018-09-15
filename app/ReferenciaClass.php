@@ -15,13 +15,13 @@ class ReferenciaClass extends BaseClass
      * @return string[][]
      */
     public function index($id_cuenta) {
-        $query = "SELECT * FROM referencias 
-                    WHERE id_cuenta = :id_cuenta";
-        $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        $rc = new Referencia();
+        /**
+         * @var Referencia $query
+         */
+        $query = $rc->whereIdCuenta($id_cuenta);
+        $result = $query->get();
+        return $result->toArray();
     }
 
     public function load()

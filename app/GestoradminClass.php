@@ -45,7 +45,7 @@ class GestoradminClass extends BaseClass {
                 WHERE iniciales = :capt";
             $stp = $this->pdo->prepare($query);
             $stp->bindValue(':pass', bcrypt($pass));
-            $stp->bindParam(':usuaria', $capt);
+            $stp->bindParam(':capt', $capt);
             $stp->execute();
         }
     }
@@ -151,16 +151,16 @@ class GestoradminClass extends BaseClass {
     }
 
     /**
-     * 
-     * @param string $completo
-     * @param string $tipo
-     * @param string $iniciales
-     * @param string $pass
+     *
+     * @param GestorDataClass $dataClass
+     * @return string
      */
-    public function changeUserData($completo, $tipo, $iniciales, $pass)
+    public function changeUserData(GestorDataClass $dataClass)
     {
-        $this->updateOpenParams($completo, $tipo, $iniciales);
-        $this->updatePassword($pass, $iniciales);
+        $data = $dataClass->getUser();
+        $this->updateOpenParams($data->completo, $data->tipo, $data->iniciales);
+        $this->updatePassword($data->pass, $data->iniciales);
+        return $data->iniciales;
     }
     
     /**
@@ -172,16 +172,16 @@ class GestoradminClass extends BaseClass {
         $this->deleteFromQueuelist($iniciales);
         $this->deleteFromResumen($iniciales);
     }
-    
+
     /**
-     * 
-     * @param string $completo
-     * @param string $tipo
-     * @param string $iniciales
-     * @param string $pass
+     * @param GestorDataClass $dataClass
+     * @return string
      */
-    public function addUser($completo, $tipo, $iniciales, $pass) {
-        $this->addToUsers($completo, $tipo, $iniciales, $pass);
-        $this->addToQueuelist($iniciales);
+    public function addUser(GestorDataClass $dataClass)
+    {
+        $data = $dataClass->getUser();
+        $this->addToUsers($data->completo, $data->tipo, $data->iniciales, $data->pass);
+        $this->addToQueuelist($data->iniciales);
+        return $data->iniciales;
     }
 }
