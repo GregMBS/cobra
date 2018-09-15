@@ -68,7 +68,7 @@ where status_de_credito not regexp '-'
      * @var string 
      */
     private $querymainend = " 
-group by id_cuenta
+group by id_cuenta,queue
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
 
     /**

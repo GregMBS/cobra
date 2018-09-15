@@ -43,7 +43,7 @@ IFNULL(queuelist.status_aarsa,IF(rslice.status_aarsa<>'','ELASTIX','BREAK')),
 usuario,userlog.gestor,id_cuenta
 FROM userlog
 LEFT JOIN rslice ON user=userlog.gestor
-LEFT JOIN nombres USE INDEX (GRUPO) ON userlog.gestor=iniciales
+LEFT JOIN nombres ON userlog.gestor=iniciales
 LEFT JOIN queuelist ON nombres.camp=queuelist.camp AND user=userlog.gestor
 WHERE userlog.gestor IS NOT NULL
 AND fechahora>CURDATE()

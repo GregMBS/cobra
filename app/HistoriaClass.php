@@ -87,7 +87,7 @@ and c_cvba is null";
      * @param string $tele
      * @return array
      */
-    public function addNewTel($C_CONT, $tele) {
+    private function addNewTel($C_CONT, $tele) {
         $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
         $telArray = $this->getCurrentTels($C_CONT);
         $query = <<<SQL

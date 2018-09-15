@@ -38,9 +38,12 @@ class SpeclistDataClass
 
     public function __construct(array $array)
     {
-        $this->cliente = $array['cliente'];
-        $this->queue = $array['queue'];
-        $this->sdc = $array['sdc'];
+        $fields = ['cliente', 'queue', 'sdc'];
+        foreach ($fields as $field) {
+            if (isset($array[$field])) {
+                $this->$field = $array[$field];
+            }
+        }
         $this->sdcString = $this->getSdcString();
         $this->ratoString = $this->getRatoString($array['rato']);
     }

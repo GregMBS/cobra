@@ -7,6 +7,8 @@
  */
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
+
 /**
  * Description of GestionClass
  *
@@ -147,8 +149,8 @@ and id_cuenta = :c_cont";
     }
 
     /**
-     *
      * @param int $auto
+     * @param string $c_cvge
      */
     private function addHistgest($auto, $c_cvge)
     {
@@ -163,17 +165,35 @@ and id_cuenta = :c_cont";
      *
      * @param int $C_CONT
      * @param string $tele
+     * @return array
      */
     public function addNewTel($C_CONT, $tele = '')
     {
-        if (! empty($tele)) {
+        if (!empty($tele)) {
             $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
-            $queryntel = "UPDATE resumen " . "SET tel_4_verif = tel_3_verif," . "tel_3_verif = tel_2_verif," . "tel_2_verif = tel_1_verif," . "tel_1_verif = :tel " . "WHERE id_cuenta = :C_CONT";
-            $stn = $this->pdo->prepare($queryntel);
+            $query = "UPDATE resumen " . "SET tel_4_verif = tel_3_verif," . "tel_3_verif = tel_2_verif," . "tel_2_verif = tel_1_verif," . "tel_1_verif = :tel " . "WHERE id_cuenta = :C_CONT";
+            $stn = $this->pdo->prepare($query);
             $stn->bindParam(':tel', $tel);
             $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
             $stn->execute();
         }
+        $rc = new Resumen();
+        /**
+         * @var Resumen $query
+         */
+        $query = $rc->whereIdCuenta($C_CONT);
+        /**
+         * @var Collection $result
+         */
+        $result = $query->get();
+        /**
+         * @var Resumen $cuenta
+         */
+        $cuenta = $result->first();
+        $data = $cuenta->toArray();
+        $keys = array_flip(['tel_1_verif', 'tel_2_verif', 'tel_3_verif', 'tel_4_verif']);
+        $output = array_intersect_key($data, $keys);
+        return $output;
     }
 
     /**

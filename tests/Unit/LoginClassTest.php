@@ -21,15 +21,19 @@ class LoginClassTest extends TestCase
     public function testGetUserData()
     {
         $this->lc = new LoginClass();
-        auth()->onceUsingId(1);
+        auth()->attempt([
+            'iniciales' => 'gregb',
+            'password' => 'AwRats'
+        ]);
         $id = auth()->id();
+        auth()->logout();
         /**
          * @var User
          */
         $user = User::find($id);
         $userArray = $this->lc->getUserData($user);
         $this->assertArrayHasKey('id', $userArray);
-        $this->assertTrue($userArray['id'] === 1);
+        $this->assertTrue($userArray['iniciales'] === 'gregb');
     }
 
     public function testProcessLogin()

@@ -22,21 +22,21 @@ class HorariosAllClass extends BaseClass
      */
     public function getCurrentMain($dom)
     {
-        $query = "select count(distinct c_cont) as cuentas,
+        $day = $dom . ' day of last month';
+        $date = date('Y-m-d', strtotime($day));
+        $hc = new Historia();
+        $query = $hc
+            ->selectRaw("count(distinct c_cont) as cuentas,
             sum(c_cvst like 'PROMESA DE%') as promesas,
             count(1) as gestiones,
             count(1)-sum(queue='SIN CONTACTOS') as nocontactos,
-            sum(queue='SIN CONTACTOS') as contactos
-            from historia
-            left join dictamenes on c_cvst=dictamen
-            where c_msge is null
-            and c_cniv is null
-            and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
-            group by D_FECH";
-        $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+            sum(queue='SIN CONTACTOS') as contactos")
+            ->leftJoin('dictamenes', 'c_cvst', '=', 'dictamen')
+            ->whereNull('c_cniv')
+            ->whereNull('c_msge')
+            ->where('d_fech', '=', $date);
+        $result = $query->first();
+        return $result->toArray();
     }
 
     /**
@@ -46,12 +46,12 @@ class HorariosAllClass extends BaseClass
      */
     public function getPagos($dom)
     {
-        $query = "select count(1) as ct from pagos
-            where fecha=last_day(curdate() - interval 1 month) + interval :dom day";
-        $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+        $day = $dom . ' day of last month';
+        $date = date('Y-m-d', strtotime($day));
+        $pc = new Pago();
+        $query = $pc->whereFecha($date);
+        $count = $query->count();
+        return ['ct' => $count];
     }
 
     /**
@@ -60,15 +60,15 @@ class HorariosAllClass extends BaseClass
      */
     public function countAccounts()
     {
-        $query = "select count(distinct c_cont) as ct
-            from historia
-            where c_cont>0
-            and c_cniv is null and c_msge is null
-            and D_FECH>last_day(curdate() - interval 1 month)";
-        $stq   = $this->pdo->prepare($query);
-        $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
-        return $result['ct'];
+        $day = 'last day of last month';
+        $date = date('Y-m-d', strtotime($day));
+        $hc = new Historia();
+        $query = $hc->distinct()->select(['c_cont'])->where('c_cont', '>', 0)
+            ->whereNull('c_cniv')
+            ->whereNull('c_msge')
+            ->where('d_fech', '>', $date);
+        $count = $query->count();
+        return $count;
     }
 
     /**
@@ -78,15 +78,14 @@ class HorariosAllClass extends BaseClass
      */
     public function countAccountsPerDay($dom)
     {
-        $query = "select count(distinct c_cont) as ct
-            from historia
-            where c_cont>0
-            and c_cniv is null and c_msge is null
-            and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day";
-        $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
-        $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
-        return $result['ct'];
+        $day = $dom . ' day of last month';
+        $date = date('Y-m-d', strtotime($day));
+        $hc = new Historia();
+        $query = $hc->distinct()->select(['c_cont'])->where('c_cont', '>', 0)
+            ->whereNull('c_cniv')
+            ->whereNull('c_msge')
+            ->where('d_fech', '=', $date);
+        $count = $query->count();
+        return $count;
     }
 }

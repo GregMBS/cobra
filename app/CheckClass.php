@@ -70,7 +70,8 @@ class CheckClass extends BaseClass
          * @var Resumen|\Illuminate\Database\Eloquent\Collection $resumen
          * @method Resumen whereNumeroDeCuenta($cuenta)
          */
-        $resumen = Resumen::whereNumeroDeCuenta($cuenta)
+        $rc = new Resumen();
+        $resumen = $rc->whereNumeroDeCuenta($cuenta)
             ->where('status_de_credito', 'NOT REGEXP', '-')->get();
         if (count($resumen) >0) {
             $cuenta = $resumen->first();
@@ -90,7 +91,8 @@ class CheckClass extends BaseClass
          * @var Resumen $query
          * @method Resumen whereIdCuenta($id_cuenta)
          */
-        $query = Resumen::whereIdCuenta($id_cuenta)
+        $rc = new Resumen();
+        $query = $rc->whereIdCuenta($id_cuenta)
             ->where('status_de_credito', 'NOT REGEXP', '-');
         $resumen = $query->get();
         if (count($resumen) >0) {
@@ -181,7 +183,8 @@ where gestor=:gestor";
      */
     public function listVasign($gestor = '')
     {
-        $cuentas = Resumen::join('vasign', 'id_cuenta', '=', 'c_cont')
+        $rc = new Resumen();
+        $cuentas = $rc->join('vasign', 'id_cuenta', '=', 'c_cont')
             ->join('users', 'iniciales', '=', 'gestor')
             ->join('dictamenes', 'dictamen', '=', 'status_aarsa');
         if (!empty($gestor)) {
@@ -234,8 +237,15 @@ where gestor=:gestor";
      */
     public function getCompleto($gestor)
     {
+        /**
+         * @var User $uc
+         */
+        $uc = new User();
         try {
-            $result = User::whereIniciales($gestor)->get()->first();
+            /**
+             * @var User $result
+             */
+            $result = $uc->whereIniciales($gestor)->get()->first();
             return $result->completo;
         } catch (\Exception $e) {
             return '';

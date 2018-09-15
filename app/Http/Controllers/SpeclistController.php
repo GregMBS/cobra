@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\SpeclistDataClass;
 use View;
 use App\SpeclistqcClass;
-use Request;
+use Illuminate\Http\Request;
 
 class SpeclistController extends Controller
 {
@@ -21,12 +21,12 @@ class SpeclistController extends Controller
 
     /**
      *
-     * @param Request $r
+     * @param Request $request
      * @return View
      */
-    public function index(Request $r)
+    public function index(Request $request)
     {
-        $data = new SpeclistDataClass($r->all());
+        $data = new SpeclistDataClass($request->all());
         $result = $this->sc->getSpecListReport($data);
         $view = view('speclistqc')
         ->with('result', $result);

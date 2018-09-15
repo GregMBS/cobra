@@ -163,8 +163,8 @@ order by iniciales;';
     {
         $data = $this->getTiempoDiff($gestor, $dom, $tipo);
         $diffs = $this->getNTPDiff($gestor, $dom, $data['tiempo']);
-        $diffsum = array_sum(array_column($diffs, 'diff'));
-        $data['diff'] = $diffsum;
+        $diffSum = array_sum(array_column($diffs, 'diff'));
+        $data['diff'] = $diffSum;
         return $data;
     }
 
@@ -237,12 +237,12 @@ order by iniciales;';
      */
     public function countVisitsAssigned($visitador, $dom)
     {
-        $query = "select count(fechaout) as co, count(fechain) as ci
+        $query = "select count(fechaOut) as co, count(fechaIn) as ci
 			from vasign
 			where gestor = :visitador
-			and fechaout>last_day(curdate()-interval 1 month)
-			and fechaout<last_day(curdate())+interval 1 day
-			and day(fechaout) = :dom";
+			and fechaOut>last_day(curdate()-interval 1 month)
+			and fechaOut<last_day(curdate())+interval 1 day
+			and day(fechaOut) = :dom";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':visitador', $visitador);
         $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
@@ -298,4 +298,53 @@ and d_fech<=last_day(curdate())) as tmp";
         }
         return $dow;
     }
+
+    /**
+     * @param string $c_visit
+     * @param int $dhoy
+     * @return array
+     */
+    public function packVisit($c_visit, $dhoy): array
+    {
+        $row = array();
+        for ($i = 1; $i <= $dhoy; $i++) {
+            $data = new HorariosDataClass($i);
+            $main = $this->getVisitadorMain($c_visit, $i);
+            $data->gestiones = $main['gestiones'];
+            $data->cuentas = $main['cuentas'];
+            $data->contactos = $main['contactos'];
+            $data->nocontactos = $main['nocontactos'];
+            $data->promesas = $main['promesas'];
+            $data->pagos = 0;
+            $row[$i] = $data;
+        }
+        return $row;
+    }
+
+    /**
+     * @param string $c_cvge
+     * @param int $dhoy
+     * @return array
+     */
+    public function packData($c_cvge, $dhoy) {
+        $row = array();
+        for ($i = 1; $i <= $dhoy; $i++) {
+            $data = new HorariosDataClass($i);
+            $startStop = $this->getStartStopDiff($c_cvge, $i);
+            $data->start = $startStop['start'];
+            $data->stop = $startStop['stop'];
+            $data->diff = $startStop['diff'];
+            $main = $this->getCurrentMain($c_cvge, $i);
+            $data->gestiones = $main['gestiones'];
+            $data->cuentas = $main['cuentas'];
+            $data->contactos = $main['contactos'];
+            $data->nocontactos = $main['nocontactos'];
+            $data->promesas = $main['promesas'];
+            $data->pagos = 0;
+            $row[$i] = $data;
+        }
+        return $row;
+    }
+
+
 }

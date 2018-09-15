@@ -70,7 +70,7 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
-        dd($request);
+
         if ($this->oldLogin($request)) {
             $password = $request->pwd;
             $id = $this->oldToNew($this->oldLogin($request), $password);

@@ -83,13 +83,5 @@ class HorariosDataClass
     public function __construct($index) {
         $this->index = $index;
     }
-    
-    /**
-     * 
-     * @return number
-     */
-    public function getIndex() {
-        return $this->index;
-    }
 }
 

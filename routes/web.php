@@ -24,6 +24,7 @@ Route::get('/breaks/{capt}', 'BreaksController@index');
 Route::middleware('auth')->group(function () {
     
     Route::get('/ultima', 'ResumenController@ultima');
+    Route::get('/home', 'ResumenController@index');
     Route::get('/resumen', 'ResumenController@index');
     Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
     Route::post('/gestion', 'ResumenController@gestion');
@@ -44,6 +45,14 @@ Route::middleware('auth')->group(function () {
     });
 });
 Route::middleware(['auth','admin'])->group(function () {    // Admin only
+    Route::get('/home', function () {
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+        $capt = $user->iniciales;
+        return view('reports')->with('capt', $capt);
+    });
     Route::get('/reports', function () {
         /**
          * @var User $user
@@ -52,6 +61,8 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
         $capt = $user->iniciales;
         return view('reports')->with('capt', $capt);
     });
+    Route::get('/resumen', 'ResumenController@index');
+    Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
     Route::get('/ultimo_mejor', 'BestController@index');
     Route::get('/queues', 'QueuesController@index');
     Route::get('/queues/{gestor}', 'QueuesController@change');
@@ -79,8 +90,6 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/bigproms', 'BigpromsController@index');
     Route::get('/bigquery/make', 'BigqueryController@makeReport');
     Route::get('/bigquery', 'BigqueryController@index');
-    Route::get('/bigpagos/make', 'BigpagosController@makeReport');
-    Route::get('/bigpagos', 'BigpagosController@index');
     Route::get('/checkoutlist/{gestor}', 'CheckController@listing');
     Route::get('/checkout', 'CheckController@checkout');
     Route::get('/checkout/{gestor}', 'CheckController@checkoutAjax');
@@ -115,12 +124,5 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/horariosv', 'HorariosController@indexV');
     Route::get('/perfmes', 'PerfmesController@index');
     Route::get('/perfmesv', 'PerfmesController@indexV');
-    Route::get('/gestor/{gestor}', 'GestorController@show');
 });
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
