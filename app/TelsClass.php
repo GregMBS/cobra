@@ -8,8 +8,6 @@
 
 namespace App;
 
-use Box\Spout\Writer\WriterFactory;
-use Box\Spout\Common\Type;
 
 /**
  * Description of TelsClass
@@ -54,27 +52,6 @@ concat(" ",tel_1_laboral) as "tel 1 laboral",tel_1_laboral in (select c_tele fro
 concat(" ",tel_2_laboral) as "tel 2 laboral",tel_2_laboral in (select c_tele from contactados) as tel_2_laboral_contacto
 from resumen
 where status_de_credito not regexp "-"';
-
-    /**
-     * @param $result
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
-     */
-    public function outputDocument($result) {
-        $filename = "Query_de_telefonos_" . date('ymd') . ".xlsx";
-        $output = array();
-        $output[] = array_keys($result[0]);
-        foreach ($result as $row) {
-            $output[] = $row;
-        }
-        $wf = new WriterFactory();
-        $writer = $wf->create(Type::XLSX);
-        $writer->openToBrowser($filename); // stream data directly to the browser
-        $writer->addRows($output); // add multiple rows at a time
-        $writer->close();
-    }
 
     /**
      * 

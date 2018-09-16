@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\TroubleClass;
+use App\TroubleDataClass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Redirect;
+use View;
+use Redirect;
 
 class TroubleController extends Controller
 {
@@ -52,7 +53,13 @@ class TroubleController extends Controller
     public function store(Request $r)
     {
         $capt = auth()->user()->iniciales;
-        $this->tc->insertTrouble($r->sistema, $capt, $r->fuente, $r->descripcion, $r->error_msg);
+        $tdc = new TroubleDataClass();
+        $tdc->sistema = $r->sistema;
+        $tdc->usuario = $capt;
+        $tdc->fuente = $r->fuente;
+        $tdc->descripcion = $r->descripcion;
+        $tdc->error_msg = $r->error_msg;
+        $this->tc->insertTrouble($tdc);
         return redirect('/');
     }
 
@@ -89,12 +96,18 @@ class TroubleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*
+
     public function update(Request $request, $id)
     {
-        return $this->index();
+        $capt = auth()->user()->iniciales;
+        $tdc = new TroubleDataClass();
+        $tdc->auto = $id;
+        $tdc->usuario = $capt;
+        $tdc->reparacion = $request->reparacion;
+        $this->tc->updateTrouble($tdc, $capt);
+        return redirect('/');
     }
-    */
+
 
     /**
      * Remove the specified resource from storage.

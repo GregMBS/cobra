@@ -16,53 +16,51 @@ namespace App;
 class TroubleClass extends BaseClass {
 
     /**
-     * 
+     * @param TroubleDataClass $tdc
      * @param string $capt
-     * @param string $reparacion
-     * @param int $auto
      */
-    public function updateTrouble($capt, $reparacion, $auto) {
-        $queryup = "UPDATE trouble
-            set fechacomp=now(),
-            it_guy=:capt,
-            reparacion=:reparacion
-            where auto=:auto";
-        $stu = $this->pdo->prepare($queryup);
-        $stu->bindParam(':capt', $capt);
-        $stu->bindParam(':reparacion', $reparacion);
-        $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
-        $stu->execute();
-    }
+    public function updateTrouble(TroubleDataClass $tdc, $capt) {
+        $now = date('Y-m-d');
+        $tc = new Trouble();
+        /**
+         * @var Trouble $query
+         */
+        $query = $tc->find($tdc->auto);
+        $query->fechacomp = $now;
+        $query->it_guy = $capt;
+        $query->reparacion = $tdc->reparacion;
+        $query->save();
+   }
 
     /**
      * 
      * @return array
      */
     public function listTrouble() {
-        $query = "SELECT * FROM trouble ORDER BY fechahora desc";
-        $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
+        $tc = new Trouble();
+        $query = $tc->orderByDesc('fechahora')->get();
+        $result = $query->toArray();
         return $result;
     }
 
     /**
-     * 
-     * @param string $sistema
-     * @param string $capt
-     * @param string $fuente
-     * @param string $descripcion
-     * @param string $error_msg
+     * @param TroubleDataClass $tdc
+     * @return Trouble
      */
-    public function insertTrouble($sistema, $capt, $fuente, $descripcion, $error_msg) {
-        $queryins = "INSERT INTO trouble (sistema,usuario,fechahora,fuente,descripcion,error_msg)
-VALUES (:sistema, :capt, now(), :fuente, :descripcion, :error_msg)";
-        $sti = $this->pdo->prepare($queryins);
-        $sti->bindParam(':sistema', $sistema);
-        $sti->bindParam(':capt', $capt);
-        $sti->bindParam(':fuente', $fuente);
-        $sti->bindParam(':descripcion', $descripcion);
-        $sti->bindParam(':error_msg', $error_msg);
-        $sti->execute();
+    public function insertTrouble(TroubleDataClass $tdc) {
+        $now = date('Y-m-d');
+        /**
+         * @var Trouble $query
+         */
+        $query = new Trouble();
+        $query->sistema = $tdc->sistema;
+        $query->usuario = $tdc->usuario;
+        $query->fechahora = $now;
+        $query->fuente = $tdc->fuente;
+        $query->descripcion = $tdc->descripcion;
+        $query->error_msg = $tdc->error_msg;
+        $query->save();
+        return $query;
     }
 
 }
