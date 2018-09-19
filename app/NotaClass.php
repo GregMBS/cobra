@@ -46,9 +46,9 @@ LIMIT 1";
      */
     public function softDeleteNotas($capt, $C_CONT)
     {
-        $querybor = "UPDATE notas SET borrado=1
+        $query = "UPDATE notas SET borrado=1
 WHERE c_cvge=:capt and c_cont=:C_CONT";
-        $stb = $this->pdo->prepare($querybor);
+        $stb = $this->pdo->prepare($query);
         $stb->bindParam(':capt', $capt);
         $stb->bindParam(':C_CONT', $C_CONT);
         $stb->execute();
@@ -61,11 +61,11 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      */
     public function softDeleteOneNota($capt, $AUTO)
     {
-        $querybins = "UPDATE notas set borrado=1 " . "where AUTO=:AUTO and C_CVGE=:capt";
-        $stbi = $this->pdo->prepare($querybins);
-        $stbi->bindParam(':capt', $capt);
-        $stbi->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
-        $stbi->execute();
+        $query = "UPDATE notas set borrado=1 " . "where AUTO=:AUTO and C_CVGE=:capt";
+        $stb = $this->pdo->prepare($query);
+        $stb->bindParam(':capt', $capt);
+        $stb->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
+        $stb->execute();
     }
 
     /**
@@ -74,10 +74,10 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      */
     public function softDeleteOneNotaAdmin($AUTO)
     {
-        $querybins = "UPDATE notas set borrado=1 " . "where AUTO=:AUTO";
-        $stbi = $this->pdo->prepare($querybins);
-        $stbi->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
-        $stbi->execute();
+        $query = "UPDATE notas set borrado=1 " . "where AUTO=:AUTO";
+        $stb = $this->pdo->prepare($query);
+        $stb->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
+        $stb->execute();
     }
 
     /**
@@ -94,11 +94,11 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      */
     public function insertNota($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $CUENTA, $C_CONT)
     {
-        $queryins = "INSERT INTO notas
+        $query = "INSERT INTO notas
         (C_CVGE,fuente,D_FECH,C_HORA,FECHA,HORA,NOTA,CUENTA,C_CONT)
 VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
 :CUENTA, :C_CONT)";
-        $sti = $this->pdo->prepare($queryins);
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':capt', $capt);
         $sti->bindParam(':D_FECH', $D_FECH);
         $sti->bindParam(':C_HORA', $C_HORA);
@@ -118,8 +118,8 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      */
     public function listMyNotas($capt)
     {
-        $querysub = "SELECT auto,fecha,hora,nota,c_cvge,cuenta " . "FROM notas " . "WHERE c_cvge IN (:capt, 'todos') " . "AND borrado=0 ORDER BY fecha desc,hora desc";
-        $sts = $this->pdo->prepare($querysub);
+        $query = "SELECT auto,fecha,hora,nota,c_cvge,cuenta " . "FROM notas " . "WHERE c_cvge IN (:capt, 'todos') " . "AND borrado=0 ORDER BY fecha desc,hora desc";
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':capt', $capt);
         $sts->execute();
         $result = $sts->fetchAll(\PDO::FETCH_ASSOC);
@@ -132,10 +132,10 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      */
     public function listAllNotas()
     {
-        $querysub = "SELECT auto,fecha,hora,nota,c_cvge FROM notas 
+        $query = "SELECT auto,fecha,hora,nota,c_cvge FROM notas 
 WHERE borrado=0 ORDER BY fecha desc,hora desc";
-        $rowsub = $this->pdo->query($querysub);
-        return $rowsub->fetchAll(\PDO::FETCH_ASSOC);
+        $row = $this->pdo->query($query);
+        return $row->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -149,11 +149,11 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
      */
     public function insertNotaAdmin($target, $capt, $FECHA, $HORA, $NOTA)
     {
-        $queryins = "INSERT INTO notas
+        $query = "INSERT INTO notas
             (C_CVGE, fuente, D_FECH, C_HORA, FECHA, HORA, NOTA)
             VALUES
-            (:target, :capt, curdate(), curtime(), :fecha, :hora, :nota)";
-        $sti = $this->pdo->prepare($queryins);
+            (:target, :capt, CURDATE(), CURTIME(), :fecha, :hora, :nota)";
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':target', $target);
         $sti->bindParam(':capt', $capt);
         $sti->bindParam(':fecha', $FECHA);

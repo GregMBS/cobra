@@ -33,15 +33,17 @@ class SegmentadminClass extends BaseClass {
 	 * @param string $segmento
 	 */
 	public function agregarSegmento($cliente, $segmento) {
-        $query = "INSERT IGNORE INTO queuelist
+        $query = <<<SQL
+INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
             SELECT distinct gestor, :cliente, status_aarsa, updown1,
             orden1, 9999999, :segmento, 0
-            FROM queuelist";
+            FROM queuelist
+SQL;
 		$stl = $this->pdo->prepare($query);
-		$stl->bindParam(':cliente', $cliente);
-		$stl->bindParam(':segmento', $segmento);
+		$stl->bindValue(':cliente', $cliente);
+		$stl->bindValue(':segmento', $segmento);
 		$stl->execute();
 		$queryUpdateCamp = "update queuelist
             set camp=auto where camp=9999999";
@@ -67,8 +69,8 @@ class SegmentadminClass extends BaseClass {
             FROM queuelist";
 		$stl = $this->pdo->prepare($query);
 		foreach ($clientSdc as $row) {
-			$stl->bindParam(':cliente', $row->cliente);
-			$stl->bindParam(':segmento', $row->status_de_credito);
+			$stl->bindValue(':cliente', $row->cliente);
+			$stl->bindValue(':segmento', $row->status_de_credito);
 			$stl->execute();
 		}
 		$queryUpdate = "update queuelist
@@ -98,7 +100,7 @@ SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, min(q.auto) as id
     
 SQL;
 		$stq = $this->pdo->query($query);
-		$result = $stq->fetchAll(\PDO::FETCH_BOTH);
+		$result = $stq->fetchAll(\PDO::FETCH_ASSOC);
 		return $result;
 	}
 
@@ -121,7 +123,7 @@ select distinct cliente,sdc from queuelist";
     group by r.cliente,status_de_credito
     ";
 		$stq = $this->pdo->query($query);
-		$result = $stq->fetchAll(\PDO::FETCH_BOTH);
+		$result = $stq->fetchAll(\PDO::FETCH_ASSOC);
 		return $result;
 	}
 

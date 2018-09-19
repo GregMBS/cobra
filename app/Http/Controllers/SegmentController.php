@@ -30,6 +30,7 @@ class SegmentController extends Controller
      *
      * @param Request $r
      * @return View
+     * @throws \Exception
      */
     public function borrar(Request $r)
     {
@@ -69,10 +70,11 @@ class SegmentController extends Controller
         return $view;
     }
 
-/**
+    /**
      *
      * @param Request $r
      * @return View
+     * @throws \Exception
      */
     public function inactivar(Request $r)
     {

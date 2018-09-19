@@ -322,7 +322,7 @@ class ResumenClassTest extends TestCase
         $rc = new ResumenClass();
         $id_cuenta = 1;
         $timeLock = $rc->getTimelock($id_cuenta);
-        $this->assertEquals($now, $timeLock);
+        $this->assertEquals($now, $timeLock, '', 1);
         $id_cuenta = 31573;
         $timeLock = $rc->getTimelock($id_cuenta);
         $this->assertLessThan(strtotime($now), strtotime($timeLock));

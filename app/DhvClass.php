@@ -8,7 +8,7 @@ namespace App;
  */
 
 /**
- * Dtabase Class for ddh/pdh
+ * Database Class for ddh/pdh
  *
  * @author gmbs
  *

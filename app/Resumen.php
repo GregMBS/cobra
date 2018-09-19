@@ -16,4 +16,6 @@ use Illuminate\Database\Eloquent\Model;
 class Resumen extends Model
 {
     protected $table = 'resumen';
+
+    public $timestamps = false;
 }

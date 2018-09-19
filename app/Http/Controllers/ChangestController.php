@@ -58,12 +58,12 @@ class ChangestController extends Controller
             $result = $bc->searchAccounts($field, $find, $cliente);
         }
         $clienteList = $bc->listClients();
-        $view = view('changest')
-        ->with('field', $field)
-        ->with('find', $find)
-        ->with('from', $from)
-        ->with('result', $result)
-        ->with('resultcl', $clienteList);
+        $view = view('changest');
+        $view = $view->with('field', $field);
+        $view = $view->with('find', $find);
+        $view = $view->with('from', $from);
+        $view = $view->with('result', $result);
+        $view = $view->with('resultcl', $clienteList);
         return $view;
     }
 }

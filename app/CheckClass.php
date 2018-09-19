@@ -217,7 +217,7 @@ where gestor=:gestor";
          */
         $now = date('Y-m-d');
         /**
-         * @var Vasign $vasign
+         * @var \Illuminate\Database\Eloquent\Collection $vasign
          */
         $vasign = Vasign::whereCuenta($C_CONT)
             ->whereNull('fechaIn')

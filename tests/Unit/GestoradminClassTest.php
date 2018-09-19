@@ -47,20 +47,28 @@ class GestoradminClassTest extends TestCase
 
     /**
      * @param GestorDataClass $dataClass
-     * @param int $howMany
      */
-    private function checkUser(GestorDataClass $dataClass, $howMany)
+    private function hasUser(GestorDataClass $dataClass)
     {
-        $uc = new User();
         $data = $dataClass->getUser();
-        /**
-         * @var User $query
-         */
-        $query = $uc->whereIniciales($data->iniciales)
-            ->whereCompleto($data->completo)
-            ->whereTipo($data->tipo);
-        $users = $query->get();
-        $this->assertEquals($howMany, count($users));
+        $this->assertDatabaseHas('users', [
+            'iniciales' => $data->iniciales,
+            'completo' => $data->completo,
+            'tipo' => $data->tipo
+        ]);
+    }
+
+    /**
+     * @param GestorDataClass $dataClass
+     */
+    private function noUser(GestorDataClass $dataClass)
+    {
+        $data = $dataClass->getUser();
+        $this->assertDatabaseMissing('users', [
+            'iniciales' => $data->iniciales,
+            'completo' => $data->completo,
+            'tipo' => $data->tipo
+        ]);
     }
 
     public function testAddChangeDeleteUser()
@@ -72,11 +80,11 @@ class GestoradminClassTest extends TestCase
         $data->setIniciales('pedro');
         $data->setPass('AwRats');
         $gc->addUser($data);
-        $this->checkUser($data,1);
+        $this->hasUser($data);
         $data->setTipo('admin');
         $gc->changeUserData($data);
-        $this->checkUser($data,1);
+        $this->hasUser($data);
         $gc->removeUser('pedro');
-        $this->checkUser($data,0);
+        $this->noUser($data);
     }
 }

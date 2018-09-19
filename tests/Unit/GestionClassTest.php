@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\GestionClass;
 use Tests\TestCase;
+use Faker;
 
 class GestionClassTest extends TestCase
 {
