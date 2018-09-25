@@ -17,11 +17,18 @@
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>./app</directory>
-            <exclude>./app/Providers</exclude>
-            <exclude>./app/Console</exclude>
-            <exclude>./app/Exceptions</exclude>
+        <whitelist>
+            <directory>/home/gmbs/cobra/app</directory>
+            <exclude>
+                <directory>/home/gmbs/cobra/bootstrap</directory>
+                <directory>/home/gmbs/cobra/config</directory>
+                <directory>/home/gmbs/cobra/database</directory>
+                <directory>/home/gmbs/cobra/node_modules</directory>
+                <directory>/home/gmbs/cobra/public</directory>
+                <directory>/home/gmbs/cobra/storage</directory>
+                <directory>/home/gmbs/cobra/vendor</directory>
+                <file>/home/gmbs/cobra/app/Providers/BroadcastServiceProvider.php</file>
+            </exclude>
         </whitelist>
     </filter>
     <php>

@@ -60,11 +60,18 @@ class OutputClass {
      */
     private function outputXLSX($filename, $array, $headers) {
         $wf = new WriterFactory();
-        $writer = $wf->create(Type::XLSX); // for CSV files
-        $writer->openToBrowser($filename); // stream data directly to the browser
-        $writer->addRow($headers);
-        $writer->addRows($array); // add multiple rows at a time
-        $writer->close();
+        $writer = $wf->create(Type::XLSX);
+        try {
+            $writer->openToBrowser($filename); // stream data directly to the browser
+            $writer->addRow($headers);
+            $writer->addRows($array); // add multiple rows at a time
+            $writer->close();
+        } catch (\Exception $e) {
+            $writer->openToFile(storage_path('temp.xlsx'));
+            $writer->addRows($headers);
+            $writer->addRows($array);
+            $writer->close();
+        }
     }
 
     /**
