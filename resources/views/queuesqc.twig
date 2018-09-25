@@ -1,161 +1,175 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Reporte de los queues por cliente</title>
-        <meta http-equiv="refresh" content="60"/>
-        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-        <style>
-            body { font-size: 75%; }
-            tr.odd { background-color: #dddddd }
-            td { text-align: center }
-            .alert { background-color: red }
-        </style>
-    </head>
-    <body>
-    <button onclick="window.location = 'reports'">Regresar a la plantilla administrativa</button>
-    <br>
-    <h2>Queues Normales</h2>
-            <table class="ui-widget" id="normales">
-                <thead class="ui-widget-header">
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Campa&ntilde;a</th>
-                        <th>Asignados</th>
-                        <th>Queue</th>
-                        <th>#/$ cuentas</th>
-                        <th>% campa&ntilde;a</th>
-                        <th>#/$ diario</th>
-                        <th>% diario</th>
-                        <th>#/$ semanal</th>
-                        <th>% semanal</th>
-                        <th>#/$ mensual</th>
-                        <th>% mensual</th>
-                    </tr>
-                </thead>
-                <tbody class="ui-widget-content">
-                    {% for q in normal %}
-                        <tr>
-                            <td>
-                                {{ q.CLIENTE }}
-                            </td>
-                            <td>
-                                {{ q.SDC }}
-                            </td>
-                            <td>
-                                {{ q.ASIGNADOS }}<br>
-                                {{ d.DINERO }}
-                            </td>
-                            <td>
-                                {{ q.QUEUE }}
-                            </td>
-                            <td class='legibility'><a href="speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&status_de_credito={{ q.SDC }}&rato=total">
-                            {{ q.count }}<br>{{ q.monto }}</a>
-                            </td>
-                            <td>{{ q.pcc }}%<br>{{ q.pcmc }}%
-                            </td>
-                            <td {{ q.empd }}><a href="speclistqc
+<head>
+    <title>Reporte de los queues por cliente</title>
+    <meta http-equiv="refresh" content="60"/>
+    <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+    <style>
+        body {
+            font-size: 75%;
+        }
+
+        tr.odd {
+            background-color: #dddddd
+        }
+
+        td {
+            text-align: center
+        }
+
+/*
+        .alert {
+            background-color: red
+        }
+*/
+    </style>
+</head>
+<body>
+<button onclick="window.location = '/reports'">Regresar a la plantilla administrativa</button>
+<br>
+<h2>Queues Normales</h2>
+<table class="ui-widget" id="normales">
+    <thead class="ui-widget-header">
+    <tr>
+        <th>Cliente</th>
+        <th>Campa&ntilde;a</th>
+        <th>Asignados</th>
+        <th>Queue</th>
+        <th>#/$ cuentas</th>
+        <th>% campa&ntilde;a</th>
+        <th>#/$ diario</th>
+        <th>% diario</th>
+        <th>#/$ semanal</th>
+        <th>% semanal</th>
+        <th>#/$ mensual</th>
+        <th>% mensual</th>
+    </tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    {% for q in normal %}
+        <tr>
+            <td>
+                {{ q.CLIENTE }}
+            </td>
+            <td>
+                {{ q.SDC }}
+            </td>
+            <td>
+                {{ q.ASIGNADOS }}<br>
+                {{ d.DINERO }}
+            </td>
+            <td>
+                {{ q.QUEUE }}
+            </td>
+            <td class='legibility'><a
+                        href="speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&status_de_credito={{ q.SDC }}&rato=total">
+                    {{ q.count }}<br>{{ q.monto }}</a>
+            </td>
+            <td>{{ q.pcc }}%<br>{{ q.pcmc }}%
+            </td>
+            <td {{ q.empd }}><a href="speclistqc
                                                        &cliente={{ q.CLIENTE }}
                                                        &queue={{ q.QUEUE }}
                                                        &status_de_credito={{ q.SDC }}
                                                        &rato=diario">
-                            {{ q.countd }}<br>{{ q.montod }}</a>
-                            </td>
-                            <td {{ q.empd }}>
-                            	<a href="speclistqc
+                    {{ q.countd }}<br>{{ q.montod }}</a>
+            </td>
+            <td {{ q.empd }}>
+                <a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
                                          diario">
-                                    {{ q.pcd }}<br>{{ q.pcmd }}
-                                </a>
-                            </td>
-                            <td {{ q.emps }}>
-                            	<a href="speclistqc
+                    {{ q.pcd }}<br>{{ q.pcmd }}
+                </a>
+            </td>
+            <td {{ q.emps }}>
+                <a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
                                          &rato=semanal">
-                            {{ q.counts }}<br>{{ q.montos }}</a>
-                            </td>
-                            <td {{ q.emps }}>
-                            	<a href="speclistqc
+                    {{ q.counts }}<br>{{ q.montos }}</a>
+            </td>
+            <td {{ q.emps }}>
+                <a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
                                          &rato=semanal">
-                                    {{ q.pcs }}<br>{{ q.pcms }}
-                                </a>
-                            </td>
-                            <td {{ q.empm }}>
-                            	<a href="speclistqc
+                    {{ q.pcs }}<br>{{ q.pcms }}
+                </a>
+            </td>
+            <td {{ q.empm }}>
+                <a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
                                          &rato=mensual">
-                            {{ q.countm }}<br>{{ q.montom }}</a>
-                            </td>
-                            <td {{ q.empm }}>
-                            	<a href="speclistqc
+                    {{ q.countm }}<br>{{ q.montom }}</a>
+            </td>
+            <td {{ q.empm }}>
+                <a href="speclistqc
                                          &cliente={{ q.CLIENTE }}
                                          &queue={{ q.QUEUE }}
                                          &status_de_credito={{ q.SDC }}
                                          &rato=mensual">
-                                    {{ q.pcm }}<br>{{ q.pcmm }}
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <h2>Queus Especiales</h2>
-            <table class="ui-widget" id="especiales">
-                <thead class="ui-widget-header">
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Campa&ntilde;a</th>
-                        <th>Asignados</th>
-                        <th>#/$ cuentas</th>
-                        <th>% campa&ntilde;a</th>
-                    </tr>
-                </thead>
-                <tbody class="ui-widget-content">
-                    {% for q in special %}
-                        <tr>
-                            <td>
-                                {{ q.CLIENTE }}
-                            </td>
-                            <td>
-                                {{ q.SDC }}
-                            </td>
-                            <td>
-                                {{ q.ASIGNADOS }}<br>
-                                {{ q.DINERO }}
-                            </td>
-                            <td>
-                                {{ q.count }}<br>
-                                {{ q.mount }}
-                            </td>
-                            <td>
-                                {{ q.pcc }}<br>
-                                {{ q.pcmc }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <script>
-                $("tr:odd").addClass("odd");
-                $('th').parent("tr:odd").removeClass('odd');
-                $('#normales').dataTable({
-                    'bPaginate': false
-                });
-                $('#especiales').dataTable({
-                    'bPaginate': false
-                });
-            </script>
-    </body>
+                    {{ q.pcm }}<br>{{ q.pcmm }}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h2>Queus Especiales</h2>
+<table class="ui-widget" id="especiales">
+    <thead class="ui-widget-header">
+    <tr>
+        <th>Cliente</th>
+        <th>Campa&ntilde;a</th>
+        <th>Asignados</th>
+        <th>#/$ cuentas</th>
+        <th>% campa&ntilde;a</th>
+    </tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    {% for q in special %}
+        <tr>
+            <td>
+                {{ q.CLIENTE }}
+            </td>
+            <td>
+                {{ q.SDC }}
+            </td>
+            <td>
+                {{ q.ASIGNADOS }}<br>
+                {{ q.DINERO }}
+            </td>
+            <td>
+                {{ q.count }}<br>
+                {{ q.mount }}
+            </td>
+            <td>
+                {{ q.pcc }}<br>
+                {{ q.pcmc }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+    $("tr:odd").addClass("odd");
+    $('th').parent("tr:odd").removeClass('odd');
+    $('#normales').dataTable({
+        'bPaginate': false
+    });
+    $('#especiales').dataTable({
+        'bPaginate': false
+    });
+</script>
+</body>
 </html>

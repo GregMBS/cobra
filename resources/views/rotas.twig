@@ -1,112 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Promesas</title>
-<link
-	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
-	rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"
-	type="text/javascript"></script>
-<script
-	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
-	type="text/javascript"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-	type="text/javascript"></script>
-<style>
-body {
-	font-size: 10pt
-}
+    <title>Promesas</title>
+    <link
+            href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
+            rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            type="text/javascript"></script>
+    <script
+            src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
+            type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+            type="text/javascript"></script>
+    <style>
+        body {
+            font-size: 10pt
+        }
 
-#rotasTable th, #rotasTable td {
-	padding: 0
-}
+        #rotasTable th, #rotasTable td {
+            padding: 0
+        }
 
-#rotasTable tr.odd {
-	background-color: #dddddd
-}
+        #rotasTable tr.odd {
+            background-color: #dddddd
+        }
 
-td {
-	text-align: center
-}
+        td {
+            text-align: center
+        }
 
-.alert {
-	background-color: red
-}
-</style>
+/*
+        .alert {
+            background-color: red
+        }
+*/
+    </style>
 </head>
 <body>
 {% if tipo == 'admin' %}
-    <button onclick="window.location = 'reports'">Regresar a la plantilla administrativa</button><br>
+    <button onclick="window.location = '/reports'">Regresar a la plantilla administrativa</button><br>
 {% else %}
-<button onclick="window.close()">Cerrar</button><br>
+    <button onclick="window.close()">Cerrar</button><br>
 {% endif %}
-	<table id="rotasTable">
-		<thead>
-			<tr>
-				<th>CUENTA</th>
-				<th>NOMBRE</th>
-				<th>CLIENTE</th>
-				<th>RESULTADOS</th>
-				<th>GESTOR</th>
-				<th>FECHA PROMESA 1</th>
-				<th>MONTO PROMESA 1</th>
-				<th>FECHA PROMESA 2</th>
-				<th>MONTO PROMESA 2</th>
-				<th>FECHA PROMESA 3</th>
-				<th>MONTO PROMESA 3</th>
-				<th>FECHA PROMESA 4</th>
-				<th>MONTO PROMESA 4</th>
-				<th>MONTO PAGO</th>
-				<th>SEMAFORO</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for r in result %}
-			{% set color = 'blue' %}
-			{% set semtext = 'VIGENTE' %}
-			{% if r.semaforo > 0 %}
-			{% set color = 'red' %}
-			{% set semtext = 'VENCIDO' %}
-			{% endif %}
-			{% if r.sum_monto > 10 %}
-			{% if r.status_aarsa == 'PAGO TOTAL' %}
-			{% set color = 'green' %}
-			{% set semtext = 'PAGO' %}
-			{% else %}
-			{% set color = 'yellow' %}
-			{% set semtext = 'PAGANDO' %}
-			{% endif %}
-			{% endif %}
-			<tr>
-				<td><a
-					href='/resumen/{{ r.id_cuenta }}'>
-						{{ r.numero_de_cuenta }}
-				</a></td>
-				<td>{{ r.nombre_deudor }}</td>
-				<td>{{ r.cliente }}</td>
-				<td>{{ r.status_aarsa }}</td>
-				<td>{{ r.c_cvge }}</td>
-				<td>{{ r.d_prom1 }}</td>
-				<td class='num'>{{ r.n_prom1 | number_format }}</td>
-				<td>{{ r.d_prom2 }}</td>
-				<td class='num'>{{ r.n_prom2 | number_format }}</td>
-				<td>{{ r.d_prom3 }}</td>
-				<td class='num'>{{ r.n_prom3 | number_format }}</td>
-				<td>{{ r.d_prom4 }}</td>
-				<td class='num'>{{ r.n_prom4 | number_format }}</td>
-				<td class='num'>{{ r.sum_monto | number_format }}</td>
-				<td style='background-color:{{ color }}'>{{ semtext }}</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<script>
-		$('#rotasTable').dataTable({
-			"bPaginate" : false
-		});
-		$('tr:odd').addClass('odd');
-	</script>
+<table id="rotasTable">
+    <thead>
+    <tr>
+        <th>CUENTA</th>
+        <th>NOMBRE</th>
+        <th>CLIENTE</th>
+        <th>RESULTADOS</th>
+        <th>GESTOR</th>
+        <th>FECHA PROMESA 1</th>
+        <th>MONTO PROMESA 1</th>
+        <th>FECHA PROMESA 2</th>
+        <th>MONTO PROMESA 2</th>
+        <th>FECHA PROMESA 3</th>
+        <th>MONTO PROMESA 3</th>
+        <th>FECHA PROMESA 4</th>
+        <th>MONTO PROMESA 4</th>
+        <th>MONTO PAGO</th>
+        <th>SEMAFORO</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for r in result %}
+        {% set color = 'blue' %}
+        {% set semtext = 'VIGENTE' %}
+        {% if r.semaforo > 0 %}
+            {% set color = 'red' %}
+            {% set semtext = 'VENCIDO' %}
+        {% endif %}
+        {% if r.sum_monto > 10 %}
+            {% if r.status_aarsa == 'PAGO TOTAL' %}
+                {% set color = 'green' %}
+                {% set semtext = 'PAGO' %}
+            {% else %}
+                {% set color = 'yellow' %}
+                {% set semtext = 'PAGANDO' %}
+            {% endif %}
+        {% endif %}
+        <tr>
+            <td><a
+                        href='/resumen/{{ r.id_cuenta }}'>
+                    {{ r.numero_de_cuenta }}
+                </a></td>
+            <td>{{ r.nombre_deudor }}</td>
+            <td>{{ r.cliente }}</td>
+            <td>{{ r.status_aarsa }}</td>
+            <td>{{ r.c_cvge }}</td>
+            <td>{{ r.d_prom1 }}</td>
+            <td class='num'>{{ r.n_prom1 | number_format }}</td>
+            <td>{{ r.d_prom2 }}</td>
+            <td class='num'>{{ r.n_prom2 | number_format }}</td>
+            <td>{{ r.d_prom3 }}</td>
+            <td class='num'>{{ r.n_prom3 | number_format }}</td>
+            <td>{{ r.d_prom4 }}</td>
+            <td class='num'>{{ r.n_prom4 | number_format }}</td>
+            <td class='num'>{{ r.sum_monto | number_format }}</td>
+            <td style='background-color:{{ color }}'>{{ semtext }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+    $('#rotasTable').dataTable({
+        "bPaginate": false
+    });
+    $('tr:odd').addClass('odd');
+</script>
 </body>
 </html>

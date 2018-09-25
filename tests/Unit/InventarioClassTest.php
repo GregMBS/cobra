@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\InventarioClass;
+use App\Resumen;
 use Tests\TestCase;
 
 class InventarioClassTest extends TestCase
@@ -36,10 +37,11 @@ class InventarioClassTest extends TestCase
         ];
         $ic = new InventarioClass();
         $result = $ic->getInventarioReport('todos');
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
+        $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
+        $cliente = $cuenta->cliente;
+        $result = $ic->getInventarioReport($cliente);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testGetFullInventarioReport()
@@ -77,10 +79,11 @@ class InventarioClassTest extends TestCase
         ];
         $ic = new InventarioClass();
         $result = $ic->getFullInventarioReport('todos');
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
+        $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
+        $cliente = $cuenta->cliente;
+        $result = $ic->getFullInventarioReport($cliente);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testListCliente()

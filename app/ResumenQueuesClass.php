@@ -8,6 +8,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Query\Builder;
+
 /**
  * Description of ResumenQueuesClass
  *
@@ -30,9 +33,17 @@ class ResumenQueuesClass extends BaseClass
          */
         $queueList = $ql->whereGestor($capt);
         $queueList = $queueList->whereCamp($camp);
-        $queueList = $queueList->firstOrFail();
-        $result = $queueList->toArray();
-        $result['cr'] = $result['status_aarsa'];
+        try {
+            $queueList = $queueList->firstOrFail();
+            $result = $queueList->toArray();
+            $result['cr'] = $result['status_aarsa'];
+        } catch (ModelNotFoundException $m) {
+            $result = [
+                'cliente' => '',
+                'cr' => '',
+                'sdc' => ''
+            ];
+        }
         return $result;
     }
 
@@ -44,9 +55,10 @@ class ResumenQueuesClass extends BaseClass
      */
     public function searchCount($field, $find)
     {
+        /** @var Builder $rc */
         $rc = new Resumen();
         /**
-         * @var Resumen $query
+         * @var Resumen|Builder $query
          */
         $query = $rc->where($field, '=', $find);
         $count = $query->count();
@@ -187,9 +199,10 @@ and especial > 0";
      */
     public function getOne($id_cuenta)
     {
+        /** @var Resumen|Builder $rc */
         $rc = new Resumen();
         /**
-         * @var Resumen $query
+         * @var \Illuminate\Database\Eloquent\Builder $query
          */
         $query = $rc->whereIdCuenta($id_cuenta);
         $resumen = $query->firstOrFail();

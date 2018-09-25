@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @method static whereCliente(string $cliente)
  * @method static whereGestor(string $gestor)
- * @method static whereSdc(string $sdc)
+ * @method Queuelist whereSdc(string $sdc)
  * @method static whereStatusAarsa(string $status)
  * @method static whereBloqueado(int $bloqueado)
  * @method static whereCamp(int $camp)
- * @method static where(string $column, string $operator, mixed $value)
- * @method static orderBy(string $column)
+ * @method Queuelist orderBy(string $column)
+ * @method Queuelist firstOrFail(array $columns = ['*'])
  */
 class Queuelist extends Model
 {

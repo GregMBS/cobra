@@ -8,6 +8,9 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Description of QueuesgClass
  *
@@ -47,13 +50,16 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getClients() {
+        /**
+         * @var Queuelist|Builder $qc
+         */
         $qc = new Queuelist();
         /**
-         * @var Cliente $clientes
+         * @var Queuelist|Model|Builder $query
          */
-        $clientes = $qc->distinct()->select(['cliente'])
+        $query = $qc->distinct()->select(['cliente'])
             ->where('cliente', '<>', '');
-        $clientes = $clientes->orderBy('cliente')->get()->pluck('cliente');
+        $clientes = $query->orderBy('cliente')->get();
         return $clientes->toArray();
     }
     
@@ -63,18 +69,19 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getSdcClients($capt) {
+        /** @var Builder $qc */
         $qc = new Queuelist();
         /**
-         * @var Queuelist $results
+         * @var Queuelist|Builder $results
          */
-        $results = $qc->distinct()->select(['cliente', 'sdc'])
-            ->whereGestor($capt);
+        $results = $qc->distinct()->select(['cliente', 'sdc']);
+        $results = $results->whereGestor($capt);
         $results = $results->whereBloqueado(0);
         $results = $results->where('cliente', '<>', '');
         $results = $results->orderBy('cliente');
         $results = $results->orderBy('sdc');
-        $results = $results->get()->pluck(['cliente', 'sdc']);
-        return $results;
+        $results = $results->get();
+        return $results->toArray();
     }
     
     /**
@@ -83,18 +90,19 @@ class QueuesgClass extends BaseClass {
      * @return array
      */
     public function getQueueSdcClients($capt) {
+        /** @var Builder $qc */
         $qc = new Queuelist();
         /**
-         * @var Queuelist $results
+         * @var Queuelist|Builder $results
          */
-        $results = $qc->distinct()->select(['cliente', 'sdc', 'status_aarsa'])
-            ->whereGestor($capt);
+        $results = $qc->distinct()->select(['cliente', 'sdc', 'status_aarsa']);
+        $results = $results->whereGestor($capt);
         $results = $results->whereBloqueado(0);
         $results = $results->where('cliente', '<>', '');
         $results = $results->orderBy('cliente');
         $results = $results->orderBy('sdc');
         $results = $results->orderBy('status_aarsa');
-        $results = $results->get()->pluck(['cliente', 'sdc', 'status_aarsa']);
-        return $results;
+        $results = $results->get();
+        return $results->toArray();
     }
 }

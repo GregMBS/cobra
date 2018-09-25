@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\ResumenClass;
 use App\ResumenQueuesClass;
+use App\User;
 use App\ValidationClass;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -189,8 +190,10 @@ class ResumenController extends Controller
      */
     public function index()
     {
-        $capt = auth()->user()->iniciales;
-        $camp = auth()->user()->camp;
+        /** @var User $user */
+        $user = auth()->user();
+        $capt = $user->iniciales;
+        $camp = $user->camp;
         $result = $this->rqc->getResumen($capt, $camp);
         $id_cuenta = $result['id_cuenta'];
         $history = $this->rc->getHistory($id_cuenta);

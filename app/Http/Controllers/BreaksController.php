@@ -6,7 +6,7 @@ use App\BreaksDataClass;
 use App\UserClass;
 use View;
 use App\BreaksClass;
-use Request;
+use Illuminate\Http\Request;
 
 class BreaksController extends Controller
 {

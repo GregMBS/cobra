@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\UserClass;
-use Illuminate\Support\Facades\View;
+use View;
 use Illuminate\Http\Request;
 use App\QueuesgClass;
 
@@ -65,6 +65,7 @@ class GestorQueuesController extends Controller
         $resultQueue = $this->qc->getQueueSdcClients($capt);
         $arrayq = json_encode($resultQueue);
 
+        /** @var View $view */
         $view = view('queuesg')->with('msg', $msg);
         $view = $view->with('capt', $capt);
         $view = $view->with('arrayc', $arrayc);

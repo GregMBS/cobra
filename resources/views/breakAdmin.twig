@@ -3,104 +3,104 @@
 <head>
 <title>Administración de breaks</title>
 <link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
-	type="text/css" media="all" />
+    href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
+    type="text/css" media="all" />
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-	type="text/javascript"></script>
+    type="text/javascript"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-	type="text/javascript"></script>
+    type="text/javascript"></script>
 </head>
 <body>
-<button onclick="window.location = 'reports'">Regresar a la
-		plantilla administrativa</button>
-	<br>
-	<table class="ui-widget">
-		<thead class="ui-widget-header">
-			<tr>
-				<th>Gestor</th>
-				<th>Tipo</th>
-				<th>Empieza</th>
-				<th>Termina</th>
-			</tr>
-		</thead>
-		<tbody class="ui-widget-content">
-			{% for b in breaks %}
-			<tr>
-				<td>
-        			<form method="post" action="/breakAdmin" id="{{ b.auto }}">
-        				<input name="auto" type="hidden" value="{{ b.auto }}">
-        				<input name="_method" type="hidden" value="PUT">
-        				<input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
-        			</form>
-					{{ b.gestor }}
-				</td>
-				<td>
-					<select name="tipo" form="{{ b.auto }}" title="tipo">
-						<option value=""></option>
-						{% set selected = '' %}
-						{% if b.tipo == 'break' %}
-						{% set selected = 'selected' %}
-						{% endif %}
-						<option value="break" {{ selected }}>break (30 min)</option>
-						{% set selected = '' %}
-						{% if b.tipo == 'bano' %}
-						{% set selected = 'selected' %}
-						{% endif %}
-						<option value="bano" {{ selected }}>baño (10 min)</option>
-					</select>
-				</td>
-				<td>
-					<input type="time" name="empieza" form="{{ b.auto }}" title="empieza"
-						value="{{ b.empieza|date('H:i') }}">
-				</td>
-				<td>
-					<input type="time" name="termina" form="{{ b.auto }}" title="termina"
-						value="{{ b.termina|date('H:i') }}">
-				</td>
-				<td>
-					<input type="submit" name="go" form="{{ b.auto }}" value="CAMBIAR">
-				</td>
-				<td>
-					<form action="/breakAdmin/{{ b.auto }}" method="post">
-						<input name="_method" type="hidden" value="DELETE">
-						<input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
-						<input type="submit" name="go" value="BORRAR">
-					</form>
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-		<tfoot class="ui-widget-footer">
-			<tr>
-				<td>
-					<form method="post" action="/breakAdmin" id="add">
-						<input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
-						<select name="gestor" title="gestor">
-							<option value=""></option>
-						    {% for g in gestores %}
-							<option value='{{ g }}'>{{ g }}</option>
-							{% endfor %}
-						</select>
-					</form>
-				</td>
-				<td>
-					<select name="tipo" form="add" title="tipo">
-						<option value=""></option>
-						<option value="break">break (30 min)</option>
-						<option value="bano">baño (10 min)</option>
-					</select>
-				</td>
-				<td>
-					<input type="time" name="empieza" form="add" title="empieza">
-				</td>
-				<td>
-					<input type="time" name="termina" form="add" title="termina">
-				</td>
-				<td>
-					<input type="submit" name="go" form="add" value="AGREGAR">
-				</td>
-			</tr>
-		</tfoot>
-	</table>
+<button onclick="window.location = '/reports'">Regresar a la
+        plantilla administrativa</button>
+    <br>
+    <table class="ui-widget">
+        <thead class="ui-widget-header">
+            <tr>
+                <th>Gestor</th>
+                <th>Tipo</th>
+                <th>Empieza</th>
+                <th>Termina</th>
+            </tr>
+        </thead>
+        <tbody class="ui-widget-content">
+            {% for b in breaks %}
+            <tr>
+                <td>
+                    <form method="post" action="/breakAdmin" id="{{ b.auto }}">
+                        <input name="auto" type="hidden" value="{{ b.auto }}">
+                        <input name="_method" type="hidden" value="PUT">
+                        <input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
+                    </form>
+                    {{ b.gestor }}
+                </td>
+                <td>
+                    <select name="tipo" form="{{ b.auto }}" title="tipo">
+                        <option value=""></option>
+                        {% set selected = '' %}
+                        {% if b.tipo == 'break' %}
+                        {% set selected = 'selected' %}
+                        {% endif %}
+                        <option value="break" {{ selected }}>break (30 min)</option>
+                        {% set selected = '' %}
+                        {% if b.tipo == 'bano' %}
+                        {% set selected = 'selected' %}
+                        {% endif %}
+                        <option value="bano" {{ selected }}>baño (10 min)</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="time" name="empieza" form="{{ b.auto }}" title="empieza"
+                        value="{{ b.empieza|date('H:i') }}">
+                </td>
+                <td>
+                    <input type="time" name="termina" form="{{ b.auto }}" title="termina"
+                        value="{{ b.termina|date('H:i') }}">
+                </td>
+                <td>
+                    <input type="submit" name="go" form="{{ b.auto }}" value="CAMBIAR">
+                </td>
+                <td>
+                    <form action="/breakAdmin/{{ b.auto }}" method="post">
+                        <input name="_method" type="hidden" value="DELETE">
+                        <input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
+                        <input type="submit" name="go" value="BORRAR">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot class="ui-widget-footer">
+            <tr>
+                <td>
+                    <form method="post" action="/breakAdmin" id="add">
+                        <input name="_token" type="hidden" value="{{ csrf_token()|raw }}">
+                        <select name="gestor" title="gestor">
+                            <option value=""></option>
+                            {% for g in gestores %}
+                            <option value='{{ g }}'>{{ g }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <select name="tipo" form="add" title="tipo">
+                        <option value=""></option>
+                        <option value="break">break (30 min)</option>
+                        <option value="bano">baño (10 min)</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="time" name="empieza" form="add" title="empieza">
+                </td>
+                <td>
+                    <input type="time" name="termina" form="add" title="termina">
+                </td>
+                <td>
+                    <input type="submit" name="go" form="add" value="AGREGAR">
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </body>
 </html>

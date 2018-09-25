@@ -14278,6 +14278,10 @@ namespace  {
 
     class Artisan extends \Illuminate\Support\Facades\Artisan {}
 
+    /**
+     * Class Auth
+     * @method static routes()
+     */
     class Auth extends \Illuminate\Support\Facades\Auth {}
 
     class Blade extends \Illuminate\Support\Facades\Blade {}

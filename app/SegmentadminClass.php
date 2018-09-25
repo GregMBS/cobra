@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
+
 /**
  * Description of segmentadminClass
  *
@@ -54,9 +56,10 @@ SQL;
 	 *
 	 */
 	public function addAllSegmentos() {
+	    /** @var Builder $rc */
 	    $rc = new Resumen();
         /**
-         * @var Resumen $queryCS
+         * @var Resumen|\Illuminate\Database\Eloquent\Builder $queryCS
          */
         $queryCS = $rc->distinct()->select(['cliente', 'status_de_credito'])
             ->where('status_de_credito', 'NOT REGEXP', '-');
@@ -84,7 +87,7 @@ SQL;
 	 */
 	public function listQueuedSegmentos() {
 		$queryTemp = <<<SQL
-CREATE TEMPORARY TABLE temporal
+CREATE TEMPORARY TABLE temporalQueued
 SELECT cliente, status_de_credito, COUNT(id_cuenta) AS counter FROM resumen
 WHERE status_de_credito NOT REGEXP '-'
 GROUP BY cliente, status_de_credito
@@ -93,7 +96,7 @@ SQL;
 		$query = <<<SQL
 SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, min(q.auto) as id
     FROM queuelist q
-    LEFT JOIN temporal r
+    LEFT JOIN temporalQueued r
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
     group by q.cliente,sdc
@@ -109,13 +112,13 @@ SQL;
 	 * @return array
 	 */
 	public function listUnqueuedSegments() {
-		$queryTemp = "create temporary table temporal
+		$queryTemp = "create temporary table temporalUnqueued
 select distinct cliente,sdc from queuelist";
 		$this->pdo->query($queryTemp);
 		$query = "SELECT r.cliente as 'cliente',status_de_credito as 'sdc',
     count(1)
     FROM resumen r
-    LEFT JOIN temporal q
+    LEFT JOIN temporalUnqueued q
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc is null
     AND r.cliente <> ''

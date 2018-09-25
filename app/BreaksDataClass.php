@@ -82,6 +82,7 @@ class BreaksDataClass
     public function getBreak()
     {
         $object = new \stdClass();
+        $object->auto = $this->auto;
         $object->empieza = $this->empieza;
         $object->gestor = $this->gestor;
         $object->termina = $this->termina;

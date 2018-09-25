@@ -1,19 +1,6 @@
-<?php
-
-/*
- * |--------------------------------------------------------------------------
- * | Web Routes
- * |--------------------------------------------------------------------------
- * |
- * | Here is where you can register web routes for your application. These
- * | routes are loaded by the RouteServiceProvider within a group which
- * | contains the "web" middleware group. Now create something great!
- * |
- */
+<?php /** @noinspection ALL */
 
 use App\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
@@ -61,8 +48,6 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
         $capt = $user->iniciales;
         return view('reports')->with('capt', $capt);
     });
-    Route::get('/resumen', 'ResumenController@index');
-    Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
     Route::get('/ultimo_mejor', 'BestController@index');
     Route::get('/queues', 'QueuesController@index');
     Route::get('/queues/{gestor}', 'QueuesController@change');
