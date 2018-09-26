@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\RotasClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 class RotasController extends Controller
 {

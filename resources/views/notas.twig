@@ -40,14 +40,14 @@
             </div>
 <?php } ?>
         <form action="/notas" method="post" name="notas">
-        	{{ csrf_field()) }}
+        	{{ csrf_field() }}
             <label for='fecha'>Fecha</label>
             <input type="text" name="fecha" id="fecha" value="" size=15 /><br>
             <label for='hora'>Hora</label>
             <input type="text" name="hora" id="hora" value="" />
             <label for='min'>Min</label>
             <input type="text" name="min" id="min" value="" /><br>
-            <label for='"nota"'>Nota</label>
+            <label for='nota'>Nota</label>
             <textarea rows="2" cols="40" name="nota" id="nota"></textarea><br>
             <input type="hidden" name="C_CONT" readonly="readonly" value='{{ id_cuenta }}' /><br>
             <input type="submit" name="go" value="GUARDAR">
