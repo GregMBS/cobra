@@ -8,6 +8,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  * Description of BreaksClass
  *
@@ -24,7 +26,9 @@ class BreaksClass extends BaseClass
      */
     private function getTimes($tiempo, $gestor)
     {
+        /** @var Builder $hc */
         $hc = new Historia();
+        /** @var Builder $query */
         $query = $hc->selectRaw("time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
 min(c_hrin) as 'minhr'", ['tiempo' => $tiempo])
             ->where('d_fech','=', date('Y-m-d'))
@@ -54,7 +58,9 @@ and c_hrin>:tiempo";
      */
     private function getMainBreaksTable($capt)
     {
+        /** @var Builder $hc */
         $hc = new Historia();
+        /** @var Builder $query */
         $query = $hc->where('c_cont', '=', 0)
             ->where('d_fech','=', date('Y-m-d'))
             ->whereNotIn('c_cvst', ['login', 'salir'])

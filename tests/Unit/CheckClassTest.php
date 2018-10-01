@@ -14,10 +14,11 @@ class CheckClassTest extends TestCase
     {
         $cc = new CheckClass();
         $result = $cc->getOneMonth();
-        $this->assertEquals(31, count($result));
+        $lastDay = (int) date('d', strtotime('last day of last month'));
+        $this->assertEquals($lastDay, count($result));
         $first = $result[0];
         $this->assertEquals(date('Y-m-d', strtotime('-1 month')), $first);
-        $last = $result[30];
+        $last = $result[$lastDay - 1];
         $this->assertEquals(date('Y-m-d', strtotime('yesterday')), $last);
     }
 
