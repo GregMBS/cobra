@@ -16,7 +16,8 @@ use Box\Spout\Common\Type;
  *
  * @author gmbs
  */
-class OutputClass {
+class OutputClass
+{
 
     /**
      * @param $filename
@@ -27,7 +28,8 @@ class OutputClass {
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    private function outputCSV($filename, $array, $headers) {
+    private function outputCSV($filename, $array, $headers)
+    {
         $wf = new WriterFactory();
         $writer = $wf->create(Type::CSV); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
@@ -45,7 +47,8 @@ class OutputClass {
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    public function writeCSVFile($filename, $data, $headers) {
+    public function writeCSVFile($filename, $data, $headers)
+    {
         $this->outputCSV($filename, $data, $headers);
     }
 
@@ -58,20 +61,14 @@ class OutputClass {
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    private function outputXLSX($filename, $array, $headers) {
+    private function outputXLSX($filename, $array, $headers)
+    {
         $wf = new WriterFactory();
         $writer = $wf->create(Type::XLSX);
-        try {
-            $writer->openToBrowser($filename); // stream data directly to the browser
-            $writer->addRow($headers);
-            $writer->addRows($array); // add multiple rows at a time
-            $writer->close();
-        } catch (\Exception $e) {
-            $writer->openToFile(storage_path('temp.xlsx'));
-            $writer->addRows($headers);
-            $writer->addRows($array);
-            $writer->close();
-        }
+        $writer->openToBrowser($filename); // stream data directly to the browser
+        $writer->addRow($headers);
+        $writer->addRows($array); // add multiple rows at a time
+        $writer->close();
     }
 
     /**
@@ -83,7 +80,8 @@ class OutputClass {
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    public function writeXLSXFile($filename, $data, $headers) {
+    public function writeXLSXFile($filename, $data, $headers)
+    {
         $this->outputXLSX($filename, $data, $headers);
     }
 

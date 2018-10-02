@@ -32,9 +32,19 @@ class CheckClassTest extends TestCase
 
     public function testListVasign()
     {
+        $testKeys = ['id_cuenta',
+            'numero_de_cuenta',
+            'nombre_deudor',
+            'cliente',
+            'saldo_total',
+            'queue',
+            'gestor',
+            'fechaOut',
+            'fechaIn'
+        ];
         $cc = new CheckClass();
         $result = $cc->listVasign('');
-        $this->assertEquals(array(), $result);
+        $this->checkKeys($testKeys, $result);
         $result = $cc->listVasign('gmbs');
         $this->assertEquals(array(), $result);
     }

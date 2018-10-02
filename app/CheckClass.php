@@ -73,7 +73,7 @@ class CheckClass extends BaseClass
         $rc = new Resumen();
         $resumen = $rc->whereNumeroDeCuenta($cuenta)
             ->where('status_de_credito', 'NOT REGEXP', '-')->get();
-        if (count($resumen) >0) {
+        if (count($resumen) > 0) {
             $cuenta = $resumen->first();
             return $cuenta->id_cuenta;
         }
@@ -95,7 +95,7 @@ class CheckClass extends BaseClass
         $query = $rc->whereIdCuenta($id_cuenta)
             ->where('status_de_credito', 'NOT REGEXP', '-');
         $resumen = $query->get();
-        if (count($resumen) >0) {
+        if (count($resumen) > 0) {
             $cuenta = $resumen->first();
             return $cuenta->numero_de_cuenta;
         }
@@ -183,6 +183,16 @@ where gestor=:gestor";
      */
     public function listVasign($gestor = '')
     {
+        $columns = ['id_cuenta',
+            'numero_de_cuenta',
+            'nombre_deudor',
+            'cliente',
+            'saldo_total',
+            'queue',
+            'gestor',
+            'fechaOut',
+            'fechaIn'
+        ];
         $rc = new Resumen();
         $cuentas = $rc->join('vasign', 'id_cuenta', '=', 'c_cont')
             ->join('users', 'iniciales', '=', 'gestor')
@@ -194,9 +204,10 @@ where gestor=:gestor";
             return $result;
         }
         $noGestor = $cuentas->orderBy('gestor')
-                ->orderByDesc('fechaIn')
-                ->orderByDesc('fechaOut')
-                ->orderBy('numero_de_cuenta');
+            ->orderByDesc('fechaIn')
+            ->orderByDesc('fechaOut')
+            ->orderBy('numero_de_cuenta')
+            ->select($columns);
         $result = $noGestor->get()->toArray();
         return $result;
     }

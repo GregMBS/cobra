@@ -24,14 +24,16 @@ class BestController extends Controller
         $this->oc = new OutputClass();
     }
 
+    /**
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     */
     public function index() {
         $filename = "Ultimo_y_mejor_".date('ymd').".xlsx";
         $data = $this->bc->getReport();
         $header = array(array_keys($data[0]));
-        try {
-            $this->oc->writeXLSXFile($filename, $data, $header);
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        $this->oc->writeXLSXFile($filename, $data, $header);
     }
 }

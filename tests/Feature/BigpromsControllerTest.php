@@ -10,10 +10,9 @@ class BigpromsControllerTest extends TestCase
 {
     public function testMakeReport()
     {
-        $user = User::find(20);
-        $response = $this->actingAs($user)
+        $user = User::whereTipo('admin')->first();
+        $this->actingAs($user)
             ->get('/bigproms/make');
-        $response->assertStatus(200);
         $this->assertFileExists(storage_path('temp.xlsx'));
         $this->assertFileIsReadable(storage_path('temp.xlsx'));
         Storage::delete('temp.xlsx');
@@ -21,7 +20,7 @@ class BigpromsControllerTest extends TestCase
 
     public function testIndex()
     {
-        $user = User::find(20);
+        $user = User::whereTipo('admin')->first();
         $response = $this->actingAs($user)
             ->get('/bigproms');
         $response->assertViewIs('bigproms');
