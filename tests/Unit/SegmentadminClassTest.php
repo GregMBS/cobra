@@ -89,8 +89,8 @@ class SegmentadminClassTest extends TestCase
     public function testInactivarSegmento()
     {
         $sc = new SegmentadminClass();
-        $cliente = 'GCYC';
-        $segmento = '#N/A';
+        $cliente = 'GORDILLO';
+        $segmento = 'CIERRE AGOSTO ';
         $sc->inactivarSegmento($cliente, $segmento);
         $this->assertDatabaseMissing('resumen', [
            'cliente' => $cliente,

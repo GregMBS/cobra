@@ -42,15 +42,16 @@ class BigGestionClass extends BaseClass
     {
         $gestorstr = $bdc->getGestorString();
         $clientestr = $bdc->getClienteString();
-        $query = $queryFront . $gestorstr . $clientestr . $queryBack;
+        $tipostr = $bdc->getTipoString();
+        $query = $queryFront . $gestorstr . $clientestr . $tipostr . $queryBack;
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':fecha1', $bdc->fecha1);
         $stq->bindParam(':fecha2', $bdc->fecha2);
         if ($bdc->hasGestor()) {
-            $stq->bindParam(':gestor', $bdc->gestor);
+            $stq->bindValue(':gestor', $bdc->gestor);
         }
         if ($bdc->hasCliente()) {
-            $stq->bindParam(':cliente', $bdc->cliente);
+            $stq->bindValue(':cliente', $bdc->cliente);
         }
         $stq->execute();
         $data = $stq->fetchAll(\PDO::FETCH_ASSOC);

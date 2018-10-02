@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use App\ChangestClass;
+use App\Resumen;
+use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
 
@@ -16,13 +18,18 @@ class ChangestClassTest extends TestCase
     public function testUpdateResumen()
     {
         $cc = new ChangestClass();
-        $count = $cc->updateResumen(false, 6239);
+        /** @var Builder $query */
+        $query = Resumen::where('status_de_credito', 'REGEXP', '-');
+        /** @var Resumen $cuenta */
+        $cuenta = $query->first();
+        $id_cuenta = $cuenta->id_cuenta;
+        $count = $cc->updateResumen(false, $id_cuenta);
         $this->assertEquals(1, $count);
-        $count = $cc->updateResumen(true, 6239);
+        $count = $cc->updateResumen(true, $id_cuenta);
         $this->assertEquals(1, $count);
-        $count = $cc->updateResumen(false, 6239);
+        $count = $cc->updateResumen(false, $id_cuenta);
         $this->assertEquals(1, $count);
-        $count = $cc->updateResumen(true, 6239);
+        $count = $cc->updateResumen(true, $id_cuenta);
         $this->assertEquals(1, $count);
     }
 }

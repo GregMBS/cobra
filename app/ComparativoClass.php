@@ -29,14 +29,19 @@ select c_cvba,month(d_fech) as mdf,c_cont,1 as tot,
 max(if(c_msge is null,1,0)) as gest,
 max(if(c_carg <>'',1,0)) as contact,
 max(if(n_prom >0,1,0)) as prom,c_cvge,c_hrin
-from historia where d_fech>=curdate()-interval 3 month 
-and day(d_fech)<day(curdate())
+from historia where d_fech >= :start 
+and day(d_fech) < :startDay
 and c_cont>0
 group by c_cvba,mdf,c_cont,c_cvge,c_hrin) as tmp
 group by c_cvba,mdf
 SQL;
-        $result = $this->pdo->query($querymain);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        $start = date('Y-m-d', strtotime('3 months ago'));
+        $startDay = date('j', strtotime('3 months ago'));
+        $stc = $this->pdo->prepare($querymain);
+        $stc->bindValue(':start', $start);
+        $stc->bindValue(':startDay', $startDay);
+        $stc->execute();
+        return $stc->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

@@ -15,13 +15,13 @@ class BigDataClass
      *
      * @var string
      */
-    public $gestor = '';
+    public $gestor = 'todos';
     
     /**
      *
      * @var string
      */
-    public $cliente = '';
+    public $cliente = 'todos';
     
         /**
      * 
@@ -108,17 +108,27 @@ class BigDataClass
         $has = ($this->gestor != 'todos');
         return $has;
     }
-    
-        /**
-     * 
+
+    /**
+     *
      * @return boolean
      */
     public function hasCliente() {
         $has = ($this->cliente != 'todos');
         return $has;
     }
-    
-/**
+
+    /**
+     *
+     * @return boolean
+     */
+    public function hasTipo() {
+        /** @var boolean $has */
+        $has = ($this->tipo !== '');
+        return $has;
+    }
+
+    /**
      *
      * @return string
      */
@@ -127,7 +137,6 @@ class BigDataClass
         if ($this->gestor != 'todos') {
             $gestorstr = " and c_cvge=:gestor ";
         }
-        $gestorstr .= $this->getTipoStr();
         return $gestorstr;
     }
     
@@ -147,7 +156,7 @@ class BigDataClass
      *
      * @return string
      */
-    private function getTipoStr() {
+    public function getTipoString() {
         switch ($this->tipo) {
             case 'visits':
                 $tipoString = " and c_visit <> '' and c_msge is null ";

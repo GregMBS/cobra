@@ -3,15 +3,29 @@
 namespace Tests\Unit;
 
 use App\DhClass;
+use App\Historia;
+use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
 class DhClassTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    /** @var string */
+    private $gestor;
+
+    /** @var string */
+    private $fecha;
+
+    public function setUp()
+    {
+        parent::setUp();
+        /** @var Builder $query */
+        $query = Historia::where('N_PROM', '>', 0);
+        /** @var Historia $gestion */
+        $gestion = $query->first();
+        $this->gestor = $gestion->C_CVGE;
+        $this->fecha = $gestion->D_FECH;
+    }
+
     public function testGetPromesas()
     {
         $testKeys = [
@@ -28,9 +42,7 @@ class DhClassTest extends TestCase
         ];
 
         $dc = new DhClass();
-        $gestor = 'montse';
-        $fecha = '2017-03-06';
-        $result = $dc->getPromesas($gestor, $fecha);
+        $result = $dc->getPromesas($this->gestor, $this->fecha);
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);
@@ -55,9 +67,7 @@ class DhClassTest extends TestCase
         ];
 
         $dc = new DhClass();
-        $gestor = 'montse';
-        $fecha = '2017-03-06';
-        $result = $dc->getGestiones($gestor, $fecha);
+        $result = $dc->getGestiones($this->gestor, $this->fecha);
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);
@@ -88,9 +98,7 @@ class DhClassTest extends TestCase
         ];
 
         $dc = new DhClass();
-        $gestor = 'montse';
-        $fecha = '2017-03-06';
-        $result = $dc->getDhMain($gestor, $fecha);
+        $result = $dc->getDhMain($this->gestor, $this->fecha);
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);

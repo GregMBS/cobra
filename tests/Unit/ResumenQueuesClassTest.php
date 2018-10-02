@@ -2,7 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Queuelist;
+use App\Resumen;
 use App\ResumenQueuesClass;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\TestCase;
 
@@ -67,7 +70,7 @@ class ResumenQueuesClassTest extends TestCase
         'nombre_referencia_4',
         'domicilio_referencia_4',
         'multiestrategia',
-        'ciudad_referencia_4',
+        'semaforo',
         'estado_referencia_4',
         'cp_referencia_4',
         'tel_1_ref_4',
@@ -177,7 +180,10 @@ class ResumenQueuesClassTest extends TestCase
     public function testGetOne()
     {
         $rc = new ResumenQueuesClass();
-        $result = $rc->getOne(170);
+        /** @var Resumen $cuenta */
+        $cuenta = Resumen::first();
+        $id_cuenta = $cuenta->id_cuenta;
+        $result = $rc->getOne($id_cuenta);
         $keys = array_keys($result);
         $this->assertEquals($this->resumenKeys, $keys);
     }
@@ -186,7 +192,11 @@ class ResumenQueuesClassTest extends TestCase
     {
         $rc = new ResumenQueuesClass();
         /* no cliente, no sdc, yes cr, not MANUAL or INICIAL */
-        $result = $rc->getResumen('gmbs', 2233432);
+        /** @var Queuelist|Builder $queue */
+        $queue = Queuelist::whereCliente('');
+        $queue = $queue->whereSdc('');
+        $queue = $queue->whereNotIn('status_aarsa', ['','MANUAL','INICIAL'])->first();
+        $result = $rc->getResumen($queue->gestor, $queue->camp);
         $this->assertArrayHasKey('id_cuenta', $result);
         $id_cuenta = $result['id_cuenta'];
         $this->assertGreaterThan(0, $id_cuenta);
@@ -194,7 +204,11 @@ class ResumenQueuesClassTest extends TestCase
         $keys = array_keys($result1);
         $this->assertEquals($this->resumenKeys, $keys);
         /* INICIAL */
-        $resultI = $rc->getResumen('gmbs', 2237644);
+        $this->expectException(\Exception::class);
+        /** @var Queuelist $query */
+        $query = Queuelist::whereStatusAarsa('INICIAL');
+        $queue = $query->first();
+        $resultI = $rc->getResumen($queue->gestor, $queue->camp);
         $this->assertArrayHasKey('id_cuenta', $result);
         $id_cuenta = $resultI['id_cuenta'];
         $this->assertEquals(0, $id_cuenta);
@@ -203,7 +217,9 @@ class ResumenQueuesClassTest extends TestCase
         $keys = array_keys($resultI1);
         $this->assertEquals($this->resumenKeys, $keys);
         /* SIN GESTION */
-        $resultI = $rc->getResumen('gmbs', 2237645);
+        $query = Queuelist::whereStatusAarsa('SIN GESTION');
+        $queue = $query->first();
+        $resultI = $rc->getResumen($queue->gestor, $queue->camp);
         $this->assertArrayHasKey('id_cuenta', $result);
         $id_cuenta = $resultI['id_cuenta'];
         $this->assertGreaterThan(0, $id_cuenta);

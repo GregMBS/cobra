@@ -83,9 +83,8 @@ class BigGestionClassTest extends TestCase
         $r = new Request();
         $r->query->add(
             [
-                'tipo' => 'visits',
                 'fecha1' => '2018-12-12',
-                'fecha2' => '2008-12-12'
+                'fecha2' => '2018-01-01'
             ]
         );
         $dataClass = new BigDataClass($r);

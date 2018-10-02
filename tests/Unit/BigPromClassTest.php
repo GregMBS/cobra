@@ -43,20 +43,17 @@ class BigPromClassTest extends TestCase
     public function testGetProms()
     {
         $r = new Request();
-        $r->query->add(
-            ['gestor' => 'miguel',
-                'cliente' => 'GCYC',
-                'tipo' => '',
-                'fecha3' => '2018-12-12',
-                'fecha4' => '2008-12-12']
-        );
+        $r->query->add([
+            'gestor' => 'todos',
+            'cliente' => 'todos',
+            'tipo' => '',
+            'fecha3' => '2018-12-31',
+            'fecha4' => '2018-01-01'
+            ]);
         $dataClass = new BigDataClass($r);
         $bc = new BigPromClass();
         $report = $bc->getProms($dataClass);
-        $first = $report[0];
-        $keys = array_keys($first);
-        $this->assertEquals(count($this->keys), count($keys));
-        $this->assertEquals($this->keys, $keys);
+        $this->checkKeys($this->keys, $report);
     }
 
     public function testGetPromClientes()

@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use App\Dictamen;
+use App\Pago;
+use App\Resumen;
 use App\ResumenClass;
 use Tests\TestCase;
 
@@ -81,15 +83,15 @@ class ResumenClassTest extends TestCase
         $rc = new ResumenClass();
         $dictamenes = $rc->getDict('callcenter');
         $this->assertContains('TEL OCUPADA', $dictamenes);
-        $this->assertNotContains('Habitada por familiar no valido', $dictamenes);
+        $this->assertNotContains('ILOCALIZABLE EN EL DOMICILIO', $dictamenes);
         $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
         $dictamenes = $rc->getDict('admin');
         $this->assertContains('TEL OCUPADA', $dictamenes);
-        $this->assertContains('Habitada por familiar no valido', $dictamenes);
+        $this->assertContains('ILOCALIZABLE EN EL DOMICILIO', $dictamenes);
         $this->assertContains('PROMESA INCUMPLIDA', $dictamenes);
         $dictamenes = $rc->getDict('visitador');
         $this->assertNotContains('TEL OCUPADA', $dictamenes);
-        $this->assertContains('Habitada por familiar no valido', $dictamenes);
+        $this->assertContains('ILOCALIZABLE EN EL DOMICILIO', $dictamenes);
         $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
         $this->expectExceptionMessage("Tipo de usuario no es correcto.");
         $rc->getDict('');
@@ -101,7 +103,7 @@ class ResumenClassTest extends TestCase
         try {
             $dictamenes = $rc->getDictV();
             $this->assertNotContains('TEL OCUPADA', $dictamenes);
-            $this->assertContains('Habitada por familiar no valido', $dictamenes);
+            $this->assertContains('ILOCALIZABLE EN EL DOMICILIO', $dictamenes);
             $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
         } catch (\Exception $e) {
             $this->assertEquals('', $e->getMessage());
@@ -279,7 +281,9 @@ class ResumenClassTest extends TestCase
     public function testCountPagos()
     {
         $rc = new ResumenClass();
-        $id_cuenta = 1;
+        /** @var Pago $pago */
+        $pago = Pago::first();
+        $id_cuenta = $pago->id_cuenta;
         $count = $rc->countPagos($id_cuenta);
         $this->assertGreaterThan(0, $count);
     }
@@ -320,11 +324,13 @@ class ResumenClassTest extends TestCase
     {
         $now = date('r');
         $rc = new ResumenClass();
-        $id_cuenta = 1;
-        $timeLock = $rc->getTimelock($id_cuenta);
-        $this->assertEquals($now, $timeLock, '', 1);
-        $id_cuenta = 31573;
-        $timeLock = $rc->getTimelock($id_cuenta);
+        $query = Resumen::whereLocker('')->first();
+        if ($query) {
+            $timeLock = $rc->getTimelock($query->id_cuenta);
+            $this->assertEquals($now, $timeLock, '', 1);
+        }
+        $query = Resumen::where('locker', '<>', '')->first();
+        $timeLock = $rc->getTimelock($query->id_cuenta);
         $this->assertLessThan(strtotime($now), strtotime($timeLock));
     }
 

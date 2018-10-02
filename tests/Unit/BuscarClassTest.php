@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\BuscarClass;
+use App\Resumen;
 use Tests\TestCase;
 
 class BuscarClassTest extends TestCase
@@ -18,28 +19,29 @@ class BuscarClassTest extends TestCase
     public function testSearchAccounts()
     {
         $bc = new BuscarClass();
-        $result = $bc->searchAccounts('id_cuenta', '134697', '');
+        $cuenta = Resumen::first();
+        $result = $bc->searchAccounts('id_cuenta', $cuenta->id_cuenta, '');
         $this->assertEquals(1, count($result));
         $first = $result[0];
-        $this->assertEquals('134697', $first['id_cuenta']);
-        $result = $bc->searchAccounts('numero_de_cuenta', '0907139237', '');
+        $this->assertEquals($cuenta->id_cuenta, $first['id_cuenta']);
+        $result = $bc->searchAccounts('numero_de_cuenta', $cuenta->numero_de_cuenta, '');
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $last = $result[count($result) - 1];
-        $this->assertContains('0907139237', $first['numero_de_cuenta'], '', true);
-        $this->assertContains('0907139237', $last['numero_de_cuenta'], '', true);
-        $result = $bc->searchAccounts('nombre_deudor', 'Greg', '');
+        $this->assertContains($cuenta->numero_de_cuenta, $first['numero_de_cuenta'], '', true);
+        $this->assertContains($cuenta->numero_de_cuenta, $last['numero_de_cuenta'], '', true);
+        $result = $bc->searchAccounts('nombre_deudor', $cuenta->nombre_deudor, '');
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $last = $result[count($result) - 1];
-        $this->assertContains('Greg', $first['nombre_deudor'], '', true);
-        $this->assertContains('Greg', $last['nombre_deudor'], '', true);
-        $result = $bc->searchAccounts('nombre_deudor', 'Greg', 'GCYC');
+        $this->assertContains($cuenta->nombre_deudor, $first['nombre_deudor'], '', true);
+        $this->assertContains($cuenta->nombre_deudor, $last['nombre_deudor'], '', true);
+        $result = $bc->searchAccounts('nombre_deudor', $cuenta->nombre_deudor, $cuenta->cliente);
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $last = $result[count($result) - 1];
-        $this->assertContains('GCYC', $first['cliente'], '', true);
-        $this->assertContains('GCYC', $last['cliente'], '', true);
+        $this->assertContains($cuenta->cliente, $first['cliente'], '', true);
+        $this->assertContains($cuenta->cliente, $last['cliente'], '', true);
         $result = $bc->searchAccounts('', '', '');
         $this->assertEquals(0, count($result));
         $result = $bc->searchAccounts('ROBOT', '81', '');

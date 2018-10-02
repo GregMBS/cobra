@@ -89,27 +89,52 @@ SQL;
     }
 
     /**
+     * @param \PDOStatement $lastQuery
+     * @param int $id_cuenta
+     * @return array|mixed
+     */
+    private function getUltimo($lastQuery, $id_cuenta) {
+        $ultimo = $this->getLastHistoriaData($lastQuery, $id_cuenta);
+        if (empty($ultimo)) {
+            $ultimo['ultimo_status'] = '';
+            $ultimo['ultimo_tel'] = '';
+            $ultimo['ultimo_comentario'] = '';
+        }
+        return $ultimo;
+    }
+
+    /**
+     * @param \PDOStatement $bestQuery
+     * @param int $id_cuenta
+     * @return array|mixed
+     */
+    private function getMejor($bestQuery, $id_cuenta) {
+        $mejor = $this->getBestHistoriaData($bestQuery, $id_cuenta);
+        if (empty($mejor)) {
+            $mejor['mejor_status'] = '';
+            $mejor['mejor_tel'] = '';
+        }
+        return $mejor;
+    }
+
+    /**
      * @return array
      */
     public function getReport()
     {
         $data = [];
+        $temp = [];
         $resumen = $this->getResumenData();
         $lastQuery = $this->prepareLastQuery();
         $bestQuery = $this->prepareBestQuery();
+        if (env('APP_ENV') === 'testing') {
+            $temp[] = array_pop($resumen);
+            $resumen = $temp;
+        }
         foreach ($resumen as $row) {
             $id_cuenta = $row['id_cuenta'];
-            $ultimo = $this->getLastHistoriaData($lastQuery, $id_cuenta);
-            if (empty($ultimo)) {
-                $ultimo['ultimo_status'] = '';
-                $ultimo['ultimo_tel'] = '';
-                $ultimo['ultimo_comentario'] = '';
-            }
-            $mejor = $this->getBestHistoriaData($bestQuery, $id_cuenta);
-            if (empty($mejor)) {
-                $mejor['mejor_status'] = '';
-                $mejor['mejor_tel'] = '';
-            }
+            $ultimo = $this->getUltimo($lastQuery, $id_cuenta);
+            $mejor = $this->getMejor($bestQuery, $id_cuenta);
             $data[] = array_merge($row, $ultimo, $mejor);
         }
         return $data;

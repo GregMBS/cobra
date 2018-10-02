@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static whereNumeroDeCuenta(string $cuenta)
  * @method static whereEjecutivoAsignadoCallCenter(string $gestor)
  * @method static whereStatusDeCredito(string $sdc)
+ * @property int $id_cuenta
  */
 class Resumen extends Model
 {

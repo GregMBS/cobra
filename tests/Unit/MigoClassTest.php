@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use App\MigoClass;
+use App\Resumen;
+use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
 class MigoClassTest extends TestCase
@@ -44,7 +46,11 @@ class MigoClassTest extends TestCase
     public function testUserReport()
     {
         $mc = new MigoClass();
-        $result = $mc->userReport('MIGUEL');
+        /** @var Builder $query */
+        $query = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->where('ejecutivo_asignado_call_center', '<>', '');
+        /** @var Resumen $cuenta */
+        $cuenta = $query->first();
+        $result = $mc->userReport($cuenta->ejecutivo_asignado_call_center);
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $this->assertArrayContainsKeys($this->fieldsRequired, $first);

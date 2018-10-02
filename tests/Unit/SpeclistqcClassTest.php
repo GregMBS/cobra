@@ -2,18 +2,32 @@
 
 namespace Tests\Unit;
 
+use App\Resumen;
 use App\SpeclistDataClass;
 use App\SpeclistqcClass;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Tests\TestCase;
 
 class SpeclistqcClassTest extends TestCase
 {
+
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @param array $data
+     * @return array
      */
+    private function getAQueue(array $data) {
+        /** @var Builder $query */
+        $query = Resumen::join('dictamenes', 'status_aarsa', '=', 'dictamen')
+            ->where('fecha_ultima_gestion', '>', date('Y-m-d', strtotime('end of last month')));
+        $resumen = $query->first();
+        $data['rato'] = '';
+        $data['cliente'] = $resumen->cliente;
+        $data['queue'] = $resumen->queue;
+        $data['sdc'] = $resumen->status_de_credito;
+        return $data;
+    }
+
     public function testGetSpecListReport()
     {
         $testArray = [
@@ -33,11 +47,8 @@ class SpeclistqcClassTest extends TestCase
             13 => 'saldo_vencido'
         ];
         $r = new Request();
-        $data = $r->all();
-        $data['rato'] = '';
-        $data['cliente'] = 'GCyC';
-        $data['queue'] = 'SIN CONTACTOS';
-        $data['sdc'] = '';
+        $array = $r->all();
+        $data = $this->getAQueue($array);
         $dataClass = new SpeclistDataClass($data);
         $sc = new SpeclistqcClass();
         $result = $sc->getSpecListReport($dataClass);

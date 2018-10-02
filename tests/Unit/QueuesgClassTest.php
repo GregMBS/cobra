@@ -2,7 +2,9 @@
 
 namespace Tests\Unit;
 
+use App\Queuelist;
 use App\QueuesgClass;
+use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
 class QueuesgClassTest extends TestCase
@@ -15,9 +17,16 @@ class QueuesgClassTest extends TestCase
     public function testGetCamp()
     {
         $qc = new QueuesgClass();
-        $result = $qc->getCamp('GCyC', 'Especial', 'VEN MORA 2', 'gmbs');
+        /** @var Builder $query */
+        $query = Queuelist::where('cliente', '<>', '')
+            ->where('status_aarsa', '<>', '')
+            ->where('sdc', '<>', '')
+            ->where('gestor', '<>', '');
+        /** @var Queuelist $camp */
+        $camp = $query->first();
+        $result = $qc->getCamp($camp->cliente, $camp->status_aarsa, $camp->sdc, $camp->gestor);
         $this->assertNotEquals(-1, $result);
-        $result = $qc->getCamp('GCyC', 'Especial', '', 'gmbs');
+        $result = $qc->getCamp($camp->cliente, $camp->status_aarsa, '', $camp->gestor);
         $this->assertEquals(-1, $result);
     }
 
