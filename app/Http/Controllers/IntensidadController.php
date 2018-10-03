@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Box\Spout\Writer\Common\Sheet;
 use Box\Spout\Writer\XLSX\Writer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use View;
 use App\IntensidadClass;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\WriterFactory;
