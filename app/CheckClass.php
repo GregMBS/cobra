@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 /**
@@ -14,108 +14,23 @@ class CheckClass extends BaseClass
 {
 
     /**
-     *
-     * @var string
-     */
-    private $CUENTA;
-
-    /**
-     *
-     * @var string
-     */
-    private $gestor;
-
-    /**
-     *
-     * @var int
-     */
-    private $id_cuenta;
-
-    /**
-     *
-     * @var string
-     */
-    private $tipo;
-
-    /**
-     *
-     * @var Carbon
-     */
-    private $fechaOut;
-
-    /**
-     * @param Collection $r
-     */
-    private function setVars(Collection $r)
-    {
-        $this->gestor = $r->gestor;
-        $this->tipo = $r->tipo;
-        $this->id_cuenta = $r->CUENTA;
-        $this->CUENTA = $this->getCuentaFromIdCuenta($this->id_cuenta);
-        if ($this->tipo == 'numero_de_cuenta') {
-            $this->CUENTA = $r->CUENTA;
-            $this->id_cuenta = $this->getIdCuentaFromCuenta($this->CUENTA);
-        }
-        $this->fechaOut = new Carbon($r->fechaout);
-    }
-
-    /**
-     *
-     * @param string $cuenta
-     * @return int
-     */
-    private function getIdCuentaFromCuenta($cuenta)
-    {
-        /**
-         * @var Resumen|\Illuminate\Database\Eloquent\Collection $resumen
-         * @method Resumen whereNumeroDeCuenta($cuenta)
-         */
-        $rc = new Resumen();
-        $resumen = $rc->whereNumeroDeCuenta($cuenta)
-            ->where('status_de_credito', 'NOT REGEXP', '-')->get();
-        if (count($resumen) > 0) {
-            $cuenta = $resumen->first();
-            return $cuenta->id_cuenta;
-        }
-        return 0;
-    }
-
-    /**
-     *
-     * @param int $id_cuenta
-     * @return string
-     */
-    private function getCuentaFromIdCuenta($id_cuenta)
-    {
-        /**
-         * @var Resumen $query
-         * @method Resumen whereIdCuenta($id_cuenta)
-         */
-        $rc = new Resumen();
-        $query = $rc->whereIdCuenta($id_cuenta)
-            ->where('status_de_credito', 'NOT REGEXP', '-');
-        $resumen = $query->get();
-        if (count($resumen) > 0) {
-            $cuenta = $resumen->first();
-            return $cuenta->numero_de_cuenta;
-        }
-        return '';
-    }
-
-    /**
      * @param Collection $r
      */
     public function insertVasignBoth(Collection $r)
     {
-        $this->setVars($r);
+        $cdc = new CheckDataClass($r);
         $query = "INSERT INTO vasign (cuenta, gestor, fechaOut, fechaIn, c_cont)
 VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
-        $sti = $this->pdo->prepare($query);
-        $sti->bindParam(':cuenta', $this->CUENTA);
-        $sti->bindParam(':gestor', $this->gestor);
-        $sti->bindParam(':fechaOut', $this->fechaOut);
-        $sti->bindParam(':id_cuenta', $this->id_cuenta);
-        $sti->execute();
+        try {
+            $sti = $this->pdo->prepare($query);
+            $sti->bindValue(':cuenta', $cdc->getCUENTA());
+            $sti->bindValue(':gestor', $cdc->getGestor());
+            $sti->bindValue(':fechaOut', $cdc->getFechaOut());
+            $sti->bindValue(':id_cuenta', $cdc->getIdCuenta());
+            $sti->execute();
+        } catch (\PDOException $p) {
+            dd($p->getMessage());
+        }
     }
 
     /**
@@ -123,16 +38,17 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
      */
     public function insertVasign(Collection $r)
     {
-        $this->setVars($r);
-        $query = "INSERT INTO vasign
-			(cuenta, gestor, fechaOut, c_cont)
-			VALUES 
-			(:cuenta, :gestor, now(), :id_cuenta)";
-        $sti = $this->pdo->prepare($query);
-        $sti->bindParam(':cuenta', $this->CUENTA);
-        $sti->bindParam(':gestor', $this->gestor);
-        $sti->bindParam(':id_cuenta', $this->id_cuenta);
-        $sti->execute();
+        $cdc = new CheckDataClass($r);
+        $vasign = new Vasign();
+        try {
+            $vasign->CUENTA = $cdc->getCUENTA();
+            $vasign->gestor = $cdc->getGestor();
+            $vasign->fechaout = date('Y-m-d');
+            $vasign->c_cont = $cdc->getIdCuenta();
+            $vasign->save();
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     /**
@@ -183,17 +99,20 @@ where gestor=:gestor";
      */
     public function listVasign($gestor = '')
     {
-        $columns = ['id_cuenta',
-            'numero_de_cuenta',
-            'nombre_deudor',
-            'cliente',
-            'saldo_total',
-            'queue',
-            'gestor',
-            'fechaOut',
-            'fechaIn'
-        ];
+        $columns = array(
+            'id_cuenta',
+            "numero_de_cuenta",
+            "nombre_deudor",
+            "cliente",
+            "saldo_total",
+            "queue",
+            "gestor",
+            "fechaOut",
+            "fechaIn"
+        );
+        /** @var Builder $rc */
         $rc = new Resumen();
+        /** @var Builder $cuentas */
         $cuentas = $rc->join('vasign', 'id_cuenta', '=', 'c_cont')
             ->join('users', 'iniciales', '=', 'gestor')
             ->join('dictamenes', 'dictamen', '=', 'status_aarsa');
@@ -214,30 +133,27 @@ where gestor=:gestor";
 
     /**
      * @param Collection $r
-     * @return mixed
      */
-    public function updateVasign($r)
+    public function updateVasign(Collection $r)
     {
-        $this->setVars($r);
+        $cdc = new CheckDataClass($r);
         /**
          * @var int $C_CONT
          */
-        $C_CONT = $this->id_cuenta;
+        $C_CONT = $cdc->getIdCuenta();
         /**
          * @var string $now
          */
         $now = date('Y-m-d');
-        /**
-         * @var \Illuminate\Database\Eloquent\Collection $vasign
-         */
-        $vasign = Vasign::whereCuenta($C_CONT)
-            ->whereNull('fechaIn')
-            ->get();
-        if (count($vasign) > 0) {
-            $vasign->fechaIn = $now;
-            $vasign->save;
+        /** @var Builder $query */
+        $query = Vasign::whereCCont($C_CONT)
+            ->whereNull('fechaIn');
+        /** @var Vasign $vasign */
+        $vasign = $query->get();
+        foreach ($vasign as $v) {
+            $v->fechaIn = $now;
+            $v->save();
         }
-        return $vasign->toArray();
     }
 
     /**
@@ -253,10 +169,10 @@ where gestor=:gestor";
          */
         $uc = new User();
         try {
-            /**
-             * @var User $result
-             */
-            $result = $uc->whereIniciales($gestor)->get()->first();
+            /** @var Builder $query */
+            $query = $uc->whereIniciales($gestor);
+            /** @var User $result */
+            $result = $query->get()->first();
             return $result->completo;
         } catch (\Exception $e) {
             return '';

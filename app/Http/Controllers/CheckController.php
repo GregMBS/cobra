@@ -165,7 +165,7 @@ class CheckController extends Controller
      * @param string $fechaOut
      * @return View
      */
-    private function checkBoth(array $list = [], $gestor = '', $tipo = '', $fechaOut = '') {
+    public function checkBoth(array $list = [], $gestor = '', $tipo = '', $fechaOut = '') {
         $gestores = $this->uc->getVisitadores();
         $counts = $this->cc->countInOut($gestor);
         $view = view('checkBoth')
@@ -176,18 +176,6 @@ class CheckController extends Controller
         ->with('list', $list)
         ->with('counts', $counts);
         return $view;
-    }
-
-    /**
-     *
-     * @param string $gestor
-     * @return string
-     * @throws \Exception
-     */
-    public function getCompleto($gestor)
-    {
-        $completo = $this->cc->getCompleto($gestor);
-        return $completo;
     }
 
 }

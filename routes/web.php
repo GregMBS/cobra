@@ -88,9 +88,9 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/pdh/{gestor}/{fecha}', 'DhController@promesas');
     Route::get('/ddh/{gestor}/{fecha}', 'DhController@gestiones');
     Route::get('/activar', 'ActivarController@actShow');
-    Route::post('/activar', 'CheckController@activar');
+    Route::post('/activar', 'ActivarController@activar');
     Route::get('/inactivar', 'ActivarController@inactShow');
-    Route::post('/inactivar', 'CheckController@inactivar');
+    Route::post('/inactivar', 'ActivarController@inactivar');
     Route::get('/comparativo', 'ComparativoController@index');
     Route::get('/pagosum', 'PagosController@summary');
     Route::get('/pagobulk', 'PagobulkController@index');

@@ -64,6 +64,12 @@ class BigDataClass
         $this->fecha2 = new Carbon('now');
         $this->fecha3 = new Carbon('2007-10-19');
         $this->fecha4 = new Carbon('now');
+        if (env('APP_ENV') === 'testing') {
+            $this->fecha1 = new Carbon('6 months ago');
+            $this->fecha2 = new Carbon('now');
+            $this->fecha3 = new Carbon('6 months ago');
+            $this->fecha4 = new Carbon('now');
+        }
         if ($a->has('gestor')) {
             $this->gestor = $a->gestor;
         }

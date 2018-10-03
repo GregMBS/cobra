@@ -12,7 +12,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string tipo
  * @method  User whereIniciales(string $iniciales)
  * @method  User whereCompleto(string $completo)
- * @method  User whereTipo(string $tipo)
+ * @method  static|User whereTipo(string $tipo)
+ * @method  User first()
  * @author gmbs
  *
  */

@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use App\CheckClass;
+use App\Vasign;
+use App\Resumen;
 use Tests\TestCase;
 
 class CheckClassTest extends TestCase
@@ -61,19 +63,30 @@ class CheckClassTest extends TestCase
         $this->assertEquals('Greg B', $result);
     }
 
-    public function testUpdateVasign()
+    /**
+     * @throws \Exception
+     */
+    public function testInsertUpdateVasign()
     {
+        $resumen = Resumen::where('numero_de_cuenta', '>', '0')->first();
         $r = collect();
-        $r->CUENTA = 1;
+        $r->CUENTA = $resumen->id_cuenta;
         $r->gestor = 'gregb';
         $r->fechaout = date('Y-m-d');
         $r->tipo = 'id_cuenta';
+        $array = [
+            'cuenta' => $resumen->numero_de_cuenta,
+            'c_cont' => $resumen->id_cuenta,
+            'gestor' => 'gregb',
+            'fechaout' => date('Y-m-d')
+        ];
         $cc = new CheckClass();
-        $result = $cc->updateVasign($r);
-        $this->assertEquals(array(), $result);
-        $r->tipo = 'numero_de_cuenta';
-        $cc = new CheckClass();
-        $result = $cc->updateVasign($r);
-        $this->assertEquals(array(), $result);
+        $cc->insertVasign($r);
+        $this->assertDatabaseHas('vasign', $array);
+        $r->fechain = date('Y-m-d');
+        $array['fechain'] = date('Y-m-d');
+        $cc->updateVasign($r);
+        $this->assertDatabaseHas('vasign', $array);
+        Vasign::whereGestor('gregb')->whereFechaout(date('Y-m-d'))->delete();
     }
 }
