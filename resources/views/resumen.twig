@@ -72,6 +72,7 @@
         <input type="submit" name="go" value="ERROR">
     </form>
     {% include 'privacidad.twig' %}
+    <img width="100" height="auto" src="/images/{{ id_cuenta }}" alt="no foto" />
 </div>
 <div id="GENERAL">
     <table>
@@ -79,7 +80,7 @@
             <td>{% include 'resfield.twig' with {'field': 'nombre_deudor', 'label': 'Deudor', 'value': r.nombre_deudor} %}
             </td>
             <td><label for="domicilio_deudor">Domicilio</label> <textarea
-                        id=domicilio_deudor readonly='readonly ' rows=4 cols=20>{{ r.domicilio_deudor|trim ~ "\n"
+                        id=domicilio_deudor readonly='readonly' rows=4 cols=20>{{ r.domicilio_deudor|trim ~ "\n"
                     ~ r.colonia_deudor|trim ~ "\n"
                     ~ r.ciudad_deudor|trim ~ "," ~ r.estado_deudor|trim ~ ' ' ~ r.cp_deudor|trim }}
                     {% if r.domicilio_deudor_2 is not empty %}
@@ -776,7 +777,7 @@
                            readonly="readonly" style="background-color: #c0c0c0;" value="">
                 </td>
                 <td>Cant . prometido anterior</td>
-                <td><input type="text	" name="N_PROM_OLD" id="N_PROM_OLD"
+                <td><input type="text" name="N_PROM_OLD" id="N_PROM_OLD"
                            readonly="readonly" style="background-color: #c0c0c0;"
                            value="{{ N_PROM_OLD }}"></td>
             </tr>
