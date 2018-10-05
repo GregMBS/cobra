@@ -14,4 +14,8 @@ use Illuminate\Database\Eloquent\Model;
 class Historia extends Model
 {
     protected $table = 'historia';
+
+    protected $primaryKey = 'auto';
+
+    public $timestamps = false;
 }

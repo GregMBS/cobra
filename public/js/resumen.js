@@ -78,18 +78,14 @@ function showsearch() {
     $('#find').focus();
 }
 
-function showbox(boxname) {
-	var boxId = '#' + boxname;
-    $(boxId).show();
-}
-
 function cancelbox(boxname) {
 	var boxId = '#' + boxname;
     $(boxId).hide();
 }
 
-function statusChange(thisform) {
-    if (thisform.C_CVST.substr(0, 3) === "PAG") {
+function statusChange() {
+    const cvst = $('#C_CVST').val();
+    if (cvst.substr(0, 3) === "PAG") {
             $("#pagocapt").css('backgroundColor', "yellow");
             $("#pagocapt2").css('backgroundColor', "yellow");
             $("#pagocaptv").css('backgroundColor', "yellow");
@@ -109,7 +105,8 @@ function npromChange(thisform) {
 
 
 function valid(o, w) {
-    o.value = o.value.replace(r[w], ' ');
+    var regex = /r[w]/gi;
+    o.value = o.value.replace(regex, ' ');
 }
 
 function logout() {

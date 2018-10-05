@@ -139,7 +139,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
                 'VISITADOR ES NECESARIO<br>'
             ),
             array(
-                empty($gestion['ACCION']),
+                empty($gestion['C_ACCION']),
                 'ACCION ES NECESARIO<br>'
             ),
             array(
@@ -219,6 +219,12 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $output = new ValidationErrorClass();
         $error = 0;
         $flagmsg = '';
+        if (empty($gestion['C_CVST'])) {
+            $error = 1;
+            $flagmsg = 'se necesita estatus<br>';
+        }
+        $D_PROM = max($gestion['D_PROM1'], $gestion['D_PROM2'], $gestion['D_PROM3'], $gestion['D_PROM4']);
+        $D_FECH = date('Y-m-d');
         $conditionalArray = array(
             array(
                 ($gestion['N_PAGO'] == 0),
@@ -237,7 +243,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
             ),
             array(
                 ($gestion['N_PROM'] > 0),
-                (in_array($gestion['D_PROM'], $this->blankDates)),
+                (in_array($D_PROM, $this->blankDates)),
                 'promesa necesita fecha<br>'
             ),
             array(
@@ -267,7 +273,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
             ),
             array(
                 ($gestion['N_PROM'] == 0),
-                ($gestion['D_PROM'] >= $gestion['D_FECH']),
+                ($D_PROM >= $D_FECH),
                 "PROMESA NECESITA MONTO<br>"
             ),
             array(

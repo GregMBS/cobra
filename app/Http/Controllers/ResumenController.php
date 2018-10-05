@@ -1,14 +1,18 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreGestion;
 use App\ResumenClass;
 use App\ResumenQueuesClass;
 use App\User;
 use App\ValidationClass;
+use App\ValidationErrorClass;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\GestionClass;
-use Illuminate\Contracts\View\View;
+use View;
 use App\NotaClass;
 use App\ReferenciaClass;
 use Validator;
@@ -33,15 +37,15 @@ class ResumenController extends Controller
      * @var GestionClass
      */
     private $gc;
-    
+
     /**
-     * 
+     *
      * @var NotaClass
      */
     private $nc;
-    
+
     /**
-     * 
+     *
      * @var ReferenciaClass
      */
     private $fc;
@@ -49,26 +53,14 @@ class ResumenController extends Controller
     /**
      * @var array
      */
-    private $gestionValidator = array(
-        [
-            'C_CVST' => 'required',
-            'C_TELE' => 'required',
-            'ACCION' => 'required',
-            'C_OBSE1' => 'required|min:3|max:250'
-        ]
-    );
+    private $visitValidator = [
+        'C_CVST' => 'required',
+        'C_VISIT' => 'required',
+        'C_ACCION' => 'required',
+        'C_OBSE1' => 'required|min:3|max:250'
+    ];
 
-    /**
-     * @var array
-     */
-    private $visitValidator = array(
-        [
-            'C_CVST' => 'required',
-            'C_VISIT' => 'required',
-            'ACCION' => 'required',
-            'C_OBSE1' => 'required|min:3|max:250'
-        ]
-    );
+    protected $redirect;
 
     public function __construct()
     {
@@ -91,23 +83,19 @@ class ResumenController extends Controller
     */
 
     /**
-     *
+     * @param ValidationErrorClass $valid
      * @return View
      * @throws \Exception
      */
-    public function ultima()
+    public function ultima(ValidationErrorClass $valid)
     {
         $capt = auth()->user()->iniciales;
         $id_cuenta = $this->rc->lastGestion($capt);
-        $result = $this->rqc->getOne($id_cuenta);
-        $history = $this->rc->getHistory($id_cuenta);
-        $from = 'ultima';
-        $view = $this->buildView($result, $history, $from, $capt);
-        return $view;
+        return redirect('/resumen/' . $id_cuenta)->with('valid', $valid);
     }
-    
+
     /**
-     * 
+     *
      * @param int $id_cuenta
      * @return View
      * @throws \Exception
@@ -143,7 +131,7 @@ class ResumenController extends Controller
         $vc = new ValidationClass();
         $valid = $vc->countVisitErrors($r->all());
         if ($valid->flag) {
-            return $this->ultima()->with($valid);
+            return $this->ultima($valid);
         }
         $this->gc->doVisit($r->all());
         $view = $this->index();
@@ -160,27 +148,25 @@ class ResumenController extends Controller
         $this->gc->addNewTel($r->C_CONT, $r->C_NTEL);
         $this->gc->addNewTel($r->C_CONT, $r->C_OBSE2);
         $this->gc->updateAddress($r->C_CONT, $r->C_NDIR);
-        $view = $this->ultima();
+        $valid = new ValidationErrorClass();
+        $view = $this->ultima($valid);
         return $view;
     }
 
     /**
-     * @param Request $r
-     * @return View
+     * @param StoreGestion $r
+     * @return RedirectResponse|\Illuminate\Routing\Redirector|View
      * @throws \Exception
      */
-    public function gestion(Request $r)
+    public function gestion(StoreGestion $r)
     {
-        $validator = new Validator();
-        $validator->make($r->all(), $this->gestionValidator);
         $vc = new ValidationClass();
         $valid = $vc->countGestionErrors($r->all());
         if ($valid->flag) {
-            return $this->ultima()->with($valid);
+            dd('invalid');
         }
         $this->gc->doGestion($r->all());
-        $view = $this->index();
-        return $view;
+        return redirect('/resumen');
     }
 
     /**
@@ -210,7 +196,8 @@ class ResumenController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    private function buildView(array $result, array $history, $from, $capt) {
+    private function buildView(array $result, array $history, $from, $capt)
+    {
         $id_cuenta = $result['id_cuenta'];
         $tipo = auth()->user()->tipo;
         $camp = auth()->user()->camp;
@@ -236,26 +223,42 @@ class ResumenController extends Controller
         $baseView = view('resumen');
         /** @noinspection PhpUndefinedMethodInspection */
         $view = $baseView
-        ->with('r', $result)
-        ->with('history', $history)
-        ->with('notas', $notas)
-        ->with('acciones', $acciones)
-        ->with('accionesV', $accionesV)
-        ->with('dictamenes', $dictamenes)
-        ->with('dictamenesV', $dictamenesV)
-        ->with('motiv', $motiv)
-        ->with('motivV', $motivV)
-        ->with('cnp', $cnp)
-        ->with('referencias', $referencias)
-        ->with('gestores', $gestores)
-        ->with('visitadores', $visitadores)
-        ->with('capt', $capt)
-        ->with('tipo', $tipo)
-        ->with('tl', $tl)
-        ->with('sdc', $sdc)
-        ->with('cr', $cr)
-        ->with('numgest', $numgest)
-        ->with('from', $from);
+            ->with('r', $result)
+            ->with('history', $history)
+            ->with('notas', $notas)
+            ->with('acciones', $acciones)
+            ->with('accionesV', $accionesV)
+            ->with('dictamenes', $dictamenes)
+            ->with('dictamenesV', $dictamenesV)
+            ->with('motiv', $motiv)
+            ->with('motivV', $motivV)
+            ->with('cnp', $cnp)
+            ->with('referencias', $referencias)
+            ->with('gestores', $gestores)
+            ->with('visitadores', $visitadores)
+            ->with('capt', $capt)
+            ->with('tipo', $tipo)
+            ->with('tl', $tl)
+            ->with('sdc', $sdc)
+            ->with('cr', $cr)
+            ->with('numgest', $numgest)
+            ->with('from', $from)
+            ->with('camp', $camp);
         return $view;
+    }
+
+    public function response(array $errors)
+    {
+        // Optionally, send a custom response on authorize failure
+        // (default is to just redirect to initial page with errors)
+        //
+        // Can return a response, a view, a redirect, or whatever else
+
+        if ($this->ajax() || $this->wantsJson()) {
+            return new JsonResponse($errors, 422);
+        }
+        return $this->redirector->to('/resumen/')
+            ->withInput($this->except($this->dontFlash))
+            ->withErrors($errors, $this->errorBag);
     }
 }

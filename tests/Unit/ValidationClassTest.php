@@ -47,7 +47,7 @@ class ValidationClassTest extends TestCase
         $gestion['C_VISIT'] = 'someone';
         $result = $vc->countVisitErrors($gestion);
         $this->assertEquals($result->msg,'ACCION ES NECESARIO<br>COMENTARIO INCOMPLETO<br>PROMESA NECESITA MONTO<br>');
-        $gestion['ACCION'] = 'do';
+        $gestion['C_ACCION'] = 'do';
         $result = $vc->countVisitErrors($gestion);
         $this->assertEquals($result->msg,'COMENTARIO INCOMPLETO<br>PROMESA NECESITA MONTO<br>');
         $gestion['C_OBSE1'] = 'gestion gestion gestion';

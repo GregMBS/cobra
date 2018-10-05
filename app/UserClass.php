@@ -53,4 +53,19 @@ class UserClass extends BaseClass
         $stu->execute();
     }
 
+    /**
+     *
+     * @param string $capt
+     * @return int
+     */
+    public function getCamp($capt) {
+        try {
+            $user = User::whereIniciales($capt)->firstOrFail();
+            $camp = $user->camp;
+        } catch (\Exception $e) {
+            $camp = 0;
+        }
+        return $camp;
+    }
+
 }
