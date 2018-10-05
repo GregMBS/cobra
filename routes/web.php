@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', function () {
         return view('logout');
     });
+    Route::get('/imageUpload/{id_cuenta}', 'ImageUploadController@index');
+    Route::post('/imageUpload', 'ImageUploadController@load');
 });
 Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/home', function () {
