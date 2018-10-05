@@ -446,11 +446,12 @@ class GestionDataClass
      */
     public function setCACCION(string $C_ACCION)
     {
-        $value = Accion::find($C_ACCION);
+        $value = Accion::whereAccion($C_ACCION)->first();
         if (empty($value)) {
             dd('C_ACCION'.$C_ACCION);
         }
-        $this->C_ACCION = $value;
+        $code = $value->accion;
+        $this->C_ACCION = $code;
     }
 
     /**
@@ -466,10 +467,12 @@ class GestionDataClass
      */
     public function setCCVST(string $C_CVST)
     {
-        if (empty($C_CVST)) {
-            dd('C_CVST'.$C_CVST);
+        $value = Dictamen::whereDictamen($C_CVST)->get()->first();
+        if (empty($value)) {
+            dd('C_CVST'.$value);
         }
-        $this->C_CVST = $C_CVST;
+        $code = $value->dictamen;
+        $this->C_CVST = $code;
     }
 
     /**

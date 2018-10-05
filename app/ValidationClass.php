@@ -221,7 +221,26 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $flagmsg = '';
         if (empty($gestion['C_CVST'])) {
             $error = 1;
-            $flagmsg = 'se necesita estatus<br>';
+            $flagmsg .= 'se necesita estatus<br>';
+        }
+        if (empty($gestion['C_CVGE'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita gestor<br>';
+        }
+        if (empty($gestion['C_TELE'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita telefono<br>';
+        }
+        if (empty($gestion['C_ACCION'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita accion<br>';
+        }
+        if (empty($gestion['C_OBSE1'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita gestion<br>';
+        } elseif (str_word_count($gestion['C_OBSE1']) < 3) {
+            $error = 1;
+            $flagmsg .= 'gestion incumplida<br>';
         }
         $D_PROM = max($gestion['D_PROM1'], $gestion['D_PROM2'], $gestion['D_PROM3'], $gestion['D_PROM4']);
         $D_FECH = date('Y-m-d');

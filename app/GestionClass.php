@@ -334,7 +334,6 @@ and id_cuenta = :c_cont";
         $sti->bindValue(':C_EJE', $gestion->getCEJE());
         $sti->bindValue(':AUTH', $gestion->getAUTH());
         $sti->execute();
-        dd($sti);
         $auto = $this->pdo->lastInsertId();
         return $auto;
     }

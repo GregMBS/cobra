@@ -13,7 +13,5 @@ class Accion extends Model
 {
     protected $table = 'acciones';
 
-    protected $primaryKey = 'accion';
-
     public $timestamps = false;
 }
