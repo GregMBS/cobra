@@ -32,21 +32,6 @@ VALUES (:C_CVBA, :C_CVGE, :C_CONT, :C_CVST,date(:D_FECH),
      *
      * @var string
      */
-    private $visitInsertQuery = "INSERT INTO historia (C_CVGE,C_CVBA,C_CONT,C_CVST,D_FECH,C_HRIN,
-C_HRFI,C_TELE,CUENTA,C_OBSE1,C_CONTAN,C_ATTE,C_CARG,C_RCON,C_NSE,C_CNIV,C_CFAC,
-C_CPTA,C_VISIT,D_PROM,N_PROM,D_PROM1,N_PROM1,C_PROM,C_FREQ,C_ACCION,C_MOTIV,
-C_CREJ,C_CPAT,C_CALLE1,C_CALLE2,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE) 
-VALUES (:C_CVGE, :C_CVBA, :C_CONT, :C_CVST, date(:D_FECH), :C_HRIN, :C_HRFI, 
-:C_TELE, :CUENTA, :C_OBSE1, :C_CONTAN, :C_ATTE, :C_CARG, :C_RCON, :C_NSE,
-:C_CNIV, :C_CFAC, :C_CPTA, :C_VISIT, :D_PROM,
-:N_PROM, :D_PROM,
-:N_PROM, :C_PROM, :C_FREQ, :ACCION, :C_MOTIV, :C_CREJ, :C_CPAT, :C_CALLE1, :C_CALLE2,
-:C_NTEL, :C_NDIR, :C_EMAIL, :C_OBSE2, :C_EJE)";
-
-    /**
-     *
-     * @var string
-     */
     private $setPromesaIncumplida = "update resumen
 		set status_aarsa='PROMESA INCUMPLIDA'
 		where id_cuenta not in (
@@ -89,49 +74,45 @@ and id_cuenta = :c_cont";
      */
     private function insertVisit(VisitDataClass $gestion)
     {
-        $sti = $this->pdo->prepare($this->visitInsertQuery);
-        $sti->bindValue(':C_CVBA', $gestion->getCCVBA());
-        $sti->bindValue(':C_CVGE', $gestion->getCCVGE());
-        $sti->bindValue(':C_CONT', $gestion->getCCONT(), \PDO::PARAM_INT);
-        $sti->bindValue(':C_CVST', $gestion->getCCVST());
-        $sti->bindValue(':D_FECH', $gestion->getDFECH());
-        $sti->bindValue(':C_HRIN', $gestion->getCHRIN());
-        $sti->bindValue(':C_HRFI', $gestion->getCHRFI());
-        $sti->bindValue(':C_TELE', $gestion->getCTELE());
-        //$sti->bindValue(':CUANDO', $gestion->getCUANDO());
-        $sti->bindValue(':CUENTA', $gestion->getCUENTA());
-        $sti->bindValue(':C_OBSE1', $gestion->getCOBSE1());
-        $sti->bindValue(':C_ATTE', $gestion->getCATTE());
-        $sti->bindValue(':C_CARG', $gestion->getCCARG());
-        $sti->bindValue(':D_PROM', $gestion->getDPROM());
-        $sti->bindValue(':N_PROM', $gestion->getNPROM());
-        $sti->bindValue(':C_PROM', $gestion->getCPROM());
-        $sti->bindValue(':C_CONTAN', $gestion->getCCONTAN());
-        $sti->bindValue(':ACCION', $gestion->getCACCION());
-        //$sti->bindValue(':C_CNP', $gestion->getCCNP());
-        $sti->bindValue(':C_MOTIV', $gestion->getCMOTIV());
-        //$sti->bindValue(':C_CAMP', $gestion->getCCAMP());
-        $sti->bindValue(':C_NTEL', $gestion->getCNTEL());
-        $sti->bindValue(':C_NDIR', $gestion->getCNDIR());
-        $sti->bindValue(':C_EMAIL', $gestion->getCEMAIL());
-        $sti->bindValue(':C_OBSE2', $gestion->getCOBSE2());
-        $sti->bindValue(':C_EJE', $gestion->getCEJE());
-        //$sti->bindValue(':AUTH', $gestion->getAUTH());
-        $sti->bindValue(':C_VISIT', $gestion->getCVISIT());
-        $sti->bindValue(':C_RCON', $gestion->getCRCON());
-        $sti->bindValue(':C_NSE', $gestion->getCNSE());
-        $sti->bindValue(':C_CNIV', $gestion->getCCNIV());
-        $sti->bindValue(':C_CFAC', $gestion->getCCFAC());
-        $sti->bindValue(':C_CPTA', $gestion->getCCPTA());
-        //$sti->bindValue(':C_CTIPO', $gestion->getCCTIPO());
-        //$sti->bindValue(':C_COWN', $gestion->getCCOWN());
-        //$sti->bindValue(':C_CSTAT', $gestion->getCCSTAT());
-        //$sti->bindValue(':C_CREJ', $gestion->getCCREJ());
-        //$sti->bindValue(':C_CPAT', $gestion->getCCPAT());
-        //$sti->bindValue(':C_CALLE1', $gestion->getCCALLE1());
-        //$sti->bindValue(':C_CALLE2', $gestion->getCCALLE2());
-        $sti->execute();
-        $auto = $this->pdo->lastInsertId();
+        $visit = new Historia();
+        $visit->C_CVGE = $gestion->getCCVGE();
+        $visit->C_CVBA = $gestion->getCCVBA();
+        $visit->C_CONT = $gestion->getCCONT();
+        $visit->C_CVST = $gestion->getCCVST();
+        $visit->D_FECH = $gestion->getDFECH();
+        $visit->C_HRIN = $gestion->getCHRIN();
+        $visit->C_HRFI = $gestion->getCHRFI();
+        $visit->C_TELE = $gestion->getCTELE();
+        $visit->CUENTA = $gestion->getCUENTA();
+        $visit->C_OBSE1 = $gestion->getCOBSE1();
+        $visit->C_CONTAN = $gestion->getCCONTAN();
+        $visit->C_ATTE = $gestion->getCATTE();
+        $visit->C_CARG = $gestion->getCCARG();
+        $visit->C_RCON = $gestion->getCRCON();
+        $visit->C_NSE = $gestion->getCNSE();
+        $visit->C_CNIV = $gestion->getCCNIV();
+        $visit->C_CFAC = $gestion->getCCFAC();
+        $visit->C_CPTA = $gestion->getCCPTA();
+        $visit->C_VISIT = $gestion->getCVISIT();
+        $visit->D_PROM = $gestion->getDPROM();
+        $visit->N_PROM = $gestion->getNPROM();
+        $visit->D_PROM = $gestion->getDPROM();
+        $visit->N_PROM = $gestion->getNPROM();
+        $visit->C_PROM = $gestion->getCPROM();
+        $visit->C_FREQ = '';
+        $visit->C_ACCION = $gestion->getCACCION();
+        $visit->C_MOTIV = $gestion->getCMOTIV();
+        $visit->C_CREJ = $gestion->getCCREJ();
+        $visit->C_CPAT = $gestion->getCCPAT();
+        $visit->C_CALLE1 = $gestion->getCCALLE1();
+        $visit->C_CALLE2 = $gestion->getCCALLE2();
+        $visit->C_NTEL = $gestion->getCNTEL();
+        $visit->C_NDIR = $gestion->getCNDIR();
+        $visit->C_EMAIL = $gestion->getCEMAIL();
+        $visit->C_OBSE2 = $gestion->getCOBSE2();
+        $visit->C_EJE = $gestion->getCEJE();
+        $visit->save();
+        $auto = $visit->auto;
         return $auto;
     }
 
@@ -198,13 +179,13 @@ and id_cuenta = :c_cont";
     /**
      *
      * @param int $C_CONT
-     * @param string $ndir
+     * @param string $dir
      */
-    public function updateAddress($C_CONT, $ndir)
+    public function updateAddress($C_CONT, $dir)
     {
-        $queryndir = "UPDATE resumen SET direccion_nueva = :ndir WHERE id_cuenta = :C_CONT";
-        $stn = $this->pdo->prepare($queryndir);
-        $stn->bindValue(':ndir', $ndir);
+        $query = "UPDATE resumen SET direccion_nueva = :dir WHERE id_cuenta = :C_CONT";
+        $stn = $this->pdo->prepare($query);
+        $stn->bindValue(':dir', $dir);
         $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $stn->execute();
     }
@@ -216,8 +197,8 @@ and id_cuenta = :c_cont";
      */
     private function updateEmail($C_CONT, $email)
     {
-        $queryndir = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
-        $stn = $this->pdo->prepare($queryndir);
+        $query = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
+        $stn = $this->pdo->prepare($query);
         $stn->bindValue(':email', $email);
         $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $stn->execute();
@@ -232,8 +213,8 @@ and id_cuenta = :c_cont";
     private function attributePayment($capt, $C_CONT)
     {
         $who = $capt;
-        $queryd = "select c_cvge " . "from historia " . "where n_prom>0 " . "and c_cvge like 'PRO%' " . "and c_cont = :C_CONT " . "order by d_fech desc, c_hrin desc limit 1";
-        $stn = $this->pdo->prepare($queryd);
+        $query = "select c_cvge " . "from historia " . "where n_prom>0 " . "and c_cvge like 'PRO%' " . "and c_cont = :C_CONT " . "order by d_fech desc, c_hrin desc limit 1";
+        $stn = $this->pdo->prepare($query);
         $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $stn->execute();
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
@@ -252,10 +233,10 @@ and id_cuenta = :c_cont";
      */
     private function addPago($C_CONT, $D_PAGO, $N_PAGO, $who)
     {
-        $queryins = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
+        $query = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
     SELECT numero_de_cuenta, :D_PAGO, :N_PAGO, cliente, :who, numero_de_credito, id_cuenta 
     FROM resumen WHERE id_cuenta = :C_CONT";
-        $sti = $this->pdo->prepare($queryins);
+        $sti = $this->pdo->prepare($query);
         $sti->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $sti->bindValue(':D_PAGO', $D_PAGO);
         $sti->bindValue(':N_PAGO', $N_PAGO);
@@ -267,10 +248,10 @@ and id_cuenta = :c_cont";
      */
     private function updateAllUltimoPagos()
     {
-        $querypup = "update resumen,pagos 
+        $query = "update resumen,pagos 
                 set fecha_de_ultimo_pago = fecha, monto_ultimo_pago = monto 
                 where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta";
-        $this->pdo->query($querypup);
+        $this->pdo->query($query);
     }
 
     /**
@@ -280,8 +261,8 @@ and id_cuenta = :c_cont";
      */
     private function resumenStatusUpdate($C_CONT, $best)
     {
-        $querysa = "update resumen set status_aarsa = :best where id_cuenta = :c_cont";
-        $stb = $this->pdo->prepare($querysa);
+        $query = "update resumen set status_aarsa = :best where id_cuenta = :c_cont";
+        $stb = $this->pdo->prepare($query);
         $stb->bindValue(':c_cont', $C_CONT, \PDO::PARAM_INT);
         $stb->bindValue(':best', $best);
         $stb->execute();
@@ -392,11 +373,11 @@ and id_cuenta = :c_cont";
     private function getBest($C_CVST, $C_CONT)
     {
         $best = $C_CVST;
-        $querybest = "select c_cvst,v_cc from historia,dictamenes"
+        $query = "select c_cvst,v_cc from historia,dictamenes"
             . " where c_cvst=dictamen and c_cont = :C_CONT"
             . " and d_fech>last_day(curdate()-interval 90 day)"
             . " order by v_cc LIMIT 1";
-        $stb = $this->pdo->prepare($querybest);
+        $stb = $this->pdo->prepare($query);
         $stb->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $result = $stb->fetch(\PDO::FETCH_ASSOC);
         if (isset($result['c_cvst'])) {
@@ -424,7 +405,6 @@ and id_cuenta = :c_cont";
         $vdc->setCCVGE($gestion['C_CVGE']);
         $vdc->setCACCION($gestion['C_ACCION']);
         $vdc->setAUTH($gestion['AUTH']);
-        //$gdc->setCATTE($gestion['C_ATTE']);
         $vdc->setCVISIT($gestion['C_VISIT']);
         $vdc->setCCARG($gestion['C_CARG']);
         $vdc->setCCNP($gestion['C_CNP']);
@@ -481,7 +461,6 @@ and id_cuenta = :c_cont";
         $gdc->setCCVGE($gestion['C_CVGE']);
         $gdc->setCACCION($gestion['C_ACCION']);
         $gdc->setAUTH($gestion['AUTH']);
-        //$gdc->setCATTE($gestion['C_ATTE']);
         $gdc->setCCARG($gestion['C_CARG']);
         $gdc->setCCNP($gestion['C_CNP']);
         $gdc->setCEMAIL($gestion['C_EMAIL']);
