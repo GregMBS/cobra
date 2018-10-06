@@ -2,27 +2,20 @@
 <head>
     <title>Resumen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link
-            href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
-            rel="stylesheet" type="text/css"/>
-    <link
-            href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css"
-            rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="/css/resumen.css" type="text/css"
-          media="all"/>
+    <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/resumen.css" type="text/css" media="all"/>
 </head>
 <body id="todos">
 <div id="buttonbox">
     {% if from in ['ultima','find'] %}
-        <form class="buttons" name="seg" method="get" action="/resumen"
-              id="segid">
+        <form class="buttons" name="seg" method="get" action="/resumen" id="segid">
             <input type="hidden" name="find" value="{{ r.id_cuenta }}"> <input
                     type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}"> <input
                     type="submit" name="go" value="REINTRO QUEUE">
         </form>
     {% endif %}
-    <form class="buttons" name="ultima" method="get" action="/resumen"
-          id="ultima">
+    <form class="buttons" name="ultima" method="get" action="/resumen" id="ultima">
         <input type="submit" name="go" value="ULTIMA">
     </form>
     <form class="buttons" name="buscar" action="/resumen" id="/buscar">
@@ -33,28 +26,22 @@
     <form class="buttons" name="migo" method="get" action="/migo" id="migo">
         <input type="submit" name="go" value="CUENTAS">
     </form>
-    <form class="buttons" name="visitlist" method="get"
-          action="/visits/{{ r.id_cuenta }}" id="visitlist" target="_blank">
+    <form class="buttons" name="visitlist" method="get" action="/visits/{{ r.id_cuenta }}" id="visitlist" target="_blank">
         <input type="submit" name="go" value="VISITAS">
     </form>
-    <form class="buttons" name="rotas" method="get" action="/rotas"
-          id="rotas">
+    <form class="buttons" name="rotas" method="get" action="/rotas" id="rotas">
         <input type="submit" name="go" value="PROMESAS">
     </form>
-    <form class="buttons" name="pagos" method="get" action="/pagos/{{ r.id_cuenta }}"
-          id="pagos" target="_blank">
+    <form class="buttons" name="pagos" method="get" action="/pagos/{{ r.id_cuenta }}" id="pagos" target="_blank">
         <input type="submit" name="go" value="PAGOS">
     </form>
-    <form class="buttons" name="notasq" method="get" action="/notas/{{ r.id_cuenta }}"
-          id="notas" target="_blank">
+    <form class="buttons" name="notasq" method="get" action="/notas/{{ r.id_cuenta }}" id="notas" target="_blank">
         <input type="submit" name="go" value="NOTAS">
     </form>
-    <form class="buttons" name="queuesg" method="get" action="/queuesg"
-          id="queuesg">
+    <form class="buttons" name="queuesg" method="get" action="/queuesg" id="queuesg">
         <input type="submit" name="go" value="QUEUES">
     </form>
-    <form class="buttons" name="logout" method="get" action="/logout"
-          id="logout">
+    <form class="buttons" name="logout" method="get" action="/logout" id="logout">
         <input type="submit" name="go" value="LOGOUT">
     </form>
     <button>
@@ -67,8 +54,7 @@
     {% endif %}
     <span style='font-weight: bold; font-size: 120%;'> {{ capt }}
             </span>
-    <form class="buttons" name="trouble" method="get" action="/trouble/create"
-          id="trouble">
+    <form class="buttons" name="trouble" method="get" action="/trouble/create" id="trouble">
         <input type="submit" name="go" value="ERROR">
     </form>
     {% include 'privacidad.twig' %}
@@ -115,9 +101,8 @@
             <td>
                 <div id='clock'>
                     <input type="hidden" id="timer" readonly="readonly" value="0">
-                    <input type="text" id="timerm" readonly="readonly" value="0"
-                           size="3"> : <input type="text" id="timers"
-                                              readonly="readonly" value="0" size="3"><br>
+                    <input type="text" id="timerm" readonly="readonly" value="0" size="3">&nbsp;:&nbsp;
+                    <input type="text" id="timers" readonly="readonly" value="0" size="3"><br>
                     {% set ngclass = 'low' %}
                     {% if numgest > 20 %}
                         {% set ngclass = 'med' %}
@@ -125,8 +110,7 @@
                     {% if numgest > 40 %}
                         {% set ngclass = 'high' %}
                     {% endif %}
-                    <input type="text" id="numgest" class="{{ ngclass }}"
-                           readonly="readonly" value="{{ numgest ~ ' gestiones' }}">
+                    <input type="text" id="numgest" class="{{ ngclass }}" readonly="readonly" value="{{ numgest ~ ' gestiones' }}">
                 </div>
             </td>
         </tr>
@@ -136,8 +120,7 @@
     <h2>Buscar</h2>
     <form name="search" method="get" action="/buscar" id="search">
         Buscar a : <input type="text" name="find" id="find"> en
-        <select
-                name="field">
+        <select name="field" id="field">
             <option value="numero_de_cuenta">Cuenta</option>
             <option value="numero_de_credito"># del Grupo</option>
             <option value="nombre_deudor">Nombre</option>
@@ -152,10 +135,9 @@
             {% for cl in resultcl %}
                 <option value="{{ cl }}">{{ cl }}</option>
             {% endfor %}
-        </select>
-        <br> <input type="submit" value="BUSCAR"> <input
-                type="button" name="cancel" onclick="cancelbox('searchbox')"
-                value="Cancel">
+        </select><br>
+        <input type="submit" value="BUSCAR">
+        <input type="button" name="cancel" onclick="cancelbox('searchbox')" value="Cancel">
     </form>
 </div>
 <div id="tabs">
@@ -251,112 +233,112 @@
     </div>
     <div id="VISITA">
         <form action="/captura" method="post" id="capturaform"
-              onSubmit="return validate_form (this, event, {{ r.saldo_descuento_2 }}, {{ authval }});">
+              onSubmit="return validate_form_visit(this, event, {{ r.saldo_descuento_2 }}, {{ authval }});">
             {{ csrf_field() }}
             <div class="noshow">
-                <input type="hidden" name="error" readonly="readonly" value="1">
-                <input type="hidden" name="C_HRFI" readonly="readonly" value="{{ CT }}">
-                <input type="hidden" name="AUTO" readonly="readonly" value="">
-                <input type="hidden" name="find" readonly="readonly" value="{{ find }}">
-                <input type="hidden" name="field" readonly="readonly" value="{{ field }}">
-                <input type="hidden" name="C_CVGE" readonly="readonly" value="{{ C_CVGE }}">
-                <input type="hidden" name="C_CVBA" readonly="readonly" value="{{ r.cliente }}">
-                <input type="hidden" name="C_ATTE" readonly="readonly" value="">
-                <input type="hidden" name="C_CONT" readonly="readonly" value="{{ r.id_cuenta }}">
-                <input type="hidden" name="C_CONTAN" readonly="readonly" value="{{ r.status_aarsa }}">
-                <input type="hidden" name="CUENTA" id="CUENTA2" readonly="readonly" value="{{ r.numero_de_cuenta }}">
-                <input type="hidden" name="C_EJE" readonly="readonly" value="{{ r.ejecutivo_asignado_call_center }}">
+                <input type="hidden" name="errorV" value="1">
+                <input type="hidden" name="C_HRFI" id="C_HRFIv" value="{{ CT }}">
+                <input type="hidden" name="AUTO" value="">
+                <input type="hidden" name="find" value="{{ find }}">
+                <input type="hidden" name="field" value="{{ field }}">
+                <input type="hidden" name="C_CVGE" id="C_CVGEv" value="{{ C_CVGE }}">
+                <input type="hidden" name="C_CVBA" id="C_CVBAv" value="{{ r.cliente }}">
+                <input type="hidden" name="C_ATTE" id="C_ATTEv" value="">
+                <input type="hidden" name="C_CONT" id="C_CONTv" value="{{ r.id_cuenta }}">
+                <input type="hidden" name="C_CONTAN" id="C_CONTANv" value="{{ r.status_aarsa }}">
+                <input type="hidden" name="CUENTA" id="CUENTAv" value="{{ r.numero_de_cuenta }}">
+                <input type="hidden" name="C_EJE" id="C_EJEv" value="{{ r.ejecutivo_asignado_call_center }}">
             </div>
             <p>DICTAMEN DOMICILIO PARTICULAR</p>
-            <table class=' visitable '>
+            <table class='visitable'>
                 <tr>
-                    <th>Tipo :</th>
-                    <td><label> <input type="checkbox" name="domtipo"
-                                       value="casa" id="casa"> Casa
-                        </label>
+                    <th>Tipo:</th>
+                    <td>
+                        <label for="casa">Casa</label>
+                        <input type="checkbox" name="domtipo" value="casa" id="casa">
                     </td>
-                    <td><label> <input type="checkbox" name="domtipo"
-                                       value="departamento" id="departamento"> Departamento
-                        </label>
+                    <td>
+                        <label for="departamento">Departamento</label>
+                        <input type="checkbox" name="domtipo" value="departamento" id="departamento">
                     </td>
-                    <td><label> <input type="checkbox" name="domtipo"
-                                       value="terreno" id="terreno"> Terreno
-                        </label>
+                    <td>
+                        <label for="terreno">Terreno</label>
+                        <input type="checkbox" name="domtipo" value="terreno" id="terreno">
                     </td>
-                    <td><label> <input type="checkbox" name="domtipo"
-                                       value="trabajo" id="trabajo"> Trabajo /Oficina
-                        </label>
+                    <td>
+                        <label for="trabajo">Trabajo/Oficina</label>
+                        <input type="checkbox" name="domtipo" value="trabajo" id="trabajo">
                     </td>
                 </tr>
                 <tr>
-                    <th>Propio :</th>
-                    <td><label> <input type="checkbox" name="domown"
-                                       value="propio" id="propio"> Propio
-                        </label>
+                    <th>Propio:</th>
+                    <td>
+                        <label for="propio">Propio</label>
+                        <input type="checkbox" name="domown" value="propio" id="propio">
                     </td>
-                    <td><label> <input type="checkbox" name="domown"
-                                       value="rentado" id="rentado"> Rentado
-                        </label>
+                    <td>
+                        <label for="rentado">Rentado</label>
+                        <input type="checkbox" name="domown" value="rentado" id="rentado">
                     </td>
-                    <td><label> <input type="checkbox" name="domown"
-                                       value="abandonado" id="abandonado"> Abandonado
-                        </label>
+                    <td>
+                        <label for="abandonado">Abandonado</label>
+                        <input type="checkbox" name="domown" value="abandonado" id="abandonado">
                     </td>
-                    <td><label> <input type="checkbox" name="domown"
-                                       value="deshabilitado" id="deshabilitado"> Deshabilitado
-                        </label>
+                    <td>
+                        <label for="deshabilitado">Deshabilitado</label>
+                        <input type="checkbox" name="domown" value="deshabilitado" id="deshabilitado">
                     </td>
-                    <td><label> <input type="checkbox" name="domown"
-                                       value="invadido" id="invadido"> Invadido
-                        </label>
+                    <td>
+                        <label for="invadido">Invadido</label>
+                        <input type="checkbox" name="domown" value="invadido" id="invadido">
                     </td>
-                    <td><label> <input type="checkbox" name="domown"
-                                       value="prestado" id="prestado"> Prestado
-                        </label>
+                    <td>
+                        <label for="prestado">Prestado</label>
+                        <input type="checkbox" name="domown" value="prestado" id="prestado">
                     </td>
-                    <td><label> <input type="checkbox" name="domown"
-                                       value="laborando" id="laborando"> Laborando
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Nivel :</th>
-                    <td><label> <input type="checkbox" name="C_NSE"
-                                       value="alto" id="alto"> Alto
-                        </label>
-                    </td>
-                    <td><label> <input type="checkbox" name="C_NSE"
-                                       value="medio" id="medio"> Medio
-                        </label>
-                    </td>
-                    <td><label> <input type="checkbox" name="C_NSE"
-                                       value="bajo" id="bajo"> Bajo
-                        </label>
+                    <td>
+                        <label for="laborando">Laborando</label>
+                        <input type="checkbox" name="domown" value="laborando" id="laborando">
                     </td>
                 </tr>
                 <tr>
-                    <th>Estado :</th>
-                    <td><label> <input type="checkbox" name="domstat"
-                                       value="malo" id="malo"> Malo
-                        </label>
+                    <th>Nivel:</th>
+                    <td>
+                        <label for="alto">Alto</label>
+                        <input type="checkbox" name="C_NSE" value="alto" id="alto">
                     </td>
-                    <td><label> <input type="checkbox" name="domstat"
-                                       value="regular" id="regular"> Regular
-                        </label>
+                    <td>
+                        <label for="medio">Medio</label>
+                        <input type="checkbox" name="C_NSE" value="medio" id="medio">
                     </td>
-                    <td><label> <input type="checkbox" name="domstat"
-                                       value="bueno" id="bueno"> Bueno
-                        </label>
+                    <td>
+                        <label for="bajo">Bajo</label>
+                        <input type="checkbox" name="C_NSE" value="bajo" id="bajo">
                     </td>
-                    <td><label> <input type="checkbox" name="domstat"
-                                       value="excelente" id="excelente"> Excelente
-                        </label>
+                </tr>
+                <tr>
+                    <th>Estado:</th>
+                    <td>
+                        <label for="malo">Malo</label>
+                        <input type="checkbox" name="domstat" value="malo" id="malo">
+                    </td>
+                    <td>
+                        <label for="regular">Regular</label>
+                        <input type="checkbox" name="domstat" value="regular" id="regular">
+                    </td>
+                    <td>
+                        <label for="bueno">Bueno</label>
+                        <input type="checkbox" name="domstat" value="bueno" id="bueno">
+                    </td>
+                    <td>
+                        <label for="excelente">Excelente</label>
+                        <input type="checkbox" name="domstat" value="excelente" id="excelente">
                     </td>
                 </tr>
             </table>
-            <p>SEÑAS :</p>
-            <span class="formcap"> Color : </span>
-            <select name="C_CFAC">
+            <p>SEÑAS:</p>
+            <label for="C_CFAC">Color:</label>
+            <select name="C_CFAC" id="C_CFAC">
                 <option value="no">No especifica</option>
                 <option value="Amarilla">Amarilla</option>
                 <option value="Azul">Azul</option>
@@ -378,10 +360,9 @@
                 <option value="Roja">Roja</option>
                 <option value="Rosa">Rosa</option>
                 <option value="Verde">Verde</option>
-            </select>
-            <br> <span class="formcap"> Puerta : </span>
-            <select
-                    name="C_CPTA">
+            </select><br>
+            <label for="C_CPTA">Puerta:</label>
+            <select name="C_CPTA" id="C_CPTA">
                 <option value="no">No especifica</option>
                 <option value="no_tiene">No tiene</option>
                 <option value="Amarilla">Amarilla</option>
@@ -403,10 +384,9 @@
                 <option value="Roja">Roja</option>
                 <option value="Rosa">Rosa</option>
                 <option value="Verde">Verde</option>
-            </select>
-            <br> <span class="formcap"> Reja /Barandal : </span>
-            <select
-                    name="C_CREJ">
+            </select><br>
+            <label for="C_CREJ">Reja/Barandal:</label>
+            <select name="C_CREJ" id="C_CREJ">
                 <option value="no">No especifica</option>
                 <option value="No">No tiene</option>
                 <option value="Amarilla">Amarilla</option>
@@ -427,42 +407,39 @@
                 <option value="Roja">Roja</option>
                 <option value="Rosa">Rosa</option>
                 <option value="Verde">Verde</option>
-            </select>
-            <br> <span class="formcap"> Patio/Jardín : </span>
-            <select
-                    name="C_CPAT">
+            </select><br>
+            <label for="C_CPAT">Patio/Jardín:</label>
+            <select name="C_CPAT" id="C_CPAT">
                 <option value="no">No especifica</option>
                 <option value="si">Sí</option>
                 <option value="no">No</option>
-            </select>
-            <br> <span class="formcap"> Pisos : </span>
-            <select
-                    name="C_CNIV">
+            </select><br>
+            <label for="C_CNIV">Pisos:</label>
+            <select name="C_CNIV" id="C_CNIV">
                 <option value="planta baja">planta baja</option>
                 <option value="planta alta">planta alta</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value="> 3">>3</option>
+                <option value="4+">4+</option>
             </select>
             <br>
             <p>DATOS DE LA GESTION</p>
-            <span class="formcap"> Hora: </span>
-            <select NAME="C_VH">
+            <label for="C_VH">Hora:</label>
+            <select name="C_VH" id="C_VH">
                 {% for h in range(0,23) %}
                     <option value='{{ h }}'>{{ h }}</option>
                 {% endfor %}
             </select>
             :
-            <SELECT NAME="C_VMN">
+            <select name="C_VMN">
                 {% for m in range(0,59) %}
                     <option value='{{ "%02d"|format(m) }}'>{{ "%02d"|format(m) }}</option>
                 {% endfor %}
-            </select>
-            <br> <label for="C_VD">Fecha:</label> <INPUT TYPE="text"
-                                                         class='fecha' NAME="C_VD" ID="C_VD" VALUE="{{ CD }}"
-                                                         SIZE=15><br>
-            <span class="formcap" id="pcap"> Parentesco /Cargo</span>
+            </select><br>
+            <label for="D_FECHv">Fecha:</label>
+            <input type="text" class='fecha' name="D_FECH" id="D_FECHv" value="{{ CD }}" size=15><br>
+            <label for="C_CARGv" class="formcap" id="pcap">Parentesco/Cargo</label>
             <select name="C_CARG" id="C_CARGv">
                 <option value=""></option>
                 <option value="Aval">Aval</option>
@@ -475,75 +452,74 @@
                 <option value="Otro">Otro</option>
                 <option value="Padre">Padre</option>
                 <option value="Vecino /a">Vecino/a</option>
-            </select>
-            <br> <label for="C_OBSE12">Gestión</label>
-            <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12'
+            </select><br>
+            <label for="C_OBSE1v">Gestión</label>
+            <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE1v'
                       onkeypress="tooLong(this)"></textarea>
             <br>
             <label for="accionV">Acción: </label>
-            <select name="C_ACCION" id="accionV">
+            <select name="C_ACCION" id="C_ACCIONv">
                 {% include 'resopt.twig' with {'list': accionesV} %}
             </select><br>
             <label for="dictamenV">Status: </label>
-            <select name="C_CVST" id="dictamenV"
+            <select name="C_CVST" id="C_CVSTv"
                     onblur="statusChange();">
                 {% include 'resopt.twig' with {'list': dictamenesV} %}
             </select><br>
             <label for="motivV"> Motivadores : </label>
-            <select name="MOTIV" id="motivV">
+            <select name="C_MOTIV" id="C_MOTIVv">
                 {% include 'resopt.twig' with {'list': motivV} %}
+            </select><br>
+            <label for="C_CNPv">Causa no pago</label>
+            <select name="C_CNP" id="C_CNPv">
+                {% include 'resopt.twig' with {'list': cnp} %}
             </select>
-            <br>
             <table>
                 <tr>
-                    <td><label for="D_PROMv">Fecha promesa</label> <INPUT
-                                TYPE="text" NAME="D_PROM" ID="D_PROMv" VALUE="" class="fecha"
-                                SIZE=15><br>
-                        <label for="N_PROMv">Cantidad de pago
-                            prometido $</label> <input type="text" name="N_PROM" id="N_PROMv"
-                                                       value="">
+                    <td>
+                        <label for="D_PROMv">Fecha promesa</label>
+                        <INPUT TYPE="text" NAME="D_PROM" ID="D_PROMv" VALUE="" class="fecha" SIZE=15><br>
+                        <label for="N_PROMv">Cantidad de pago prometido $</label>
+                        <input type="text" name="N_PROM" id="N_PROMv" value="0">
                     </td>
-                    <td id='pagocaptv'><label for="D_PAGOv">Fecha ya pagó</label>
-                        <INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOv" VALUE=""
-                               class="fecha" SIZE=15><br>
-                        <label for="N_PAGOv">Cantidad de ya pagó $</label> <input type="text" name="N_PAGO"
-                                                                                  id="N_PAGOv" value=""><br>
+                    <td id='pagocaptv'>
+                        <label for="D_PAGOv">Fecha ya pagó</label>
+                        <INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOv" VALUE="" class="fecha" SIZE=15><br>
+                        <label for="N_PAGOv">Cantidad de ya pagó $</label>
+                        <input type="text" name="N_PAGO" id="N_PAGOv" value="0">
                     </td>
                 </tr>
             </table>
-            <span class="formcap"> Comentario de promesa </span> <input
-                    type="text" name="C_PROM" value=""> <br> <span
-                    class="formcap"> Frecuencia de pago prometido </span>
-            <select
-                    name="C_FREQ">
+            <label for="C_PROMv">Frecuencia de pago prometido</label>
+            <select name="C_PROM" id="C_PROMv">
                 <option value="" selected="selected"></option>
-                <option value="unico">Unico</option>
+                <option value="unico">Único</option>
                 <option value="semanales">Semanales</option>
                 <option value="quincenales">Quincenales</option>
                 <option value="mensuales">Mensuales</option>
-                <option value="otro">Otro ( en Gestion comentas )</option>
-            </select>
-            <br> <span class="formcap"> Visitador : </span>
-            <select
-                    name="C_VISIT" id="C_VISIT">
+                <option value="otro">Otro (en Gesti&oacute;n comentas)</option>
+            </select><br>
+            <label for="C_VISIT" class="formcap">Visitador:</label>
+            <select name="C_VISIT" id="C_VISIT">
                 <option value=''></option>
                 {% for v in visitadores %}
                     <option value="{{ v.iniciales }}">{{ v.completo }}</option>
                 {% endfor %}
-            </select>
-            <br> <span class="formcap">ENTRE CALLE </span> <input
-                    type="text" name="C_CALLE1">Y <input type="text"
-                                                         name="C_CALLE2"> <br>
+            </select><br>
+            <span class="formcap">ENTRE CALLE&nbsp;</span>
+            <input type="text" name="C_CALLE1" id="C_CALLE1">Y&nbsp;
+            <input type="text" name="C_CALLE2" id="C_CALLE2"><br>
             <div class="togglebox" id="nuevoboxt2">
-                <span class="formcap">Actualización de datos </span> <br>
-                <span class="formcap">Tel .</span> <input type="text" name="C_NTEL"
-                                                          value=""> <br> <span class="formcap">Tel 2.</span> <input
-                        type="text" size=50 name="C_OBSE2" value=""> <br> <span
-                        class="formcap">Dirección</span> <input type="text"
-                                                                size=50 name="C_NDIR" value=""> <br>
+                <span class="formcap">Actualización de datos </span><br>
+                <label for="C_NTELv" class="formcap">Tel .</label>
+                <input type="text" name="C_NTEL" id="C_NTELv" value=""><br>
+                <label for="C_OBSE2v" class="formcap">Tel 2.</label>
+                <input type="text" size=50 name="C_OBSE2" id="C_OBSE2v" value=""><br>
+                <label for="C_NDIRv">Dirección</label>
+                <input type="text" size=50 name="C_NDIR" id="C_NDIRv" value=""><br>
             </div>
-            <input type="hidden" name="go" value="CAPTURADO"> <input
-                    type="submit" name="CAPTURADO" value="CAPTURADO">
+            <input type="hidden" name="go" value="CAPTURADO">
+            <input type="submit" name="CAPTURADO" value="CAPTURADO">
         </form>
     </div>
     <!-- 	</div>-->
@@ -850,13 +826,13 @@
 <script type="text/javascript" src="/js/depuracionv.js"></script>
 <script type="text/javascript" src="/js/resumen.js"></script>
 <script type="text/javascript">
-    var flag = '{{ valid.flag }}';
-    var flagmsg = '{{ valid.msg }}';
-    var cuenta = '{{ notas.cuenta }}';
-    var notalert = '{{ notas.alert }}';
-    var sdc = '{{ r.status_de_credito }}';
-    var tipo = '{{ tipo }}';
-    var tlp = '{{ tl }}';
+    const flag = '{{ valid.flag }}';
+    const flagmsg = '{{ valid.msg }}';
+    const cuenta = '{{ notas.cuenta }}';
+    const notalert = '{{ notas.alert }}';
+    const sdc = '{{ r.status_de_credito }}';
+    const tipo = '{{ tipo }}';
+    const tlp = '{{ tl }}';
 </script>
 </body>
 </html>

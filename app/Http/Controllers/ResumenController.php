@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGestion;
+use App\Http\Requests\StoreVisit;
 use App\ResumenClass;
 use App\ResumenQueuesClass;
 use App\User;
 use App\ValidationClass;
 use App\ValidationErrorClass;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\GestionClass;
 use View;
 use App\NotaClass;
 use App\ReferenciaClass;
-use Validator;
 
 class ResumenController extends Controller
 {
@@ -49,16 +48,6 @@ class ResumenController extends Controller
      * @var ReferenciaClass
      */
     private $fc;
-
-    /**
-     * @var array
-     */
-    private $visitValidator = [
-        'C_CVST' => 'required',
-        'C_VISIT' => 'required',
-        'C_ACCION' => 'required',
-        'C_OBSE1' => 'required|min:3|max:250'
-    ];
 
     protected $redirect;
 
@@ -120,14 +109,12 @@ class ResumenController extends Controller
     }
 
     /**
-     * @param Request $r
+     * @param StoreVisit $r
      * @return View
      * @throws \Exception
      */
-    public function capture(Request $r)
+    public function capture(StoreVisit $r)
     {
-        $validator = new Validator();
-        $validator->make($r->all(), $this->visitValidator);
         $vc = new ValidationClass();
         $valid = $vc->countVisitErrors($r->all());
         if ($valid->flag) {
@@ -247,6 +234,7 @@ class ResumenController extends Controller
         return $view;
     }
 
+    /*
     public function response(array $errors)
     {
         // Optionally, send a custom response on authorize failure
@@ -261,4 +249,5 @@ class ResumenController extends Controller
             ->withInput($this->except($this->dontFlash))
             ->withErrors($errors, $this->errorBag);
     }
+    */
 }

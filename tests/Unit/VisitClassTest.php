@@ -4,12 +4,11 @@ namespace Tests\Unit;
 
 use App\GestionClass;
 use App\Historia;
-use App\Pago;
 use App\Resumen;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
-class GestionClassTest extends TestCase
+class VisitClassTest extends TestCase
 {
     /**
      * @var array
@@ -44,18 +43,10 @@ class GestionClassTest extends TestCase
         'AUTH' => ''
     ];
 
-    public function testAddNewTel()
-    {
-        $gc = new GestionClass();
-        $newTel = '8888888888';
-        $result = $gc->addNewTel(100, $newTel);
-        $this->assertEquals($newTel, $result['tel_1_verif']);
-    }
-
     /**
      * @param array $gestion
      */
-    private function doGestionTest(array $gestion)
+    private function doVisitTest(array $gestion)
     {
         $gc = new GestionClass();
         /** @var Builder $query */
@@ -65,7 +56,7 @@ class GestionClassTest extends TestCase
         $cliente = $cuenta->cliente;
         $numero_de_cuenta = $cuenta->numero_de_cuenta;
         $gestor = $cuenta->ejecutivo_asignado_call_center;
-        $result = $gc->doGestion($gestion);
+        $result = $gc->doVisit($gestion);
         $this->assertTrue($result);
         unset($gestion['N_PAGO']);
         unset($gestion['D_PAGO']);
@@ -77,7 +68,7 @@ class GestionClassTest extends TestCase
         $testFull = [
             'C_OBSE1' => $gestion['C_OBSE1'],
             'C_CARG' => '',
-            'D_FECH' => date('Y-m-d'),
+            'D_FECH' => $gestion['D_FECH'],
             'C_HRIN' => '00:00:00',
             'N_PROM' => '0.00',
             'N_PROM1' => '0.00',
@@ -90,7 +81,7 @@ class GestionClassTest extends TestCase
             'D_PROM2' => '0000-00-00',
             'D_PROM3' => '0000-00-00',
             'D_PROM4' => '0000-00-00',
-            'C_VISIT' => null,
+            'C_VISIT' => $gestion['C_VISIT'],
             'C_CVST' => $gestion['C_CVST'],
             'C_CNP' => '',
             'C_EMAIL' => '',
@@ -135,34 +126,17 @@ class GestionClassTest extends TestCase
         $this->assertEquals($testFull, $effect);
     }
 
-    public function testTelNoContesta()
+    public function testNotificationBajoPuerta()
     {
         $gestion = $this->testEmpty;
         $gestion['C_CONT'] = 1;
-        $gestion['C_CVST'] = 'TEL NO CONTESTA';
+        $gestion['C_CVST'] = 'NOTIFICACION BAJO PUERTA';
         $gestion['C_CVGE'] = 'gregb';
-        $gestion['C_TELE'] = '8888888888';
-        $gestion['C_ACCION'] = 'LLAMADA A DOMICILIO';
+        $gestion['C_VISIT'] = 'gregb';
+        $gestion['D_FECH'] = date('Y-m-d', strtotime('yesterday'));
+        $gestion['C_ACCION'] = 'VISITA A DOMICILIO';
         $gestion['C_OBSE1'] = 'something something something';
-        $this->doGestionTest($gestion);
+        $this->doVisitTest($gestion);
     }
 
-    public function testPago()
-    {
-        $gestion = $this->testEmpty;
-        $gestion['C_CONT'] = 1;
-        $gestion['C_CVST'] = 'PAGO PARCIAL';
-        $gestion['C_CVGE'] = 'gregb';
-        $gestion['C_TELE'] = '8888888888';
-        $gestion['C_ACCION'] = 'LLAMADA A DOMICILIO';
-        $gestion['C_OBSE1'] = 'something something something';
-        $gestion['N_PAGO'] = 1;
-        $gestion['D_PAGO'] = '2008-01-01';
-        $this->doGestionTest($gestion);
-        /** @var Builder $query */
-        $query = Pago::whereMonto($gestion['N_PAGO'])->whereFecha($gestion['D_PAGO'])->whereIdCuenta($gestion['C_CONT']);
-        $count = $query->count();
-        $this->assertEquals(1, $count);
-        $query->delete();
-    }
 }
