@@ -356,16 +356,16 @@ and id_cuenta = :c_cont";
     private function doCommon($auto, $gestion)
     {
         $this->addHistgest($auto, $gestion['C_CVGE']);
-        if (! empty($gestion['C_NTEL'])) {
+        if (!empty($gestion['C_NTEL'])) {
             $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
         }
-        if (! empty($gestion['C_OBSE2'])) {
+        if (!empty($gestion['C_OBSE2'])) {
             $this->addNewTel($gestion['C_CONT'], $gestion['C_OBSE2']);
         }
-        if (! empty($gestion['C_NDIR'])) {
+        if (!empty($gestion['C_NDIR'])) {
             $this->updateAddress($gestion['C_CONT'], $gestion['C_NDIR']);
         }
-        if (! empty($gestion['C_EMAIL'])) {
+        if (!empty($gestion['C_EMAIL'])) {
             $this->updateEmail($gestion['C_CONT'], $gestion['C_EMAIL']);
         }
         if ($gestion['N_PAGO'] > 0) {

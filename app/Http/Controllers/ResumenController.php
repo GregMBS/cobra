@@ -126,6 +126,7 @@ class ResumenController extends Controller
      */
     public function capture(Request $r)
     {
+        dd($r->all);
         $validator = new Validator();
         $validator->make($r->all(), $this->visitValidator);
         $vc = new ValidationClass();
