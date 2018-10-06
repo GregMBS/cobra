@@ -9,7 +9,7 @@ function validate_form_visit(tf, evt, minProm) {
     const C_OBSE1v = $('#C_OBSE1v');
     const C_OBSE2v = $('#C_OBSE2v');
     const C_VISIT = $('#C_VISIT');
-    const C_VD = $('#C_VD');
+    const D_FECHv = $('#D_FECHv');
     const CUENTAv = $('#CUENTAv');
     const C_CNPv = $('#C_CNPv');
     const C_ACCIONv = $('#C_ACCIONv');
@@ -63,8 +63,13 @@ function validate_form_visit(tf, evt, minProm) {
         flag = 1;
         alerttxt = alerttxt + 'No hay código de accion.\n';
     }
-    if ((validate_date(C_VD)) === false) {
-        C_VD.css('backgroundColor', 'yellow');
+    if (C_VISIT.val() === '') {
+        C_VISIT.css('backgroundColor', 'yellow');
+        flag = 1;
+        alerttxt = alerttxt + 'No hay visitador.\n';
+    }
+    if ((validate_date(D_FECHv)) === false) {
+        D_FECHv.css('backgroundColor', 'yellow');
         flag = 1;
         alerttxt = alerttxt + 'No hay fecha de gestion.\n';
     }
@@ -220,8 +225,8 @@ function validate_form_visit(tf, evt, minProm) {
                 D_PAGOv.css('backgroundColor', 'yellow');
                 flag = 1;
             }
-            if (dPago > C_VD.val()) {
-                alerttxt = alerttxt + 'Fecha de pago en el porvenir\nPAGO=' + D_PAGOv.val() + '\nHOY=' + C_VD.val() + '\n';
+            if (dPago > D_FECHv.val()) {
+                alerttxt = alerttxt + 'Fecha de pago en el porvenir\nPAGO=' + D_PAGOv.val() + '\nHOY=' + D_FECHv.val() + '\n';
                 D_PAGOv.css('backgroundColor', 'orange');
                 flag = 1;
             }

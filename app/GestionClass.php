@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -35,7 +36,7 @@ VALUES (:C_CVBA, :C_CVGE, :C_CONT, :C_CVST,date(:D_FECH),
 C_HRFI,C_TELE,CUENTA,C_OBSE1,C_CONTAN,C_ATTE,C_CARG,C_RCON,C_NSE,C_CNIV,C_CFAC,
 C_CPTA,C_VISIT,D_PROM,N_PROM,D_PROM1,N_PROM1,C_PROM,C_FREQ,C_ACCION,C_MOTIV,
 C_CREJ,C_CPAT,C_CALLE1,C_CALLE2,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE) 
-VALUES (:C_CVGE, :C_CVBA, :C_CONT, :C_CVST, :D_FECH, :C_HRIN, :C_HRFI, 
+VALUES (:C_CVGE, :C_CVBA, :C_CONT, :C_CVST, date(:D_FECH), :C_HRIN, :C_HRFI, 
 :C_TELE, :CUENTA, :C_OBSE1, :C_CONTAN, :C_ATTE, :C_CARG, :C_RCON, :C_NSE,
 :C_CNIV, :C_CFAC, :C_CPTA, :C_VISIT, :D_PROM,
 :N_PROM, :D_PROM,
@@ -83,49 +84,52 @@ and id_cuenta = :c_cont";
 
     /**
      *
-     * @param array $gestion
+     * @param VisitDataClass $gestion
      * @return int
      */
-    private function insertVisit($gestion)
+    private function insertVisit(VisitDataClass $gestion)
     {
         $sti = $this->pdo->prepare($this->visitInsertQuery);
-        $sti->bindValue(':C_CVGE', $gestion['C_CVGE']);
-        $sti->bindValue(':C_CVBA', $gestion['C_CVBA']);
-        $sti->bindValue(':C_CONT', $gestion['C_CONT'], \PDO::PARAM_INT);
-        $sti->bindValue(':C_CVST', $gestion['C_CVST']);
-        $sti->bindValue(':D_FECH', $gestion['D_FECH']);
-        $sti->bindValue(':C_HRIN', $gestion['C_HRIN']);
-        $sti->bindValue(':C_HRFI', $gestion['C_HRFI']);
-        $sti->bindValue(':C_TELE', $gestion['C_TELE']);
-        $sti->bindValue(':CUENTA', $gestion['CUENTA']);
-        $sti->bindValue(':C_OBSE1', $gestion['C_OBSE1']);
-        $sti->bindValue(':C_CONTAN', $gestion['C_CONTAN']);
-        $sti->bindValue(':C_ATTE', $gestion['C_ATTE']);
-        $sti->bindValue(':C_CARG', $gestion['C_CARG']);
-        $sti->bindValue(':C_RCON', $gestion['C_RCON']);
-        $sti->bindValue(':C_NSE', $gestion['C_NSE']);
-        $sti->bindValue(':C_CNIV', $gestion['C_CNIV']);
-        $sti->bindValue(':C_CFAC', $gestion['C_CFAC']);
-        $sti->bindValue(':C_CPTA', $gestion['C_CPTA']);
-        $sti->bindValue(':C_CTIPO', $gestion['C_CTIPO']);
-        $sti->bindValue(':C_COWN', $gestion['C_COWN']);
-        $sti->bindValue(':C_CSTAT', $gestion['C_CSTAT']);
-        $sti->bindValue(':C_VISIT', $gestion['C_VISIT']);
-        $sti->bindValue(':D_PROM', $gestion['D_PROM']);
-        $sti->bindValue(':N_PROM', $gestion['N_PROM']);
-        $sti->bindValue(':C_PROM', $gestion['C_PROM']);
-        $sti->bindValue(':C_FREQ', $gestion['C_FREQ']);
-        $sti->bindValue(':ACCION', $gestion['C_ACCION']);
-        $sti->bindValue(':C_MOTIV', $gestion['C_MOTIV']);
-        $sti->bindValue(':C_CREJ', $gestion['C_CREJ']);
-        $sti->bindValue(':C_CPAT', $gestion['C_CPAT']);
-        $sti->bindValue(':C_CALLE1', $gestion['C_CALLE1']);
-        $sti->bindValue(':C_CALLE2', $gestion['C_CALLE2']);
-        $sti->bindValue(':C_NTEL', $gestion['C_NTEL']);
-        $sti->bindValue(':C_NDIR', $gestion['C_NDIR']);
-        $sti->bindValue(':C_EMAIL', $gestion['C_EMAIL']);
-        $sti->bindValue(':C_OBSE2', $gestion['C_OBSE2']);
-        $sti->bindValue(':C_EJE', $gestion['C_EJE']);
+        $sti->bindValue(':C_CVBA', $gestion->getCCVBA());
+        $sti->bindValue(':C_CVGE', $gestion->getCCVGE());
+        $sti->bindValue(':C_CONT', $gestion->getCCONT(), \PDO::PARAM_INT);
+        $sti->bindValue(':C_CVST', $gestion->getCCVST());
+        $sti->bindValue(':D_FECH', $gestion->getDFECH());
+        $sti->bindValue(':C_HRIN', $gestion->getCHRIN());
+        $sti->bindValue(':C_HRFI', $gestion->getCHRFI());
+        $sti->bindValue(':C_TELE', $gestion->getCTELE());
+        //$sti->bindValue(':CUANDO', $gestion->getCUANDO());
+        $sti->bindValue(':CUENTA', $gestion->getCUENTA());
+        $sti->bindValue(':C_OBSE1', $gestion->getCOBSE1());
+        $sti->bindValue(':C_ATTE', $gestion->getCATTE());
+        $sti->bindValue(':C_CARG', $gestion->getCCARG());
+        $sti->bindValue(':D_PROM', $gestion->getDPROM());
+        $sti->bindValue(':N_PROM', $gestion->getNPROM());
+        $sti->bindValue(':C_PROM', $gestion->getCPROM());
+        $sti->bindValue(':C_CONTAN', $gestion->getCCONTAN());
+        $sti->bindValue(':ACCION', $gestion->getCACCION());
+        //$sti->bindValue(':C_CNP', $gestion->getCCNP());
+        $sti->bindValue(':C_MOTIV', $gestion->getCMOTIV());
+        //$sti->bindValue(':C_CAMP', $gestion->getCCAMP());
+        $sti->bindValue(':C_NTEL', $gestion->getCNTEL());
+        $sti->bindValue(':C_NDIR', $gestion->getCNDIR());
+        $sti->bindValue(':C_EMAIL', $gestion->getCEMAIL());
+        $sti->bindValue(':C_OBSE2', $gestion->getCOBSE2());
+        $sti->bindValue(':C_EJE', $gestion->getCEJE());
+        //$sti->bindValue(':AUTH', $gestion->getAUTH());
+        $sti->bindValue(':C_VISIT', $gestion->getCVISIT());
+        $sti->bindValue(':C_RCON', $gestion->getCRCON());
+        $sti->bindValue(':C_NSE', $gestion->getCNSE());
+        $sti->bindValue(':C_CNIV', $gestion->getCCNIV());
+        $sti->bindValue(':C_CFAC', $gestion->getCCFAC());
+        $sti->bindValue(':C_CPTA', $gestion->getCCPTA());
+        //$sti->bindValue(':C_CTIPO', $gestion->getCCTIPO());
+        //$sti->bindValue(':C_COWN', $gestion->getCCOWN());
+        //$sti->bindValue(':C_CSTAT', $gestion->getCCSTAT());
+        //$sti->bindValue(':C_CREJ', $gestion->getCCREJ());
+        //$sti->bindValue(':C_CPAT', $gestion->getCCPAT());
+        //$sti->bindValue(':C_CALLE1', $gestion->getCCALLE1());
+        //$sti->bindValue(':C_CALLE2', $gestion->getCCALLE2());
         $sti->execute();
         $auto = $this->pdo->lastInsertId();
         return $auto;
@@ -174,7 +178,7 @@ and id_cuenta = :c_cont";
         }
         $rc = new Resumen();
         /**
-         * @var Resumen $query
+         * @var Builder $query
          */
         $query = $rc->whereIdCuenta($C_CONT);
         /**
@@ -406,7 +410,7 @@ and id_cuenta = :c_cont";
     /**
      * 
      * @param array $gestion
-     * @return ValidationErrorClass
+     * @return ValidationErrorClass|bool
      */
     public function doVisit($gestion)
     {
@@ -415,10 +419,36 @@ and id_cuenta = :c_cont";
         if ($valid->flag) {
             return $valid;
         }
-        $auto = $this->insertVisit($gestion);
+        $vdc = new VisitDataClass($gestion['C_CONT']);
+        $vdc->setCCVST($gestion['C_CVST']);
+        $vdc->setCCVGE($gestion['C_CVGE']);
+        $vdc->setCACCION($gestion['C_ACCION']);
+        $vdc->setAUTH($gestion['AUTH']);
+        //$gdc->setCATTE($gestion['C_ATTE']);
+        $vdc->setCVISIT($gestion['C_VISIT']);
+        $vdc->setCCARG($gestion['C_CARG']);
+        $vdc->setCCNP($gestion['C_CNP']);
+        $vdc->setCEMAIL($gestion['C_EMAIL']);
+        $vdc->setCHRIN($gestion['C_HRIN']);
+        $vdc->setCMOTIV($gestion['C_MOTIV']);
+        $vdc->setCNDIR($gestion['C_NDIR']);
+        $vdc->setCNTEL($gestion['C_NTEL']);
+        $vdc->setCOBSE1($gestion['C_OBSE1']);
+        $vdc->setCOBSE2($gestion['C_OBSE2']);
+        $vdc->setDFECH($gestion['D_FECH']);
+        $vdc->setCPROM($gestion['C_PROM']);
+        $vdc->setCOBSE1($gestion['C_OBSE1']);
+        $vdc->setNPAGO($gestion['N_PAGO']);
+        $vdc->setDPAGO($gestion['D_PAGO']);
+        $vdc->setCUANDO($gestion['CUANDO']);
+        $proms = $this->loadProms($gestion);
+        $vdc->setProms($proms);
+        $this->beginTransaction();
+        $auto = $this->insertVisit($vdc);
         $this->addHistdate($auto);
         $this->doCommon($auto, $gestion);
-        return $valid;
+        $this->commitTransaction();
+        return true;
     }
 
     /**
