@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CargaClass;
-use Illuminate\Support\Facades\View;
+use PhpOffice\PhpSpreadsheet\Reader;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use View;
 use Exception;
 
 class CargaController extends Controller
@@ -40,10 +42,10 @@ class CargaController extends Controller
     }
 
     /**
-     *
-     * @return View
+     * @param string $msg
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    private function indexMsg($msg)
+    private function indexMsg(string $msg)
     {
         $clientes = $this->cc->listClientes();
         $view = view('carga')->with('clientes', $clientes)->with('msg', $msg);
@@ -53,19 +55,26 @@ class CargaController extends Controller
     /**
      *
      * @param string $ext
+     * @return string
      * @throws Exception
      */
     private function getReader($ext)
     {
         switch ($ext) {
             case 'text/plain':
+                return 'csv';
                 break;
 
             case 'text/csv':
+                return 'csv';
+                break;
+
+            case 'application/vnd.oasis.opendocument.spreadsheet':
+                return 'ods';
                 break;
 
             default:
-                throw new Exception('CSV only');
+                throw new Exception('CSV and ODS only');
                 break;
         }
     }
@@ -92,8 +101,57 @@ class CargaController extends Controller
     }
 
     /**
+     * @param string $filename
+     * @param Reader\BaseReader $reader
+     * @return array
+     * @throws Reader\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    private function fileToArray(string $filename, Reader\BaseReader $reader)
+    {
+        $reader->setReadDataOnly(true);
+        /** @var Spreadsheet $spreadsheets */
+        $spreadsheet = $reader->load($filename);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $array = $worksheet->toArray();
+        return $array;
+    }
+
+    /**
+     * @param array $array
+     * @return array
+     * @throws Exception
+     */
+    private function arrayCommon(array $array)
+    {
+        $data = [];
+        array_walk($array, function (&$a) use ($array) {
+            $a = array_combine($array[0], $a);
+        });
+        array_shift($array); // remove column header
+        $firstRow = true;
+        $countUpload = 0;
+        $header = [];
+        foreach ($array as $row) {
+            if ($firstRow) {
+                $this->validateHeader(array_keys($row));
+                $header = array_keys($row);
+                $firstRow = false;
+            }
+            $data[] = $row;
+            $countUpload ++;
+        }
+        return [
+            'data' => $data,
+            'header' => $header,
+            'countUpload' => $countUpload
+        ];
+    }
+
+
+    /**
      * @param Request $r
-     * @return View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|View
      * @throws Exception
      */
     public function cargar(Request $r)
@@ -101,27 +159,27 @@ class CargaController extends Controller
         $this->validate($r, $this->rules);
         if ($r->file('file')->isValid()) {
             $file = $r->file('file');
-            $data = file($file);
-            $ext = strtolower($file->getMimeType());
-            $this->getReader($ext);
-            $csv = array_map('str_getcsv', $data);
-            array_walk($csv, function (&$a) use ($csv) {
-                $a = array_combine($csv[0], $a);
-            });
-            array_shift($csv); // remove column header
-            $firstRow = true;
-            $countUpload = 0;
-            $header = [];
-            foreach ($csv as $row) {
-                if ($firstRow) {
-                    $this->validateHeader(array_keys($row));
-                    $header = array_keys($row);
-                    $firstRow = false;
-                }
-                $data[] = $row;
-                $countUpload ++;
+            $mime = strtolower($file->getMimeType());
+            $type = $this->getReader($mime);
+            switch ($type) {
+                case 'csv':
+                    $reader = new Reader\Csv();
+                    $array = $this->fileToArray($file->getRealPath(), $reader);
+                    break;
+
+                case 'ods':
+                    $reader = new Reader\Ods();
+                    $array = $this->fileToArray($file->getRealPath(), $reader);
+                    break;
+
+                default:
+                    $array = [];
             }
 
+            $dataHeader = $this->arrayCommon($array);
+            $data = $dataHeader['data'];
+            $header = $dataHeader['header'];
+            $countUpload = $dataHeader['countUpload'];
             $this->cc->prepareTemp($header);
             $countLoaded = $this->cc->loadData($data, $header);
             $countUpdated = $this->cc->updateResumen($header);

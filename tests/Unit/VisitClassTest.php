@@ -62,66 +62,66 @@ class VisitClassTest extends TestCase
         unset($gestion['D_PAGO']);
         $effect = Historia::where('C_CONT', '=', $gestion['C_CONT'])
             ->where('C_CVGE', '=', $gestion['C_CVGE'])
-            ->where('C_TELE', '=', $gestion['C_TELE'])
+            ->where('C_VISIT', '=', $gestion['C_VISIT'])
             ->get()->first()->toArray();
         unset($effect['Auto']);
+        unset($effect['C_HRFI']);
         $testFull = [
             'C_OBSE1' => $gestion['C_OBSE1'],
             'C_CARG' => '',
             'D_FECH' => $gestion['D_FECH'],
             'C_HRIN' => '00:00:00',
             'N_PROM' => '0.00',
-            'N_PROM1' => '0.00',
-            'N_PROM2' => '0.00',
-            'N_PROM3' => '0.00',
-            'N_PROM4' => '0.00',
+            'N_PROM1' => null,
+            'N_PROM2' => null,
+            'N_PROM3' => null,
+            'N_PROM4' => null,
             'C_PROM' => '',
             'D_PROM' => '0000-00-00',
-            'D_PROM1' => '0000-00-00',
-            'D_PROM2' => '0000-00-00',
-            'D_PROM3' => '0000-00-00',
-            'D_PROM4' => '0000-00-00',
+            'D_PROM1' => null,
+            'D_PROM2' => null,
+            'D_PROM3' => null,
+            'D_PROM4' => null,
             'C_VISIT' => $gestion['C_VISIT'],
             'C_CVST' => $gestion['C_CVST'],
-            'C_CNP' => '',
+            'C_CNP' => null,
             'C_EMAIL' => '',
             'C_MOTIV' => '',
             'C_NDIR' => '',
             'C_NTEL' => '',
             'C_OBSE2' => '',
-            'CUANDO' => '',
-            'AUTH' => '',
+            'CUANDO' => null,
+            'AUTH' => null,
             'C_CONT' => $gestion['C_CONT'],
             'C_CVGE' => $gestion['C_CVGE'],
-            'C_TELE' => $gestion['C_TELE'],
             'C_ACCION' => $gestion['C_ACCION'],
             'C_CVBA' => $cliente,
-            'C_HRFI' => date('H:i:s'),
             'C_MSGE' => null,
             'CUENTA' => $numero_de_cuenta,
             'C_CONTAN' => $contan,
-            'C_NSE' => null,
+            'C_NSE' => '',
             'C_ATTE' => '',
-            'C_CNIV' => null,
-            'C_CFAC' => null,
-            'C_CPTA' => null,
-            'C_RCON' => null,
+            'C_CNIV' => '',
+            'C_CFAC' => '',
+            'C_CPTA' => '',
+            'C_RCON' => '',
             'CARGADO' => null,
-            'C_CALLE1' => null,
-            'C_CALLE2' => null,
-            'C_FREQ' => null,
+            'C_CALLE1' => '',
+            'C_CALLE2' => '',
+            'C_FREQ' => '',
             'C_CTIPO' => null,
             'C_COWN' => null,
             'C_CSTAT' => null,
-            'C_CREJ' => null,
-            'C_CPAT' => null,
+            'C_CREJ' => '',
+            'C_CPAT' => '',
             'C_CAMP' => '0',
             'C_EJE' => $gestor,
-            'error' => 0
+            'error' => 0,
+            'C_TELE' => null
         ];
         Historia::where('C_CONT', '=', $gestion['C_CONT'])
-            ->where('C_CVGE', '=', $gestion['C_CVGE'])
-            ->where('D_FECH', '=', date('Y-m-d'))
+            ->where('C_VISIT', '=', $gestion['C_VISIT'])
+            ->where('D_FECH', '=', $gestion['D_FECH'])
             ->delete();
         $this->assertEquals($testFull, $effect);
     }
