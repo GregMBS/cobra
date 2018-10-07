@@ -373,10 +373,12 @@ and id_cuenta = :c_cont";
     private function getBest($C_CVST, $C_CONT)
     {
         $best = $C_CVST;
-        $query = "select c_cvst,v_cc from historia,dictamenes"
-            . " where c_cvst=dictamen and c_cont = :C_CONT"
-            . " and d_fech>last_day(curdate()-interval 90 day)"
-            . " order by v_cc LIMIT 1";
+        $query = <<<SQL
+select c_cvst,v_cc from historia,dictamenes
+        where c_cvst=dictamen and c_cont = :C_CONT
+        and d_fech>last_day(curdate()-interval 90 day)
+        order by v_cc LIMIT 1
+SQL;
         $stb = $this->pdo->prepare($query);
         $stb->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $result = $stb->fetch(\PDO::FETCH_ASSOC);

@@ -65,6 +65,7 @@ class VisitClassTest extends TestCase
             ->where('C_VISIT', '=', $gestion['C_VISIT'])
             ->get()->first()->toArray();
         unset($effect['Auto']);
+        unset($effect['C_HRFI']);
         $testFull = [
             'C_OBSE1' => $gestion['C_OBSE1'],
             'C_CARG' => '',
@@ -95,7 +96,6 @@ class VisitClassTest extends TestCase
             'C_CVGE' => $gestion['C_CVGE'],
             'C_ACCION' => $gestion['C_ACCION'],
             'C_CVBA' => $cliente,
-            'C_HRFI' => date('H:i:s'),
             'C_MSGE' => null,
             'CUENTA' => $numero_de_cuenta,
             'C_CONTAN' => $contan,
