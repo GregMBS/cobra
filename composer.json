@@ -20,7 +20,7 @@
 		"laravel/framework": "5.5.*",
 		"laravel/homestead": "^7.16",
 		"laravel/tinker": "~1.0",
-		"laravelcollective/html": "*",
+		"laravelcollective/html": "5.*",
 		"maatwebsite/excel": "~3.0",
 		"rcrowe/twigbridge": "~0.9",
 		"twig/extensions": "~1.0",

@@ -20,12 +20,14 @@ class HorariosClass extends BaseClass
      * @param float $dec
      * @return string
      */
+    /*
     public function convertTime($dec)
     {
         $hour = floor($dec);
         $min = round(60 * ($dec - $hour));
         return $hour . ':' . str_pad($min, 2, '0', STR_PAD_LEFT);
     }
+    */
 
     /**
      *
@@ -61,7 +63,7 @@ order by iniciales;';
      * @param integer $dom
      * @return array
      */
-    public function getStartStopDiff($gestor, $dom)
+    private function getStartStopDiff($gestor, $dom)
     {
         $query = "select min(C_HRIN) as start, max(C_HRFI) as stop,
             time_to_sec(timediff(max(C_HRFI),min(C_HRIN))) as diff
@@ -71,10 +73,11 @@ order by iniciales;';
             and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
             and c_cont=0";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':gestor', $gestor);
+        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        return $result;
     }
 
     /**
@@ -83,7 +86,7 @@ order by iniciales;';
      * @param int $dom
      * @return array
      */
-    public function getCurrentMain($gestor, $dom)
+    private function getCurrentMain($gestor, $dom)
     {
         $query = "select count(distinct c_cont) as cuentas,
             sum(c_cvst like 'PROMESA DE%') as promesas,
@@ -108,7 +111,7 @@ order by iniciales;';
      * @param int $dom
      * @return array
      */
-    public function getVisitadorMain($visitador, $dom)
+    private function getVisitadorMain($visitador, $dom)
     {
         $query = "select count(distinct c_cont) as cuentas,
             sum(c_cvst like 'PROMESA DE%') as promesas,
@@ -135,6 +138,7 @@ order by iniciales;';
      * @param string $tipo
      * @return array
      */
+    /*
     private function getTiempoDiff($gestor, $dom, $tipo)
     {
         $query = "select c_hrin as tiempo,
@@ -151,6 +155,7 @@ order by iniciales;';
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
+    */
 
     /**
      *
@@ -159,6 +164,7 @@ order by iniciales;';
      * @param string $tipo
      * @return array|mixed
      */
+    /*
     public function getTiempoDiffNTP($gestor, $dom, $tipo)
     {
         $data = $this->getTiempoDiff($gestor, $dom, $tipo);
@@ -167,6 +173,7 @@ order by iniciales;';
         $data['diff'] = $diffSum;
         return $data;
     }
+    */
 
     /**
      *
@@ -175,6 +182,7 @@ order by iniciales;';
      * @param string $tiempo
      * @return array
      */
+    /*
     private function getNTPDiff($gestor, $dow, $tiempo)
     {
         $query = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as diff
@@ -189,6 +197,7 @@ order by iniciales;';
         $stq->execute();
         return $stq->fetchAll(\PDO::FETCH_ASSOC);
     }
+    */
 
     /**
      *
@@ -196,6 +205,7 @@ order by iniciales;';
      * @param int $dom
      * @return array
      */
+    /*
     public function getPagos($gestor, $dom)
     {
         $query = "select count(1) as ct from pagos
@@ -207,6 +217,7 @@ order by iniciales;';
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
+    */
 
     /**
      *
@@ -214,6 +225,7 @@ order by iniciales;';
      * @param int $dom
      * @return array
      */
+    /*
     public function getVisitadorPagos($visitador, $dom)
     {
         $query = "select count(distinct pagos.auto) as ct from pagos
@@ -228,6 +240,7 @@ order by iniciales;';
         $stq->execute();
         return $stq->fetchAll(\PDO::FETCH_ASSOC);
     }
+    */
 
     /**
      *
@@ -235,6 +248,7 @@ order by iniciales;';
      * @param int $dom
      * @return array
      */
+    /*
     public function countVisitsAssigned($visitador, $dom)
     {
         $query = "select count(fechaOut) as co, count(fechaIn) as ci
@@ -249,12 +263,14 @@ order by iniciales;';
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
+    */
 
     /**
      *
      * @param string $gestor
      * @return array
      */
+    /*
     public function countAccounts($gestor)
     {
         $query = "select count(distinct c_cont) as ct
@@ -267,11 +283,13 @@ order by iniciales;';
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
+    */
 
     /**
      *
      * @return array
      */
+    /*
     public function countVisitadorDays()
     {
         $query = "select sum(fs) as sfs,sum(ss) as sss from
@@ -282,6 +300,7 @@ and d_fech<=last_day(curdate())) as tmp";
         $result = $this->pdo->query($query);
         return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
+    */
 
     /**
      *
