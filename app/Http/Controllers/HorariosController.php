@@ -13,29 +13,36 @@ class HorariosController extends Controller
      *
      * @var HorariosClass
      */
-    private $hc;
+    protected $hc;
 
     /**
      *
      * @var HorariosAllClass
      */
-    private $hac;
+    protected $hac;
 
-    private $yr;
-    private $mes;
-    private $yrmes;
+    protected $yr;
+    protected $mes;
+    protected $yrmes;
 
     /**
      *
      * @var int
      */
-    private $dhoy;
+    protected $dhoy;
 
     /**
      *
      * @var string
      */
-    private $hoy;
+    protected $hoy;
+
+    /** @var array  */
+    protected $views = [
+        'index' => 'horarios',
+        'indexV' => 'horariosV',
+        'show' => 'horario'
+    ];
 
     public function __construct()
     {
@@ -76,7 +83,7 @@ class HorariosController extends Controller
             $summary[$i] = $dataSum;
         }
         $c_cvge = array_column($gestores, 'c_cvge');
-        $view = view('horarios')
+        $view = view($this->views['index'])
             ->with('yrmes', $this->yrmes)
             ->with('gestores', $c_cvge)
             ->with('dhoy', $this->dhoy)
@@ -100,7 +107,7 @@ class HorariosController extends Controller
             $output[$c_visit] = $row;
         }
         $c_visit = array_column($visitadores, 'iniciales');
-        $view = view('horariosV')
+        $view = view($this->views['indexV'])
             ->with('yrmes', $this->yrmes)
             ->with('visitadores', $c_visit)
             ->with('dhoy', $this->dhoy)
@@ -119,7 +126,7 @@ class HorariosController extends Controller
         $output = array();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
         $output[] = $this->hc->packData($c_cvge, $this->dhoy);
-        $view = view('horario')
+        $view = view($this->views['show'])
             ->with('yrmes', $this->yrmes)
             ->with('gestor', $c_cvge)
             ->with('dhoy', $this->dhoy)
