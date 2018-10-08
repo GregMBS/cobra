@@ -345,7 +345,7 @@ and d_fech<=last_day(curdate())) as tmp";
      * @param int $dhoy
      * @return array
      */
-    public function packData($c_cvge, $dhoy) {
+    public function packData(string $c_cvge, int $dhoy) {
         $row = array();
         for ($i = 1; $i <= $dhoy; $i++) {
             $data = new HorariosDataClass($i);

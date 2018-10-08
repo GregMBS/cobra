@@ -8,25 +8,27 @@ use Tests\TestCase;
 class HorariosControllerTest extends TestCase
 {
 
+    protected $urlStub = 'horario';
+
     public function testShow()
     {
         $gestor = 'gregb';
         $user = User::whereTipo('admin')->first();
-        $response = $this->actingAs($user)->get('/horarios/' . $gestor);
-        $response->assertViewIs('horario');
+        $response = $this->actingAs($user)->get('/'.$this->urlStub.'s/' . $gestor);
+        $response->assertViewIs($this->urlStub);
     }
 
     public function testIndex()
     {
         $user = User::whereTipo('admin')->first();
-        $response = $this->actingAs($user)->get('/horarios');
-        $response->assertViewIs('horarios');
+        $response = $this->actingAs($user)->get('/'.$this->urlStub.'s');
+        $response->assertViewIs($this->urlStub.'s');
     }
 
     public function testIndexV()
     {
         $user = User::whereTipo('admin')->first();
-        $response = $this->actingAs($user)->get('/horariosv');
-        $response->assertViewIs('horariosV');
+        $response = $this->actingAs($user)->get('/'.$this->urlStub.'sv');
+        $response->assertViewIs($this->urlStub.'sV');
     }
 }
