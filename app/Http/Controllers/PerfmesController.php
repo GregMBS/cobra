@@ -57,7 +57,7 @@ class PerfmesController extends Controller
      */
     public function index()
     {
-        $output = $this->hc->getReport();
+        $output = $this->hc->packData();
         $diaHoy = $this->hc->diaHoy;
         $yr = $this->hc->yr;
         $mes = $this->hc->mes;

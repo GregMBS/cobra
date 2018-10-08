@@ -8,11 +8,21 @@ use Tests\TestCase;
 
 class HorariosClassTest extends TestCase
 {
+    /**
+     * @var HorariosClass
+     */
+    protected $uc;
+    
+    public function setUp()
+    {
+        parent::setUp();
+        $this->uc = new HorariosClass();
+    }
+
     public function testListGestores()
     {
         $testKeys = ['c_cvge'];
-        $hc = new HorariosClass();
-        $result = $hc->listGestores();
+        $result = $this->uc->listGestores();
         $this->checkKeys($testKeys, $result);
     }
 
@@ -20,8 +30,7 @@ class HorariosClassTest extends TestCase
     {
         $gestor = 'gregb';
         $day = 1;
-        $hc = new HorariosClass();
-        $result = $hc->packData($gestor, $day);
+        $result = $this->uc->packData($gestor, $day);
         $first = $result[$day];
         $this->assertInstanceOf(HorariosDataClass::class, $first);
         $start = strtotime($first->start);
@@ -34,8 +43,7 @@ class HorariosClassTest extends TestCase
     {
         $gestor = 'gregb';
         $day = 1;
-        $hc = new HorariosClass();
-        $result = $hc->packVisit($gestor, $day);
+        $result = $this->uc->packVisit($gestor, $day);
         $first = $result[$day];
         $this->assertInstanceOf(HorariosDataClass::class, $first);
         $this->assertEquals(null, $first->diff);
@@ -78,8 +86,7 @@ class HorariosClassTest extends TestCase
         $year = 2018;
         $month = 9;
         $day = 30;
-        $hc = new HorariosClass();
-        $result = $hc->dowArray($year, $month, $day);
+        $result = $this->uc->dowArray($year, $month, $day);
         $this->assertEquals($test, $result);
     }
 }

@@ -55,12 +55,14 @@ class PerfmesClass extends BaseClass
 	 * @param float $dec
 	 * @return string
 	 */
+    /*
 	public function convertTime($dec)
 	{
 		$hour	 = floor($dec);
 		$min	 = round(60 * ($dec - $hour));
 		return $hour.':'.str_pad($min, 2, '0', STR_PAD_LEFT);
 	}
+    */
 
 	/**
 	 *
@@ -267,6 +269,7 @@ class PerfmesClass extends BaseClass
 	 * @param int $dom
 	 * @return array
 	 */
+	/*
 	public function countVisitsAssigned($visitador, $dom)
 	{
 		$query	 = "select count(fechaOut) as co, count(fechaIn) as ci
@@ -281,12 +284,14 @@ class PerfmesClass extends BaseClass
 		$stq->execute();
 		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
+	*/
 
 	/**
 	 *
 	 * @param string $gestor
 	 * @return array
 	 */
+	/*
 	public function countAccounts($gestor)
 	{
 		$query	 = "select count(distinct c_cont) as ct
@@ -300,11 +305,13 @@ class PerfmesClass extends BaseClass
 		$stq->execute();
 		return $stq->fetch(\PDO::FETCH_ASSOC);
 	}
+	*/
 
 	/**
 	 *
 	 * @return array
 	 */
+	/*
 	public function countVisitadorDays()
 	{
 		$query	 = "select sum(fs) as sfs,sum(ss) as sss from
@@ -316,6 +323,7 @@ and d_fech<=last_day(curdate()-interval 1 month)
 		$result	 = $this->pdo->query($query);
 		return $result->fetchAll(\PDO::FETCH_ASSOC);
 	}
+	*/
 
     /**
      *
@@ -336,7 +344,7 @@ and d_fech<=last_day(curdate()-interval 1 month)
     /**
      * @return array
      */
-    public function getReport()
+    public function packData()
     {
         $output = array();
         $gestores = $this->listGestores();
