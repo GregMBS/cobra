@@ -132,6 +132,7 @@ class GestionClassTest extends TestCase
             ->where('C_CVGE', '=', $gestion['C_CVGE'])
             ->where('D_FECH', '=', date('Y-m-d'))
             ->delete();
+        $testFull['C_HRFI'] = $effect['C_HRFI'];
         $this->assertEquals($testFull, $effect);
     }
 

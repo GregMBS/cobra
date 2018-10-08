@@ -22,7 +22,7 @@ class CargaController extends Controller
      * @var array
      */
     private $rules = [
-        'file' => 'required|file'
+        'file' => 'required|file|mimes:csv,txt,ods,xls,xlsx'
     ];
 
     public function __construct()
@@ -55,26 +55,39 @@ class CargaController extends Controller
     /**
      *
      * @param string $ext
-     * @return string
+     * @return Reader\BaseReader
      * @throws Exception
      */
     private function getReader($ext)
     {
         switch ($ext) {
             case 'text/plain':
-                return 'csv';
+                $reader = new Reader\Csv();
+                return $reader;
                 break;
 
             case 'text/csv':
-                return 'csv';
+                $reader = new Reader\Csv();
+                return $reader;
                 break;
 
             case 'application/vnd.oasis.opendocument.spreadsheet':
-                return 'ods';
+                $reader = new Reader\Ods();
+                return $reader;
+                break;
+
+            case 'application/vnd.ms-excel':
+                $reader = new Reader\Xls();
+                return $reader;
+                break;
+
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                $reader = new Reader\Xlsx();
+                return $reader;
                 break;
 
             default:
-                throw new Exception('CSV and ODS only');
+                throw new Exception('CSV, XLS, XLSX, and ODS only');
                 break;
         }
     }
@@ -86,16 +99,20 @@ class CargaController extends Controller
      */
     private function validateHeader(array $row)
     {
-        if ($this->cc->hasDuplicates($row)) {
-            throw new Exception('Duplicate Column Names');
+        $dupes = $this->cc->checkDuplicates($row);
+        if ($dupes['flag']) {
+            $names = implode(',', $dupes['columns']);
+            throw new Exception('Duplicate Column Names' . $names);
         }
-        if ($this->cc->badName($row)) {
-            throw new Exception('Invalid Column Name');
+        $badNames = $this->cc->badName($row);
+        if ($badNames['flag']) {
+            $names = implode(',', $badNames['columns']);
+            throw new Exception('Invalid Column Names:' . $names);
         }
-        if (! in_array('cliente', $row)) {
+        if (!in_array('cliente', $row)) {
             throw new Exception('Missing Cliente');
         }
-        if (! in_array('numero_de_cuenta', $row)) {
+        if (!in_array('numero_de_cuenta', $row)) {
             throw new Exception('Missing Cuenta');
         }
     }
@@ -139,7 +156,10 @@ class CargaController extends Controller
                 $firstRow = false;
             }
             $data[] = $row;
-            $countUpload ++;
+            $countUpload++;
+        }
+        if ($countUpload === 0) {
+            throw new Exception('Empty File');
         }
         return [
             'data' => $data,
@@ -160,23 +180,18 @@ class CargaController extends Controller
         if ($r->file('file')->isValid()) {
             $file = $r->file('file');
             $mime = strtolower($file->getMimeType());
-            $type = $this->getReader($mime);
-            switch ($type) {
-                case 'csv':
-                    $reader = new Reader\Csv();
-                    $array = $this->fileToArray($file->getRealPath(), $reader);
-                    break;
-
-                case 'ods':
-                    $reader = new Reader\Ods();
-                    $array = $this->fileToArray($file->getRealPath(), $reader);
-                    break;
-
-                default:
-                    $array = [];
+            try {
+                $reader = $this->getReader($mime);
+                $array = $this->fileToArray($file->getRealPath(), $reader);
+            } catch (Exception $e) {
+                $array = [];
             }
-
-            $dataHeader = $this->arrayCommon($array);
+            try {
+                $dataHeader = $this->arrayCommon($array);
+            } catch (Exception $e) {
+                $msg = $e->getMessage();
+                return $this->indexMsg($msg);
+            }
             $data = $dataHeader['data'];
             $header = $dataHeader['header'];
             $countUpload = $dataHeader['countUpload'];

@@ -46,31 +46,39 @@ class CargaClass extends BaseClass
     /**
      *
      * @param array $array
-     * @return boolean
+     * @return array
      */
-    public function hasDuplicates(array $array)
+    public function checkDuplicates(array $array)
     {
+        $columns = [];
         if (count(array_unique($array)) < count($array)) {
-            return true;
+            foreach(array_count_values($array) as $val => $c) {
+                if ($c > 1) {
+                    $columns[] = $val;
+                }
+            }
+            return ['flag' => true, 'columns' => $columns];
         }
-        return false;
+        return ['flag' => false, 'columns' => $columns];
     }
 
     /**
      * 
      * @param array $dataNames
-     * @return boolean
+     * @return array
      */
     public function badName(array $dataNames)
     {
-        $ok = false;
+        $columns = [];
+        $flag = false;
         foreach ($dataNames as $name) {
             $match = in_array($name, $this->CobraFields);
             if (!$match) {
-                $ok = true;
+                $flag = true;
+                $columns[] = $name;
             }
         }
-        return $ok;
+        return ['flag' => $flag, 'columns' => $columns];
     }
 
     /**
@@ -190,6 +198,8 @@ class CargaClass extends BaseClass
      */
     public function updateClientes()
     {
+        $queryClear = "TRUNCATE clientes";
+        $this->pdo->query($queryClear);
         $query = "INSERT IGNORE INTO clientes SELECT cliente FROM resumen";
         $this->pdo->query($query);
     }

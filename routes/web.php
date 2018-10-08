@@ -108,6 +108,7 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/carga', 'CargaController@index');
     Route::post('/carga', 'CargaController@cargar');
     Route::get('/horarios', 'HorariosController@index');
+    Route::get('/horarios/{c_cvge}', 'HorariosController@show');
     Route::get('/horariosv', 'HorariosController@indexV');
     Route::get('/perfmes', 'PerfmesController@index');
     Route::get('/perfmesv', 'PerfmesController@indexV');

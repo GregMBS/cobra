@@ -110,7 +110,7 @@ th, th {
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
-				<a href='/ddh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].gestiones }}
+				<a href='/ddh/{{ gestor }}/{{ yrmes }}{{ "%02d"|format(i) }}'> {{ data[gestor][i].gestiones }}
 				</a>
 				</td>
 				{% endfor %}
@@ -126,7 +126,7 @@ th, th {
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
-				<a href='/ddh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].cuentas }}
+				<a href='/ddh/{{ gestor }}/{{ yrmes }}{{ "%02d"|format(i) }}'> {{ data[gestor][i].cuentas }}
 				</a>
 				</td>
 				{% endfor %}
@@ -168,7 +168,7 @@ th, th {
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
-				<a href='/pdh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].promesas }}
+				<a href='/pdh/{{ gestor }}/{{ yrmes }}{{ "%02d"|format(i) }}'> {{ data[gestor][i].promesas }}
 				</a>
 				</td>
 				{% endfor %}
