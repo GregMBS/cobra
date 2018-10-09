@@ -29,7 +29,7 @@ class ReferenciaClass extends BaseClass
     public function load()
     {
         $query = <<<SQL
-INSERT IGNORE INTO referencias 
+INSERT IGNORE INTO referencias (id_cuenta, nombre, tel_1, tel_2) 
 SELECT id_cuenta, nombre_referencia_1 as nombre, tel_1_ref_1 as 'tel_1', tel_2_ref_1 as 'tel_2'
         FROM resumen 
         where tel_1_ref_1 <> ''

@@ -9,7 +9,7 @@ class QueueReportControllerTest extends TestCase
 {
     public function testIndex()
     {
-        $user = User::find(20);
+        $user = User::whereTipo('admin')->first();
         $response = $this->actingAs($user)
             ->get('/queuesqc');
         $response->assertViewIs('queuesqc');

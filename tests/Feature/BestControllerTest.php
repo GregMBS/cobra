@@ -10,7 +10,7 @@ class BestControllerTest extends TestCase
 {
     public function testIndex()
     {
-        $user = User::find(20);
+        $user = User::whereTipo('admin')->first();
         $this->actingAs($user)
             ->get('/ultimo_mejor');
         $this->assertFileExists(storage_path('temp.xlsx'));

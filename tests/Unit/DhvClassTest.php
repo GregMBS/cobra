@@ -53,7 +53,7 @@ class DhvClassTest extends TestCase
     public function testGetGestiones()
     {
         $gestion = Historia::join('resumen', 'id_cuenta', '=', 'c_cont')
-            ->where('c_tele', '<>', '')
+            ->where('c_visit', '<>', '')
             ->first();
         $testKeys = [
             'numero_de_cuenta',
@@ -74,7 +74,7 @@ class DhvClassTest extends TestCase
             'v_cc'
         ];
         $dc = new DhvClass();
-        $gestor = $gestion->C_CVGE;
+        $gestor = $gestion->C_VISIT;
         $fecha = $gestion->D_FECH;
         $result = $dc->getGestiones($gestor, $fecha);
         $this->assertGreaterThan(0, count($result));

@@ -33,7 +33,7 @@ class HorariosAllClassTest extends TestCase
     {
         $hc = new HorariosAllClass();
         $result = $hc->countAccounts();
-        $this->assertEquals(0, $result);
+        $this->assertGreaterThan(0, $result);
     }
 
     public function testCountAccountsPerDay()

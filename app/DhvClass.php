@@ -50,8 +50,8 @@ where c_visit=:gestor and d_fech=:fecha
 ORDER BY
 saldo_total desc, pagos_vencidos,d_fech,c_hrin";
         $stq    = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
-        $stq->bindParam(':fecha', $fecha);
+        $stq->bindValue(':gestor', $gestor);
+        $stq->bindValue(':fecha', $fecha);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;

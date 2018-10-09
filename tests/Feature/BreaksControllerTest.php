@@ -18,14 +18,14 @@ class BreaksControllerTest extends TestCase
     {
         $response = $this->get('/breakAdmin');
         $response->assertRedirect('/login');
-        $user = User::find(20);
+        $user = User::whereTipo('admin')->first();
         $response = $this->actingAs($user)->get('/breakAdmin');
         $response->assertViewIs('breakAdmin');
     }
 
     public function testAgregarCambiarBorrar()
     {
-        $user = User::find(20);
+        $user = User::whereTipo('admin')->first();
         $data = [
             'gestor' => 'gregb',
             'tipo' => 'break',

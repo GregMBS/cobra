@@ -47,8 +47,10 @@ class GestionClassTest extends TestCase
     public function testAddNewTel()
     {
         $gc = new GestionClass();
+        $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
+        $id_cuenta = $cuenta->id_cuenta;
         $newTel = '8888888888';
-        $result = $gc->addNewTel(100, $newTel);
+        $result = $gc->addNewTel($id_cuenta, $newTel);
         $this->assertEquals($newTel, $result['tel_1_verif']);
     }
 
@@ -139,7 +141,8 @@ class GestionClassTest extends TestCase
     public function testTelNoContesta()
     {
         $gestion = $this->testEmpty;
-        $gestion['C_CONT'] = 1;
+        $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
+        $gestion['C_CONT'] = $cuenta->id_cuenta;
         $gestion['C_CVST'] = 'TEL NO CONTESTA';
         $gestion['C_CVGE'] = 'gregb';
         $gestion['C_TELE'] = '8888888888';
@@ -151,7 +154,8 @@ class GestionClassTest extends TestCase
     public function testPago()
     {
         $gestion = $this->testEmpty;
-        $gestion['C_CONT'] = 1;
+        $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
+        $gestion['C_CONT'] = $cuenta->id_cuenta;
         $gestion['C_CVST'] = 'PAGO PARCIAL';
         $gestion['C_CVGE'] = 'gregb';
         $gestion['C_TELE'] = '8888888888';

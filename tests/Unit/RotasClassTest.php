@@ -14,9 +14,30 @@ class RotasClassTest extends TestCase
      */
     public function testGetRotas()
     {
+        $testKeys = [
+            'cliente',
+            'numero_de_cuenta',
+            'nombre_deudor',
+            'saldo_total',
+            'status_de_credito',
+            'status_aarsa',
+            'id_cuenta',
+            'c_cvge',
+            'n_prom1',
+            'd_prom1',
+            'n_prom2',
+            'd_prom2',
+            'semaforo',
+            'd_fech',
+            'n_prom3',
+            'd_prom3',
+            'n_prom4',
+            'd_prom4',
+            'sum_monto'
+        ];
        $rc = new RotasClass();
         $result = $rc->getRotas('admin', 'gmbs');
-        $this->assertEquals(array(), $result);
+        $this->checkKeys($testKeys, $result);
         $result = $rc->getRotas('', 'gmbs');
         $this->assertEquals(array(), $result);
     }

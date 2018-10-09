@@ -66,6 +66,14 @@ class VisitClassTest extends TestCase
             ->get()->first()->toArray();
         unset($effect['Auto']);
         unset($effect['C_HRFI']);
+        if ($effect['N_PROM3'] == 0) {
+            $effect['N_PROM3'] = null;
+            $effect['D_PROM3'] = null;
+        }
+        if ($effect['N_PROM4'] == 0) {
+            $effect['N_PROM4'] = null;
+            $effect['D_PROM4'] = null;
+        }
         $testFull = [
             'C_OBSE1' => $gestion['C_OBSE1'],
             'C_CARG' => '',
@@ -129,7 +137,8 @@ class VisitClassTest extends TestCase
     public function testNotificationBajoPuerta()
     {
         $gestion = $this->testEmpty;
-        $gestion['C_CONT'] = 1;
+        $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
+        $gestion['C_CONT'] = $cuenta->id_cuenta;
         $gestion['C_CVST'] = 'NOTIFICACION BAJO PUERTA';
         $gestion['C_CVGE'] = 'gregb';
         $gestion['C_VISIT'] = 'gregb';

@@ -88,9 +88,26 @@ class SegmentadminClassTest extends TestCase
      */
     public function testInactivarSegmento()
     {
+        /** @var \PDO $pdo */
+        $pdo = \DB::getPdo();
+        $query = "select cliente, 
+substring_index(status_de_credito, '-', 1) as sdc, 
+sum(substring_index(status_de_credito, '-', 1) = status_de_credito) as activo, 
+sum(substring_index(status_de_credito, '-', 1) <> status_de_credito) as inactivo
+from resumen
+where cliente <> ''
+group by cliente,sdc
+having activo > 0 and inactivo = 0";
+        try {
+            $stq = $pdo->prepare($query);
+            $stq->execute();
+            $result = $stq->fetch();
+        } catch (\PDOException $e) {
+            dd($e->getMessage());
+        }
         $sc = new SegmentadminClass();
-        $cliente = 'GORDILLO';
-        $segmento = 'CIERRE AGOSTO ';
+        $cliente = $result['cliente'];
+        $segmento = $result['sdc'];
         $sc->inactivarSegmento($cliente, $segmento);
         $this->assertDatabaseMissing('resumen', [
            'cliente' => $cliente,
@@ -106,5 +123,7 @@ class SegmentadminClassTest extends TestCase
             'cliente' => $cliente,
             'status_de_credito' => $newSegmento
         ]);
+
+        $this->assertTrue(true);
     }
 }
