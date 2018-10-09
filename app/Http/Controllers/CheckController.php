@@ -78,10 +78,10 @@ class CheckController extends Controller
         $saldos = array_sum(array_column($list, 'saldo_total'));
         /**
          * @var View $view
-         * @method static View with(string $label, mixed $value)
+         * @method static|View with(string $label, mixed $value)
          */
-        $view = view('checkOutList')
-        ->with('visitador', $visitador)
+        $view = view('checkOutList');
+        $view = $view->with('visitador', $visitador)
         ->with('capt', $capt)
         ->with('list', $list)
         ->with('cuentas', $cuentas)
@@ -168,6 +168,7 @@ class CheckController extends Controller
     public function checkBoth(array $list = [], $gestor = '', $tipo = '', $fechaOut = '') {
         $gestores = $this->uc->getVisitadores();
         $counts = $this->cc->countInOut($gestor);
+        /** @var View $view */
         $view = view('checkBoth')
         ->with('gestor', $gestor)
         ->with('gestores', $gestores)

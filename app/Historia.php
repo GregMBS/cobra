@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Historia
  * @package App
- * @method Historia whereCCvge($c_cvge)
+ * @method static|Historia whereCCvge($c_cvge)
  * @method Historia whereCCont($c_cont)
  * @method Historia whereDFech($d_fech)
  */

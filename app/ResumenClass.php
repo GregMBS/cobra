@@ -8,6 +8,7 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
 use PDO;
 
 /**
@@ -294,7 +295,7 @@ SQL;
      */
     public function getClientList()
     {
-        $clientes = Cliente::get()->toArray();
+        $clientes = Cliente::all()->toArray();
         $names = array_column($clientes, 'cliente');
         return $names;
     }
@@ -307,7 +308,10 @@ SQL;
     public function getNumGests($capt)
     {
         $today = date('Y-m-d');
-        $count = Historia::whereCCvge($capt)->whereDFech($today)->where('c_cont', '<>', 0)->count();
+        /** @var Builder $query */
+        $query = Historia::whereCCvge($capt)->whereDFech($today);
+        $query = $query->where('c_cont', '<>', 0);
+        $count = $query->count();
         return $count;
     }
 
@@ -322,7 +326,7 @@ SQL;
         $rc = new Resumen();
 
         /**
-         * @var Resumen $query
+         * @var Builder $query
          */
         $query = $rc->whereIdCuenta($id_cuenta);
         $resumen = $query->first();
@@ -340,7 +344,9 @@ SQL;
      */
     public function getUserData($capt)
     {
-        $nombre = Nombre::where('iniciales','=' , $capt)->get();
+        /** @var Builder $nombreQuery */
+        $nombreQuery = Nombre::where('iniciales','=' , $capt);
+        $nombre = $nombreQuery->get();
         $user = User::where('iniciales','=' , $capt)->get();
         $result = $nombre->merge($user);
         return $result->first()->toArray();

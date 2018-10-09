@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Cliente;
 use App\InventarioClass;
 use App\Resumen;
 use Tests\TestCase;
@@ -88,10 +89,10 @@ class InventarioClassTest extends TestCase
 
     public function testListCliente()
     {
+        $clientes = Cliente::all()->toArray();
         $ic = new InventarioClass();
         $result = $ic->listClients();
         $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $this->assertEquals(['cliente' => ''], $first);
+        $this->assertEquals($clientes, $result);
     }
 }

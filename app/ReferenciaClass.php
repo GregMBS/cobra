@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  *
  * @author gmbs
@@ -17,7 +19,7 @@ class ReferenciaClass extends BaseClass
     public function index($id_cuenta) {
         $rc = new Referencia();
         /**
-         * @var Referencia $query
+         * @var Builder $query
          */
         $query = $rc->whereIdCuenta($id_cuenta);
         $result = $query->get();
