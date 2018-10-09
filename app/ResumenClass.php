@@ -8,6 +8,7 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
 use PDO;
 
 /**
@@ -294,7 +295,7 @@ SQL;
      */
     public function getClientList()
     {
-        $clientes = Cliente::get()->toArray();
+        $clientes = Cliente::all()->toArray();
         $names = array_column($clientes, 'cliente');
         return $names;
     }
@@ -307,7 +308,10 @@ SQL;
     public function getNumGests($capt)
     {
         $today = date('Y-m-d');
-        $count = Historia::whereCCvge($capt)->whereDFech($today)->where('c_cont', '<>', 0)->count();
+        /** @var Builder $query */
+        $query = Historia::whereCCvge($capt)->whereDFech($today);
+        $query = $query->where('c_cont', '<>', 0);
+        $count = $query->count();
         return $count;
     }
 
@@ -322,7 +326,7 @@ SQL;
         $rc = new Resumen();
 
         /**
-         * @var Resumen $query
+         * @var Builder $query
          */
         $query = $rc->whereIdCuenta($id_cuenta);
         $resumen = $query->first();
@@ -340,8 +344,10 @@ SQL;
      */
     public function getUserData($capt)
     {
-        $nombre = Nombre::where('iniciales','=' , $capt)->get();
-        $user = User::where('iniciales','=' , $capt)->get();
+        /** @var Builder $nombreQuery */
+        $nombreQuery = Nombre::where('iniciales', '=', $capt);
+        $nombre = $nombreQuery->get();
+        $user = User::where('iniciales', '=', $capt)->get();
         $result = $nombre->merge($user);
         return $result->first()->toArray();
     }
@@ -353,24 +359,24 @@ SQL;
      */
     public function getPromData($id_cuenta)
     {
-       $promesa = Historia::whereCCont($id_cuenta)
+        $promesa = Historia::whereCCont($id_cuenta)
             ->where('n_prom', '>', 0)
             ->where('c_cvst', 'LIKE', 'PROMESA DE%')
             ->orderByDesc('d_fech')
             ->orderByDesc('c_hrin')
             ->first();
         $array = array(
-                'N_PROM_OLD' => $promesa->N_PROM,
-                'N_PROM1_OLD' => $promesa->N_PROM1,
-                'N_PROM2_OLD' => $promesa->N_PROM2,
-                'N_PROM3_OLD' => $promesa->N_PROM3,
-                'N_PROM4_OLD' => $promesa->N_PROM4,
-                'D_PROM_OLD' => $promesa->D_PROM,
-                'D_PROM1_OLD' => $promesa->D_PROM1,
-                'D_PROM2_OLD' => $promesa->D_PROM2,
-                'D_PROM3_OLD' => $promesa->D_PROM3,
-                'D_PROM4_OLD' => $promesa->D_PROM4
-            );
+            'N_PROM_OLD' => $promesa->N_PROM,
+            'N_PROM1_OLD' => $promesa->N_PROM1,
+            'N_PROM2_OLD' => $promesa->N_PROM2,
+            'N_PROM3_OLD' => $promesa->N_PROM3,
+            'N_PROM4_OLD' => $promesa->N_PROM4,
+            'D_PROM_OLD' => $promesa->D_PROM,
+            'D_PROM1_OLD' => $promesa->D_PROM1,
+            'D_PROM2_OLD' => $promesa->D_PROM2,
+            'D_PROM3_OLD' => $promesa->D_PROM3,
+            'D_PROM4_OLD' => $promesa->D_PROM4
+        );
         return $array;
     }
 
@@ -444,7 +450,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
             /**
              * @var Resumen $query
              */
-            $query =$rc->whereIdCuenta($id_cuenta);
+            $query = $rc->whereIdCuenta($id_cuenta);
             $resumen = $query->first();
             $cuenta = $resumen->numero_de_cuenta;
         }

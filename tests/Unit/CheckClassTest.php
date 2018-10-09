@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\CheckClass;
+use App\User;
 use App\Vasign;
 use App\Resumen;
 use Tests\TestCase;
@@ -46,7 +47,9 @@ class CheckClassTest extends TestCase
         ];
         $cc = new CheckClass();
         $result = $cc->listVasign('');
-        $this->checkKeys($testKeys, $result);
+        if ($result) {
+            $this->checkKeys($testKeys, $result);
+        }
         $result = $cc->listVasign('gmbs');
         $this->assertEquals(array(), $result);
     }
@@ -56,11 +59,12 @@ class CheckClassTest extends TestCase
      */
     public function testGetCompleto()
     {
+        $user = User::first();
         $cc = new CheckClass();
         $result = $cc->getCompleto('');
         $this->assertEquals('', $result);
-        $result = $cc->getCompleto('gregb');
-        $this->assertEquals('Greg B', $result);
+        $result = $cc->getCompleto($user->iniciales);
+        $this->assertEquals($user->completo, $result);
     }
 
     /**

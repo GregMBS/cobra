@@ -45,8 +45,9 @@ class NotaController extends Controller
         $cuenta = $this->rc->getCuentaFromId($id_cuenta);
         $capt = auth()->user()->iniciales;
         $notas = $this->nc->listMyNotas($capt);
-        $view = view('notas')
-            ->with('id_cuenta', $id_cuenta)
+        /** @var View $view */
+        $view = view('notas');
+        $view = $view->with('id_cuenta', $id_cuenta)
             ->with('cuenta', $cuenta)
             ->with('capt', $capt)
             ->with('notas', $notas);

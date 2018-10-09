@@ -19,7 +19,9 @@ class BuscarClassTest extends TestCase
     public function testSearchAccounts()
     {
         $bc = new BuscarClass();
-        $cuenta = Resumen::first();
+        $cuenta = Resumen::where('tel_1', '<>', '')
+            ->where('tel_1_ref_1', '<>', '')
+            ->first();
         $result = $bc->searchAccounts('id_cuenta', $cuenta->id_cuenta, '');
         $this->assertEquals(1, count($result));
         $first = $result[0];
@@ -44,14 +46,15 @@ class BuscarClassTest extends TestCase
         $this->assertContains($cuenta->cliente, $last['cliente'], '', true);
         $result = $bc->searchAccounts('', '', '');
         $this->assertEquals(0, count($result));
-        $result = $bc->searchAccounts('ROBOT', '81', '');
+        $result = $bc->searchAccounts('TELS', $cuenta->tel_1, '');
         $this->assertGreaterThan(0, count($result));
-        $result = $bc->searchAccounts('TELS', '81', '');
+        $result = $bc->searchAccounts('REFS', $cuenta->tel_1_ref_1, $cuenta->cliente);
         $this->assertGreaterThan(0, count($result));
-        $result = $bc->searchAccounts('REFS', '81', '');
+
+
+        $result = $bc->searchAccounts('numero_de_cuenta', $cuenta->numero_de_cuenta, $cuenta->cliente);
         $this->assertGreaterThan(0, count($result));
-        $result = $bc->searchAccounts('numero_de_credito', '8', '');
-        $this->assertGreaterThan(0, count($result));
+
         $result = $bc->searchAccounts('domicilio_deudor', 'Calle', '');
         $this->assertGreaterThan(0, count($result));
     }

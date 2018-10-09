@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\PagosClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 class PagosController extends Controller
 {
@@ -45,8 +45,9 @@ class PagosController extends Controller
         $resultPrev = $this->pc->summaryLastMonth();
         $resultPrevGest = $this->pc->byGestorLastMonth();
         $resultPrevDet = $this->pc->detailsLastMonth();
-        $view = view('pagosum')
-        ->with('resultAct', $resultAct)
+        /** @var View $view */
+        $view = view('pagosum');
+        $view = $view->with('resultAct', $resultAct)
         ->with('resultActGest', $resultActGest)
         ->with('resultActDet', $resultActDet)
         ->with('resultPrev', $resultPrev)

@@ -5,7 +5,7 @@ use App\QuickAhoraClass;
 use App\QuickBreaksClass;
 use App\QuickHoyClass;
 use App\QuickPorHoraClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 class QuickController extends Controller
 {
@@ -52,6 +52,7 @@ class QuickController extends Controller
         $resultHoy = $this->qh->getHoy();
         $resultBreaks = $this->qb->getBreaks();
         $resultPorHora = $this->qp->getPorHora();
+        /** @var View $view */
         $view = view('quick')
         ->with('resultAhora', $resultAhora)
         ->with('resultHoy', $resultHoy)

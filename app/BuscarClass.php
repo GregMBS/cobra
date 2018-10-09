@@ -98,7 +98,7 @@ SQL;
      * @param string $CLIENTE
      * @return array
      */
-    public function searchAccounts($field, $find, $CLIENTE)
+    public function searchAccounts(string $field, string $find, string $CLIENTE)
     {
         $cliFlag = 0;
         $querymain = $this->queryhead . $this->searchField($field);
@@ -109,9 +109,9 @@ SQL;
         }
         $querymain .= " LIMIT 10000";
         $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':find', $find);
+        $stm->bindValue(':find', $find);
         if ($cliFlag === 1) {
-            $stm->bindParam(':cliente', $CLIENTE);
+            $stm->bindValue(':cliente', $CLIENTE);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);

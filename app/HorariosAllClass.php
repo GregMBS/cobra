@@ -8,6 +8,8 @@ namespace App;
  * and open the template in the editor.
  */
 
+use Illuminate\Database\Query\Builder;
+
 /**
  * Database Class for horarios
  *
@@ -24,9 +26,9 @@ class HorariosAllClass extends BaseClass
     {
         $day = $dom . ' day of last month';
         $date = date('Y-m-d', strtotime($day));
+        /** @var Builder $hc */
         $hc = new Historia();
-        $query = $hc
-            ->selectRaw("count(distinct c_cont) as cuentas,
+        $query = $hc->selectRaw("count(distinct c_cont) as cuentas,
             sum(c_cvst like 'PROMESA DE%') as promesas,
             count(1) as gestiones,
             count(1)-sum(queue='SIN CONTACTOS') as nocontactos,
@@ -49,6 +51,7 @@ class HorariosAllClass extends BaseClass
         $day = $dom . ' day of last month';
         $date = date('Y-m-d', strtotime($day));
         $pc = new Pago();
+        /** @var Builder $query */
         $query = $pc->whereFecha($date);
         $count = $query->count();
         return ['ct' => $count];
@@ -62,6 +65,7 @@ class HorariosAllClass extends BaseClass
     {
         $day = 'last day of last month';
         $date = date('Y-m-d', strtotime($day));
+        /** @var Builder $query */
         $hc = new Historia();
         $query = $hc->distinct()->select(['c_cont'])->where('c_cont', '>', 0)
             ->whereNull('c_cniv')
@@ -80,6 +84,7 @@ class HorariosAllClass extends BaseClass
     {
         $day = $dom . ' day of last month';
         $date = date('Y-m-d', strtotime($day));
+        /** @var Builder $query */
         $hc = new Historia();
         $query = $hc->distinct()->select(['c_cont'])->where('c_cont', '>', 0)
             ->whereNull('c_cniv')

@@ -3,15 +3,25 @@
 namespace Tests\Unit;
 
 use App\ActivarClass;
+use App\Resumen;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class ActivarClassTest extends TestCase
 {
 
-    private $cuentas = ['1599105359','8901018408'];
+    private $cuentas = [];
+
+    private function getCuentas()
+    {
+        /** @var Collection $query */
+        $query = Resumen::where('status_de_credito', 'not regexp', '-')->get();
+        $this->cuentas = $query->pluck('numero_de_cuenta')->toArray();
+    }
 
     public function testActivateCuentas()
     {
+        $this->getCuentas();
         $count = count($this->cuentas);
         $ac = new ActivarClass();
         $result = $ac->activateCuentas($this->cuentas);

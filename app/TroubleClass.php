@@ -8,6 +8,8 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
+
 /**
  * Description of TroubleClass
  *
@@ -21,6 +23,7 @@ class TroubleClass extends BaseClass {
      */
     public function updateTrouble(TroubleDataClass $tdc, $capt) {
         $now = date('Y-m-d');
+        /** @var Builder $tc */
         $tc = new Trouble();
         /**
          * @var Trouble $query
@@ -37,7 +40,9 @@ class TroubleClass extends BaseClass {
      * @return array
      */
     public function listTrouble() {
+        /** @var Builder $tc */
         $tc = new Trouble();
+        /** @var Trouble $query */
         $query = $tc->orderByDesc('fechahora')->get();
         $result = $query->toArray();
         return $result;

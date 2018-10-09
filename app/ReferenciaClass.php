@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  *
  * @author gmbs
@@ -17,7 +19,7 @@ class ReferenciaClass extends BaseClass
     public function index($id_cuenta) {
         $rc = new Referencia();
         /**
-         * @var Referencia $query
+         * @var Builder $query
          */
         $query = $rc->whereIdCuenta($id_cuenta);
         $result = $query->get();
@@ -27,7 +29,7 @@ class ReferenciaClass extends BaseClass
     public function load()
     {
         $query = <<<SQL
-INSERT IGNORE INTO referencias 
+INSERT IGNORE INTO referencias (id_cuenta, nombre, tel_1, tel_2) 
 SELECT id_cuenta, nombre_referencia_1 as nombre, tel_1_ref_1 as 'tel_1', tel_2_ref_1 as 'tel_2'
         FROM resumen 
         where tel_1_ref_1 <> ''

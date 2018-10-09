@@ -47,11 +47,10 @@ class BuscarController extends Controller
     private function returnView($field, $find, $from, $cliente) {
         $result = $this->bc->searchAccounts($field, $find, $cliente);
         $clienteList = $this->bc->listClients();
-        $baseView = view('buscar');
         /**
          * @var View $view
          */
-        $view = $baseView->with('field', $field);
+        $view = view('buscar')->with('field', $field);
         $view = $view->with('find', $find);
         $view = $view->with('from', $from);
         $view = $view->with('capt', auth()->user()->iniciales);

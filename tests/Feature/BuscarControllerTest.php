@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Resumen;
 use App\User;
 use Tests\TestCase;
 
@@ -9,10 +10,12 @@ class BuscarControllerTest extends TestCase
 {
     public function testSearch()
     {
-        $user = User::find(20);
+        $user = User::first();
+        $query = Resumen::first();
         $request = [
             'field' => 'nombre_deudor',
-            'find' => 'Maria'
+            'find' => $query->nombre_deudor,
+            'cliente' => $query->cliente
         ];
         $response = $this->actingAs($user)
             ->json('GET', '/buscar', $request);
