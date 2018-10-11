@@ -8,8 +8,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\Builder;
 
 /**
  * Description of MigoClass
@@ -25,11 +24,9 @@ class MigoClass extends BaseClass
      */
     public function adminReport()
     {
-        /**
-         * @var Builder $query
-         * @var Collection $result
-         */
+        /** @var Builder $rc */
         $rc = new Resumen();
+        /** @var Builder $query */
         $query = $rc->where('status_de_credito', 'NOT REGEXP', '-');
         $result = $query->get();
         return $result->toArray();
@@ -42,12 +39,9 @@ class MigoClass extends BaseClass
      */
     public function userReport($capt)
     {
-        /**
-         * @var Resumen $resumen
-         * @var Builder $query
-         * @var Collection $result
-         */
+        /** @var Resumen|Builder $rc */
         $rc = new Resumen();
+        /** @var Builder $resumen */
         $resumen = $rc->whereEjecutivoAsignadoCallCenter($capt);
         $query = $resumen->where('status_de_credito', 'NOT REGEXP', '-');
         $result = $query->get();

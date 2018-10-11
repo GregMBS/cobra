@@ -91,10 +91,7 @@ class BigGestionClassTest extends TestCase
         $bc = new BigGestionClass();
         $report = $bc->getAllGestiones($dataClass);
         if (count($report) > 0) {
-            $first = $report[0];
-            $keys = array_keys($first);
-            $this->assertEquals(count($this->keys), count($keys));
-            $this->assertEquals($this->keys, $keys);
+            $this->checkKeys($this->keys, $report);
         }
         $r->query->add(
             [
@@ -114,6 +111,7 @@ class BigGestionClassTest extends TestCase
             $this->assertEquals(count($this->keys), count($keys));
             $this->assertEquals($this->keys, $keys);
         }
+        $this->assertTrue(true);
     }
 
     public function testGetGestionClientes()

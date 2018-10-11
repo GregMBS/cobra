@@ -344,10 +344,14 @@ SQL;
      */
     public function getUserData($capt)
     {
+        /** @var Builder $NBuilder */
+        $NBuilder = new Nombre();
         /** @var Builder $nombreQuery */
-        $nombreQuery = Nombre::where('iniciales', '=', $capt);
+        $nombreQuery = $NBuilder->where('iniciales', '=', $capt);
         $nombre = $nombreQuery->get();
-        $user = User::where('iniciales', '=', $capt)->get();
+        /** @var Builder $UBuilder */
+        $UBuilder = new User();
+        $user = $UBuilder->where('iniciales', '=', $capt)->get();
         $result = $nombre->merge($user);
         return $result->first()->toArray();
     }
@@ -359,8 +363,9 @@ SQL;
      */
     public function getPromData($id_cuenta)
     {
-        $promesa = Historia::whereCCont($id_cuenta)
-            ->where('n_prom', '>', 0)
+        /** @var Builder $historia */
+        $historia = Historia::whereCCont($id_cuenta);
+        $promesa = $historia->where('n_prom', '>', 0)
             ->where('c_cvst', 'LIKE', 'PROMESA DE%')
             ->orderByDesc('d_fech')
             ->orderByDesc('c_hrin')
@@ -407,8 +412,9 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countGestiones($id_cuenta)
     {
-        $gestiones = Historia::whereCCont($id_cuenta)
-            ->where('c_cont', '>', 0)
+        /** @var Builder $historia */
+        $historia = Historia::whereCCont($id_cuenta);
+        $gestiones = $historia->where('c_cont', '>', 0)
             ->count();
         return $gestiones;
     }
@@ -420,8 +426,9 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countPromesas($id_cuenta)
     {
-        $promesas = Historia::whereCCont($id_cuenta)
-            ->where('n_prom', '>', 0)
+        /** @var Builder $historia */
+        $historia = Historia::whereCCont($id_cuenta);
+        $promesas = $historia->where('n_prom', '>', 0)
             ->count();
         return $promesas;
     }
@@ -433,7 +440,9 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countPagos($id_cuenta)
     {
-        $pagos = Pago::whereIdCuenta($id_cuenta)->count();
+        /** @var Builder $builder */
+        $builder = Pago::whereIdCuenta($id_cuenta);
+        $pagos = $builder->count();
         return $pagos;
     }
 
@@ -447,9 +456,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $cuenta = '';
         if ($id_cuenta > 0) {
             $rc = new Resumen();
-            /**
-             * @var Resumen $query
-             */
+            /** @var Builder $query */
             $query = $rc->whereIdCuenta($id_cuenta);
             $resumen = $query->first();
             $cuenta = $resumen->numero_de_cuenta;

@@ -168,10 +168,14 @@ class ResumenController extends Controller
         $capt = $user->iniciales;
         $camp = $user->camp;
         $result = $this->rqc->getResumen($capt, $camp);
-        $id_cuenta = $result['id_cuenta'];
-        $history = $this->rc->getHistory($id_cuenta);
-        $from = '';
-        $view = $this->buildView($result, $history, $from, $capt);
+        if ($result) {
+            $id_cuenta = $result['id_cuenta'];
+            $history = $this->rc->getHistory($id_cuenta);
+            $from = '';
+            $view = $this->buildView($result, $history, $from, $capt);
+        } else {
+            $view = view('resumen');
+        }
         return $view;
     }
 

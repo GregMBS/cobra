@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use DB;
 
 class LoginController extends Controller
 {
@@ -90,7 +89,6 @@ class LoginController extends Controller
     /**
      * 
      * @param Request $request
-     * @param DatabaseManager $db
      * @return array
      */
     private function oldLogin(Request $request) {

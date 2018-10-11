@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\ResumenClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 class VisitController extends Controller
 {

@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\ComparativoClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 /**
  *

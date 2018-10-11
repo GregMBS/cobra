@@ -9,6 +9,8 @@
 namespace App;
 
 
+use Illuminate\Database\Eloquent\Builder;
+
 class UserClass extends BaseClass
 {
     /**
@@ -60,7 +62,10 @@ class UserClass extends BaseClass
      */
     public function getCamp($capt) {
         try {
-            $user = User::whereIniciales($capt)->firstOrFail();
+            /** @var Builder $query */
+            $query = User::whereIniciales($capt);
+            /** @var User $user */
+            $user= $query->firstOrFail();
             $camp = $user->camp;
         } catch (\Exception $e) {
             $camp = 0;

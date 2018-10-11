@@ -65,7 +65,7 @@ class HorariosAllClass extends BaseClass
     {
         $day = 'last day of last month';
         $date = date('Y-m-d', strtotime($day));
-        /** @var Builder $query */
+        /** @var Builder $hc */
         $hc = new Historia();
         $query = $hc->distinct()->select(['c_cont'])->where('c_cont', '>', 0)
             ->whereNull('c_cniv')
@@ -84,7 +84,7 @@ class HorariosAllClass extends BaseClass
     {
         $day = $dom . ' day of last month';
         $date = date('Y-m-d', strtotime($day));
-        /** @var Builder $query */
+        /** @var Builder $hc */
         $hc = new Historia();
         $query = $hc->distinct()->select(['c_cont'])->where('c_cont', '>', 0)
             ->whereNull('c_cniv')

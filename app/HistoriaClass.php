@@ -8,6 +8,8 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
+
 /**
  * Description of GestionClass
  *
@@ -35,9 +37,7 @@ and c_cvba is null";
      * @return int
      */
     private function getIdCuenta($cuenta) {
-        /**
-         * @var Resumen $query
-         */
+        /** @var Builder $rc */
         $rc = new Resumen();
         $query = $rc->where('numero_de_cuenta', '=', $cuenta);
         $resumen = $query->first();
@@ -52,6 +52,7 @@ and c_cvba is null";
      * @return bool
      */
     private function unsafeInsert(array $gestiones) {
+        /** @var Builder $hc */
         $hc = new Historia();
         $test = $hc->insert($gestiones);
         return $test;
