@@ -35,9 +35,13 @@ class RotasClassTest extends TestCase
             'd_prom4',
             'sum_monto'
         ];
-       $rc = new RotasClass();
+        $rc = new RotasClass();
         $result = $rc->getRotas('admin', 'gmbs');
-        $this->checkKeys($testKeys, $result);
+        if ($result) {
+            $this->checkKeys($testKeys, $result);
+        } else {
+            $this->assertEquals(array(), $result);
+        }
         $result = $rc->getRotas('', 'gmbs');
         $this->assertEquals(array(), $result);
     }

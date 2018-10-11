@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\SegmentadminClass;
-use Illuminate\Support\Facades\View;
+use View;
 use Illuminate\Http\Request;
 
 /**

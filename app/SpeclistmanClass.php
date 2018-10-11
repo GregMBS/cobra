@@ -8,7 +8,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder;
 
 /**
  * Description of SpeclistmanClass
@@ -24,13 +24,12 @@ class SpecListManClass extends BaseClass {
      * @return array
      */
     public function getReport($cliente, $sdc) {
-        /**
-         * @var Builder $result
-         */
-        $result = Resumen::join('dictamenes', 'dictamen', '=', 'status_aarsa')
+        /** @var Builder $resumen */
+        $resumen = Resumen::whereStatusDeCredito($sdc);
+        /** @var Builder $result */
+        $result = $resumen->join('dictamenes', 'dictamen', '=', 'status_aarsa')
             ->leftJoin('pagos', 'pagos.id_cuenta', '=', 'resumen.id_cuenta')
-            ->where('resumen.cliente', '=', $cliente)
-            ->whereStatusDeCredito($sdc);
+            ->where('resumen.cliente', '=', $cliente);
         $result = $result->where('especial', '>', 0)
             ->distinct()
             ->select(['numero_de_cuenta', 'nombre_deudor', 'saldo_total', 'status_aarsa',

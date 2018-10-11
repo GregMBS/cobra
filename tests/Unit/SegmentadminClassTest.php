@@ -105,25 +105,26 @@ having activo > 0 and inactivo = 0";
         } catch (\PDOException $e) {
             dd($e->getMessage());
         }
-        $sc = new SegmentadminClass();
-        $cliente = $result['cliente'];
-        $segmento = $result['sdc'];
-        $sc->inactivarSegmento($cliente, $segmento);
-        $this->assertDatabaseMissing('resumen', [
-           'cliente' => $cliente,
-           'status_de_credito' => $segmento
-        ]);
-        $newSegmento = $segmento . '-inactivo';
-        $this->assertDatabaseHas('resumen', [
-            'cliente' => $cliente,
-            'status_de_credito' => $newSegmento
-        ]);
-        $this->reactivarSegmento($cliente, $segmento);
-        $this->assertDatabaseMissing('resumen', [
-            'cliente' => $cliente,
-            'status_de_credito' => $newSegmento
-        ]);
-
+        if ($result) {
+            $sc = new SegmentadminClass();
+            $cliente = $result['cliente'];
+            $segmento = $result['sdc'];
+            $sc->inactivarSegmento($cliente, $segmento);
+            $this->assertDatabaseMissing('resumen', [
+                'cliente' => $cliente,
+                'status_de_credito' => $segmento
+            ]);
+            $newSegmento = $segmento . '-inactivo';
+            $this->assertDatabaseHas('resumen', [
+                'cliente' => $cliente,
+                'status_de_credito' => $newSegmento
+            ]);
+            $this->reactivarSegmento($cliente, $segmento);
+            $this->assertDatabaseMissing('resumen', [
+                'cliente' => $cliente,
+                'status_de_credito' => $newSegmento
+            ]);
+        }
         $this->assertTrue(true);
     }
 }

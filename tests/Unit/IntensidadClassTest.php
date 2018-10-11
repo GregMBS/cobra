@@ -18,15 +18,9 @@ class IntensidadClassTest extends TestCase
         $start = date('Y-m-d', strtotime('2 months ago'));
         $end = date('Y-m-d');
         $result = $ic->getByCuenta($start, $end);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
         $result = $ic->getByCuenta($end, $start);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testGetBySegmento()
@@ -41,15 +35,9 @@ class IntensidadClassTest extends TestCase
         $start = date('Y-m-d', strtotime('2 months ago'));
         $end = date('Y-m-d');
         $result = $ic->getBySegmento($start, $end);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
         $result = $ic->getBySegmento($end, $start);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testGetGestionDates()

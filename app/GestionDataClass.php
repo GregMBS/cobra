@@ -446,7 +446,9 @@ class GestionDataClass
      */
     public function setCACCION(string $C_ACCION)
     {
-        $value = Accion::whereAccion($C_ACCION)->first();
+        /** @var \Illuminate\Database\Query\Builder $query */
+        $query = Accion::whereAccion($C_ACCION);
+        $value = $query->first();
         if (empty($value)) {
             dd('C_ACCION'.$C_ACCION);
         }
@@ -467,7 +469,9 @@ class GestionDataClass
      */
     public function setCCVST(string $C_CVST)
     {
-        $value = Dictamen::whereDictamen($C_CVST)->get()->first();
+        /** @var \Illuminate\Database\Query\Builder $query */
+        $query = Dictamen::whereDictamen($C_CVST);
+        $value = $query->first();
         if (empty($value)) {
             dd('C_CVST'.$value);
         }

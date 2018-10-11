@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MigoClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 class MigoController extends Controller
 {

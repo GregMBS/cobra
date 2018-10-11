@@ -132,10 +132,12 @@ SQL;
             $resumen = $temp;
         }
         foreach ($resumen as $row) {
-            $id_cuenta = $row['id_cuenta'];
-            $ultimo = $this->getUltimo($lastQuery, $id_cuenta);
-            $mejor = $this->getMejor($bestQuery, $id_cuenta);
-            $data[] = array_merge($row, $ultimo, $mejor);
+            if ($row) {
+                $id_cuenta = $row['id_cuenta'];
+                $ultimo = $this->getUltimo($lastQuery, $id_cuenta);
+                $mejor = $this->getMejor($bestQuery, $id_cuenta);
+                $data[] = array_merge($row, $ultimo, $mejor);
+            }
         }
         return $data;
     }

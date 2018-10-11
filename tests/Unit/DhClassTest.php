@@ -10,10 +10,10 @@ use Tests\TestCase;
 class DhClassTest extends TestCase
 {
     /** @var string */
-    private $gestor;
+    private $gestor = '';
 
     /** @var string */
-    private $fecha;
+    private $fecha = '0000-00-00';
 
     public function setUp()
     {
@@ -22,8 +22,10 @@ class DhClassTest extends TestCase
         $query = Historia::where('N_PROM', '>', 0);
         /** @var Historia $gestion */
         $gestion = $query->first();
-        $this->gestor = $gestion->C_CVGE;
-        $this->fecha = $gestion->D_FECH;
+        if ($gestion) {
+            $this->gestor = $gestion->C_CVGE;
+            $this->fecha = $gestion->D_FECH;
+        }
     }
 
     public function testGetPromesas()
@@ -43,10 +45,7 @@ class DhClassTest extends TestCase
 
         $dc = new DhClass();
         $result = $dc->getPromesas($this->gestor, $this->fecha);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testGetGestiones()
@@ -68,10 +67,7 @@ class DhClassTest extends TestCase
 
         $dc = new DhClass();
         $result = $dc->getGestiones($this->gestor, $this->fecha);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testGetDhMain()
@@ -99,9 +95,6 @@ class DhClassTest extends TestCase
 
         $dc = new DhClass();
         $result = $dc->getDhMain($this->gestor, $this->fecha);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
     }
 }

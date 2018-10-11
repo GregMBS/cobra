@@ -73,7 +73,6 @@ class SpeclistDataClass
     }
 
     /**
-     * @param string $sdc
      * @return string
      */
     private function getSdcString()

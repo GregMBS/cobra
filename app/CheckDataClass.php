@@ -4,7 +4,7 @@ namespace App;
 
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
 class CheckDataClass
@@ -63,10 +63,11 @@ class CheckDataClass
     private function getIdCuentaFromCuenta($cuenta)
     {
         /**
-         * @var Resumen|\Illuminate\Database\Eloquent\Collection $resumen
+         * @var Resumen|Builder $rc
          * @method Resumen whereNumeroDeCuenta($cuenta)
          */
         $rc = new Resumen();
+        /** @var Resumen $resumen */
         $resumen = $rc->whereNumeroDeCuenta($cuenta)
             ->where('status_de_credito', 'NOT REGEXP', '-')->get();
         if (count($resumen) > 0) {
