@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
     <html>
         <head>
 
@@ -13,8 +13,6 @@
                 span.formcaps {display: block; width: 6em; float: left; font-size: 100%; font-weight:bold;}
                 #deudor {width: 7em;}
                 #domicilio {width: 7em;}
-                span.formtit {display: block; width: 24em; float: left; font-size: 100%; font-weight:bold;}
-                span.formfirst {display: block; width: 24em; float: left;}
                 select, input, button {font-family: verdana,arial, helvetica, sans-serif;font-size:100%}
                 input {font-family: verdana,arial, helvetica, sans-serif;font-size:100%; font-weight:bold;}
                 #GESTION input {font-size:80%; width:auto}
@@ -32,19 +30,9 @@
                 a:visited {color:green;}   
                 a:hover {color:red;}   
                 a:active {color:yellow;}   
-                #telefono2 {font-weight:bold;}   
                 #telbox span.formcap {display: block; width: 14em; float: left;}
                 div {border: 1pt black solid;background-color:#ffffff;}
-                #demobox {float: left;}
-                .telbox {float: left;}
                 .verif {font-weight:bold; background-color:#00ff00;}
-                .badnoold {font-weight:normal; font-style:italic; background-color:#ff0000;}
-                #descbox {float: left;}
-                #gestionbox {clear: right;}
-                #capturabox {float: left;}
-                #guardbox {float: left; width:42em;}
-                #captresbox {float: left;}
-                #notabox {float: left;}
                 .clearbox {clear: both; text-align: center;}
                 table {color:#000000;}
                 tr {height:2em;}
@@ -99,9 +87,12 @@
                 ul.tabs 
                 { list-style-type: none; padding: 0; margin: 0;} 
                 ul.tabs li 
-                { float: left; padding: 0; margin: 0; padding-top: 0; background: url(tab_right.png) no-repeat right top; margin-right: 1px; } 
+                { float: left; padding: 0;
+                    background: url(tab_right.png) no-repeat right top;
+                    margin: 0 1px 0 0;
+                }
                 ul.tabs li a 
-                { display: block; padding: 0px 10px; color: #fff; text-decoration: none; background: url(tab_left.png) no-repeat left top; } 
+                { display: block; padding: 0 10px; color: #fff; text-decoration: none; background: url(tab_left.png) no-repeat left top; }
                 ul.tabs li a:hover 
                 { color: #ff0; }		
             </style>
@@ -163,7 +154,7 @@
                 if (document.getElementById("timerm").value>4) {
                 document.getElementById("clock").style.backgroundColor="red";
                 }
-                if (document.getElementById("timer").value%2==0) {
+                if (document.getElementById("timer").value % 2 === 0) {
                 document.getElementById("clock").style.backgroundColor="green";
                 }
                 }
@@ -178,7 +169,7 @@
                 if ($notalert == 1) {
                     ?>
                     var goalert = confirm("Tiene alerta pendiente <?php echo $notalertt; ?> para cuenta <?php echo $alertcuenta; ?> Quiere verlo?");
-                    if(goalert==true)
+                    if(goalert)
                     {
                     window.location="resumen.php?find=<?php echo $alertcuenta; ?>&field=numero_de_cuenta&capt=<?php echo $capt; ?>&go=FROMALERT&from=resumen.php&go1=FROMALERT";
                     }
@@ -334,11 +325,13 @@
                     }
                     $n = 0;
                     while (isset($xfield[$n])) {
+                        if (!empty($xfield[$n])) {
                         ?>
-                        document.getElementById("<?php echo $xfield[$n] ?>").style.backgroundColor="yellow";
-                        document.getElementById("<?php echo $xfield[$n] ?>").style.fontWeight="bold";
-                        document.getElementById("<?php echo $xfield[$n] ?>").parentNode.style.display="block";
+                        document.getElementById("<?php echo $xfield[$n] ?>").style.backgroundColor = "yellow";
+                        document.getElementById("<?php echo $xfield[$n] ?>").style.fontWeight = "bold";
+                        document.getElementById("<?php echo $xfield[$n] ?>").parentElement.style.display = "block";
                         <?php
+                        }
                         $n++;
                     }
                 }
@@ -350,36 +343,33 @@
 
                 var r={
                 'special':/[\W]/g,
-                'quotes':/['\''&'\"']/g,
+                'quotes':/[\'\"]/g,
                 'notnumbers':/[^\d]/g
-                }
+                };
 
                 function valid(o,w){
                 o.value = o.value.replace(r[w],' ');
                 }
 
-                function tooLong(e)
+                /**
+                 *
+                 * @param campo
+                 * @returns {boolean}
+                 */
+                function tooLong(campo)
                 {
-                if (window.document.getElementById("C_OBSE1").value.length>250) {
-                window.document.getElementById("C_OBSE1").value=window.document.getElementById("C_OBSE1").value.replace('  ',' ');
-                window.document.getElementById("C_OBSE1").value=window.document.getElementById("C_OBSE1").value.substr(0,200);
+                if (window.document.getElementById(campo).value.length>250) {
+                window.document.getElementById(campo).value=window.document.getElementById(campo).value.replace('  ',' ');
+                window.document.getElementById(campo).value=window.document.getElementById(campo).value.substr(0,200);
                 confirm('GESTION demasiado largo');
-                window.document.getElementById("C_OBSE1").style.backgroundColor="yellow";
+                window.document.getElementById(campo).style.backgroundColor="yellow";
                 return false;}
-                }
-                function logout()
-                {
-                window.location="resumen.php?capt=<?php echo $capt; ?>&go='LOGOUT'";
                 }
 
                 function showsearch()
                 {
                 document.getElementById('searchbox').style.display="block";
                 document.getElementById('find').focus();
-                }
-                function showbox(boxname)
-                {
-                document.getElementById(boxname).style.display="block";
                 }
                 function cancelbox(boxname)
                 {
@@ -396,7 +386,7 @@
             <script type="text/javascript" src="depuracionv.js"></script>
             <SCRIPT TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
         </head>
-        <body onLoad="alerttxt = new String('');
+        <body onLoad="alerttxt = '';
                 paging('HISTORIA');
                 openSearch();
                 aviso();" id="todos">
@@ -969,7 +959,6 @@
                     ?>'><br>
                 </div>
                 <br>
-                </div>
                 <div id="EXTRAS">
                     <table summary="sdh extras">
                         <tr>
@@ -1049,7 +1038,7 @@
                                 if (isset($saldo_cuota)) {
                                     echo '$'.number_format($saldo_cuota);
                                 }
-                                ?>'></td></tr>
+                                ?>'></td>
                         </tr>
                         <tr>
                             <td>Saldo total</td>
@@ -1278,8 +1267,7 @@
                       } else {
                           echo 0;
                       }
-                      ?>, ' ');
-                              this.disabled = true;">
+                      ?>, ' ');this.disabled = true;">
                     <div class="noshow">
                         <input type="text" name="error" readonly="readonly" value="1" ><br>
                         <input type="text" name="C_HRFI" readonly="readonly" value="<?php
@@ -1583,7 +1571,7 @@
                         <option value="Padre">Padre</option>
                         <option value="Vecino/a">Vecino/a</option>
                     </select><br>
-                    <span class="formcap">Gestion</span><textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12' onkeypress="tooLong(this)"></textarea><br>
+                    <span class="formcap">Gestion</span><textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12' onkeypress="tooLong('C_OBSE12')"></textarea><br>
                     <span class="formcap">Acci&oacute;n:</span>
                     <select name="ACCION" style="width: 8cm;">
                         <?php
@@ -1863,7 +1851,7 @@
                         <tr>
                             <td>Gestion</td>
                             <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1' 
-                                          onkeypress="tooLong(this)" onkeyup="valid(this, 'special')" onmouseover='this.focus();'
+                                          onkeypress="tooLong('C_OBSE1')" onkeyup="valid(this, 'special')" onmouseover='this.focus();'
                                           onblur="valid(this, 'special')" onmousedown='this.focus();'></textarea></td>
                             <td colspan=2>Acci&oacute;n 
                                 <select name="ACCION" id="ACCION">
@@ -1986,19 +1974,16 @@
                             <td>Fecha promesa unico o 1o
                                 <SCRIPT type="text/javascript">
                                     var cal4 = new CalendarPopup();
-                                    var oneMinute = 60 * 1000;  // milliseconds in a minute
-                                    var oneHour = oneMinute * 60;
-                                    var oneDay = oneHour * 24;
-                                    var today = new Date();
-                                    var dateInMS = today.getTime() + oneDay * 10;
                                     var yesterday = new Date();
+                                    var twoMonths = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
+                                    twoMonths.setDate(twoMonths.getDate() + 61);
                                     cal4.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal4.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
                                     cal4.setWeekStartDay(1);
                                     cal4.setTodayText("Hoy");
                                     cal4.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal4.addDisabledDates('<?php echo $dday; ?>', null);
+                                    cal4.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
                                 </SCRIPT></td>
                             <td><INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" VALUE="" SIZE=15> <BUTTON onClick="cal4.select(document.getElementById('D_PROM1'), 'anchor4', 'yyyy-MM-dd');
                                     return false;" NAME="anchor4" ID="anchor4">eligir</BUTTON></td>
@@ -2022,13 +2007,15 @@
                                 <SCRIPT type="text/javascript">
                                     var cal5 = new CalendarPopup();
                                     var yesterday = new Date();
+                                    var twoMonths = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
+                                    twoMonths.setDate(twoMonths.getDate() + 61);
                                     cal5.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal5.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
                                     cal5.setWeekStartDay(1);
                                     cal5.setTodayText("Hoy");
                                     cal5.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5.addDisabledDates('<?php echo $dday2; ?>', null);
+                                    cal5.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
                                 </SCRIPT>
                             </td>
                             <td><INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" VALUE="" SIZE=15> 
@@ -2054,13 +2041,15 @@
                                 <SCRIPT type="text/javascript">
                                     var cal5c = new CalendarPopup();
                                     var yesterday = new Date();
+                                    var twoMonths = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
+                                    twoMonths.setDate(twoMonths.getDate() + 61);
                                     cal5c.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal5c.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
                                     cal5c.setWeekStartDay(1);
                                     cal5c.setTodayText("Hoy");
                                     cal5c.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5c.addDisabledDates('<?php echo $dday2; ?>', null);
+                                    cal5c.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
                                 </SCRIPT>
                             </td>
                             <td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE="" SIZE=15> 
@@ -2086,13 +2075,15 @@
                                 <SCRIPT type="text/javascript">
                                     var cal5d = new CalendarPopup();
                                     var yesterday = new Date();
+                                    var twoMonths = new Date();
                                     yesterday.setDate(yesterday.getDate() - 1);
+                                    twoMonths.setDate(twoMonths.getDate() + 61);
                                     cal5d.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal5d.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
                                     cal5d.setWeekStartDay(1);
                                     cal5d.setTodayText("Hoy");
                                     cal5d.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5d.addDisabledDates('<?php echo $dday2; ?>', null);
+                                    cal5d.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
                                 </SCRIPT>
                             </td>
                             <td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE="" SIZE=15> 
@@ -2134,10 +2125,13 @@
                             <td>Fecha Pag&oacute;
                                 <SCRIPT type="text/javascript">
                                     var cal9 = new CalendarPopup();
+                                    var tomorrow = new Date();
+                                    tomorrow.setDate(tomorrow.getDate() + 1);
                                     cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
                                     cal9.setWeekStartDay(1);
                                     cal9.setTodayText("Hoy");
+                                    cal9.addDisabledDates(formatDate(tomorrow, "yyyy-MM-dd"), null);
                                 </SCRIPT></td>
                             <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15> 
                                 <BUTTON onClick="cal9.select(document.getElementById('D_PAGOi'), 'anchor9', 'yyyy-MM-dd');
@@ -2168,8 +2162,6 @@
                     <input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR" ondblclick="return false;">
                     <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false">RESET</button>
                     <br>
-                    </div>
-                    </div>
                     <div class="noshow">
                         <input type="text" name="from" readonly="readonly" value="resumen.php" ><br>
                         <input type="text" name="D_FECH" readonly="readonly" value="<?php

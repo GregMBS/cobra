@@ -935,10 +935,6 @@ if ($lockflag == 1) {
             document.getElementById('searchbox').style.display="block";
             document.getElementById('find').focus();
             }
-            function showbox(boxname)
-            {
-            document.getElementById(boxname).style.display="block";
-            }
             function cancelbox(boxname)
             {
             document.getElementById(boxname).style.display="none";
