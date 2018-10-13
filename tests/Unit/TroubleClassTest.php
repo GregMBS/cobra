@@ -25,10 +25,7 @@ class TroubleClassTest extends TestCase
         ];
         $tc = new TroubleClass();
         $result = $tc->listTrouble();
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
     }
 
     /**

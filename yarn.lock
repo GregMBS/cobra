@@ -7091,6 +7091,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+vanilla-datatables@^1.6.16:
+  version "1.6.16"
+  resolved "https://registry.yarnpkg.com/vanilla-datatables/-/vanilla-datatables-1.6.16.tgz#0d0f0e92efdf690da6a5a1145e2302bf2e55b7c0"
+
 vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"

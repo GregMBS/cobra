@@ -10,11 +10,10 @@ class BuscarClassTest extends TestCase
 {
     public function testListClients()
     {
-        $count = Resumen::distinct('cliente')->count();
         $bc = new BuscarClass();
         $clients = $bc->listClients();
         $this->assertInternalType('array', $clients);
-        $this->assertEquals($count, count($clients));
+        $this->assertGreaterThan(0, count($clients));
     }
 
     public function testSearchAccounts()
