@@ -36,7 +36,11 @@ class PerfmesAllClass extends BaseClass
         $stq   = $this->pdo->prepare($query);
         $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result;
+        }
+        return [];
     }
 
     /**

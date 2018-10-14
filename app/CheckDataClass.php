@@ -68,8 +68,7 @@ class CheckDataClass
          */
         $rc = new Resumen();
         /** @var Resumen $resumen */
-        $resumen = $rc->whereNumeroDeCuenta($cuenta)
-            ->where('status_de_credito', 'NOT REGEXP', '-')->get();
+        $resumen = $rc->whereNumeroDeCuenta($cuenta)->get();
         if (count($resumen) > 0) {
             $cuenta = $resumen->first();
             return $cuenta->id_cuenta;
@@ -91,7 +90,6 @@ class CheckDataClass
         $rc = new Resumen();
         /** @var Builder $query */
         $query = $rc->whereIdCuenta($id_cuenta);
-        $query = $query->where('status_de_credito', 'NOT REGEXP', '-');
         $resumen = $query->get();
         if (count($resumen) > 0) {
             $cuenta = $resumen->first();
