@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>COBRA Notas</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    </head>
-    <body>
-        <div id="notabox">
-            <table id="notahead" class='ui-widget'>
-                <thead class='ui-widget-header'>
-                    <tr>
-                        <th>FECHA</th>
-                        <th>HORA</th>
-                        <th>CUENTA</th>
-                        <th colspan=5>NOTA</th>
-                        <th>BORRAR</th>
-                    </tr>
-                </thead>
-                <tbody class="ui-widget-content">
-					{% for n in notas %}
-                            <tr>
-                                <td>{{ n.fecha }}</td>
-                                <td>{{ n.hora }}</td>
-                                <td>{{ n.cuenta }}</td>
-                                <td colspan=5>{{ n.nota }}</td>
-                                <td>{% if n.c_cvge == capt %}
-                                        <form action="clearNota" method="get" name="lista{{ r.auto }}">
-                                            <input type="hidden" name="which" readonly="readonly" value={{ r.auto }} />
-                                            <input type="submit" name="go" value="BORRAR">
-                                        </form>
-                                    {% endif %}
-                                </td>
-                            </tr>
-						{% endfor %}
-                    </tbody>
-                </table>
-            </div>
-<?php } ?>
-        <form action="/notas" method="post" name="notas">
-        	{{ csrf_field() }}
-            <label for='fecha'>Fecha</label>
-            <input type="text" name="fecha" id="fecha" value="" size=15 /><br>
-            <label for='hora'>Hora</label>
-            <input type="number" name="hora" id="hora" min="0" max="23" value="" />
-            <label for='min'>Min</label>
-            <input type="number" name="min" id="min" min="0" max="55" step="5" value="" /><br>
-            <label for='nota'>Nota</label>
-            <textarea rows="2" cols="40" name="nota" id="nota"></textarea><br>
-            <input type="hidden" name="C_CONT" readonly="readonly" value='{{ id_cuenta }}' /><br>
-            <input type="submit" name="go" value="GUARDAR">
-        </form>
-        <button onClick='window.close()'>CIERRA</button>
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-        <script>
-            //import flatpickr from "flatpickr";
-            flatpickr("#fecha", {});
-        </script>
-    </body>
+<head>
+    <title>COBRA Notas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <div>
+        <table id="notahead" class='table'>
+            <thead class='ui-widget-header'>
+            <tr>
+                <th>FECHA</th>
+                <th>HORA</th>
+                <th>CUENTA</th>
+                <th colspan=5>NOTA</th>
+                <th>BORRAR</th>
+            </tr>
+            </thead>
+            <tbody class="ui-widget-content">
+            {% for n in notas %}
+                <tr>
+                    <td>{{ n.fecha }}</td>
+                    <td>{{ n.hora }}</td>
+                    <td>{{ n.cuenta }}</td>
+                    <td colspan=5>{{ n.nota }}</td>
+                    <td>{% if n.c_cvge == capt %}
+                            <form action="/clearNota/{{ r.auto }}" method="get" name="lista{{ r.auto }}">
+                                <input type="submit" name="go" value="BORRAR">
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <?php } ?>
+    <form action="{{ url('/notas') }}" method="post" name="notas">
+        {{ csrf_field() }}
+        <label for='fecha'>Fecha</label>
+        <input type="text" name="fecha" id="fecha" value="" size=15/><br>
+        <label for='hora'>Hora</label>
+        <input type="number" name="hora" id="hora" min="0" max="23" value=""/>
+        <label for='min'>Min</label>
+        <input type="number" name="min" id="min" min="0" max="55" step="5" value=""/><br>
+        <label for='nota'>Nota</label>
+        <textarea rows="2" cols="40" name="nota" id="nota"></textarea><br>
+        <input type="hidden" name="C_CONT" readonly="readonly" value='{{ id_cuenta }}'/><br>
+        <input type="submit" name="go" value="GUARDAR">
+    </form>
+    <button onClick='window.close()'>CIERRA</button>
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    flatpickr('#fecha', {});
+</script>
+</body>
 </html> 
 

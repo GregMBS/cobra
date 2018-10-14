@@ -21,4 +21,5 @@ const app = new Vue({
     el: '#app'
 });
 
-import {DataTable} from 'vanilla-datatables';
+import {flatpickr} from "flatpickr";
+

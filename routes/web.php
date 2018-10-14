@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/captura', 'ResumenController@capture');
     Route::get('/notas/{id_cuenta}', 'NotaController@index');
     Route::post('/notas', 'NotaController@add');
+    Route::post('/clearNota/{nota_id}', 'NotaController@remove');
     Route::get('/migo', 'MigoController@getList');
     Route::get('/queuesg', 'GestorQueuesController@index');
     Route::get('/newqueue', 'GestorQueuesController@changeQueue');
