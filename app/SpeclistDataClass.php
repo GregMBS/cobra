@@ -59,8 +59,7 @@ class SpeclistDataClass
                 $ratoString = " AND fecha_ultima_gestion>curdate() ";
                 break;
             case 'semanal':
-                $ratoString = "AND week(fecha_ultima_gestion)=week(curdate())
-        AND year(fecha_ultima_gestion)=year(curdate()) ";
+                $ratoString = "AND week(fecha_ultima_gestion)=week(curdate()) AND year(fecha_ultima_gestion)=year(curdate()) ";
                 break;
             case 'mensual':
                 $ratoString = "AND fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day ";

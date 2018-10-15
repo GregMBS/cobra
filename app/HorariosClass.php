@@ -89,7 +89,7 @@ order by iniciales;';
     private function getCurrentMain($gestor, $dom)
     {
         $query = "select count(distinct c_cont) as cuentas,
-            sum(c_cvst like 'PROMESA DE%') as promesas,
+            sum(n_prom > 0) as promesas,
             count(1) as gestiones,
             count(1)-sum(queue='SIN CONTACTOS') as nocontactos,
             sum(queue='SIN CONTACTOS') as contactos
@@ -114,14 +114,14 @@ order by iniciales;';
     private function getVisitadorMain($visitador, $dom)
     {
         $query = "select count(distinct c_cont) as cuentas,
-            sum(c_cvst like 'PROMESA DE%') as promesas,
+            sum(n_prom > 0) as promesas,
             count(1) as gestiones,
             count(1)-sum(queue='SIN CONTACTOS') as nocontactos,
             sum(queue='SIN CONTACTOS') as contactos
             from historia
             left join dictamenes on c_cvst=dictamen
             where c_visit=:visitador and c_msge is null
-            and c_cniv is not null and c_cont>0
+            and c_cniv <> '' and c_cont>0
             and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
             ";
         $stq = $this->pdo->prepare($query);

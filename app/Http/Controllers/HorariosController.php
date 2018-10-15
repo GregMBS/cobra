@@ -41,7 +41,8 @@ class HorariosController extends Controller
     protected $views = [
         'index' => 'horarios',
         'indexV' => 'horariosV',
-        'show' => 'horario'
+        'show' => 'horario',
+        'showV' => 'horarioV'
     ];
 
     public function __construct()
@@ -73,11 +74,11 @@ class HorariosController extends Controller
             $dataSum = new HorariosDataClass($i);
             $mainSum = $this->hac->getCurrentMain($i);
             if ($mainSum) {
-                $dataSum->gestiones = $mainSum['gestiones'];
-                $dataSum->cuentas = $mainSum['cuentas'];
-                $dataSum->contactos = $mainSum['contactos'];
-                $dataSum->nocontactos = $mainSum['nocontactos'];
-                $dataSum->promesas = $mainSum['promesas'];
+                $dataSum->gestiones = intval($mainSum['gestiones']);
+                $dataSum->cuentas = intval($mainSum['cuentas']);
+                $dataSum->contactos = intval($mainSum['contactos']);
+                $dataSum->nocontactos = intval($mainSum['nocontactos']);
+                $dataSum->promesas = intval($mainSum['promesas']);
             }
             $dataSum->pagos = $this->hac->getPagos($i);
             $summary[$i] = $dataSum;
@@ -123,12 +124,29 @@ class HorariosController extends Controller
      */
     public function show($c_cvge)
     {
-        $output = array();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
-        $output[] = $this->hc->packData($c_cvge, $this->dhoy);
+        $output = $this->hc->packData($c_cvge, $this->dhoy);
         $view = view($this->views['show'])
             ->with('yrmes', $this->yrmes)
             ->with('gestor', $c_cvge)
+            ->with('dhoy', $this->dhoy)
+            ->with('dowArray', $dowArray)
+            ->with('data', $output);
+        return $view;
+    }
+
+    /**
+     *
+     * @param string $c_visit
+     * @return View
+     */
+    public function showV($c_visit)
+    {
+        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
+        $output = $this->hc->packVisit($c_visit, $this->dhoy);
+        $view = view($this->views['showV'])
+            ->with('yrmes', $this->yrmes)
+            ->with('visitador', $c_visit)
             ->with('dhoy', $this->dhoy)
             ->with('dowArray', $dowArray)
             ->with('data', $output);

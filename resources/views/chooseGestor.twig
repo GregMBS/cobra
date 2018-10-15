@@ -35,7 +35,7 @@
 <body>
 <h2>HORARIOS</h2>
 <div>
-    <form action='/horario' method='get'>
+    <form action='{{ url("/horario") }}' method='get'>
         <select name='gestor'>
             {% for g in gestores %}
                 <option value='{{ g }}'>{{ g }}</option>
