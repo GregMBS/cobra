@@ -20,69 +20,40 @@ class OutputClass
 {
 
     /**
-     * @param $filename
-     * @param $array
-     * @param $headers
+     * @param string $filename
+     * @param array $data
+     * @param array $headers
      * @throws \Box\Spout\Common\Exception\IOException
      * @throws \Box\Spout\Common\Exception\InvalidArgumentException
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    private function outputCSV($filename, $array, $headers)
+    public function writeCSVFile(string $filename, array $data, array $headers)
     {
         $wf = new WriterFactory();
         $writer = $wf->create(Type::CSV); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
         $writer->addRow($headers);
-        $writer->addRows($array); // add multiple rows at a time
+        $writer->addRows($data); // add multiple rows at a time
         $writer->close();
     }
 
     /**
-     * @param $filename
-     * @param $data
-     * @param $headers
+     * @param string $filename
+     * @param array $data
+     * @param array $headers
      * @throws \Box\Spout\Common\Exception\IOException
      * @throws \Box\Spout\Common\Exception\InvalidArgumentException
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    public function writeCSVFile($filename, $data, $headers)
-    {
-        $this->outputCSV($filename, $data, $headers);
-    }
-
-    /**
-     * @param $filename
-     * @param $array
-     * @param $headers
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
-     */
-    private function outputXLSX($filename, $array, $headers)
+    public function writeXLSXFile(string $filename, array $data, array $headers)
     {
         $wf = new WriterFactory();
         $writer = $wf->create(Type::XLSX);
-        $writer->openToBrowser($filename); // stream data directly to the browser
+        $writer->openToBrowser($filename);
         $writer->addRow($headers);
-        $writer->addRows($array); // add multiple rows at a time
+        $writer->addRows($data); // add multiple rows at a time
         $writer->close();
     }
-
-    /**
-     * @param $filename
-     * @param $data
-     * @param $headers
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
-     */
-    public function writeXLSXFile($filename, $data, $headers)
-    {
-        $this->outputXLSX($filename, $data, $headers);
-    }
-
 }

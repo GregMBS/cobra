@@ -18,8 +18,9 @@ class DhClassTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        $date = date('Y-m-d', strtotime('last day of last month'));
         /** @var Builder $query */
-        $query = Historia::where('N_PROM', '>', 0);
+        $query = Historia::where('N_PROM', '>', 0)->where('d_fech', '>', $date);
         /** @var Historia $gestion */
         $gestion = $query->first();
         if ($gestion) {

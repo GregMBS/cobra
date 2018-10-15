@@ -20,7 +20,8 @@ class SpeclistqcClass extends BaseClass {
      *
      * @var string
      */
-    private $queryhead = "SELECT numero_de_cuenta, nombre_deudor, saldo_total,
+    private $queryhead = <<<SQL
+SELECT numero_de_cuenta, nombre_deudor, saldo_total,
 	status_aarsa, ejecutivo_asignado_call_center, sum(monto) as sm,
 	status_de_credito, producto, estado_deudor, ciudad_deudor,
 	resumen.cliente as cli, resumen.id_cuenta as idc,
@@ -29,13 +30,15 @@ FROM resumen
 JOIN dictamenes ON dictamen=status_aarsa
 LEFT JOIN pagos using (id_cuenta)
 WHERE resumen.cliente=:cliente
-AND queue=:queue ";
+AND queue=:queue 
+SQL;
+
     
     /**
      *
      * @var string
      */
-    private $querytail = " GROUP BY id_cuenta
+    private $querytail = " GROUP BY cli, numero_de_cuenta
 ORDER BY saldo_total desc";
 
     /**

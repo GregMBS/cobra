@@ -29,7 +29,7 @@ class DhvController extends Controller
         $view = view('pdhv')
         ->with('gestor', $gestor)
         ->with('fecha', $fecha)
-        ->with('result', $result);
+        ->with('results', $result);
         return $view;
     }
     
@@ -42,10 +42,10 @@ class DhvController extends Controller
     public function gestiones($gestor, $fecha)
     {
         $result = $this->dc->getGestiones($gestor, $fecha);
-        $view = view('pdhv')
+        $view = view('ddhv')
         ->with('gestor', $gestor)
         ->with('fecha', $fecha)
-        ->with('result', $result);
+        ->with('results', $result);
         return $view;
     }
     

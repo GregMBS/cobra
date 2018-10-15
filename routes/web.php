@@ -90,9 +90,11 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/checkboth', 'CheckController@assignboth');
     Route::get('/pdh/{gestor}/{fecha}', 'DhController@promesas');
     Route::get('/ddh/{gestor}/{fecha}', 'DhController@gestiones');
-    Route::get('/activar', 'ActivarController@actShow');
+    Route::get('/pdhv/{gestor}/{fecha}', 'DhvController@promesas');
+    Route::get('/ddhv/{gestor}/{fecha}', 'DhvController@gestiones');
+    Route::get('/activar', 'ActivarController@activeShow');
     Route::post('/activar', 'ActivarController@activar');
-    Route::get('/inactivar', 'ActivarController@inactShow');
+    Route::get('/inactivar', 'ActivarController@inactiveShow');
     Route::post('/inactivar', 'ActivarController@inactivar');
     Route::get('/comparativo', 'ComparativoController@index');
     Route::get('/pagosum', 'PagosController@summary');
@@ -110,8 +112,12 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/carga', 'CargaController@cargar');
     Route::get('/horarios', 'HorariosController@index');
     Route::get('/horarios/{c_cvge}', 'HorariosController@show');
+    Route::get('/horariosV/{c_visit}', 'HorariosController@showV');
     Route::get('/horariosv', 'HorariosController@indexV');
     Route::get('/perfmes', 'PerfmesController@index');
     Route::get('/perfmesv', 'PerfmesController@indexV');
+    Route::get('/horario', function () {
+        return view('chooseGestor');
+    });
 });
 Auth::routes();

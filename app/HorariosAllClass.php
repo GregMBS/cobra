@@ -22,17 +22,19 @@ class HorariosAllClass extends BaseClass
      * @param int $dom
      * @return array
      */
-    public function getCurrentMain($dom)
+    public function getCurrentMain(int $dom)
     {
-        $day = $dom . ' day of last month';
-        $date = date('Y-m-d', strtotime($day));
+        $start = date('Y-m-d', strtotime("last day of last month"));
+        $text = $start . " + $dom days";
+        $date = date('Y-m-d', strtotime($text));
         /** @var Builder $hc */
         $hc = new Historia();
-        $query = $hc->selectRaw("count(distinct c_cont) as cuentas,
-            sum(c_cvst like 'PROMESA DE%') as promesas,
-            count(1) as gestiones,
-            count(1)-sum(queue='SIN CONTACTOS') as nocontactos,
-            sum(queue='SIN CONTACTOS') as contactos")
+        $select = "count(distinct c_cont) as cuentas, " .
+            "sum(n_prom > 0) as promesas, " .
+            "count(1) as gestiones, " .
+            "count(1)-sum(queue='SIN CONTACTOS') as nocontactos, " .
+            "sum(queue='SIN CONTACTOS') as contactos";
+        $query = $hc->selectRaw($select)
             ->leftJoin('dictamenes', 'c_cvst', '=', 'dictamen')
             ->whereNull('c_cniv')
             ->whereNull('c_msge')

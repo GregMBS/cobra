@@ -22,7 +22,6 @@ th, th {
 </head>
 <body>
 	<h2>HORARIOS</h2>
-	{% for visitador in visitadores %}
 	<table class="table">
 		<thead class="ui-widget-header">
 			<tr>
@@ -38,13 +37,13 @@ th, th {
 				<td class="heavy">VISITAS</td>
 				{% set sumgest = 0 %}
 				{% for i in 1..dhoy %}
-				{% set sumgest = sumgest + data[visitador][i].gestiones %}
+				{% set sumgest = sumgest + data[i].gestiones %}
 				{% set zeros = '' %}
-				{% if data[visitador][i].gestiones == 0 %}
+				{% if data[i].gestiones == 0 %}
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
-				<a href='/ddh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[visitador][i].gestiones }}
+				<a href='/ddh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[i].gestiones }}
 				</a>
 				</td>
 				{% endfor %}
@@ -54,13 +53,13 @@ th, th {
 				<td class="heavy">CUENTAS</td>
                 {% set sumcta = 0 %}
 				{% for i in 1..dhoy %}
-				{% set sumcta = sumcta + data[visitador][i].cuentas %}
+				{% set sumcta = sumcta + data[i].cuentas %}
 				{% set zeros = '' %}
-				{% if data[visitador][i].cuentas == 0 %}
+				{% if data[i].cuentas == 0 %}
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
-				<a href='/ddh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[visitador][i].cuentas }}
+				<a href='/ddh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[i].cuentas }}
 				</a>
 				</td>
 				{% endfor %}
@@ -70,12 +69,12 @@ th, th {
 				<td class="heavy">CONTACTOS</td>
                 {% set sumcont = 0 %}
 				{% for i in 1..dhoy %}
-				{% set sumcont = sumcont + data[visitador][i].contactos %}
+				{% set sumcont = sumcont + data[i].contactos %}
 				{% set zeros = '' %}
-				{% if data[visitador][i].contactos == 0 %}
+				{% if data[i].contactos == 0 %}
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
-				<td class="light"{{ zeros }}>{{ data[visitador][i].contactos }}</td>
+				<td class="light"{{ zeros }}>{{ data[i].contactos }}</td>
 				{% endfor %}
 				<td>{{ sumcont }}</td>
 			</tr>
@@ -83,12 +82,12 @@ th, th {
 				<td class="heavy">NO CONTACTOS</td>
                 {% set sumnoc = 0 %}
 				{% for i in 1..dhoy %}
-				{% set sumnoc = sumnoc + data[visitador][i].nocontactos %}
+				{% set sumnoc = sumnoc + data[i].nocontactos %}
 				{% set zeros = '' %}
-				{% if data[visitador][i].nocontactos == 0 %}
+				{% if data[i].nocontactos == 0 %}
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
-				<td class="light"{{ zeros }}>{{ data[visitador][i].nocontactos }}</td>
+				<td class="light"{{ zeros }}>{{ data[i].nocontactos }}</td>
 				{% endfor %}
 				<td>{{ sumnoc }}</td>
 			</tr>
@@ -96,13 +95,13 @@ th, th {
 				<td class="heavy">PROMESAS</td>
                 {% set sumprom = 0 %}
 				{% for i in 1..dhoy %}
-				{% set sumprom = sumprom + data[visitador][i].promesas %}
+				{% set sumprom = sumprom + data[i].promesas %}
 				{% set zeros = '' %}
-				{% if data[visitador][i].promesas == 0 %}
+				{% if data[i].promesas == 0 %}
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
 				<td>
-				<a href='/pdh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[visitador][i].promesas }}
+				<a href='/pdh/{{ visitador }}/{{ yrmes }}{{ i }}'> {{ data[i].promesas }}
 				</a>
 				</td>
 				{% endfor %}
@@ -112,21 +111,19 @@ th, th {
 				<td class="heavy">PAGOS</td>
                 {% set sumpag = 0 %}
 				{% for i in 1..dhoy %}
-				{% set sumpag = sumpag + data[visitador][i].pagos %}
+				{% set sumpag = sumpag + data[i].pagos %}
 				{% set zeros = '' %}
-				{% if data[visitador][i].pagos == 0 %}
+				{% if data[i].pagos == 0 %}
 				{% set zeros = ' style="color:red;"' %}
 				{% endif %}
-				<td class="light"{{ zeros }}>{{ data[visitador][i].pagos }}</td>
+				<td class="light"{{ zeros }}>{{ data[i].pagos }}</td>
 				{% endfor %}
 				<td>{{ sumpag }}</td>
 			</tr>
 			<tr style="height: 2em"></tr>
 		</tbody>
 	</table>
-	{% endfor %}
 	<script src="{{ asset('js/app.js') }}"></script>
-	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
 </body>
 </html>
 

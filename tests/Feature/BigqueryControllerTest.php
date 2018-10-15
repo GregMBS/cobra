@@ -11,11 +11,9 @@ class BigqueryControllerTest extends TestCase
     public function testMakeReport()
     {
         $user = User::whereTipo('admin')->first();
-        $this->actingAs($user)
+        $response=$this->actingAs($user)
             ->get('/bigquery/make');
-        $this->assertFileExists(storage_path('temp.xlsx'));
-        $this->assertFileIsReadable(storage_path('temp.xlsx'));
-        Storage::delete('temp.xlsx');
+        $this->assertRegExp('/XLSX/', $response->getContent());
     }
 
     public function testIndex()

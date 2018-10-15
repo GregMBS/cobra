@@ -3,13 +3,9 @@
     <head>
         <title>Cuentas gestionado por {{ gestor }} en {{ fecha }}</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" 
-              href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" 
-              type="text/css" media="all" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
     </head>
     <body>
         <table id="Cuentas">
@@ -30,7 +26,7 @@
             <tbody>
                 {% for r in results %}
                     <tr>
-                        <td><a href='resumen/'{{ r.id_cuenta }}'>{{ r.numero_de_cuenta }}</a></td>
+                        <td><a href='/resumen/{{ r.id_cuenta }}'>{{ r.numero_de_cuenta }}</a></td>
                         <td>{{ r.nombre_deudor | e }}</td>
                         <td>{{ r.cliente }}</td>
                         <td>{{ r.status_de_credito }}</td>
@@ -44,6 +40,8 @@
                 {% endfor %}
             </tbody>
         </table>
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script>
             $(function () {
                 $('#Cuentas').dataTable({"bJQueryUI": true});

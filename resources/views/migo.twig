@@ -1,66 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cuentas Migo</title>
-<link
-	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
-	rel="stylesheet" type="text/css" />
-<link
-	href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css"
-	rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"
-	type="text/javascript"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-	type="text/javascript"></script>
-<script
-	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
-	type="text/javascript"></script>
+    <title>Cuentas Migo</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 </head>
 <body>
-	<table id="Cuentas" class="ui-widget">
-		<thead class="ui-widget-header">
-			<tr>
-				<th>CUENTA</th>
-				<th>NOMBRE</th>
-				<th>CLIENTE</th>
-				<th>SEGMENTO</th>
-				<th>SALDO TOTAL</th>
-				<th>SALDO DESCUENTO</th>
-				<th>STATUS</th>
-				<th>ULT. GESTION</th>
-			</tr>
-		</thead>
-		<tbody class="ui-widget-content">
-			{% if result is defined %}
-			{% for row in result %}
-			{% if row.numero_de_cuenta is defined %}
-			<tr>
-				<td><a
-					href="/resumen/{{ row.id_cuenta }}">
-						{{ row.numero_de_cuenta }}
-				</a></td>
-				<td>{{ row.nombre_deudor }}</td>
-				<td>{{ row.cliente }}</td>
-				<td>{{ row.status_de_credito }}</td>
-				<td>{{ row.saldo_total }}</td>
-				<td>{{ row.saldo_descuento_2 }}</td>
-				<td>{{ row.status_aarsa }}</td>
-				<td>{{ row.fecha_ultima_gestion }}</td>
-			</tr>
-			{% endif %}
-			{% endfor %}
-			{% endif %}
-		</tbody>
-	</table>
-	<script>
-		$(function() {
-			$('#Cuentas').dataTable({
-				"bPaginate" : false,
-				"oLanguage" : {
-					"sUrl" : "espanol.txt"
-				}
-			});
-		});
-	</script>
+<table id="Cuentas" class="table">
+    <thead class="ui-widget-header">
+    <tr>
+        <th>CUENTA</th>
+        <th>NOMBRE</th>
+        <th>CLIENTE</th>
+        <th>SEGMENTO</th>
+        <th>SALDO TOTAL</th>
+        <th>SALDO DESCUENTO</th>
+        <th>STATUS</th>
+        <th>ULT. GESTION</th>
+    </tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    {% if result is defined %}
+        {% for row in result %}
+            {% if row.numero_de_cuenta is defined %}
+                <tr>
+                    <td><a
+                                href="/resumen/{{ row.id_cuenta }}">
+                            {{ row.numero_de_cuenta }}
+                        </a></td>
+                    <td>{{ row.nombre_deudor }}</td>
+                    <td>{{ row.cliente }}</td>
+                    <td>{{ row.status_de_credito }}</td>
+                    <td>{{ row.saldo_total }}</td>
+                    <td>{{ row.saldo_descuento_2 }}</td>
+                    <td>{{ row.status_aarsa }}</td>
+                    <td>{{ row.fecha_ultima_gestion }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(function () {
+        $('#Cuentas').dataTable({
+            "bPaginate": false,
+            "oLanguage": {
+                "sUrl": "espanol.txt"
+            }
+        });
+    });
+</script>
 </body>
 </html>
