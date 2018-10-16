@@ -29,7 +29,7 @@ class GestorDataClass
     /**
      * @var string
      */
-    private $pass;
+    private $pass = '';
 
     /**
      * @param string $tipo
@@ -60,7 +60,9 @@ class GestorDataClass
      */
     public function setPass($pass)
     {
-        $this->pass = $pass;
+        if (!empty($pass)) {
+            $this->pass = $pass;
+        }
     }
 
     /**

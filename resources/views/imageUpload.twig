@@ -2,28 +2,29 @@
 <html>
 <head>
     <title>COBRA Foto</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+    <meta charset="utf-8"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-{% if errors is not empty %}
-<div class="alert alert-danger">
-    <ul>
-        {% for error in errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
-    </ul>
+<div id="app">
+    {% if errors is not empty %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <form action="{{ url('/imageUpload') }}" method="post" name="foto">
+        {{ csrf_field() }}
+        <input type="hidden" name="id_cuenta" id="id_cuenta" value="{{ id }}">
+        <label for='image'>Foto:</label>
+        <input type="file" name="image" id="image" value=""/>
+        <input type="submit" name="go" value="CARGAR">
+    </form>
 </div>
-{% endif %}
-<form action="/imageUpload" method="post" name="foto">
-    {{ csrf_field() }}
-    <input type="hidden" name="id_cuenta" id="id_cuenta" value="{{ id }}">
-    <label for='image'>Foto:</label>
-    <input type="file" name="image" id="image" value="" />
-    <input type="submit" name="go" value="CARGAR">
-</form>
-
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

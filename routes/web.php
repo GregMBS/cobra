@@ -66,9 +66,9 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/segmento/agregartodo', 'SegmentController@agregartodo');
     Route::post('/segmento/segment/agregartodo', 'SegmentController@segment/agregartodo');
     Route::get('/gestoradmin', 'GestoradminController@index');
-    Route::get('/gestor/add', 'GestoradminController@agregar');
-    Route::get('/gestor/change', 'GestoradminController@cambiar');
-    Route::get('/gestor/delete', 'GestoradminController@borrar');
+    Route::post('/gestor/add', 'GestoradminController@agregar');
+    Route::post('/gestor/change', 'GestoradminController@cambiar');
+    Route::post('/gestor/delete', 'GestoradminController@borrar');
     Route::get('/breakAdmin', 'BreaksController@admindex');
     Route::delete('/breakAdmin/{auto}', 'BreaksController@borrar');
     Route::put('/breakAdmin', 'BreaksController@cambiar');
@@ -110,14 +110,12 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/notadmin', 'NotaController@addAdmin');
     Route::get('/carga', 'CargaController@index');
     Route::post('/carga', 'CargaController@cargar');
+    Route::get('/horario', 'HorariosController@select');
     Route::get('/horarios', 'HorariosController@index');
     Route::get('/horarios/{c_cvge}', 'HorariosController@show');
     Route::get('/horariosV/{c_visit}', 'HorariosController@showV');
     Route::get('/horariosv', 'HorariosController@indexV');
     Route::get('/perfmes', 'PerfmesController@index');
     Route::get('/perfmesv', 'PerfmesController@indexV');
-    Route::get('/horario', function () {
-        return view('chooseGestor');
-    });
 });
 Auth::routes();

@@ -1,77 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>COBRA - Cambio de Status</title>
-        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-        <script>
-            $(function () {
-                $('#buscarTable').dataTable({
-                    "bPaginate": false,
-                    "bJQueryUI": true
-                });
-            });
-        </script>
+    <title>COBRA - Cambio de Status</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 </head>
 <body>
-	<h1>CAMBIO DE STATUS</h1>
-	<button onClick="window.location = '/reports'">
-		Regresar al panel administrativo</button>
-	<table class="ui-widget" id="buscarTable">
-		<thead class='ui-widget-header'>
-			<tr>
-				<th>CUENTA</th>
-				<th>NOMBRE</th>
-				<th>CLIENTE</th>
-				<th>SEGMENTO</th>
-			</tr>
-		</thead>
-		<tbody class="ui-widget-content">
-			{% set j = 0 %}
-			{% for row in result %}
-			{% set j = j + 1 %}
-			<tr>
-				<td><a
-					href='/resumen/{{ row.id_cuenta }}'>
-						{{ row.numero_de_cuenta }}
-				</a></td>
-				<td>{{ row.nombre_deudor }}</td>
-				<td>{{ row.cliente }}</td>
-				<td>{{ row.status_de_credito }}<br>
-					<form method='post' action='changest' name='{{ row.id_cuenta }}'>
-						INACTIVO<input type="checkbox" name="inactivo" value="inactivo"
-							{% if row.status_de_credito matches '/-/' %} checked=checked
-							{% endif %} />
-						<input type="hidden" name="C_CONT" value="{{ row.id_cuenta }}">
-						<input type="submit" name="go" value="CAMBIAR">
-					</form></td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<div id="searchbox">
-		<h2>Buscar</h2>
-		<form name="search" method="get" action="changest" id="search">
-			Buscar a: <input type="text" name="find"> en <select
-				name="field">
-				<option value="nombre_deudor">Nombre</option>
-				<option value="numero_de_cuenta">Cuenta</option>
-				<option value="id_cuenta">Expediente</option>
-			</select><br> Client = <select name="cliente">
-				<option value=" ">Todos</option> 
-				{% for cl in resultcl %}
-				<option value="{{ cl }}">{{ cl }}</option> 
-				{% endfor %}
-			</select><br> <input type="hidden" name="i" value="0"> <input
-				type="hidden" name="capt" value="{{ capt }}"> <input
-				type="hidden" name="go" value="BUSCAR"> <input type="hidden"
-				name="from" value="resumen"> <input type="submit"
-				name="go1" value="BUSCAR"> <input type="button"
-				name="cancel" onclick="cancelbox('searchbox')" value="Cancel">
-		</form>
-	</div>
+<div id="app">
+    <h1>CAMBIO DE STATUS</h1>
+    <button onClick="window.location = '/reports'">
+        Regresar al panel administrativo
+    </button>
+    <table class="table" id="buscarTable">
+        <thead class='ui-widget-header'>
+        <tr>
+            <th>CUENTA</th>
+            <th>NOMBRE</th>
+            <th>CLIENTE</th>
+            <th>SEGMENTO</th>
+        </tr>
+        </thead>
+        <tbody class="ui-widget-content">
+        {% set j = 0 %}
+        {% for row in result %}
+            {% set j = j + 1 %}
+            <tr>
+                <td><a
+                            href='/resumen/{{ row.id_cuenta }}'>
+                        {{ row.numero_de_cuenta }}
+                    </a></td>
+                <td>{{ row.nombre_deudor }}</td>
+                <td>{{ row.cliente }}</td>
+                <td>{{ row.status_de_credito }}<br>
+                    <form method='post' action='changest' name='{{ row.id_cuenta }}'>
+                        INACTIVO<input type="checkbox" name="inactivo" value="inactivo"
+                                {% if row.status_de_credito matches '/-/' %} checked=checked
+                                {% endif %} />
+                        <input type="hidden" name="C_CONT" value="{{ row.id_cuenta }}">
+                        <input type="submit" name="go" value="CAMBIAR">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="searchbox">
+        <h2>Buscar</h2>
+        <form name="search" method="get" action="changest" id="search">
+            Buscar a: <input type="text" name="find"> en <select
+                    name="field">
+                <option value="nombre_deudor">Nombre</option>
+                <option value="numero_de_cuenta">Cuenta</option>
+                <option value="id_cuenta">Expediente</option>
+            </select><br> Client = <select name="cliente">
+                <option value=" ">Todos</option>
+                {% for cl in resultcl %}
+                    <option value="{{ cl }}">{{ cl }}</option>
+                {% endfor %}
+            </select><br> <input type="hidden" name="i" value="0"> <input
+                    type="hidden" name="capt" value="{{ capt }}"> <input
+                    type="hidden" name="go" value="BUSCAR"> <input type="hidden"
+                                                                   name="from" value="resumen"> <input type="submit"
+                                                                                                       name="go1"
+                                                                                                       value="BUSCAR">
+            <input type="button"
+                   name="cancel" onclick="cancelbox('searchbox')" value="Cancel">
+        </form>
+    </div>
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        $('#buscarTable').dataTable({
+            "bPaginate": false,
+            "bJQueryUI": true
+        });
+    });
+</script>
 </body>
 </html>

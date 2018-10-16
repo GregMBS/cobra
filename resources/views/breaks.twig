@@ -3,12 +3,13 @@
     <head>
         <title>Breaks del Hoy</title>
         <meta http-equiv="refresh" content="15"/>
-        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     </head>
     <body>
         <button onclick="window.location = '/'">LOGIN</button><br>
-        <table class="ui-widget" id="breaksTable">
+        <table class="table" id="app">
             <thead class="ui-widget-header">
                 <tr>
                     <th>Gestor</th>
@@ -19,23 +20,22 @@
                 </tr>
             </thead>
             <tbody class="ui-widget-content">
-                {% for b in breaksMain %}
+                {% for b in result %}
                     <tr{{ b.formatstr }}>
-                        <td>{{ b.c_cvge }}</td>
-                        <td>{{ b.c_cvst }}</td>
-                        <td>{{ b.c_hrin }}</td>
+                        <td>{{ b.C_CVGE }}</td>
+                        <td>{{ b.C_CVST }}</td>
+                        <td>{{ b.C_HRIN }}</td>
                         <td>{{ b.ntp }}</td>
-                        <td>{{ (r.diff / 60) | round }}</td>
+                        <td>{{ (b.diff / 60) | round }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <script>
             $(function () {
-                $('#breaksTable').dataTable({
+                $('#app').dataTable({
                     "bPaginate": false,
                     "bJQueryUI": true
                 });

@@ -1,103 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Sus queues</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
-	type="text/css" media="all" />
-<style type="text/css">
-    .col { padding: 1em }
-    .introb { clear: both }
-</style>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"
-	type="text/javascript"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-	type="text/javascript"></script>
+    <title>Sus queues</title>
+    <meta charset="utf-8"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+        .col {
+            padding: 1em
+        }
+
+        .introb {
+            clear: both
+        }
+    </style>
 </head>
 <body>
-	<h2>{{ msg }}</h2>
-	<div>
-		<form method='get' action='newqueue' name='queueform'>
-			<div style="width: 100%">
-				<br>
-				<div class="col">
-					CLIENTE<br>
-					<div id='cliente'></div>
-				</div>
-				<div class="col">
-					SEGMENTO<BR>
-					<div id='sdc'></div>
-				</div>
-				<div class="col">
-					QUEUE<BR>
-					<div id='queue'></div>
-				</div>
-				<div class='introb'>
-					<input type="submit" name="go" id="intro" value="INTRO">
-				</div>
+<h2>{{ msg }}</h2>
+<div id="app">
+    <form method='get' action='{{ url('/newqueue') }}' name='queueform'>
+        <div style="width: 100%">
+            <br>
+            <div class="col">
+                CLIENTE<br>
+                <div id='cliente'></div>
             </div>
-        </form>
-	</div>
-	<div class='introb'>
-		<button onclick="window.location = '/resumen'">Cuentas</button>
-	</div>
-	<script>
-            $(function () {
-                var cliente = $('#cliente');
-                var sdc = $('#sdc');
-                var queue = $('#queue');
-                $("button").button();
-                $("#intro").button();
-                cliente.empty().css("text-align", "left");
-                sdc.empty();
-                queue.empty();
-                $("body").css("font-size", "10pt").css("text-align", "center");
-                $("div").css("float", "left");
-                $(".introb").css("clear", "left");
-                $.each({{ arrayc|raw }}, function (index, value) {
-                    var data = '<div class="column"><input class="columnc" '
-                            +'type="radio" name="cliente" value="' + value.cliente
-                            + '" />' + value.cliente + '</div>';
-                    cliente.append(data);
-                });
-                cliente.change(function () {
-                    sdc.empty();
-                    queue.empty();
-                    var data2 = $('input[name=cliente]:checked').val();
-                    $.each({{ arrays|raw }}, function (index, value) {
-                        if (value.cliente === data2) {
-                            var st = value.sdc;
-                            if (st === '') {
-                                st = 'TODOS';
-                            }
-                            var data3 = '<div class="column"><input class="columns" '
-                                    +'type="radio" name="sdc" value="' 
-                                    + value.sdc + '" />' + st + '</div>';
-                            sdc.append(data3);
-                        }
-                    });
-                    sdc.css("text-align", "left");
-                });
-                sdc.change(function () {
-                    queue.empty();
-                    var data2 = $('input[name=cliente]:checked').val();
-                    var data4 = $('input[name=sdc]:checked').val();
-                    $.each({{ arrayq|raw }}, function (index, value) {
-                        if ((value.sdc + value.cliente) === (data4 + data2)) {
-                            var qt = value.status_aarsa;
-                            if (qt === '') {
-                                qt = 'TODOS';
-                            }
-                            var data5 = '<div class="column"><input class="columnq" '
-                                    +'type="radio" name="queue" value="' 
-                                    + value.status_aarsa + '" />' + qt + '</div>';
-                            queue.append(data5);
-                        }
-                    });
-                    queue.css("text-align", "left");
-                });
+            <div class="col">
+                SEGMENTO<BR>
+                <div id='sdc'></div>
+            </div>
+            <div class="col">
+                QUEUE<BR>
+                <div id='queue'></div>
+            </div>
+            <div class='introb'>
+                <input type="submit" name="go" id="intro" value="INTRO">
+            </div>
+        </div>
+    </form>
+</div>
+<div class='introb'>
+    <button onclick="window.location = '/resumen'">Cuentas</button>
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    $(function () {
+        var cliente = $('#cliente');
+        var sdc = $('#sdc');
+        var queue = $('#queue');
+        $("button").button();
+        $("#intro").button();
+        cliente.empty().css("text-align", "left");
+        sdc.empty();
+        queue.empty();
+        $("body").css("font-size", "10pt").css("text-align", "center");
+        $("div").css("float", "left");
+        $(".introb").css("clear", "left");
+        $.each({{ arrayc|raw }}, function (index, value) {
+            var data = '<div class="column"><input class="columnc" '
+                + 'type="radio" name="cliente" value="' + value.cliente
+                + '" />' + value.cliente + '</div>';
+            cliente.append(data);
+        });
+        cliente.change(function () {
+            sdc.empty();
+            queue.empty();
+            var data2 = $('input[name=cliente]:checked').val();
+            $.each({{ arrays|raw }}, function (index, value) {
+                if (value.cliente === data2) {
+                    let st = value.sdc;
+                    if (st === '') {
+                        st = 'TODOS';
+                    }
+                    var data3 = '<div class="column"><input class="columns" '
+                        + 'type="radio" name="sdc" value="'
+                        + value.sdc + '" />' + st + '</div>';
+                    sdc.append(data3);
+                }
             });
-        </script>
+            sdc.css("text-align", "left");
+        });
+        sdc.change(function () {
+            queue.empty();
+            var data2 = $('input[name=cliente]:checked').val();
+            var data4 = $('input[name=sdc]:checked').val();
+            $.each({{ arrayq|raw }}, function (index, value) {
+                if ((value.sdc + value.cliente) === (data4 + data2)) {
+                    var qt = value.status_aarsa;
+                    if (qt === '') {
+                        qt = 'TODOS';
+                    }
+                    var data5 = '<div class="column"><input class="columnq" '
+                        + 'type="radio" name="queue" value="'
+                        + value.status_aarsa + '" />' + qt + '</div>';
+                    queue.append(data5);
+                }
+            });
+            queue.css("text-align", "left");
+        });
+    });
+</script>
 </body>
 </html>
