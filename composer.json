@@ -24,7 +24,7 @@
 		"laravelcollective/html": "5.*",
 		"maatwebsite/excel": "~3.0",
 		"rcrowe/twigbridge": "~0.9",
-		"twig/extensions": "~1.0",
+		"twig/extensions": "^1.5",
 		"twig/twig": "~1.30"
 	},
 	"require-dev" : {

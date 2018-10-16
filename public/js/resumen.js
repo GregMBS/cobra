@@ -1,3 +1,13 @@
+/**
+ * Assign the project to an employee.
+ * @param {Object} resumen - parameter object from twig page
+ * @param {int} resumen.flag - has error.
+ * @param {string} resumen.flagmsg - error message.
+ * @param {string} resumen.cuenta - account number.
+ * @param {string} resumen.sdc - account segmento.
+ * @param {string} resumen.tipo - user type.
+ * @param {int} resumen.notalert - has active nota.
+ */
 $(function() {
     // $('.fecha').datepicker();
     // $('#tabs').tabs();
@@ -5,15 +15,15 @@ $(function() {
         "bJQueryUI": true,
         "order": [[ 1, "desc" ]]
     });
-    if (flag > 0) {
-        alert(flagmsg +
-            "\nBuscar para checar que gestion de cuenta " + cuenta +
+    if (resumen.flag > 0) {
+        alert(resumen.flagmsg +
+            "\nBuscar para checar que gestion de cuenta " + resumen.cuenta +
             " está guardado corectamente.");
     }
-    if (notalert > 0) {
+    if (resumen.notalert > 0) {
         $('#notasq input').css('backgroundColor', 'red');
     }
-    if ('visitador' === tipo) {
+    if ('visitador' === resumen.tipo) {
         $('#databox').hide();
         $('#prombox').hide();
         $('#nuevoboxt').hide();
@@ -24,15 +34,26 @@ $(function() {
         $('#visitboxt').show();
         $('#visitbox').show();
     }
-    var inactivo = new RegExp('-');
-    var isAdmin = ('admin' !== tipo);
-    if (inactivo.test(sdc) && isAdmin) {
+    const inactivo = new RegExp('-');
+    const isAdmin = ('admin' !== resumen.tipo);
+    if (inactivo.test(resumen.sdc) && isAdmin) {
         $('#GUARDbutt').hide();
     }
 });
 
-function tooLong(e) {
-    var obse = $("#C_OBSE1");
+function tooLong() {
+    let obse = $("#C_OBSE1");
+    if (obse.val().length > 250) {
+        obse.val(obse.val().replace(' 	', ' '));
+        obse.val(obse.val().substr(0, 200));
+        confirm('GESTION demasiado largo');
+        obse.css('backgroundColor',"yellow");
+        return false;
+    }
+}
+
+function tooLongV() {
+    let obse = $("#C_OBSE1v");
     if (obse.val().length > 250) {
         obse.val(obse.val().replace(' 	', ' '));
         obse.val(obse.val().substr(0, 200));
@@ -43,7 +64,7 @@ function tooLong(e) {
 }
 
 function cancelbox(boxname) {
-	var boxId = '#' + boxname;
+	const boxId = '#' + boxname;
     $(boxId).hide();
 }
 
@@ -72,7 +93,7 @@ function npromChange(thisform) {
 
 
 function valid(o, w) {
-    var regex = /r[w]/gi;
+    const regex = /r[w]/gi;
     o.value = o.value.replace(regex, ' ');
 }
 

@@ -12,6 +12,7 @@
         #LABORAL label { display: block }
         #CONTABLES label { display: block }
         #MISCELANEA label { display: block }
+        #databox h4 { font-weight: bold; background-color: yellow }
     </style>
 </head>
 <body id="todos">
@@ -56,7 +57,7 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <label for="domicilio_deudor">Domicilio</label> <textarea
-                        id="domicilio_deudor" readonly='readonly' rows=4 cols=20>{{ r.domicilio_deudor|trim ~ "\n"
+                        id="domicilio_deudor" readonly='readonly' rows=4 cols=40>{{ r.domicilio_deudor|trim ~ "\n"
                     ~ r.colonia_deudor|trim ~ "\n"
                     ~ r.ciudad_deudor|trim ~ "," ~ r.estado_deudor|trim ~ ' ' ~ r.cp_deudor|trim }}
                     {% if r.domicilio_deudor_2 is not empty %}
@@ -79,7 +80,9 @@
             </div>
             <div class="col-md-4" id='clock'>
                 <input type="hidden" id="timer" readonly="readonly" value="0">
-                <input type="text" id="timerm" readonly="readonly" value="0" size="3">&nbsp;:&nbsp;
+                <label for="timerm">Tiempo: </label>
+                <input type="text" id="timerm" readonly="readonly" value="0" size="3">
+                <label for="timers">&nbsp;:&nbsp;</label>
                 <input type="text" id="timers" readonly="readonly" value="0" size="3"><br>
                 {% set ngclass = 'low' %}
                 {% if numgest > 20 %}
@@ -88,8 +91,9 @@
                 {% if numgest > 40 %}
                     {% set ngclass = 'high' %}
                 {% endif %}
+                <label for="numgest">Gestiones: </label>
                 <input type="text" id="numgest" class="{{ ngclass }}" readonly="readonly"
-                       value="{{ numgest ~ ' gestiones' }}">
+                       value="{{ numgest }}">
             </div>
         </div>
     </div>
@@ -512,8 +516,8 @@
                             <option value='{{ h }}'>{{ h }}</option>
                         {% endfor %}
                     </select>
-                    :
-                    <select name="C_VMN">
+                    <label for="C_VMN">:</label>
+                    <select name="C_VMN" id="C_VMN">
                         {% for m in range(0,59) %}
                             <option value='{{ "%02d"|format(m) }}'>{{ "%02d"|format(m) }}</option>
                         {% endfor %}
@@ -536,18 +540,18 @@
                     </select><br>
                     <label for="C_OBSE1v">Gestión</label>
                     <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE1v'
-                              onkeypress="tooLong(this)"></textarea>
+                              onkeypress="tooLongV()"></textarea>
                     <br>
-                    <label for="accionV">Acción: </label>
+                    <label for="C_ACCIONv">Acción: </label>
                     <select name="C_ACCION" id="C_ACCIONv">
                         {% include 'resopt.twig' with {'list': accionesV} %}
                     </select><br>
-                    <label for="dictamenV">Status: </label>
+                    <label for="C_CVSTv">Status: </label>
                     <select name="C_CVST" id="C_CVSTv"
                             onblur="statusChange();">
                         {% include 'resopt.twig' with {'list': dictamenesV} %}
                     </select><br>
-                    <label for="motivV"> Motivadores : </label>
+                    <label for="C_MOTIVv"> Motivadores : </label>
                     <select name="C_MOTIV" id="C_MOTIVv">
                         {% include 'resopt.twig' with {'list': motivV} %}
                     </select><br>
@@ -587,8 +591,9 @@
                             <option value="{{ v.iniciales }}">{{ v.completo }}</option>
                         {% endfor %}
                     </select><br>
-                    <span class="formcap">ENTRE CALLE&nbsp;</span>
-                    <input type="text" name="C_CALLE1" id="C_CALLE1">Y&nbsp;
+                    <label for="C_CALLE1">ENTRE CALLE&nbsp;</label>
+                    <input type="text" name="C_CALLE1" id="C_CALLE1">
+                    <label for="C_CALLE2"> Y&nbsp;</label>&nbsp;
                     <input type="text" name="C_CALLE2" id="C_CALLE2"><br>
                     <div class="togglebox" id="nuevoboxt2">
                         <span class="formcap">Actualización de datos </span><br>
@@ -648,112 +653,132 @@
             <input type="hidden" name="C_ATTE" value="">
             <input type="hidden" name="C_CONTAN" value="{{ r.status_aarsa }}">
             <input type="hidden" name="C_EJE" value="{{ r.ejecutivo_asignado_call_center }}">
-            <table id="databox">
+            <div id="databox">
                 {% if tipo == 'admin' %}
-                    <tr>
-                        <td>Gestor</td>
-                        <td>
-                            <select name="C_CVGE">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_CVGE">Gestor: </label>
+                    </div>
+                    <div class="col-md-3">
+                            <select name="C_CVGE" id="C_CVGE">
                                 {% include 'resopt.twig' with {'list': gestores} %}
                             </select>
-                        </td>
-                    </tr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="AUTH">Autorización: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="password" name="AUTH" id="AUTH" value="">
+                    </div>
+                </div>
                 {% else %}
                     <input type="hidden" name="C_CVGE" readonly="readonly" value="{{ capt }}">
                 {% endif %}
-                <tr id='authbox ' class="hidebox">
-                    <td>Autorización</td>
-                    <td><input type="password" name="AUTH" id="AUTH" value="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Telefono</td>
-                    <td colspan=2>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_TELE">Telefono: </label>
+                    </div>
+                    <div class="col-md-3">
                         <select id="C_TELE" name="C_TELE">
-                            <option value=''></option>
-                            <option value='Entrante '>Llamada entrante</option>
-                            <option value='Oficina '>Cliente Visito</option>
-                            <option value='040'>040</option>
-                            <option value=''>Nuevo Tel . 1</option>
-                            <option value=''>Nuevo Tel . 2</option>
-                            {% include 'restel.twig' with {'telno': r.tel_1, 'class': badno.tel_1, 'label': 'TEL CASA'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_2, 'class': badno.tel_2, 'label': 'TEL CELULAR'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_3, 'class': badno.tel_3, 'label': 'TEL 3'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_4, 'class': badno.tel_4, 'label': 'TEL 4'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_1_laboral, 'class': badno.tel_1_laboral, 'label': 'TEL TRABAJO'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_2_laboral, 'class': badno.tel_2_laboral, 'label': 'EXT TRABAJO'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_1_verif, 'class': 'verif ' ~ badno.tel_1_verif, 'label': 'TEL 1 VERIF'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_2_verif, 'class': 'verif ' ~ badno.tel_2_verif, 'label': 'TEL 2 VERIF'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_3_verif, 'class': 'verif ' ~ badno.tel_3_verif, 'label': 'TEL 3 VERIF'} %}
-                            {% include 'restel.twig' with {'telno': r.tel_4_verif, 'class': 'verif ' ~ badno.tel_4_verif, 'label': 'TEL 4 VERIF'} %}
-                            {% for ref in referencias %}
-                                {% include 'restel.twig' with {'telno': ref.tel_1, 'class': '', 'label': ref.nombre} %}
-                                {% include 'restel.twig' with {'telno': ref.tel_2, 'class': '', 'label': ref.nombre} %}
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="pcap2">Parentesco /Cargo</td>
-                    <td>
+                                <option value=''></option>
+                                <option value='Entrante '>Llamada entrante</option>
+                                <option value='Oficina '>Cliente Visito</option>
+                                <option value='040'>040</option>
+                                <option value=''>Nuevo Tel . 1</option>
+                                <option value=''>Nuevo Tel . 2</option>
+                                {% include 'restel.twig' with {'telno': r.tel_1, 'class': badno.tel_1, 'label': 'TEL CASA'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_2, 'class': badno.tel_2, 'label': 'TEL CELULAR'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_3, 'class': badno.tel_3, 'label': 'TEL 3'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_4, 'class': badno.tel_4, 'label': 'TEL 4'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_1_laboral, 'class': badno.tel_1_laboral, 'label': 'TEL TRABAJO'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_2_laboral, 'class': badno.tel_2_laboral, 'label': 'EXT TRABAJO'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_1_verif, 'class': 'verif ' ~ badno.tel_1_verif, 'label': 'TEL 1 VERIF'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_2_verif, 'class': 'verif ' ~ badno.tel_2_verif, 'label': 'TEL 2 VERIF'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_3_verif, 'class': 'verif ' ~ badno.tel_3_verif, 'label': 'TEL 3 VERIF'} %}
+                                {% include 'restel.twig' with {'telno': r.tel_4_verif, 'class': 'verif ' ~ badno.tel_4_verif, 'label': 'TEL 4 VERIF'} %}
+                                {% for ref in referencias %}
+                                    {% include 'restel.twig' with {'telno': ref.tel_1, 'class': '', 'label': ref.nombre} %}
+                                    {% include 'restel.twig' with {'telno': ref.tel_2, 'class': '', 'label': ref.nombre} %}
+                                {% endfor %}
+                            </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_CARG">Parentesco / Cargo: </label>
+                    </div>
+                    <div class="col-md-3">
                         <select name="C_CARG" id="C_CARG">
                             <option value=""></option>
                             <option value="Aval">Aval</option>
                             <option value="Conyuge">Cónyuge</option>
                             <option value="Deudor">Deudor</option>
                             <option value="Familiar">Familiar</option>
-                            <option value="Hermano /a">Hermano /a</option>
-                            <option value="Hijo 	/a">Hijo /a</option>
+                            <option value="Hermano/a">Hermano/a</option>
+                            <option value="Hijo/a">Hijo/a</option>
                             <option value="Madre">Madre</option>
                             <option value="Otro">Otro</option>
                             <option value="Padre">Padre</option>
-                            <option value="Vecino /a">Vecino /a</option>
+                            <option value="Vecino/a">Vecino/a</option>
                             <option value="Yerno">Yerno</option>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Gestion</td>
-                    <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1'
-                                  onkeypress="tooLong(this)" onkeyup="valid(this, 'special')"
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_OBSE1">Gestión: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <textarea rows="4" cols="40" name="C_OBSE1" id='C_OBSE1'
+                                  onkeypress="tooLong()" onkeyup="valid(this, 'special')"
                                   onmouseover='this.focus();' onblur="valid(this, 'special')"
                                   onmousedown='this.focus();'></textarea>
-                    </td>
-                    <td colspan=2>
-                        Acción
+                    </div>
+                    <div class="col-md-6">
+                        <label for="C_ACCION">Acción: </label>
                         <select name="C_ACCION" id="C_ACCION">
                             {% include 'resopt.twig' with {'list': acciones} %}
-                        </select>
-                        <br>Status
+                        </select><br>
+                        <label for="C_CVST">Status: </label>
                         <select name="C_CVST" id="C_CVST" onblur="statusChange();">
                             {% include 'resopt.twig' with {'list': dictamenes} %}
-                        </select>
-                        <br>Causa no pago
+                        </select><br>
+                        <label for="C_CNP">Causa no pago: </label>
                         <select name="C_CNP" id="C_CNP">
                             {% include 'resopt.twig' with {'list': cnp} %}
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Motivadores</td>
-                    <td>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_MOTIV">Motivadores: </label>
+                    </div>
+                    <div class="col-md-3">
                         <select id="C_MOTIV" name="C_MOTIV">
                             {% include 'resopt.twig' with {'list': motiv} %}
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Se necesita localizar <input type="checkbox"
-                                                     name="LOCALIZAR" id="localizar"
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="localizar">Se necesita localizar: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="checkbox" name="LOCALIZAR" id="localizar"
                                 {% if localizar != '' %}
                                     checked
                                 {% endif %}
                         >
-                    </td>
-                    <td colspan=2>
-                        Localizable
-                        <select name='CUANDO'>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="CUANDO">Cuando localizable: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <select name='CUANDO' id="CUANDO">
                             <option value=""></option>
                             <option value="madrugada">madrugada</option>
                             <option value="manana">mañana</option>
@@ -762,76 +787,110 @@
                             <option value="robot">robot</option>
                             <option value="visita">visita</option>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Cant. de promesa unico o 1&deg;</td>
-                    <td>$<input type="text" name="N_PROM1" value="0" size="8"
-                                onchange="npromChange(this.form);" onmouseover='this.focus();'>
-                    </td>
-                    <td>$<input type="text" name="N_PROM1_OLD" readonly="readonly"
-                                size="8" value="{{ N_PROM1_OLD }}"></td>
-                </tr>
-                <tr>
-                    <td>Fecha promesa unico o 1&deg;</td>
-                    <td><INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" VALUE=""
-                               class="fecha" SIZE=15></td>
-                    <td><input type="text" name="D_PROM1_OLD"
-                               style="background-color: #c0c0c0;" readonly="readonly"
-                               value="{{ D_PROM1_OLD }}"></td>
-                </tr>
-                <tr>
-                    <td>Cant. de promesa 2&deg;</td>
-                    <td>$<input type="text" name="N_PROM2" value="0"
-                                onchange="npromChange(this.form);" onmouseover='this.focus();'>
-                    </td>
-                    <td>$<input type="text" name="N_PROM2_OLD" size="8"
-                                readonly="readonly"
-                                value="{{ N_PROM2_OLD }}"><br>
-                </tr>
-                <tr>
-                    <td>Fecha promesa 2&deg;</td>
-                    <td><INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" VALUE=""
-                               class="fecha" SIZE=15></td>
-                    <td><input type="text" name="D_PROM2_OLD"
-                               style="background-color: #c0c0c0;" readonly="readonly"
-                               value="{{ D_PROM2_OLD }}"></td>
-                </tr>
-                <tr>
-                    <td>Cant. de promesa 3&deg;</td>
-                    <td>$<input type="text" name="N_PROM3" value="0"
-                                onchange="npromChange (this.form );" onmouseover='this.focus();'>
-                    </td>
-                    <td>$<input type="text" name="N_PROM3_OLD" size="8"
-                                readonly="readonly" value="{{ N_PROM3_OLD }}"><br>
-                </tr>
-                <tr>
-                    <td>Fecha promesa 3&deg;</td>
-                    <td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE=""
-                               class="fecha" SIZE=15></td>
-                    <td><input type="text" name="D_PROM3_OLD"
-                               style="background-color: #c0c0c0;" readonly="readonly"
-                               value="{{ D_PROM3_OLD }}"><br>
-                </tr>
-                <tr>
-                    <td>Cant. de promesa 4&deg;</td>
-                    <td>$<input type="text" name="N_PROM4" value="0"
-                                onchange="npromChange(this.form);" onmouseover='this.focus();'>
-                    </td>
-                    <td>$<input type="text" name="N_PROM4_OLD" size="8"
-                                readonly="readonly" value="{{ N_PROM4_OLD }}"><br>
-                </tr>
-                <tr>
-                    <td>Fecha promesa 4&deg;</td>
-                    <td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE=""
-                               class="fecha" SIZE=15></td>
-                    <td><input type="text" name="D_PROM4_OLD"
-                               style="background-color: #c0c0c0;" readonly="readonly"
-                               value="{{ D_PROM4_OLD }}"><br>
-                </tr>
-                <tr>
-                    <td>Frecuencia de promesa</td>
-                    <td>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Promesas</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="N_PROM1">Cant. de promesa unico o 1&deg;: </label>
+                    </div>
+                    <div class="col-md-3">
+                        $<input type="text" name="N_PROM1" id="N_PROM1" value="0" onchange="npromChange(this.form);"
+                                onmouseover='this.focus();'>
+                    </div>
+                    <div class="col-md-3">
+                        $&nbsp;{{ N_PROM1_OLD | number_format(2, '.', ',')}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="D_PROM1">Fecha promesa unico o 1&deg;: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input TYPE="text" NAME="D_PROM1" ID="D_PROM1" VALUE="" class="fecha">
+                    </div>
+                    <div class="col-md-3">
+                        {{ D_PROM1_OLD }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="N_PROM2">Cant. de promesa 2&deg;: </label>
+                    </div>
+                    <div class="col-md-3">
+                        $<input type="text" name="N_PROM2" id="N_PROM2" value="0" onchange="npromChange(this.form);"
+                                onmouseover='this.focus();'>
+                    </div>
+                    <div class="col-md-3">
+                        $&nbsp;{{ N_PROM2_OLD | number_format(2, '.', ',')}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="D_PROM2">Fecha promesa 2&deg;: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input TYPE="text" NAME="D_PROM2" ID="D_PROM2" VALUE="" class="fecha">
+                    </div>
+                    <div class="col-md-3">
+                        {{ D_PROM2_OLD }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="N_PROM3">Cant. de promesa 3&deg;: </label>
+                    </div>
+                    <div class="col-md-3">
+                        $<input type="text" name="N_PROM3" id="N_PROM3" value="0" onchange="npromChange(this.form);"
+                                onmouseover='this.focus();'>
+                    </div>
+                    <div class="col-md-3">
+                        $&nbsp;{{ N_PROM3_OLD | number_format(2, '.', ',')}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="D_PROM3">Fecha promesa 3&deg;: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE="" class="fecha">
+                    </div>
+                    <div class="col-md-3">
+                        {{ D_PROM3_OLD }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="N_PROM4">Cant. de promesa 4&deg;: </label>
+                    </div>
+                    <div class="col-md-3">
+                        $<input type="text" name="N_PROM4" id="N_PROM4" value="0" onchange="npromChange(this.form);"
+                                onmouseover='this.focus();'>
+                    </div>
+                    <div class="col-md-3">
+                        $&nbsp;{{ N_PROM4_OLD | number_format(2, '.', ',')}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="D_PROM4">Fecha promesa 4&deg;: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE="" class="fecha">
+                    </div>
+                    <div class="col-md-3">
+                        {{ D_PROM4_OLD }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_PROM">Frecuencia de promesa: </label>
+                    </div>
+                    <div class="col-md-3">
                         <select name="C_PROM" id="C_PROM">
                             <option selected="selected" value=""></option>
                             <option value="unico">Unico</option>
@@ -841,59 +900,88 @@
                             <option value="mensuales">Mensuales</option>
                             <option value="otro">Otro (en Gestión comentas)</option>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Cant. de promesa total</td>
-                    <td><input type="text" name="N_PROM" id="N_PROM"
-                               readonly="readonly" style="background-color: #c0c0c0;" value="">
-                    </td>
-                    <td>Cant . prometido anterior</td>
-                    <td><input type="text" name="N_PROM_OLD" id="N_PROM_OLD"
-                               readonly="readonly" style="background-color: #c0c0c0;"
-                               value="{{ N_PROM_OLD }}"></td>
-                </tr>
-                <tr id="pagocapt">
-                    <td>Monto Pagó</td>
-                    <td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0"
-                                onmouseover='this.focus();'>
-                    </td>
-                </tr>
-                <tr id="pagocapt2">
-                    <td>Fecha Pagó</td>
-                    <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE=""
-                               class="fecha" SIZE=15></td>
-                </tr>
-                <tr>
-                    <td colspan=2>Actualización de Datos</td>
-                </tr>
-                <tr>
-                    <td>Tel .</td>
-                    <td><input type="text" name="C_NTEL" value=""
-                               onmouseover='this.focus();' onChange="addToTels(4, this)">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Tel 2.</td>
-                    <td><input type="text" size=50 name="C_OBSE2" value=""
-                               onmouseover='this.focus();' onChange="addToTels(5, this)">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Dirección</td>
-                    <td><input type="text" size=50 name="C_NDIR" value=""
-                               onmouseover='this.focus();'></td>
-                </tr>
-                <tr>
-                    <td>E-mail</td>
-                    <td><input type="text" name="C_EMAIL" value="" autocomplete="off"
-                               onmouseover='this.focus();'></td>
-                </tr>
-            </table>
-            <input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR"
-                   ondblclick="return false;">
-            <button type="button" value="RESET"
-                    onclick="this.form.GUARDAR.disabled = false">RESET
+                    </div>
+                    <div class="col-md-3">
+                        <label for="N_PROM_OLD">Cant. de promesa anterior: </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="N_PROM">Cant. de promesa total: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="N_PROM" id="N_PROM" readonly="readonly" value="">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="N_PROM_OLD" id="N_PROM_OLD" readonly="readonly" value="{{ N_PROM_OLD }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Pagos</h4>
+                    </div>
+                </div>
+                <div class="row" id="pagocapt">
+                    <div class="col-md-2">
+                        <label for="N_PAGO">Monto Pagó: </label>
+                    </div>
+                    <div class="col-md-3">
+                        $<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'>
+                    </div>
+                </div>
+                <div class="row" id="pagocapt2">
+                    <div class="col-md-2">
+                        <label for="D_PAGOi">Fecha Pagó: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE=""
+                               class="fecha">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Actualización de Datos</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_NTEL">Telefono nuevo: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="C_NTEL" id="C_NTEL" value="" onmouseover='this.focus();'
+                               onChange="addToTels(4, this)">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_OBSE2">Telefono 2 nuevo: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="C_OBSE2" id="C_OBSE2" value="" onmouseover='this.focus();'
+                               onChange="addToTels(5, this)">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_NDIR">Dirección nuevo: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="C_NDIR" id="C_NDIR" value="" onmouseover='this.focus();'>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="C_EMAIL">E-mail nuevo: </label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="C_EMAIL" id="C_EMAIL" value="" onmouseover='this.focus();' autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR" ondblclick="return false;"
+                   class="btn btn-primary">
+            <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false" class="btn btn-warning">
+                RESET
             </button>
             <br>
         </form>
@@ -906,17 +994,23 @@
 <script type="text/javascript" src="/js/depuracion.js"></script>
 <script type="text/javascript" src="/js/depuracionv.js"></script>
 <script type="text/javascript">
-    const flag = '{{ valid.flag }}';
-    const flagmsg = '{{ valid.msg }}';
-    const cuenta = '{{ notas.cuenta }}';
-    const notalert = '{{ notas.alert }}';
-    const sdc = '{{ r.status_de_credito }}';
-    const tipo = '{{ tipo }}';
-    const tlp = '{{ tl }}';
+    const resumen = {};
+    resumen.defineProperty('flag', '{{ valid.flag }}');
+    resumen.defineProperty('flagmsg', '{{ valid.msg }}');
+    resumen.defineProperty('cuenta', '{{ notas.cuenta }}');
+    resumen.defineProperty('notalert', '{{ notas.alert }}');
+    resumen.defineProperty('sdc', '{{ r.status_de_credito }}');
+    resumen.defineProperty('tipo', '{{ tipo }}');
+    resumen.defineProperty('tlp', '{{ tl }}');
     document.getElementById('foto').onerror = function () {
         document.getElementById('fotobox').removeChild(document.getElementById('foto'));
-    }
+    };
     setInterval('clock()', 1000);
+    flatpickr('#D_PROM1', {minDate : 'today'});
+    flatpickr('#D_PROM2', {minDate : 'today'});
+    flatpickr('#D_PROM3', {minDate : 'today'});
+    flatpickr('#D_PROM4', {minDate : 'today'});
+    flatpickr('#D_PAGOi', {maxDate : 'today'});
 </script>
 </body>
 </html>
