@@ -1,6 +1,6 @@
 $(function() {
-    $('.fecha').datepicker();
-    $('#tabs').tabs();
+    // $('.fecha').datepicker();
+    // $('#tabs').tabs();
     $('#history').dataTable({
         "bJQueryUI": true,
         "order": [[ 1, "desc" ]]
@@ -29,38 +29,7 @@ $(function() {
     if (inactivo.test(sdc) && isAdmin) {
         $('#GUARDbutt').hide();
     }
-    openSearch();
 });
-
-function clock() {
-    var d = new Date();
-    var tn = d.getTime();
-    var tll = new Date(tlp);
-    var tl = tll.getTime();
-    var timer = $("#timer");
-    var timers = $("#timers");
-    var timerm = $("#timerm");
-    var clock = $("#clock");
-    timer.val(tn - tl);
-    var timenow = timer.val();
-    timers.val(parseInt(parseInt(timenow) / 1000) % 60);
-    timerm.val(parseInt(parseInt(timenow) / 1000 / 60));
-    var timemin = timerm.val();
-    if (timemin > 2) {
-        clock.css('backgroundColor', 'yellow');
-    }
-    if (timemin > 4) {
-        clock.css('backgroundColor', 'red');
-    }
-    var evenodd = parseInt(timenow) % 2;
-    if (0 === evenodd) {
-        clock.css('backgroundColor', 'green');
-    }
-}
-
-function openSearch() {
-    setInterval('clock()', 1000);
-}
 
 function tooLong(e) {
     var obse = $("#C_OBSE1");
@@ -71,11 +40,6 @@ function tooLong(e) {
         obse.css('backgroundColor',"yellow");
         return false;
     }
-}
-
-function showsearch() {
-	$("#searchbox").show();
-    $('#find').focus();
 }
 
 function cancelbox(boxname) {
@@ -100,7 +64,10 @@ function addToTels(pos, tel) {
 }
 
 function npromChange(thisform) {
-    thisform.N_PROM.value = (thisform.N_PROM1.value * 1) + (thisform.N_PROM2.value * 1);
+    thisform.N_PROM.value = (thisform.N_PROM1.value * 1)
+        + (thisform.N_PROM2.value * 1)
+        + (thisform.N_PROM3.value * 1)
+        + (thisform.N_PROM4.value * 1);
 }
 
 

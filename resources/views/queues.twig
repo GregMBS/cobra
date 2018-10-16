@@ -1,79 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Administraci&oacute;n de los queues</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-    </head>
-    <body>
-    <button onclick="window.location = '/reports'">Regresar a la plantilla administrativa</button>
-    <br>
-        <div style='clear:both;background-color:#ffffff;width:100%'>
-            <div style='float:left;width:25%'>Gestor</div>
-            <div style='float:left;width:50%'>Queue</div>
-        </div>
-        <div>
-            <div style='clear:both;border:1pt black solid'>
-                <form method='get' action='/queues/todos' name='todos'>
-                    <div style='float:left;width:25%'>
-                        TODOS
-                    </div>
-                    <div style='float:left;width:40%'>
-                        <select name='queue'>
-                            {% for q in queues %}
+<head>
+    <title>Administraci&oacute;n de los queues</title>
+    <meta charset="utf-8"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+<button onclick="window.location = '/reports'">Regresar a la plantilla administrativa</button>
+<br>
+<div id="app">
+    <div style='clear:both;background-color:#ffffff;width:100%'>
+        <div style='float:left;width:25%'>Gestor</div>
+        <div style='float:left;width:50%'>Queue</div>
+    </div>
+    <div>
+        <div style='clear:both;border:1pt black solid'>
+            <form method='get' action='{{ url("/queues/todos") }}' name='todos'>
+                <div style='float:left;width:25%'>
+                    TODOS
+                </div>
+                <div style='float:left;width:40%'>
+                    <select name='queue'>
+                        {% for q in queues %}
                             {% set class = '' %}
                             {% if q.bloqueado == 1 %}
-                            	{% set class = 'blocked' %}
+                                {% set class = 'blocked' %}
                             {% endif %}
-                                <option value='{{ q.cliente ~ ',' ~ q.sdc ~ ',' ~ q.cr }}'
-                                class='{{ class }}'>
+                            <option value='{{ q.cliente ~ ',' ~ q.sdc ~ ',' ~ q.cr }}'
+                                    class='{{ class }}'>
                                 {{ q.cliente ~ '-' ~ q.sdc ~ '-' ~ q.cr }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style='float:left;width:30%'>
+                    <input type="submit" name="go" value="INTRO TODOS"><br>
+                    <input type="submit" name="go" value="BLOQUEAR TODOS"><br>
+                    <input type="submit" name="go" value="DESBLOQUEAR TODOS">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        {% for gestor in gestores %}
+            <div style='clear:both;border:1pt black solid'>
+                <form method='get' action='/queues/{{ gestor }}' name='{{ gestor }}'>
+                    <div style='float:left;width:25%'>
+                        {{ gestor }}
+                    </div>
+                    <div style='float:left;width:40%'>
+                        {% set mq = myQueue[gestor] %}
+                        {{ mq.cliente ~ '-' ~ mq.sdc ~ '-' ~ mq.cr }}
+                        <br>
+                        <select name='camp'>
+                            {% set ql = myQueueList[gestor] %}
+                            {% for q in ql %}
+                                {% set class = '' %}
+                                {% if q.bloqueado == 1 %}
+                                    {% set class = 'blocked' %}
+                                {% endif %}
+                                <option value='{{ q.camp }}'
+                                        class='{{ class }}'>
+                                    {{ q.cliente ~ '-' ~ q.sdc ~ '-' ~ q.cr }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div style='float:left;width:30%'>
-                        <input type="submit" name="go" value="INTRO TODOS"><br>
-                        <input type="submit" name="go" value="BLOQUEAR TODOS"><br>
-                        <input type="submit" name="go" value="DESBLOQUEAR TODOS">
+                        <input type="submit" name="go" value="INTRO">
+                        <input type="submit" name="go" value="BLOQUEAR">
+                        <input type="submit" name="go" value="DESBLOQUEAR">
                     </div>
                 </form>
             </div>
-        </div>
-        <div>
-            {% for gestor in gestores %}
-                <div style='clear:both;border:1pt black solid'>
-                    <form method='get' action='/queues/{{ gestor }}' name='{{ gestor }}'>
-                        <div style='float:left;width:25%'>
-                            {{ gestor }}
-                        </div>
-                        <div style='float:left;width:40%'>
-                            {% set mq = myQueue[gestor] %}
-                            {{ mq.cliente ~ '-' ~ mq.sdc ~ '-' ~ mq.cr }}
-                            <br>
-                            <select name='camp'>
-                            {% set ql = myQueueList[gestor] %}
-                            {% for q in ql %}
-                            {% set class = '' %}
-                            {% if q.bloqueado == 1 %}
-                            	{% set class = 'blocked' %}
-                            {% endif %}
-                                <option value='{{ q.camp }}'
-                                class='{{ class }}'>
-                                {{ q.cliente ~ '-' ~ q.sdc ~ '-' ~ q.cr }}</option>
-                            {% endfor %}
-                            </select>
-                        </div>
-                        <div style='float:left;width:30%'>
-                            <input type="submit" name="go" value="INTRO">
-                            <input type="submit" name="go" value="BLOQUEAR">
-                            <input type="submit" name="go" value="DESBLOQUEAR">
-                        </div>
-                    </form>
-                </div>
-            {% endfor %}
-        </div>
-    </body>
+        {% endfor %}
+    </div>
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
+</body>
 </html> 
 

@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Query de las Intensidad</title>
-<link rel="Stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />
+    <title>Query de las Intensidad</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-	<button
-            onclick="window.location = '/reports'">Regresar
-		a la plantilla administrativa</button>
-	<br>
-	<form action="/intensidad" method="post" name="queryparms">
-		{{ csrf_field() }}
-		<p>
-			HECHO de: <input class="fecha" name="fecha1"> &nbsp; a:
-			&nbsp; <input class="fecha" name="fecha2">
-		</p>
-		<input type='submit' name='go' value='Query Intensidad'>
-	</form>
-	<script type="text/javascript" charset="utf8"
-		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" charset="utf8"
-		src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			$('.fecha').datepicker({
-				dateFormat : 'yy-mm-dd'
-			});
-		});
-	</script>
+<button onclick="window.location = '/reports'">Regresar a la plantilla administrativa</button>
+<br>
+<h2>Reporte de Intensidad</h2>
+<form action="{{ url('/intensidad') }}" method="post" name="queryparms" id="app">
+    {{ csrf_field() }}
+    <p>
+        <label for="fecha1">HECHO de: </label>
+        <input class="fecha" name="fecha1" id="fecha1">
+        <label for="fecha2"> a: </label>
+        <input class="fecha" name="fecha2" id="fecha2">
+    </p>
+    <input type='submit' name='go' value='Query Intensidad'>
+</form>
+<script src="{{ asset('js/app.js') }}"></script>
+<script type="module">
+    flatpickr(".fecha", {});
+</script>
 </body>
 </html>

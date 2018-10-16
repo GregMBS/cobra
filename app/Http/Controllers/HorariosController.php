@@ -153,4 +153,14 @@ class HorariosController extends Controller
         return $view;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function select()
+    {
+        $gestores = $this->hc->listGestores();
+        $view = view('chooseGestor')
+            ->with('gestores', $gestores);
+        return $view;
+    }
 }

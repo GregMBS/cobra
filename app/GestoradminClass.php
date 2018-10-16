@@ -27,9 +27,9 @@ class GestoradminClass extends BaseClass {
             tipo = :tipo
             WHERE iniciales = :capt";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':completo', $completo);
-        $stu->bindParam(':tipo', $tipo);
-        $stu->bindParam(':capt', $capt);
+        $stu->bindValue(':completo', $completo);
+        $stu->bindValue(':tipo', $tipo);
+        $stu->bindValue(':capt', $capt);
         $stu->execute();
     }
 
@@ -45,7 +45,7 @@ class GestoradminClass extends BaseClass {
                 WHERE iniciales = :capt";
             $stp = $this->pdo->prepare($query);
             $stp->bindValue(':pass', bcrypt($pass));
-            $stp->bindParam(':capt', $capt);
+            $stp->bindValue(':capt', $capt);
             $stp->execute();
         }
     }
@@ -57,7 +57,7 @@ class GestoradminClass extends BaseClass {
     private function deleteFromUsers($capt) {
         $query = "DELETE FROM users WHERE iniciales = :capt";
         $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':capt', $capt);
+        $stb->bindValue(':capt', $capt);
         $stb->execute();
     }
 
@@ -68,7 +68,7 @@ class GestoradminClass extends BaseClass {
     private function deleteFromQueuelist($capt) {
         $query = "DELETE FROM queuelist WHERE gestor = :capt";
         $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':capt', $capt);
+        $stb->bindValue(':capt', $capt);
         $stb->execute();
     }
 
@@ -80,7 +80,7 @@ class GestoradminClass extends BaseClass {
         $query = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
             WHERE ejecutivo_asignado_call_center = :capt";
         $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':capt', $capt);
+        $stb->bindValue(':capt', $capt);
         $stb->execute();
     }
 
@@ -96,9 +96,9 @@ class GestoradminClass extends BaseClass {
             tipo, camp) 
 	VALUES (:iniciales, :completo, :pass, :tipo, 999999)";
         $sti = $this->pdo->prepare($query);
-        $sti->bindParam(':completo', $completo);
-        $sti->bindParam(':tipo', $tipo);
-        $sti->bindParam(':iniciales', $iniciales);
+        $sti->bindValue(':completo', $completo);
+        $sti->bindValue(':tipo', $tipo);
+        $sti->bindValue(':iniciales', $iniciales);
         $sti->bindValue(':pass', bcrypt($pass));
         $sti->execute();
     }
@@ -114,7 +114,7 @@ class GestoradminClass extends BaseClass {
 		sdc, bloqueado
 		FROM queuelist";
         $stl = $this->pdo->prepare($queryListIn);
-        $stl->bindParam(':iniciales', $iniciales);
+        $stl->bindValue(':iniciales', $iniciales);
         $stl->execute();
         $queryListCamp = "update queuelist
             set camp=auto where camp=999999";

@@ -21,7 +21,10 @@
     </style>
 </head>
 <body>
+<button onclick="window.location = '/reports'">Regresar a la
+    plantilla administrativa</button>
 <h2>HORARIOS</h2>
+<div id="app">
 {% for gestor in gestores %}
     <table class="table">
         <thead class="ui-widget-header">
@@ -269,6 +272,7 @@
     </tr>
     </tbody>
 </table>
+</div>
 <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
