@@ -12,7 +12,8 @@
         #LABORAL label { display: block }
         #CONTABLES label { display: block }
         #MISCELANEA label { display: block }
-        #databox h4 { font-weight: bold; background-color: yellow }
+        h4 { font-weight: bold; background-color: yellow }
+        #VISITA h4 { font-size: smaller }
     </style>
 </head>
 <body id="todos">
@@ -334,278 +335,362 @@
                         <input type="hidden" name="CUENTA" id="CUENTAv" value="{{ r.numero_de_cuenta }}">
                         <input type="hidden" name="C_EJE" id="C_EJEv" value="{{ r.ejecutivo_asignado_call_center }}">
                     </div>
-                    <p>DICTAMEN DOMICILIO PARTICULAR</p>
-                    <table class='visitable'>
-                        <tr>
-                            <th>Tipo:</th>
-                            <td>
-                                <label for="casa">Casa</label>
-                                <input type="checkbox" name="domtipo" value="casa" id="casa">
-                            </td>
-                            <td>
-                                <label for="departamento">Departamento</label>
-                                <input type="checkbox" name="domtipo" value="departamento" id="departamento">
-                            </td>
-                            <td>
-                                <label for="terreno">Terreno</label>
-                                <input type="checkbox" name="domtipo" value="terreno" id="terreno">
-                            </td>
-                            <td>
-                                <label for="trabajo">Trabajo/Oficina</label>
-                                <input type="checkbox" name="domtipo" value="trabajo" id="trabajo">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Propio:</th>
-                            <td>
-                                <label for="propio">Propio</label>
-                                <input type="checkbox" name="domown" value="propio" id="propio">
-                            </td>
-                            <td>
-                                <label for="rentado">Rentado</label>
-                                <input type="checkbox" name="domown" value="rentado" id="rentado">
-                            </td>
-                            <td>
-                                <label for="abandonado">Abandonado</label>
-                                <input type="checkbox" name="domown" value="abandonado" id="abandonado">
-                            </td>
-                            <td>
-                                <label for="deshabilitado">Deshabilitado</label>
-                                <input type="checkbox" name="domown" value="deshabilitado" id="deshabilitado">
-                            </td>
-                            <td>
-                                <label for="invadido">Invadido</label>
-                                <input type="checkbox" name="domown" value="invadido" id="invadido">
-                            </td>
-                            <td>
-                                <label for="prestado">Prestado</label>
-                                <input type="checkbox" name="domown" value="prestado" id="prestado">
-                            </td>
-                            <td>
-                                <label for="laborando">Laborando</label>
-                                <input type="checkbox" name="domown" value="laborando" id="laborando">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Nivel:</th>
-                            <td>
-                                <label for="alto">Alto</label>
-                                <input type="checkbox" name="C_NSE" value="alto" id="alto">
-                            </td>
-                            <td>
-                                <label for="medio">Medio</label>
-                                <input type="checkbox" name="C_NSE" value="medio" id="medio">
-                            </td>
-                            <td>
-                                <label for="bajo">Bajo</label>
-                                <input type="checkbox" name="C_NSE" value="bajo" id="bajo">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Estado:</th>
-                            <td>
-                                <label for="malo">Malo</label>
-                                <input type="checkbox" name="domstat" value="malo" id="malo">
-                            </td>
-                            <td>
-                                <label for="regular">Regular</label>
-                                <input type="checkbox" name="domstat" value="regular" id="regular">
-                            </td>
-                            <td>
-                                <label for="bueno">Bueno</label>
-                                <input type="checkbox" name="domstat" value="bueno" id="bueno">
-                            </td>
-                            <td>
-                                <label for="excelente">Excelente</label>
-                                <input type="checkbox" name="domstat" value="excelente" id="excelente">
-                            </td>
-                        </tr>
-                    </table>
-                    <p>SEÑAS:</p>
-                    <label for="C_CFAC">Color:</label>
-                    <select name="C_CFAC" id="C_CFAC">
-                        <option value="no">No especifica</option>
-                        <option value="Amarilla">Amarilla</option>
-                        <option value="Azul">Azul</option>
-                        <option value="Beige">Beige</option>
-                        <option value="Blanca">Blanca</option>
-                        <option value="Cafe">Cafe</option>
-                        <option value="Cantera">Cantera</option>
-                        <option value="Celeste">Celeste</option>
-                        <option value="Crema">Crema</option>
-                        <option value="Forja">Forja</option>
-                        <option value="Gris">Gris</option>
-                        <option value="Ladrillo">Ladrillo</option>
-                        <option value="Madera">Madera</option>
-                        <option value="Melon">Melon</option>
-                        <option value="Metalica">Metalica</option>
-                        <option value="Morada">Morada</option>
-                        <option value="Naranja">Naranja</option>
-                        <option value="Negra">Negra</option>
-                        <option value="Roja">Roja</option>
-                        <option value="Rosa">Rosa</option>
-                        <option value="Verde">Verde</option>
-                    </select><br>
-                    <label for="C_CPTA">Puerta:</label>
-                    <select name="C_CPTA" id="C_CPTA">
-                        <option value="no">No especifica</option>
-                        <option value="no_tiene">No tiene</option>
-                        <option value="Amarilla">Amarilla</option>
-                        <option value="Azul">Azul</option>
-                        <option value="Beige">Beige</option>
-                        <option value="Blanca">Blanca</option>
-                        <option value="Cafe">Cafe</option>
-                        <option value="Celeste">Celeste</option>
-                        <option value="Crema">Crema</option>
-                        <option value="Forja">Forja</option>
-                        <option value="Gris">Gris</option>
-                        <option value="Ladrillo">Ladrillo</option>
-                        <option value="Madera">Madera</option>
-                        <option value="Melon">Melon</option>
-                        <option value="Metalica">Metalica</option>
-                        <option value="Morada">Morada</option>
-                        <option value="Naranja">Naranja</option>
-                        <option value="Negra">Negra</option>
-                        <option value="Roja">Roja</option>
-                        <option value="Rosa">Rosa</option>
-                        <option value="Verde">Verde</option>
-                    </select><br>
-                    <label for="C_CREJ">Reja/Barandal:</label>
-                    <select name="C_CREJ" id="C_CREJ">
-                        <option value="no">No especifica</option>
-                        <option value="No">No tiene</option>
-                        <option value="Amarilla">Amarilla</option>
-                        <option value="Azul">Azul</option>
-                        <option value="Beige">Beige</option>
-                        <option value="Blanca">Blanca</option>
-                        <option value="Cafe">Cafe</option>
-                        <option value="Celeste">Celeste</option>
-                        <option value="Crema">Crema</option>
-                        <option value="Gris">Gris</option>
-                        <option value="Ladrillo">Ladrillo</option>
-                        <option value="Madera">Madera</option>
-                        <option value="Melon">Melon</option>
-                        <option value="Metalica">Metalica</option>
-                        <option value="Morada">Morada</option>
-                        <option value="Naranja">Naranja</option>
-                        <option value="Negra">Negra</option>
-                        <option value="Roja">Roja</option>
-                        <option value="Rosa">Rosa</option>
-                        <option value="Verde">Verde</option>
-                    </select><br>
-                    <label for="C_CPAT">Patio/Jardín:</label>
-                    <select name="C_CPAT" id="C_CPAT">
-                        <option value="no">No especifica</option>
-                        <option value="si">Sí</option>
-                        <option value="no">No</option>
-                    </select><br>
-                    <label for="C_CNIV">Pisos:</label>
-                    <select name="C_CNIV" id="C_CNIV">
-                        <option value="planta baja">planta baja</option>
-                        <option value="planta alta">planta alta</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4+">4+</option>
-                    </select>
-                    <br>
-                    <p>DATOS DE LA GESTION</p>
-                    <label for="C_VH">Hora:</label>
-                    <select name="C_VH" id="C_VH">
-                        {% for h in range(0,23) %}
-                            <option value='{{ h }}'>{{ h }}</option>
-                        {% endfor %}
-                    </select>
-                    <label for="C_VMN">:</label>
-                    <select name="C_VMN" id="C_VMN">
-                        {% for m in range(0,59) %}
-                            <option value='{{ "%02d"|format(m) }}'>{{ "%02d"|format(m) }}</option>
-                        {% endfor %}
-                    </select><br>
-                    <label for="D_FECHv">Fecha:</label>
-                    <input type="text" class='fecha' name="D_FECH" id="D_FECHv" value="{{ CD }}" size=15><br>
-                    <label for="C_CARGv" class="formcap" id="pcap">Parentesco/Cargo</label>
-                    <select name="C_CARG" id="C_CARGv">
-                        <option value=""></option>
-                        <option value="Aval">Aval</option>
-                        <option value="Conyuge">Cónyuge</option>
-                        <option value="Deudor">Deudor</option>
-                        <option value="Familiar">Familiar</option>
-                        <option value="Hermano /a">Hermano/a</option>
-                        <option value="Hijo /a">Hijo/a</option>
-                        <option value="Madre">Madre</option>
-                        <option value="Otro">Otro</option>
-                        <option value="Padre">Padre</option>
-                        <option value="Vecino /a">Vecino/a</option>
-                    </select><br>
-                    <label for="C_OBSE1v">Gestión</label>
-                    <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE1v'
-                              onkeypress="tooLongV()"></textarea>
-                    <br>
-                    <label for="C_ACCIONv">Acción: </label>
-                    <select name="C_ACCION" id="C_ACCIONv">
-                        {% include 'resopt.twig' with {'list': accionesV} %}
-                    </select><br>
-                    <label for="C_CVSTv">Status: </label>
-                    <select name="C_CVST" id="C_CVSTv"
-                            onblur="statusChange();">
-                        {% include 'resopt.twig' with {'list': dictamenesV} %}
-                    </select><br>
-                    <label for="C_MOTIVv"> Motivadores : </label>
-                    <select name="C_MOTIV" id="C_MOTIVv">
-                        {% include 'resopt.twig' with {'list': motivV} %}
-                    </select><br>
-                    <label for="C_CNPv">Causa no pago</label>
-                    <select name="C_CNP" id="C_CNPv">
-                        {% include 'resopt.twig' with {'list': cnp} %}
-                    </select>
-                    <table>
-                        <tr>
-                            <td>
-                                <label for="D_PROMv">Fecha promesa</label>
-                                <INPUT TYPE="text" NAME="D_PROM" ID="D_PROMv" VALUE="" class="fecha" SIZE=15><br>
-                                <label for="N_PROMv">Cantidad de pago prometido $</label>
-                                <input type="text" name="N_PROM" id="N_PROMv" value="0">
-                            </td>
-                            <td id='pagocaptv'>
-                                <label for="D_PAGOv">Fecha ya pagó</label>
-                                <INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOv" VALUE="" class="fecha" SIZE=15><br>
-                                <label for="N_PAGOv">Cantidad de ya pagó $</label>
-                                <input type="text" name="N_PAGO" id="N_PAGOv" value="0">
-                            </td>
-                        </tr>
-                    </table>
-                    <label for="C_PROMv">Frecuencia de pago prometido</label>
-                    <select name="C_PROM" id="C_PROMv">
-                        <option value="" selected="selected"></option>
-                        <option value="unico">Único</option>
-                        <option value="semanales">Semanales</option>
-                        <option value="quincenales">Quincenales</option>
-                        <option value="mensuales">Mensuales</option>
-                        <option value="otro">Otro (en Gesti&oacute;n comentas)</option>
-                    </select><br>
-                    <label for="C_VISIT" class="formcap">Visitador:</label>
-                    <select name="C_VISIT" id="C_VISIT">
-                        <option value=''></option>
-                        {% for v in visitadores %}
-                            <option value="{{ v.iniciales }}">{{ v.completo }}</option>
-                        {% endfor %}
-                    </select><br>
-                    <label for="C_CALLE1">ENTRE CALLE&nbsp;</label>
-                    <input type="text" name="C_CALLE1" id="C_CALLE1">
-                    <label for="C_CALLE2"> Y&nbsp;</label>&nbsp;
-                    <input type="text" name="C_CALLE2" id="C_CALLE2"><br>
-                    <div class="togglebox" id="nuevoboxt2">
-                        <span class="formcap">Actualización de datos </span><br>
-                        <label for="C_NTELv" class="formcap">Tel .</label>
-                        <input type="text" name="C_NTEL" id="C_NTELv" value=""><br>
-                        <label for="C_OBSE2v" class="formcap">Tel 2.</label>
-                        <input type="text" size=50 name="C_OBSE2" id="C_OBSE2v" value=""><br>
-                        <label for="C_NDIRv">Dirección</label>
-                        <input type="text" size=50 name="C_NDIR" id="C_NDIRv" value=""><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Dictamen Domicilio Particular</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <em>Tipo:&nbsp;</em>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="casa">Casa</label>
+                            <input type="checkbox" name="domtipo" value="casa" id="casa">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="departamento">Departamento</label>
+                            <input type="checkbox" name="domtipo" value="departamento" id="departamento">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="terreno">Terreno</label>
+                            <input type="checkbox" name="domtipo" value="terreno" id="terreno">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="trabajo">Trabajo/Oficina</label>
+                            <input type="checkbox" name="domtipo" value="trabajo" id="trabajo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <em>Propio:&nbsp;</em>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="propio">Propio</label>
+                            <input type="checkbox" name="domown" value="propio" id="propio">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="rentado">Rentado</label>
+                            <input type="checkbox" name="domown" value="rentado" id="rentado">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="abandonado">Abandonado</label>
+                            <input type="checkbox" name="domown" value="abandonado" id="abandonado">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="deshabilitado">Deshabilitado</label>
+                            <input type="checkbox" name="domown" value="deshabilitado" id="deshabilitado">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="invadido">Invadido</label>
+                            <input type="checkbox" name="domown" value="invadido" id="invadido">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="prestado">Prestado</label>
+                            <input type="checkbox" name="domown" value="prestado" id="prestado">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="laborando">Laborando</label>
+                            <input type="checkbox" name="domown" value="laborando" id="laborando">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <em>Nivel:&nbsp;</em>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="alto">Alto</label>
+                            <input type="checkbox" name="C_NSE" value="alto" id="alto">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="medio">Medio</label>
+                            <input type="checkbox" name="C_NSE" value="medio" id="medio">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="bajo">Bajo</label>
+                            <input type="checkbox" name="C_NSE" value="bajo" id="bajo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <em>Estado:&nbsp;</em>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="malo">Malo</label>
+                            <input type="checkbox" name="domstat" value="malo" id="malo">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="regular">Regular</label>
+                            <input type="checkbox" name="domstat" value="regular" id="regular">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="bueno">Bueno</label>
+                            <input type="checkbox" name="domstat" value="bueno" id="bueno">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="excelente">Excelente</label>
+                            <input type="checkbox" name="domstat" value="excelente" id="excelente">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label for="C_CALLE1">ENTRE CALLE&nbsp;</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" name="C_CALLE1" id="C_CALLE1">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="C_CALLE2">&nbsp;Y&nbsp;</label>&nbsp
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" name="C_CALLE2" id="C_CALLE2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Señas</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_CFAC">Color:</label>
+                            <select name="C_CFAC" id="C_CFAC">
+                                <option value="no">No especifica</option>
+                                {% include 'colores.twig' %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="C_CPTA">Puerta:</label>
+                            <select name="C_CPTA" id="C_CPTA">
+                                <option value="no">No especifica</option>
+                                <option value="no_tiene">No tiene</option>
+                                {% include 'colores.twig' %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="C_CREJ">Reja/Barandal:</label>
+                            <select name="C_CREJ" id="C_CREJ">
+                                <option value="no">No especifica</option>
+                                <option value="No">No tiene</option>
+                                {% include 'colores.twig' %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="C_CPAT">Patio/Jardín:</label>
+                            <select name="C_CPAT" id="C_CPAT">
+                                <option value="no">No especifica</option>
+                                <option value="si">Sí</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="C_CNIV">Pisos:</label>
+                            <select name="C_CNIV" id="C_CNIV">
+                                <option value="planta baja">planta baja</option>
+                                <option value="planta alta">planta alta</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4+">4+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Datos de la Gestion</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_VISIT">Visitador: </label>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="C_VISIT" id="C_VISIT">
+                                <option value=''></option>
+                                {% for v in visitadores %}
+                                    <option value="{{ v.iniciales }}">{{ v.completo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_VH">Hora:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input name="C_VH" id="C_VH" type="number" min="0" max="23" value="0">
+                            <label for="C_VMN">:</label>
+                            <input name="C_VMN" id="C_VMN" type="number" min="0" max="55" step="5" value="0">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="D_FECHv">Fecha:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class='fecha' name="D_FECH" id="D_FECHv" value="{{ CD }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_CARGv">Parentesco / Cargo:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="C_CARG" id="C_CARGv">
+                                <option value=""></option>
+                                <option value="Aval">Aval</option>
+                                <option value="Conyuge">Cónyuge</option>
+                                <option value="Deudor">Deudor</option>
+                                <option value="Familiar">Familiar</option>
+                                <option value="Hermano /a">Hermano/a</option>
+                                <option value="Hijo /a">Hijo/a</option>
+                                <option value="Madre">Madre</option>
+                                <option value="Otro">Otro</option>
+                                <option value="Padre">Padre</option>
+                                <option value="Vecino /a">Vecino/a</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_OBSE1v">Gestión:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE1v' onkeypress="tooLongV()"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_ACCIONv">Acción:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="C_ACCION" id="C_ACCIONv">
+                                {% include 'resopt.twig' with {'list': accionesV} %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_CVSTv">Status:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="C_CVST" id="C_CVSTv" onblur="statusChange();">
+                                {% include 'resopt.twig' with {'list': dictamenesV} %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_MOTIVv">Motivadores:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="C_MOTIV" id="C_MOTIVv">
+                                {% include 'resopt.twig' with {'list': motivV} %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_CNPv">Causa no pago:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="C_CNP" id="C_CNPv">
+                                {% include 'resopt.twig' with {'list': cnp} %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Promesa</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="N_PROMv">Cantidad de pago prometido: </label>
+                        </div>
+                        <div class="col-md-3">
+                            $&nbsp;<input type="text" name="N_PROM" id="N_PROMv" value="0">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="D_PROMv">Fecha promesa: </label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="D_PROM" id="D_PROMv" value="" class="fecha">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_PROMv">Frecuencia de pago prometido: </label>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="C_PROM" id="C_PROMv">
+                                <option value="" selected="selected"></option>
+                                <option value="unico">Único</option>
+                                <option value="semanales">Semanales</option>
+                                <option value="quincenales">Quincenales</option>
+                                <option value="mensuales">Mensuales</option>
+                                <option value="otro">Otro (en Gesti&oacute;n comentas)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Pago</h4>
+                        </div>
+                    </div>
+                    <div class="row" id="pagocaptv">
+                        <div class="col-md-2">
+                            <label for="N_PAGOv">Monto Pagó: </label>
+                        </div>
+                        <div class="col-md-3">
+                            $<input type="text" name="N_PAGO" id="N_PAGOv" value="0">
+                        </div>
+                    </div>
+                    <div class="row" id="pagocapt2v">
+                        <div class="col-md-2">
+                            <label for="D_PAGOv">Fecha Pagó: </label>
+                        </div>
+                        <div class="col-md-3">
+                            <input TYPE="text" NAME="D_PAGO" ID="D_PAGOv" VALUE="" class="fecha">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Actualización de Datos</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_NTELv">Telefono nuevo: </label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="C_NTEL" id="C_NTELv" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_OBSE2v">Telefono 2 nuevo: </label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="C_OBSE2" id="C_OBSE2v" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="C_NDIRv">Dirección nuevo: </label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="C_NDIR" id="C_NDIRv" value="">
+                        </div>
                     </div>
                     <input type="hidden" name="go" value="CAPTURADO">
-                    <input type="submit" name="CAPTURADO" value="CAPTURADO">
+                    <input type="submit" name="CAPTURADO" id="CAPTURADO" value="CAPTURADO" ondblclick="return false;"
+                           class="btn btn-primary">
+                    <button type="button" value="RESET" onclick="this.form.CAPTURADO.disabled = false" class="btn btn-warning">
+                        RESET
+                    </button>
                 </form>
             </div>
             <div role="tabpanel" class="tab-pane active" id="HISTORIA">
@@ -995,13 +1080,36 @@
 <script type="text/javascript" src="/js/depuracionv.js"></script>
 <script type="text/javascript">
     const resumen = {};
-    resumen.defineProperty('flag', '{{ valid.flag }}');
-    resumen.defineProperty('flagmsg', '{{ valid.msg }}');
-    resumen.defineProperty('cuenta', '{{ notas.cuenta }}');
-    resumen.defineProperty('notalert', '{{ notas.alert }}');
-    resumen.defineProperty('sdc', '{{ r.status_de_credito }}');
-    resumen.defineProperty('tipo', '{{ tipo }}');
-    resumen.defineProperty('tlp', '{{ tl }}');
+    Object.defineProperties(resumen, {
+        flag: {
+            value: '{{ valid.flag }}',
+            writable: false
+        },
+        flagmsg: {
+            value: '{{ valid.msg }}',
+            writable: false
+        },
+        cuenta: {
+            value: '{{ notas.cuenta }}',
+            writable: false
+        },
+        notalert: {
+            value: '{{ notas.alert }}',
+            writable: false
+        },
+        sdc: {
+            value: '{{ r.status_de_credito }}',
+            writable: false
+        },
+        tipo: {
+            value: '{{ tipo }}',
+            writable: false
+        },
+        tlp: {
+            value: '{{ tl }}',
+            writable: false
+        }
+    });
     document.getElementById('foto').onerror = function () {
         document.getElementById('fotobox').removeChild(document.getElementById('foto'));
     };
@@ -1011,6 +1119,9 @@
     flatpickr('#D_PROM3', {minDate : 'today'});
     flatpickr('#D_PROM4', {minDate : 'today'});
     flatpickr('#D_PAGOi', {maxDate : 'today'});
+    flatpickr('#D_PAGOv', {maxDate : 'today'});
+    flatpickr('#D_FECHv', {maxDate : 'today'});
+    flatpickr('#D_PROMv', {});
 </script>
 </body>
 </html>
