@@ -43,7 +43,7 @@ class GestoradminController extends Controller
         $data->setCompleto($r->completo);
         $data->setTipo($r->tipo);
         $data->setIniciales($r->iniciales);
-        $data->setPass($r->pass);
+        $data->setPass($r->passw);
         $this->gc->changeUserData($data);
         return $this->index();
     }

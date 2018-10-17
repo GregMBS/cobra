@@ -76,12 +76,12 @@ class GestoradminClassTest extends TestCase
         $gc = new GestoradminClass();
         $data = new GestorDataClass();
         $data->setCompleto('Pedro Laskin');
-        $data->setTipo('callcenter');
+        $data->setTipo('admin');
         $data->setIniciales('pedro');
         $data->setPass('AwRats');
         $gc->addUser($data);
         $this->hasUser($data);
-        $data->setTipo('admin');
+        $data->setTipo('callcenter');
         $gc->changeUserData($data);
         $this->hasUser($data);
         $gc->removeUser('pedro');
