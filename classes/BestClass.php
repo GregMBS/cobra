@@ -44,7 +44,7 @@ class BestClass extends BaseClass
      * @return array
      */
     public function getBestHistoriaData($c_cont) {
-        $query = "select c_cvst,c_tele,d_fech from historia
+        $query = "select c_cvst,c_tele,d_fech,c_accion from historia
 join dictamenes on c_cvst=dictamen
 where c_cont=:c_cont
 order by v_cc asc, d_fech desc limit 1";

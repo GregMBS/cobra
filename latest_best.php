@@ -33,12 +33,14 @@ foreach ($resultpre as $rowpre) {
         $aData['ultimo_status'] = $rowult['C_CVST'];
         $aData['ultimo_tel'] = $rowult['C_TELE'];
         $aData['ultimo_comentario'] = $rowult['C_OBSE1'];
+        $aData['ultimo_accion'] = $rowult['C_ACCION'];
     }
     $resultbest = $bc->getBestHistoriaData($aData['id_cuenta']);
     foreach ($resultbest as $rowbest) {
         $aData['mejor_status'] = $rowbest['c_cvst'];
         $aData['mejor_tel'] = $rowbest['c_tele'];
         $aData['mejor_fecha'] = $rowbest['d_fech'];
+        $aData['mejor_accion'] = $rowbest['c_accion'];
     }
     $aData['gestiones'] = $bc->countGestiones($aData['id_cuenta']);
     if ($i == 1) {
@@ -48,7 +50,11 @@ foreach ($resultpre as $rowpre) {
     $i++;
 }
 
-$writer = WriterFactory::create(Type::XLSX);
-$writer->openToBrowser($filename); // stream data directly to the browser
-$writer->addRows($output); // add multiple rows at a time
-$writer->close();
+try {
+    $writer = WriterFactory::create(Type::XLSX);
+    $writer->openToBrowser($filename); // stream data directly to the browser
+    $writer->addRows($output); // add multiple rows at a time
+    $writer->close();
+} catch (\Exception $e) {
+    // fail silently
+}
