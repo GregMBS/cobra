@@ -16,99 +16,99 @@ namespace cobra_salsa;
  */
 class BigClass extends BaseClass {
 
-	/**
-	 *
-	 * @var string
-	 */
-	private $queryFront;
+    /**
+     *
+     * @var string
+     */
+    private $queryFront;
 
-	/**
-	 *
-	 * @var string
-	 */
-	private $queryBack;
+    /**
+     *
+     * @var string
+     */
+    private $queryBack;
 
-	/**
-	 *
-	 * @param string $direction
-	 * @return string
-	 */
-	private function cleanDirection($direction) {
-		$haystack = array('asc', 'ASC', 'desc', 'DESC');
-		if (!in_array($direction, $haystack)) {
-			$direction = 'ASC';
-		}
-		return $direction;
-	}
+    /**
+     *
+     * @param string $direction
+     * @return string
+     */
+    private function cleanDirection($direction) {
+        $haystack = array('asc', 'ASC', 'desc', 'DESC');
+        if (!in_array($direction, $haystack)) {
+            $direction = 'ASC';
+        }
+        return $direction;
+    }
 
-	/**
-	 *
-	 * @param string $gestor
-	 * @return string
-	 */
-	private function getGestorStr($gestor) {
-		if ($gestor != 'todos') {
-			$gestorstr = " and c_cvge = :gestor ";
-		} else {
-			$gestorstr = "";
-		}
-		return $gestorstr;
-	}
+    /**
+     *
+     * @param string $gestor
+     * @return string
+     */
+    private function getGestorStr($gestor) {
+        if ($gestor != 'todos') {
+            $gestorstr = " and c_cvge = :gestor ";
+        } else {
+            $gestorstr = "";
+        }
+        return $gestorstr;
+    }
 
-	/**
-	 *
-	 * @param string $cliente
-	 * @return string
-	 */
-	private function getClienteStr($cliente) {
-		if ($cliente != 'todos') {
-			$clientestr = " and resumen.cliente = :cliente ";
-		} else {
-			$clientestr = "";
-		}
-		return $clientestr;
-	}
+    /**
+     *
+     * @param string $cliente
+     * @return string
+     */
+    private function getClienteStr($cliente) {
+        if ($cliente != 'todos') {
+            $clientestr = " and resumen.cliente = :cliente ";
+        } else {
+            $clientestr = "";
+        }
+        return $clientestr;
+    }
 
-	/**
-	 *
-	 * @param string $queryFront
-	 * @param string $queryBack
-	 * @param string $fecha1
-	 * @param string $fecha2
-	 * @param string $gestor
-	 * @param string $cliente
-	 * @return array
-	 */
-	private function getHistoria($fecha1, $fecha2, $gestor, $cliente) {
-		$query = $this->queryFront
-		. $this->getGestorStr($gestor)
-		. $this->getClienteStr($cliente)
-		. $this->queryBack;
-                
-                $stq = $this->pdo->prepare($query);
-		$stq->bindParam(':fecha1', $fecha1);
-		$stq->bindParam(':fecha2', $fecha2);
-		if ($gestor != 'todos') {
-			$stq->bindParam(':gestor', $gestor);
-		}
-		if ($cliente != 'todos') {
-			$stq->bindParam(':cliente', $cliente);
-		}
-		$stq->execute();
-		$data = $stq->fetchAll(\PDO::FETCH_ASSOC);
-		return $data;
-	}
+    /**
+     *
+     * @param string $queryFront
+     * @param string $queryBack
+     * @param string $fecha1
+     * @param string $fecha2
+     * @param string $gestor
+     * @param string $cliente
+     * @return array
+     */
+    private function getHistoria($fecha1, $fecha2, $gestor, $cliente) {
+        $query = $this->queryFront
+            . $this->getGestorStr($gestor)
+            . $this->getClienteStr($cliente)
+            . $this->queryBack;
 
-	/**
-	 *
-	 * @param string $fecha1
-	 * @param string $fecha2
-	 * @param string $gestor
-	 * @param string $cliente
-	 * @return array
-	 */
-	public function getAllPagos($fecha1, $fecha2, $gestor, $cliente) {
-		$this->queryFront = "select Status_aarsa AS 'STATUS',ejecutivo_asignado_call_center AS 'GESTOR',
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':fecha1', $fecha1);
+        $stq->bindParam(':fecha2', $fecha2);
+        if ($gestor != 'todos') {
+            $stq->bindParam(':gestor', $gestor);
+        }
+        if ($cliente != 'todos') {
+            $stq->bindParam(':cliente', $cliente);
+        }
+        $stq->execute();
+        $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    /**
+     *
+     * @param string $fecha1
+     * @param string $fecha2
+     * @param string $gestor
+     * @param string $cliente
+     * @return array
+     */
+    public function getAllPagos($fecha1, $fecha2, $gestor, $cliente) {
+        $this->queryFront = "select Status_aarsa AS 'STATUS',ejecutivo_asignado_call_center AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
     saldo_descuento_1 as 'SALDO CAPITAL s/i',saldo_total as 'SALDO TOTAL',
     pagos_vencidos*30 as 'MORA',n_prom as 'TOTAL PROMESA',
@@ -123,22 +123,22 @@ join pagos on numero_de_cuenta=pagos.cuenta and c_cvba=pagos.cliente
 where (n_prom>0 or n_prom is null)
 and pagos.fecha between :fecha1 and :fecha2
 ";
-		$this->queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
+        $this->queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
 group by resumen.id_cuenta ORDER BY d_fech,c_hrin";
-		$data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
-		return $data;
-	}
+        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
+        return $data;
+    }
 
-	/**
-	 *
-	 * @param string $fecha1
-	 * @param string $fecha2
-	 * @param string $gestor
-	 * @param string $cliente
-	 * @return array
-	 */
-	public function getBigVisitas($fecha1, $fecha2, $gestor, $cliente) {
-		$this->queryFront = "SELECT numero_de_cuenta as 'cuenta',
+    /**
+     *
+     * @param string $fecha1
+     * @param string $fecha2
+     * @param string $gestor
+     * @param string $cliente
+     * @return array
+     */
+    public function getBigVisitas($fecha1, $fecha2, $gestor, $cliente) {
+        $this->queryFront = "SELECT numero_de_cuenta as 'cuenta',
         nombre_deudor as 'nombre',
     resumen.cliente as 'cliente',status_de_credito as 'segmento',
     saldo_total,status_aarsa as 'mejor status',h1.*,d2.
@@ -153,43 +153,43 @@ left join pagos on c_cont=pagos.id_cuenta and d2.queue='PAGOS' and fecha between
 where d_fech between :fecha1 and :fecha2
 ";
 
-		$this->queryBack = " AND c_cniv <> '' ";
-		$data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
-		return $data;
-	}
+        $this->queryBack = " AND c_cniv <> '' ";
+        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
+        return $data;
+    }
 
-	/**
-	 *
-	 * @param string $fecha1
-	 * @param string $fecha2
-	 * @param string $gestor
-	 * @param string $cliente
-	 * @return array
-	 */
-	public function getAllGestiones($fecha1, $fecha2, $gestor, $cliente) {
-		$this->queryFront = "SELECT numero_de_cuenta,nombre_deudor,
+    /**
+     *
+     * @param string $fecha1
+     * @param string $fecha2
+     * @param string $gestor
+     * @param string $cliente
+     * @return array
+     */
+    public function getAllGestiones($fecha1, $fecha2, $gestor, $cliente) {
+        $this->queryFront = "SELECT numero_de_cuenta,nombre_deudor,
             resumen.cliente,status_de_credito,saldo_total,queue,h1.*
     from resumen join historia h1 on c_cont=id_cuenta
 join dictamenes on status_aarsa=dictamen
 where d_fech between :fecha1 and :fecha2
 ";
 
-		$this->queryBack = "and status_de_credito not like '%tivo'
+        $this->queryBack = "and status_de_credito not like '%tivo'
 ORDER BY d_fech,c_hrin";
-		$data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
-		return $data;
-	}
+        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
+        return $data;
+    }
 
-	/**
-	 *
-	 * @param string $fecha1
-	 * @param string $fecha2
-	 * @param string $gestor
-	 * @param string $cliente
-	 * @return array
-	 */
-	public function getBigGestiones($fecha1, $fecha2, $gestor, $cliente) {
-		$this->queryFront = "SELECT 
+    /**
+     *
+     * @param string $fecha1
+     * @param string $fecha2
+     * @param string $gestor
+     * @param string $cliente
+     * @return array
+     */
+    public function getBigGestiones($fecha1, $fecha2, $gestor, $cliente) {
+        $this->queryFront = "SELECT 
                     numero_de_cuenta as 'cuenta',
         nombre_deudor as 'nombre',
     resumen.cliente as 'cliente',
@@ -215,117 +215,117 @@ left join pagos on c_cont=pagos.id_cuenta and d2.queue='PAGOS' and fecha between
 where d_fech between :fecha1 and :fecha2
 ";
 
-		$this->queryBack = "";
-		$data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
-		return $data;
-	}
+        $this->queryBack = "";
+        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
+        return $data;
+    }
 
-	/**
-	 *
-	 * @param string $direction
-	 * @return array
-	 */
-	public function getGestionDates($direction) {
-		$dir = $this->cleanDirection($direction);
-		$query = "SELECT distinct d_fech FROM historia
+    /**
+     *
+     * @param string $direction
+     * @return array
+     */
+    public function getGestionDates($direction) {
+        $dir = $this->cleanDirection($direction);
+        $query = "SELECT distinct d_fech FROM historia
         where d_fech>last_day(curdate()-interval 5 week)
         ORDER BY d_fech $dir limit 60";
-		$stq = $this->pdo->prepare($query);
-		$stq->execute();
-		$result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-		return $result;
-	}
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
+        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
 
-	/**
-	 *
-	 * @param string $direction
-	 * @return array
-	 */
-	public function getPromDates($direction) {
-		$dir = $this->cleanDirection($direction);
-		$query = "SELECT distinct d_prom FROM historia
+    /**
+     *
+     * @param string $direction
+     * @return array
+     */
+    public function getPromDates($direction) {
+        $dir = $this->cleanDirection($direction);
+        $query = "SELECT distinct d_prom FROM historia
         where d_fech>last_day(curdate()-interval 5 week)
         and n_prom > 0
         ORDER BY d_fech $dir limit 60";
-		$stq = $this->pdo->prepare($query);
-		$stq->execute();
-		$result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-		return $result;
-	}
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
+        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
 
-	/**
-	 *
-	 * @param string $direction
-	 * @return array
-	 */
-	public function getPagosDates($direction) {
-		$dir = $this->cleanDirection($direction);
-		$query = "SELECT distinct fecha FROM pagos
+    /**
+     *
+     * @param string $direction
+     * @return array
+     */
+    public function getPagosDates($direction) {
+        $dir = $this->cleanDirection($direction);
+        $query = "SELECT distinct fecha FROM pagos
         where fecha>last_day(curdate()-interval 2 month)
         ORDER BY fecha $dir limit 60";
-		$result = $this->pdo->query($query);
-		return $result;
-	}
+        $result = $this->pdo->query($query);
+        return $result->fetchAll();
+    }
 
-	/**
-	 *
-	 * @return array
-	 */
-	public function getGestionClientes() {
-		$query = "SELECT distinct c_cvba FROM historia
+    /**
+     *
+     * @return array
+     */
+    public function getGestionClientes() {
+        $query = "SELECT distinct c_cvba FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         limit 10
 	";
-		$result = $this->pdo->query($query);
-		return $result;
-	}
+        $result = $this->pdo->query($query);
+        return $result->fetchAll();
+    }
 
-	/**
-	 *
-	 * @return array
-	 */
-	public function getPagosClientes() {
-		$query = "SELECT distinct cliente FROM pagos
+    /**
+     *
+     * @return array
+     */
+    public function getPagosClientes() {
+        $query = "SELECT distinct cliente FROM pagos
         where fecha>last_day(curdate()-interval 2 month)
         limit 10
 	";
-		$result = $this->pdo->query($query);
-		return $result;
-	}
+        $result = $this->pdo->query($query);
+        return $result->fetchAll();
+    }
 
-	/**
-	 *
-	 * @return array
-	 */
-	public function getGestionGestores() {
-		$query = "SELECT distinct c_cvge FROM historia
+    /**
+     *
+     * @return array
+     */
+    public function getGestionGestores() {
+        $query = "SELECT distinct c_cvge FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvge
         limit 1000";
-		$result = $this->pdo->query($query);
-		return $result;
-	}
+        $result = $this->pdo->query($query);
+        return $result->fetchAll();
+    }
 
-	/**
-	 *
-	 * @return array
-	 */
-	public function getPagosGestores() {
-		$query = "SELECT distinct gestor FROM pagos
+    /**
+     *
+     * @return array
+     */
+    public function getPagosGestores() {
+        $query = "SELECT distinct gestor FROM pagos
         where fecha>last_day(curdate()-interval 2 month)
         order by gestor
         limit 1000";
-		$result = $this->pdo->query($query);
-		return $result;
-	}
+        $result = $this->pdo->query($query);
+        return $result->fetchAll();
+    }
 
-	/**
-	 *
-	 * @param BigInputObject $bio
-	 * @return array
-	 */
-	public function getProms(BigInputObject $bio) {
-		$this->queryFront = "SELECT 
+    /**
+     *
+     * @param BigInputObject $bio
+     * @return array
+     */
+    public function getProms(BigInputObject $bio) {
+        $this->queryFront = "SELECT 
     numero_de_cuenta,
     nombre_deudor AS 'NOMBRE',
     resumen.cliente AS 'CLIENTE',
@@ -352,27 +352,27 @@ WHERE n_prom>0
             and d_fech between :fecha1 and :fecha2
             and d_prom between :fecha3 and :fecha4
             ";
-		$this->queryBack = " and status_de_credito not REGEXP '-'
+        $this->queryBack = " and status_de_credito not REGEXP '-'
             ORDER BY d_fech,c_hrin";
-		$query = $this->queryFront
-		. $bio->getGestorStr()
-		. $bio->getClienteStr()
-		. $this->queryBack;
+        $query = $this->queryFront
+            . $bio->getGestorStr()
+            . $bio->getClienteStr()
+            . $this->queryBack;
 
-                $stm = $this->pdo->prepare($query);
-		$stm->bindParam(':fecha1', $bio->getFecha1());
-		$stm->bindParam(':fecha2', $bio->getFecha2());
-		$stm->bindParam(':fecha3', $bio->getFecha3());
-		$stm->bindParam(':fecha4', $bio->getFecha4());
-		if ($bio->hasGestor()) {
-			$stm->bindParam(':gestor', $bio->getGestor());
-		}
-		if ($bio->hasCliente()) {
-			$stm->bindParam(':cliente', $bio->getCliente());
-		}
-		$stm->execute();
-                $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
-		return $result;
-	}
+        $stm = $this->pdo->prepare($query);
+        $stm->bindParam(':fecha1', $bio->getFecha1());
+        $stm->bindParam(':fecha2', $bio->getFecha2());
+        $stm->bindParam(':fecha3', $bio->getFecha3());
+        $stm->bindParam(':fecha4', $bio->getFecha4());
+        if ($bio->hasGestor()) {
+            $stm->bindParam(':gestor', $bio->getGestor());
+        }
+        if ($bio->hasCliente()) {
+            $stm->bindParam(':cliente', $bio->getCliente());
+        }
+        $stm->execute();
+        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
 
 }
