@@ -21,7 +21,8 @@ class GestoradminClassTest extends TestCase
             1 => 'tipo',
             2 => 'camp',
             3 => 'iniciales',
-            4 => 'pwd'
+            4 => 'pwd',
+            5 => 'name'
         );
         $gc = new GestoradminClass();
         $result = $gc->getNombres();
@@ -76,12 +77,12 @@ class GestoradminClassTest extends TestCase
         $gc = new GestoradminClass();
         $data = new GestorDataClass();
         $data->setCompleto('Pedro Laskin');
-        $data->setTipo('callcenter');
+        $data->setTipo('admin');
         $data->setIniciales('pedro');
         $data->setPass('AwRats');
         $gc->addUser($data);
         $this->hasUser($data);
-        $data->setTipo('admin');
+        $data->setTipo('callcenter');
         $gc->changeUserData($data);
         $this->hasUser($data);
         $gc->removeUser('pedro');

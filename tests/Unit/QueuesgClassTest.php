@@ -40,14 +40,14 @@ class QueuesgClassTest extends TestCase
     public function testGetSdcClients()
     {
         $qc = new QueuesgClass();
-        $result = $qc->getSdcClients('gmbs');
+        $result = $qc->getSdcClients('gregb');
         $this->assertNotEmpty($result);
     }
 
     public function testGetQueueSdcClients()
     {
         $qc = new QueuesgClass();
-        $result = $qc->getQueueSdcClients('gmbs');
+        $result = $qc->getQueueSdcClients('gregb');
         $this->assertNotEmpty($result);
     }
 }

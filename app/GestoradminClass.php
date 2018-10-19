@@ -65,7 +65,7 @@ class GestoradminClass extends BaseClass {
      * 
      * @param string $capt
      */
-    private function deleteFromQueuelist($capt) {
+    protected function deleteFromQueuelist($capt) {
         $query = "DELETE FROM queuelist WHERE gestor = :capt";
         $stb = $this->pdo->prepare($query);
         $stb->bindValue(':capt', $capt);
@@ -76,7 +76,7 @@ class GestoradminClass extends BaseClass {
      * 
      * @param string $capt
      */
-    private function deleteFromResumen($capt) {
+    protected function deleteFromResumen($capt) {
         $query = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
             WHERE ejecutivo_asignado_call_center = :capt";
         $stb = $this->pdo->prepare($query);
@@ -91,7 +91,7 @@ class GestoradminClass extends BaseClass {
      * @param string $iniciales
      * @param string $pass
      */
-    private function addToUsers($completo, $tipo, $iniciales, $pass) {
+    protected function addToUsers($completo, $tipo, $iniciales, $pass) {
         $query = "INSERT INTO users (iniciales, completo, password,
             tipo, camp) 
 	VALUES (:iniciales, :completo, :pass, :tipo, 999999)";
@@ -107,7 +107,7 @@ class GestoradminClass extends BaseClass {
      * 
      * @param string $iniciales
      */
-    private function addToQueuelist($iniciales) {
+    protected function addToQueuelist($iniciales) {
         $queryListIn = "insert ignore into queuelist
 		SELECT distinct null, :iniciales, cliente, status_aarsa, 999999,
 		orden1, updown1, orden2, updown2, orden3, updown3,
@@ -126,11 +126,11 @@ class GestoradminClass extends BaseClass {
      * @return array
      */
     public function getNombres() {
-        $query = "(SELECT completo, tipo, camp, iniciales, password as pwd
+        $query = "(SELECT completo, tipo, camp, iniciales, password as pwd, name
     FROM users
     WHERE iniciales <> 'gmbs')
     UNION
-(SELECT completo, tipo, camp, iniciales, passw as pwd
+(SELECT completo, tipo, camp, iniciales, passw as pwd, null as name
     FROM nombres
     WHERE iniciales <> 'gmbs')    
     order by tipo, iniciales";

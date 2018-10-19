@@ -1,13 +1,3 @@
-/**
- * Assign the project to an employee.
- * @param {Object} resumen - parameter object from twig page
- * @param {int} resumen.flag - has error.
- * @param {string} resumen.flagmsg - error message.
- * @param {string} resumen.cuenta - account number.
- * @param {string} resumen.sdc - account segmento.
- * @param {string} resumen.tipo - user type.
- * @param {int} resumen.notalert - has active nota.
- */
 $(function() {
     // $('.fecha').datepicker();
     // $('#tabs').tabs();
@@ -78,22 +68,27 @@ function statusChange() {
 }
 
 function addToTels(pos, tel) {
-    var tele = $("#C_TELE");
+    let tele = $("#C_TELE");
     tele.options[pos] = new Option(tel.value, tel.value, true, true);
     tele.options[pos].css('fontWeight', "bold");
     tele.options[pos].css('backgroundColor', "green");
 }
 
 function npromChange(thisform) {
-    thisform.N_PROM.value = (thisform.N_PROM1.value * 1)
-        + (thisform.N_PROM2.value * 1)
-        + (thisform.N_PROM3.value * 1)
-        + (thisform.N_PROM4.value * 1);
+    thisform.elements['N_PROM'].value = (thisform.elements['N_PROM1'].value * 1)
+        + (thisform.elements['N_PROM2'].value * 1)
+        + (thisform.elements['N_PROM3'].value * 1)
+        + (thisform.elements['N_PROM4'].value * 1);
 }
 
+const r = {
+    'special': '\\w',
+    'quotes': '\'\"',
+    'notnumbers': '^\\d'
+};
 
 function valid(o, w) {
-    const regex = /r[w]/gi;
+    const regex = new RegExp(r[w],'gi');
     o.value = o.value.replace(regex, ' ');
 }
 

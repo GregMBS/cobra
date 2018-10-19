@@ -13,7 +13,7 @@ class GestoradminController extends Controller
      * 
      * @var GestoradminClass
      */
-    private $gc;
+    protected $gc;
     
     public function __construct() {
         $this->gc = new GestoradminClass();
@@ -32,7 +32,7 @@ class GestoradminController extends Controller
         ->with('groups', $groups);
         return $view;
     }
-    
+
     /**
      * 
      * @param Request $r
@@ -43,7 +43,7 @@ class GestoradminController extends Controller
         $data->setCompleto($r->completo);
         $data->setTipo($r->tipo);
         $data->setIniciales($r->iniciales);
-        $data->setPass($r->pass);
+        $data->setPass($r->passw);
         $this->gc->changeUserData($data);
         return $this->index();
     }

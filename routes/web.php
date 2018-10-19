@@ -69,6 +69,8 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/gestor/add', 'GestoradminController@agregar');
     Route::post('/gestor/change', 'GestoradminController@cambiar');
     Route::post('/gestor/delete', 'GestoradminController@borrar');
+    Route::post('/nombre/change', 'NombresadminController@cambiar');
+    Route::post('/nombre/delete', 'NombresadminController@borrar');
     Route::get('/breakAdmin', 'BreaksController@admindex');
     Route::delete('/breakAdmin/{auto}', 'BreaksController@borrar');
     Route::put('/breakAdmin', 'BreaksController@cambiar');
