@@ -26,6 +26,12 @@
     <tbody class="ui-widget-content">
     {% for r in result %}
         {% set rnd = random() %}
+        {% set changeUrl = '/gestor/change' %}
+        {% set deleteUrl = '/gestor/delete' %}
+        {% if r.name is null %}
+            {% set changeUrl = '/nombre/change' %}
+            {% set deleteUrl = '/nombre/delete' %}
+        {% endif %}
         <tr>
 
             <td><input form="gestorchange{{ rnd }}" type="text"
@@ -46,14 +52,14 @@
                 </select></td>
             <td>
                 <form name="gestorchange{{ rnd }}" method="post"
-                      action="{{ url('/gestor/change') }}" id="gestorchange{{ rnd }}">
+                      action="{{ changeUrl }}" id="gestorchange{{ rnd }}">
                     {{ csrf_field() }}
                     <input type="submit" name="go" value="GUARDAR">
                 </form>
             </td>
             <td>
                 <form name="gestordelete{{ rnd }}" method="post"
-                      action="{{ url('/gestor/delete') }}" id="gestordelete{{ rnd }}">
+                      action="{{ deleteUrl }}" id="gestordelete{{ rnd }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="iniciales" value="{{ r.iniciales }}"/>
                     <input type="submit" name="go" value="BORRAR">

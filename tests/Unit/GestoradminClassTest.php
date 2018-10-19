@@ -21,7 +21,8 @@ class GestoradminClassTest extends TestCase
             1 => 'tipo',
             2 => 'camp',
             3 => 'iniciales',
-            4 => 'pwd'
+            4 => 'pwd',
+            5 => 'name'
         );
         $gc = new GestoradminClass();
         $result = $gc->getNombres();
