@@ -21,5 +21,7 @@ const app = new Vue({
     el: '#app'
 });
 
+import {dropzone} from 'dropzone';
+
 import {flatpickr} from "flatpickr";
 

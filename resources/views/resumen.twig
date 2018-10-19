@@ -78,6 +78,7 @@
             </div>
             <div class="col-md-4" id="fotobox">
                 <img width="100" height="auto" src="/images/{{ r.id_cuenta }}.jpg" id="foto" alt="no foto"/>
+                <form action="{{ url('/imageUpload') }}" method="post" class="dropzone" id="my-awesome-dropzone"></form>
             </div>
             <div class="col-md-4" id='clock'>
                 <input type="hidden" id="timer" readonly="readonly" value="0">
