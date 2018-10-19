@@ -62,6 +62,7 @@ class GestionClassTest extends TestCase
      */
     private function doGestionTest(array $gestion)
     {
+        unset($gestion['C_CAMP']);
         $gc = new GestionClass();
         /** @var Builder $query */
         $query = Resumen::whereIdCuenta($gestion['C_CONT']);
@@ -79,6 +80,7 @@ class GestionClassTest extends TestCase
             ->where('C_TELE', '=', $gestion['C_TELE'])
             ->get()->first()->toArray();
         unset($effect['Auto']);
+        unset($effect['C_CAMP']);
         $testFull = [
             'C_OBSE1' => $gestion['C_OBSE1'],
             'C_CARG' => '',
@@ -129,7 +131,6 @@ class GestionClassTest extends TestCase
             'C_CSTAT' => null,
             'C_CREJ' => null,
             'C_CPAT' => null,
-            'C_CAMP' => '0',
             'C_EJE' => $gestor,
             'error' => 0
         ];

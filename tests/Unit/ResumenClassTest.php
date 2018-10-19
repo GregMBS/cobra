@@ -374,7 +374,7 @@ class ResumenClassTest extends TestCase
         $query = Resumen::whereNull('locker')->first();
         if ($query) {
             $timeLock = $rc->getTimelock($query->id_cuenta);
-            $this->assertEquals($now, $timeLock, '', 1);
+            $this->assertEquals($now, $timeLock, '', 2);
         }
         $query = Resumen::where('locker', '<>', '')->first();
         if ($query) {

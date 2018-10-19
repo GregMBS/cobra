@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "datatables.net": "^1.10.19",
+        "dropzone": "^5.5.1",
         "flatpickr": "^4.5.2"
     }
 }

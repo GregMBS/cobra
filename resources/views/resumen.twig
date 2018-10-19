@@ -6,6 +6,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
     <style>
         #TELEFONOS label { display: block }
         #REFERENCIAS label { display: block }
@@ -14,6 +15,15 @@
         #MISCELANEA label { display: block }
         h4 { font-weight: bold; background-color: yellow }
         #VISITA h4 { font-size: smaller }
+        {% if foto_exists %}
+        {% set fotoUrl =  '../images/' ~ r.id_cuenta ~ '.jpg'%}
+        .dropzone {
+            background: transparent url('{{ fotoUrl }}');
+            background-size: 240px;
+            height: 240px;
+            width: 240px;
+        }
+        {% endif %}
     </style>
 </head>
 <body id="todos">
@@ -77,7 +87,10 @@
                 {% include 'resfield.twig' with {'field': 'status_aarsa', 'label': 'Status de la Cuenta', 'value': r.status_aarsa} %}
             </div>
             <div class="col-md-4" id="fotobox">
-                <img width="100" height="auto" src="/images/{{ r.id_cuenta }}.jpg" id="foto" alt="no foto"/>
+                <form action="{{ url('/imageUpload') }}" class="dropzone" id="my-awesome-dropzone">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="id_cuenta" value="{{ r.id_cuenta }}">
+                </form>
             </div>
             <div class="col-md-4" id='clock'>
                 <input type="hidden" id="timer" readonly="readonly" value="0">
@@ -1074,6 +1087,7 @@
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
 <script type="text/javascript" src="/js/clock.js"></script>
 <script type="text/javascript" src="/js/resumen.js"></script>
 <script type="text/javascript" src="/js/depuracion.js"></script>
@@ -1110,8 +1124,22 @@
             writable: false
         }
     });
-    document.getElementById('foto').onerror = function () {
-        document.getElementById('fotobox').removeChild(document.getElementById('foto'));
+    Dropzone.prototype.defaultOptions.dictDefaultMessage = "Deja foto nuevo aqu&iacute; (JPG)";
+    Dropzone.prototype.defaultOptions.dictFallbackMessage = "El browser no acepta esa imagen";
+    Dropzone.prototype.defaultOptions.dictFallbackText = "Haz clic para cargar la imagen.";
+    Dropzone.prototype.defaultOptions.dictFileTooBig = "La imagen está demasiado pesada (@{{filesize}}MiB). Max: @{{maxFilesize}}MiB.";
+    Dropzone.prototype.defaultOptions.dictInvalidFileType = "Solamente JPG permitido.";
+    Dropzone.prototype.defaultOptions.dictResponseError = "Error del servidor: codigo @{{statusCode}}.";
+    Dropzone.prototype.defaultOptions.dictCancelUpload = "Cancelar carga";
+    Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "Estás seguro que deseas cancelar la carga?";
+    Dropzone.prototype.defaultOptions.dictRemoveFile = "Quitar la imagen";
+    Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Solamente una imagen por carga.";
+    Dropzone.options.myAwesomeDropzone = {
+        paramName: "image", // The name that will be used to transfer the file
+        maxFilesize: 10,
+        resizeWidth: 240,
+        maxFiles:1,
+        acceptedFiles:"image/jpeg"
     };
     setInterval('clock()', 1000);
     flatpickr('#D_PROM1', {minDate : 'today'});

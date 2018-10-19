@@ -208,6 +208,8 @@ class ResumenController extends Controller
         $gestores = $this->rc->getGestorList();
         $cnp = $this->rc->getCnp();
         $referencias = $this->fc->index($id_cuenta);
+        $imagePath = public_path('images/') . $id_cuenta . '.jpg';
+        $foto_exists = file_exists($imagePath);
         /**
          * @var View
          */
@@ -234,7 +236,8 @@ class ResumenController extends Controller
             ->with('cr', $cr)
             ->with('numgest', $numgest)
             ->with('from', $from)
-            ->with('camp', $camp);
+            ->with('camp', $camp)
+            ->with('foto_exists', $foto_exists);
         return $view;
     }
 
