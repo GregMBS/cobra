@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * Class Resumen
@@ -13,8 +15,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static|Resumen whereStatusDeCredito(string $sdc)
  * @property int $id_cuenta
  */
-class Resumen extends Model
+class Resumen extends Model implements HasMedia
 {
+    use HasMediaTrait;
+
     protected $table = 'resumen';
 
     public $timestamps = false;
