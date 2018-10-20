@@ -13,6 +13,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @method static|Resumen whereNumeroDeCuenta(string $cuenta)
  * @method static|Resumen whereEjecutivoAsignadoCallCenter(string $gestor)
  * @method static|Resumen whereStatusDeCredito(string $sdc)
+ * @method static|Resumen find(int $id)
  * @property int $id_cuenta
  */
 class Resumen extends Model implements HasMedia
