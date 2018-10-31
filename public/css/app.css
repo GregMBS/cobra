@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://stackpath.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css);.flatpickr-calendar {
+  /*
   background: transparent;
+  */
   opacity: 0;
   display: none;
   text-align: center;
@@ -247,7 +249,7 @@
 .flatpickr-months .flatpickr-next-month svg path {
   -webkit-transition: fill .1s;
   transition: fill .1s;
-  fill: inherit;
+  fill: currentColor;
 }
 
 .numInputWrapper {
@@ -338,7 +340,9 @@
 
 .flatpickr-current-month {
   font-size: 135%;
+/*
   line-height: inherit;
+*/
   font-weight: 300;
   color: inherit;
   position: absolute;

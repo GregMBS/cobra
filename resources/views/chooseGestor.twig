@@ -29,8 +29,7 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script>
     document.getElementById('horario').gestor.onchange = function() {
-        var newaction = '/horarios/' + this.value;
-        document.getElementById('horario').action = newaction;
+        document.getElementById('horario').action = '/horarios/' + this.value;
     };
 </script>
 </body>

@@ -5,7 +5,6 @@
         <style type="text/css">
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
-            div.logo {text-align:center; font-weight: bold;}
             fieldset {width: 21em; background-color: #c0c0c0;}
         </style>
     </head>
