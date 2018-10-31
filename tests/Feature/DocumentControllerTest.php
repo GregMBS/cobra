@@ -41,7 +41,8 @@ class DocumentControllerTest extends TestCase
     {
         /** @var Resumen $resumen */
         $resumen = Resumen::all()->first();
-        $file = new \Symfony\Component\HttpFoundation\File\UploadedFile(public_path('/INFONAVIT-PROMO.jpg'), 'INFONAVIT-PROMO.jpg');
+        /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
+        $file = new \Symfony\Component\HttpFoundation\File\UploadedFile(public_path('/FISA.jpg'), 'FISA.jpg');
 
         $response = $this->actingAs($this->user)->post('/documents/' . $resumen->id_cuenta, [
            'document' => $file
@@ -49,6 +50,7 @@ class DocumentControllerTest extends TestCase
 
         // Assert the file was stored...
         $this->assertTrue($resumen->hasMedia('documents'));
+        Storage::disk()->put(public_path('/FISA.jpg'), $file);
 
     }
 
