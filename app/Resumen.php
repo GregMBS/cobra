@@ -14,6 +14,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @method static|Resumen whereEjecutivoAsignadoCallCenter(string $gestor)
  * @method static|Resumen whereStatusDeCredito(string $sdc)
  * @method static|Resumen find(int $id)
+ * @method static|Resumen first()
  * @property int $id_cuenta
  */
 class Resumen extends Model implements HasMedia
@@ -21,6 +22,8 @@ class Resumen extends Model implements HasMedia
     use HasMediaTrait;
 
     protected $table = 'resumen';
+
+    protected $primaryKey = 'id_cuenta';
 
     public $timestamps = false;
 }

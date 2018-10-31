@@ -26,7 +26,7 @@ class DocumentController extends Controller
 
     /**
      * @param int $id
-     * @return string
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(int $id)
     {
@@ -47,7 +47,8 @@ class DocumentController extends Controller
                 }
             }
         }
-        return $output->toJson();
+        $view = view('documents')->with('files', $output);
+        return $view;
     }
 
 

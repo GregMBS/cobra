@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method  static|User whereIniciales(string $iniciales)
  * @method  User whereCompleto(string $completo)
  * @method  static|User whereTipo(string $tipo)
- * @method  User first()
+ * @method  static|User first()
  * @author gmbs
  *
  */

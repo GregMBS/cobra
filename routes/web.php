@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/imageUpload/{id_cuenta}', 'ImageUploadController@index');
     Route::post('/imageUpload', 'ImageUploadController@load');
+    Route::get('/documents/{id}', 'DocumentController@index');
+    Route::post('/documents/{id}', 'DocumentController@store');
+    Route::delete('/documents/{id}/{docId}', 'DocumentController@remove');
 });
 Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/home', function () {
