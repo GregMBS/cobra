@@ -64,6 +64,8 @@ Add additional notes about how to deploy this on a live system
 
 Please contact greg@gmbs-consulting for instructions on contributing
 
+Translation scripts generated using [projectTranslator](github.com/xanderyzwich/projectTranslator)
+
 ## Versioning
 
 Version 5 is in process. Version 4 is in production now, but will not be upgraded any further.Versions earlier than 4 are very unsupported.
