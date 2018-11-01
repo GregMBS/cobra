@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\ComparativoClass;
+use App\ComparisonClass;
 use View;
 
 /**
@@ -9,12 +9,12 @@ use View;
  * @author gmbs
  *        
  */
-class ComparativoController extends Controller
+class ComparisonController extends Controller
 {
 
     /**
      * 
-     * @var ComparativoClass
+     * @var ComparisonClass
      */
     private $cc;
     
@@ -22,7 +22,7 @@ class ComparativoController extends Controller
      */
     public function __construct()
     {
-        $this->cc = new ComparativoClass();
+        $this->cc = new ComparisonClass();
     }
     
     /**

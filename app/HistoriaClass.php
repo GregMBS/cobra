@@ -77,7 +77,7 @@ and c_cvba is null";
         FROM resumen 
         WHERE id_cuenta = :C_CONT";
         $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':C_CONT',$C_CONT, \PDO::PARAM_INT);
+        $sts->bindValue(':C_CONT',$C_CONT, \PDO::PARAM_INT);
         $sts->execute();
         $result = $sts->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -101,11 +101,11 @@ UPDATE resumen
 SQL;
         $newTels = [$tel, $telArray['tel_1_verif'], $telArray['tel_2_verif'], $telArray['tel_3_verif']];
         $stn = $this->pdo->prepare($query);
-        $stn->bindParam(':tel3', $newTels[3]);
-        $stn->bindParam(':tel2', $newTels[2]);
-        $stn->bindParam(':tel1', $newTels[1]);
-        $stn->bindParam(':tel', $newTels[0]);
-        $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindValue(':tel3', $newTels[3]);
+        $stn->bindValue(':tel2', $newTels[2]);
+        $stn->bindValue(':tel1', $newTels[1]);
+        $stn->bindValue(':tel', $newTels[0]);
+        $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $stn->execute();
         $telCheck = $this->getCurrentTels($C_CONT);
         $diff = array_diff($newTels, $telCheck);

@@ -3,16 +3,16 @@
 namespace App;
 
 /**
- * Class QuickAhoraClass
+ * Class QuickNowClass
  * @package App
  */
-class QuickAhoraClass extends BaseClass
+class QuickNowClass extends BaseClass
 {
     /**
      *
      * @var string
      */
-    protected $createAhora          = "CREATE TEMPORARY TABLE  `ahora` (
+    protected $createNow          = "CREATE TEMPORARY TABLE  ahora (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) NOT NULL,
   `cuenta` varchar(255),
@@ -33,7 +33,7 @@ class QuickAhoraClass extends BaseClass
      *
      * @var string
      */
-    protected $insertAhora          = <<<SQL
+    protected $insertNow          = <<<SQL
 INSERT INTO ahora (gestor,cuenta,nombre,cliente,camp,status,
 tiempo,queue,sistema,logout,id_cuenta) 
 SELECT DISTINCT userlog.gestor,numero_de_cuenta,nombre_deudor,
@@ -63,7 +63,7 @@ group by c_cvge";
      *
      * @var string
      */
-    protected $updateAhoraLogins    = "update ahora,logins set login=tlog where c_cvge=gestor";
+    protected $updateNowLogins    = "update ahora,logins set login=tlog where c_cvge=gestor";
     
     /**
      *
@@ -78,13 +78,13 @@ group by c_cvge";
      *
      * @var string
      */
-    protected $updateAhoraLogouts   = "update ahora,logouts set logout=tlogo where c_cvge=gestor";
+    protected $updateNowLogouts   = "update ahora,logouts set logout=tlogo where c_cvge=gestor";
     
     /**
      *
      * @var string
      */
-    protected $createBreakstat      = "create temporary table breakstat
+    protected $createBreakStat      = "create temporary table breakstat
 select c_cvge,max(auto) as mau from historia
 where d_fech=curdate() and c_cont=0
 group by c_cvge";
@@ -93,30 +93,30 @@ group by c_cvge";
      *
      * @var string
      */
-    protected $updateAhoraBreakstat = "update ahora,breakstat,historia set status=c_cvst
+    protected $updateNowBreakStat = "update ahora,breakstat,historia set status=c_cvst
 where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
     
     /**
      *
      * @var string
      */
-    protected $queryAhora           = "SELECT * FROM ahora";
+    protected $queryNow           = "SELECT * FROM ahora";
 
     /**
      * 
      * @return array
      */
-    public function getAhora()
+    public function getNow()
     {
-        $this->pdo->query($this->createAhora);
-        $this->pdo->query($this->insertAhora);
+        $this->pdo->query($this->createNow);
+        $this->pdo->query($this->insertNow);
         $this->pdo->query($this->createLogins);
-        $this->pdo->query($this->updateAhoraLogins);
+        $this->pdo->query($this->updateNowLogins);
         $this->pdo->query($this->createLogouts);
-        $this->pdo->query($this->updateAhoraLogouts);
-        $this->pdo->query($this->createBreakstat);
-        $this->pdo->query($this->updateAhoraBreakstat);
-        $sta    = $this->pdo->query($this->queryAhora);
+        $this->pdo->query($this->updateNowLogouts);
+        $this->pdo->query($this->createBreakStat);
+        $this->pdo->query($this->updateNowBreakStat);
+        $sta    = $this->pdo->query($this->queryNow);
         $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\BuscarClass;
+use App\SearchClass;
 use App\Resumen;
 use Tests\TestCase;
 
@@ -10,7 +10,7 @@ class BuscarClassTest extends TestCase
 {
     public function testListClients()
     {
-        $bc = new BuscarClass();
+        $bc = new SearchClass();
         $clients = $bc->listClients();
         $this->assertInternalType('array', $clients);
         $this->assertGreaterThan(0, count($clients));
@@ -18,7 +18,7 @@ class BuscarClassTest extends TestCase
 
     public function testSearchAccounts()
     {
-        $bc = new BuscarClass();
+        $bc = new SearchClass();
         $cuenta = Resumen::where('tel_1', '<>', '')
             ->where('tel_1_ref_1', '<>', '')
             ->first();

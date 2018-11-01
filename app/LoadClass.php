@@ -10,11 +10,11 @@ use Exception;
  */
 
 /**
- * Description of CargaClass
+ * Description of LoadClass
  *
  * @author gmbs
  */
-class CargaClass extends BaseClass
+class LoadClass extends BaseClass
 {
 
     /**

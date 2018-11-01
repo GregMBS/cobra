@@ -112,7 +112,7 @@ order by cliente,gestor,fecha";
 FROM resumen 
 WHERE id_cuenta=:id";
         $stc = $this->pdo->prepare($query);
-        $stc->bindParam(':id', $ID_CUENTA, \PDO::PARAM_INT);
+        $stc->bindValue(':id', $ID_CUENTA, \PDO::PARAM_INT);
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -129,7 +129,7 @@ FROM pagos
 WHERE id_cuenta=:id
 ORDER BY fecha";
         $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':id', $ID_CUENTA);
+        $sts->bindValue(':id', $ID_CUENTA);
         $sts->execute();
         $row = $sts->fetchAll(\PDO::FETCH_ASSOC);
         return $row;
@@ -170,7 +170,7 @@ order by cliente,gestor,fecha";
                 . "and cuenta = :CUENTA "
                 . "order by d_fech desc, c_hrin desc limit 1";
         $stn = $this->pdo->prepare($query);
-        $stn->bindParam(':CUENTA', $CUENTA);
+        $stn->bindValue(':CUENTA', $CUENTA);
         $stn->execute();
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
         if (isset($result['c_cvge'])) {
@@ -191,10 +191,10 @@ order by cliente,gestor,fecha";
         $sti = $this->pdo->prepare($query);
         foreach ($pagos as $pago) {
             $who = $this->attributePayment('gmbs', $pago['CUENTA']);
-            $sti->bindParam(':CUENTA', $pago['CUENTA']);
-            $sti->bindParam(':FECHA', $pago['FECHA']);
-            $sti->bindParam(':MONTO', $pago['MONTO']);
-            $sti->bindParam(':who', $who);
+            $sti->bindValue(':CUENTA', $pago['CUENTA']);
+            $sti->bindValue(':FECHA', $pago['FECHA']);
+            $sti->bindValue(':MONTO', $pago['MONTO']);
+            $sti->bindValue(':who', $who);
             $sti->execute();
         }
     }

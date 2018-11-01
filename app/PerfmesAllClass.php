@@ -34,7 +34,7 @@ class PerfmesAllClass extends BaseClass
             and D_FECH=last_day(curdate() - interval 2 month) + interval :dom day
             group by D_FECH";
         $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         if ($result) {
@@ -53,7 +53,7 @@ class PerfmesAllClass extends BaseClass
         $query = "select count(1) as ct from pagos
             where fecha=last_day(curdate() - interval 2 month) + interval :dom day";
         $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
@@ -89,7 +89,7 @@ class PerfmesAllClass extends BaseClass
             and c_cniv is null and c_msge is null
             and D_FECH=last_day(curdate() - interval 2 month) + interval :dom day";
         $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result['ct'];

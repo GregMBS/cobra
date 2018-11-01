@@ -84,15 +84,15 @@ SQL;
         ORDER BY d_fech,c_hrin";
         $querymain = $start . $gestorstr . $clientestr . $end;
         $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':fecha1', $bdc->fecha1);
-        $stm->bindParam(':fecha2', $bdc->fecha2);
-        $stm->bindParam(':fecha3', $bdc->fecha3);
-        $stm->bindParam(':fecha4', $bdc->fecha4);
+        $stm->bindValue(':fecha1', $bdc->fecha1);
+        $stm->bindValue(':fecha2', $bdc->fecha2);
+        $stm->bindValue(':fecha3', $bdc->fecha3);
+        $stm->bindValue(':fecha4', $bdc->fecha4);
         if ($bdc->hasGestor()) {
-            $stm->bindParam(':gestor', $bdc->gestor);
+            $stm->bindValue(':gestor', $bdc->gestor);
         }
         if ($bdc->hasCliente()) {
-            $stm->bindParam(':cliente', $bdc->cliente);
+            $stm->bindValue(':cliente', $bdc->cliente);
         }
         $stm->execute();
         $main = $stm->fetchAll(\PDO::FETCH_ASSOC);
@@ -103,7 +103,7 @@ SQL;
         foreach ($main as $m) {
             $obj = (object)$m;
             $id_cuenta = $obj->id_cuenta;
-            $stp->bindParam(':id', $id_cuenta);
+            $stp->bindValue(':id', $id_cuenta);
             $stp->execute();
             $pagos = $stp->fetch(\PDO::FETCH_ASSOC);
             $merged = array_merge($m, $pagos);

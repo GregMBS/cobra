@@ -2,21 +2,21 @@
 
 namespace Tests\Unit;
 
-use App\HorariosClass;
+use App\HoursClass;
 use App\HorariosDataClass;
 use Tests\TestCase;
 
 class HorariosClassTest extends TestCase
 {
     /**
-     * @var HorariosClass
+     * @var HoursClass
      */
     protected $uc;
     
     public function setUp()
     {
         parent::setUp();
-        $this->uc = new HorariosClass();
+        $this->uc = new HoursClass();
     }
 
     public function testListGestores()

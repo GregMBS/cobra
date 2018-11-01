@@ -14,8 +14,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function checkKeys(array $testKeys, array $result)
     {
-        if ($result) {
-            $this->assertGreaterThan(0, count($result));
+        if (isset($result[0])) {
             $first = $result[0];
             $keys = array_keys($first);
             $this->assertEquals($testKeys, $keys);

@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\BuscarClass;
+use App\SearchClass;
 use View;
 
-class BuscarController extends Controller
+class SearchController extends Controller
 {
     /**
      *
-     * @var BuscarClass
+     * @var SearchClass
      */
     private $bc;
     
      public function __construct() {
-        $this->bc = new BuscarClass();
+        $this->bc = new SearchClass();
     }
     
     /**

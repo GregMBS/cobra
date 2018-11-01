@@ -9,11 +9,11 @@
 namespace App;
 
 /**
- * Description of ComparativoClass
+ * Description of ComparisonClass
  *
  * @author gmbs
  */
-class ComparativoClass extends BaseClass {
+class ComparisonClass extends BaseClass {
 
     /**
      * 

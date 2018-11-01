@@ -41,8 +41,8 @@ class IntensidadClass extends BaseClass
     private function getIntensidad($query, $fecha1, $fecha2)
     {
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':fecha1', $fecha1);
-        $stq->bindParam(':fecha2', $fecha2);
+        $stq->bindValue(':fecha1', $fecha1);
+        $stq->bindValue(':fecha2', $fecha2);
         $stq->execute();
         $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $data;

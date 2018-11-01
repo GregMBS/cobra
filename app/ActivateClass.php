@@ -9,11 +9,11 @@
 namespace App;
 
 /**
- * Description of ActivarClass
+ * Description of ActivateClass
  *
  * @author gmbs
  */
-class ActivarClass extends BaseClass {
+class ActivateClass extends BaseClass {
 
     /**
      * @param array $data
@@ -26,7 +26,7 @@ where numero_de_cuenta = :cta
 and status_de_credito not regexp '-'";
         $stc = $this->pdo->prepare($queryCheck);
         foreach ($data as $d) {
-            $stc->bindParam(':cta', $d);
+            $stc->bindValue(':cta', $d);
             $stc->execute();
             $fail = $stc->fetch(\PDO::FETCH_ASSOC);
             $count += $fail['fail'];
@@ -45,7 +45,7 @@ where numero_de_cuenta = :cta
 and status_de_credito regexp '-'";
         $stc = $this->pdo->prepare($queryCheck);
         foreach ($data as $d) {
-            $stc->bindParam(':cta', $d);
+            $stc->bindValue(':cta', $d);
             $stc->execute();
             $fail = $stc->fetch(\PDO::FETCH_ASSOC);
             $count += $fail['fail'];
@@ -57,13 +57,13 @@ and status_de_credito regexp '-'";
      * @param array $data
      * @return array
      */
-    public function activateCuentas(array $data) {
+    public function activateAccounts(array $data) {
         $query = "update resumen
 set status_de_credito=substring_index(status_de_credito,'-',1)
 where numero_de_cuenta=:cta";
         $std = $this->pdo->prepare($query);
         foreach ($data as $d) {
-            $std->bindParam(':cta', $d);
+            $std->bindValue(':cta', $d);
             $std->execute();
         }
         $count = [
@@ -77,13 +77,13 @@ where numero_de_cuenta=:cta";
      * @param array $data
      * @return array
      */
-    public function inactivateCuentas(array $data) {
+    public function inactivateAccounts(array $data) {
         $query = "update resumen
 set status_de_credito=concat(substring_index(status_de_credito,'-',1),'-inactivo') 
 where status_de_credito not regexp '-' and numero_de_cuenta=:cta";
         $std = $this->pdo->prepare($query);
         foreach ($data as $d) {
-            $std->bindParam(':cta', $d);
+            $std->bindValue(':cta', $d);
             $std->execute();
         }
         $count = [

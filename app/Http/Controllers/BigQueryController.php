@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\BigPromClass;
+use App\BigGestionClass;
 use App\BigDataClass;
 use App\OutputClass;
 use View;
 
-class BigpromsController extends Controller
+class BigQueryController extends Controller
 {
     /**
      * 
-     * @var BigPromClass
+     * @var BigGestionClass
      */
     private $bc;
     
     public function __construct() {
-        $this->bc = new BigPromClass();
+        $this->bc = new BigGestionClass();
     }
 
     /**
@@ -30,8 +30,8 @@ class BigpromsController extends Controller
      */
     public function makeReport(Request $r, OutputClass $oc) {
         $bdc = new BigDataClass($r);
-        $filename = "Query_de_promesas.xlsx";
-        $data = $this->bc->getProms($bdc);
+        $filename = "Query_de_gestiones.xlsx";
+        $data = $this->bc->getAllGestiones($bdc);
         if ($data) {
             $headers = array_keys($data[0]);
             $oc->writeXLSXFile($filename, $data, $headers);
@@ -43,9 +43,9 @@ class BigpromsController extends Controller
      * @return View
      */
     public function index() {
-        $gestores = $this->bc->getPromGestores();
-        $clientes = $this->bc->getPromClientes();
-        return view('bigproms')
+        $gestores = $this->bc->getGestionGestores();
+        $clientes = $this->bc->getGestionClientes();
+        return view('bigQuery')
         ->with('gestores', $gestores)
         ->with('clientes', $clientes);
     }

@@ -10,6 +10,8 @@ class ValidationClassTest extends TestCase
      * @var array
      */
     private $testEmpty = [
+        'C_CONT' => 0,
+        'C_CVGE' => '',
         'C_OBSE1' => '',
         'C_CARG' => '',
         'D_FECH' => '',

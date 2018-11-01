@@ -4,12 +4,12 @@
     <title>Inactivar Cuentas</title>
 </head>
 <body>
-<form action="/inactivar" method="post" name="cargar">
+<form action="{{ url('/inactivate') }}" method="post" name="load">
     {{ csrf_field() }}
     <div>
-        <p>Usa numero de cuenta</p>
-        <textarea name='data' rows='20' cols='50'></textarea>
-        <button type="submit" name="go" value="cargar">Cargar</button>
+        <label for="data">Usa numero de cuenta</label>
+        <textarea name='data' id='data' rows='20' cols='50'></textarea>
+        <button type="submit" name="go" value="load">Cargar</button>
     </div>
 </form>
 {{ msg }}

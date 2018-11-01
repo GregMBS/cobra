@@ -5,26 +5,26 @@ namespace App;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Description of segmentadminClass
+ * Description of SegmentAdminClass
  *
  * @author gmbs
  */
-class SegmentadminClass extends BaseClass {
+class SegmentAdminClass extends BaseClass {
 
     /**
      *
-     * @param string $cliente
-     * @param string $segmento
+     * @param string $client
+     * @param string $segment
      * @return boolean
      * @throws \Exception
      */
-	public function borrarSegmento($cliente, $segmento) {
+	public function eraseSegment($client, $segment) {
 	    $qc = new Queuelist();
         /**
          * @var Queuelist $query
          */
-	    $query = $qc->whereCliente($cliente);
-	    $query = $query->whereSdc($segmento);
+	    $query = $qc->whereCliente($client);
+	    $query = $query->whereSdc($segment);
 	    $result = $query->delete();
 		return $result;
 	}
@@ -34,7 +34,7 @@ class SegmentadminClass extends BaseClass {
 	 * @param string $cliente
 	 * @param string $segmento
 	 */
-	public function agregarSegmento($cliente, $segmento) {
+	public function addSegment($cliente, $segmento) {
         $query = <<<SQL
 INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
@@ -55,7 +55,7 @@ SQL;
 	/**
 	 *
 	 */
-	public function addAllSegmentos() {
+	public function addAllSegments() {
 	    /** @var Builder $rc */
 	    $rc = new Resumen();
         /**
@@ -85,7 +85,7 @@ SQL;
 	 *
 	 * @return array
 	 */
-	public function listQueuedSegmentos() {
+	public function listQueuedSegments() {
 		$queryTemp = <<<SQL
 CREATE TEMPORARY TABLE temporalQueued
 SELECT cliente, status_de_credito, COUNT(id_cuenta) AS counter FROM resumen
@@ -132,20 +132,20 @@ select distinct cliente,sdc from queuelist";
 
     /**
      * inactivate accounts and remove segment from queuelist
-     * @param  string $cliente [description]
-     * @param  string $segmento [description]
+     * @param  string $client [client]
+     * @param  string $segment [segment]
      * @throws \Exception
      */
-	public function inactivarSegmento($cliente, $segmento) {
+	public function inactivateSegment($client, $segment) {
 		$query = "update resumen
 set status_de_credito = concat(status_de_credito,'-inactivo')
-where status_de_credito = :segmento
-and cliente = :cliente";
+where status_de_credito = :segment
+and cliente = :client";
 		$stl = $this->pdo->prepare($query);
-		$stl->bindParam(':cliente', $cliente);
-		$stl->bindParam(':segmento', $segmento);
+		$stl->bindValue(':client', $client);
+		$stl->bindValue(':segment', $segment);
 		$stl->execute();
-		$this->borrarSegmento($cliente, $segmento);
+		$this->eraseSegment($client, $segment);
 	}
 
 }

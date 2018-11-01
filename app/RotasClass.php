@@ -75,8 +75,8 @@ and status_de_credito not regexp '-'
                     WHERE id_cuenta = :id_cuenta
                     AND fecha >= :d_fech";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stq->bindParam(':d_fech', $d_fech);
+        $stq->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stq->bindValue(':d_fech', $d_fech);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -101,7 +101,7 @@ AND NOT EXISTS (
     AND n_prom>0 AND CONCAT(h2.d_fech,h2.c_hrfi)>CONCAT(h1.d_fech,h1.c_hrfi)
 )";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stq->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -127,8 +127,8 @@ AND NOT EXISTS (
     AND n_prom>0 AND CONCAT(h2.d_fech,h2.c_hrfi)>CONCAT(h1.d_fech,h1.c_hrfi)
 )";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stq->bindParam(':c_cvge', $c_cvge);
+        $stq->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cvge', $c_cvge);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;

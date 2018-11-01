@@ -29,10 +29,10 @@
 <body id="todos">
 <div id="app">
     <ul id="buttonbox" class="nav nav-pills">
-        {% if from in ['ultima','find'] %}
+        {% if from in ['latest','find'] %}
             <li><a href="{{ url('/resumen',r.id_cuenta) }}">REINTRO QUEUE</a></li>
         {% endif %}
-        <li><a href="{{ url('/ultima') }}">ULTIMA</a></li>
+        <li><a href="{{ url('/latest') }}">ULTIMA</a></li>
         <li><a type="button" data-toggle="modal" data-target="#searchbox">BUSCAR</a></li>
         <li><a href="{{ url('/migo') }}">CUENTAS</a></li>
         <li><a href="{{ url('/visits',r.id_cuenta) }}" target="_blank">VISITAS</a></li>

@@ -2,20 +2,20 @@
 
 namespace Tests\Unit;
 
-use App\CargaClass;
+use App\LoadClass;
 use App\Cliente;
 use App\Resumen;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
-class CargaClassTest extends TestCase
+class LoadClassTest extends TestCase
 {
     public function testListClientes()
     {
         $count = Cliente::count();
         if ($count > 0) {
             $testKeys = ['cliente'];
-            $cc = new CargaClass();
+            $cc = new LoadClass();
             $result = $cc->listClientes();
             $this->checkKeys($testKeys, $result);
         }
@@ -24,7 +24,7 @@ class CargaClassTest extends TestCase
 
     public function testUpdateClientes()
     {
-        $cc = new CargaClass();
+        $cc = new LoadClass();
         $cc->updateClientes();
         $clientes = Cliente::all(['cliente'])->toArray();
         /** @var Builder $query */
@@ -35,7 +35,7 @@ class CargaClassTest extends TestCase
 
     public function testCheckDuplicates()
     {
-        $cc = new CargaClass();
+        $cc = new LoadClass();
         $testDupe = ['a', 'a', 'b', 'c'];
         $result = $cc->checkDuplicates($testDupe);
         $expected = ['flag' => true, 'columns' => ['a']];
@@ -48,7 +48,7 @@ class CargaClassTest extends TestCase
 
     public function testBadNames()
     {
-        $cc = new CargaClass();
+        $cc = new LoadClass();
         $testBad = ['a', 'a', 'b', 'c'];
         $result = $cc->badName($testBad);
         $expected = ['flag' => true, 'columns' => $testBad];

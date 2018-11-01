@@ -76,7 +76,7 @@ class ResumenController extends Controller
      * @return View
      * @throws \Exception
      */
-    public function ultima(ValidationErrorClass $valid)
+    public function latest(ValidationErrorClass $valid)
     {
         $capt = auth()->user()->iniciales;
         $id_cuenta = $this->rc->lastGestion($capt);
@@ -118,7 +118,7 @@ class ResumenController extends Controller
         $vc = new ValidationClass();
         $valid = $vc->countVisitErrors($r->all());
         if ($valid->flag) {
-            return $this->ultima($valid);
+            return $this->latest($valid);
         }
         $this->gc->doVisit($r->all());
         $view = $this->index();
@@ -136,7 +136,7 @@ class ResumenController extends Controller
         $this->gc->addNewTel($r->C_CONT, $r->C_OBSE2);
         $this->gc->updateAddress($r->C_CONT, $r->C_NDIR);
         $valid = new ValidationErrorClass();
-        $view = $this->ultima($valid);
+        $view = $this->latest($valid);
         return $view;
     }
 

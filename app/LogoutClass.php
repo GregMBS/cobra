@@ -37,7 +37,7 @@ class LogoutClass extends BaseClass
             . "SET timeLock = NULL, locker = NULL "
             . "WHERE locker = :capt";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':capt', $capt);
+        $stu->bindValue(':capt', $capt);
         $stu->execute();
     }
 
@@ -54,7 +54,7 @@ class LogoutClass extends BaseClass
         if ($why == 'forgot') {
             /** @var \PDOStatement $stl */
             $stl = $this->pdo->prepare($this->queryDateTime);
-            $stl->bindParam(':capt', $capt);
+            $stl->bindValue(':capt', $capt);
             $stl->execute();
             $result = $stl->fetch(\PDO::FETCH_ASSOC);
             if ($result) {
@@ -80,11 +80,11 @@ class LogoutClass extends BaseClass
 		VALUES
 		(:capt,'', 0, 0, :go, :date, :timeIn, :timeout)";
         $sti = $this->pdo->prepare($query);
-        $sti->bindParam(':capt', $capt);
-        $sti->bindParam(':go', $go);
-        $sti->bindParam(':date', $date);
-        $sti->bindParam(':timeIn', $time);
-        $sti->bindParam(':timeout', $time);
+        $sti->bindValue(':capt', $capt);
+        $sti->bindValue(':go', $go);
+        $sti->bindValue(':date', $date);
+        $sti->bindValue(':timeIn', $time);
+        $sti->bindValue(':timeout', $time);
         $sti->execute();
     }
 
@@ -97,7 +97,7 @@ class LogoutClass extends BaseClass
         $query = "UPDATE resumen SET locker=NULL, timeLock=NULL "
             . "WHERE locker = :capt";
         $stc = $this->pdo->prepare($query);
-        $stc->bindParam(':capt', $capt);
+        $stc->bindValue(':capt', $capt);
         $stc->execute();
     }
 
@@ -110,7 +110,7 @@ class LogoutClass extends BaseClass
         $query = "DELETE from rslice "
             . "WHERE user = :capt";
         $std = $this->pdo->prepare($query);
-        $std->bindParam(':capt', $capt);
+        $std->bindValue(':capt', $capt);
         $std->execute();
     }
 
@@ -123,7 +123,7 @@ class LogoutClass extends BaseClass
         $query = "update nombres set ticket = NULL "
             . "where iniciales = :capt";
         $stn = $this->pdo->prepare($query);
-        $stn->bindParam(':capt', $capt);
+        $stn->bindValue(':capt', $capt);
         $stn->execute();
     }
 

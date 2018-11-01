@@ -8,9 +8,9 @@ use Tests\TestCase;
 class PagesTest extends TestCase
 {
     private $reportUrls = [
-        '/activar',
-        '/bigproms',
-        '/bigquery',
+        '/activate',
+        '/bigProms',
+        '/bigQuery',
         '/breakAdmin',
         '/carga',
         '/changest',
@@ -21,7 +21,7 @@ class PagesTest extends TestCase
         '/horario',
         '/horarios',
         '/horariosv',
-        '/inactivar',
+        '/inactivate',
         '/intensidad',
         '/inventario',
         '/inventarioRapid',

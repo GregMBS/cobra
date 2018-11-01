@@ -2,18 +2,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\CargaClass;
+use App\LoadClass;
 use PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use View;
 use Exception;
 
-class CargaController extends Controller
+class LoadController extends Controller
 {
 
     /**
      *
-     * @var CargaClass
+     * @var LoadClass
      */
     private $cc;
 
@@ -27,7 +27,7 @@ class CargaController extends Controller
 
     public function __construct()
     {
-        $this->cc = new CargaClass();
+        $this->cc = new LoadClass();
     }
 
     /**

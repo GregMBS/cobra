@@ -42,11 +42,11 @@ class BigGestionClass extends BaseClass
     {
         $gestorstr = $bdc->getGestorString();
         $clientestr = $bdc->getClienteString();
-        $tipostr = $bdc->getTipoString();
-        $query = $queryFront . $gestorstr . $clientestr . $tipostr . $queryBack;
+        $userTypeString = $bdc->getTipoString();
+        $query = $queryFront . $gestorstr . $clientestr . $userTypeString . $queryBack;
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':fecha1', $bdc->fecha1);
-        $stq->bindParam(':fecha2', $bdc->fecha2);
+        $stq->bindValue(':fecha1', $bdc->fecha1);
+        $stq->bindValue(':fecha2', $bdc->fecha2);
         if ($bdc->hasGestor()) {
             $stq->bindValue(':gestor', $bdc->gestor);
         }
@@ -58,35 +58,6 @@ class BigGestionClass extends BaseClass
         return $data;
     }
 
-    /**
-     *
-     * @param BigDataClass $bdc
-     * @return array
-     */
-    /*
-    public function getBigGestiones(BigDataClass $bdc)
-    {
-        $queryFront = "SELECT numero_de_cuenta as 'cuenta',
-        nombre_deudor as 'nombre',
-    resumen.cliente as 'cliente',status_de_credito as 'segmento',
-    saldo_total as 'SALDO TOTAL', saldo_descuento_2 as 'SALDO MINIMO',
-    status_aarsa as 'mejor status',h1.*,d2. v_cc as ponderacion,
-    domicilio_deudor as calle,colonia_deudor as 'colonia',
-    direccion_nueva as 'direccion nueva',email_deudor,
-    pagos.fecha as 'fecha pago',pagos.monto as 'monto pago'
-    from resumen join historia h1 on c_cont=resumen.id_cuenta
-left join dictamenes d1 on status_aarsa=d1.dictamen
-left join dictamenes d2 on c_cvst=d2.dictamen
-left join pagos on c_cont=pagos.id_cuenta and d2.queue='PAGOS' 
-and fecha between last_day(d_fech-interval 1 month) and d_fech
-where d_fech between :fecha1 and :fecha2
-";
-
-        $queryBack = "";
-        $data = $this->getHistoria($queryFront, $queryBack, $bdc);
-        return $data;
-    }
-*/
     /**
      *
      * @param BigDataClass $bdc

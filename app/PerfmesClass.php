@@ -236,9 +236,9 @@ class PerfmesClass extends BaseClass
             and d_fech = last_day(curdate() - interval 2 month) + interval :dow day
             and c_hrin>:tiempo";
         $stq	 = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
-        $stq->bindParam(':dow', $dow, \PDO::PARAM_INT);
-        $stq->bindParam(':tiempo', $tiempo);
+        $stq->bindValue(':gestor', $gestor);
+        $stq->bindValue(':dow', $dow, \PDO::PARAM_INT);
+        $stq->bindValue(':tiempo', $tiempo);
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
@@ -279,8 +279,8 @@ class PerfmesClass extends BaseClass
             and fecha<=last_day(curdate()-interval 1 month)
             and day(fecha) = :dom";
         $stq	 = $this->pdo->prepare($query);
-        $stq->bindParam(':visitador', $visitador);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':visitador', $visitador);
+        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
@@ -302,8 +302,8 @@ class PerfmesClass extends BaseClass
             and fechaOut<last_day(curdate())+interval 1 month+interval 1 day
             and day(fechaOut) = :dom";
         $stq	 = $this->pdo->prepare($query);
-        $stq->bindParam(':visitador', $visitador);
-        $stq->bindParam(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':visitador', $visitador);
+        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
@@ -324,7 +324,7 @@ class PerfmesClass extends BaseClass
             and D_FECH>last_day(curdate() - interval 2 month)
             and D_FECH>=last_day(curdate() - interval 1 month)";
         $stq	 = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
+        $stq->bindValue(':gestor', $gestor);
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }

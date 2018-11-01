@@ -29,12 +29,12 @@ class BreaksDataClass
     /**
      * @var string
      */
-    private $empieza;
+    private $start;
 
     /**
      * @var string
      */
-    private $termina;
+    private $finish;
 
     /**
      * @param int $auto
@@ -45,11 +45,11 @@ class BreaksDataClass
     }
 
     /**
-     * @param string $empieza
+     * @param string $start
      */
-    public function setEmpieza($empieza)
+    public function setStart($start)
     {
-        $this->empieza = $empieza;
+        $this->start = $start;
     }
 
     /**
@@ -61,11 +61,11 @@ class BreaksDataClass
     }
 
     /**
-     * @param string $termina
+     * @param string $finish
      */
-    public function setTermina($termina)
+    public function setFinish($finish)
     {
-        $this->termina = $termina;
+        $this->finish = $finish;
     }
 
     /**
@@ -83,9 +83,9 @@ class BreaksDataClass
     {
         $object = new \stdClass();
         $object->auto = $this->auto;
-        $object->empieza = $this->empieza;
+        $object->start = $this->start;
         $object->gestor = $this->gestor;
-        $object->termina = $this->termina;
+        $object->finish = $this->finish;
         $object->tipo = $this->tipo;
         return $object;
     }

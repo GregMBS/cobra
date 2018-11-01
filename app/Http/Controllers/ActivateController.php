@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\ActivarClass;
+use App\ActivateClass;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 
-class ActivarController extends Controller
+class ActivateController extends Controller
 {
     /**
      * 
-     * @var ActivarClass
+     * @var ActivateClass
      */
     private $ac;
     
     public function __construct() {
-        $this->ac = new ActivarClass();
+        $this->ac = new ActivateClass();
     }
     
     /**
@@ -34,12 +34,12 @@ class ActivarController extends Controller
      * @param Request $r
      * @return View
      */
-    public function activar(Request $r) {
+    public function activate(Request $r) {
         $data = $r->data;
         $cuentas = $this->parseData($data);
-        $count = $this->ac->activateCuentas($cuentas);
+        $count = $this->ac->activateAccounts($cuentas);
         $msg = $count['active'] . 'cuentas activadas de ' . count($cuentas);
-        $view = view('activar')->with('msg', $msg);
+        $view = view('activate')->with('msg', $msg);
         return $view;
     }
     
@@ -48,15 +48,15 @@ class ActivarController extends Controller
      * @param Request $r
      * @return View
      */
-    public function inactivar(Request $r) {
+    public function inactivate(Request $r) {
         $data = $r->data;
         /**
          * @var array
          */
         $cuentas = $this->parseData($data);
-        $count = $this->ac->inactivateCuentas($cuentas);
+        $count = $this->ac->inactivateAccounts($cuentas);
         $msg = $count['inactive'] . 'cuentas inactivadas de ' . count($cuentas);
-        $view = view('inactivar')->with('msg', $msg);
+        $view = view('inactivate')->with('msg', $msg);
         return $view;
     }
 
@@ -65,7 +65,7 @@ class ActivarController extends Controller
      * @return View
      */
     public function activeShow() {
-        $view = view('activar')->with('msg', '');
+        $view = view('activate')->with('msg', '');
         return $view;
     }
     
@@ -74,7 +74,7 @@ class ActivarController extends Controller
      * @return View
      */
     public function inactiveShow() {
-        $view = view('inactivar')->with('msg', '');
+        $view = view('inactivate')->with('msg', '');
         return $view;
     }
 }

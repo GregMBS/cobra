@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BuscarClass;
+use App\SearchClass;
 use App\ChangestClass;
 use Illuminate\Http\Request;
 use View;
@@ -53,7 +53,7 @@ class ChangestController extends Controller
      */
     private function returnView($field, $find, $from, $cliente) {
         $result = [];
-        $bc = new BuscarClass();
+        $bc = new SearchClass();
         if (!empty($find)) {
             $result = $bc->searchAccounts($field, $find, $cliente);
         }

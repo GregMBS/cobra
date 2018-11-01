@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Breaks;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Tests\TestCase;
 
 class BreaksControllerTest extends TestCase
@@ -23,24 +25,28 @@ class BreaksControllerTest extends TestCase
         $response->assertViewIs('breakAdmin');
     }
 
-    public function testAgregarCambiarBorrar()
+    public function testAddChangeBorrar()
     {
         $user = User::whereTipo('admin')->first();
         $data = [
-            'gestor' => 'gregb',
+            'gestor' => $user->iniciales,
             'tipo' => 'break',
-            'empieza' => '12:00',
-            'termina' => '13:00'
+            'start' => '12:00',
+            'finish' => '13:00'
         ];
         $response = $this->actingAs($user)->post('/breakAdmin', $data);
-        $response->assertSee('gregb');
-        $break = Breaks::whereGestor('gregb')->first();
+        $response->assertSee($user->iniciales);
+        /** @var Builder $query */
+        $query = Breaks::whereGestor($user->iniciales);
+        $breaks = $query->get();
+        /** @var Breaks $break */
+        $break = $breaks->first();
         $id = $break->auto;
         $update = [
             'auto' => $id,
             'tipo' => 'bano',
-            'empieza' => '11:30',
-            'termina' => '12:00'
+            'start' => '11:30',
+            'finish' => '12:00'
         ];
         $response = $this->actingAs($user)->put('/breakAdmin', $update);
         $response->assertSee('11:30');

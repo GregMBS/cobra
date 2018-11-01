@@ -50,9 +50,9 @@ and queue = :queue ";
                                 AND cliente = :cliente";
         }
         $stc = $this->pdo->prepare($queryc);
-        $stc->bindParam(':cliente', $CLIENTE);
+        $stc->bindValue(':cliente', $CLIENTE);
         if (!empty($SDC)) {
-            $stc->bindParam(':sdc', $SDC);
+            $stc->bindValue(':sdc', $SDC);
         }
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);

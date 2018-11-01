@@ -6,13 +6,13 @@ use App\User;
 use Storage;
 use Tests\TestCase;
 
-class BigqueryControllerTest extends TestCase
+class BigQueryControllerTest extends TestCase
 {
     public function testMakeReport()
     {
         $user = User::whereTipo('admin')->first();
         $response=$this->actingAs($user)
-            ->get('/bigquery/make');
+            ->get('/bigQuery/make');
         $this->assertRegExp('/XLSX/', $response->getContent());
     }
 
@@ -20,7 +20,7 @@ class BigqueryControllerTest extends TestCase
     {
         $user = User::whereTipo('admin')->first();
         $response = $this->actingAs($user)
-            ->get('/bigquery');
-        $response->assertViewIs('bigquery');
+            ->get('/bigQuery');
+        $response->assertViewIs('bigQuery');
     }
 }

@@ -49,8 +49,8 @@ LIMIT 1";
         $query = "UPDATE notas SET borrado=1
 WHERE c_cvge=:capt and c_cont=:C_CONT";
         $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':capt', $capt);
-        $stb->bindParam(':C_CONT', $C_CONT);
+        $stb->bindValue(':capt', $capt);
+        $stb->bindValue(':C_CONT', $C_CONT);
         $stb->execute();
     }
 
@@ -63,8 +63,8 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
     {
         $query = "UPDATE notas set borrado=1 " . "where AUTO=:AUTO and C_CVGE=:capt";
         $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':capt', $capt);
-        $stb->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
+        $stb->bindValue(':capt', $capt);
+        $stb->bindValue(':AUTO', $AUTO, \PDO::PARAM_INT);
         $stb->execute();
     }
 
@@ -76,7 +76,7 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
     {
         $query = "UPDATE notas set borrado=1 " . "where AUTO=:AUTO";
         $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
+        $stb->bindValue(':AUTO', $AUTO, \PDO::PARAM_INT);
         $stb->execute();
     }
 
@@ -99,14 +99,14 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
 VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
 :CUENTA, :C_CONT)";
         $sti = $this->pdo->prepare($query);
-        $sti->bindParam(':capt', $capt);
-        $sti->bindParam(':D_FECH', $D_FECH);
-        $sti->bindParam(':C_HORA', $C_HORA);
-        $sti->bindParam(':FECHA', $FECHA);
-        $sti->bindParam(':HORA', $HORA);
-        $sti->bindParam(':NOTA', $NOTA);
-        $sti->bindParam(':CUENTA', $CUENTA);
-        $sti->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $sti->bindValue(':capt', $capt);
+        $sti->bindValue(':D_FECH', $D_FECH);
+        $sti->bindValue(':C_HORA', $C_HORA);
+        $sti->bindValue(':FECHA', $FECHA);
+        $sti->bindValue(':HORA', $HORA);
+        $sti->bindValue(':NOTA', $NOTA);
+        $sti->bindValue(':CUENTA', $CUENTA);
+        $sti->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
         $sti->execute();
         return $this->pdo->lastInsertId();
     }
@@ -120,7 +120,7 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
     {
         $query = "SELECT auto,fecha,hora,nota,c_cvge,cuenta " . "FROM notas " . "WHERE c_cvge IN (:capt, 'todos') " . "AND borrado=0 ORDER BY fecha desc,hora desc";
         $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':capt', $capt);
+        $sts->bindValue(':capt', $capt);
         $sts->execute();
         $result = $sts->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -154,11 +154,11 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
             VALUES
             (:target, :capt, CURDATE(), CURTIME(), :fecha, :hora, :nota)";
         $sti = $this->pdo->prepare($query);
-        $sti->bindParam(':target', $target);
-        $sti->bindParam(':capt', $capt);
-        $sti->bindParam(':fecha', $FECHA);
-        $sti->bindParam(':hora', $HORA);
-        $sti->bindParam(':nota', $NOTA);
+        $sti->bindValue(':target', $target);
+        $sti->bindValue(':capt', $capt);
+        $sti->bindValue(':fecha', $FECHA);
+        $sti->bindValue(':hora', $HORA);
+        $sti->bindValue(':nota', $NOTA);
         $sti->execute();
         return $this->pdo->lastInsertId();
     }
@@ -172,8 +172,8 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
     private function notaData($capt, $fechahora)
     {
         $stn = $this->pdo->prepare($this->notasDataQuery);
-        $stn->bindParam(':capt', $capt);
-        $stn->bindParam(':fechahora', $fechahora);
+        $stn->bindValue(':capt', $capt);
+        $stn->bindValue(':fechahora', $fechahora);
         $stn->execute();
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -187,7 +187,7 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
     public function notAlert($capt)
     {
         $stn = $this->pdo->prepare($this->notesQuery);
-        $stn->bindParam(':capt', $capt);
+        $stn->bindValue(':capt', $capt);
         $stn->execute();
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
         $output = new NotaDataClass();

@@ -9,11 +9,11 @@
 namespace App;
 
 /**
- * Description of BuscarClass
+ * Description of SearchClass
  *
  * @author gmbs
  */
-class BuscarClass extends BaseClass
+class SearchClass extends BaseClass
 {
 
     /**

@@ -84,7 +84,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
         $querymain = $this->querymainstart . $clientestr . $this->querymainend;
         $stm = $this->pdo->prepare($querymain);
         if ($cliente != 'todos') {
-            $stm->bindParam(':cliente', $cliente);
+            $stm->bindValue(':cliente', $cliente);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
@@ -104,7 +104,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
         $querymain = $this->fullquerymainstart . $clientestr . $this->fullquerymainend;
         $stm = $this->pdo->prepare($querymain);
         if ($cliente != 'todos') {
-            $stm->bindParam(':cliente', $cliente);
+            $stm->bindValue(':cliente', $cliente);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);

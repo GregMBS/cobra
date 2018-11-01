@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\SegmentadminClass;
+use App\SegmentAdminClass;
 use View;
 use Illuminate\Http\Request;
 
@@ -15,7 +15,7 @@ class SegmentController extends Controller
 
     /**
      *
-     * @var SegmentadminClass;
+     * @var SegmentAdminClass;
      */
     private $sc;
 
@@ -23,7 +23,7 @@ class SegmentController extends Controller
      */
     public function __construct()
     {
-        $this->sc = new SegmentadminClass();
+        $this->sc = new SegmentAdminClass();
     }
 
     /**
@@ -32,9 +32,9 @@ class SegmentController extends Controller
      * @return View
      * @throws \Exception
      */
-    public function borrar(Request $r)
+    public function erase(Request $r)
     {
-        $this->sc->borrarSegmento($r->cliente, $r->sdc);
+        $this->sc->eraseSegment($r->cliente, $r->sdc);
         $view = $this->index();
         return $view;
     }
@@ -43,9 +43,9 @@ class SegmentController extends Controller
      *
      * @return View
      */
-    public function agregartodo()
+    public function addAll()
     {
-        $this->sc->addAllSegmentos();
+        $this->sc->addAllSegments();
         $view = $this->index();
         return $view;
     }
@@ -55,7 +55,7 @@ class SegmentController extends Controller
      * @param Request $r
      * @return View
      */
-    public function agregar(Request $r)
+    public function add(Request $r)
     {
         $clienteSegmento = explode(';', $r->cliseg);
         $cliente = $clienteSegmento[0];
@@ -64,7 +64,7 @@ class SegmentController extends Controller
             if (count($clienteSegmento) > 1) {
                 $segmento = $clienteSegmento[1];
             }
-            $this->sc->agregarSegmento($cliente, $segmento);
+            $this->sc->addSegment($cliente, $segmento);
         }
         $view = $this->index();
         return $view;
@@ -76,9 +76,9 @@ class SegmentController extends Controller
      * @return View
      * @throws \Exception
      */
-    public function inactivar(Request $r)
+    public function inactivate(Request $r)
     {
-        $this->sc->inactivarSegmento($r->cliente, $r->sdc);
+        $this->sc->inactivateSegment($r->cliente, $r->sdc);
         $view = $this->index();
         return $view;
     }
@@ -89,7 +89,7 @@ class SegmentController extends Controller
      */
     public function index()
     {
-        $result = $this->sc->listQueuedSegmentos();
+        $result = $this->sc->listQueuedSegments();
         $resultU = $this->sc->listUnqueuedSegments();
         $view = view('segments')->with('result', $result)->with('resultU', $resultU);
         return $view;

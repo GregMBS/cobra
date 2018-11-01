@@ -101,8 +101,8 @@ SQL;
     private function cleanPago(PagobulkRowClass $rc)
     {
         $stpc = $this->pagoClean();
-        $stpc->bindParam(':cuenta', $rc->getCuenta());
-        $stpc->bindParam(':fecha', $rc->getFecha());
+        $stpc->bindValue(':cuenta', $rc->getCuenta());
+        $stpc->bindValue(':fecha', $rc->getFecha());
         $stpc->execute();
     }
 
@@ -114,8 +114,8 @@ SQL;
     private function getGestor(PagobulkRowClass $rc)
     {
         $stpf = $this->findGestor();
-        $stpf->bindParam(':cuenta', $rc->getCuenta());
-        $stpf->bindParam(':fecha', $rc->getFecha());
+        $stpf->bindValue(':cuenta', $rc->getCuenta());
+        $stpf->bindValue(':fecha', $rc->getFecha());
         $stpf->execute();
         $result = $stpf->fetch(\PDO::FETCH_ASSOC);
         $c_cvge = '';
@@ -132,10 +132,10 @@ SQL;
     private function fillTemp(PagobulkRowClass $rc)
     {
         $stpa = $this->addTemp();
-        $stpa->bindParam(':cuenta', $rc->getCuenta());
-        $stpa->bindParam(':fecha', $rc->getFecha());
-        $stpa->bindParam(':monto', $rc->getMonto());
-        $stpa->bindParam(':c_cvge', $rc->getGestor());
+        $stpa->bindValue(':cuenta', $rc->getCuenta());
+        $stpa->bindValue(':fecha', $rc->getFecha());
+        $stpa->bindValue(':monto', $rc->getMonto());
+        $stpa->bindValue(':c_cvge', $rc->getGestor());
         $stpa->execute();
     }
 

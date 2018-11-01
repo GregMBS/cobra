@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use View;
-use App\HorariosClass;
+use App\HoursClass;
 use App\HorariosAllClass;
 use App\HorariosDataClass;
 
@@ -11,7 +11,7 @@ class HorariosController extends Controller
 {
     /**
      *
-     * @var HorariosClass
+     * @var HoursClass
      */
     protected $hc;
 
@@ -47,7 +47,7 @@ class HorariosController extends Controller
 
     public function __construct()
     {
-        $this->hc = new HorariosClass();
+        $this->hc = new HoursClass();
         $this->hac = new HorariosAllClass();
         $this->yr = date('Y');
         $this->mes = date('m');

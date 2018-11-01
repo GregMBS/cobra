@@ -38,7 +38,7 @@ class GestoradminController extends Controller
      * @param Request $r
      * @return View
      */
-    public function cambiar(Request $r) {
+    public function change(Request $r) {
         $data = new GestorDataClass();
         $data->setCompleto($r->completo);
         $data->setTipo($r->tipo);
@@ -53,7 +53,7 @@ class GestoradminController extends Controller
      * @param Request $r
      * @return View
      */
-    public function borrar(Request $r) {
+    public function erase(Request $r) {
         $this->gc->removeUser($r->iniciales);
         return $this->index();
     }
@@ -63,7 +63,7 @@ class GestoradminController extends Controller
      * @param Request $r
      * @return View
      */
-    public function agregar(Request $r) {
+    public function add(Request $r) {
         $data = new GestorDataClass();
         $data->setCompleto($r->completo);
         $data->setTipo($r->tipo);
