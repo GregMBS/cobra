@@ -167,7 +167,7 @@ class BigDataClass
             case 'visits':
                 $tipoString = " and c_visit <> '' and c_msge is null ";
                 break;
-            case 'telef':
+            case 'tele':
                 $tipoString = " and c_visit IS NULL and c_msge is null ";
                 break;
            default :
