@@ -20,20 +20,20 @@ class BreaksClass extends BaseClass
     /**
      *
      * @param int $time
-     * @param string $gestor
+     * @param string $agent
      * @return array
      */
-    private function getTimes($time, $gestor)
+    private function getTimes($time, $agent)
     {
         $query = "select (time_to_sec(min(c_hrin))-:timeSec) as 'diff',
 min(c_hrin) as 'minhr'
 from historia 
-where c_cvge=:gestor and d_fech=curdate()
+where c_cvge=:agent and d_fech=curdate()
 and c_hrin>:times";
         $sdq = $this->pdo->prepare($query);
         $sdq->bindValue(':timeSec', $time);
         $sdq->bindValue(':times', $time);
-        $sdq->bindValue(':gestor', $gestor);
+        $sdq->bindValue(':agent', $agent);
         $sdq->execute();
         $result = $sdq->fetch(\PDO::FETCH_ASSOC);
         return $result;

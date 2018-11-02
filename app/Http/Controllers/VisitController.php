@@ -20,13 +20,13 @@ class VisitController extends Controller
 
     /**
      * 
-     * @param int $id_cuenta
+     * @param int $id
      * @return View
      */
-    public function index($id_cuenta)
+    public function index($id)
     {
-        $historia = $this->rc->listVisits($id_cuenta);
-        $view = view('visits')->with('historia', $historia);
+        $history = $this->rc->listVisits($id);
+        $view = view('visits')->with('historia', $history);
         return $view;
     }
 

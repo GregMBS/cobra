@@ -44,10 +44,10 @@ class BreaksController extends Controller
      */
     public function admIndex() {
         $breaks = $this->bc->listBreaks();
-        $gestores = $this->uc->listUsers();
+        $agents = $this->uc->listUsers();
         $view = view('breakAdmin')
         ->with('breaks', $breaks)
-        ->with('gestores', $gestores);
+        ->with('gestores', $agents);
         return $view;
     }
 

@@ -284,10 +284,10 @@ WHERE id_cuenta = :id";
 
     /**
      *
-     * @param GestionDataClass $gestion
+     * @param CallDataClass $gestion
      * @return int
      */
-    private function insertCall(GestionDataClass $gestion)
+    private function insertCall(CallDataClass $gestion)
     {
         $sti = $this->pdo->prepare($this->historyInsertQuery);
         $sti->bindValue(':C_CVBA', $gestion->getCCVBA());
@@ -465,7 +465,7 @@ SQL;
         if ($valid->flag) {
             return $valid;
         }
-        $gdc = new GestionDataClass($gestion['C_CONT']);
+        $gdc = new CallDataClass($gestion['C_CONT']);
         $gdc->setCCVST($gestion['C_CVST']);
         $gdc->setCCVGE($gestion['C_CVGE']);
         $gdc->setCACCION($gestion['C_ACCION']);

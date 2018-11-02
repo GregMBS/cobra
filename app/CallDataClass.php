@@ -6,7 +6,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class GestionDataClass
+class CallDataClass
 {
     /** @var string */
     private $C_CVBA;
@@ -222,11 +222,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_CVBA
+     * @param string $creditor
      */
-    private function setCCVBA(string $C_CVBA)
+    private function setCCVBA(string $creditor)
     {
-        $this->C_CVBA = $C_CVBA;
+        $this->C_CVBA = $creditor;
     }
 
     /**
@@ -238,11 +238,11 @@ class GestionDataClass
     }
 
     /**
-     * @param int $C_CONT
+     * @param int $id
      */
-    private function setCCONT(int $C_CONT)
+    private function setCCONT(int $id)
     {
-        $this->C_CONT = $C_CONT;
+        $this->C_CONT = $id;
     }
 
     /**
@@ -254,11 +254,11 @@ class GestionDataClass
     }
 
     /**
-     * @param int $C_CAMP
+     * @param int $campaign
      */
-    private function setCCAMP(int $C_CAMP)
+    private function setCCAMP(int $campaign)
     {
-        $this->C_CAMP = $C_CAMP;
+        $this->C_CAMP = $campaign;
     }
 
     /**
@@ -270,11 +270,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_HRIN
+     * @param string $startTime
      */
-    public function setCHRIN(string $C_HRIN)
+    public function setCHRIN(string $startTime)
     {
-        $this->C_HRIN = $C_HRIN;
+        $this->C_HRIN = $startTime;
     }
 
     /**
@@ -286,11 +286,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $CUENTA
+     * @param string $accountNumber
      */
-    private function setCUENTA(string $CUENTA)
+    private function setCUENTA(string $accountNumber)
     {
-        $this->CUENTA = $CUENTA;
+        $this->CUENTA = $accountNumber;
     }
 
     /**
@@ -302,11 +302,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_ATTE
+     * @param string $responder
      */
-    public function setCATTE($C_ATTE)
+    public function setCATTE($responder)
     {
-        $this->C_ATTE = $C_ATTE;
+        $this->C_ATTE = $responder;
     }
 
     /**
@@ -318,11 +318,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_CONTAN
+     * @param string $previousStatus
      */
-    private function setCCONTAN($C_CONTAN)
+    private function setCCONTAN($previousStatus)
     {
-        $this->C_CONTAN = $C_CONTAN;
+        $this->C_CONTAN = $previousStatus;
     }
 
     /**
@@ -334,11 +334,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_EJE
+     * @param string $assigned
      */
-    private function setCEJE($C_EJE)
+    private function setCEJE($assigned)
     {
-        $this->C_EJE = $C_EJE;
+        $this->C_EJE = $assigned;
     }
 
     /**
@@ -350,19 +350,19 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_CVGE
+     * @param string $agent
      */
-    public function setCCVGE(string $C_CVGE)
+    public function setCCVGE(string $agent)
     {
         /** @var Builder $query */
-        $query = User::whereIniciales($C_CVGE);
+        $query = User::whereIniciales($agent);
         try {
             /** @var User $user */
             $user = $query->firstOrFail();
             $this->C_CVGE = $user->iniciales;
             $this->setCCAMP($user->camp);
         } catch (ModelNotFoundException $e) {
-            dd('C_CVGE'.$C_CVGE);
+            dd('C_CVGE'.$agent);
         }
     }
 
@@ -375,11 +375,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $AUTH
+     * @param string $authorized
      */
-    public function setAUTH($AUTH)
+    public function setAUTH($authorized)
     {
-        $this->AUTH = $AUTH;
+        $this->AUTH = $authorized;
     }
 
     /**
@@ -391,14 +391,14 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_TELE
+     * @param string $telCalled
      */
-    public function setCTELE(string $C_TELE)
+    public function setCTELE(string $telCalled)
     {
-        if (empty($C_TELE)) {
-            dd('C_TELE'.$C_TELE);
+        if (empty($telCalled)) {
+            dd('C_TELE'.$telCalled);
         }
-        $this->C_TELE = $C_TELE;
+        $this->C_TELE = $telCalled;
     }
 
     /**
@@ -410,11 +410,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_CARG
+     * @param string $relationship
      */
-    public function setCCARG($C_CARG)
+    public function setCCARG($relationship)
     {
-        $this->C_CARG = $C_CARG;
+        $this->C_CARG = $relationship;
     }
 
     /**
@@ -426,11 +426,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_OBSE1
+     * @param string $text
      */
-    public function setCOBSE1(string $C_OBSE1)
+    public function setCOBSE1(string $text)
     {
-        $this->C_OBSE1 = $C_OBSE1;
+        $this->C_OBSE1 = $text;
     }
 
     /**
@@ -442,15 +442,15 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_ACCION
+     * @param string $action
      */
-    public function setCACCION(string $C_ACCION)
+    public function setCACCION(string $action)
     {
         /** @var \Illuminate\Database\Query\Builder $query */
-        $query = Accion::whereAccion($C_ACCION);
+        $query = Accion::whereAccion($action);
         $value = $query->first();
         if (empty($value)) {
-            dd('C_ACCION'.$C_ACCION);
+            dd('C_ACCION'.$action);
         }
         $code = $value->accion;
         $this->C_ACCION = $code;
@@ -465,12 +465,12 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_CVST
+     * @param string $status
      */
-    public function setCCVST(string $C_CVST)
+    public function setCCVST(string $status)
     {
         /** @var \Illuminate\Database\Query\Builder $query */
-        $query = Dictamen::whereDictamen($C_CVST);
+        $query = Dictamen::whereDictamen($status);
         $value = $query->first();
         if (empty($value)) {
             dd('C_CVST'.$value);
@@ -488,11 +488,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_CNP
+     * @param string $excuse
      */
-    public function setCCNP($C_CNP)
+    public function setCCNP($excuse)
     {
-        $this->C_CNP = $C_CNP;
+        $this->C_CNP = $excuse;
     }
 
     /**
@@ -504,18 +504,18 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_MOTIV
+     * @param string $motive
      */
-    public function setCMOTIV($C_MOTIV)
+    public function setCMOTIV($motive)
     {
-        if (!empty($C_MOTIV)) {
+        if (!empty($motive)) {
             try {
-                $value = Motivador::findOrFail($C_MOTIV);
+                $value = Motivador::findOrFail($motive);
             } catch (ModelNotFoundException $e) {
                 $value = '';
             }
-            if ($value !== $C_MOTIV) {
-                dd('C_MOTIV' . $C_MOTIV);
+            if ($value !== $motive) {
+                dd('C_MOTIV' . $motive);
             }
             $this->C_MOTIV = $value;
         }
@@ -530,11 +530,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $CUANDO
+     * @param string $availability
      */
-    public function setCUANDO($CUANDO)
+    public function setCUANDO($availability)
     {
-        $this->CUANDO = $CUANDO;
+        $this->CUANDO = $availability;
     }
 
     /**
@@ -554,11 +554,11 @@ class GestionDataClass
     }
 
     /**
-     * @param float $N_PROM1_OLD
+     * @param float $oldPromiseAmount1
      */
-    public function setNPROM1OLD($N_PROM1_OLD)
+    public function setNPROM1OLD($oldPromiseAmount1)
     {
-        $this->N_PROM1_OLD = $N_PROM1_OLD;
+        $this->N_PROM1_OLD = $oldPromiseAmount1;
     }
 
     /**
@@ -578,11 +578,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $D_PROM1_OLD
+     * @param string $oldPromiseDate1
      */
-    public function setDPROM1OLD($D_PROM1_OLD)
+    public function setDPROM1OLD($oldPromiseDate1)
     {
-        $this->D_PROM1_OLD = $D_PROM1_OLD;
+        $this->D_PROM1_OLD = $oldPromiseDate1;
     }
 
     /**
@@ -602,11 +602,11 @@ class GestionDataClass
     }
 
     /**
-     * @param float $N_PROM2_OLD
+     * @param float $oldPromiseAmount2
      */
-    public function setNPROM2OLD($N_PROM2_OLD)
+    public function setNPROM2OLD($oldPromiseAmount2)
     {
-        $this->N_PROM2_OLD = $N_PROM2_OLD;
+        $this->N_PROM2_OLD = $oldPromiseAmount2;
     }
 
     /**
@@ -626,11 +626,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $D_PROM2_OLD
+     * @param string $oldPromiseDate2
      */
-    public function setDPROM2OLD($D_PROM2_OLD)
+    public function setDPROM2OLD($oldPromiseDate2)
     {
-        $this->D_PROM2_OLD = $D_PROM2_OLD;
+        $this->D_PROM2_OLD = $oldPromiseDate2;
     }
 
     /**
@@ -650,11 +650,11 @@ class GestionDataClass
     }
 
     /**
-     * @param float $N_PROM3_OLD
+     * @param float $oldPromiseAmount3
      */
-    public function setNPROM3OLD($N_PROM3_OLD)
+    public function setNPROM3OLD($oldPromiseAmount3)
     {
-        $this->N_PROM3_OLD = $N_PROM3_OLD;
+        $this->N_PROM3_OLD = $oldPromiseAmount3;
     }
 
     /**
@@ -674,11 +674,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $D_PROM3_OLD
+     * @param string $oldPromiseDate3
      */
-    public function setDPROM3OLD($D_PROM3_OLD)
+    public function setDPROM3OLD($oldPromiseDate3)
     {
-        $this->D_PROM3_OLD = $D_PROM3_OLD;
+        $this->D_PROM3_OLD = $oldPromiseDate3;
     }
 
     /**
@@ -698,11 +698,11 @@ class GestionDataClass
     }
 
     /**
-     * @param float $N_PROM4_OLD
+     * @param float $oldPromiseAmount4
      */
-    public function setNPROM4OLD($N_PROM4_OLD)
+    public function setNPROM4OLD($oldPromiseAmount4)
     {
-        $this->N_PROM4_OLD = $N_PROM4_OLD;
+        $this->N_PROM4_OLD = $oldPromiseAmount4;
     }
 
     /**
@@ -722,11 +722,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $D_PROM4_OLD
+     * @param string $oldPromiseDate4
      */
-    public function setDPROM4OLD($D_PROM4_OLD)
+    public function setDPROM4OLD($oldPromiseDate4)
     {
-        $this->D_PROM4_OLD = $D_PROM4_OLD;
+        $this->D_PROM4_OLD = $oldPromiseDate4;
     }
 
     /**
@@ -738,11 +738,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_PROM
+     * @param string $paymentFrequency
      */
-    public function setCPROM($C_PROM)
+    public function setCPROM($paymentFrequency)
     {
-        $this->C_PROM = $C_PROM;
+        $this->C_PROM = $paymentFrequency;
     }
 
     /**
@@ -754,11 +754,11 @@ class GestionDataClass
     }
 
     /**
-     * @param float $N_PROM_OLD
+     * @param float $oldPromiseAmountTotal
      */
-    public function setNPROMOLD($N_PROM_OLD)
+    public function setNPROMOLD($oldPromiseAmountTotal)
     {
-        $this->N_PROM_OLD = $N_PROM_OLD;
+        $this->N_PROM_OLD = $oldPromiseAmountTotal;
     }
 
     /**
@@ -770,11 +770,11 @@ class GestionDataClass
     }
 
     /**
-     * @param int $N_PAGO
+     * @param int $amountPaid
      */
-    public function setNPAGO($N_PAGO)
+    public function setNPAGO($amountPaid)
     {
-        $this->N_PAGO = $N_PAGO;
+        $this->N_PAGO = $amountPaid;
     }
 
     /**
@@ -786,11 +786,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $D_PAGO
+     * @param string $datePaid
      */
-    public function setDPAGO($D_PAGO)
+    public function setDPAGO($datePaid)
     {
-        $this->D_PAGO = $D_PAGO;
+        $this->D_PAGO = $datePaid;
     }
 
     /**
@@ -802,11 +802,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_NTEL
+     * @param string $newTel
      */
-    public function setCNTEL($C_NTEL)
+    public function setCNTEL($newTel)
     {
-        $this->C_NTEL = $C_NTEL;
+        $this->C_NTEL = $newTel;
     }
 
     /**
@@ -818,11 +818,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_OBSE2
+     * @param string $newTel2
      */
-    public function setCOBSE2($C_OBSE2)
+    public function setCOBSE2($newTel2)
     {
-        $this->C_OBSE2 = $C_OBSE2;
+        $this->C_OBSE2 = $newTel2;
     }
 
     /**
@@ -834,11 +834,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_NDIR
+     * @param string $newAddress
      */
-    public function setCNDIR($C_NDIR)
+    public function setCNDIR($newAddress)
     {
-        $this->C_NDIR = $C_NDIR;
+        $this->C_NDIR = $newAddress;
     }
 
     /**
@@ -850,11 +850,11 @@ class GestionDataClass
     }
 
     /**
-     * @param string $C_EMAIL
+     * @param string $email
      */
-    public function setCEMAIL($C_EMAIL)
+    public function setCEMAIL($email)
     {
-        $this->C_EMAIL = $C_EMAIL;
+        $this->C_EMAIL = $email;
     }
 
     /**

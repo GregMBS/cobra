@@ -112,7 +112,7 @@ SQL;
      *
      * @return array
      */
-    public function getCallClientes()
+    public function getCallClients()
     {
         $query = <<<SQL
 SELECT distinct c_cvba FROM historia

@@ -69,7 +69,7 @@ class IntensidadClassTest extends TestCase
             'c_cvba'
         ];
         $ic = new IntensityClass();
-        $result = $ic->getCallClientes();
+        $result = $ic->getCallClients();
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);

@@ -20,7 +20,7 @@ class ComparisonClass extends BaseClass {
      * @return array
      */
     public function getReport() {
-        $querymain = <<<SQL
+        $query = <<<SQL
 select c_cvba, mdf, sum(gest) as sg, sum(contact) as sc,
     sum(prom) as sp, count(distinct c_cvge) as cg,
     count(distinct c_cvge,hour(c_hrin)) as ch
@@ -37,7 +37,7 @@ group by c_cvba,mdf
 SQL;
         $start = date('Y-m-d', strtotime('3 months ago'));
         $startDay = date('j', strtotime('3 months ago'));
-        $stc = $this->pdo->prepare($querymain);
+        $stc = $this->pdo->prepare($query);
         $stc->bindValue(':start', $start);
         $stc->bindValue(':startDay', $startDay);
         $stc->execute();

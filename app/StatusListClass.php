@@ -46,7 +46,7 @@ ORDER BY saldo_total desc";
      * @return array
      */
     public function getReport(StatusListDataClass $data) {
-        $client = $data->cliente;
+        $client = $data->client;
         $queue = $data->queue;
         $status = $data->sdc;
         $rateString = $data->rateString;

@@ -11,7 +11,7 @@ class StatusListDataClass
     /**
      * @var string
      */
-    public $cliente = '';
+    public $client = '';
 
     /**
      * @var string
@@ -35,12 +35,9 @@ class StatusListDataClass
 
     public function __construct(array $array)
     {
-        $fields = ['cliente', 'queue', 'sdc'];
-        foreach ($fields as $field) {
-            if (isset($array[$field])) {
-                $this->$field = $array[$field];
-            }
-        }
+        $this->client = $array['cliente'];
+        $this->sdc = $array['sdc'];
+        $this->queue = $array['queue'];
         $this->statusString = $this->getStatusString();
         $this->rateString = $this->getRateString($array['rato']);
     }

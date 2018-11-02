@@ -10,9 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string iniciales 
  * @property int camp 
  * @property string tipo
- * @method  static|User whereIniciales(string $iniciales)
- * @method  User whereCompleto(string $completo)
- * @method  static|User whereTipo(string $tipo)
+ * @method  static|User whereIniciales(string $initials)
+ * @method  User whereCompleto(string $fullName)
+ * @method  static|User whereTipo(string $type)
  * @method  static|User first()
  * @author gmbs
  *

@@ -48,13 +48,13 @@ class QuickController extends Controller
      */
     public function index()
     {
-        $resultAhora = $this->qa->getNow();
+        $resultNow = $this->qa->getNow();
         $resultHoy = $this->qh->getHoy();
         $resultBreaks = $this->qb->getBreaks();
         $resultPorHora = $this->qp->getPorHora();
         /** @var View $view */
         $view = view('quick')
-        ->with('resultAhora', $resultAhora)
+        ->with('resultAhora', $resultNow)
         ->with('resultHoy', $resultHoy)
         ->with('resultBreaks', $resultBreaks);
         $view = $view->with('resultPorHora', $resultPorHora);
