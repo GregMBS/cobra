@@ -84,7 +84,7 @@ group by c_cvge";
      *
      * @var string
      */
-    protected $createBreakStat      = "create temporary table breakstat
+    protected $createBreakStat      = "create temporary table breakfast
 select c_cvge,max(auto) as mau from historia
 where d_fech=curdate() and c_cont=0
 group by c_cvge";
@@ -93,8 +93,8 @@ group by c_cvge";
      *
      * @var string
      */
-    protected $updateNowBreakStat = "update ahora,breakstat,historia set status=c_cvst
-where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
+    protected $updateNowBreakStat = "update ahora,breakfast,historia set status=c_cvst
+where breakfast.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
     
     /**
      *

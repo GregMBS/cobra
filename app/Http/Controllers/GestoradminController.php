@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\GestorDataClass;
 use Illuminate\Http\Request;
-use App\GestoradminClass;
+use App\AgentAdminClass;
 use View;
 
 class GestoradminController extends Controller
 {
     /**
      * 
-     * @var GestoradminClass
+     * @var AgentAdminClass
      */
     protected $gc;
     
     public function __construct() {
-        $this->gc = new GestoradminClass();
+        $this->gc = new AgentAdminClass();
     }
     
     /**
@@ -25,7 +25,7 @@ class GestoradminController extends Controller
      */
     public function index()
     {
-        $result = $this->gc->getNombres();
+        $result = $this->gc->getNames();
         $groups = $this->gc->getGroups();
         $view = view('gestoradmin')
         ->with('result', $result)

@@ -11,11 +11,11 @@ namespace App;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Database Class for horarios
+ * Hours worked this month by all
  *
  * @author gmbs
  */
-class HorariosAllClass extends BaseClass
+class HoursAllClass extends BaseClass
 {
     /**
      * 
@@ -48,7 +48,7 @@ class HorariosAllClass extends BaseClass
      * @param int $dom
      * @return array
      */
-    public function getPagos($dom)
+    public function getPayments($dom)
     {
         $day = $dom . ' day of last month';
         $date = date('Y-m-d', strtotime($day));

@@ -17,23 +17,9 @@ class HoursClass extends BaseClass
 
     /**
      *
-     * @param float $dec
-     * @return string
-     */
-    /*
-    public function convertTime($dec)
-    {
-        $hour = floor($dec);
-        $min = round(60 * ($dec - $hour));
-        return $hour . ':' . str_pad($min, 2, '0', STR_PAD_LEFT);
-    }
-    */
-
-    /**
-     *
      * @return array
      */
-    public function listGestores()
+    public function listAgents()
     {
         $query = 'select distinct c_cvge from historia
             where d_fech>last_day(curdate() - interval 1 month)
@@ -46,7 +32,7 @@ class HoursClass extends BaseClass
      *
      * @return array
      */
-    public function listVisitadores()
+    public function listVisitors()
     {
         $query = 'select distinct completo,iniciales
 from nombres join historia on iniciales=c_visit
@@ -111,7 +97,7 @@ order by iniciales;';
      * @param int $dom
      * @return array
      */
-    private function getVisitadorMain($visitador, $dom)
+    private function getVisitorMain($visitador, $dom)
     {
         $query = "select count(distinct c_cont) as cuentas,
             sum(n_prom > 0) as promesas,
@@ -156,8 +142,8 @@ order by iniciales;';
     {
         $row = array();
         for ($i = 1; $i <= $dhoy; $i++) {
-            $data = new HorariosDataClass($i);
-            $main = $this->getVisitadorMain($c_visit, $i);
+            $data = new HoursDataClass($i);
+            $main = $this->getVisitorMain($c_visit, $i);
             $data->gestiones = $main['gestiones'];
             $data->cuentas = $main['cuentas'];
             $data->contactos = $main['contactos'];
@@ -177,7 +163,7 @@ order by iniciales;';
     public function packData(string $c_cvge, int $dhoy) {
         $row = array();
         for ($i = 1; $i <= $dhoy; $i++) {
-            $data = new HorariosDataClass($i);
+            $data = new HoursDataClass($i);
             $startStop = $this->getStartStopDiff($c_cvge, $i);
             $data->start = $startStop['start'];
             $data->stop = $startStop['stop'];

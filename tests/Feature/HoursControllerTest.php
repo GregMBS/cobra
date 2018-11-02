@@ -5,10 +5,10 @@ namespace Tests\Feature;
 use App\User;
 use Tests\TestCase;
 
-class HorariosControllerTest extends TestCase
+class HoursControllerTest extends TestCase
 {
 
-    protected $urlStub = 'horario';
+    protected $urlStub = 'hour';
 
     public function testShow()
     {

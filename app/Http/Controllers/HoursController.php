@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use View;
 use App\HoursClass;
-use App\HorariosAllClass;
-use App\HorariosDataClass;
+use App\HoursAllClass;
+use App\HoursDataClass;
 
-class HorariosController extends Controller
+class HoursController extends Controller
 {
     /**
      *
@@ -17,7 +17,7 @@ class HorariosController extends Controller
 
     /**
      *
-     * @var HorariosAllClass
+     * @var HoursAllClass
      */
     protected $hac;
 
@@ -39,16 +39,16 @@ class HorariosController extends Controller
 
     /** @var array  */
     protected $views = [
-        'index' => 'horarios',
-        'indexV' => 'horariosV',
-        'show' => 'horario',
-        'showV' => 'horarioV'
+        'index' => 'hours',
+        'indexV' => 'hoursV',
+        'show' => 'hour',
+        'showV' => 'hourV'
     ];
 
     public function __construct()
     {
         $this->hc = new HoursClass();
-        $this->hac = new HorariosAllClass();
+        $this->hac = new HoursAllClass();
         $this->yr = date('Y');
         $this->mes = date('m');
         $this->dhoy = date('d');
@@ -64,14 +64,14 @@ class HorariosController extends Controller
     {
         $output = array();
         $summary = array();
-        $gestores = $this->hc->listGestores();
+        $gestores = $this->hc->listAgents();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
         foreach ($gestores as $gestor) {
             $c_cvge = $gestor['c_cvge'];
             $output[$c_cvge] = $this->hc->packData($c_cvge, $this->dhoy);
         }
         for ($i = 1; $i <= $this->dhoy; $i++) {
-            $dataSum = new HorariosDataClass($i);
+            $dataSum = new HoursDataClass($i);
             $mainSum = $this->hac->getCurrentMain($i);
             if ($mainSum) {
                 $dataSum->gestiones = intval($mainSum['gestiones']);
@@ -80,7 +80,7 @@ class HorariosController extends Controller
                 $dataSum->nocontactos = intval($mainSum['nocontactos']);
                 $dataSum->promesas = intval($mainSum['promesas']);
             }
-            $dataSum->pagos = $this->hac->getPagos($i);
+            $dataSum->pagos = $this->hac->getPayments($i);
             $summary[$i] = $dataSum;
         }
         $c_cvge = array_column($gestores, 'c_cvge');
@@ -100,7 +100,7 @@ class HorariosController extends Controller
     public function indexV()
     {
         $output = array();
-        $visitadores = $this->hc->listVisitadores();
+        $visitadores = $this->hc->listVisitors();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
         foreach ($visitadores as $visitador) {
             $c_visit = $visitador['iniciales'];
@@ -158,7 +158,7 @@ class HorariosController extends Controller
      */
     public function select()
     {
-        $gestores = $this->hc->listGestores();
+        $gestores = $this->hc->listAgents();
         $view = view('chooseGestor')
             ->with('gestores', $gestores);
         return $view;

@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App\Historia;
-use App\HorariosDataClass;
+use App\HoursDataClass;
 use App\Pago;
-use App\PerfmesAllClass;
+use App\LastMonthAllClass;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class PerfmesAllClassTest extends TestCase
             'nocontactos',
             'contactos'
         ];
-        $hc = new PerfmesAllClass();
+        $hc = new LastMonthAllClass();
         $result = $hc->getCurrentMain($dom);
         $this->checkKeys($testKeys, $result);
     }
@@ -41,8 +41,8 @@ class PerfmesAllClassTest extends TestCase
             /** @var Carbon $fecha */
             $fecha = new Carbon($pago->fecha);
             $dom = $fecha->day;
-            $hc = new PerfmesAllClass();
-            $result = $hc->getPagos($dom);
+            $hc = new LastMonthAllClass();
+            $result = $hc->getPayments($dom);
             $this->assertEquals($count, $result['ct']);
         }
         $this->assertTrue(true);
@@ -57,7 +57,7 @@ class PerfmesAllClassTest extends TestCase
             ->whereNull('c_cniv')
             ->whereNull('c_msge');
         $count = $query->count();
-        $hc = new PerfmesAllClass();
+        $hc = new LastMonthAllClass();
         $result = $hc->countAccounts();
         if ($count > 0) {
             $this->assertGreaterThan(0, $result);
@@ -79,7 +79,7 @@ class PerfmesAllClassTest extends TestCase
             /** @var Carbon $fecha */
             $fecha = new Carbon($gestion->D_FECH);
             $dom = $fecha->day;
-            $hc = new PerfmesAllClass();
+            $hc = new LastMonthAllClass();
             $result = $hc->countAccountsPerDay($dom);
             $this->assertGreaterThan(0, $result);
         }
@@ -88,10 +88,10 @@ class PerfmesAllClassTest extends TestCase
 
     public function testGetReport()
     {
-        $hc = new PerfmesAllClass();
+        $hc = new LastMonthAllClass();
         $result = $hc->getReport(2);
         $this->assertGreaterThan(0, count($result));
         $first = array_pop($result);
-        $this->assertInstanceOf(HorariosDataClass::class, $first);
+        $this->assertInstanceOf(HoursDataClass::class, $first);
     }
 }

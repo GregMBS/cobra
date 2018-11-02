@@ -11,11 +11,11 @@ namespace App;
 use DateTime;
 
 /**
- * Description of PagobulkRowClass
+ * Description of BulkPaymentsRowClass
  *
  * @author gmbs
  */
-class PagobulkRowClass {
+class BulkPaymentsRowClass {
 
     /**
      *

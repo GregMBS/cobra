@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use View;
-use App\PagobulkClass;
+use App\BulkPaymentsClass;
 
-class PagobulkController extends Controller
+class BulkPaymentsController extends Controller
 {
     /**
      *
-     * @var PagobulkClass
+     * @var BulkPaymentsClass
      */
     private $bc;
     
         
     public function __construct() {
-        $this->bc = new PagobulkClass();
+        $this->bc = new BulkPaymentsClass();
     }
 
     /**

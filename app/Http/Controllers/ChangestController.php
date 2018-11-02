@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SearchClass;
-use App\ChangestClass;
+use App\ChangeStatusClass;
 use Illuminate\Http\Request;
 use View;
 
@@ -11,12 +11,12 @@ class ChangestController extends Controller
 {
     /**
      *
-     * @var ChangestClass
+     * @var ChangeStatusClass
      */
     private $cc;
     
     public function __construct() {
-        $this->cc = new ChangestClass();
+        $this->cc = new ChangeStatusClass();
     }
     
     /**

@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\BigDataClass;
-use App\BigGestionClass;
+use App\BigCallClass;
 use Illuminate\Http\Request;
 use Tests\TestCase;
 
@@ -88,8 +88,8 @@ class BigGestionClassTest extends TestCase
             ]
         );
         $dataClass = new BigDataClass($r);
-        $bc = new BigGestionClass();
-        $report = $bc->getAllGestiones($dataClass);
+        $bc = new BigCallClass();
+        $report = $bc->getAllCalls($dataClass);
         if (count($report) > 0) {
             $this->checkKeys($this->keys, $report);
         }
@@ -103,8 +103,8 @@ class BigGestionClassTest extends TestCase
             ]
         );
         $dataClass = new BigDataClass($r);
-        $bc = new BigGestionClass();
-        $report = $bc->getAllGestiones($dataClass);
+        $bc = new BigCallClass();
+        $report = $bc->getAllCalls($dataClass);
         if (count($report) > 0) {
             $first = $report[0];
             $keys = array_keys($first);
@@ -116,26 +116,26 @@ class BigGestionClassTest extends TestCase
 
     public function testGetGestionClientes()
     {
-        $bc = new BigGestionClass();
-        $clientes = $bc->getGestionClientes();
+        $bc = new BigCallClass();
+        $clientes = $bc->getCallClientes();
         $this->assertInternalType('array', $clientes);
         $this->assertNotEmpty($clientes);
     }
 
     public function testGetGestionGestores()
     {
-        $bc = new BigGestionClass();
-        $gestores = $bc->getGestionGestores();
+        $bc = new BigCallClass();
+        $gestores = $bc->getCallGestores();
         $this->assertInternalType('array', $gestores);
         $this->assertNotEmpty($gestores);
     }
 
     public function testGestionDates()
     {
-        $bc = new BigGestionClass();
+        $bc = new BigCallClass();
         $dirs = ['asc', 'ASC', 'desc', 'DESC', ''];
         foreach ($dirs as $dir) {
-            $dates = $bc->getGestionDates($dir);
+            $dates = $bc->getCallDates($dir);
             $this->assertInternalType('array', $dates);
             $this->assertNotEmpty($dates);
         }

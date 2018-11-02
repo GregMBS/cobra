@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\NombresadminClass;
+use App\OldNamesAdminClass;
 
 class NombresadminController extends GestoradminController
 {
@@ -11,7 +11,7 @@ class NombresadminController extends GestoradminController
     public function __construct()
     {
         parent::__construct();
-        $this->gc = new NombresadminClass();
+        $this->gc = new OldNamesAdminClass();
     }
 
 }

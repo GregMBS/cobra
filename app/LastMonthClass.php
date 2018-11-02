@@ -9,11 +9,11 @@ namespace App;
  */
 
 /**
- * Database Class for perfmes
+ * Last months hours
  *
  * @author gmbs
  */
-class PerfmesClass extends BaseClass
+class LastMonthClass extends BaseClass
 {
     /**
      * @var false|string
@@ -74,7 +74,7 @@ class PerfmesClass extends BaseClass
      *
      * @return array
      */
-    public function listGestores()
+    public function listAgents()
     {
         $query = 'select distinct c_cvge from historia
             where d_fech > :start
@@ -93,7 +93,7 @@ class PerfmesClass extends BaseClass
      *
      * @return array
      */
-    public function listVisitadores()
+    public function listVisitors()
     {
         $query = 'select distinct completo,iniciales
 			from nombres join historia on iniciales=c_visit
@@ -171,7 +171,7 @@ class PerfmesClass extends BaseClass
      * @param int $dom
      * @return array
      */
-    private function getVisitadorMain($visitador, $dom)
+    private function getVisitorMain($visitador, $dom)
     {
         $query = "select count(distinct c_cont) as cuentas,
             sum(c_cvst like 'PROMESA DE%') as promesas,
@@ -196,61 +196,9 @@ class PerfmesClass extends BaseClass
      *
      * @param string $gestor
      * @param int $dom
-     * @param string $tipo
      * @return array
      */
-    /*
-    public function getTiempoDiff($gestor, $dom, $tipo)
-    {
-        $query	 = "select c_hrin as tiempo,
-            time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as diff
-            from historia
-            where c_cont=0 and c_cvge=:gestor
-            and d_fech=:start + interval :dom day
-            and c_cvst=:tipo
-            order by c_cvge,c_cvst,c_hrin";
-        $stq	 = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
-        $stq->bindValue(':start', $this->start);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
-        $stq->bindValue(':tipo', $tipo);
-        $stq->execute();
-        return $stq->fetchAll(\PDO::FETCH_ASSOC);
-    }
-    */
-
-    /**
-     *
-     * @param string $gestor
-     * @param int $dow
-     * @param string $tiempo
-     * @return array
-     */
-    /*
-    public function getNTPDiff($gestor, $dow, $tiempo)
-    {
-        $query	 = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as diff,
-            min(c_hrin) as ntp
-            from historia
-            where c_cvge = :gestor
-            and d_fech = last_day(curdate() - interval 2 month) + interval :dow day
-            and c_hrin>:tiempo";
-        $stq	 = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
-        $stq->bindValue(':dow', $dow, \PDO::PARAM_INT);
-        $stq->bindValue(':tiempo', $tiempo);
-        $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
-    }
-    */
-
-    /**
-     *
-     * @param string $gestor
-     * @param int $dom
-     * @return array
-     */
-    private function getPagos($gestor, $dom)
+    private function getPayments($gestor, $dom)
     {
         $query = "select count(1) as ct from pagos
             where gestor=:gestor
@@ -262,91 +210,6 @@ class PerfmesClass extends BaseClass
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
-
-    /**
-     *
-     * @param string $visitador
-     * @param int $dom
-     * @return array
-     */
-    /*
-    public function getVisitadorPagos($visitador, $dom)
-    {
-        $query	 = "select count(distinct pagos.auto) as ct from pagos
-            join historia on c_cont=id_cuenta
-            where c_visit = :visitador
-            and fecha>last_day(curdate()-interval 2 month)
-            and fecha<=last_day(curdate()-interval 1 month)
-            and day(fecha) = :dom";
-        $stq	 = $this->pdo->prepare($query);
-        $stq->bindValue(':visitador', $visitador);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
-    }
-    */
-
-    /**
-     *
-     * @param string $visitador
-     * @param int $dom
-     * @return array
-     */
-    /*
-    public function countVisitsAssigned($visitador, $dom)
-    {
-        $query	 = "select count(fechaOut) as co, count(fechaIn) as ci
-            from vasign
-            where gestor = :visitador
-            and fechaOut>last_day(curdate()-interval 2 month)
-            and fechaOut<last_day(curdate())+interval 1 month+interval 1 day
-            and day(fechaOut) = :dom";
-        $stq	 = $this->pdo->prepare($query);
-        $stq->bindValue(':visitador', $visitador);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
-    }
-    */
-
-    /**
-     *
-     * @param string $gestor
-     * @return array
-     */
-    /*
-    public function countAccounts($gestor)
-    {
-        $query	 = "select count(distinct c_cont) as ct
-            from historia
-            where c_cvge=:gestor and c_cont>0
-            and c_cniv is null and c_msge is null
-            and D_FECH>last_day(curdate() - interval 2 month)
-            and D_FECH>=last_day(curdate() - interval 1 month)";
-        $stq	 = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
-        $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
-    }
-    */
-
-    /**
-     *
-     * @return array
-     */
-    /*
-    public function countVisitadorDays()
-    {
-        $query	 = "select sum(fs) as sfs,sum(ss) as sss from
-(select distinct d_fech,DAYOFWEEK(d_fech)>1 and day(d_fech)<16 as fs,
-DAYOFWEEK(d_fech)>1 and day(d_fech)>15 as ss from historia
-where d_fech>last_day(curdate()-interval 2 month)
-and d_fech<=last_day(curdate()-interval 1 month)
-) as tmp";
-        $result	 = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
-    }
-    */
 
     /**
      *
@@ -372,7 +235,7 @@ and d_fech<=last_day(curdate()-interval 1 month)
     {
         $row = array();
         for ($i = 1; $i <= $this->diaHoy; $i++) {
-            $data = new HorariosDataClass($i);
+            $data = new HoursDataClass($i);
             $startStop = $this->getStartStopDiff($c_cvge, $i);
             $data->start = $startStop['start'];
             $data->stop = $startStop['stop'];
@@ -384,7 +247,7 @@ and d_fech<=last_day(curdate()-interval 1 month)
                 $data->contactos = $main['contactos'];
                 $data->nocontactos = $main['nocontactos'];
                 $data->promesas = $main['promesas'];
-                $data->pagos = $this->getPagos($c_cvge, $i);
+                $data->pagos = $this->getPayments($c_cvge, $i);
             }
             $row[$i] = $data;
         }
@@ -399,8 +262,8 @@ and d_fech<=last_day(curdate()-interval 1 month)
     {
         $row = array();
         for ($i = 1; $i <= $this->diaHoy; $i++) {
-            $data = new HorariosDataClass($i);
-            $main = $this->getVisitadorMain($c_visit, $i);
+            $data = new HoursDataClass($i);
+            $main = $this->getVisitorMain($c_visit, $i);
             $data->gestiones = $main['gestiones'];
             $data->cuentas = $main['cuentas'];
             $data->contactos = $main['contactos'];

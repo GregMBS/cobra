@@ -6,20 +6,20 @@ use Box\Spout\Writer\Common\Sheet;
 use Box\Spout\Writer\XLSX\Writer;
 use Illuminate\Http\Request;
 use View;
-use App\IntensidadClass;
+use App\IntensityClass;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\WriterFactory;
 
-class IntensidadController extends Controller
+class IntensityController extends Controller
 {
     /**
      * 
-     * @var IntensidadClass
+     * @var IntensityClass
      */
     private $ic;
     
     public function __construct() {
-        $this->ic = new IntensidadClass();
+        $this->ic = new IntensityClass();
     }
 
     /**
@@ -36,7 +36,7 @@ class IntensidadController extends Controller
         $fecha1 = $fechaArray[0];
         $fecha2 = $fechaArray[1];
         $filename = "Query_de_intensidad_".$fecha1.'_'.$fecha2.".xlsx";
-        $result = $this->ic->getByCuenta($fecha1, $fecha2);
+        $result = $this->ic->getByAccount($fecha1, $fecha2);
         $output   = array();
         $i = 0;
         
@@ -60,10 +60,10 @@ class IntensidadController extends Controller
         $sheet->setName('PorCuenta');
         $writer->addRows($output); // add multiple rows at a time
         $writer->addNewSheetAndMakeItCurrent();
-        $newsheet = $writer->getCurrentSheet();
-        $newsheet->setName('PorSegmento');
+        $newSheet = $writer->getCurrentSheet();
+        $newSheet->setName('PorSegmento');
         
-        $results = $this->ic->getBySegmento($fecha1, $fecha2);
+        $results = $this->ic->getBySegment($fecha1, $fecha2);
         
         $outputs   = array();
         $j = 0;

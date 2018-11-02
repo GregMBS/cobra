@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-class PerfmesControllerTest extends HorariosControllerTest
+class PerfmesControllerTest extends HoursControllerTest
 {
     protected $urlStub = 'perfme';
 

@@ -14,7 +14,7 @@ namespace App;
  * @author gmbs
  *
  */
-class BigGestionClass extends BaseClass
+class BigCallClass extends BaseClass
 {
 
     /**
@@ -38,7 +38,7 @@ class BigGestionClass extends BaseClass
      * @param BigDataClass $bdc
      * @return array
      */
-    private function getHistoria($queryFront, $queryBack, BigDataClass $bdc)
+    private function getHistory($queryFront, $queryBack, BigDataClass $bdc)
     {
         $gestorstr = $bdc->getGestorString();
         $clientestr = $bdc->getClienteString();
@@ -63,7 +63,7 @@ class BigGestionClass extends BaseClass
      * @param BigDataClass $bdc
      * @return array
      */
-    public function getAllGestiones(BigDataClass $bdc)
+    public function getAllCalls(BigDataClass $bdc)
     {
         $queryFront = "SELECT numero_de_cuenta,nombre_deudor,
             resumen.cliente,status_de_credito,saldo_total,queue,h1.*
@@ -74,7 +74,7 @@ where d_fech between :fecha1 and :fecha2
 
         $queryBack = "and status_de_credito not regexp '-'
 ORDER BY d_fech,c_hrin";
-        $data = $this->getHistoria($queryFront, $queryBack, $bdc);
+        $data = $this->getHistory($queryFront, $queryBack, $bdc);
         return $data;
     }
 
@@ -83,7 +83,7 @@ ORDER BY d_fech,c_hrin";
      * @param string $direction
      * @return array
      */
-    public function getGestionDates($direction)
+    public function getCallDates($direction)
     {
         $dir = $this->cleanDirection($direction);
         $start = "SELECT distinct d_fech FROM historia
@@ -100,7 +100,7 @@ ORDER BY d_fech,c_hrin";
      *
      * @return string[]
      */
-    public function getGestionClientes()
+    public function getCallClientes()
     {
         $query = "SELECT distinct c_cvba FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
@@ -116,7 +116,7 @@ ORDER BY d_fech,c_hrin";
      *
      * @return string[]
      */
-    public function getGestionGestores()
+    public function getCallGestores()
     {
         $query = "SELECT c_cvge, count(1) FROM historia
         where d_fech>last_day(curdate()-interval 2 month)

@@ -6,7 +6,7 @@ namespace App;
  * @author gmbs
  *        
  */
-class HorariosDataClass
+class HoursDataClass
 {
     /**
      * 

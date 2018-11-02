@@ -15,7 +15,7 @@
         #MISCELANEA label { display: block }
         h4 { font-weight: bold; background-color: yellow }
         #VISITA h4 { font-size: smaller }
-        {% if foto_exists %}
+        {% if photo_exists %}
         {% set fotoUrl =  '../images/' ~ r.id_cuenta ~ '.jpg'%}
         .dropzone {
             background: transparent url('{{ fotoUrl }}');

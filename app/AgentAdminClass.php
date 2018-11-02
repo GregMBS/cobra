@@ -9,11 +9,11 @@
 namespace App;
 
 /**
- * Description of GestoradminClass
+ * Description of AgentAdminClass
  *
  * @author gmbs
  */
-class GestoradminClass extends BaseClass {
+class AgentAdminClass extends BaseClass {
 
     /**
      * 
@@ -125,7 +125,7 @@ class GestoradminClass extends BaseClass {
      * 
      * @return array
      */
-    public function getNombres() {
+    public function getNames() {
         $query = "(SELECT completo, tipo, camp, iniciales, password as pwd, name
     FROM users
     WHERE iniciales <> 'gmbs')

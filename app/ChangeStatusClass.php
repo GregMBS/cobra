@@ -9,11 +9,11 @@
 namespace App;
 
 /**
- * Description of ChangestClass
+ * Description of ChangeStatusClass
  *
  * @author gmbs
  */
-class ChangestClass extends BaseClass {
+class ChangeStatusClass extends BaseClass {
 
     /**
      *

@@ -2,19 +2,13 @@
 
 namespace App;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Database queries for 'big' reports
+ * IntensityClass
  *
  * @author gmbs
  *
  */
-class IntensidadClass extends BaseClass
+class IntensityClass extends BaseClass
 {
 
     /**
@@ -34,15 +28,15 @@ class IntensidadClass extends BaseClass
     /**
      *
      * @param string $query
-     * @param string $fecha1
-     * @param string $fecha2
+     * @param string $date1
+     * @param string $date2
      * @return array
      */
-    private function getIntensidad($query, $fecha1, $fecha2)
+    private function getIntensity($query, $date1, $date2)
     {
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':fecha1', $fecha1);
-        $stq->bindValue(':fecha2', $fecha2);
+        $stq->bindValue(':fecha1', $date1);
+        $stq->bindValue(':fecha2', $date2);
         $stq->execute();
         $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
@@ -50,14 +44,14 @@ class IntensidadClass extends BaseClass
 
     /**
      *
-     * @param string $fecha1
-     * @param string $fecha2
+     * @param string $date1
+     * @param string $date2
      * @return array
      */
-    public function getByCuenta($fecha1, $fecha2)
+    public function getByAccount($date1, $date2)
     {
-        $start = min([$fecha1, $fecha2]);
-        $end = max([$fecha1, $fecha2]);
+        $start = min([$date1, $date2]);
+        $end = max([$date1, $date2]);
         $query = "SELECT numero_de_cuenta,count(distinct auto) as 'intensidad'
 from resumen
 left join historia on c_cont=id_cuenta
@@ -65,20 +59,20 @@ and d_fech between :fecha1 and :fecha2
 where status_de_credito not regexp '-'
 group by numero_de_cuenta
 ";
-        $data = $this->getIntensidad($query, $start, $end);
+        $data = $this->getIntensity($query, $start, $end);
         return $data;
     }
 
     /**
      *
-     * @param string $fecha1
-     * @param string $fecha2
+     * @param string $date1
+     * @param string $date2
      * @return array
      */
-    public function getBySegmento($fecha1, $fecha2)
+    public function getBySegment($date1, $date2)
     {
-        $start = min([$fecha1, $fecha2]);
-        $end = max([$fecha1, $fecha2]);
+        $start = min([$date1, $date2]);
+        $end = max([$date1, $date2]);
         $query = <<<SQL
 SELECT cliente,status_de_credito as 'segmento',queue,
             count(1) as 'intensidad'
@@ -90,7 +84,7 @@ and status_de_credito not regexp '-'
 group by cliente,status_de_credito,queue
 with rollup
 SQL;
-        $data = $this->getIntensidad($query, $start, $end);
+        $data = $this->getIntensity($query, $start, $end);
         return $data;
     }
 
@@ -100,7 +94,7 @@ SQL;
      * @return array
      *
      */
-    public function getGestionDates($direction)
+    public function getCallDates($direction)
     {
         $dir = $this->cleanDirection($direction);
         $start = <<<SQL
@@ -118,7 +112,7 @@ SQL;
      *
      * @return array
      */
-    public function getGestionClientes()
+    public function getCallClientes()
     {
         $query = <<<SQL
 SELECT distinct c_cvba FROM historia

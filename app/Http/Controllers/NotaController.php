@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\NotaClass;
+use App\NoteClass;
 use App\ResumenClass;
 use App\UserClass;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class NotaController extends Controller
 {
     /**
      *
-     * @var NotaClass
+     * @var NoteClass
      */
     private $nc;
 
@@ -30,7 +30,7 @@ class NotaController extends Controller
 
     public function __construct()
     {
-        $this->nc = new NotaClass();
+        $this->nc = new NoteClass();
         $this->uc = new UserClass();
         $this->rc = new ResumenClass();
     }
@@ -44,7 +44,7 @@ class NotaController extends Controller
     {
         $cuenta = $this->rc->getCuentaFromId($id_cuenta);
         $capt = auth()->user()->iniciales;
-        $notas = $this->nc->listMyNotas($capt);
+        $notas = $this->nc->listMyNotes($capt);
         /** @var View $view */
         $view = view('notas');
         $view = $view->with('id_cuenta', $id_cuenta)
@@ -62,7 +62,7 @@ class NotaController extends Controller
     public function indexAdmin($id_cuenta = 0)
     {
         $cuenta = $this->rc->getCuentaFromId($id_cuenta);
-        $notas = $this->nc->listAllNotas();
+        $notas = $this->nc->listAllNotes();
         $gestores = $this->uc->listUsers();
         $view = view('notadmin')
             ->with('gestores', $gestores)
@@ -79,7 +79,7 @@ class NotaController extends Controller
     public function remove($nota_id)
     {
         $capt = auth()->user()->iniciales;
-        $this->nc->softDeleteOneNota($capt, $nota_id);
+        $this->nc->softDeleteOneNote($capt, $nota_id);
         return $this->index();
     }
 
@@ -98,7 +98,7 @@ class NotaController extends Controller
         $FECHA = $r->fecha;
         $HORA = $r->hora . ':' . $r->min;
         $NOTA = $r->nota;
-        $id_cuenta = $this->nc->insertNota($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $cuenta, $C_CONT);
+        $id_cuenta = $this->nc->insertNote($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $cuenta, $C_CONT);
         return $this->index($id_cuenta);
     }
 
@@ -115,7 +115,7 @@ class NotaController extends Controller
         $HORA = $r->hora . ':' . $r->min;
         $NOTA = $r->nota;
         $target = $r->target;
-        $this->nc->insertNotaAdmin($target, $capt, $FECHA, $HORA, $NOTA);
+        $this->nc->insertNoteAdmin($target, $capt, $FECHA, $HORA, $NOTA);
         return $this->indexAdmin($C_CONT);
     }
 }

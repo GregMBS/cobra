@@ -8,11 +8,11 @@
 namespace App;
 
 /**
- * Description of NotaClass
+ * Description of NoteClass
  *
  * @author gmbs
  */
-class NotaClass extends BaseClass
+class NoteClass extends BaseClass
 {
 
     /**
@@ -32,7 +32,7 @@ ORDER BY fecha, hora LIMIT 1";
      *
      * @var string
      */
-    private $notasDataQuery = "select cuenta,nota,fuente
+    private $notesDataQuery = "select cuenta,nota,fuente
 from notas
 where c_cvge IN (:capt,'todos')
 AND borrado=0
@@ -59,7 +59,7 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      * @param string $capt
      * @param int $AUTO
      */
-    public function softDeleteOneNota($capt, $AUTO)
+    public function softDeleteOneNote($capt, $AUTO)
     {
         $query = "UPDATE notas set borrado=1 " . "where AUTO=:AUTO and C_CVGE=:capt";
         $stb = $this->pdo->prepare($query);
@@ -72,7 +72,7 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      *
      * @param int $AUTO
      */
-    public function softDeleteOneNotaAdmin($AUTO)
+    public function softDeleteOneNoteAdmin($AUTO)
     {
         $query = "UPDATE notas set borrado=1 " . "where AUTO=:AUTO";
         $stb = $this->pdo->prepare($query);
@@ -92,7 +92,7 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      * @param int $C_CONT
      * @return int
      */
-    public function insertNota($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $CUENTA, $C_CONT)
+    public function insertNote($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $CUENTA, $C_CONT)
     {
         $query = "INSERT INTO notas
         (C_CVGE,fuente,D_FECH,C_HORA,FECHA,HORA,NOTA,CUENTA,C_CONT)
@@ -116,7 +116,7 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      * @param string $capt
      * @return array
      */
-    public function listMyNotas($capt)
+    public function listMyNotes($capt)
     {
         $query = "SELECT auto,fecha,hora,nota,c_cvge,cuenta " . "FROM notas " . "WHERE c_cvge IN (:capt, 'todos') " . "AND borrado=0 ORDER BY fecha desc,hora desc";
         $sts = $this->pdo->prepare($query);
@@ -130,7 +130,7 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      *
      * @return array
      */
-    public function listAllNotas()
+    public function listAllNotes()
     {
         $query = "SELECT auto,fecha,hora,nota,c_cvge FROM notas 
 WHERE borrado=0 ORDER BY fecha desc,hora desc";
@@ -142,23 +142,23 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
      *
      * @param string $target
      * @param string $capt
-     * @param string $FECHA
-     * @param string $HORA
-     * @param string $NOTA
+     * @param string $date
+     * @param string $time
+     * @param string $note
      * @return int
      */
-    public function insertNotaAdmin($target, $capt, $FECHA, $HORA, $NOTA)
+    public function insertNoteAdmin($target, $capt, $date, $time, $note)
     {
         $query = "INSERT INTO notas
             (C_CVGE, fuente, D_FECH, C_HORA, FECHA, HORA, NOTA)
             VALUES
-            (:target, :capt, CURDATE(), CURTIME(), :fecha, :hora, :nota)";
+            (:target, :capt, CURDATE(), CURTIME(), :date, :time, :note)";
         $sti = $this->pdo->prepare($query);
         $sti->bindValue(':target', $target);
         $sti->bindValue(':capt', $capt);
-        $sti->bindValue(':fecha', $FECHA);
-        $sti->bindValue(':hora', $HORA);
-        $sti->bindValue(':nota', $NOTA);
+        $sti->bindValue(':date', $date);
+        $sti->bindValue(':time', $time);
+        $sti->bindValue(':note', $note);
         $sti->execute();
         return $this->pdo->lastInsertId();
     }
@@ -166,14 +166,14 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
     /**
      *
      * @param string $capt
-     * @param string $fechahora
+     * @param string $dateTime
      * @return array
      */
-    private function notaData($capt, $fechahora)
+    private function noteData($capt, $dateTime)
     {
-        $stn = $this->pdo->prepare($this->notasDataQuery);
+        $stn = $this->pdo->prepare($this->notesDataQuery);
         $stn->bindValue(':capt', $capt);
-        $stn->bindValue(':fechahora', $fechahora);
+        $stn->bindValue(':fechahora', $dateTime);
         $stn->execute();
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -184,7 +184,7 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
      * @param string $capt
      * @return NotaDataClass
      */
-    public function notAlert($capt)
+    public function noteAlert($capt)
     {
         $stn = $this->pdo->prepare($this->notesQuery);
         $stn->bindValue(':capt', $capt);
@@ -192,7 +192,7 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
         $output = new NotaDataClass();
         if (isset($result['alert'])) {
-            $notaData = $this->notaData($capt, $result['fechahora']);
+            $notaData = $this->noteData($capt, $result['fechahora']);
             $output->alert = $result['alert'];
             $output->alertt = $result['fechahora'];
             $output->cuenta = $notaData['cuenta'];

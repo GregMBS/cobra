@@ -174,7 +174,7 @@ class LoadController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|View
      * @throws Exception
      */
-    public function cargar(Request $r)
+    public function load(Request $r)
     {
         $this->validate($r, $this->rules);
         if ($r->file('file')->isValid()) {

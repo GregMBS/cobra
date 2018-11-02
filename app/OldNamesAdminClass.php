@@ -5,7 +5,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class NombresadminClass extends GestoradminClass
+class OldNamesAdminClass extends AgentAdminClass
 {
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\GestoradminClass;
+use App\AgentAdminClass;
 use App\GestorDataClass;
 use App\User;
 use Tests\TestCase;
@@ -24,8 +24,8 @@ class GestoradminClassTest extends TestCase
             4 => 'pwd',
             5 => 'name'
         );
-        $gc = new GestoradminClass();
-        $result = $gc->getNombres();
+        $gc = new AgentAdminClass();
+        $result = $gc->getNames();
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);
@@ -41,7 +41,7 @@ class GestoradminClassTest extends TestCase
             3 => 'abogado',
             4 => 'promo'
         );
-        $gc = new GestoradminClass();
+        $gc = new AgentAdminClass();
         $result = $gc->getGroups();
         $this->assertEquals($test, $result);
     }
@@ -74,7 +74,7 @@ class GestoradminClassTest extends TestCase
 
     public function testAddChangeDeleteUser()
     {
-        $gc = new GestoradminClass();
+        $gc = new AgentAdminClass();
         $data = new GestorDataClass();
         $data->setCompleto('Pedro Laskin');
         $data->setTipo('admin');

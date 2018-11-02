@@ -9,17 +9,17 @@
 namespace App;
 
 /**
- * Description of InventarioClass
+ * Description of InventoryClass
  *
  * @author gmbs
  */
-class InventarioClass extends BaseClass {
+class InventoryClass extends BaseClass {
 
     /**
      *
      * @var string
      */
-    private $fullquerymainstart = "SELECT numero_de_cuenta,nombre_deudor,resumen.cliente,
+    private $fullQueryMainStart = "SELECT numero_de_cuenta,nombre_deudor,resumen.cliente,
     status_de_credito,saldo_total,d1.queue,
     domicilio_deudor,direccion_nueva,email_deudor,
 tel_1,(tel_1 in (select c_tele from livelines))*(1-(tel_1 in (select c_tele from deadlines))) as 't1 efectivo',
@@ -41,14 +41,14 @@ where status_de_credito not regexp '-'
      *
      * @var string
      */
-    private $fullquerymainend = "
+    private $fullQueryMainEnd = "
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
     
     /**
      *
      * @var string 
      */
-    private $querymainstart = "SELECT id_cuenta,numero_de_cuenta,nombre_deudor,resumen.cliente,
+    private $queryMainStart = "SELECT id_cuenta,numero_de_cuenta,nombre_deudor,resumen.cliente,
     substring_index(status_de_credito,'-',1) as segmento,
     if (status_de_credito regexp '-',substring_index(status_de_credito,'-',-1),'') as disposicion,
     producto,subproducto,
@@ -67,7 +67,7 @@ where status_de_credito not regexp '-'
      *
      * @var string 
      */
-    private $querymainend = " 
+    private $queryMainEnd = " 
 group by id_cuenta,queue
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
 
@@ -76,12 +76,12 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
      * @param string $cliente
      * @return array
      */
-    public function getInventarioReport($cliente) {
+    public function getInventoryReport($cliente) {
         $clientestr = '';
         if ($cliente != 'todos') {
             $clientestr = " and cliente=:cliente ";
         }
-        $querymain = $this->querymainstart . $clientestr . $this->querymainend;
+        $querymain = $this->queryMainStart . $clientestr . $this->queryMainEnd;
         $stm = $this->pdo->prepare($querymain);
         if ($cliente != 'todos') {
             $stm->bindValue(':cliente', $cliente);
@@ -96,12 +96,12 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
      * @param string $cliente
      * @return array
      */
-    public function getFullInventarioReport($cliente) {
+    public function getFullInventoryReport($cliente) {
         $clientestr = '';
         if ($cliente != 'todos') {
             $clientestr = " and cliente=:cliente ";
         }
-        $querymain = $this->fullquerymainstart . $clientestr . $this->fullquerymainend;
+        $querymain = $this->fullQueryMainStart . $clientestr . $this->fullQueryMainEnd;
         $stm = $this->pdo->prepare($querymain);
         if ($cliente != 'todos') {
             $stm->bindValue(':cliente', $cliente);
@@ -116,9 +116,9 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
      * @return array
      */
     public function listClients() {
-        $queryc = "SELECT cliente FROM clientes";
-        $resultc = $this->pdo->query($queryc);
-        return $resultc->fetchAll(\PDO::FETCH_ASSOC);
+        $query = "SELECT cliente FROM clientes";
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

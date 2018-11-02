@@ -9,11 +9,11 @@ namespace App;
  */
 
 /**
- * Database Class for perfmes
+ * Last months hours for all
  *
  * @author gmbs
  */
-class PerfmesAllClass extends BaseClass
+class LastMonthAllClass extends BaseClass
 {
     /**
      * 
@@ -48,7 +48,7 @@ class PerfmesAllClass extends BaseClass
      * @param int $dom
      * @return array
      */
-    public function getPagos($dom)
+    public function getPayments($dom)
     {
         $query = "select count(1) as ct from pagos
             where fecha=last_day(curdate() - interval 2 month) + interval :dom day";
@@ -103,7 +103,7 @@ class PerfmesAllClass extends BaseClass
     {
         $summary = array();
         for ($i = 1; $i <= $diaHoy; $i++) {
-            $dataSum = new HorariosDataClass($i);
+            $dataSum = new HoursDataClass($i);
             $mainSum = $this->getCurrentMain($i);
             if ($mainSum) {
                 $dataSum->gestiones = $mainSum['gestiones'];
@@ -111,7 +111,7 @@ class PerfmesAllClass extends BaseClass
                 $dataSum->contactos = $mainSum['contactos'];
                 $dataSum->nocontactos = $mainSum['nocontactos'];
                 $dataSum->promesas = $mainSum['promesas'];
-                $dataSum->pagos = $this->getPagos($i);
+                $dataSum->pagos = $this->getPayments($i);
             }
             $summary[$i] = $dataSum;
         }

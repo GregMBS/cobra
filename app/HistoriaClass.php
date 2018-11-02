@@ -18,7 +18,7 @@ use Illuminate\Database\Query\Builder;
 class HistoriaClass extends BaseClass {
 
     /**
-     * Unsafely fill c_cont and c_cvba in historias where they are missing.
+     * Unsafely fill c_cont and c_cvba where they are missing.
      * Behavior undefined when there is the inevitable conflict in numero_de_cuenta.
      */
     private function fillGaps() {

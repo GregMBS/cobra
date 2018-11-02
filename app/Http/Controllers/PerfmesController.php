@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\PerfmesAllClass;
-use App\PerfmesClass;
+use App\LastMonthAllClass;
+use App\LastMonthClass;
 
-class PerfmesController extends HorariosController
+class PerfmesController extends HoursController
 {
 
     /** @var array  */
@@ -20,8 +20,8 @@ class PerfmesController extends HorariosController
     public function __construct()
     {
         parent::__construct();
-        $this->hc = new PerfmesClass();
-        $this->hac = new PerfmesAllClass();
+        $this->hc = new LastMonthClass();
+        $this->hac = new LastMonthAllClass();
         $this->yr = date('Y',strtotime("last day of previous month"));
         $this->mes = date('m',strtotime("last day of previous month"));
         $this->diaHoy = date('d',strtotime("last day of previous month"));

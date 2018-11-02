@@ -57,20 +57,20 @@ class GestorQueuesController extends Controller
         $capt = auth()->user()->iniciales;
 
         $resultClients = $this->qc->getClients();
-        $arrayc = json_encode($resultClients);
+        $arrayClients = json_encode($resultClients);
 
         $resultSdc = $this->qc->getSdcClients($capt);
-        $arrays = json_encode($resultSdc);
+        $arrayStatus = json_encode($resultSdc);
 
         $resultQueue = $this->qc->getQueueSdcClients($capt);
-        $arrayq = json_encode($resultQueue);
+        $arrayQueue = json_encode($resultQueue);
 
         /** @var View $view */
         $view = view('queuesg')->with('msg', $msg);
         $view = $view->with('capt', $capt);
-        $view = $view->with('arrayc', $arrayc);
-        $view = $view->with('arrays', $arrays);
-        $view = $view->with('arrayq', $arrayq);
+        $view = $view->with('arrayc', $arrayClients);
+        $view = $view->with('arrays', $arrayStatus);
+        $view = $view->with('arrayq', $arrayQueue);
         return $view;
     }
 }

@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\HoursClass;
-use App\HorariosDataClass;
+use App\HoursDataClass;
 use Tests\TestCase;
 
 class HorariosClassTest extends TestCase
@@ -22,7 +22,7 @@ class HorariosClassTest extends TestCase
     public function testListGestores()
     {
         $testKeys = ['c_cvge'];
-        $result = $this->uc->listGestores();
+        $result = $this->uc->listAgents();
         $this->checkKeys($testKeys, $result);
     }
 
@@ -32,7 +32,7 @@ class HorariosClassTest extends TestCase
         $day = 1;
         $result = $this->uc->packData($gestor, $day);
         $first = $result[$day];
-        $this->assertInstanceOf(HorariosDataClass::class, $first);
+        $this->assertInstanceOf(HoursDataClass::class, $first);
         $start = strtotime($first->start);
         $stop = strtotime($first->stop);
         $diff = $stop - $start;
@@ -45,7 +45,7 @@ class HorariosClassTest extends TestCase
         $day = 1;
         $result = $this->uc->packVisit($gestor, $day);
         $first = $result[$day];
-        $this->assertInstanceOf(HorariosDataClass::class, $first);
+        $this->assertInstanceOf(HoursDataClass::class, $first);
         $this->assertEquals(null, $first->diff);
     }
 

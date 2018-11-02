@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use View;
-use App\InventarioClass;
+use App\InventoryClass;
 use App\OutputClass;
 
-class InventarioController extends Controller
+class InventoryController extends Controller
 {
     /**
      * 
-     * @var InventarioClass
+     * @var InventoryClass
      */
     private $ic;
     
     public function __construct() {
-        $this->ic = new InventarioClass();
+        $this->ic = new InventoryClass();
     }
 
     /**
@@ -29,7 +29,7 @@ class InventarioController extends Controller
      */
     public function makeReport(Request $r, OutputClass $oc) {
         $cliente    = $r->cliente;
-        $result = $this->ic->getFullInventarioReport($cliente);
+        $result = $this->ic->getFullInventoryReport($cliente);
         $filename = "Query_de_inventario_".date('ymd').".xlsx";
         $headers  = array_keys($result[0]);
         $oc->writeXLSXFile($filename, $result, $headers);
@@ -45,7 +45,7 @@ class InventarioController extends Controller
      */
     public function makeRapidReport(Request $r, OutputClass $oc) {
         $cliente    = $r->cliente;
-        $result = $this->ic->getInventarioReport($cliente);
+        $result = $this->ic->getInventoryReport($cliente);
         $filename = "Query_de_inventario_".date('ymd').".xlsx";
         $headers  = array_keys($result[0]);
         $oc->writeXLSXFile($filename, $result, $headers);

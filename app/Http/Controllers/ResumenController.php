@@ -13,7 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\GestionClass;
 use View;
-use App\NotaClass;
+use App\NoteClass;
 use App\ReferenciaClass;
 
 class ResumenController extends Controller
@@ -39,7 +39,7 @@ class ResumenController extends Controller
 
     /**
      *
-     * @var NotaClass
+     * @var NoteClass
      */
     private $nc;
 
@@ -56,7 +56,7 @@ class ResumenController extends Controller
         $this->rc = new ResumenClass();
         $this->gc = new GestionClass();
         $this->rqc = new ResumenQueuesClass();
-        $this->nc = new NotaClass();
+        $this->nc = new NoteClass();
         $this->fc = new ReferenciaClass();
     }
 
@@ -67,7 +67,7 @@ class ResumenController extends Controller
         $find0 = $r->find;
         $field = $r->field;
         $find = $this->rc->cleanFind($find0);
-        $notas = $this->rc->notAlert($capt);
+        $notas = $this->rc->noteAlert($capt);
     }
     */
 
@@ -197,7 +197,7 @@ class ResumenController extends Controller
         $cr = $queue['cr'];
         $numgest = $this->rc->getNumGests($capt);
         $tl = $this->rc->getTimeLock($id_cuenta);
-        $notas = $this->nc->notAlert($capt);
+        $notas = $this->nc->noteAlert($capt);
         $acciones = $this->rc->getAccion();
         $accionesV = $this->rc->getAccionV();
         $dictamenes = $this->rc->getDict($tipo);
@@ -209,7 +209,7 @@ class ResumenController extends Controller
         $cnp = $this->rc->getCnp();
         $referencias = $this->fc->index($id_cuenta);
         $imagePath = public_path('images/') . $id_cuenta . '.jpg';
-        $foto_exists = file_exists($imagePath);
+        $photo_exists = file_exists($imagePath);
         /**
          * @var View
          */
@@ -237,7 +237,7 @@ class ResumenController extends Controller
             ->with('numgest', $numgest)
             ->with('from', $from)
             ->with('camp', $camp)
-            ->with('foto_exists', $foto_exists);
+            ->with('photo_exists', $photo_exists);
         return $view;
     }
 
