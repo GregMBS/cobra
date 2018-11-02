@@ -7,17 +7,17 @@ use App\Dictamen;
 use App\Historia;
 use App\Pago;
 use App\Resumen;
-use App\ResumenClass;
+use App\DebtorClass;
 use Illuminate\Database\Query\Builder;
 use Tests\TestCase;
 
 
-class ResumenClassTest extends TestCase
+class DebtorClassTest extends TestCase
 {
     /**
      * @var array
      */
-    private $deudorStatuses = array(
+    private $debtorStatuses = array(
         'PROMESA DE PAGO TOTAL',
         'PROMESA DE PAGO PARCIAL',
         'CLIENTE NEGOCIANDO',
@@ -45,15 +45,15 @@ class ResumenClassTest extends TestCase
      *
      * @return void
      */
-    public function testHighhist()
+    public function testHighlight()
     {
-        $rc = new ResumenClass();
-        $dictamenes = Dictamen::all('dictamen');
+        $rc = new DebtorClass();
+        $statuses = Dictamen::all('dictamen');
         $visit = '';
-        foreach ($dictamenes as $dictamen) {
-            $stat = $dictamen->dictamen;
-            $result = $rc->highhist($stat, $visit);
-            if (in_array($stat, $this->deudorStatuses)) {
+        foreach ($statuses as $status) {
+            $stat = $status->dictamen;
+            $result = $rc->highlight($stat, $visit);
+            if (in_array($stat, $this->debtorStatuses)) {
                 $this->assertStringStartsWith(" class='deudor'", $result);
             } elseif ($stat == 'VALIDACION') {
                 $this->assertStringStartsWith(" class='validacion'", $result);
@@ -62,56 +62,58 @@ class ResumenClassTest extends TestCase
             }
         }
         $visit = 'visitador';
-        foreach ($dictamenes as $dictamen) {
-            $stat = $dictamen->dictamen;
-            $result = $rc->highhist($stat, $visit);
+        foreach ($statuses as $status) {
+            $stat = $status->dictamen;
+            $result = $rc->highlight($stat, $visit);
             $this->assertStringStartsWith(" class='visit'", $result);
         }
     }
 
-    public function testLastGestion()
+    public function testLastCall()
     {
-        $rc = new ResumenClass();
-        $query = Historia::where('c_cont', '>', 0)->first();
+        $rc = new DebtorClass();
+        /** @var Builder $history */
+        $history = new Historia();
+        $query = $history->where('c_cont', '>', 0)->first();
         if ($query) {
             $capt = $query->C_CVGE;
-            $id_cuenta = $rc->lastGestion($capt);
-            $this->assertGreaterThan(0, $id_cuenta);
+            $id = $rc->lastCall($capt);
+            $this->assertGreaterThan(0, $id);
         }
-        $id_cuenta = $rc->lastGestion('');
-        $this->assertEquals(0, $id_cuenta);
+        $id = $rc->lastCall('');
+        $this->assertEquals(0, $id);
     }
 
     /**
      * @throws \Exception
      */
-    public function testGetDict()
+    public function testGetStatus()
     {
-        $rc = new ResumenClass();
-        $dictamenes = $rc->getDict('callcenter');
-        $this->assertContains('TEL OCUPADA', $dictamenes);
-        $this->assertNotContains('NOTIFICACION BAJO PUERTA', $dictamenes);
-        $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
-        $dictamenes = $rc->getDict('admin');
-        $this->assertContains('TEL OCUPADA', $dictamenes);
-        $this->assertContains('NOTIFICACION BAJO PUERTA', $dictamenes);
-        $this->assertContains('PROMESA INCUMPLIDA', $dictamenes);
-        $dictamenes = $rc->getDict('visitador');
-        $this->assertNotContains('TEL OCUPADA', $dictamenes);
-        $this->assertContains('NOTIFICACION BAJO PUERTA', $dictamenes);
-        $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
+        $rc = new DebtorClass();
+        $statuses = $rc->getStatus('callcenter');
+        $this->assertContains('TEL OCUPADA', $statuses);
+        $this->assertNotContains('NOTIFICACION BAJO PUERTA', $statuses);
+        $this->assertNotContains('PROMESA INCUMPLIDA', $statuses);
+        $statuses = $rc->getStatus('admin');
+        $this->assertContains('TEL OCUPADA', $statuses);
+        $this->assertContains('NOTIFICACION BAJO PUERTA', $statuses);
+        $this->assertContains('PROMESA INCUMPLIDA', $statuses);
+        $statuses = $rc->getStatus('visitador');
+        $this->assertNotContains('TEL OCUPADA', $statuses);
+        $this->assertContains('NOTIFICACION BAJO PUERTA', $statuses);
+        $this->assertNotContains('PROMESA INCUMPLIDA', $statuses);
         $this->expectExceptionMessage("Tipo de usuario no es correcto.");
-        $rc->getDict('');
+        $rc->getStatus('');
     }
 
     public function testGetDictV()
     {
-        $rc = new ResumenClass();
+        $rc = new DebtorClass();
         try {
-            $dictamenes = $rc->getDictV();
-            $this->assertNotContains('TEL OCUPADA', $dictamenes);
-            $this->assertContains('NOTIFICACION BAJO PUERTA', $dictamenes);
-            $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
+            $statuses = $rc->getStatusVisit();
+            $this->assertNotContains('TEL OCUPADA', $statuses);
+            $this->assertContains('NOTIFICACION BAJO PUERTA', $statuses);
+            $this->assertNotContains('PROMESA INCUMPLIDA', $statuses);
         } catch (\Exception $e) {
             $this->assertEquals('', $e->getMessage());
         }
@@ -122,16 +124,16 @@ class ResumenClassTest extends TestCase
      */
     public function testGetMotiv()
     {
-        $rc = new ResumenClass();
-        $dictamenes = $rc->getMotiv();
-        $this->assertContains('PAGO POR CALL CENTER', $dictamenes);
+        $rc = new DebtorClass();
+        $statuses = $rc->getMotivation();
+        $this->assertContains('PAGO POR CALL CENTER', $statuses);
     }
 
     public function testGetMotivV()
     {
-        $rc = new ResumenClass();
-        $dictamenes = $rc->getMotivV();
-        $this->assertContains('PAGO POR CALL CENTER', $dictamenes);
+        $rc = new DebtorClass();
+        $statuses = $rc->getMotivationVisit();
+        $this->assertContains('PAGO POR CALL CENTER', $statuses);
     }
 
     /**
@@ -139,33 +141,33 @@ class ResumenClassTest extends TestCase
      */
     public function testCnp()
     {
-        $rc = new ResumenClass();
-        $dictamenes = $rc->getCnp();
-        $this->assertContains('Obligado Solidario', $dictamenes);
+        $rc = new DebtorClass();
+        $statuses = $rc->getExcuse();
+        $this->assertContains('Obligado Solidario', $statuses);
     }
 
     /**
      * @throws \Exception
      */
-    public function testGetAccion()
+    public function testGetAction()
     {
-        $rc = new ResumenClass();
-        $dictamenes = $rc->getAccion();
-        $this->assertContains('CLIENTE NOS LLAMO', $dictamenes);
-        $this->assertNotContains('SE MANDO ROBOT', $dictamenes);
-        $this->assertNotContains('VISITA A DOMICILIO', $dictamenes);
+        $rc = new DebtorClass();
+        $statuses = $rc->getAction();
+        $this->assertContains('CLIENTE NOS LLAMO', $statuses);
+        $this->assertNotContains('SE MANDO ROBOT', $statuses);
+        $this->assertNotContains('VISITA A DOMICILIO', $statuses);
     }
 
-    public function testGetAccionV()
+    public function testGetActionVisit()
     {
-        $rc = new ResumenClass();
-        $dictamenes = $rc->getAccionV();
-        $this->assertNotContains('CLIENTE NOS LLAMO', $dictamenes);
-        $this->assertNotContains('SE MANDO ROBOT', $dictamenes);
-        $this->assertContains('VISITA A DOMICILIO', $dictamenes);
+        $rc = new DebtorClass();
+        $statuses = $rc->getActionVisit();
+        $this->assertNotContains('CLIENTE NOS LLAMO', $statuses);
+        $this->assertNotContains('SE MANDO ROBOT', $statuses);
+        $this->assertContains('VISITA A DOMICILIO', $statuses);
     }
 
-    public function testGetBadNo()
+    public function testGetBadTel()
     {
         $testKeys = [
             0 => "tel_1",
@@ -184,9 +186,9 @@ class ResumenClassTest extends TestCase
             13 => "tel_4_verif"
         ];
         $testResult = array_fill_keys($testKeys, "");
-        $rc = new ResumenClass();
-        $id_cuenta = 1;
-        $result = $rc->getBadNo($id_cuenta);
+        $rc = new DebtorClass();
+        $id = 1;
+        $result = $rc->getBadTel($id);
         if ($result) {
             $keys = array_keys($result);
             $this->assertEquals($testKeys, $keys);
@@ -207,9 +209,9 @@ class ResumenClassTest extends TestCase
             'auto',
             'c_cniv'
         ];
-        $rc = new ResumenClass();
-        $id_cuenta = 1;
-        $result = $rc->getHistory($id_cuenta);
+        $rc = new DebtorClass();
+        $id = 1;
+        $result = $rc->getHistory($id);
         if ($result) {
             $keys = array_keys($result[0]);
             $this->assertEquals($testKeys, $keys);
@@ -220,15 +222,15 @@ class ResumenClassTest extends TestCase
 
     public function testGetGestorList()
     {
-        $rc = new ResumenClass();
-        $result = $rc->getGestorList();
+        $rc = new DebtorClass();
+        $result = $rc->getAgentList();
         $this->assertContains('gmbs', $result);
     }
 
     public function testGetVisitadorList()
     {
-        $rc = new ResumenClass();
-        $result = $rc->getVisitadorList();
+        $rc = new DebtorClass();
+        $result = $rc->getVisitorList();
         $id = array_search('gmbs', array_column($result, 'iniciales'));
         $this->assertGreaterThanOrEqual(0, $id);
         $this->assertEquals('gregory miles blumenthal scharf', $result[$id]['completo']);
@@ -239,7 +241,7 @@ class ResumenClassTest extends TestCase
         $query = Cliente::first();
         if ($query) {
             $cliente = $query->cliente;
-            $rc = new ResumenClass();
+            $rc = new DebtorClass();
             $result = $rc->getClientList();
             $this->assertContains($cliente, $result);
         }
@@ -248,9 +250,9 @@ class ResumenClassTest extends TestCase
 
     public function testNumGests()
     {
-        $rc = new ResumenClass();
+        $rc = new DebtorClass();
         $gestor = 'gmbs';
-        $numGests = $rc->getNumGests($gestor);
+        $numGests = $rc->countCallsByAgent($gestor);
         $this->assertEquals(0, $numGests);
     }
 
@@ -269,7 +271,7 @@ class ResumenClassTest extends TestCase
             9 => "policy",
             10 => "id"
         ];
-        $rc = new ResumenClass();
+        $rc = new DebtorClass();
         $gestor = 'gmbs';
         $data = $rc->getUserData($gestor);
         $keys = array_keys($data);
@@ -288,9 +290,9 @@ class ResumenClassTest extends TestCase
         $gestiones = $query->get();
         $first = $gestiones->first();
         if ($first) {
-            $id_cuenta = $first->C_CONT;
-            $rc = new ResumenClass();
-            $count = $rc->countGestiones($id_cuenta);
+            $id = $first->C_CONT;
+            $rc = new DebtorClass();
+            $count = $rc->countCallsByAccount($id);
             $this->assertGreaterThan(0, $count);
         }
         $this->assertTrue(true);
@@ -300,9 +302,9 @@ class ResumenClassTest extends TestCase
     {
         $query = Historia::where('c_cont', '>', 0)->where('n_prom', '>', 0)->first();
         if ($query) {
-            $id_cuenta = $query->C_CONT;
-            $rc = new ResumenClass();
-            $count = $rc->countPromesas($id_cuenta);
+            $id = $query->C_CONT;
+            $rc = new DebtorClass();
+            $count = $rc->countPromisesByAccount($id);
             $this->assertGreaterThan(0, $count);
         }
         $this->assertTrue(true);
@@ -310,12 +312,12 @@ class ResumenClassTest extends TestCase
 
     public function testCountPagos()
     {
-        $rc = new ResumenClass();
+        $rc = new DebtorClass();
         /** @var Pago $pago */
         $pago = Pago::first();
         if ($pago) {
-            $id_cuenta = $pago->id_cuenta;
-            $count = $rc->countPagos($id_cuenta);
+            $id = $pago->id_cuenta;
+            $count = $rc->countPaymentsByAccount($id);
             $this->assertGreaterThan(0, $count);
         }
         $this->assertTrue(true);
@@ -323,21 +325,21 @@ class ResumenClassTest extends TestCase
 
     public function testGetCuentaFromId()
     {
-        $rc = new ResumenClass();
-        $id_cuenta = 0;
-        $cuenta = $rc->getCuentaFromId($id_cuenta);
+        $rc = new DebtorClass();
+        $id = 0;
+        $cuenta = $rc->getAccountNumberFromId($id);
         $this->assertEquals('', $cuenta);
         $query = Resumen::where('id_cuenta', '>', 0)->first();
         if ($query) {
-            $id_cuenta = $query->id_cuenta;
-            $cuenta = $rc->getCuentaFromId($id_cuenta);
+            $id = $query->id_cuenta;
+            $cuenta = $rc->getAccountNumberFromId($id);
             $this->assertNotEquals('', $cuenta);
         }
     }
 
     public function testGetPromData()
     {
-        $testProm = [
+        $testPromise = [
             "N_PROM_OLD" => "0",
             "N_PROM1_OLD" => "0",
             "N_PROM2_OLD" => "0.00",
@@ -349,11 +351,11 @@ class ResumenClassTest extends TestCase
             "D_PROM3_OLD" => null,
             "D_PROM4_OLD" => null
         ];
-        $rc = new ResumenClass();
+        $rc = new DebtorClass();
         $query = Historia::where('n_prom', '>', 0)->first();
         if ($query) {
-            $c_cont = $query->C_CONT;
-            $promesas = $rc->getPromData($c_cont);
+            $id = $query->C_CONT;
+            $promises = $rc->getPromiseData($id);
             $fields = [
                 "N_PROM_OLD",
                 "N_PROM1_OLD",
@@ -361,7 +363,7 @@ class ResumenClassTest extends TestCase
                 "D_PROM1_OLD"
             ];
             foreach ($fields as $field) {
-                $this->assertGreaterThan($testProm[$field], $promesas[$field]);
+                $this->assertGreaterThan($testPromise[$field], $promises[$field]);
             }
         }
         $this->assertTrue(true);
@@ -370,7 +372,7 @@ class ResumenClassTest extends TestCase
     public function testGetTimelock()
     {
         $now = date('r');
-        $rc = new ResumenClass();
+        $rc = new DebtorClass();
         $query = Resumen::whereNull('locker')->first();
         if ($query) {
             $timeLock = $rc->getTimelock($query->id_cuenta);
@@ -395,14 +397,15 @@ class ResumenClassTest extends TestCase
             'c_obse1',
             'auto'
         ];
-        $rc = new ResumenClass();
+        $rc = new DebtorClass();
         /** @var Builder $query */
-        $query = Historia::where('c_cniv', '<>', '');
-        $visitas = $query->get();
+        $query = Historia::where('c_cniv', '<>', '')->take(10);
+        $tenVisits = $query->get();
         /** @var Historia $first */
-        $first = $visitas->first();
+        $first = $tenVisits->first();
         if ($first) {
-            $visits = $rc->listVisits($first->C_CONT);
+            $id = $first->C_CONT;
+            $visits = $rc->listVisits($id);
             $this->assertGreaterThan(0, count($visits));
             $this->checkKeys($testKeys, $visits);
         }

@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Description of ResumenQueuesClass
+ * Description of DebtorQueuesClass
  *
  * @author gmbs
  */
-class ResumenQueuesClass extends BaseClass
+class DebtorQueuesClass extends BaseClass
 {
 
     /**
@@ -67,17 +67,17 @@ class ResumenQueuesClass extends BaseClass
 
     /**
      *
-     * @param string $cliente
+     * @param string $client
      * @param string $sdc
      * @param string $cr
      * @return \PDOStatement
      */
-    private function prepareResumenMain($cliente, $sdc, $cr)
+    private function prepareDebtorMain($client, $sdc, $cr)
     {
         $clientStr = " AND cliente = :cliente ";
         $sdcStr = " AND status_de_credito = :sdc ";
         $crStr = " AND queue = :cr ";
-        if (empty($cliente)) {
+        if (empty($client)) {
             $clientStr = '';
         }
         if (empty($sdc)) {
@@ -91,16 +91,16 @@ class ResumenQueuesClass extends BaseClass
 join dictamenes on dictamen=status_aarsa 
 WHERE locker is null";
         $end = "ORDER BY fecha_ultima_gestion LIMIT 1";
-        $querymain = $start . $clientStr . $sdcStr . $crStr . $end;
+        $query = $start . $clientStr . $sdcStr . $crStr . $end;
 
         if ($cr == 'SIN GESTION') {
             $start = "SELECT * FROM resumen WHERE locker is null ";
             $end = "AND ((status_aarsa='') or (status_aarsa is null)) ORDER BY saldo_total desc LIMIT 1";
-            $querymain = $start . $clientStr . $sdcStr . $end;
+            $query = $start . $clientStr . $sdcStr . $end;
         }
 
         if (($cr == 'INICIAL')) {
-            $querymain = "SELECT * FROM resumen
+            $query = "SELECT * FROM resumen
 WHERE status_de_credito not regexp '-' 
 AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION')
 AND ejecutivo_asignado_call_center = :capt
@@ -109,7 +109,7 @@ and fecha_ultima_gestion < curdate()
 order by fecha_ultima_gestion  LIMIT 1";
         }
         if ($cr == 'ESPECIAL') {
-            $querymain = "SELECT * FROM resumen WHERE locker is null" . $clientStr . $sdcStr .
+            $query = "SELECT * FROM resumen WHERE locker is null" . $clientStr . $sdcStr .
                 "AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
 order by fecha_ultima_gestion  LIMIT 1";
         }
@@ -121,9 +121,9 @@ order by fecha_ultima_gestion  LIMIT 1";
 	)
 and especial > 0";
             $end = "order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_1 desc limit 1";
-            $querymain = $start . $clientStr . $sdcStr . $middle . $end;
+            $query = $start . $clientStr . $sdcStr . $middle . $end;
         }
-        $stm = $this->pdo->prepare($querymain);
+        $stm = $this->pdo->prepare($query);
         return $stm;
     }
 
@@ -131,19 +131,19 @@ and especial > 0";
      *
      * @param \PDOStatement $stm
      * @param string $capt
-     * @param string $cliente
+     * @param string $client
      * @param string $sdc
      * @param string $cr
      * @return \PDOStatement
      */
-    private function bindResumenMain($stm, $capt, $cliente, $sdc, $cr)
+    private function bindDebtorMain($stm, $capt, $client, $sdc, $cr)
     {
         if (in_array($cr, array('MANUAL', 'INICIAL'))) {
             $stm->bindValue(':capt', $capt);
             return $stm;
         }
-        if (!empty($cliente)) {
-            $stm->bindValue(':cliente', $cliente);
+        if (!empty($client)) {
+            $stm->bindValue(':cliente', $client);
         }
         if (!empty($sdc)) {
             $stm->bindValue(':sdc', $sdc);
@@ -163,7 +163,7 @@ and especial > 0";
      * @param \PDOStatement $stm
      * @return array
      */
-    private function runResumenMain($stm)
+    private function runDebtorMain($stm)
     {
         try {
             $stm->execute();
@@ -177,36 +177,36 @@ and especial > 0";
     /**
      *
      * @param string $capt
-     * @param int $camp
+     * @param int $campaign
      * @return array
      */
-    public function getResumen($capt, $camp)
+    public function getDebtor($capt, $campaign)
     {
-        $queue = $this->getMyQueue($capt, $camp);
-        $cliente = $queue['cliente'];
+        $queue = $this->getMyQueue($capt, $campaign);
+        $client = $queue['cliente'];
         $sdc = $queue['sdc'];
         $cr = $queue['cr'];
-        $stm = $this->prepareResumenMain($cliente, $sdc, $cr);
-        $stmBound = $this->bindResumenMain($stm, $capt, $cliente, $sdc, $cr);
-        $result = $this->runResumenMain($stmBound);
+        $stm = $this->prepareDebtorMain($client, $sdc, $cr);
+        $stmBound = $this->bindDebtorMain($stm, $capt, $client, $sdc, $cr);
+        $result = $this->runDebtorMain($stmBound);
         return $result;
     }
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return array
      */
-    public function getOne($id_cuenta)
+    public function getOne($id)
     {
         /** @var Resumen|Builder $rc */
         $rc = new Resumen();
         /**
          * @var \Illuminate\Database\Eloquent\Builder $query
          */
-        $query = $rc->whereIdCuenta($id_cuenta);
-        $resumen = $query->firstOrFail();
-        $result = $resumen->toArray();
+        $query = $rc->whereIdCuenta($id);
+        $debtor = $query->firstOrFail();
+        $result = $debtor->toArray();
         return $result;
     }
 }

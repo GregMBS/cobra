@@ -12,9 +12,9 @@ class HoursControllerTest extends TestCase
 
     public function testShow()
     {
-        $gestor = 'gregb';
+        $agent = 'gregb';
         $user = User::whereTipo('admin')->first();
-        $response = $this->actingAs($user)->get('/'.$this->urlStub.'s/' . $gestor);
+        $response = $this->actingAs($user)->get('/'.$this->urlStub.'s/' . $agent);
         $response->assertViewIs($this->urlStub);
     }
 

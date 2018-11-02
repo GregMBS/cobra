@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\ResumenClass;
+use App\DebtorClass;
 use View;
 
 class VisitController extends Controller
@@ -9,13 +9,13 @@ class VisitController extends Controller
 
     /**
      *
-     * @var ResumenClass
+     * @var DebtorClass
      */
     private $rc;
     
     public function __construct()
     {
-        $this->rc = new ResumenClass();
+        $this->rc = new DebtorClass();
     }
 
     /**

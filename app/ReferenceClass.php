@@ -9,19 +9,19 @@ use Illuminate\Database\Eloquent\Builder;
  * @author gmbs
  *        
  */
-class ReferenciaClass extends BaseClass
+class ReferenceClass extends BaseClass
 {
     /**
      * 
-     * @param int $id_cuenta
+     * @param int $id
      * @return string[][]
      */
-    public function index($id_cuenta) {
+    public function index($id) {
         $rc = new Referencia();
         /**
          * @var Builder $query
          */
-        $query = $rc->whereIdCuenta($id_cuenta);
+        $query = $rc->whereIdCuenta($id);
         $result = $query->get();
         return $result->toArray();
     }

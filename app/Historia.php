@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
  * Class Historia
  * @package App
  * @method static|Historia whereCCvge($c_cvge)
- * @method Historia whereCCont($c_cont)
- * @method Historia whereDFech($d_fech)
+ * @method static|Historia whereCCont($c_cont)
+ * @method static|Historia whereDFech($d_fech)
  */
 class Historia extends Model
 {

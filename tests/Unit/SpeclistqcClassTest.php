@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use App\Resumen;
-use App\SpeclistDataClass;
-use App\SpeclistqcClass;
+use App\StatusListDataClass;
+use App\StatusListClass;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Tests\TestCase;
@@ -52,9 +52,9 @@ class SpeclistqcClassTest extends TestCase
         $array = $r->all();
         $data = $this->getAQueue($array);
         if ($data) {
-            $dataClass = new SpeclistDataClass($data);
-            $sc = new SpeclistqcClass();
-            $result = $sc->getSpecListReport($dataClass);
+            $dataClass = new StatusListDataClass($data);
+            $sc = new StatusListClass();
+            $result = $sc->getReport($dataClass);
             $this->assertGreaterThan(0, count($result));
             $first = $result[0];
             $keys = array_keys($first);
@@ -62,16 +62,16 @@ class SpeclistqcClassTest extends TestCase
             $data['cliente'] = '';
             $data['sdc'] = 'VIG MORA 1';
             $data['rato'] = 'diario';
-            $dataClass = new SpeclistDataClass($data);
-            $result = $sc->getSpecListReport($dataClass);
+            $dataClass = new StatusListDataClass($data);
+            $result = $sc->getReport($dataClass);
             $this->assertEquals(0, count($result));
             $data['rato'] = 'semanal';
-            $dataClass = new SpeclistDataClass($data);
-            $result = $sc->getSpecListReport($dataClass);
+            $dataClass = new StatusListDataClass($data);
+            $result = $sc->getReport($dataClass);
             $this->assertEquals(0, count($result));
             $data['rato'] = 'mensual';
-            $dataClass = new SpeclistDataClass($data);
-            $result = $sc->getSpecListReport($dataClass);
+            $dataClass = new StatusListDataClass($data);
+            $result = $sc->getReport($dataClass);
             $this->assertEquals(0, count($result));
         }
         $this->assertTrue(true);

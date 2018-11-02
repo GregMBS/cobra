@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\ReferenciaClass;
+use App\ReferenceClass;
 use Illuminate\Console\Command;
 
 class LoadRefs extends Command
@@ -21,7 +21,7 @@ class LoadRefs extends Command
      */
     protected $description = 'Build or rebuild Referencias table from Resumen';
 
-    /** @var ReferenciaClass */
+    /** @var ReferenceClass */
     protected $rc;
 
     /**
@@ -32,7 +32,7 @@ class LoadRefs extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->rc = new ReferenciaClass();
+        $this->rc = new ReferenceClass();
     }
 
     /**

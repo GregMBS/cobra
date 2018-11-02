@@ -10,11 +10,11 @@ namespace App;
 
 
 /**
- * Description of SpeclistqcClass
+ * Description of StatusListClass
  *
  * @author gmbs
  */
-class SpeclistqcClass extends BaseClass {
+class StatusListClass extends BaseClass {
 
     /**
      *
@@ -42,17 +42,17 @@ SQL;
 ORDER BY saldo_total desc";
 
     /**
-     * @param SpeclistDataClass $data
+     * @param StatusListDataClass $data
      * @return array
      */
-    public function getSpecListReport(SpeclistDataClass $data) {
+    public function getReport(StatusListDataClass $data) {
         $client = $data->cliente;
         $queue = $data->queue;
         $status = $data->sdc;
         $rateString = $data->rateString;
         $statusString = $data->statusString;
-        $querymain = $this->queryHead . $statusString . $rateString . $this->queryTail;
-        $stm = $this->pdo->prepare($querymain);
+        $query = $this->queryHead . $statusString . $rateString . $this->queryTail;
+        $stm = $this->pdo->prepare($query);
         $stm->bindValue(':cliente', $client);
         $stm->bindValue(':queue', $queue);
         if (!(empty($data->sdc))) {

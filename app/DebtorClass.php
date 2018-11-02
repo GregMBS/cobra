@@ -8,15 +8,16 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use PDO;
 
 /**
- * Description of ResumenClass
+ * Description of DebtorClass
  *
  * @author gmbs
  */
-class ResumenClass extends BaseClass
+class DebtorClass extends BaseClass
 {
 
     /**
@@ -48,7 +49,7 @@ SQL;
      * @param string $visit
      * @return string
      */
-    public function highhist($stat, $visit)
+    public function highlight($stat, $visit)
     {
         $highlight = '';
         $red = array(
@@ -91,7 +92,7 @@ SQL;
      * @param string $capt
      * @return int
      */
-    public function lastGestion($capt)
+    public function lastCall($capt)
     {
         $query = "SELECT c_cont FROM historia WHERE c_cvge = :capt
                      AND c_cont <> 0 
@@ -109,7 +110,7 @@ SQL;
      * @return string[]
      * @throws \Exception
      */
-    public function getDict($mytipo)
+    public function getStatus($mytipo)
     {
 
         switch ($mytipo) {
@@ -144,10 +145,10 @@ SQL;
      * @return string[]
      * @throws \Exception
      */
-    public function getDictV()
+    public function getStatusVisit()
     {
         $mytipo = 'visitador';
-        $result = $this->getDict($mytipo);
+        $result = $this->getStatus($mytipo);
         return $result;
     }
 
@@ -155,7 +156,7 @@ SQL;
      *
      * @return string[]
      */
-    public function getMotiv()
+    public function getMotivation()
     {
         $query = "SELECT * FROM motivadores order by motiv";
         $result = $this->pdo->query($query);
@@ -168,7 +169,7 @@ SQL;
      *
      * @return string[]
      */
-    public function getMotivV()
+    public function getMotivationVisit()
     {
         $query = "SELECT motiv FROM motivadores where visitas = 1 order by motiv";
         $result = $this->pdo->query($query);
@@ -181,7 +182,7 @@ SQL;
      *
      * @return string[]
      */
-    public function getCnp()
+    public function getExcuse()
     {
         $query = "SELECT status FROM cnp";
         $result = $this->pdo->query($query);
@@ -194,7 +195,7 @@ SQL;
      *
      * @return string[]
      */
-    public function getAccion()
+    public function getAction()
     {
         $query = "SELECT accion FROM acciones where callcenter=1";
         $result = $this->pdo->query($query);
@@ -207,7 +208,7 @@ SQL;
      *
      * @return string[]
      */
-    public function getAccionV()
+    public function getActionVisit()
     {
         $query = "SELECT accion FROM acciones where visitas=1";
         $result = $this->pdo->query($query);
@@ -218,13 +219,13 @@ SQL;
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return array
      */
-    public function getBadNo($id_cuenta)
+    public function getBadTel($id)
     {
         $stb = $this->pdo->prepare($this->badNoQuery);
-        $stb->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stb->bindValue(':id_cuenta', $id, \PDO::PARAM_INT);
         $stb->execute();
         $answerBadNo = $stb->fetch(PDO::FETCH_ASSOC);
         return $answerBadNo;
@@ -232,20 +233,20 @@ SQL;
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return array
      */
-    public function getHistory($id_cuenta)
+    public function getHistory($id)
     {
         $query = "SELECT c_cvst,concat(d_fech,' ',c_hrin) as fecha,
                     c_cvge,c_tele,left(c_obse1,50) as short,c_obse1,
                     auto,c_cniv 
                     FROM historia 
-                    WHERE c_cont=:id_cuenta 
+                    WHERE c_cont=:id
                     AND c_cont > 0  
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($query);
-        $sts->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindValue(':id', $id, \PDO::PARAM_INT);
         $sts->execute();
         $row = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $row;
@@ -255,7 +256,7 @@ SQL;
      *
      * @return array
      */
-    public function getGestorList()
+    public function getAgentList()
     {
         $query = <<<SQL
 (SELECT iniciales FROM nombres)
@@ -273,9 +274,9 @@ SQL;
      *
      * @return array
      */
-    public function getVisitadorList()
+    public function getVisitorList()
     {
-        $queryGestorV = <<<SQL
+        $query = <<<SQL
 (SELECT iniciales,completo FROM nombres 
     where completo<>'' 
 and tipo IN ('visitador','admin'))
@@ -285,8 +286,8 @@ UNION
 and tipo IN ('visitador','admin'))
 ORDER BY iniciales
 SQL;
-        $resultGestorV = $this->pdo->query($queryGestorV);
-        return $resultGestorV->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -295,8 +296,8 @@ SQL;
      */
     public function getClientList()
     {
-        $clientes = Cliente::all()->toArray();
-        $names = array_column($clientes, 'cliente');
+        $clients = Cliente::all()->toArray();
+        $names = array_column($clients, 'cliente');
         return $names;
     }
 
@@ -305,7 +306,7 @@ SQL;
      * @param string $capt
      * @return int
      */
-    public function getNumGests($capt)
+    public function countCallsByAgent($capt)
     {
         $today = date('Y-m-d');
         /** @var Builder $query */
@@ -317,10 +318,10 @@ SQL;
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return string
      */
-    public function getTimeLock($id_cuenta)
+    public function getTimeLock($id)
     {
         $tl = date('r');
         $rc = new Resumen();
@@ -328,9 +329,9 @@ SQL;
         /**
          * @var Builder $query
          */
-        $query = $rc->whereIdCuenta($id_cuenta);
-        $resumen = $query->first();
-        $time = $resumen->timelock;
+        $query = $rc->whereIdCuenta($id);
+        $debtor = $query->first();
+        $time = $debtor->timelock;
         if ($time) {
             $tl = date('r', strtotime($time));
         }
@@ -344,62 +345,63 @@ SQL;
      */
     public function getUserData($capt)
     {
-        /** @var Builder $NBuilder */
-        $NBuilder = new Nombre();
-        /** @var Builder $nombreQuery */
-        $nombreQuery = $NBuilder->where('iniciales', '=', $capt);
-        $nombre = $nombreQuery->get();
-        /** @var Builder $UBuilder */
-        $UBuilder = new User();
-        $user = $UBuilder->where('iniciales', '=', $capt)->get();
-        $result = $nombre->merge($user);
+        /** @var Builder $oldUserBuilder */
+        $oldUserBuilder = new Nombre();
+        /** @var Builder $oldUserQuery */
+        $oldUserQuery = $oldUserBuilder->where('iniciales', '=', $capt);
+        $oldUser = $oldUserQuery->get();
+        /** @var Builder $userBuilder */
+        $userBuilder = new User();
+        $user = $userBuilder->where('iniciales', '=', $capt)->get();
+        $result = $oldUser->merge($user);
         return $result->first()->toArray();
     }
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return array
      */
-    public function getPromData($id_cuenta)
+    public function getPromiseData($id)
     {
-        /** @var Builder $historia */
-        $historia = Historia::whereCCont($id_cuenta);
-        $promesa = $historia->where('n_prom', '>', 0)
+        /** @var Builder $history */
+        $history = Historia::whereCCont($id);
+        /** @var Model $promise */
+        $promise = $history->where('n_prom', '>', 0)
             ->where('c_cvst', 'LIKE', 'PROMESA DE%')
             ->orderByDesc('d_fech')
             ->orderByDesc('c_hrin')
             ->first();
         $array = array(
-            'N_PROM_OLD' => $promesa->N_PROM,
-            'N_PROM1_OLD' => $promesa->N_PROM1,
-            'N_PROM2_OLD' => $promesa->N_PROM2,
-            'N_PROM3_OLD' => $promesa->N_PROM3,
-            'N_PROM4_OLD' => $promesa->N_PROM4,
-            'D_PROM_OLD' => $promesa->D_PROM,
-            'D_PROM1_OLD' => $promesa->D_PROM1,
-            'D_PROM2_OLD' => $promesa->D_PROM2,
-            'D_PROM3_OLD' => $promesa->D_PROM3,
-            'D_PROM4_OLD' => $promesa->D_PROM4
+            'N_PROM_OLD' => $promise->N_PROM,
+            'N_PROM1_OLD' => $promise->N_PROM1,
+            'N_PROM2_OLD' => $promise->N_PROM2,
+            'N_PROM3_OLD' => $promise->N_PROM3,
+            'N_PROM4_OLD' => $promise->N_PROM4,
+            'D_PROM_OLD' => $promise->D_PROM,
+            'D_PROM1_OLD' => $promise->D_PROM1,
+            'D_PROM2_OLD' => $promise->D_PROM2,
+            'D_PROM3_OLD' => $promise->D_PROM3,
+            'D_PROM4_OLD' => $promise->D_PROM4
         );
         return $array;
     }
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return array
      */
-    public function listVisits($id_cuenta)
+    public function listVisits($id)
     {
         $query = "SELECT c_cvst, concat(d_fech,' ',c_hrin) as fh,
 	if(c_visit is null,c_cvge,c_visit) as gestor,
 	left(c_obse1,50) as short, c_obse1, auto
 	FROM historia
-WHERE (historia.C_CONT=:id_cuenta) AND (c_visit <> '')
+WHERE (historia.C_CONT=:id) AND (c_visit <> '')
 ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($query);
-        $sts->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindValue(':id', $id, \PDO::PARAM_INT);
         $sts->execute();
         $row = $sts->fetchAll(\PDO::FETCH_ASSOC);
         return $row;
@@ -407,61 +409,61 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return int
      */
-    public function countGestiones($id_cuenta)
+    public function countCallsByAccount($id)
     {
-        /** @var Builder $historia */
-        $historia = Historia::whereCCont($id_cuenta);
-        $gestiones = $historia->where('c_cont', '>', 0)
+        /** @var Builder $history */
+        $history = Historia::whereCCont($id);
+        $calls = $history->where('c_cont', '>', 0)
             ->count();
-        return $gestiones;
+        return $calls;
     }
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return int
      */
-    public function countPromesas($id_cuenta)
+    public function countPromisesByAccount($id)
     {
-        /** @var Builder $historia */
-        $historia = Historia::whereCCont($id_cuenta);
-        $promesas = $historia->where('n_prom', '>', 0)
+        /** @var Builder $history */
+        $history = Historia::whereCCont($id);
+        $promises = $history->where('n_prom', '>', 0)
             ->count();
-        return $promesas;
+        return $promises;
     }
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return int
      */
-    public function countPagos($id_cuenta)
+    public function countPaymentsByAccount($id)
     {
         /** @var Builder $builder */
-        $builder = Pago::whereIdCuenta($id_cuenta);
-        $pagos = $builder->count();
-        return $pagos;
+        $builder = Pago::whereIdCuenta($id);
+        $payments = $builder->count();
+        return $payments;
     }
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return string
      */
-    public function getCuentaFromId($id_cuenta = 0)
+    public function getAccountNumberFromId($id = 0)
     {
-        $cuenta = '';
-        if ($id_cuenta > 0) {
+        $accountNumber = '';
+        if ($id > 0) {
             $rc = new Resumen();
             /** @var Builder $query */
-            $query = $rc->whereIdCuenta($id_cuenta);
-            $resumen = $query->first();
-            $cuenta = $resumen->numero_de_cuenta;
+            $query = $rc->whereIdCuenta($id);
+            $debtor = $query->first();
+            $accountNumber = $debtor->numero_de_cuenta;
         }
-        return $cuenta;
+        return $accountNumber;
     }
 
 }

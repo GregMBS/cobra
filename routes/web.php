@@ -10,12 +10,12 @@ Route::get('/breaks/{capt}', 'BreaksController@index');
 
 Route::middleware('auth')->group(function () {
     
-    Route::get('/ultima', 'ResumenController@latest');
-    Route::get('/home', 'ResumenController@index');
-    Route::get('/resumen', 'ResumenController@index');
-    Route::get('/resumen/{id_cuenta}', 'ResumenController@find');
-    Route::post('/gestion', 'ResumenController@gestion');
-    Route::post('/captura', 'ResumenController@capture');
+    Route::get('/ultima', 'DebtorController@latest');
+    Route::get('/home', 'DebtorController@index');
+    Route::get('/resumen', 'DebtorController@index');
+    Route::get('/resumen/{id_cuenta}', 'DebtorController@find');
+    Route::post('/gestion', 'DebtorController@gestion');
+    Route::post('/captura', 'DebtorController@capture');
     Route::get('/notas/{id_cuenta}', 'NoteController@index');
     Route::post('/notas', 'NoteController@add');
     Route::post('/clearNota/{nota_id}', 'NoteController@remove');
@@ -61,7 +61,7 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::post('/changest', 'ChangeStatusController@updateOne');
     Route::get('/quick', 'QuickController@index');
     Route::get('/queuesqc', 'QueueReportController@index');
-    Route::get('/speclistqc', 'SpeclistController@index');
+    Route::get('/speclistqc', 'StatusListController@index');
     Route::get('/segmento', 'SegmentController@index');
     Route::post('/segmento/erase', 'SegmentController@erase');
     Route::post('/segmento/inactivate', 'SegmentController@inactivate');

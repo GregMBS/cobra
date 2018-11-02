@@ -2,8 +2,11 @@
 
 namespace App;
 
-
-class SpeclistDataClass
+/**
+ * Class StatusListDataClass
+ * @package App
+ */
+class StatusListDataClass
 {
     /**
      * @var string

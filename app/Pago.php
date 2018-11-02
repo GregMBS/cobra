@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Pago
  * @package App
- * @method Pago whereIdCuenta(int$id_cuenta)
- * @method Pago whereFecha(string $fecha)
+ * @method static|Pago whereIdCuenta(int$id_cuenta)
+ * @method statis|Pago whereFecha(string $fecha)
  */
 class Pago extends Model
 {

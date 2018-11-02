@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\NoteClass;
-use App\ResumenClass;
+use App\DebtorClass;
 use App\UserClass;
 use Illuminate\Http\Request;
 use View;
@@ -24,7 +24,7 @@ class NoteController extends Controller
 
     /**
      *
-     * @var ResumenClass
+     * @var DebtorClass
      */
     private $rc;
 
@@ -32,7 +32,7 @@ class NoteController extends Controller
     {
         $this->nc = new NoteClass();
         $this->uc = new UserClass();
-        $this->rc = new ResumenClass();
+        $this->rc = new DebtorClass();
     }
 
     /**
@@ -42,7 +42,7 @@ class NoteController extends Controller
      */
     public function index($id_cuenta = 0)
     {
-        $cuenta = $this->rc->getCuentaFromId($id_cuenta);
+        $cuenta = $this->rc->getAccountNumberFromId($id_cuenta);
         $capt = auth()->user()->iniciales;
         $notas = $this->nc->listMyNotes($capt);
         /** @var View $view */
@@ -61,7 +61,7 @@ class NoteController extends Controller
      */
     public function indexAdmin($id_cuenta = 0)
     {
-        $cuenta = $this->rc->getCuentaFromId($id_cuenta);
+        $cuenta = $this->rc->getAccountNumberFromId($id_cuenta);
         $notas = $this->nc->listAllNotes();
         $gestores = $this->uc->listUsers();
         $view = view('notadmin')
@@ -94,7 +94,7 @@ class NoteController extends Controller
         $D_FECH = date('Y-m-d');
         $C_HORA = date('H:i:s');
         $C_CONT = $r->C_CONT;
-        $cuenta = $this->rc->getCuentaFromId($C_CONT);
+        $cuenta = $this->rc->getAccountNumberFromId($C_CONT);
         $FECHA = $r->fecha;
         $HORA = $r->hora . ':' . $r->min;
         $NOTA = $r->nota;
