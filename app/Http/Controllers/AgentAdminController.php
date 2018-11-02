@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\GestorDataClass;
+use App\AgentDataClass;
 use Illuminate\Http\Request;
 use App\AgentAdminClass;
 use View;
 
-class GestoradminController extends Controller
+class AgentAdminController extends Controller
 {
     /**
      * 
@@ -39,7 +39,7 @@ class GestoradminController extends Controller
      * @return View
      */
     public function change(Request $r) {
-        $data = new GestorDataClass();
+        $data = new AgentDataClass();
         $data->setCompleto($r->completo);
         $data->setTipo($r->tipo);
         $data->setIniciales($r->iniciales);
@@ -64,7 +64,7 @@ class GestoradminController extends Controller
      * @return View
      */
     public function add(Request $r) {
-        $data = new GestorDataClass();
+        $data = new AgentDataClass();
         $data->setCompleto($r->completo);
         $data->setTipo($r->tipo);
         $data->setIniciales($r->iniciales);

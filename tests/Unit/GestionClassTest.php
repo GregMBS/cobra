@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\GestionClass;
+use App\CallClass;
 use App\Historia;
 use App\Pago;
 use App\Resumen;
@@ -46,7 +46,7 @@ class GestionClassTest extends TestCase
 
     public function testAddNewTel()
     {
-        $gc = new GestionClass();
+        $gc = new CallClass();
         $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
         if ($cuenta) {
             $id_cuenta = $cuenta->id_cuenta;
@@ -63,7 +63,7 @@ class GestionClassTest extends TestCase
     private function doGestionTest(array $gestion)
     {
         unset($gestion['C_CAMP']);
-        $gc = new GestionClass();
+        $gc = new CallClass();
         /** @var Builder $query */
         $query = Resumen::whereIdCuenta($gestion['C_CONT']);
         $cuenta = $query->first();
@@ -71,7 +71,7 @@ class GestionClassTest extends TestCase
         $cliente = $cuenta->cliente;
         $numero_de_cuenta = $cuenta->numero_de_cuenta;
         $gestor = $cuenta->ejecutivo_asignado_call_center;
-        $result = $gc->doGestion($gestion);
+        $result = $gc->doCall($gestion);
         $this->assertTrue($result);
         unset($gestion['N_PAGO']);
         unset($gestion['D_PAGO']);

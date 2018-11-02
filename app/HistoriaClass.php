@@ -11,7 +11,7 @@ namespace App;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Description of GestionClass
+ * Description of CallClass
  *
  * @author gmbs
  */

@@ -56,10 +56,10 @@ class OldNamesAdminClass extends AgentAdminClass
 
     /**
      *
-     * @param GestorDataClass $dataClass
+     * @param AgentDataClass $dataClass
      * @return string
      */
-    public function changeUserData(GestorDataClass $dataClass)
+    public function changeUserData(AgentDataClass $dataClass)
     {
         $data = $dataClass->getUser();
         $this->updateOpenParams($data->completo, $data->tipo, $data->iniciales);

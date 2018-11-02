@@ -9,7 +9,7 @@
 namespace App;
 
 
-class GestorDataClass
+class AgentDataClass
 {
     /**
      * @var string

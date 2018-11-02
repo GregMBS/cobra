@@ -8,18 +8,18 @@ namespace App;
  */
 
 /**
- * Description of rotasClass
+ * Description of PromisesClass
  *
  * @author gmbs
  */
-class RotasClass extends BaseClass
+class PromisesClass extends BaseClass
 {
 
     /**
      *
      * @var string
      */
-    protected $queryRotasStart = "select resumen.cliente,numero_de_cuenta,nombre_deudor,saldo_total,
+    protected $queryStart = "select resumen.cliente,numero_de_cuenta,nombre_deudor,saldo_total,
 status_de_credito,c_cvge,
 status_aarsa,n_prom1,d_prom1,n_prom2,d_prom2,
 resumen.id_cuenta,datediff(curdate(),d_prom) as semaforo,d_fech,sum(monto) as sum_monto,
@@ -40,7 +40,7 @@ and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
      *
      * @var string
      */
-    protected $queryRotasEnd = "group by c_cvge,cliente,status_de_credito,numero_de_cuenta
+    protected $queryEnd = "group by c_cvge,cliente,status_de_credito,numero_de_cuenta
 order by c_cvge,sum(monto),h1.auto
 ";
 
@@ -48,7 +48,7 @@ order by c_cvge,sum(monto),h1.auto
      * 
      * @return string[][]
      */
-    private function fromResumen()
+    private function fromSummary()
     {
         $query = "select cliente,numero_de_cuenta,nombre_deudor,saldo_total,
 status_de_credito,status_aarsa,id_cuenta
@@ -65,18 +65,18 @@ and status_de_credito not regexp '-'
 
     /**
      * 
-     * @param int $id_cuenta
-     * @param string $d_fech
+     * @param int $id
+     * @param string $date
      * @return float[]
      */
-    private function fromPagos($id_cuenta, $d_fech)
+    private function fromPayments($id, $date)
     {
         $query = "SELECT SUM(monto) as sum_monto FROM pagos 
-                    WHERE id_cuenta = :id_cuenta
-                    AND fecha >= :d_fech";
+                    WHERE id_cuenta = :id
+                    AND fecha >= :date";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stq->bindValue(':d_fech', $d_fech);
+        $stq->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stq->bindValue(':date', $date);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -84,16 +84,16 @@ and status_de_credito not regexp '-'
     
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return string[]
      */
-    private function fromHistoriaAdmin($id_cuenta)
+    private function fromHistoryAdmin($id)
     {
         $query = "SELECT c_cvge, n_prom1, d_prom1, n_prom2, d_prom2,
 DATEDIFF(CURDATE(),d_prom) AS semaforo, d_fech,
 n_prom3, d_prom3, n_prom4, d_prom4
 FROM historia h1
-WHERE c_cont = :id_cuenta AND n_prom>0
+WHERE c_cont = :id AND n_prom>0
 AND GREATEST(d_prom1,d_prom2,d_prom3,d_prom4)>LAST_DAY(CURDATE()-INTERVAL 1 MONTH - INTERVAL 15 DAY)
 AND d_fech>LAST_DAY(CURDATE()-INTERVAL 2 MONTH)
 AND NOT EXISTS (
@@ -101,7 +101,7 @@ AND NOT EXISTS (
     AND n_prom>0 AND CONCAT(h2.d_fech,h2.c_hrfi)>CONCAT(h1.d_fech,h1.c_hrfi)
 )";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stq->bindValue(':id', $id, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -109,17 +109,17 @@ AND NOT EXISTS (
     
         /**
      * 
-     * @param int $id_cuenta
-     * @param string $c_cvge
+     * @param int $id
+     * @param string $agent
      * @return string{}
      */
-    private function fromHistoria($id_cuenta, $c_cvge)
+    private function fromHistory($id, $agent)
     {
         $query = "SELECT c_cvge, n_prom1, d_prom1, n_prom2, d_prom2,
 DATEDIFF(CURDATE(),d_prom) AS semaforo, d_fech,
 n_prom3, d_prom3, n_prom4, d_prom4
 FROM historia h1 
-WHERE c_cont = :id_cuenta AND n_prom>0 AND c_cvge = :c_cvge
+WHERE c_cont = :id AND n_prom>0 AND c_cvge = :agent
 AND GREATEST(d_prom1,d_prom2,d_prom3,d_prom4)>LAST_DAY(CURDATE()-INTERVAL 1 MONTH - INTERVAL 15 DAY)
 AND d_fech>LAST_DAY(CURDATE()-INTERVAL 2 MONTH)
 AND NOT EXISTS (
@@ -127,34 +127,34 @@ AND NOT EXISTS (
     AND n_prom>0 AND CONCAT(h2.d_fech,h2.c_hrfi)>CONCAT(h1.d_fech,h1.c_hrfi)
 )";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
-        $stq->bindValue(':c_cvge', $c_cvge);
+        $stq->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stq->bindValue(':agent', $agent);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 
     /**
-     * @param $tipo
+     * @param $type
      * @param $capt
      * @return array
      */
-    public function getRotas($tipo, $capt)
+    public function getPromises($type, $capt)
     {
         $result = [];
-        $fromResumen = $this->fromResumen();
+        $fromResumen = $this->fromSummary();
         foreach ($fromResumen as $row) {
             $id_cuenta = $row['id_cuenta'];
-            if ($tipo == 'admin') {
-                $fromHistoria = $this->fromHistoriaAdmin($id_cuenta);
+            if ($type == 'admin') {
+                $fromHistory = $this->fromHistoryAdmin($id_cuenta);
             }
-            if ($tipo != 'admin') {
-                $fromHistoria = $this->fromHistoria($id_cuenta, $capt);
+            if ($type != 'admin') {
+                $fromHistory = $this->fromHistory($id_cuenta, $capt);
             }
-            if (!empty($fromHistoria)) {
-                $d_fech = $fromHistoria['d_fech'];
-                $fromPagos = $this->fromPagos($id_cuenta, $d_fech);
-                $result[] = array_merge($row, $fromHistoria, $fromPagos);
+            if (!empty($fromHistory)) {
+                $d_fech = $fromHistory['d_fech'];
+                $fromPagos = $this->fromPayments($id_cuenta, $d_fech);
+                $result[] = array_merge($row, $fromHistory, $fromPagos);
             }
         }
         return $result;

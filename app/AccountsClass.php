@@ -11,11 +11,11 @@ namespace App;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Description of MigoClass
+ * Description of AccountsClass
  *
  * @author gmbs
  */
-class MigoClass extends BaseClass
+class AccountsClass extends BaseClass
 {
 
     /**

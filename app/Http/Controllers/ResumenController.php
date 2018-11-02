@@ -11,7 +11,7 @@ use App\ValidationClass;
 use App\ValidationErrorClass;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\GestionClass;
+use App\CallClass;
 use View;
 use App\NoteClass;
 use App\ReferenciaClass;
@@ -33,7 +33,7 @@ class ResumenController extends Controller
 
     /**
      *
-     * @var GestionClass
+     * @var CallClass
      */
     private $gc;
 
@@ -54,23 +54,11 @@ class ResumenController extends Controller
     public function __construct()
     {
         $this->rc = new ResumenClass();
-        $this->gc = new GestionClass();
+        $this->gc = new CallClass();
         $this->rqc = new ResumenQueuesClass();
         $this->nc = new NoteClass();
         $this->fc = new ReferenciaClass();
     }
-
-    /*
-    private function getFields(Request $r)
-    {
-        $tl = date('r');
-        $find0 = $r->find;
-        $field = $r->field;
-        $find = $this->rc->cleanFind($find0);
-        $notas = $this->rc->noteAlert($capt);
-    }
-    */
-
     /**
      * @param ValidationErrorClass $valid
      * @return View
@@ -152,7 +140,7 @@ class ResumenController extends Controller
         if ($valid->flag) {
             dd('invalid');
         }
-        $this->gc->doGestion($r->all());
+        $this->gc->doCall($r->all());
         return redirect('/resumen');
     }
 
@@ -240,21 +228,4 @@ class ResumenController extends Controller
             ->with('photo_exists', $photo_exists);
         return $view;
     }
-
-    /*
-    public function response(array $errors)
-    {
-        // Optionally, send a custom response on authorize failure
-        // (default is to just redirect to initial page with errors)
-        //
-        // Can return a response, a view, a redirect, or whatever else
-
-        if ($this->ajax() || $this->wantsJson()) {
-            return new JsonResponse($errors, 422);
-        }
-        return $this->redirector->to('/resumen/')
-            ->withInput($this->except($this->dontFlash))
-            ->withErrors($errors, $this->errorBag);
-    }
-    */
 }

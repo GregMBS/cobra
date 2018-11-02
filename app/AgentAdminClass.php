@@ -152,10 +152,10 @@ class AgentAdminClass extends BaseClass {
 
     /**
      *
-     * @param GestorDataClass $dataClass
+     * @param AgentDataClass $dataClass
      * @return string
      */
-    public function changeUserData(GestorDataClass $dataClass)
+    public function changeUserData(AgentDataClass $dataClass)
     {
         $data = $dataClass->getUser();
         $this->updateOpenParams($data->completo, $data->tipo, $data->iniciales);
@@ -174,10 +174,10 @@ class AgentAdminClass extends BaseClass {
     }
 
     /**
-     * @param GestorDataClass $dataClass
+     * @param AgentDataClass $dataClass
      * @return string
      */
-    public function addUser(GestorDataClass $dataClass)
+    public function addUser(AgentDataClass $dataClass)
     {
         $data = $dataClass->getUser();
         $this->addToUsers($data->completo, $data->tipo, $data->iniciales, $data->pass);

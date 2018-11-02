@@ -6,7 +6,7 @@ use View;
 use Illuminate\Http\Request;
 use App\QueuesgClass;
 
-class GestorQueuesController extends Controller
+class AgentQueuesController extends Controller
 {
 
     /**

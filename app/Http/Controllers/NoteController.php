@@ -8,7 +8,7 @@ use App\UserClass;
 use Illuminate\Http\Request;
 use View;
 
-class NotaController extends Controller
+class NoteController extends Controller
 {
     /**
      *

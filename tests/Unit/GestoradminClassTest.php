@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\AgentAdminClass;
-use App\GestorDataClass;
+use App\AgentDataClass;
 use App\User;
 use Tests\TestCase;
 
@@ -47,9 +47,9 @@ class GestoradminClassTest extends TestCase
     }
 
     /**
-     * @param GestorDataClass $dataClass
+     * @param AgentDataClass $dataClass
      */
-    private function hasUser(GestorDataClass $dataClass)
+    private function hasUser(AgentDataClass $dataClass)
     {
         $data = $dataClass->getUser();
         $this->assertDatabaseHas('users', [
@@ -60,9 +60,9 @@ class GestoradminClassTest extends TestCase
     }
 
     /**
-     * @param GestorDataClass $dataClass
+     * @param AgentDataClass $dataClass
      */
-    private function noUser(GestorDataClass $dataClass)
+    private function noUser(AgentDataClass $dataClass)
     {
         $data = $dataClass->getUser();
         $this->assertDatabaseMissing('users', [
@@ -75,7 +75,7 @@ class GestoradminClassTest extends TestCase
     public function testAddChangeDeleteUser()
     {
         $gc = new AgentAdminClass();
-        $data = new GestorDataClass();
+        $data = new AgentDataClass();
         $data->setCompleto('Pedro Laskin');
         $data->setTipo('admin');
         $data->setIniciales('pedro');

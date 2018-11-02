@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Description of GestionClass
+ * Description of CallClass
  *
  * @author gmbs
  */
-class GestionClass extends BaseClass
+class CallClass extends BaseClass
 {
 
     /**
      *
      * @var string
      */
-    private $gestionInsertQuery = "INSERT INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
+    private $historyInsertQuery = "INSERT INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
 C_TELE,CUANDO,CUENTA,C_OBSE1,C_ATTE,C_CARG,D_PROM,N_PROM,C_PROM,
 D_PROM1,N_PROM1,D_PROM2,N_PROM2,
 D_PROM3,N_PROM3,D_PROM4,N_PROM4,
@@ -32,7 +32,7 @@ VALUES (:C_CVBA, :C_CVGE, :C_CONT, :C_CVST,date(:D_FECH),
      *
      * @var string
      */
-    private $setPromesaIncumplida = "update resumen
+    private $setPromiseFailed = "update resumen
 		set status_aarsa='PROMESA INCUMPLIDA'
 		where id_cuenta not in (
 			select c_cont from historia
@@ -49,13 +49,13 @@ VALUES (:C_CVBA, :C_CVGE, :C_CONT, :C_CVST,date(:D_FECH),
 			'PROMESA DE PAGO PARCIAL',
 			'PROMESA DE PAGO TOTAL',
 			'CONFIRMA PROMESA')
-		and id_cuenta = :c_cont";
+		and id_cuenta = :id";
 
     /**
      *
      * @var string
      */
-    private $setPagoAnt = "update resumen,dictamenes
+    private $setOldPayment = "update resumen,dictamenes
 set status_aarsa='PAGO DEL MES ANTERIOR'
 where status_aarsa=dictamen and cliente not like 'J%' and cliente not like '%JUR'
 and queue='pagos'
@@ -65,7 +65,7 @@ and queue='PAGOS'
 and d_fech>last_day(curdate()-interval 1 month))
 and id_cuenta not in (
 select id_cuenta from pagos where fecha>last_day(curdate()-interval 1 month))
-and id_cuenta = :c_cont";
+and id_cuenta = :id";
 
     /**
      *
@@ -120,7 +120,7 @@ and id_cuenta = :c_cont";
      *
      * @param int $auto
      */
-    private function addHistdate($auto)
+    private function addDateOfCapture($auto)
     {
         $query = "INSERT IGNORE INTO histdate VALUES (:auto, CURDATE())";
         $stq = $this->pdo->prepare($query);
@@ -130,38 +130,43 @@ and id_cuenta = :c_cont";
 
     /**
      * @param int $auto
-     * @param string $c_cvge
+     * @param string $agent
      */
-    private function addHistgest($auto, $c_cvge)
+    private function addCapturingAgent($auto, $agent)
     {
-        $query = "INSERT IGNORE INTO histgest VALUES (:auto, :c_cvge)";
+        $query = "INSERT IGNORE INTO histgest VALUES (:auto, :agent)";
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':auto', $auto, \PDO::PARAM_INT);
-        $stq->bindValue(':c_cvge', $c_cvge);
+        $stq->bindValue(':agent', $agent);
         $stq->execute();
     }
 
     /**
      *
-     * @param int $C_CONT
+     * @param int $id
      * @param string $tele
      * @return array
      */
-    public function addNewTel($C_CONT, $tele = '')
+    public function addNewTel($id, $tele = '')
     {
         if (!empty($tele)) {
             $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
-            $query = "UPDATE resumen " . "SET tel_4_verif = tel_3_verif," . "tel_3_verif = tel_2_verif," . "tel_2_verif = tel_1_verif," . "tel_1_verif = :tel " . "WHERE id_cuenta = :C_CONT";
+            $query = "UPDATE resumen 
+SET tel_4_verif = tel_3_verif,
+tel_3_verif = tel_2_verif,
+tel_2_verif = tel_1_verif,
+tel_1_verif = :tel 
+WHERE id_cuenta = :id";
             $stn = $this->pdo->prepare($query);
             $stn->bindValue(':tel', $tel);
-            $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+            $stn->bindValue(':id', $id, \PDO::PARAM_INT);
             $stn->execute();
         }
         $rc = new Resumen();
         /**
          * @var Builder $query
          */
-        $query = $rc->whereIdCuenta($C_CONT);
+        $query = $rc->whereIdCuenta($id);
         /**
          * @var Collection $result
          */
@@ -178,44 +183,46 @@ and id_cuenta = :c_cont";
 
     /**
      *
-     * @param int $C_CONT
+     * @param int $id
      * @param string $dir
      */
-    public function updateAddress($C_CONT, $dir)
+    public function updateAddress($id, $dir)
     {
-        $query = "UPDATE resumen SET direccion_nueva = :dir WHERE id_cuenta = :C_CONT";
+        $query = "UPDATE resumen SET direccion_nueva = :dir WHERE id_cuenta = :id";
         $stn = $this->pdo->prepare($query);
         $stn->bindValue(':dir', $dir);
-        $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindValue(':id', $id, \PDO::PARAM_INT);
         $stn->execute();
     }
 
     /**
      *
-     * @param int $C_CONT
+     * @param int $id
      * @param string $email
      */
-    private function updateEmail($C_CONT, $email)
+    private function updateEmail($id, $email)
     {
-        $query = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
+        $query = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :id";
         $stn = $this->pdo->prepare($query);
         $stn->bindValue(':email', $email);
-        $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindValue(':id', $id, \PDO::PARAM_INT);
         $stn->execute();
     }
 
     /**
      *
      * @param string $capt
-     * @param int $C_CONT
+     * @param int $id
      * @return string
      */
-    private function attributePayment($capt, $C_CONT)
+    private function attributePayment($capt, $id)
     {
         $who = $capt;
-        $query = "select c_cvge " . "from historia " . "where n_prom>0 " . "and c_cvge like 'PRO%' " . "and c_cont = :C_CONT " . "order by d_fech desc, c_hrin desc limit 1";
+        $query = "select c_cvge from historia 
+        where n_prom>0 and c_cvge like 'PRO%' and c_cont = :id 
+        order by d_fech desc, c_hrin desc limit 1";
         $stn = $this->pdo->prepare($query);
-        $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindValue(':id', $id, \PDO::PARAM_INT);
         $stn->execute();
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
         if (isset($result['c_cvge'])) {
@@ -226,27 +233,27 @@ and id_cuenta = :c_cont";
 
     /**
      *
-     * @param int $C_CONT
-     * @param string $D_PAGO
-     * @param float $N_PAGO
+     * @param int $id
+     * @param string $date
+     * @param float $amount
      * @param string $who
      */
-    private function addPago($C_CONT, $D_PAGO, $N_PAGO, $who)
+    private function addPayment($id, $date, $amount, $who)
     {
         $query = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
-    SELECT numero_de_cuenta, :D_PAGO, :N_PAGO, cliente, :who, numero_de_credito, id_cuenta 
-    FROM resumen WHERE id_cuenta = :C_CONT";
+    SELECT numero_de_cuenta, :date, :amount, cliente, :who, numero_de_credito, id_cuenta 
+    FROM resumen WHERE id_cuenta = :id";
         $sti = $this->pdo->prepare($query);
-        $sti->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
-        $sti->bindValue(':D_PAGO', $D_PAGO);
-        $sti->bindValue(':N_PAGO', $N_PAGO);
+        $sti->bindValue(':id', $id, \PDO::PARAM_INT);
+        $sti->bindValue(':date', $date);
+        $sti->bindValue(':amount', $amount);
         $sti->bindValue(':who', $who);
         $sti->execute();
     }
 
     /**
      */
-    private function updateAllUltimoPagos()
+    private function updateLastPayments()
     {
         $query = "update resumen,pagos 
                 set fecha_de_ultimo_pago = fecha, monto_ultimo_pago = monto 
@@ -256,22 +263,22 @@ and id_cuenta = :c_cont";
 
     /**
      *
-     * @param int $C_CONT
+     * @param int $id
      * @param string $best
      */
-    private function resumenStatusUpdate($C_CONT, $best)
+    private function statusUpdate($id, $best)
     {
-        $query = "update resumen set status_aarsa = :best where id_cuenta = :c_cont";
+        $query = "update resumen set status_aarsa = :best where id_cuenta = :id";
         $stb = $this->pdo->prepare($query);
-        $stb->bindValue(':c_cont', $C_CONT, \PDO::PARAM_INT);
+        $stb->bindValue(':id', $id, \PDO::PARAM_INT);
         $stb->bindValue(':best', $best);
         $stb->execute();
-        $sti = $this->pdo->prepare($this->setPromesaIncumplida);
-        $sti->bindValue(':c_cont', $C_CONT, \PDO::PARAM_INT);
+        $sti = $this->pdo->prepare($this->setPromiseFailed);
+        $sti->bindValue(':id', $id, \PDO::PARAM_INT);
         $sti->execute();
         
-        $stp = $this->pdo->prepare($this->setPagoAnt);
-        $stp->bindValue(':c_cont', $C_CONT, \PDO::PARAM_INT);
+        $stp = $this->pdo->prepare($this->setOldPayment);
+        $stp->bindValue(':id', $id, \PDO::PARAM_INT);
         $stp->execute();
     }
 
@@ -280,9 +287,9 @@ and id_cuenta = :c_cont";
      * @param GestionDataClass $gestion
      * @return int
      */
-    private function insertGestion(GestionDataClass $gestion)
+    private function insertCall(GestionDataClass $gestion)
     {
-        $sti = $this->pdo->prepare($this->gestionInsertQuery);
+        $sti = $this->pdo->prepare($this->historyInsertQuery);
         $sti->bindValue(':C_CVBA', $gestion->getCCVBA());
         $sti->bindValue(':C_CVGE', $gestion->getCCVGE());
         $sti->bindValue(':C_CONT', $gestion->getCCONT(), \PDO::PARAM_INT);
@@ -340,7 +347,7 @@ and id_cuenta = :c_cont";
      */
     private function doCommon($auto, $gestion)
     {
-        $this->addHistgest($auto, $gestion['C_CVGE']);
+        $this->addCapturingAgent($auto, $gestion['C_CVGE']);
         if (!empty($gestion['C_NTEL'])) {
             $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
         }
@@ -355,12 +362,12 @@ and id_cuenta = :c_cont";
         }
         if ($gestion['N_PAGO'] > 0) {
             $who = $this->attributePayment($gestion['C_CVGE'], $gestion['C_CONT']);
-            $this->addPago($gestion['C_CONT'], $gestion['D_PAGO'], $gestion['N_PAGO'], $who);
+            $this->addPayment($gestion['C_CONT'], $gestion['D_PAGO'], $gestion['N_PAGO'], $who);
         }
-        $this->updateAllUltimoPagos();
+        $this->updateLastPayments();
         
         $best = $this->getBest($gestion['C_CVST'], $gestion['C_CONT']);
-        $this->resumenStatusUpdate($gestion['C_CONT'], $best);
+        $this->statusUpdate($gestion['C_CONT'], $best);
     }
 
     /**
@@ -427,7 +434,7 @@ SQL;
         $vdc->setProms($proms);
         $this->beginTransaction();
         $auto = $this->insertVisit($vdc);
-        $this->addHistdate($auto);
+        $this->addDateOfCapture($auto);
         $this->doCommon($auto, $gestion);
         $this->commitTransaction();
         return true;
@@ -451,7 +458,7 @@ SQL;
      * @return ValidationErrorClass|boolean
      * @throws \UnexpectedValueException
      */
-    public function doGestion(array $gestion)
+    public function doCall(array $gestion)
     {
         $vc = new ValidationClass();
         $valid = $vc->countGestionErrors($gestion);
@@ -481,7 +488,7 @@ SQL;
         $proms = $this->loadProms($gestion);
         $gdc->setProms($proms);
         $this->beginTransaction();
-        $auto = $this->insertGestion($gdc);
+        $auto = $this->insertCall($gdc);
         $this->doCommon($auto, $gestion);
         $this->commitTransaction();
         return true;

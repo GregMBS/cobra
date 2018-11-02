@@ -9,32 +9,32 @@
 namespace App;
 
 /**
- * Description of PagosClass
+ * Description of PaymentsClass
  *
  * @author gmbs
  */
-class PagosClass extends BaseClass {
+class PaymentsClass extends BaseClass {
 
     /**
      * 
      * @return array
      */
     public function summaryThisMonth() {
-        $queryAct = "select pagos.cliente as cli, status_de_credito as sdc,
+        $query = "select pagos.cliente as cli, status_de_credito as sdc,
 	sum(monto) as sm, sum(monto*confirmado) as smc
 from pagos join resumen using (id_cuenta)
 where fecha>last_day(curdate()-interval 1 month)
 and status_de_credito not like '%vo'
 group by cli, sdc with rollup";
-        $resultAct = $this->pdo->query($queryAct);
-        return $resultAct->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
      * 
      * @return array
      */
-    public function byGestorThisMonth() {
+    public function byAgentThisMonth() {
         $query = "select gestor,cliente,
 sum(monto) as sm, sum(monto*confirmado) as smc
 from pagos
@@ -49,12 +49,12 @@ group by gestor,cliente";
      * @return array
      */
     public function detailsThisMonth() {
-        $queryActDet = "select cuenta, fecha, monto, cliente, gestor, confirmado
+        $query = "select cuenta, fecha, monto, cliente, gestor, confirmado
 from pagos
 where fecha>last_day(curdate()-interval 1 month)
 order by cliente,gestor,fecha";
-        $resultActDet = $this->pdo->query($queryActDet);
-        return $resultActDet->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -62,22 +62,22 @@ order by cliente,gestor,fecha";
      * @return array
      */
     public function summaryLastMonth() {
-        $queryAnt = "select pagos.cliente as cli, status_de_credito as sdc,
+        $query = "select pagos.cliente as cli, status_de_credito as sdc,
 	sum(monto) as sm, sum(monto*confirmado) as smc
 from pagos join resumen using (id_cuenta)
 where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 and status_de_credito not like '%vo'
 group by cli, sdc with rollup";
-        $resultAnt = $this->pdo->query($queryAnt);
-        return $resultAnt->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
      * 
      * @return array
      */
-    public function byGestorLastMonth() {
+    public function byAgentLastMonth() {
         $query = "select gestor,cliente,
 sum(monto) as sm, sum(monto*confirmado) as smc
 from pagos
@@ -93,26 +93,26 @@ group by gestor,cliente";
      * @return array
      */
     public function detailsLastMonth() {
-        $queryAntDet = "select cuenta, fecha, monto, cliente, gestor, confirmado
+        $query = "select cuenta, fecha, monto, cliente, gestor, confirmado
 from pagos
 where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 order by cliente,gestor,fecha";
-        $resultAntDet = $this->pdo->query($queryAntDet);
-        return $resultAntDet->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
      * 
-     * @param int $ID_CUENTA
+     * @param int $id
      * @return array
      */
-    public function getCuentaClienteFromID($ID_CUENTA) {
+    public function getAccountClientFromID($id) {
         $query = "SELECT numero_de_cuenta AS cuenta, cliente
 FROM resumen 
 WHERE id_cuenta=:id";
         $stc = $this->pdo->prepare($query);
-        $stc->bindValue(':id', $ID_CUENTA, \PDO::PARAM_INT);
+        $stc->bindValue(':id', $id, \PDO::PARAM_INT);
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -120,16 +120,16 @@ WHERE id_cuenta=:id";
 
     /**
      * 
-     * @param int $ID_CUENTA
+     * @param int $id
      * @return array
      */
-    public function listPagos($ID_CUENTA) {
+    public function listPayments($id) {
         $query = "SELECT fecha,monto,confirmado
 FROM pagos
 WHERE id_cuenta=:id
 ORDER BY fecha";
         $sts = $this->pdo->prepare($query);
-        $sts->bindValue(':id', $ID_CUENTA);
+        $sts->bindValue(':id', $id);
         $sts->execute();
         $row = $sts->fetchAll(\PDO::FETCH_ASSOC);
         return $row;
@@ -158,19 +158,16 @@ order by cliente,gestor,fecha";
     /**
      * 
      * @param string $capt
-     * @param string $CUENTA
+     * @param string $account
      * @return string
      */
-    private function attributePayment($capt, $CUENTA) {
+    private function attributePayment($capt, $account) {
         $who = $capt;
-        $query = "select c_cvge "
-                . "from historia "
-                . "where n_prom>0 "
-                . "and c_cvge like 'PRO%' "
-                . "and cuenta = :CUENTA "
-                . "order by d_fech desc, c_hrin desc limit 1";
+        $query = "select c_cvge from historia 
+where n_prom>0 and c_cvge like 'PRO%' and cuenta = :account 
+order by d_fech desc, c_hrin desc limit 1";
         $stn = $this->pdo->prepare($query);
-        $stn->bindValue(':CUENTA', $CUENTA);
+        $stn->bindValue(':account', $account);
         $stn->execute();
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
         if (isset($result['c_cvge'])) {
@@ -181,19 +178,19 @@ order by cliente,gestor,fecha";
 
     /**
      * 
-     * @param array $pagos
+     * @param array $payments
      */
-    public function addBulkPagos($pagos) {
+    public function addBulkPayments($payments) {
         $query = "INSERT IGNORE INTO pagos 
             (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
     SELECT :CUENTA, :FECHA, :MONTO, cliente, :who, numero_de_credito, id_cuenta 
     FROM resumen WHERE numero_de_cuenta = :CUENTA";
         $sti = $this->pdo->prepare($query);
-        foreach ($pagos as $pago) {
-            $who = $this->attributePayment('gmbs', $pago['CUENTA']);
-            $sti->bindValue(':CUENTA', $pago['CUENTA']);
-            $sti->bindValue(':FECHA', $pago['FECHA']);
-            $sti->bindValue(':MONTO', $pago['MONTO']);
+        foreach ($payments as $pay) {
+            $who = $this->attributePayment('gmbs', $pay['CUENTA']);
+            $sti->bindValue(':CUENTA', $pay['CUENTA']);
+            $sti->bindValue(':FECHA', $pay['FECHA']);
+            $sti->bindValue(':MONTO', $pay['MONTO']);
             $sti->bindValue(':who', $who);
             $sti->execute();
         }

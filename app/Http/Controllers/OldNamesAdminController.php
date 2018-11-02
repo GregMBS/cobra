@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use App\OldNamesAdminClass;
 
-class NombresadminController extends GestoradminController
+class OldNamesAdminController extends AgentAdminController
 {
 
     public function __construct()

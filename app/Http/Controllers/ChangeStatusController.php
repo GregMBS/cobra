@@ -7,7 +7,7 @@ use App\ChangeStatusClass;
 use Illuminate\Http\Request;
 use View;
 
-class ChangestController extends Controller
+class ChangeStatusController extends Controller
 {
     /**
      *

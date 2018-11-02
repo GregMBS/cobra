@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\RotasClass;
+use App\PromisesClass;
 use Tests\TestCase;
 
 class RotasClassTest extends TestCase
@@ -35,14 +35,14 @@ class RotasClassTest extends TestCase
             'd_prom4',
             'sum_monto'
         ];
-        $rc = new RotasClass();
-        $result = $rc->getRotas('admin', 'gmbs');
+        $rc = new PromisesClass();
+        $result = $rc->getPromises('admin', 'gmbs');
         if ($result) {
             $this->checkKeys($testKeys, $result);
         } else {
             $this->assertEquals(array(), $result);
         }
-        $result = $rc->getRotas('', 'gmbs');
+        $result = $rc->getPromises('', 'gmbs');
         $this->assertEquals(array(), $result);
     }
 }

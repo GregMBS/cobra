@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\LastMonthAllClass;
 use App\LastMonthClass;
 
-class PerfmesController extends HoursController
+class LastMonthController extends HoursController
 {
 
     /** @var array  */
@@ -15,7 +15,7 @@ class PerfmesController extends HoursController
     ];
 
     /**
-     * PerfmesController constructor.
+     * LastMonthController constructor.
      */
     public function __construct()
     {

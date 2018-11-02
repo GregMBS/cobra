@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\MigoClass;
+use App\AccountsClass;
 use View;
 
-class MigoController extends Controller
+class AccountsController extends Controller
 {
     /**
      *
-     * @var MigoClass
+     * @var AccountsClass
      */
     private $mc;
     
     public function __construct() {
-        $this->mc = new MigoClass();
+        $this->mc = new AccountsClass();
     }
     
     /**
