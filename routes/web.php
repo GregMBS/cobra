@@ -93,10 +93,10 @@ Route::middleware(['auth','admin'])->group(function () {    // Admin only
     Route::get('/checkboth', 'CheckController@checkBoth');
     Route::get('/checkboth/{gestor}', 'CheckController@checkBothAjax');
     Route::post('/checkboth', 'CheckController@assignboth');
-    Route::get('/pdh/{gestor}/{fecha}', 'DhController@promesas');
-    Route::get('/ddh/{gestor}/{fecha}', 'DhController@gestiones');
-    Route::get('/pdhv/{gestor}/{fecha}', 'DhvController@promesas');
-    Route::get('/ddhv/{gestor}/{fecha}', 'DhvController@gestiones');
+    Route::get('/pdh/{gestor}/{fecha}', 'AgentActivityController@promises');
+    Route::get('/ddh/{gestor}/{fecha}', 'AgentActivityController@calls');
+    Route::get('/pdhv/{gestor}/{fecha}', 'VisitorActivityController@promises');
+    Route::get('/ddhv/{gestor}/{fecha}', 'VisitorActivityController@calls');
     Route::get('/activate', 'ActivateController@activeShow');
     Route::post('/activate', 'ActivateController@activate');
     Route::get('/inactivate', 'ActivateController@inactiveShow');

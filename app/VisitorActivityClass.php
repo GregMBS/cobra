@@ -1,21 +1,16 @@
 <?php
+
 namespace App;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Database Class for ddh/pdh
+ * VisitorActivityClass
  *
  * @author gmbs
  *
  */
-class DhvClass extends BaseClass
+class VisitorActivityClass extends BaseClass
 {
-    public function getPromesas($gestor, $fecha)
+    public function getPromises($agent, $date)
     {
         $query  = "select numero_de_cuenta,nombre_deudor,saldo_total,
 status_de_credito,ejecutivo_asignado_call_center,
@@ -25,19 +20,19 @@ max(n_prom) as monto_promesa,max(d_prom) as fecha_promesa, max(v_cc) as vcc
 from resumen
 join historia on id_cuenta=c_cont
 left join dictamenes on dictamen = status_aarsa
-where c_visit=:gestor and d_fech=:fecha and n_prom>0
+where c_visit=:agent and d_fech=:date and n_prom>0
 group by id_cuenta
 ORDER BY
 saldo_total desc, pagos_vencidos";
         $stq    = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
-        $stq->bindValue(':fecha', $fecha);
+        $stq->bindValue(':agent', $agent);
+        $stq->bindValue(':date', $date);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 
-    public function getGestiones($gestor, $fecha)
+    public function getCalls($agent, $date)
     {
         $query  = "select numero_de_cuenta,nombre_deudor,saldo_total,
 status_de_credito,ejecutivo_asignado_call_center,
@@ -46,12 +41,12 @@ saldo_descuento_2,producto,estado_deudor,ciudad_deudor,cliente,id_cuenta,
 n_prom,d_prom,v_cc from resumen
 join historia on id_cuenta=c_cont
 join dictamenes on dictamen=status_aarsa
-where c_visit=:gestor and d_fech=:fecha
+where c_visit=:agent and d_fech=:date
 ORDER BY
 saldo_total desc, pagos_vencidos,d_fech,c_hrin";
         $stq    = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
-        $stq->bindValue(':fecha', $fecha);
+        $stq->bindValue(':agent', $agent);
+        $stq->bindValue(':date', $date);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;

@@ -9,32 +9,32 @@ namespace App;
  */
 
 /**
- * Database Class for ddh/pdh
+ * AgentActivityClass
  *
  * @author gmbs
  *
  */
-class DhClass extends BaseClass {
+class AgentActivityClass extends BaseClass {
 
     /**
      * 
-     * @param string $gestor
-     * @param string $fecha
+     * @param string $agent
+     * @param string $date
      * @return array
      */
-    public function getPromesas($gestor, $fecha) {
+    public function getPromises($agent, $date) {
         $query = "select numero_de_cuenta,nombre_deudor,
 status_de_credito,ejecutivo_asignado_call_center,
 status_aarsa,saldo_descuento_2,cliente,id_cuenta,
 max(n_prom) as monto_promesa,max(d_prom) as fecha_promesa
 from resumen
 join historia on id_cuenta=c_cont
-where c_cvge=:gestor and d_fech=:fecha and n_prom>0
+where c_cvge=:agent and d_fech=:date and n_prom>0
 group by id_cuenta
 ORDER BY saldo_descuento_2 desc";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
-        $stq->bindValue(':fecha', $fecha);
+        $stq->bindValue(':agent', $agent);
+        $stq->bindValue(':date', $date);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -42,22 +42,22 @@ ORDER BY saldo_descuento_2 desc";
 
     /**
      * 
-     * @param string $gestor
-     * @param string $fecha
+     * @param string $agent
+     * @param string $date
      * @return array
      */
-    public function getGestiones($gestor, $fecha) {
+    public function getCalls($agent, $date) {
         $query = "select numero_de_cuenta,nombre_deudor,
 status_de_credito,ejecutivo_asignado_call_center,
 status_aarsa,saldo_descuento_2,cliente,id_cuenta,
 d_fech,c_hrin,c_cvst,c_contan 
 from resumen
 join historia on c_cont=id_cuenta
-where c_cvge=:gestor and d_fech=:fecha
+where c_cvge=:agent and d_fech=:date
 ORDER BY d_fech,c_hrin";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
-        $stq->bindValue(':fecha', $fecha);
+        $stq->bindValue(':agent', $agent);
+        $stq->bindValue(':date', $date);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -65,12 +65,12 @@ ORDER BY d_fech,c_hrin";
 
     /**
      * 
-     * @param string $gestor
-     * @param string $fecha
+     * @param string $agent
+     * @param string $date
      * @return array
      */
-    public function getDhMain($gestor, $fecha) {
-        $querymain = "select numero_de_cuenta, nombre_deudor,
+    public function getReport($agent, $date) {
+        $query = "select numero_de_cuenta, nombre_deudor,
     saldo_total, status_de_credito, status_aarsa,
     ejecutivo_asignado_call_center,
     dias_vencidos, c_cvst, c_hrin,
@@ -80,11 +80,11 @@ ORDER BY d_fech,c_hrin";
     from resumen
     join historia on id_cuenta=c_cont
     join dictamenes on dictamen=status_aarsa
-    where c_cvge=:gestor and d_fech=:fecha
+    where c_cvge=:agent and d_fech=:date
     ORDER BY d_fech, c_hrin";
-        $stm = $this->pdo->prepare($querymain);
-        $stm->bindValue(':gestor', $gestor);
-        $stm->bindValue(':fecha', $fecha);
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(':agent', $agent);
+        $stm->bindValue(':date', $date);
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $result;

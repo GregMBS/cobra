@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\DhvClass;
+use App\VisitorActivityClass;
 use App\Historia;
 use Tests\TestCase;
 
@@ -37,11 +37,11 @@ class DhvClassTest extends TestCase
             'fecha_promesa',
             'vcc'
         ];
-        $dc = new DhvClass();
+        $dc = new VisitorActivityClass();
         if ($gestion) {
             $gestor = $gestion->C_VISIT;
             $fecha = $gestion->D_FECH;
-            $result = $dc->getPromesas($gestor, $fecha);
+            $result = $dc->getPromises($gestor, $fecha);
             $this->assertGreaterThan(0, count($result));
             $first = $result[0];
             $keys = array_keys($first);
@@ -73,11 +73,11 @@ class DhvClassTest extends TestCase
             'd_prom',
             'v_cc'
         ];
-        $dc = new DhvClass();
+        $dc = new VisitorActivityClass();
         if ($gestion) {
             $gestor = $gestion->C_VISIT;
             $fecha = $gestion->D_FECH;
-            $result = $dc->getGestiones($gestor, $fecha);
+            $result = $dc->getCalls($gestor, $fecha);
             $this->checkKeys($testKeys, $result);
         }
         $this->assertTrue(true);

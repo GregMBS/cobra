@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\DhClass;
+use App\AgentActivityClass;
 use App\Historia;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
@@ -44,8 +44,8 @@ class DhClassTest extends TestCase
             'fecha_promesa'
         ];
 
-        $dc = new DhClass();
-        $result = $dc->getPromesas($this->gestor, $this->fecha);
+        $dc = new AgentActivityClass();
+        $result = $dc->getPromises($this->gestor, $this->fecha);
         $this->checkKeys($testKeys, $result);
     }
 
@@ -66,8 +66,8 @@ class DhClassTest extends TestCase
             'c_contan'
         ];
 
-        $dc = new DhClass();
-        $result = $dc->getGestiones($this->gestor, $this->fecha);
+        $dc = new AgentActivityClass();
+        $result = $dc->getCalls($this->gestor, $this->fecha);
         $this->checkKeys($testKeys, $result);
     }
 
@@ -94,8 +94,8 @@ class DhClassTest extends TestCase
             'vcc'
         ];
 
-        $dc = new DhClass();
-        $result = $dc->getDhMain($this->gestor, $this->fecha);
+        $dc = new AgentActivityClass();
+        $result = $dc->getReport($this->gestor, $this->fecha);
         $this->checkKeys($testKeys, $result);
     }
 }
