@@ -71,8 +71,8 @@ and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
         $stf = $this->pdo->prepare($queryFill);
-        $stf->bindParam(':fecha1', $fecha1);
-        $stf->bindParam(':fecha2', $fecha2);
+        $stf->bindValue(':fecha1', $fecha1);
+        $stf->bindValue(':fecha2', $fecha2);
         $stf->execute();
     }
 
@@ -95,8 +95,8 @@ and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
         $stf = $this->pdo->prepare($queryFill);
-        $stf->bindParam(':fecha1', $fecha1);
-        $stf->bindParam(':fecha2', $fecha2);
+        $stf->bindValue(':fecha1', $fecha1);
+        $stf->bindValue(':fecha2', $fecha2);
         $stf->execute();
     }
 

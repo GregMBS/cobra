@@ -11,9 +11,9 @@ use App\ValidationClass;
 use App\ValidationErrorClass;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\GestionClass;
+use App\CallClass;
 use View;
-use App\NotaClass;
+use App\NoteClass;
 use App\ReferenciaClass;
 
 class ResumenController extends Controller
@@ -33,13 +33,13 @@ class ResumenController extends Controller
 
     /**
      *
-     * @var GestionClass
+     * @var CallClass
      */
     private $gc;
 
     /**
      *
-     * @var NotaClass
+     * @var NoteClass
      */
     private $nc;
 
@@ -54,29 +54,17 @@ class ResumenController extends Controller
     public function __construct()
     {
         $this->rc = new ResumenClass();
-        $this->gc = new GestionClass();
+        $this->gc = new CallClass();
         $this->rqc = new ResumenQueuesClass();
-        $this->nc = new NotaClass();
+        $this->nc = new NoteClass();
         $this->fc = new ReferenciaClass();
     }
-
-    /*
-    private function getFields(Request $r)
-    {
-        $tl = date('r');
-        $find0 = $r->find;
-        $field = $r->field;
-        $find = $this->rc->cleanFind($find0);
-        $notas = $this->rc->notAlert($capt);
-    }
-    */
-
     /**
      * @param ValidationErrorClass $valid
      * @return View
      * @throws \Exception
      */
-    public function ultima(ValidationErrorClass $valid)
+    public function latest(ValidationErrorClass $valid)
     {
         $capt = auth()->user()->iniciales;
         $id_cuenta = $this->rc->lastGestion($capt);
@@ -118,7 +106,7 @@ class ResumenController extends Controller
         $vc = new ValidationClass();
         $valid = $vc->countVisitErrors($r->all());
         if ($valid->flag) {
-            return $this->ultima($valid);
+            return $this->latest($valid);
         }
         $this->gc->doVisit($r->all());
         $view = $this->index();
@@ -136,7 +124,7 @@ class ResumenController extends Controller
         $this->gc->addNewTel($r->C_CONT, $r->C_OBSE2);
         $this->gc->updateAddress($r->C_CONT, $r->C_NDIR);
         $valid = new ValidationErrorClass();
-        $view = $this->ultima($valid);
+        $view = $this->latest($valid);
         return $view;
     }
 
@@ -152,7 +140,7 @@ class ResumenController extends Controller
         if ($valid->flag) {
             dd('invalid');
         }
-        $this->gc->doGestion($r->all());
+        $this->gc->doCall($r->all());
         return redirect('/resumen');
     }
 
@@ -197,7 +185,7 @@ class ResumenController extends Controller
         $cr = $queue['cr'];
         $numgest = $this->rc->getNumGests($capt);
         $tl = $this->rc->getTimeLock($id_cuenta);
-        $notas = $this->nc->notAlert($capt);
+        $notas = $this->nc->noteAlert($capt);
         $acciones = $this->rc->getAccion();
         $accionesV = $this->rc->getAccionV();
         $dictamenes = $this->rc->getDict($tipo);
@@ -209,7 +197,7 @@ class ResumenController extends Controller
         $cnp = $this->rc->getCnp();
         $referencias = $this->fc->index($id_cuenta);
         $imagePath = public_path('images/') . $id_cuenta . '.jpg';
-        $foto_exists = file_exists($imagePath);
+        $photo_exists = file_exists($imagePath);
         /**
          * @var View
          */
@@ -237,24 +225,7 @@ class ResumenController extends Controller
             ->with('numgest', $numgest)
             ->with('from', $from)
             ->with('camp', $camp)
-            ->with('foto_exists', $foto_exists);
+            ->with('photo_exists', $photo_exists);
         return $view;
     }
-
-    /*
-    public function response(array $errors)
-    {
-        // Optionally, send a custom response on authorize failure
-        // (default is to just redirect to initial page with errors)
-        //
-        // Can return a response, a view, a redirect, or whatever else
-
-        if ($this->ajax() || $this->wantsJson()) {
-            return new JsonResponse($errors, 422);
-        }
-        return $this->redirector->to('/resumen/')
-            ->withInput($this->except($this->dontFlash))
-            ->withErrors($errors, $this->errorBag);
-    }
-    */
 }

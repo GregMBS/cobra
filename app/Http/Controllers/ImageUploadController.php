@@ -12,7 +12,7 @@ class ImageUploadController extends Controller
      */
     public function load(Request $request)
     {
-        $val = $this->validate($request, [
+        $this->validate($request, [
             'image' => 'required|image|mimes:jpeg,jpg|max:2048',
             'id_cuenta' => 'required|integer|exists:resumen,id_cuenta'
         ]);

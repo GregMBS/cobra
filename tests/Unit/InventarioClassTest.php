@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Cliente;
-use App\InventarioClass;
+use App\InventoryClass;
 use App\Resumen;
 use Tests\TestCase;
 
@@ -36,13 +36,13 @@ class InventarioClassTest extends TestCase
             'contactos',
             'fecha_de_asignacion',
         ];
-        $ic = new InventarioClass();
-        $result = $ic->getInventarioReport('todos');
+        $ic = new InventoryClass();
+        $result = $ic->getInventoryReport('todos');
         $this->checkKeys($testKeys, $result);
         $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
         if ($cuenta) {
             $cliente = $cuenta->cliente;
-            $result = $ic->getInventarioReport($cliente);
+            $result = $ic->getInventoryReport($cliente);
             $this->checkKeys($testKeys, $result);
         }
     }
@@ -80,13 +80,13 @@ class InventarioClassTest extends TestCase
             27 => 'tel_2_laboral',
             28 => 't2l efectivo'
         ];
-        $ic = new InventarioClass();
-        $result = $ic->getFullInventarioReport('todos');
+        $ic = new InventoryClass();
+        $result = $ic->getFullInventoryReport('todos');
         $this->checkKeys($testKeys, $result);
         $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
         if ($cuenta) {
             $cliente = $cuenta->cliente;
-            $result = $ic->getFullInventarioReport($cliente);
+            $result = $ic->getFullInventoryReport($cliente);
             $this->checkKeys($testKeys, $result);
         }
     }
@@ -94,7 +94,7 @@ class InventarioClassTest extends TestCase
     public function testListCliente()
     {
         $clientes = Cliente::all()->toArray();
-        $ic = new InventarioClass();
+        $ic = new InventoryClass();
         $result = $ic->listClients();
         $this->assertEquals(count($clientes), count($result));
         $this->assertEquals($clientes, $result);

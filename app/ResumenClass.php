@@ -97,7 +97,7 @@ SQL;
                      AND c_cont <> 0 
                      ORDER BY d_fech DESC, c_hrfi DESC LIMIT 1";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':capt', $capt);
+        $stu->bindValue(':capt', $capt);
         $stu->execute();
         $result = $stu->fetch(\PDO::FETCH_ASSOC);
         $find = $result['c_cont'];
@@ -224,7 +224,7 @@ SQL;
     public function getBadNo($id_cuenta)
     {
         $stb = $this->pdo->prepare($this->badNoQuery);
-        $stb->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stb->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $stb->execute();
         $answerBadNo = $stb->fetch(PDO::FETCH_ASSOC);
         return $answerBadNo;
@@ -245,7 +245,7 @@ SQL;
                     AND c_cont > 0  
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $sts->execute();
         $row = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $row;
@@ -399,7 +399,7 @@ SQL;
 WHERE (historia.C_CONT=:id_cuenta) AND (c_visit <> '')
 ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $sts->execute();
         $row = $sts->fetchAll(\PDO::FETCH_ASSOC);
         return $row;

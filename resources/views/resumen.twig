@@ -15,7 +15,7 @@
         #MISCELANEA label { display: block }
         h4 { font-weight: bold; background-color: yellow }
         #VISITA h4 { font-size: smaller }
-        {% if foto_exists %}
+        {% if photo_exists %}
         {% set fotoUrl =  '../images/' ~ r.id_cuenta ~ '.jpg'%}
         .dropzone {
             background: transparent url('{{ fotoUrl }}');
@@ -29,10 +29,10 @@
 <body id="todos">
 <div id="app">
     <ul id="buttonbox" class="nav nav-pills">
-        {% if from in ['ultima','find'] %}
+        {% if from in ['latest','find'] %}
             <li><a href="{{ url('/resumen',r.id_cuenta) }}">REINTRO QUEUE</a></li>
         {% endif %}
-        <li><a href="{{ url('/ultima') }}">ULTIMA</a></li>
+        <li><a href="{{ url('/latest') }}">ULTIMA</a></li>
         <li><a type="button" data-toggle="modal" data-target="#searchbox">BUSCAR</a></li>
         <li><a href="{{ url('/migo') }}">CUENTAS</a></li>
         <li><a href="{{ url('/visits',r.id_cuenta) }}" target="_blank">VISITAS</a></li>

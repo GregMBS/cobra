@@ -69,7 +69,7 @@ class CheckDataClass
         $rc = new Resumen();
         /** @var Resumen $resumen */
         $resumen = $rc->whereNumeroDeCuenta($cuenta)->get();
-        if (count($resumen) > 0) {
+        if ($resumen->count() > 0) {
             $cuenta = $resumen->first();
             return $cuenta->id_cuenta;
         }

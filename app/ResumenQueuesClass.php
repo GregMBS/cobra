@@ -139,14 +139,14 @@ and especial > 0";
     private function bindResumenMain($stm, $capt, $cliente, $sdc, $cr)
     {
         if (in_array($cr, array('MANUAL', 'INICIAL'))) {
-            $stm->bindParam(':capt', $capt);
+            $stm->bindValue(':capt', $capt);
             return $stm;
         }
         if (!empty($cliente)) {
-            $stm->bindParam(':cliente', $cliente);
+            $stm->bindValue(':cliente', $cliente);
         }
         if (!empty($sdc)) {
-            $stm->bindParam(':sdc', $sdc);
+            $stm->bindValue(':sdc', $sdc);
         }
         if (in_array($cr, array('ESPECIAL', 'SIN GESTION'))) {
             return $stm;
@@ -154,7 +154,7 @@ and especial > 0";
         if (empty($cr)) {
             return $stm;
         }
-        $stm->bindParam(':cr', $cr);
+        $stm->bindValue(':cr', $cr);
         return $stm;
     }
 

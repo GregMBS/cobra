@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Resumen;
-use App\SegmentadminClass;
+use App\SegmentAdminClass;
 use Tests\TestCase;
 
 class SegmentadminClassTest extends TestCase
@@ -16,8 +16,8 @@ class SegmentadminClassTest extends TestCase
             2 => 'cnt',
             3 => 'id'
         ];
-        $sc = new SegmentadminClass();
-        $result = $sc->listQueuedSegmentos();
+        $sc = new SegmentAdminClass();
+        $result = $sc->listQueuedSegments();
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);
@@ -31,7 +31,7 @@ class SegmentadminClassTest extends TestCase
             1 => 'sdc',
             2 => 'count(1)'
         ];
-        $sc = new SegmentadminClass();
+        $sc = new SegmentAdminClass();
         $result = $sc->listUnqueuedSegments();
         if (count($result) > 0) {
             $first = $result[0];
@@ -44,8 +44,8 @@ class SegmentadminClassTest extends TestCase
 
     public function testAddAllSegmentos()
     {
-        $sc = new SegmentadminClass();
-        $sc->addAllSegmentos();
+        $sc = new SegmentAdminClass();
+        $sc->addAllSegments();
         $result = $sc->listUnqueuedSegments();
         $this->assertEquals(0, count($result));
     }
@@ -55,15 +55,15 @@ class SegmentadminClassTest extends TestCase
      */
     public function testAgregarBorrarSegmento()
     {
-        $sc = new SegmentadminClass();
+        $sc = new SegmentAdminClass();
         $cliente = 'testClient';
         $segmento = 'testSegment';
-        $sc->agregarSegmento($cliente, $segmento);
+        $sc->addSegment($cliente, $segmento);
         $this->assertDatabaseHas('queuelist', [
             'cliente' => $cliente,
             'sdc' => $segmento
         ]);
-        $sc->borrarSegmento($cliente, $segmento);
+        $sc->eraseSegment($cliente, $segmento);
         $this->assertDatabaseMissing('queuelist', [
             'cliente' => $cliente,
             'sdc' => $segmento
@@ -106,10 +106,10 @@ having activo > 0 and inactivo = 0";
             dd($e->getMessage());
         }
         if ($result) {
-            $sc = new SegmentadminClass();
+            $sc = new SegmentAdminClass();
             $cliente = $result['cliente'];
             $segmento = $result['sdc'];
-            $sc->inactivarSegmento($cliente, $segmento);
+            $sc->inactivateSegment($cliente, $segmento);
             $this->assertDatabaseMissing('resumen', [
                 'cliente' => $cliente,
                 'status_de_credito' => $segmento

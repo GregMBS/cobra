@@ -19,20 +19,20 @@ class BreaksClass extends BaseClass
 
     /**
      *
-     * @param int $tiempo
+     * @param int $time
      * @param string $gestor
      * @return array
      */
-    private function getTimes($tiempo, $gestor)
+    private function getTimes($time, $gestor)
     {
-        $query = "select (time_to_sec(min(c_hrin))-:tiempos) as 'diff',
+        $query = "select (time_to_sec(min(c_hrin))-:timeSec) as 'diff',
 min(c_hrin) as 'minhr'
 from historia 
 where c_cvge=:gestor and d_fech=curdate()
-and c_hrin>:tiempo";
+and c_hrin>:times";
         $sdq = $this->pdo->prepare($query);
-        $sdq->bindValue(':tiempos', $tiempo);
-        $sdq->bindValue(':tiempo', $tiempo);
+        $sdq->bindValue(':timeSec', $time);
+        $sdq->bindValue(':times', $time);
         $sdq->bindValue(':gestor', $gestor);
         $sdq->execute();
         $result = $sdq->fetch(\PDO::FETCH_ASSOC);
@@ -51,12 +51,12 @@ time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff'
 from historia 
 where c_cont=0 
 and d_fech=curdate() 
-and c_cvst<>'login' 
-and c_cvst<>'salir' 
-and c_cvge=:capt 
-order by c_cvge,c_cvst,c_hrin";
+and C_CVST<>'login' 
+and C_CVST<>'salir' 
+and C_CVGE=:capt 
+order by C_CVGE,C_CVST,c_hrin";
         $sdp = $this->pdo->prepare($query);
-        $sdp->bindParam(':capt', $capt);
+        $sdp->bindValue(':capt', $capt);
         $sdp->execute();
         $result = $sdp->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -106,8 +106,8 @@ order by c_cvge,c_cvst,c_hrin";
         $break = new Breaks();
         $break->gestor = $data->gestor;
         $break->tipo = $data->tipo;
-        $break->empieza = $data->empieza;
-        $break->termina = $data->termina;
+        $break->empieza = $data->start;
+        $break->termina = $data->finish;
         $break->save();
     }
 
@@ -136,7 +136,7 @@ order by c_cvge,c_cvst,c_hrin";
                 $temp = (object) $m;
                 $temp->formatstr = ' class="late"';
                 $temp->ntp = date('H:i:s');
-                $times = $this->getTimes(0, 'gregb');
+                $times = $this->getTimes(0, $m['C_CVGE']);
                 if (!empty($times['diff'])) {
                     $temp->diff = $times['diff'];
                     $temp->ntp = $times['minhr'];

@@ -50,8 +50,8 @@ class UserClass extends BaseClass
         $queryupd = "UPDATE users SET camp=:camp "
             . "where iniciales=:capt";
         $stu = $this->pdo->prepare($queryupd);
-        $stu->bindParam(':camp', $camp);
-        $stu->bindParam(':capt', $capt);
+        $stu->bindValue(':camp', $camp);
+        $stu->bindValue(':capt', $capt);
         $stu->execute();
     }
 

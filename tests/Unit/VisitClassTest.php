@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\GestionClass;
+use App\CallClass;
 use App\Historia;
 use App\Resumen;
 use Illuminate\Database\Eloquent\Builder;
@@ -48,7 +48,7 @@ class VisitClassTest extends TestCase
      */
     private function doVisitTest(array $gestion)
     {
-        $gc = new GestionClass();
+        $gc = new CallClass();
         /** @var Builder $query */
         $query = Resumen::whereIdCuenta($gestion['C_CONT']);
         $cuenta = $query->first();

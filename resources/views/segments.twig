@@ -28,7 +28,7 @@
                 {% if r.cnt == 0 %}
                     <td>
                         <form class="gestorchange" name="gestorchange{{ r.id }}" method="post"
-                              action="{{ url('/segmento/borrar') }}" id="gestorchange{{ r.id }}">
+                              action="{{ url('/segmento/erase') }}" id="gestorchange{{ r.id }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="cliente" readonly="readonly" value="{{ r.cliente }}"/>
                             <input type="hidden" name="segmento" readonly="readonly" value="{{ r.sdc }}"/>
@@ -37,7 +37,7 @@
                 {% else %}
                     <td>
                         <form class="gestorchange" name="gestorchange{{ r.id }}" method="post"
-                              action="{{ url('/segmento/inactivar') }}" id="gestorchange{{ r.id }}">
+                              action="{{ url('/segmento/inactivate') }}" id="gestorchange{{ r.id }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="cliente" readonly="readonly" value="<?php echo $cliente; ?>"/>
                             <input type="hidden" name="segmento" readonly="readonly" value="<?php echo $segmento; ?>"/>
@@ -59,7 +59,7 @@
             </td>
             <td>
                 <form class="gestoradd" name="gestoradd" method="post"
-                      action="{{ url('/segmento/agregar') }}" id="gestoradd">
+                      action="{{ url('/segmento/add') }}" id="gestoradd">
                     {{ csrf_field() }}
                     <input type="submit" name="go" value="AGREGAR">
                 </form>
@@ -70,7 +70,7 @@
     </table>
     <div>
         <form class="gestoradd" name="gestoradd" method="post"
-              action="{{ url('/segmento/agregartodo') }}" id="gestoradd">
+              action="{{ url('/segmento/addAll') }}" id="gestoradd">
             {{ csrf_field() }}
             <input type="submit" name="go" value="AGREGAR TODO">
         </form>

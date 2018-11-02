@@ -28,8 +28,8 @@ class QueuesClass extends BaseClass
         $query = "UPDATE users SET camp=:camp "
             . "where iniciales=:gestor";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
-        $stu->bindParam(':gestor', $GESTOR);
+        $stu->bindValue(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindValue(':gestor', $GESTOR);
         $stu->execute();
     }
 
@@ -44,8 +44,8 @@ class QueuesClass extends BaseClass
             . "WHERE gestor = :gestor "
             . "AND camp = :camp";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
-        $stu->bindParam(':gestor', $GESTOR);
+        $stu->bindValue(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindValue(':gestor', $GESTOR);
         $stu->execute();
     }
 
@@ -60,8 +60,8 @@ class QueuesClass extends BaseClass
             . "WHERE gestor = :gestor "
             . "AND camp = :camp";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
-        $stu->bindParam(':gestor', $GESTOR);
+        $stu->bindValue(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindValue(':gestor', $GESTOR);
         $stu->execute();
     }
 
@@ -84,10 +84,10 @@ and status_aarsa=:status";
 where iniciales=gestor and cliente=:cliente
 and sdc=:sdc and status_aarsa=:status";
             $stq = $this->pdo->prepare($query);
-            $stq->bindParam(':sdc', $sdc);
+            $stq->bindValue(':sdc', $sdc);
         }
-        $stq->bindParam(':cliente', $cliente);
-        $stq->bindParam(':status', $status);
+        $stq->bindValue(':cliente', $cliente);
+        $stq->bindValue(':status', $status);
         $stq->execute();
     }
 
@@ -104,9 +104,9 @@ and sdc=:sdc and status_aarsa=:status";
             . "and sdc=:sdc "
             . "and status_aarsa=:status";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':cliente', $cliente);
-        $stu->bindParam(':sdc', $sdc);
-        $stu->bindParam(':status', $status);
+        $stu->bindValue(':cliente', $cliente);
+        $stu->bindValue(':sdc', $sdc);
+        $stu->bindValue(':status', $status);
         $stu->execute();
     }
 
@@ -123,9 +123,9 @@ and sdc=:sdc and status_aarsa=:status";
             . "and sdc=:sdc "
             . "and status_aarsa=:status";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':cliente', $cliente);
-        $stu->bindParam(':sdc', $sdc);
-        $stu->bindParam(':status', $status);
+        $stu->bindValue(':cliente', $cliente);
+        $stu->bindValue(':sdc', $sdc);
+        $stu->bindValue(':status', $status);
         $stu->execute();
     }
 
@@ -177,7 +177,7 @@ and sdc=:sdc and status_aarsa=:status";
                                 ORDER BY cliente,sdc,status_aarsa
                                 LIMIT 1";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $GESTOR);
+        $stq->bindValue(':gestor', $GESTOR);
         $stq->execute();
         $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result;
@@ -197,7 +197,7 @@ and sdc=:sdc and status_aarsa=:status";
                                     and cliente<>''
                                     ORDER BY cliente,sdc,camp";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $GESTOR);
+        $stq->bindValue(':gestor', $GESTOR);
         $stq->execute();
         $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;

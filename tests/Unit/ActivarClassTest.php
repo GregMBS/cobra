@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\ActivarClass;
+use App\ActivateClass;
 use App\Resumen;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
-class ActivarClassTest extends TestCase
+class ActivateClassTest extends TestCase
 {
 
     private $cuentas = [];
@@ -23,8 +23,8 @@ class ActivarClassTest extends TestCase
     {
         $this->getCuentas();
         $count = count($this->cuentas);
-        $ac = new ActivarClass();
-        $result = $ac->activateCuentas($this->cuentas);
+        $ac = new ActivateClass();
+        $result = $ac->activateAccounts($this->cuentas);
         $this->assertEquals(0, $result['inactive']);
         $this->assertEquals($count, $result['active']);
     }
@@ -32,8 +32,8 @@ class ActivarClassTest extends TestCase
     public function testInactivateCuentas()
     {
         $count = count($this->cuentas);
-        $ac = new ActivarClass();
-        $result = $ac->inactivateCuentas($this->cuentas);
+        $ac = new ActivateClass();
+        $result = $ac->inactivateAccounts($this->cuentas);
         $this->assertEquals(0, $result['active']);
         $this->assertEquals($count, $result['inactive']);
     }

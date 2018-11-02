@@ -53,7 +53,7 @@ SQL;
      */
     private function getLastHistoriaData(\PDOStatement $stq, $c_cont)
     {
-        $stq->bindParam(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cont', $c_cont, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -82,7 +82,7 @@ SQL;
      */
     private function getBestHistoriaData(\PDOStatement $stq, $c_cont)
     {
-        $stq->bindParam(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cont', $c_cont, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;

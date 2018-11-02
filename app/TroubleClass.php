@@ -31,7 +31,7 @@ class TroubleClass extends BaseClass {
         $query = $tc->find($tdc->auto);
         $query->fechacomp = $now;
         $query->it_guy = $capt;
-        $query->reparacion = $tdc->reparacion;
+        $query->reparacion = $tdc->fix;
         $query->save();
    }
 
@@ -58,11 +58,11 @@ class TroubleClass extends BaseClass {
          * @var Trouble $query
          */
         $query = new Trouble();
-        $query->sistema = $tdc->sistema;
-        $query->usuario = $tdc->usuario;
+        $query->sistema = $tdc->system;
+        $query->usuario = $tdc->user;
         $query->fechahora = $now;
-        $query->fuente = $tdc->fuente;
-        $query->descripcion = $tdc->descripcion;
+        $query->fuente = $tdc->source;
+        $query->descripcion = $tdc->description;
         $query->error_msg = $tdc->error_msg;
         $query->save();
         return $query;

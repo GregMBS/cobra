@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Inactivar Cuentas</title>
+</head>
+<body>
+<form action="{{ url('/inactivate') }}" method="post" name="load">
+    {{ csrf_field() }}
+    <div>
+        <label for="data">Usa numero de cuenta</label>
+        <textarea name='data' id='data' rows='20' cols='50'></textarea>
+        <button type="submit" name="go" value="load">Cargar</button>
+    </div>
+</form>
+{{ msg }}
+<button onclick="window.location = '/reports'">
+    Regresar a la plantilla administrativa
+</button>
+<br>
+</body>
+</html>

@@ -6,8 +6,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<button onclick="window.location = '/reports'">Regresar a la
-        plantilla administrativa</button>
+<button onclick="window.location = '/reports'">
+    Regresar a la plantilla administrativa
+</button>
     <br>
     <table class="table" id="app">
         <thead class="ui-widget-header">
@@ -45,12 +46,12 @@
                     </select>
                 </td>
                 <td>
-                    <input type="time" name="empieza" form="{{ b.auto }}" title="empieza"
-                        value="{{ b.empieza|date('H:i') }}">
+                    <input type="time" name="start" form="{{ b.auto }}" title="start"
+                        value="{{ b.start|date('H:i') }}">
                 </td>
                 <td>
-                    <input type="time" name="termina" form="{{ b.auto }}" title="termina"
-                        value="{{ b.termina|date('H:i') }}">
+                    <input type="time" name="finish" form="{{ b.auto }}" title="finish"
+                        value="{{ b.finish|date('H:i') }}">
                 </td>
                 <td>
                     <input type="submit" name="go" form="{{ b.auto }}" value="CAMBIAR">
@@ -86,10 +87,10 @@
                     </select>
                 </td>
                 <td>
-                    <input type="time" name="empieza" form="add" title="empieza">
+                    <input type="time" name="start" form="add" title="empieza">
                 </td>
                 <td>
-                    <input type="time" name="termina" form="add" title="termina">
+                    <input type="time" name="finish" form="add" title="termina">
                 </td>
                 <td>
                     <input type="submit" name="go" form="add" value="AGREGAR">

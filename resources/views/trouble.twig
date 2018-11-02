@@ -8,15 +8,15 @@
     <body>
         <form action="{{ url('/trouble') }}" method="POST">
             {{ csrf_field() }}
-            <label for="fuente">Fuente de problema</label>
-            <select name='fuente' id='fuente'>
+            <label for="source">Fuente de problema</label>
+            <select name='source' id='source'>
                 <option value='COBRA'>COBRA</option>
                 <option value='COMPUTADORA'>COMPUTADORA</option>
                 <option value='otro'>otro</option>
             </select>
             <br>
-            <label for="descripcion">Descripción</label>
-            <textarea rows="6" cols="60" name="descripcion" id="descripcion">Cuando yo:
+            <label for="description">Descripción</label>
+            <textarea rows="6" cols="60" name="description" id="description">Cuando yo:
 
         Veo:
 

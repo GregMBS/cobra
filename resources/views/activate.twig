@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>Activar Cuentas</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <form action="{{ url("/activate") }}" method="post" name="cargar">
+        {{ csrf_field() }}
+        <div>
+            <label for="data">Usa numero de cuenta</label><br>
+            <textarea name='data' id="data" rows='20' cols='50'></textarea>
+            <button type="submit" name="go" value="cargar">Cargar</button>
+        </div>
+    </form>
+    {{ msg }}
+    <button onclick="window.location = '/reports'">
+        Regresar a la plantilla administrativa
+    </button>
+    <br>
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
+</body>
+</html>

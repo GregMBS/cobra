@@ -100,8 +100,8 @@ class LoginController extends Controller
             AND LOWER(iniciales) = LOWER(:capt) 
             LIMIT 1";
         $std = $pdo->prepare($query);
-        $std->bindParam(':pw', $pw);
-        $std->bindParam(':capt', $capt);
+        $std->bindValue(':pw', $pw);
+        $std->bindValue(':capt', $capt);
         $std->execute();
         $result = $std->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -124,11 +124,11 @@ class LoginController extends Controller
             (completo,iniciales,tipo,camp,password,created_at,updated_at) 
             VALUES (:completo,:iniciales,:tipo,:camp,:pwd,NOW(),NOW())";
         $sto = $pdo->prepare($query);
-        $sto->bindParam(':completo', $oldData['completo']);
-        $sto->bindParam(':iniciales', $oldData['iniciales']);
-        $sto->bindParam(':tipo', $oldData['tipo']);
-        $sto->bindParam(':camp', $oldData['camp']);
-        $sto->bindParam(':pwd', $pwd);
+        $sto->bindValue(':completo', $oldData['completo']);
+        $sto->bindValue(':iniciales', $oldData['iniciales']);
+        $sto->bindValue(':tipo', $oldData['tipo']);
+        $sto->bindValue(':camp', $oldData['camp']);
+        $sto->bindValue(':pwd', $pwd);
         $sto->execute();
         $id = $pdo->lastInsertId();
         return $id;
