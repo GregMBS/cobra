@@ -29,7 +29,7 @@ class HoursController extends Controller
      *
      * @var int
      */
-    protected $dhoy;
+    protected $todayDay;
 
     /**
      *
@@ -51,7 +51,7 @@ class HoursController extends Controller
         $this->hac = new HoursAllClass();
         $this->yr = date('Y');
         $this->mes = date('m');
-        $this->dhoy = date('d');
+        $this->todayDay = date('d');
         $this->hoy = date('Y-m-d');
         $this->yrmes = date('Y-m-');
     }
@@ -65,12 +65,12 @@ class HoursController extends Controller
         $output = array();
         $summary = array();
         $gestores = $this->hc->listAgents();
-        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
+        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->todayDay);
         foreach ($gestores as $gestor) {
             $c_cvge = $gestor['c_cvge'];
-            $output[$c_cvge] = $this->hc->packData($c_cvge, $this->dhoy);
+            $output[$c_cvge] = $this->hc->packData($c_cvge, $this->todayDay);
         }
-        for ($i = 1; $i <= $this->dhoy; $i++) {
+        for ($i = 1; $i <= $this->todayDay; $i++) {
             $dataSum = new HoursDataClass($i);
             $mainSum = $this->hac->getCurrentMain($i);
             if ($mainSum) {
@@ -87,7 +87,7 @@ class HoursController extends Controller
         $view = view($this->views['index'])
             ->with('yrmes', $this->yrmes)
             ->with('gestores', $c_cvge)
-            ->with('dhoy', $this->dhoy)
+            ->with('todayDay', $this->todayDay)
             ->with('dowArray', $dowArray)
             ->with('data', $output)
             ->with('summary', $summary);
@@ -101,17 +101,17 @@ class HoursController extends Controller
     {
         $output = array();
         $visitadores = $this->hc->listVisitors();
-        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
+        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->todayDay);
         foreach ($visitadores as $visitador) {
             $c_visit = $visitador['iniciales'];
-            $row = $this->hc->packVisit($c_visit, $this->dhoy);
+            $row = $this->hc->packVisit($c_visit, $this->todayDay);
             $output[$c_visit] = $row;
         }
         $c_visit = array_column($visitadores, 'iniciales');
         $view = view($this->views['indexV'])
             ->with('yrmes', $this->yrmes)
             ->with('visitadores', $c_visit)
-            ->with('dhoy', $this->dhoy)
+            ->with('todayDay', $this->todayDay)
             ->with('dowArray', $dowArray)
             ->with('data', $output);
         return $view;
@@ -124,12 +124,12 @@ class HoursController extends Controller
      */
     public function show($c_cvge)
     {
-        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
-        $output = $this->hc->packData($c_cvge, $this->dhoy);
+        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->todayDay);
+        $output = $this->hc->packData($c_cvge, $this->todayDay);
         $view = view($this->views['show'])
             ->with('yrmes', $this->yrmes)
             ->with('gestor', $c_cvge)
-            ->with('dhoy', $this->dhoy)
+            ->with('todayDay', $this->todayDay)
             ->with('dowArray', $dowArray)
             ->with('data', $output);
         return $view;
@@ -142,12 +142,12 @@ class HoursController extends Controller
      */
     public function showV($c_visit)
     {
-        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->dhoy);
-        $output = $this->hc->packVisit($c_visit, $this->dhoy);
+        $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->todayDay);
+        $output = $this->hc->packVisit($c_visit, $this->todayDay);
         $view = view($this->views['showV'])
             ->with('yrmes', $this->yrmes)
             ->with('visitador', $c_visit)
-            ->with('dhoy', $this->dhoy)
+            ->with('todayDay', $this->todayDay)
             ->with('dowArray', $dowArray)
             ->with('data', $output);
         return $view;

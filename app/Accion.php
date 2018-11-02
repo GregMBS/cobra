@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Accion
  * @package App
- * @method static|Accion whereAccion(string $accion)
+ * @method static|Accion whereAccion(string $action)
  * @property string $accion
  */
 class Accion extends Model

@@ -41,9 +41,9 @@ class AccountsClass extends BaseClass
     {
         /** @var Resumen|Builder $rc */
         $rc = new Resumen();
-        /** @var Builder $resumen */
-        $resumen = $rc->whereEjecutivoAsignadoCallCenter($capt);
-        $query = $resumen->where('status_de_credito', 'NOT REGEXP', '-');
+        /** @var Builder $debtors */
+        $debtors = $rc->whereEjecutivoAsignadoCallCenter($capt);
+        $query = $debtors->where('status_de_credito', 'NOT REGEXP', '-');
         $result = $query->get();
         return $result->toArray();
     }

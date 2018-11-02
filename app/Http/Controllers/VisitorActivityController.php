@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use View;
 use App\VisitorActivityClass;
 
 class VisitorActivityController extends AgentActivityController

@@ -76,9 +76,9 @@ class GestoradminClassTest extends TestCase
     {
         $gc = new AgentAdminClass();
         $data = new AgentDataClass();
-        $data->setCompleto('Pedro Laskin');
+        $data->setFullName('Pedro Laskin');
         $data->setTipo('admin');
-        $data->setIniciales('pedro');
+        $data->setInitials('pedro');
         $data->setPass('AwRats');
         $gc->addUser($data);
         $this->hasUser($data);

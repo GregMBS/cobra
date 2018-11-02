@@ -28,7 +28,7 @@
     <thead class="ui-widget-header">
     <tr>
         <th><a href='/gestor/{{ gestor }}'>{{ gestor }}</a></th>
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             <th>{{ dowArray[i] }} {{ i }}</th>
         {% endfor %}
         <th>TOTAL</th>
@@ -37,7 +37,7 @@
     <tbody class="ui-widget-content">
     <tr>
         <td class="heavy">LOGIN</td>
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set zeros = '' %}
             {% if data[i].start == 0 %}
                 {% set zeros = ' style="color:red;"' %}
@@ -48,7 +48,7 @@
     </tr>
     <tr>
         <td class="heavy">LOGOUT</td>
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set zeros = '' %}
             {% if data[i].stop == 0 %}
                 {% set zeros = ' style="color:red;"' %}
@@ -60,7 +60,7 @@
     <tr>
         <td class="heavy">HORAS</td>
         {% set sumdiff = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumdiff = sumdiff + data[i].diff %}
             {% if data[i].diff == 0 %}
                 <td></td>
@@ -73,7 +73,7 @@
     <tr>
         <td class="heavy">TIEMPO BREAK</td>
         {% set sumbreak = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumbreak = sumbreak + data[i].break %}
             {% if data[i].break == 0 %}
                 <td class="light"></td>
@@ -86,7 +86,7 @@
     <tr>
         <td class="heavy">TIEMPO BAÑO</td>
         {% set sumbano = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumbano = sumbano + data[i].bano %}
             {% if data[i].bano == 0 %}
                 <td class="light"></td>
@@ -99,7 +99,7 @@
     <tr>
         <td class="heavy">GESTIONES</td>
         {% set sumgest = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumgest = sumgest + data[i].gestiones %}
             {% set zeros = '' %}
             {% if data[i].gestiones == 0 %}
@@ -115,7 +115,7 @@
     <tr>
         <td class="heavy">CUENTAS</td>
         {% set sumcta = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumcta = sumcta + data[i].cuentas %}
             {% set zeros = '' %}
             {% if data[i].cuentas == 0 %}
@@ -131,7 +131,7 @@
     <tr>
         <td class="heavy">CONTACTOS</td>
         {% set sumcont = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumcont = sumcont + data[i].contactos %}
             {% set zeros = '' %}
             {% if data[i].contactos == 0 %}
@@ -144,7 +144,7 @@
     <tr>
         <td class="heavy">NO CONTACTOS</td>
         {% set sumnoc = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumnoc = sumnoc + data[i].nocontactos %}
             {% set zeros = '' %}
             {% if data[i].nocontactos == 0 %}
@@ -157,7 +157,7 @@
     <tr>
         <td class="heavy">PROMESAS</td>
         {% set sumprom = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumprom = sumprom + data[i].promesas %}
             {% set zeros = '' %}
             {% if data[i].promesas == 0 %}
@@ -173,7 +173,7 @@
     <tr>
         <td class="heavy">PAGOS</td>
         {% set sumpag = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumpag = sumpag + data[i].pagos %}
             {% set zeros = '' %}
             {% if data[i].pagos == 0 %}

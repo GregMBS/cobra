@@ -17,17 +17,17 @@ class AgentAdminClass extends BaseClass {
 
     /**
      * 
-     * @param string $completo
+     * @param string $fullName
      * @param string $tipo
      * @param string $capt
      */
-    private function updateOpenParams($completo, $tipo, $capt) {
+    private function updateOpenParams($fullName, $tipo, $capt) {
         $query = "UPDATE users
             SET completo = :completo,
             tipo = :tipo
             WHERE iniciales = :capt";
         $stu = $this->pdo->prepare($query);
-        $stu->bindValue(':completo', $completo);
+        $stu->bindValue(':completo', $fullName);
         $stu->bindValue(':tipo', $tipo);
         $stu->bindValue(':capt', $capt);
         $stu->execute();
@@ -65,7 +65,7 @@ class AgentAdminClass extends BaseClass {
      * 
      * @param string $capt
      */
-    protected function deleteFromQueuelist($capt) {
+    protected function deleteFromQueues($capt) {
         $query = "DELETE FROM queuelist WHERE gestor = :capt";
         $stb = $this->pdo->prepare($query);
         $stb->bindValue(':capt', $capt);
@@ -76,7 +76,7 @@ class AgentAdminClass extends BaseClass {
      * 
      * @param string $capt
      */
-    protected function deleteFromResumen($capt) {
+    protected function deleteFromDebtors($capt) {
         $query = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
             WHERE ejecutivo_asignado_call_center = :capt";
         $stb = $this->pdo->prepare($query);
@@ -86,35 +86,35 @@ class AgentAdminClass extends BaseClass {
 
     /**
      * 
-     * @param string $completo
+     * @param string $fullName
      * @param string $tipo
-     * @param string $iniciales
+     * @param string $initials
      * @param string $pass
      */
-    protected function addToUsers($completo, $tipo, $iniciales, $pass) {
+    protected function addToUsers($fullName, $tipo, $initials, $pass) {
         $query = "INSERT INTO users (iniciales, completo, password,
             tipo, camp) 
 	VALUES (:iniciales, :completo, :pass, :tipo, 999999)";
         $sti = $this->pdo->prepare($query);
-        $sti->bindValue(':completo', $completo);
+        $sti->bindValue(':completo', $fullName);
         $sti->bindValue(':tipo', $tipo);
-        $sti->bindValue(':iniciales', $iniciales);
+        $sti->bindValue(':iniciales', $initials);
         $sti->bindValue(':pass', bcrypt($pass));
         $sti->execute();
     }
 
     /**
      * 
-     * @param string $iniciales
+     * @param string $initials
      */
-    protected function addToQueuelist($iniciales) {
+    protected function addToQueues($initials) {
         $queryListIn = "insert ignore into queuelist
 		SELECT distinct null, :iniciales, cliente, status_aarsa, 999999,
 		orden1, updown1, orden2, updown2, orden3, updown3,
 		sdc, bloqueado
 		FROM queuelist";
         $stl = $this->pdo->prepare($queryListIn);
-        $stl->bindValue(':iniciales', $iniciales);
+        $stl->bindValue(':iniciales', $initials);
         $stl->execute();
         $queryListCamp = "update queuelist
             set camp=auto where camp=999999";
@@ -169,8 +169,8 @@ class AgentAdminClass extends BaseClass {
      */
     public function removeUser($iniciales) {
         $this->deleteFromUsers($iniciales);
-        $this->deleteFromQueuelist($iniciales);
-        $this->deleteFromResumen($iniciales);
+        $this->deleteFromQueues($iniciales);
+        $this->deleteFromDebtors($iniciales);
     }
 
     /**
@@ -181,7 +181,7 @@ class AgentAdminClass extends BaseClass {
     {
         $data = $dataClass->getUser();
         $this->addToUsers($data->completo, $data->tipo, $data->iniciales, $data->pass);
-        $this->addToQueuelist($data->iniciales);
+        $this->addToQueues($data->iniciales);
         return $data->iniciales;
     }
 }

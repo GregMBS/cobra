@@ -121,13 +121,13 @@ order by iniciales;';
      *
      * @param string $yr
      * @param string $mes
-     * @param int $dhoy
+     * @param int $todayDay
      * @return string[]
      */
-    public function dowArray($yr, $mes, $dhoy)
+    public function dowArray($yr, $mes, $todayDay)
     {
         $dow = array();
-        for ($i = 1; $i <= $dhoy; $i ++) {
+        for ($i = 1; $i <= $todayDay; $i ++) {
             $dow[$i] = date("l", strtotime($yr . "-" . $mes . "-" . $i));
         }
         return $dow;
@@ -135,13 +135,13 @@ order by iniciales;';
 
     /**
      * @param string $c_visit
-     * @param int $dhoy
+     * @param int $todayDay
      * @return array
      */
-    public function packVisit($c_visit, $dhoy): array
+    public function packVisit($c_visit, $todayDay): array
     {
         $row = array();
-        for ($i = 1; $i <= $dhoy; $i++) {
+        for ($i = 1; $i <= $todayDay; $i++) {
             $data = new HoursDataClass($i);
             $main = $this->getVisitorMain($c_visit, $i);
             $data->gestiones = $main['gestiones'];
@@ -157,12 +157,12 @@ order by iniciales;';
 
     /**
      * @param string $c_cvge
-     * @param int $dhoy
+     * @param int $todayDay
      * @return array
      */
-    public function packData(string $c_cvge, int $dhoy) {
+    public function packData(string $c_cvge, int $todayDay) {
         $row = array();
-        for ($i = 1; $i <= $dhoy; $i++) {
+        for ($i = 1; $i <= $todayDay; $i++) {
             $data = new HoursDataClass($i);
             $startStop = $this->getStartStopDiff($c_cvge, $i);
             $data->start = $startStop['start'];

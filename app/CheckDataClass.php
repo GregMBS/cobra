@@ -13,19 +13,19 @@ class CheckDataClass
      *
      * @var string
      */
-    private $CUENTA;
+    private $account;
 
     /**
      *
      * @var string
      */
-    private $gestor;
+    private $agent;
 
     /**
      *
      * @var int
      */
-    private $id_cuenta;
+    private $id;
 
     /**
      *
@@ -37,63 +37,64 @@ class CheckDataClass
      *
      * @var Carbon
      */
-    private $fechaOut;
+    private $dateOut;
 
     /**
      * @param Collection $r
      */
     public function __construct(Collection $r)
     {
-        $this->gestor = $r->gestor;
+        $this->agent = $r->gestor;
         $this->tipo = $r->tipo;
-        $this->id_cuenta = $r->CUENTA;
-        $this->CUENTA = $this->getCuentaFromIdCuenta($this->id_cuenta);
+        $this->id = $r->CUENTA;
+        $this->account = $this->getAccountNumberFromId($this->id);
         if ($this->tipo == 'numero_de_cuenta') {
-            $this->CUENTA = $r->CUENTA;
-            $this->id_cuenta = $this->getIdCuentaFromCuenta($this->CUENTA);
+            $this->account = $r->CUENTA;
+            $this->id = $this->getIdFromAccountNumber($this->account);
         }
-        $this->fechaOut = new Carbon($r->fechaout);
+        $this->dateOut = new Carbon($r->fechaout);
     }
 
     /**
      *
-     * @param string $cuenta
+     * @param string $account
      * @return int
      */
-    private function getIdCuentaFromCuenta($cuenta)
+    private function getIdFromAccountNumber($account)
     {
         /**
          * @var Resumen|Builder $rc
-         * @method Resumen whereNumeroDeCuenta($cuenta)
+         * @method Resumen whereNumeroDeCuenta($account)
          */
         $rc = new Resumen();
-        /** @var Resumen $resumen */
-        $resumen = $rc->whereNumeroDeCuenta($cuenta)->get();
-        if ($resumen->count() > 0) {
-            $cuenta = $resumen->first();
-            return $cuenta->id_cuenta;
+        /** @var Builder|Resumen $query */
+        $query = $rc->whereNumeroDeCuenta($account);
+        $debtors = $query->get();
+        if ($debtors->count() > 0) {
+            $debtor = $debtors->first();
+            return $debtor->id_cuenta;
         }
         return 0;
     }
 
     /**
      *
-     * @param int $id_cuenta
+     * @param int $id
      * @return string
      */
-    private function getCuentaFromIdCuenta($id_cuenta)
+    private function getAccountNumberFromId($id)
     {
         /**
          * @var Resumen $query
-         * @method Resumen whereIdCuenta($id_cuenta)
+         * @method Resumen whereIdCuenta($id)
          */
         $rc = new Resumen();
         /** @var Builder $query */
-        $query = $rc->whereIdCuenta($id_cuenta);
-        $resumen = $query->get();
-        if (count($resumen) > 0) {
-            $cuenta = $resumen->first();
-            return $cuenta->numero_de_cuenta;
+        $query = $rc->whereIdCuenta($id);
+        $debtors = $query->get();
+        if ($debtors->count() > 0) {
+            $debtor = $debtors->first();
+            return $debtor->numero_de_cuenta;
         }
         return '';
     }
@@ -101,33 +102,33 @@ class CheckDataClass
     /**
      * @return string
      */
-    public function getCUENTA(): string
+    public function getAccount(): string
     {
-        return $this->CUENTA;
+        return $this->account;
     }
 
     /**
      * @return Carbon
      */
-    public function getFechaOut(): Carbon
+    public function getDateOut(): Carbon
     {
-        return $this->fechaOut;
+        return $this->dateOut;
     }
 
     /**
      * @return string
      */
-    public function getGestor(): string
+    public function getAgent(): string
     {
-        return $this->gestor;
+        return $this->agent;
     }
 
     /**
      * @return int
      */
-    public function getIdCuenta(): int
+    public function getId(): int
     {
-        return $this->id_cuenta;
+        return $this->id;
     }
 
     /**

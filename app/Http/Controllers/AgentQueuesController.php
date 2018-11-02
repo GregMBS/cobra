@@ -36,13 +36,13 @@ class AgentQueuesController extends Controller
     {
         $msg = "Se elige queue bloqueado o equivocado.";
         $capt = auth()->user()->iniciales;
-        $cliente = $r->cliente;
+        $client = $r->cliente;
         $sdc = $r->sdc;
         $queue = $r->queue;
-        $camp = $this->qc->getCamp($cliente, $queue, $sdc, $capt);
-        if ($camp >= 0) {
-            $this->uc->setCamp($camp, $capt);
-            $msg = "Se elige queue " . $cliente . " " . $sdc . " " . $queue;
+        $campaign = $this->qc->getCamp($client, $queue, $sdc, $capt);
+        if ($campaign >= 0) {
+            $this->uc->setCamp($campaign, $capt);
+            $msg = "Se elige queue " . $client . " " . $sdc . " " . $queue;
         }
         return $this->index($msg);
     }

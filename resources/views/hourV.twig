@@ -29,7 +29,7 @@
     <thead class="ui-widget-header">
     <tr>
         <th><a href='/horariosV/{{ visitador }}'>{{ visitador }}</a></th>
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             <th>{{ dowArray[i] }} {{ i }}</th>
         {% endfor %}
         <th>TOTAL</th>
@@ -39,7 +39,7 @@
     <tr>
         <td class="heavy">VISITAS</td>
         {% set sumgest = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumgest = sumgest + data[i].gestiones %}
             {% set zeros = '' %}
             {% if data[i].gestiones == 0 %}
@@ -55,7 +55,7 @@
     <tr>
         <td class="heavy">CUENTAS</td>
         {% set sumcta = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumcta = sumcta + data[i].cuentas %}
             {% set zeros = '' %}
             {% if data[i].cuentas == 0 %}
@@ -71,7 +71,7 @@
     <tr>
         <td class="heavy">CONTACTOS</td>
         {% set sumcont = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumcont = sumcont + data[i].contactos %}
             {% set zeros = '' %}
             {% if data[i].contactos == 0 %}
@@ -84,7 +84,7 @@
     <tr>
         <td class="heavy">NO CONTACTOS</td>
         {% set sumnoc = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumnoc = sumnoc + data[i].nocontactos %}
             {% set zeros = '' %}
             {% if data[i].nocontactos == 0 %}
@@ -97,7 +97,7 @@
     <tr>
         <td class="heavy">PROMESAS</td>
         {% set sumprom = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumprom = sumprom + data[i].promesas %}
             {% set zeros = '' %}
             {% if data[i].promesas == 0 %}
@@ -113,7 +113,7 @@
     <tr>
         <td class="heavy">PAGOS</td>
         {% set sumpag = 0 %}
-        {% for i in 1..dhoy %}
+        {% for i in 1..todayDay %}
             {% set sumpag = sumpag + data[i].pagos %}
             {% set zeros = '' %}
             {% if data[i].pagos == 0 %}

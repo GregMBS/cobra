@@ -14,7 +14,7 @@ class AgentDataClass
     /**
      * @var string
      */
-    private $completo;
+    private $fullName;
 
     /**
      * @var string
@@ -24,7 +24,7 @@ class AgentDataClass
     /**
      * @var string
      */
-    private $iniciales;
+    private $initials;
 
     /**
      * @var string
@@ -40,19 +40,19 @@ class AgentDataClass
     }
 
     /**
-     * @param string $completo
+     * @param string $fullName
      */
-    public function setCompleto($completo)
+    public function setFullName($fullName)
     {
-        $this->completo = $completo;
+        $this->fullName = $fullName;
     }
 
     /**
-     * @param string $iniciales
+     * @param string $initials
      */
-    public function setIniciales($iniciales)
+    public function setInitials($initials)
     {
-        $this->iniciales = $iniciales;
+        $this->initials = $initials;
     }
 
     /**
@@ -79,8 +79,8 @@ class AgentDataClass
          */
         $object = new \stdClass();
         $object->tipo = $this->tipo;
-        $object->completo = $this->completo;
-        $object->iniciales = $this->iniciales;
+        $object->completo = $this->fullName;
+        $object->iniciales = $this->initials;
         $object->pass = $this->pass;
         return $object;
     }

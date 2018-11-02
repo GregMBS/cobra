@@ -96,13 +96,13 @@ class LastMonthAllClass extends BaseClass
     }
 
     /**
-     * @param int $diaHoy
+     * @param int $todayDay
      * @return array
      */
-    public function getReport($diaHoy)
+    public function getReport($todayDay)
     {
         $summary = array();
-        for ($i = 1; $i <= $diaHoy; $i++) {
+        for ($i = 1; $i <= $todayDay; $i++) {
             $dataSum = new HoursDataClass($i);
             $mainSum = $this->getCurrentMain($i);
             if ($mainSum) {

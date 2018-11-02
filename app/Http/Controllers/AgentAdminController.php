@@ -40,9 +40,9 @@ class AgentAdminController extends Controller
      */
     public function change(Request $r) {
         $data = new AgentDataClass();
-        $data->setCompleto($r->completo);
+        $data->setFullName($r->completo);
         $data->setTipo($r->tipo);
-        $data->setIniciales($r->iniciales);
+        $data->setInitials($r->iniciales);
         $data->setPass($r->passw);
         $this->gc->changeUserData($data);
         return $this->index();
@@ -65,9 +65,9 @@ class AgentAdminController extends Controller
      */
     public function add(Request $r) {
         $data = new AgentDataClass();
-        $data->setCompleto($r->completo);
+        $data->setFullName($r->completo);
         $data->setTipo($r->tipo);
-        $data->setIniciales($r->iniciales);
+        $data->setInitials($r->iniciales);
         $data->setPass($r->passw);
         $this->gc->addUser($data);
         return $this->index();

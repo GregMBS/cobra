@@ -23,10 +23,10 @@ class CheckClass extends BaseClass
 VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
         try {
             $sti = $this->pdo->prepare($query);
-            $sti->bindValue(':cuenta', $cdc->getCUENTA());
-            $sti->bindValue(':gestor', $cdc->getGestor());
-            $sti->bindValue(':fechaOut', $cdc->getFechaOut());
-            $sti->bindValue(':id_cuenta', $cdc->getIdCuenta());
+            $sti->bindValue(':cuenta', $cdc->getAccount());
+            $sti->bindValue(':gestor', $cdc->getAgent());
+            $sti->bindValue(':fechaOut', $cdc->getDateOut());
+            $sti->bindValue(':id_cuenta', $cdc->getId());
             $sti->execute();
         } catch (\PDOException $p) {
             dd($p->getMessage());
@@ -41,10 +41,10 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
         $cdc = new CheckDataClass($r);
         $vasign = new Vasign();
         try {
-            $vasign->CUENTA = $cdc->getCUENTA();
-            $vasign->gestor = $cdc->getGestor();
+            $vasign->CUENTA = $cdc->getAccount();
+            $vasign->gestor = $cdc->getAgent();
             $vasign->fechaout = date('Y-m-d');
-            $vasign->c_cont = $cdc->getIdCuenta();
+            $vasign->c_cont = $cdc->getId();
             $vasign->save();
         } catch (\Exception $e) {
             dd($e->getMessage());
@@ -140,7 +140,7 @@ where gestor=:gestor";
         /**
          * @var int $C_CONT
          */
-        $C_CONT = $cdc->getIdCuenta();
+        $C_CONT = $cdc->getId();
         /**
          * @var string $now
          */

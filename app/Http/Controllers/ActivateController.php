@@ -36,9 +36,9 @@ class ActivateController extends Controller
      */
     public function activate(Request $r) {
         $data = $r->data;
-        $cuentas = $this->parseData($data);
-        $count = $this->ac->activateAccounts($cuentas);
-        $msg = $count['active'] . 'cuentas activadas de ' . count($cuentas);
+        $accounts = $this->parseData($data);
+        $count = $this->ac->activateAccounts($accounts);
+        $msg = $count['active'] . 'cuentas activadas de ' . count($accounts);
         $view = view('activate')->with('msg', $msg);
         return $view;
     }
@@ -53,9 +53,9 @@ class ActivateController extends Controller
         /**
          * @var array
          */
-        $cuentas = $this->parseData($data);
-        $count = $this->ac->inactivateAccounts($cuentas);
-        $msg = $count['inactive'] . 'cuentas inactivadas de ' . count($cuentas);
+        $accounts = $this->parseData($data);
+        $count = $this->ac->inactivateAccounts($accounts);
+        $msg = $count['inactive'] . 'cuentas inactivadas de ' . count($accounts);
         $view = view('inactivate')->with('msg', $msg);
         return $view;
     }

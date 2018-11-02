@@ -15,7 +15,7 @@ class BestClass extends BaseClass
      *
      * @return array
      */
-    private function getResumenData()
+    private function getDebtorData()
     {
         $query = <<<SQL
 select id_cuenta,numero_de_cuenta,status_de_credito as segmento,
@@ -48,12 +48,12 @@ SQL;
 
     /**
      * @param \PDOStatement $stq
-     * @param int $c_cont
+     * @param int $id
      * @return mixed | array
      */
-    private function getLastHistoriaData(\PDOStatement $stq, $c_cont)
+    private function getLastHistoryData(\PDOStatement $stq, $id)
     {
-        $stq->bindValue(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cont', $id, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -77,12 +77,12 @@ SQL;
 
     /**
      * @param \PDOStatement $stq
-     * @param int $c_cont
+     * @param int $id
      * @return mixed | array
      */
-    private function getBestHistoriaData(\PDOStatement $stq, $c_cont)
+    private function getBestHistoryData(\PDOStatement $stq, $id)
     {
-        $stq->bindValue(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cont', $id, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -90,11 +90,11 @@ SQL;
 
     /**
      * @param \PDOStatement $lastQuery
-     * @param int $id_cuenta
+     * @param int $id
      * @return array|mixed
      */
-    private function getUltimo($lastQuery, $id_cuenta) {
-        $ultimo = $this->getLastHistoriaData($lastQuery, $id_cuenta);
+    private function getLatest($lastQuery, $id) {
+        $ultimo = $this->getLastHistoryData($lastQuery, $id);
         if (empty($ultimo)) {
             $ultimo['ultimo_status'] = '';
             $ultimo['ultimo_tel'] = '';
@@ -105,16 +105,16 @@ SQL;
 
     /**
      * @param \PDOStatement $bestQuery
-     * @param int $id_cuenta
+     * @param int $id
      * @return array|mixed
      */
-    private function getMejor($bestQuery, $id_cuenta) {
-        $mejor = $this->getBestHistoriaData($bestQuery, $id_cuenta);
-        if (empty($mejor)) {
-            $mejor['mejor_status'] = '';
-            $mejor['mejor_tel'] = '';
+    private function getBest($bestQuery, $id) {
+        $best = $this->getBestHistoryData($bestQuery, $id);
+        if (empty($best)) {
+            $best['mejor_status'] = '';
+            $best['mejor_tel'] = '';
         }
-        return $mejor;
+        return $best;
     }
 
     /**
@@ -124,19 +124,19 @@ SQL;
     {
         $data = [];
         $temp = [];
-        $resumen = $this->getResumenData();
+        $debtor = $this->getDebtorData();
         $lastQuery = $this->prepareLastQuery();
         $bestQuery = $this->prepareBestQuery();
         if (env('APP_ENV') === 'testing') {
-            $temp[] = array_pop($resumen);
-            $resumen = $temp;
+            $temp[] = array_pop($debtor);
+            $debtor = $temp;
         }
-        foreach ($resumen as $row) {
+        foreach ($debtor as $row) {
             if ($row) {
-                $id_cuenta = $row['id_cuenta'];
-                $ultimo = $this->getUltimo($lastQuery, $id_cuenta);
-                $mejor = $this->getMejor($bestQuery, $id_cuenta);
-                $data[] = array_merge($row, $ultimo, $mejor);
+                $id = $row['id_cuenta'];
+                $latest = $this->getLatest($lastQuery, $id);
+                $best = $this->getBest($bestQuery, $id);
+                $data[] = array_merge($row, $latest, $best);
             }
         }
         return $data;

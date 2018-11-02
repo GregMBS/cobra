@@ -28,7 +28,7 @@ class LastMonthClass extends BaseClass
     /**
      * @var false|string
      */
-    public $diaHoy;
+    public $todayDay;
 
     /**
      * @var false|string
@@ -50,7 +50,7 @@ class LastMonthClass extends BaseClass
         parent::__construct();
         $this->yr = date('Y', strtotime("last day of previous month"));
         $this->mes = date('m', strtotime("last day of previous month"));
-        $this->diaHoy = date('d', strtotime("last day of previous month"));
+        $this->todayDay = date('d', strtotime("last day of previous month"));
         $this->hoy = date('Y-m-d', strtotime("last day of previous month"));
         $this->start = date('Y-m-d', strtotime("last day of two months ago"));
         $this->yrmes = date('Y-m-', strtotime("last day of previous month"));
@@ -215,13 +215,13 @@ class LastMonthClass extends BaseClass
      *
      * @param string $yr
      * @param string $mes
-     * @param int $dhoy
+     * @param int $todayDay
      * @return string[]
      */
-    public function dowArray($yr, $mes, $dhoy)
+    public function dowArray($yr, $mes, $todayDay)
     {
         $dow = array();
-        for ($i = 1; $i <= $dhoy; $i++) {
+        for ($i = 1; $i <= $todayDay; $i++) {
             $dow[$i] = date("l", strtotime($yr . "-" . $mes . "-" . $i));
         }
         return $dow;
@@ -234,7 +234,7 @@ class LastMonthClass extends BaseClass
     public function packData(string $c_cvge)
     {
         $row = array();
-        for ($i = 1; $i <= $this->diaHoy; $i++) {
+        for ($i = 1; $i <= $this->todayDay; $i++) {
             $data = new HoursDataClass($i);
             $startStop = $this->getStartStopDiff($c_cvge, $i);
             $data->start = $startStop['start'];
@@ -261,7 +261,7 @@ class LastMonthClass extends BaseClass
     public function packVisit($c_visit): array
     {
         $row = array();
-        for ($i = 1; $i <= $this->diaHoy; $i++) {
+        for ($i = 1; $i <= $this->todayDay; $i++) {
             $data = new HoursDataClass($i);
             $main = $this->getVisitorMain($c_visit, $i);
             $data->gestiones = $main['gestiones'];

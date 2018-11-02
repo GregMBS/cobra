@@ -218,7 +218,7 @@ group by cliente,status_de_credito
             $temp->ASIGNADOS = $q['ct'];
             $temp->DINERO = $q['mt'];
             $temp->count = $q['ect'];
-            $temp->mount = $q['emt'];
+            $temp->monto = $q['emt'];
             $temp->pcc  = $this->roundPc($temp->count, $temp->ASIGNADOS);
             $temp->pcmc = $this->roundPc($temp->monto, $temp->DINERO);
             $output[] = $temp;
