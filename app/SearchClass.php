@@ -20,7 +20,7 @@ class SearchClass extends BaseClass
      *
      * @var string
      */
-    private $queryhead = <<<SQL
+    private $queryHead = <<<SQL
 SELECT SQL_NO_CACHE numero_de_cuenta, nombre_deudor, cliente, id_cuenta, status_de_credito from resumen 
 SQL;
 
@@ -29,19 +29,19 @@ SQL;
      *
      * @var string
      */
-    private $telstring = "WHERE (concat_ws(',', tel_1, tel_2, tel_3, tel_4) regexp :find)";
+    private $telString = "WHERE (concat_ws(',', tel_1, tel_2, tel_3, tel_4) regexp :find)";
 
     /**
      *
      * @var string
      */
-    private $telstring1 = " JOIN referencias USING (id_cuenta)";
+    private $telString1 = " JOIN referencias USING (id_cuenta)";
 
     /**
      *
      * @var string
      */
-    private $telstring2 = " WHERE (concat_ws(',', referencias.tel_1, referencias.tel_2) regexp :find)";
+    private $telString2 = " WHERE (concat_ws(',', referencias.tel_1, referencias.tel_2) regexp :find)";
 
 
     /**
@@ -79,10 +79,10 @@ SQL;
                 $output = "where domicilio_deudor regexp :find ";
                 break;
             case 'TELS':
-                $output = $this->telstring;
+                $output = $this->telString;
                 break;
             case 'REFS':
-                $output = $this->telstring1 . $this->telstring2;
+                $output = $this->telString1 . $this->telString2;
                 break;
             default:
                 $output = "where id_cuenta = :find order by id_cuenta ";
@@ -95,23 +95,23 @@ SQL;
      *
      * @param string $field
      * @param string $find
-     * @param string $CLIENTE
+     * @param string $client
      * @return array
      */
-    public function searchAccounts(string $field, string $find, string $CLIENTE)
+    public function searchAccounts(string $field, string $find, string $client)
     {
         $cliFlag = 0;
-        $querymain = $this->queryhead . $this->searchField($field);
+        $query = $this->queryHead . $this->searchField($field);
 
-        if ((isset($querymain)) && (strlen($CLIENTE) > 1)) {
-            $querymain = $querymain . " and cliente = :cliente ";
+        if ((isset($query)) && (strlen($client) > 1)) {
+            $query = $query . " and cliente = :client ";
             $cliFlag = 1;
         }
-        $querymain .= " LIMIT 10000";
-        $stm = $this->pdo->prepare($querymain);
+        $query .= " LIMIT 10000";
+        $stm = $this->pdo->prepare($query);
         $stm->bindValue(':find', $find);
         if ($cliFlag === 1) {
-            $stm->bindValue(':cliente', $CLIENTE);
+            $stm->bindValue(':client', $client);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);

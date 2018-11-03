@@ -31,21 +31,21 @@ class SegmentAdminClass extends BaseClass {
 
 	/**
 	 *
-	 * @param string $cliente
-	 * @param string $segmento
+	 * @param string $client
+	 * @param string $segment
 	 */
-	public function addSegment($cliente, $segmento) {
+	public function addSegment($client, $segment) {
         $query = <<<SQL
 INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
-            SELECT distinct gestor, :cliente, status_aarsa, updown1,
-            orden1, 9999999, :segmento, 0
+            SELECT distinct gestor, :client, status_aarsa, updown1,
+            orden1, 9999999, :segment, 0
             FROM queuelist
 SQL;
 		$stl = $this->pdo->prepare($query);
-		$stl->bindValue(':cliente', $cliente);
-		$stl->bindValue(':segmento', $segmento);
+		$stl->bindValue(':client', $client);
+		$stl->bindValue(':segment', $segment);
 		$stl->execute();
 		$queryUpdateCamp = "update queuelist
             set camp=auto where camp=9999999";

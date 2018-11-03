@@ -27,14 +27,14 @@ class SearchController extends Controller
         $field = $r->field; 
         $find = $r->find;
         $from = $r->path();
-        $cliente = $r->cliente;
-        if (empty($cliente)) {
-            $cliente = '';
+        $client = $r->cliente;
+        if (empty($client)) {
+            $client = '';
         }
-        $clienteList = $this->bc->listClients();
-        $view = view('buscar')->with('resultcl', $clienteList);
+        $clientList = $this->bc->listClients();
+        $view = view('buscar')->with('resultcl', $clientList);
         if (!empty($find)) {
-            $view = $this->returnView($field, $find, $from, $cliente);
+            $view = $this->returnView($field, $find, $from, $client);
         }
         return $view;
     }
@@ -44,12 +44,12 @@ class SearchController extends Controller
      * @param string $field
      * @param string $find
      * @param string $from
-     * @param string $cliente
+     * @param string $client
      * @return View
      */
-    private function returnView($field, $find, $from, string $cliente = '') {
-        $result = $this->bc->searchAccounts($field, $find, $cliente);
-        $clienteList = $this->bc->listClients();
+    private function returnView($field, $find, $from, string $client = '') {
+        $result = $this->bc->searchAccounts($field, $find, $client);
+        $clientList = $this->bc->listClients();
         /**
          * @var View $view
          */
@@ -58,7 +58,7 @@ class SearchController extends Controller
         $view = $view->with('from', $from);
         $view = $view->with('capt', auth()->user()->iniciales);
         $view = $view->with('result', $result);
-        $view = $view->with('resultcl', $clienteList);
+        $view = $view->with('resultcl', $clientList);
         return $view;
     }
 }

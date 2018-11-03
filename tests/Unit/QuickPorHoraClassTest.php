@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\QuickPorHoraClass;
+use App\QuickPerHourClass;
 use Tests\TestCase;
 
 class QuickPorHoraClassTest extends TestCase
@@ -22,7 +22,7 @@ class QuickPorHoraClassTest extends TestCase
             'ntp',
             'diff'
         ];
-        $qac = new QuickPorHoraClass();
+        $qac = new QuickPerHourClass();
         $result = $qac->getPorHora();
         $count = count($result);
         if ($count == 0) {

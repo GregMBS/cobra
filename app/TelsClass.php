@@ -20,7 +20,7 @@ class TelsClass extends BaseClass {
      *
      * @var string
      */
-    private $mercadosReportQuery = 'select cliente,nombre_deudor,concat(" ",numero_de_cuenta) as "numero_de_cuenta",
+    private $queryCalled = 'select cliente,nombre_deudor,concat(" ",numero_de_cuenta) as "numero_de_cuenta",
 concat(" ",tel_1) as "tel 1",tel_1 in (select c_tele from marcados) as tel_1_marcado,
 concat(" ",tel_2) as "tel 2",tel_2 in (select c_tele from marcados) as tel_2_marcado,
 concat(" ",tel_3) as "tel 3",tel_3 in (select c_tele from marcados) as tel_3_marcado,
@@ -39,7 +39,7 @@ order by cliente,numero_de_cuenta';
      *
      * @var string
      */
-    private $contactosReportQuery = 'select cliente,nombre_deudor,concat(" ",numero_de_cuenta) as "numero_de_cuenta",
+    private $queryContacted = 'select cliente,nombre_deudor,concat(" ",numero_de_cuenta) as "numero_de_cuenta",
 concat(" ",tel_1) as "tel 1",tel_1 in (select c_tele from contactados) as tel_1_contacto,
 concat(" ",tel_2) as "tel 2",tel_2 in (select c_tele from contactados) as tel_2_contacto,
 concat(" ",tel_3) as "tel 3",tel_3 in (select c_tele from contactados) as tel_3_contacto,
@@ -55,14 +55,14 @@ where status_de_credito not regexp "-"';
 
     /**
      * 
-     * @param string $fecha1
-     * @param string $fecha2
+     * @param string $date1
+     * @param string $date2
      */
-    public function createMarcados($fecha1, $fecha2) {
-        $queryCreate = "CREATE TEMPORARY TABLE marcados
+    public function createCalled($date1, $date2) {
+        $queryCreate = "CREATE TEMPORARY TABLE called
 SELECT c_tele FROM historia LIMIT 0";
         $this->pdo->query($queryCreate);
-        $queryFill = "insert into marcados select distinct c_tele
+        $queryFill = "insert into called select distinct c_tele
 from historia,resumen,dictamenes
 where c_cont=id_cuenta and dictamen=c_cvst
 and status_de_credito not regexp '-'
@@ -71,21 +71,21 @@ and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
         $stf = $this->pdo->prepare($queryFill);
-        $stf->bindValue(':fecha1', $fecha1);
-        $stf->bindValue(':fecha2', $fecha2);
+        $stf->bindValue(':fecha1', $date1);
+        $stf->bindValue(':fecha2', $date2);
         $stf->execute();
     }
 
     /**
      * 
-     * @param string $fecha1
-     * @param string $fecha2
+     * @param string $date1
+     * @param string $date2
      */
-    public function createContactos($fecha1, $fecha2) {
-        $queryCreate = "CREATE TEMPORARY TABLE contactos
+    public function createContacted($date1, $date2) {
+        $queryCreate = "CREATE TEMPORARY TABLE contacted
 SELECT c_tele FROM historia LIMIT 0";
         $this->pdo->query($queryCreate);
-        $queryFill = "insert into contactados select distinct c_tele
+        $queryFill = "insert into contacted select distinct c_tele
 from historia,resumen,dictamenes
 where c_cont=id_cuenta and dictamen=c_cvst
 and status_de_credito not like '%ivo'
@@ -95,8 +95,8 @@ and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
         $stf = $this->pdo->prepare($queryFill);
-        $stf->bindValue(':fecha1', $fecha1);
-        $stf->bindValue(':fecha2', $fecha2);
+        $stf->bindValue(':fecha1', $date1);
+        $stf->bindValue(':fecha2', $date2);
         $stf->execute();
     }
 
@@ -104,8 +104,8 @@ order by c_tele";
      * 
      * @return array
      */
-    public function getMercadosReport() {
-        $statement = $this->pdo->query($this->mercadosReportQuery);
+    public function getCalledReport() {
+        $statement = $this->pdo->query($this->queryCalled);
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
@@ -114,8 +114,8 @@ order by c_tele";
      * 
      * @return array
      */
-    public function getContactosReport() {
-        $statement = $this->pdo->query($this->contactosReportQuery);
+    public function getContactedReport() {
+        $statement = $this->pdo->query($this->queryContacted);
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }

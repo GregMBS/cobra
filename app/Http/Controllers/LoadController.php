@@ -36,8 +36,8 @@ class LoadController extends Controller
      */
     public function index()
     {
-        $clientes = $this->cc->listClientes();
-        $view = view('carga')->with('clientes', $clientes);
+        $clients = $this->cc->listClientes();
+        $view = view('carga')->with('clientes', $clients);
         return $view;
     }
 
@@ -47,8 +47,8 @@ class LoadController extends Controller
      */
     private function indexMsg(string $msg)
     {
-        $clientes = $this->cc->listClientes();
-        $view = view('carga')->with('clientes', $clientes)->with('msg', $msg);
+        $clients = $this->cc->listClientes();
+        $view = view('carga')->with('clientes', $clients)->with('msg', $msg);
         return $view;
     }
 

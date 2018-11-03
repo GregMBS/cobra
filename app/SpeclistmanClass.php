@@ -19,17 +19,17 @@ class SpecListManClass extends BaseClass {
 
     /**
      * 
-     * @param string $cliente
+     * @param string $client
      * @param string $sdc
      * @return array
      */
-    public function getReport($cliente, $sdc) {
-        /** @var Builder $resumen */
-        $resumen = Resumen::whereStatusDeCredito($sdc);
+    public function getReport($client, $sdc) {
+        /** @var Builder $debtor */
+        $debtor = Resumen::whereStatusDeCredito($sdc);
         /** @var Builder $result */
-        $result = $resumen->join('dictamenes', 'dictamen', '=', 'status_aarsa')
+        $result = $debtor->join('dictamenes', 'dictamen', '=', 'status_aarsa')
             ->leftJoin('pagos', 'pagos.id_cuenta', '=', 'resumen.id_cuenta')
-            ->where('resumen.cliente', '=', $cliente);
+            ->where('resumen.cliente', '=', $client);
         $result = $result->where('especial', '>', 0)
             ->distinct()
             ->select(['numero_de_cuenta', 'nombre_deudor', 'saldo_total', 'status_aarsa',

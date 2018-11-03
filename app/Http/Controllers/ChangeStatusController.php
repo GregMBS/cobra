@@ -28,8 +28,8 @@ class ChangeStatusController extends Controller
         $field = $r->field; 
         $find = $r->find;
         $from = $r->path();
-        $cliente = $r->cliente;
-        $view = $this->returnView($field, $find, $from, $cliente);
+        $client = $r->cliente;
+        $view = $this->returnView($field, $find, $from, $client);
         return $view;
     }
     
@@ -37,8 +37,8 @@ class ChangeStatusController extends Controller
         $field     = 'id_cuenta';
         $find      = $r->C_CONT;
         $from = $r->path();
-        $inactivo = $r->has('inactivo');
-        $this->cc->updateResumen($inactivo, $find);
+        $inactive = $r->has('inactivo');
+        $this->cc->updateResumen($inactive, $find);
         $view = $this->returnView($field, $find, $from, '');
         return $view;
     }
@@ -48,23 +48,23 @@ class ChangeStatusController extends Controller
      * @param string $field
      * @param string $find
      * @param string $from
-     * @param string $cliente
+     * @param string $client
      * @return View
      */
-    private function returnView($field, $find, $from, $cliente) {
+    private function returnView($field, $find, $from, $client) {
         $result = [];
         $bc = new SearchClass();
         if (!empty($find)) {
-            $result = $bc->searchAccounts($field, $find, $cliente);
+            $result = $bc->searchAccounts($field, $find, $client);
         }
-        $clienteList = $bc->listClients();
+        $clientList = $bc->listClients();
         /** @var View $view */
         $view = view('changest');
         $view = $view->with('field', $field);
         $view = $view->with('find', $find);
         $view = $view->with('from', $from);
         $view = $view->with('result', $result);
-        $view = $view->with('resultcl', $clienteList);
+        $view = $view->with('resultcl', $clientList);
         return $view;
     }
 }

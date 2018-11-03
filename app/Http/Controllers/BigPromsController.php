@@ -43,10 +43,10 @@ class BigPromsController extends Controller
      * @return View
      */
     public function index() {
-        $gestores = $this->bc->getPromGestores();
-        $clientes = $this->bc->getPromClientes();
+        $agents = $this->bc->getPromGestores();
+        $clients = $this->bc->getPromClientes();
         return view('bigProms')
-        ->with('gestores', $gestores)
-        ->with('clientes', $clientes);
+        ->with('gestores', $agents)
+        ->with('clientes', $clients);
     }
 }

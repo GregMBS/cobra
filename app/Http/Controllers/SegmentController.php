@@ -57,14 +57,14 @@ class SegmentController extends Controller
      */
     public function add(Request $r)
     {
-        $clienteSegmento = explode(';', $r->cliseg);
-        $cliente = $clienteSegmento[0];
-        if (!empty($cliente)) {
-            $segmento = '';
-            if (count($clienteSegmento) > 1) {
-                $segmento = $clienteSegmento[1];
+        $clientSegment = explode(';', $r->cliseg);
+        $client = $clientSegment[0];
+        if (!empty($client)) {
+            $segment = '';
+            if (count($clientSegment) > 1) {
+                $segment = $clientSegment[1];
             }
-            $this->sc->addSegment($cliente, $segmento);
+            $this->sc->addSegment($client, $segment);
         }
         $view = $this->index();
         return $view;

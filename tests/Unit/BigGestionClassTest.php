@@ -117,7 +117,7 @@ class BigGestionClassTest extends TestCase
     public function testGetGestionClientes()
     {
         $bc = new BigCallClass();
-        $clientes = $bc->getCallClientes();
+        $clientes = $bc->getCallClients();
         $this->assertInternalType('array', $clientes);
         $this->assertNotEmpty($clientes);
     }
@@ -125,7 +125,7 @@ class BigGestionClassTest extends TestCase
     public function testGetGestionGestores()
     {
         $bc = new BigCallClass();
-        $gestores = $bc->getCallGestores();
+        $gestores = $bc->getCallAgents();
         $this->assertInternalType('array', $gestores);
         $this->assertNotEmpty($gestores);
     }

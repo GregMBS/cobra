@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\QuickHoyClass;
+use App\QuickTodayClass;
 use Tests\TestCase;
 
 class QuickHoyClassTest extends TestCase
@@ -22,7 +22,7 @@ class QuickHoyClassTest extends TestCase
             'ntp',
             'diff'
         ];
-        $qac = new QuickHoyClass();
+        $qac = new QuickTodayClass();
         $result = $qac->getHoy();
         $count = count($result);
         if ($count == 0) {

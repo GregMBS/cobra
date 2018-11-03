@@ -53,7 +53,7 @@ class InfonavitClass {
         return $output;
     }
 
-    public function getGestion() {
+    public function getCall() {
         $result = array();
         foreach ($this->data as $row) {
             $fechaHora = $this->excelDateToUnix($row['startDate']);

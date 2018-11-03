@@ -71,7 +71,7 @@ class CheckController extends Controller
      * @throws \Exception
      */
     public function listing($agent) {
-        $visitador = $this->cc->getCompleto($agent);
+        $visitor = $this->cc->getCompleto($agent);
         $capt = $this->cc->getCompleto(auth()->user()->iniciales);
         $list = $this->cc->listVasign($agent);
         $accounts = count($list);
@@ -81,7 +81,7 @@ class CheckController extends Controller
          * @method static|View with(string $label, mixed $value)
          */
         $view = view('checkOutList');
-        $view = $view->with('visitador', $visitador)
+        $view = $view->with('visitador', $visitor)
         ->with('capt', $capt)
         ->with('list', $list)
         ->with('cuentas', $accounts)
@@ -107,7 +107,7 @@ class CheckController extends Controller
      * @return View
      */
     public function checkout(array $list = [], $agent = '', $tipo = '') {
-        $agents = $this->uc->getVisitadores();
+        $agents = $this->uc->getVisitors();
         $counts = $this->cc->countInOut($agent);
         $view = view('checkout')
         ->with('gestor', $agent)
@@ -136,7 +136,7 @@ class CheckController extends Controller
      * @return View
      */
     public function checkIn(array $list = [], $agent = '', $tipo = '') {
-        $agents = $this->uc->getVisitadores();
+        $agents = $this->uc->getVisitors();
         $counts = $this->cc->countInOut($agent);
         $view = view('checkIn')
         ->with('gestor', $agent)
@@ -162,18 +162,18 @@ class CheckController extends Controller
      * @param array $list
      * @param string $agent
      * @param string $tipo
-     * @param string $fechaOut
+     * @param string $dateOut
      * @return View
      */
-    public function checkBoth(array $list = [], $agent = '', $tipo = '', $fechaOut = '') {
-        $agents = $this->uc->getVisitadores();
+    public function checkBoth(array $list = [], $agent = '', $tipo = '', $dateOut = '') {
+        $agents = $this->uc->getVisitors();
         $counts = $this->cc->countInOut($agent);
         /** @var View $view */
         $view = view('checkBoth')
         ->with('gestor', $agent)
         ->with('gestores', $agents)
         ->with('tipo', $tipo)
-        ->with('fechaOut', $fechaOut)
+        ->with('fechaOut', $dateOut)
         ->with('list', $list)
         ->with('counts', $counts);
         return $view;

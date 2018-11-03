@@ -15,7 +15,7 @@ use Illuminate\Database\Query\Builder;
  *
  * @author gmbs
  */
-class HistoriaClass extends BaseClass {
+class HistoryClass extends BaseClass {
 
     /**
      * Unsafely fill c_cont and c_cvba where they are missing.
@@ -30,40 +30,40 @@ and c_cvba is null";
     }
 
     /**
-     * Unsafely obtain id_cuenta from numero_de_cuenta.
-     * Behavior undefined when there is the inevitable conflict in numero_de_cuenta.
+     * Unsafely obtain id from account number.
+     * Behavior undefined when there is the inevitable conflict in account numbers.
      *
-     * @param string $cuenta
+     * @param string $accountNumber
      * @return int
      */
-    private function getIdCuenta($cuenta) {
+    private function getId($accountNumber) {
         /** @var Builder $rc */
         $rc = new Resumen();
-        $query = $rc->where('numero_de_cuenta', '=', $cuenta);
-        $resumen = $query->first();
-        $id_cuenta = $resumen->id_cuenta;
-        return $id_cuenta;
+        $query = $rc->where('numero_de_cuenta', '=', $accountNumber);
+        $debtor = $query->first();
+        $id = $debtor->id_cuenta;
+        return $id;
     }
 
     /**
      * This is actually the SAFEST part of the process, believe it or not.
      *
-     * @param array $gestiones
+     * @param array $calls
      * @return bool
      */
-    private function unsafeInsert(array $gestiones) {
+    private function unsafeInsert(array $calls) {
         /** @var Builder $hc */
         $hc = new Historia();
-        $test = $hc->insert($gestiones);
+        $test = $hc->insert($calls);
         return $test;
     }
 
-    public function insertGestiones($gestiones) {
-        $ok = $this->unsafeInsert($gestiones);
+    public function insertCalls(array $calls) {
+        $ok = $this->unsafeInsert($calls);
         if ($ok) {
-            $id_cuenta = $this->getIdCuenta($gestiones['CUENTA']);
+            $id = $this->getId($calls['CUENTA']);
             $this->fillGaps();
-            $this->addNewTel($id_cuenta, $gestiones['C_NTEL']);
+            $this->addNewTel($id, $calls['C_NTEL']);
         }
     }
 
@@ -84,13 +84,13 @@ and c_cvba is null";
     }
 
     /**
-     * @param int $C_CONT
-     * @param string $tele
+     * @param int $id
+     * @param string $tel
      * @return array
      */
-    private function addNewTel($C_CONT, $tele) {
-        $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
-        $telArray = $this->getCurrentTels($C_CONT);
+    private function addNewTel(int $id, $tel) {
+        $telClean = filter_var($tel, FILTER_SANITIZE_NUMBER_INT);
+        $telArray = $this->getCurrentTels($id);
         $query = <<<SQL
 UPDATE resumen 
         SET tel_4_verif = :tel3,
@@ -99,15 +99,15 @@ UPDATE resumen
         tel_1_verif = :tel 
         WHERE id_cuenta = :C_CONT
 SQL;
-        $newTels = [$tel, $telArray['tel_1_verif'], $telArray['tel_2_verif'], $telArray['tel_3_verif']];
+        $newTels = [$telClean, $telArray['tel_1_verif'], $telArray['tel_2_verif'], $telArray['tel_3_verif']];
         $stn = $this->pdo->prepare($query);
         $stn->bindValue(':tel3', $newTels[3]);
         $stn->bindValue(':tel2', $newTels[2]);
         $stn->bindValue(':tel1', $newTels[1]);
         $stn->bindValue(':tel', $newTels[0]);
-        $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindValue(':C_CONT', $id, \PDO::PARAM_INT);
         $stn->execute();
-        $telCheck = $this->getCurrentTels($C_CONT);
+        $telCheck = $this->getCurrentTels($id);
         $diff = array_diff($newTels, $telCheck);
         return $diff;
     }

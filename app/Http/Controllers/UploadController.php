@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\HistoriaClass;
+use App\HistoryClass;
 use App\InfonavitClass;
 use App\UploadClass;
 use Illuminate\Http\Request;
@@ -17,14 +17,14 @@ class UploadController extends Controller
     private $uc;
 
     /**
-     * @var HistoriaClass
+     * @var HistoryClass
      */
     private $hc;
 
     public function __construct()
     {
         $this->uc = new UploadClass();
-        $this->hc = new HistoriaClass();
+        $this->hc = new HistoryClass();
     }
 
     /**
@@ -41,9 +41,9 @@ class UploadController extends Controller
             $filename = $file->getFilename();
             $data = $this->uc->reader($filename);
         }
-        $INFONAVIT = new InfonavitClass($data);
-        $gestion = $INFONAVIT->getGestion();
-        $this->hc->insertGestiones($gestion);
+        $ic = new InfonavitClass($data);
+        $call = $ic->getCall();
+        $this->hc->insertCalls($call);
         $view = view('INFONAVITUpload');
         return $view;
     }

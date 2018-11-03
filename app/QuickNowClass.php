@@ -12,7 +12,7 @@ class QuickNowClass extends BaseClass
      *
      * @var string
      */
-    protected $createNow          = "CREATE TEMPORARY TABLE  ahora (
+    protected $createNow          = "CREATE TEMPORARY TABLE  immediately (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) NOT NULL,
   `cuenta` varchar(255),
@@ -34,7 +34,7 @@ class QuickNowClass extends BaseClass
      * @var string
      */
     protected $insertNow          = <<<SQL
-INSERT INTO ahora (gestor,cuenta,nombre,cliente,camp,status,
+INSERT INTO immediately (gestor,cuenta,nombre,cliente,camp,status,
 tiempo,queue,sistema,logout,id_cuenta) 
 SELECT DISTINCT userlog.gestor,numero_de_cuenta,nombre_deudor,
 rslice.cliente, status_de_credito,rslice.status_aarsa,
@@ -63,7 +63,7 @@ group by c_cvge";
      *
      * @var string
      */
-    protected $updateNowLogins    = "update ahora,logins set login=tlog where c_cvge=gestor";
+    protected $updateNowLogins    = "update immediately,logins set login=tlog where c_cvge=gestor";
     
     /**
      *
@@ -78,7 +78,7 @@ group by c_cvge";
      *
      * @var string
      */
-    protected $updateNowLogouts   = "update ahora,logouts set logout=tlogo where c_cvge=gestor";
+    protected $updateNowLogouts   = "update immediately,logouts set logout=tlogo where c_cvge=gestor";
     
     /**
      *
@@ -93,14 +93,14 @@ group by c_cvge";
      *
      * @var string
      */
-    protected $updateNowBreakStat = "update ahora,breakfast,historia set status=c_cvst
+    protected $updateNowBreakStat = "update immediately,breakfast,historia set status=c_cvst
 where breakfast.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
     
     /**
      *
      * @var string
      */
-    protected $queryNow           = "SELECT * FROM ahora";
+    protected $queryNow           = "SELECT * FROM immediately";
 
     /**
      * 

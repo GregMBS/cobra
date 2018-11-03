@@ -21,7 +21,7 @@ class UserClassTest extends TestCase
             1 => 'completo'
         ];
         $uc = new UserClass();
-        $result = $uc->getVisitadores();
+        $result = $uc->getVisitors();
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);

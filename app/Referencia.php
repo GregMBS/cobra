@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Referencia
  * @package App
- * @method static whereIdCuenta(int $id_cuenta)
+ * @method static whereIdCuenta(int $id)
  */
 class Referencia extends Model
 {

@@ -3,8 +3,8 @@ namespace App\Http\Controllers;
 
 use App\QuickNowClass;
 use App\QuickBreaksClass;
-use App\QuickHoyClass;
-use App\QuickPorHoraClass;
+use App\QuickTodayClass;
+use App\QuickPerHourClass;
 use View;
 
 class QuickController extends Controller
@@ -18,7 +18,7 @@ class QuickController extends Controller
     
     /**
      * 
-     * @var QuickHoyClass
+     * @var QuickTodayClass
      */
     private $qh;
     
@@ -30,16 +30,16 @@ class QuickController extends Controller
     
     /**
      * 
-     * @var QuickPorHoraClass
+     * @var QuickPerHourClass
      */
     private $qp;
     
     public function __construct()
     {
         $this->qa = new QuickNowClass();
-        $this->qh = new QuickHoyClass();
+        $this->qh = new QuickTodayClass();
         $this->qb = new QuickBreaksClass();
-        $this->qp = new QuickPorHoraClass();
+        $this->qp = new QuickPerHourClass();
     }
 
     /**

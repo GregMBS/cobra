@@ -67,6 +67,7 @@ class BreaksController extends Controller
      * @return View
      */
     public function change(Request $r) {
+        /** @method bool validate(array $rules) */
         $r->validate([
             'auto' => 'required|exists:breaks|integer',
             'tipo' => 'required',

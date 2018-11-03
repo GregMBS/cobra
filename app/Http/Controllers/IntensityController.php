@@ -31,12 +31,12 @@ class IntensityController extends Controller
      * @throws \Box\Spout\Writer\Exception\InvalidSheetNameException
      */
     public function makeReport(Request $r) {
-        $fechaArray = array($r->fecha1, $r->fecha2);
-        sort($fechaArray);
-        $fecha1 = $fechaArray[0];
-        $fecha2 = $fechaArray[1];
-        $filename = "Query_de_intensidad_".$fecha1.'_'.$fecha2.".xlsx";
-        $result = $this->ic->getByAccount($fecha1, $fecha2);
+        $dateArray = array($r->fecha1, $r->fecha2);
+        sort($dateArray);
+        $date1 = $dateArray[0];
+        $date2 = $dateArray[1];
+        $filename = "Query_de_intensidad_".$date1.'_'.$date2.".xlsx";
+        $result = $this->ic->getByAccount($date1, $date2);
         $output   = array();
         $i = 0;
         
@@ -63,7 +63,7 @@ class IntensityController extends Controller
         $newSheet = $writer->getCurrentSheet();
         $newSheet->setName('PorSegmento');
         
-        $results = $this->ic->getBySegment($fecha1, $fecha2);
+        $results = $this->ic->getBySegment($date1, $date2);
         
         $outputs   = array();
         $j = 0;

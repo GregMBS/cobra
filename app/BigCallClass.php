@@ -40,10 +40,10 @@ class BigCallClass extends BaseClass
      */
     private function getHistory($queryFront, $queryBack, BigDataClass $bdc)
     {
-        $gestorstr = $bdc->getGestorString();
-        $clientestr = $bdc->getClienteString();
+        $agentString = $bdc->getGestorString();
+        $clientString = $bdc->getClienteString();
         $userTypeString = $bdc->getTipoString();
-        $query = $queryFront . $gestorstr . $clientestr . $userTypeString . $queryBack;
+        $query = $queryFront . $agentString . $clientString . $userTypeString . $queryBack;
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':fecha1', $bdc->fecha1);
         $stq->bindValue(':fecha2', $bdc->fecha2);
@@ -100,7 +100,7 @@ ORDER BY d_fech,c_hrin";
      *
      * @return string[]
      */
-    public function getCallClientes()
+    public function getCallClients()
     {
         $query = "SELECT distinct c_cvba FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
@@ -108,23 +108,23 @@ ORDER BY d_fech,c_hrin";
 	";
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        $clientes = array_column($result, 'c_cvba');
-        return $clientes;
+        $clients = array_column($result, 'c_cvba');
+        return $clients;
     }
 
     /**
      *
      * @return string[]
      */
-    public function getCallGestores()
+    public function getCallAgents()
     {
         $query = "SELECT c_cvge, count(1) FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         group by c_cvge";
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        $gestores = array_column($result, 'c_cvge');
-        return $gestores;
+        $agents = array_column($result, 'c_cvge');
+        return $agents;
     }
 
 }

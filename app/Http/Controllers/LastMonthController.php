@@ -26,7 +26,7 @@ class LastMonthController extends HoursController
         $this->mes = date('m',strtotime("last day of previous month"));
         $this->todayDay = date('d',strtotime("last day of previous month"));
         $this->hoy = date('Y-m-d',strtotime("last day of previous month"));
-        $this->yrmes = date('Y-m-',strtotime("last day of previous month"));
+        $this->yearMonth = date('Y-m-',strtotime("last day of previous month"));
     }
 
     public function show($agent)

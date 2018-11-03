@@ -26,15 +26,15 @@ class UserClass extends BaseClass
                     WHERE tipo <> ''";
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        $gestores = array_column($result, 'iniciales');
-        return $gestores;
+        $agents = array_column($result, 'iniciales');
+        return $agents;
     }
 
     /**
      *
      * @return array
      */
-    public function getVisitadores()
+    public function getVisitors()
     {
         $query = "SELECT iniciales,completo FROM users where tipo IN ('visitador','admin')";
         $result = $this->pdo->query($query);
@@ -47,9 +47,9 @@ class UserClass extends BaseClass
      * @param string $capt
      */
     public function setCamp($camp, $capt) {
-        $queryupd = "UPDATE users SET camp=:camp "
+        $query = "UPDATE users SET camp=:camp "
             . "where iniciales=:capt";
-        $stu = $this->pdo->prepare($queryupd);
+        $stu = $this->pdo->prepare($query);
         $stu->bindValue(':camp', $camp);
         $stu->bindValue(':capt', $capt);
         $stu->execute();

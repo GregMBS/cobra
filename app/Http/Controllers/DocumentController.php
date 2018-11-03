@@ -16,9 +16,9 @@ class DocumentController extends Controller
      */
     public function store(int $id, Request $request)
     {
-        $resumen = Resumen::find($id);
-        if ($resumen) {
-            $resumen->addMedia($request->file('document'))->toMediaCollection('documents');
+        $debtor = Resumen::find($id);
+        if ($debtor) {
+            $debtor->addMedia($request->file('document'))->toMediaCollection('documents');
             return true;
         }
         return false;
@@ -31,11 +31,11 @@ class DocumentController extends Controller
     public function index(int $id)
     {
         $output = new Collection();
-        $resumen = Resumen::find($id);
-        if ($resumen) {
-            if ($resumen->hasMedia('documents')) {
+        $debtor = Resumen::find($id);
+        if ($debtor) {
+            if ($debtor->hasMedia('documents')) {
                 /** @var Collection $documents */
-                $documents = $resumen->getMedia('documents');
+                $documents = $debtor->getMedia('documents');
                 /** @var Media $document */
                 foreach ($documents as $docId => $document) {
                     $item = [
@@ -59,12 +59,12 @@ class DocumentController extends Controller
      */
     public function remove(int $id, int $docId)
     {
-        $resumen = Resumen::find($id);
-        if ($resumen) {
-            if ($resumen->hasMedia('documents')) {
+        $debtor = Resumen::find($id);
+        if ($debtor) {
+            if ($debtor->hasMedia('documents')) {
                 try {
                     /** @var Collection $documents */
-                    $documents = $resumen->getMedia('documents');
+                    $documents = $debtor->getMedia('documents');
                     /** @var Media $document */
                     if (isset($documents[$docId])) {
                         $document = $documents[$docId];

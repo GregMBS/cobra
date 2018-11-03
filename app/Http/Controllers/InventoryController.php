@@ -28,8 +28,8 @@ class InventoryController extends Controller
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function makeReport(Request $r, OutputClass $oc) {
-        $cliente    = $r->cliente;
-        $result = $this->ic->getFullInventoryReport($cliente);
+        $client    = $r->cliente;
+        $result = $this->ic->getFullInventoryReport($client);
         $filename = "Query_de_inventario_".date('ymd').".xlsx";
         $headers  = array_keys($result[0]);
         $oc->writeXLSXFile($filename, $result, $headers);
@@ -44,8 +44,8 @@ class InventoryController extends Controller
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function makeRapidReport(Request $r, OutputClass $oc) {
-        $cliente    = $r->cliente;
-        $result = $this->ic->getInventoryReport($cliente);
+        $client    = $r->cliente;
+        $result = $this->ic->getInventoryReport($client);
         $filename = "Query_de_inventario_".date('ymd').".xlsx";
         $headers  = array_keys($result[0]);
         $oc->writeXLSXFile($filename, $result, $headers);
@@ -57,8 +57,8 @@ class InventoryController extends Controller
      */
     public function index() {
         $here = '/inventario';
-        $clientes = $this->ic->listClients();
-        return view('inventario')->with('here', $here)->with('clientes', $clientes);
+        $clients = $this->ic->listClients();
+        return view('inventario')->with('here', $here)->with('clientes', $clients);
     }
     
     /**
@@ -67,7 +67,7 @@ class InventoryController extends Controller
      */
     public function indexRapid() {
         $here = '/inventarioRapid';
-        $clientes = $this->ic->listClients();
-        return view('inventario')->with('here', $here)->with('clientes', $clientes);
+        $clients = $this->ic->listClients();
+        return view('inventario')->with('here', $here)->with('clientes', $clients);
     }
 }

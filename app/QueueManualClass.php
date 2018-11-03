@@ -19,28 +19,28 @@ class QueueManualClass extends BaseClass {
      * 
      */
     public function truncateManual() {
-        $queryclean = "UPDATE resumen
+        $query = "UPDATE resumen
 SET especial=0
 WHERE especial>0";
-        $this->pdo->query($queryclean);
+        $this->pdo->query($query);
     }
 
     /**
      * 
      * @param string $dataPost
-     * @param string $clientea
+     * @param string $client
      */
-    public function loadManual($dataPost, $clientea) {
-        $queryins = "UPDATE resumen
+    public function loadManual($dataPost, $client) {
+        $query = "UPDATE resumen
 SET especial=1
 WHERE numero_de_cuenta=:data
-AND cliente=:clientea";
-        $sti = $this->pdo->prepare($queryins);
+AND cliente=:client";
+        $sti = $this->pdo->prepare($query);
         $data = preg_split("/[\s,]+/", $dataPost, 0, PREG_SPLIT_NO_EMPTY);
         $max = count($data);
         for ($i = 0; $i < $max; $i++) {
             $sti->bindValue(':data', $data[$i]);
-            $sti->bindValue(':clientea', $clientea);
+            $sti->bindValue(':client', $client);
             $sti->execute();
         }
     }
@@ -60,7 +60,7 @@ AND cliente=:clientea";
      * @return array
      */
     public function getReport() {
-        $querymain = "SELECT
+        $query = "SELECT
     cliente,
     status_de_credito AS segmento,
     ejecutivo_asignado_call_center as asignado,
@@ -73,7 +73,7 @@ WHERE
     especial > 0
         AND status_de_credito NOT REGEXP '-'
 GROUP BY cliente , status_de_credito , ejecutivo_asignado_call_center";
-        $result = $this->pdo->query($querymain);
+        $result = $this->pdo->query($query);
         return $result->fetchAll(\PDO::FETCH_ASSOC);
     }
 

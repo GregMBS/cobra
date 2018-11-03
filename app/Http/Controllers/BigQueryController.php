@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\BigCallClass;
 use App\BigDataClass;
 use App\OutputClass;
 use View;
+use Illuminate\Http\Request;
 
 class BigQueryController extends Controller
 {
@@ -43,10 +43,10 @@ class BigQueryController extends Controller
      * @return View
      */
     public function index() {
-        $gestores = $this->bc->getCallGestores();
-        $clientes = $this->bc->getCallClientes();
+        $agents = $this->bc->getCallAgents();
+        $clients = $this->bc->getCallClients();
         return view('bigQuery')
-        ->with('gestores', $gestores)
-        ->with('clientes', $clientes);
+        ->with('gestores', $agents)
+        ->with('clientes', $clients);
     }
 }

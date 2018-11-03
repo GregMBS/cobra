@@ -23,7 +23,7 @@ class HoursController extends Controller
 
     protected $yr;
     protected $mes;
-    protected $yrmes;
+    protected $yearMonth;
 
     /**
      *
@@ -53,7 +53,7 @@ class HoursController extends Controller
         $this->mes = date('m');
         $this->todayDay = date('d');
         $this->hoy = date('Y-m-d');
-        $this->yrmes = date('Y-m-');
+        $this->yearMonth = date('Y-m-');
     }
 
     /**
@@ -64,11 +64,11 @@ class HoursController extends Controller
     {
         $output = array();
         $summary = array();
-        $gestores = $this->hc->listAgents();
+        $agents = $this->hc->listAgents();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->todayDay);
-        foreach ($gestores as $gestor) {
-            $c_cvge = $gestor['c_cvge'];
-            $output[$c_cvge] = $this->hc->packData($c_cvge, $this->todayDay);
+        foreach ($agents as $agent) {
+            $initials = $agent['c_cvge'];
+            $output[$initials] = $this->hc->packData($initials, $this->todayDay);
         }
         for ($i = 1; $i <= $this->todayDay; $i++) {
             $dataSum = new HoursDataClass($i);
@@ -83,10 +83,10 @@ class HoursController extends Controller
             $dataSum->pagos = $this->hac->getPayments($i);
             $summary[$i] = $dataSum;
         }
-        $c_cvge = array_column($gestores, 'c_cvge');
+        $initials = array_column($agents, 'c_cvge');
         $view = view($this->views['index'])
-            ->with('yrmes', $this->yrmes)
-            ->with('gestores', $c_cvge)
+            ->with('yrmes', $this->yearMonth)
+            ->with('gestores', $initials)
             ->with('todayDay', $this->todayDay)
             ->with('dowArray', $dowArray)
             ->with('data', $output)
@@ -100,17 +100,17 @@ class HoursController extends Controller
     public function indexV()
     {
         $output = array();
-        $visitadores = $this->hc->listVisitors();
+        $visitors = $this->hc->listVisitors();
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->todayDay);
-        foreach ($visitadores as $visitador) {
-            $c_visit = $visitador['iniciales'];
-            $row = $this->hc->packVisit($c_visit, $this->todayDay);
-            $output[$c_visit] = $row;
+        foreach ($visitors as $visitor) {
+            $initials = $visitor['iniciales'];
+            $row = $this->hc->packVisit($initials, $this->todayDay);
+            $output[$initials] = $row;
         }
-        $c_visit = array_column($visitadores, 'iniciales');
+        $initials = array_column($visitors, 'iniciales');
         $view = view($this->views['indexV'])
-            ->with('yrmes', $this->yrmes)
-            ->with('visitadores', $c_visit)
+            ->with('yrmes', $this->yearMonth)
+            ->with('visitadores', $initials)
             ->with('todayDay', $this->todayDay)
             ->with('dowArray', $dowArray)
             ->with('data', $output);
@@ -119,16 +119,16 @@ class HoursController extends Controller
 
     /**
      *
-     * @param string $c_cvge
+     * @param string $initials
      * @return View
      */
-    public function show($c_cvge)
+    public function show($initials)
     {
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->todayDay);
-        $output = $this->hc->packData($c_cvge, $this->todayDay);
+        $output = $this->hc->packData($initials, $this->todayDay);
         $view = view($this->views['show'])
-            ->with('yrmes', $this->yrmes)
-            ->with('gestor', $c_cvge)
+            ->with('yrmes', $this->yearMonth)
+            ->with('gestor', $initials)
             ->with('todayDay', $this->todayDay)
             ->with('dowArray', $dowArray)
             ->with('data', $output);
@@ -145,7 +145,7 @@ class HoursController extends Controller
         $dowArray = $this->hc->dowArray($this->yr, $this->mes, $this->todayDay);
         $output = $this->hc->packVisit($c_visit, $this->todayDay);
         $view = view($this->views['showV'])
-            ->with('yrmes', $this->yrmes)
+            ->with('yrmes', $this->yearMonth)
             ->with('visitador', $c_visit)
             ->with('todayDay', $this->todayDay)
             ->with('dowArray', $dowArray)
@@ -158,9 +158,9 @@ class HoursController extends Controller
      */
     public function select()
     {
-        $gestores = $this->hc->listAgents();
+        $agents = $this->hc->listAgents();
         $view = view('chooseGestor')
-            ->with('gestores', $gestores);
+            ->with('gestores', $agents);
         return $view;
     }
 }

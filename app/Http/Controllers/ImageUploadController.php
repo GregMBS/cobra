@@ -18,19 +18,19 @@ class ImageUploadController extends Controller
         ]);
 
         $image = $request->file('image');
-        $id_cuenta = $request->id_cuenta;
-        $input['imagename'] = $id_cuenta . '.jpg';
+        $id = $request->id_cuenta;
+        $input['imagename'] = $id . '.jpg';
         $destinationPath = public_path('/images');
         $image->move($destinationPath, $input['imagename']);
-        return redirect('/resumen/'.$id_cuenta);
+        return redirect('/resumen/'.$id);
     }
 
     /**
-     * @param $id_cuenta
+     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($id_cuenta)
+    public function index(int $id)
     {
-        return view('imageUpload')->with('id', $id_cuenta);
+        return view('imageUpload')->with('id', $id);
     }
 }

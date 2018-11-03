@@ -3,17 +3,17 @@
 namespace App;
 
 /**
- * Description of QuickPorHoraClass
+ * Description of QuickPerHourClass
  *
  * @author gmbs
  */
-class QuickPorHoraClass extends BaseClass
+class QuickPerHourClass extends BaseClass
 {
     /**
      *
      * @var string
      */
-    protected $createPorHora = "CREATE TEMPORARY TABLE  `porhora` (
+    protected $create = "CREATE TEMPORARY TABLE  `hourly` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) NOT NULL,
   `contactos` int(11),
@@ -28,7 +28,7 @@ class QuickPorHoraClass extends BaseClass
      *
      * @var string
      */
-    protected $insertPorHora = "insert into porhora (gestor,contactos,gestiones,promesas,firmas,porciento)
+    protected $insert = "insert into hourly (gestor,contactos,gestiones,promesas,firmas,porciento)
 select c_cvge, sum((C_CARG is not null)&&(C_CARG<>'')) as contacto,
 count(1), sum(C_CVST like 'PROMESA DE P%') as np, sum(C_CVST = 'PROMESA DE FIRMA') as nf,
 concat(round(sum((C_CARG is not null)&&(C_CARG<>''))/count(1)*100),'%')
@@ -44,7 +44,7 @@ group by C_CVGE";
      *
      * @var string
      */
-    protected $queryPorHora  = "SELECT * FROM porhora";
+    protected $query  = "SELECT * FROM hourly";
 
     /**
      * 
@@ -52,9 +52,9 @@ group by C_CVGE";
      */
     public function getPorHora()
     {
-        $this->pdo->query($this->createPorHora);
-        $this->pdo->query($this->insertPorHora);
-        $sta    = $this->pdo->query($this->queryPorHora);
+        $this->pdo->query($this->create);
+        $this->pdo->query($this->insert);
+        $sta    = $this->pdo->query($this->query);
         $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }

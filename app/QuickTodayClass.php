@@ -3,17 +3,17 @@
 namespace App;
 
 /**
- * Description of QuickHoyClass
+ * Description of QuickTodayClass
  *
  * @author gmbs
  */
-class QuickHoyClass extends BaseClass
+class QuickTodayClass extends BaseClass
 {
     /**
      *
      * @var string
      */
-    protected $createHoy          = "CREATE TEMPORARY TABLE  `hoy` (
+    protected $create          = "CREATE TEMPORARY TABLE  `hoy` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) NOT NULL,
   `Gestiones` int(11),
@@ -35,7 +35,7 @@ class QuickHoyClass extends BaseClass
      *
      * @var string
      */
-    protected $insertHoy          = "insert into hoy
+    protected $insert          = "insert into hoy
         (gestor,Horas,Gestiones,Promesas_Hoy,Firmas_Hoy,Negociaciones,
         Gestiones_por_hora,Monto_Promesas_Hoy)
         select c_cvge,time_to_sec(subtime(max(c_hrin),min(c_hrin)))/3600 as horas,
@@ -54,7 +54,7 @@ class QuickHoyClass extends BaseClass
      *
      * @var string
      */
-    protected $updateHoyBreaktemp    = "update hoy,breaktemp
+    protected $updateBreaks    = "update hoy,breaktemp
         set Break_min=sdiff
         where hoy.gestor=breaktemp.gestor";
     
@@ -62,7 +62,7 @@ class QuickHoyClass extends BaseClass
      *
      * @var string
      */
-    protected $updateHoyEfectividad    = "update hoy
+    protected $updateEffectiveness    = "update hoy
         set Efectividad = (Promesas_Hoy + Firmas_Hoy + Pagos_Hoy) / Gestiones 
         where Gestiones > 0";
     
@@ -70,24 +70,24 @@ class QuickHoyClass extends BaseClass
      *
      * @var string
      */
-    protected $queryHoy           = "SELECT * FROM hoy";
+    protected $query           = "SELECT * FROM hoy";
 
-    private function getPagos() {
-        $queryListGestores = "SELECT gestor AS name FROM hoy";
-        $gestores = $this->pdo->query($queryListGestores);
-        $queryGetPagos = "SELECT count(1) as ct FROM pagos "
+    private function getPayments() {
+        $queryAgents = "SELECT gestor AS name FROM hoy";
+        $agents = $this->pdo->query($queryAgents);
+        $queryPayments = "SELECT count(1) as ct FROM pagos "
                 . "WHERE fecha = CURDATE() "
                 . "AND gestor = :gestor";
-        $stp = $this->pdo->prepare($queryGetPagos);
-        $updateHoyPagos    = "update hoy
+        $stp = $this->pdo->prepare($queryPayments);
+        $updatePayments    = "update hoy
         set hoy.Pagos_Hoy = :count
         where hoy.gestor = :gestor";
-        $stu = $this->pdo->prepare($updateHoyPagos);
-        foreach ($gestores as $gestor) {
-           $stp->bindValue(':gestor', $gestor['name']);
+        $stu = $this->pdo->prepare($updatePayments);
+        foreach ($agents as $agent) {
+           $stp->bindValue(':gestor', $agent['name']);
            $stp->execute();
            $result = $stp->fetch(\PDO::FETCH_ASSOC);
-           $stu->bindValue(':gestor', $gestor['name']);
+           $stu->bindValue(':gestor', $agent['name']);
            $stu->bindValue(':count', $result['ct']);
            $stu->execute();
         }
@@ -99,12 +99,12 @@ class QuickHoyClass extends BaseClass
      */
     public function getHoy()
     {
-        $this->pdo->query($this->createHoy);
-        $this->pdo->query($this->insertHoy);
-        $this->pdo->query($this->updateHoyBreaktemp);
-        $this->getPagos();
-        $this->pdo->query($this->updateHoyEfectividad);
-        $sta    = $this->pdo->query($this->queryHoy);
+        $this->pdo->query($this->create);
+        $this->pdo->query($this->insert);
+        $this->pdo->query($this->updateBreaks);
+        $this->getPayments();
+        $this->pdo->query($this->updateEffectiveness);
+        $sta    = $this->pdo->query($this->query);
         $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
