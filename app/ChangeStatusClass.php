@@ -17,25 +17,25 @@ class ChangeStatusClass extends BaseClass {
 
     /**
      *
-     * @param bool $inactivo
-     * @param int $C_CONT
+     * @param bool $inactive
+     * @param int $id
      * @return bool
      */
-    public function updateResumen($inactivo, $C_CONT) {
-        $tags = $this->getTags($C_CONT, $inactivo);
+    public function updateDebtor($inactive, $id) {
+        $tags = $this->getTags($id, $inactive);
         $query = "UPDATE resumen
 SET status_de_credito=:tags
 WHERE id_cuenta=:C_CONT";
         $stu = $this->pdo->prepare($query);
         $stu->bindValue(':tags', $tags);
-        $stu->bindValue(':C_CONT', $C_CONT);
+        $stu->bindValue(':C_CONT', $id);
         $stu->execute();
         $queryCheck = "SELECT COUNT(1) as ct FROM resumen 
 WHERE status_de_credito=:tags
 AND id_cuenta=:C_CONT";
         $stc = $this->pdo->prepare($queryCheck);
         $stc->bindValue(':tags', $tags);
-        $stc->bindValue(':C_CONT', $C_CONT);
+        $stc->bindValue(':C_CONT', $id);
         $stc->execute();
         $count = $stc->fetch(\PDO::FETCH_ASSOC);
         return ($count['ct'] === 1);
@@ -43,21 +43,21 @@ AND id_cuenta=:C_CONT";
     
     /**
      * 
-     * @param int $C_CONT
-     * @param bool $inactivo
+     * @param int $id
+     * @param bool $inactive
      * @return string
      */
-    private function getTags($C_CONT, $inactivo) {
+    private function getTags($id, $inactive) {
         $query = "SELECT status_de_credito FROM resumen where id_cuenta = :id_cuenta";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':id_cuenta', $C_CONT, \PDO::PARAM_INT);
+        $stq->bindValue(':id_cuenta', $id, \PDO::PARAM_INT);
         $stq->execute();
-        $cuenta = $stq->fetch(\PDO::FETCH_ASSOC);
-        $sdc = $cuenta['status_de_credito'];
+        $debtor = $stq->fetch(\PDO::FETCH_ASSOC);
+        $sdc = $debtor['status_de_credito'];
         $tagArray      = explode('-', $sdc);
         $trimmed       = trim($tagArray[0]);
         $TAGS = $trimmed;
-        if ($inactivo) {
+        if ($inactive) {
             $TAGS = $trimmed.'-inactivo';
         }
         return $TAGS;

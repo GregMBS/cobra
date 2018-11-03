@@ -46,11 +46,11 @@ class CheckClassTest extends TestCase
             'fechaIn'
         ];
         $cc = new CheckClass();
-        $result = $cc->listVasign('');
+        $result = $cc->listVisitorAssignment('');
         if ($result) {
             $this->checkKeys($testKeys, $result);
         }
-        $result = $cc->listVasign('gmbs');
+        $result = $cc->listVisitorAssignment('gmbs');
         $this->assertEquals(array(), $result);
     }
 
@@ -61,9 +61,9 @@ class CheckClassTest extends TestCase
     {
         $user = User::first();
         $cc = new CheckClass();
-        $result = $cc->getCompleto('');
+        $result = $cc->getFullName('');
         $this->assertEquals('', $result);
-        $result = $cc->getCompleto($user->iniciales);
+        $result = $cc->getFullName($user->iniciales);
         $this->assertEquals($user->completo, $result);
     }
 
@@ -86,11 +86,11 @@ class CheckClassTest extends TestCase
                 'fechaout' => date('Y-m-d')
             ];
             $cc = new CheckClass();
-            $cc->insertVasign($r);
+            $cc->insertVisitorAssignment($r);
             $this->assertDatabaseHas('vasign', $array);
             $r->fechain = date('Y-m-d');
             $array['fechain'] = date('Y-m-d');
-            $cc->updateVasign($r);
+            $cc->updateVisitorAssignment($r);
             $this->assertDatabaseHas('vasign', $array);
             Vasign::whereGestor('gregb')->whereFechaout(date('Y-m-d'))->delete();
         }

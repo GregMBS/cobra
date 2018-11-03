@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Queuelist;
-use App\QueuesgClass;
+use App\AgentQueuesClass;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
@@ -16,7 +16,7 @@ class QueuesgClassTest extends TestCase
      */
     public function testGetCamp()
     {
-        $qc = new QueuesgClass();
+        $qc = new AgentQueuesClass();
         /** @var Builder $query */
         $query = Queuelist::where('cliente', '<>', '')
             ->where('status_aarsa', '<>', '')
@@ -32,21 +32,21 @@ class QueuesgClassTest extends TestCase
 
     public function testGetClientes()
     {
-        $qc = new QueuesgClass();
+        $qc = new AgentQueuesClass();
         $result = $qc->getClients();
         $this->assertNotEmpty($result);
     }
 
     public function testGetSdcClients()
     {
-        $qc = new QueuesgClass();
+        $qc = new AgentQueuesClass();
         $result = $qc->getSdcClients('gregb');
         $this->assertNotEmpty($result);
     }
 
     public function testGetQueueSdcClients()
     {
-        $qc = new QueuesgClass();
+        $qc = new AgentQueuesClass();
         $result = $qc->getQueueSdcClients('gregb');
         $this->assertNotEmpty($result);
     }

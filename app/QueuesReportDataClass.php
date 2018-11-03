@@ -12,31 +12,31 @@ class QueuesReportDataClass
      * 
      * @var string
      */
-    public $CLIENTE;
+    public $client;
     
     /**
      *
      * @var string
      */
-    public $QUEUE;
+    public $queue;
     
     /**
      *
      * @var string
      */
-    public $SDC;
+    public $sdc;
     
     /**
      *
      * @var int
      */
-    public $ASIGNADOS;
+    public $assigned;
     
     /**
      *
      * @var float
      */
-    public $DINERO;
+    public $money;
     
     /**
      *
@@ -48,109 +48,109 @@ class QueuesReportDataClass
      *
      * @var int
      */
-    public $countd;
+    public $countDay;
     
     /**
      *
      * @var int
      */
-    public $counts;
+    public $countWeek;
     
     /**
      *
      * @var int
      */
-    public $countm;
+    public $countMonth;
     
     /**
      *
      * @var float
      */
-    public $monto;
+    public $amount;
     
     /**
      *
      * @var float
      */
-    public $montod;
+    public $amountDay;
     
     /**
      *
      * @var float
      */
-    public $montos;
+    public $amountWeek;
     
     /**
      *
      * @var float
      */
-    public $montom;
+    public $amountMonth;
     
     /**
      *
      * @var int
      */
-    public $pcc;
+    public $percent;
     
     /**
      *
      * @var int
      */
-    public $pcd;
+    public $percentDay;
     
     /**
      *
      * @var int
      */
-    public $pcs;
+    public $percentWeek;
     
     /**
      *
      * @var int
      */
-    public $pcm;
+    public $percentMonth;
     
     /**
      *
      * @var int
      */
-    public $pcmc;
+    public $percentMoney;
     
     /**
      *
      * @var int
      */
-    public $pcmd;
+    public $percentMoneyDay;
     
     /**
      *
      * @var int
      */
-    public $pcms;
+    public $percentMoneyWeek;
     
     /**
      *
      * @var int
      */
-    public $pcmm;
+    public $percentMoneyMonth;
     
     /**
      *
      * @var string
      */
-    public $empd;
+    public $alertDay;
     
     /**
      *
      * @var string
      */
-    public $emps;
+    public $alertWeek;
     
     /**
      *
      * @var string
      */
-    public $empm;
+    public $alertMonth;
 
 }
 

@@ -24,13 +24,13 @@ class ChangestClassTest extends TestCase
         $cuenta = $query->first();
         if ($cuenta) {
             $id_cuenta = $cuenta->id_cuenta;
-            $count = $cc->updateResumen(false, $id_cuenta);
+            $count = $cc->updateDebtor(false, $id_cuenta);
             $this->assertEquals(1, $count);
-            $count = $cc->updateResumen(true, $id_cuenta);
+            $count = $cc->updateDebtor(true, $id_cuenta);
             $this->assertEquals(1, $count);
-            $count = $cc->updateResumen(false, $id_cuenta);
+            $count = $cc->updateDebtor(false, $id_cuenta);
             $this->assertEquals(1, $count);
-            $count = $cc->updateResumen(true, $id_cuenta);
+            $count = $cc->updateDebtor(true, $id_cuenta);
             $this->assertEquals(1, $count);
         }
         $this->assertTrue(true);

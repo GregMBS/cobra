@@ -16,7 +16,7 @@ class LoadClassTest extends TestCase
         if ($count > 0) {
             $testKeys = ['cliente'];
             $cc = new LoadClass();
-            $result = $cc->listClientes();
+            $result = $cc->listClients();
             $this->checkKeys($testKeys, $result);
         }
         $this->assertTrue(true);
@@ -25,7 +25,7 @@ class LoadClassTest extends TestCase
     public function testUpdateClientes()
     {
         $cc = new LoadClass();
-        $cc->updateClientes();
+        $cc->updateClients();
         $clientes = Cliente::all(['cliente'])->toArray();
         /** @var Builder $query */
         $query = Resumen::distinct()->orderBy('cliente');

@@ -10,17 +10,17 @@ class OldNamesAdminClass extends AgentAdminClass
 
     /**
      *
-     * @param string $completo
+     * @param string $fullName
      * @param string $tipo
      * @param string $capt
      */
-    private function updateOpenParams($completo, $tipo, $capt) {
-        /** @var Builder $nombreQuery */
-        $nombreQuery = Nombre::where('iniciales', '=', $capt);
-        $nombre = $nombreQuery->first();
-        $nombre->completo = $completo;
-        $nombre->tipo = $tipo;
-        $nombre->save();
+    private function updateOpenParams($fullName, $tipo, $capt) {
+        /** @var Builder $oldNamesQuery */
+        $oldNamesQuery = Nombre::where('iniciales', '=', $capt);
+        $name = $oldNamesQuery->first();
+        $name->completo = $fullName;
+        $name->tipo = $tipo;
+        $name->save();
     }
 
     /**
@@ -28,9 +28,9 @@ class OldNamesAdminClass extends AgentAdminClass
      * @param string $capt
      */
     private function deleteFromUsers($capt) {
-        $nombreQuery = Nombre::where('iniciales', '=', $capt);
+        $oldNamesQuery = Nombre::where('iniciales', '=', $capt);
         try {
-            $nombreQuery->delete();
+            $oldNamesQuery->delete();
         } catch (\Exception $e) {
             //
         }
@@ -43,13 +43,13 @@ class OldNamesAdminClass extends AgentAdminClass
      */
     private function updatePassword($pass, $capt) {
         if ((strlen($pass) < 50) && (strlen($pass) > 0)) {
-            /** @var Builder $nombreQuery */
-            $nombreQuery = Nombre::where('iniciales', '=', $capt)
+            /** @var Builder $oldNamesQuery */
+            $oldNamesQuery = Nombre::where('iniciales', '=', $capt)
                 ->where('passw','=', sha1($pass));
-            $nombre = $nombreQuery->first();
-            $completo = $nombre->completo;
-            $tipo = $nombre->tipo;
-            $this->addToUsers($completo, $tipo, $capt, $pass);
+            $name = $oldNamesQuery->first();
+            $fullName = $name->completo;
+            $tipo = $name->tipo;
+            $this->addToUsers($fullName, $tipo, $capt, $pass);
             $this->deleteFromUsers($capt);
         }
     }

@@ -44,7 +44,7 @@ LIMIT 1";
      * @param string $capt
      * @param int $C_CONT
      */
-    public function softDeleteNotas($capt, $C_CONT)
+    public function softDeleteNotes($capt, $C_CONT)
     {
         $query = "UPDATE notas SET borrado=1
 WHERE c_cvge=:capt and c_cont=:C_CONT";
@@ -83,30 +83,29 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
     /**
      *
      * @param string $capt
-     * @param string $D_FECH
-     * @param string $C_HORA
-     * @param string $FECHA
-     * @param string $HORA
-     * @param string $NOTA
-     * @param string $CUENTA
-     * @param int $C_CONT
+     * @param string $today
+     * @param string $now
+     * @param string $date
+     * @param string $time
+     * @param string $note
+     * @param string $account
+     * @param int $id
      * @return int
      */
-    public function insertNote($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $CUENTA, $C_CONT)
+    public function insertNote($capt, $today, $now, $date, $time, $note, $account, int $id)
     {
         $query = "INSERT INTO notas
-        (C_CVGE,fuente,D_FECH,C_HORA,FECHA,HORA,NOTA,CUENTA,C_CONT)
-VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
-:CUENTA, :C_CONT)";
+        (C_CVGE, fuente, D_FECH, C_HORA, FECHA, HORA, NOTA, CUENTA, C_CONT)
+VALUES (:capt, :capt, date(:today), :now, :date, :time, :note, :account, :id)";
         $sti = $this->pdo->prepare($query);
         $sti->bindValue(':capt', $capt);
-        $sti->bindValue(':D_FECH', $D_FECH);
-        $sti->bindValue(':C_HORA', $C_HORA);
-        $sti->bindValue(':FECHA', $FECHA);
-        $sti->bindValue(':HORA', $HORA);
-        $sti->bindValue(':NOTA', $NOTA);
-        $sti->bindValue(':CUENTA', $CUENTA);
-        $sti->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $sti->bindValue(':today', $today);
+        $sti->bindValue(':now', $now);
+        $sti->bindValue(':date', $date);
+        $sti->bindValue(':time', $time);
+        $sti->bindValue(':note', $note);
+        $sti->bindValue(':account', $account);
+        $sti->bindValue(':id', $id, \PDO::PARAM_INT);
         $sti->execute();
         return $this->pdo->lastInsertId();
     }
@@ -182,7 +181,7 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
     /**
      *
      * @param string $capt
-     * @return NotaDataClass
+     * @return NoteDataClass
      */
     public function noteAlert($capt)
     {
@@ -190,14 +189,14 @@ WHERE borrado=0 ORDER BY fecha desc,hora desc";
         $stn->bindValue(':capt', $capt);
         $stn->execute();
         $result = $stn->fetch(\PDO::FETCH_ASSOC);
-        $output = new NotaDataClass();
+        $output = new NoteDataClass();
         if (isset($result['alert'])) {
-            $notaData = $this->noteData($capt, $result['fechahora']);
+            $noteData = $this->noteData($capt, $result['fechahora']);
             $output->alert = $result['alert'];
-            $output->alertt = $result['fechahora'];
-            $output->cuenta = $notaData['cuenta'];
-            $output->nota = $notaData['nota'];
-            $output->fuente = $notaData['fuente'];
+            $output->alertText = $result['fechahora'];
+            $output->account = $noteData['cuenta'];
+            $output->note = $noteData['nota'];
+            $output->source = $noteData['fuente'];
         }
         ;
         return $output;

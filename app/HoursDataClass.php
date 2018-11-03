@@ -42,43 +42,43 @@ class HoursDataClass
      *
      * @var string
      */
-    public $bano;
+    public $restroom;
     
     /**
      *
      * @var int
      */
-    public $gestiones;
+    public $calls;
     
     /**
      *
      * @var int
      */
-    public $cuentas;
+    public $accounts;
     
     /**
      *
      * @var int
      */
-    public $contactos;
+    public $contacts;
     
     /**
      *
      * @var int
      */
-    public $nocontactos;
+    public $noContacts;
     
     /**
      *
      * @var int
      */
-    public $promesas;
+    public $promises;
     
     /**
      *
      * @var int
      */
-    public $pagos;
+    public $payments;
     
     public function __construct($index) {
         $this->index = $index;

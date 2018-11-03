@@ -59,7 +59,7 @@ where confirmado=0 and cuenta=:cuenta
      *
      * @return PDOStatement
      */
-    private function findGestor()
+    private function findAgent()
     {
         $query = <<<SQL
         SELECT c_cvge FROM historia 
@@ -92,11 +92,11 @@ SQL;
      *
      * @param BulkPaymentsRowClass $rc
      */
-    private function cleanPago(BulkPaymentsRowClass $rc)
+    private function cleanPayments(BulkPaymentsRowClass $rc)
     {
         $stp = $this->removeOld();
-        $stp->bindValue(':cuenta', $rc->getCuenta());
-        $stp->bindValue(':fecha', $rc->getFecha());
+        $stp->bindValue(':cuenta', $rc->getAccount());
+        $stp->bindValue(':fecha', $rc->getDate());
         $stp->execute();
     }
 
@@ -105,18 +105,18 @@ SQL;
      * @param BulkPaymentsRowClass $rc
      *
      */
-    private function getGestor(BulkPaymentsRowClass $rc)
+    private function getAgent(BulkPaymentsRowClass $rc)
     {
-        $stp = $this->findGestor();
-        $stp->bindValue(':cuenta', $rc->getCuenta());
-        $stp->bindValue(':fecha', $rc->getFecha());
+        $stp = $this->findAgent();
+        $stp->bindValue(':cuenta', $rc->getAccount());
+        $stp->bindValue(':fecha', $rc->getDate());
         $stp->execute();
         $result = $stp->fetch(\PDO::FETCH_ASSOC);
-        $c_cvge = '';
+        $agent = '';
         if ($result) {
-            $c_cvge = $result['c_cvge'];
+            $agent = $result['c_cvge'];
         }
-        $rc->setGestor($c_cvge);
+        $rc->setAgent($agent);
     }
 
     /**
@@ -126,10 +126,10 @@ SQL;
     private function fillTemp(BulkPaymentsRowClass $rc)
     {
         $stp = $this->addTemp();
-        $stp->bindValue(':cuenta', $rc->getCuenta());
-        $stp->bindValue(':fecha', $rc->getFecha());
-        $stp->bindValue(':monto', $rc->getMonto());
-        $stp->bindValue(':c_cvge', $rc->getGestor());
+        $stp->bindValue(':cuenta', $rc->getAccount());
+        $stp->bindValue(':fecha', $rc->getDate());
+        $stp->bindValue(':monto', $rc->getAmount());
+        $stp->bindValue(':c_cvge', $rc->getAgent());
         $stp->execute();
     }
 
@@ -147,8 +147,8 @@ SQL;
         foreach ($array as $row) {
             $rc = new BulkPaymentsRowClass($row);
             if ($rc->valid()) {
-                $this->cleanPago($rc);
-                $this->getGestor($rc);
+                $this->cleanPayments($rc);
+                $this->getAgent($rc);
                 $this->fillTemp($rc);
                 $count++;
             }

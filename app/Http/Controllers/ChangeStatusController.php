@@ -38,7 +38,7 @@ class ChangeStatusController extends Controller
         $find      = $r->C_CONT;
         $from = $r->path();
         $inactive = $r->has('inactivo');
-        $this->cc->updateResumen($inactive, $find);
+        $this->cc->updateDebtor($inactive, $find);
         $view = $this->returnView($field, $find, $from, '');
         return $view;
     }

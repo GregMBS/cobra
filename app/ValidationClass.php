@@ -214,7 +214,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
      * @param array $gestion
      * @return ValidationErrorClass
      */
-    public function countGestionErrors(array $gestion)
+    public function countCallErrors(array $gestion)
     {
         $output = new ValidationErrorClass();
         $error = 0;

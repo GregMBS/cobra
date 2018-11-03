@@ -106,12 +106,12 @@ class LastMonthAllClass extends BaseClass
             $dataSum = new HoursDataClass($i);
             $mainSum = $this->getCurrentMain($i);
             if ($mainSum) {
-                $dataSum->gestiones = $mainSum['gestiones'];
-                $dataSum->cuentas = $mainSum['cuentas'];
-                $dataSum->contactos = $mainSum['contactos'];
-                $dataSum->nocontactos = $mainSum['nocontactos'];
-                $dataSum->promesas = $mainSum['promesas'];
-                $dataSum->pagos = $this->getPayments($i);
+                $dataSum->calls = $mainSum['gestiones'];
+                $dataSum->accounts = $mainSum['cuentas'];
+                $dataSum->contacts = $mainSum['contactos'];
+                $dataSum->noContacts = $mainSum['nocontactos'];
+                $dataSum->promises = $mainSum['promesas'];
+                $dataSum->payments = $this->getPayments($i);
             }
             $summary[$i] = $dataSum;
         }

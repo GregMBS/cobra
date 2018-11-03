@@ -6,7 +6,7 @@ namespace App;
  * @author gmbs
  *        
  */
-class NotaDataClass
+class NoteDataClass
 {
     /**
      * 
@@ -18,24 +18,24 @@ class NotaDataClass
      *
      * @var string
      */
-    public $alertt = '';
+    public $alertText = '';
     
     /**
      *
      * @var string
      */
-    public $cuenta = '';
+    public $account = '';
     
     /**
      *
      * @var string
      */
-    public $nota = '';
+    public $note = '';
     
     /**
      *
      * @var string
      */
-    public $fuente = '';
+    public $source = '';
 }
 

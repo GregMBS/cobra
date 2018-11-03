@@ -12,33 +12,33 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Description of QueuesgClass
+ * Description of AgentQueuesClass
  *
  * @author gmbs
  */
-class QueuesgClass extends BaseClass {
+class AgentQueuesClass extends BaseClass {
 
     /**
      * 
-     * @param string $cliente
+     * @param string $client
      * @param string $queue
      * @param string $sdc
      * @param string $capt
      * @return int
      */
-    public function getCamp($cliente, $queue, $sdc, $capt) {
+    public function getCamp($client, $queue, $sdc, $capt) {
         try {
             $qc = new Queuelist();
             /**
-             * @var Queuelist $queuelist
+             * @var Queuelist $queues
              */
-            $queuelist = $qc->whereCliente($cliente);
-            $queuelist = $queuelist->whereStatusAarsa($queue);
-            $queuelist = $queuelist->whereSdc($sdc);
-            $queuelist = $queuelist->whereGestor($capt);
-            $queuelist = $queuelist->whereBloqueado(0);
-            $queuelist = $queuelist->firstOrFail();
-            $camp = $queuelist->camp;
+            $queues = $qc->whereCliente($client);
+            $queues = $queues->whereStatusAarsa($queue);
+            $queues = $queues->whereSdc($sdc);
+            $queues = $queues->whereGestor($capt);
+            $queues = $queues->whereBloqueado(0);
+            $queues = $queues->firstOrFail();
+            $camp = $queues->camp;
             return $camp;
         } catch (\Exception $e) {
             return -1;
@@ -59,8 +59,8 @@ class QueuesgClass extends BaseClass {
          */
         $query = $qc->distinct()->select(['cliente'])
             ->where('cliente', '<>', '');
-        $clientes = $query->orderBy('cliente')->get();
-        return $clientes->toArray();
+        $clients = $query->orderBy('cliente')->get();
+        return $clients->toArray();
     }
     
     /**

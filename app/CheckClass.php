@@ -16,7 +16,7 @@ class CheckClass extends BaseClass
     /**
      * @param Collection $r
      */
-    public function insertVasignBoth(Collection $r)
+    public function insertVisitorAssignmentBoth(Collection $r)
     {
         $cdc = new CheckDataClass($r);
         $query = "INSERT INTO vasign (cuenta, gestor, fechaOut, fechaIn, c_cont)
@@ -36,16 +36,16 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
     /**
      * @param Collection $r
      */
-    public function insertVasign(Collection $r)
+    public function insertVisitorAssignment(Collection $r)
     {
         $cdc = new CheckDataClass($r);
-        $vasign = new Vasign();
+        $assignment = new Vasign();
         try {
-            $vasign->CUENTA = $cdc->getAccount();
-            $vasign->gestor = $cdc->getAgent();
-            $vasign->fechaout = date('Y-m-d');
-            $vasign->c_cont = $cdc->getId();
-            $vasign->save();
+            $assignment->CUENTA = $cdc->getAccount();
+            $assignment->gestor = $cdc->getAgent();
+            $assignment->fechaout = date('Y-m-d');
+            $assignment->c_cont = $cdc->getId();
+            $assignment->save();
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -76,17 +76,17 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
 
     /**
      *
-     * @param string $gestor
+     * @param string $agent
      * @return array
      */
-    public function countInOut($gestor)
+    public function countInOut($agent)
     {
         $query = "select sum(fechaOut > curdate()) as asig,
     sum(fechaIn > curdate()) as recib 
     from vasign
-where gestor=:gestor";
+where gestor=:agent";
         $stc = $this->pdo->prepare($query);
-        $stc->bindValue(':gestor', $gestor);
+        $stc->bindValue(':agent', $agent);
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -94,10 +94,10 @@ where gestor=:gestor";
 
     /**
      *
-     * @param string $gestor
+     * @param string $agent
      * @return array
      */
-    public function listVasign($gestor = '')
+    public function listVisitorAssignment($agent = '')
     {
         $columns = array(
             'id_cuenta',
@@ -112,29 +112,29 @@ where gestor=:gestor";
         );
         /** @var Builder $rc */
         $rc = new Resumen();
-        /** @var Builder $cuentas */
-        $cuentas = $rc->join('vasign', 'id_cuenta', '=', 'c_cont')
+        /** @var Builder $debtors */
+        $debtors = $rc->join('vasign', 'id_cuenta', '=', 'c_cont')
             ->join('users', 'iniciales', '=', 'gestor')
             ->join('dictamenes', 'dictamen', '=', 'status_aarsa');
-        if (!empty($gestor)) {
-            $cuentas = $cuentas->where('gestor', '=', $gestor)
+        if (!empty($agent)) {
+            $debtors = $debtors->where('gestor', '=', $agent)
                 ->orderByDesc('fechaIn');
-            $result = $cuentas->get()->toArray();
+            $result = $debtors->get()->toArray();
             return $result;
         }
-        $noGestor = $cuentas->orderBy('gestor')
+        $noAgent = $debtors->orderBy('gestor')
             ->orderByDesc('fechaIn')
             ->orderByDesc('fechaOut')
             ->orderBy('numero_de_cuenta')
             ->select($columns);
-        $result = $noGestor->get()->toArray();
+        $result = $noAgent->get()->toArray();
         return $result;
     }
 
     /**
      * @param Collection $r
      */
-    public function updateVasign(Collection $r)
+    public function updateVisitorAssignment(Collection $r)
     {
         $cdc = new CheckDataClass($r);
         /**
@@ -148,9 +148,9 @@ where gestor=:gestor";
         /** @var Builder $query */
         $query = Vasign::whereCCont($C_CONT)
             ->whereNull('fechaIn');
-        /** @var Vasign $vasign */
-        $vasign = $query->get();
-        foreach ($vasign as $v) {
+        /** @var Vasign $assignment */
+        $assignment = $query->get();
+        foreach ($assignment as $v) {
             $v->fechaIn = $now;
             $v->save();
         }
@@ -158,11 +158,11 @@ where gestor=:gestor";
 
     /**
      *
-     * @param string $gestor
+     * @param string $initials
      * @return string
      * @throws \Exception
      */
-    public function getCompleto($gestor)
+    public function getFullName($initials)
     {
         /**
          * @var User $uc
@@ -170,7 +170,7 @@ where gestor=:gestor";
         $uc = new User();
         try {
             /** @var Builder $query */
-            $query = $uc->whereIniciales($gestor);
+            $query = $uc->whereIniciales($initials);
             /** @var User $result */
             $result = $query->get()->first();
             return $result->completo;

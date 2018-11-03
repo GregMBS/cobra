@@ -33,8 +33,8 @@ class CheckController extends Controller
      */
     public function assign(Request $r) {
         $data = collect($r->all());
-        $this->cc->insertVasign($data);
-        $list = $this->cc->listVasign($r->gestor);
+        $this->cc->insertVisitorAssignment($data);
+        $list = $this->cc->listVisitorAssignment($r->gestor);
         $view = $this->checkout($list, $r->gestor, $r->tipo);
         return $view;
     }
@@ -46,8 +46,8 @@ class CheckController extends Controller
      */
     public function assignBoth(Request $r) {
         $data = collect($r->all());
-        $this->cc->insertVasignBoth($data);
-        $list = $this->cc->listVasign($r->gestor);
+        $this->cc->insertVisitorAssignmentBoth($data);
+        $list = $this->cc->listVisitorAssignment($r->gestor);
         $view = $this->checkBoth($list, $r->gestor, $r->tipo, $r->fechaout);
         return $view;
     }
@@ -59,8 +59,8 @@ class CheckController extends Controller
      */
     public function receive(Request $r) {
         $data = collect($r->all());
-        $this->cc->updateVasign($data);
-        $list = $this->cc->listVasign($r->gestor);
+        $this->cc->updateVisitorAssignment($data);
+        $list = $this->cc->listVisitorAssignment($r->gestor);
         $view = $this->checkIn($list, $r->gestor, $r->tipo);
         return $view;
     }
@@ -71,9 +71,9 @@ class CheckController extends Controller
      * @throws \Exception
      */
     public function listing($agent) {
-        $visitor = $this->cc->getCompleto($agent);
-        $capt = $this->cc->getCompleto(auth()->user()->iniciales);
-        $list = $this->cc->listVasign($agent);
+        $visitor = $this->cc->getFullName($agent);
+        $capt = $this->cc->getFullName(auth()->user()->iniciales);
+        $list = $this->cc->listVisitorAssignment($agent);
         $accounts = count($list);
         $balances = array_sum(array_column($list, 'saldo_total'));
         /**
@@ -95,7 +95,7 @@ class CheckController extends Controller
      * @return View
      */
     public function checkoutAjax($agent) {
-        $list = $this->cc->listVasign($agent);
+        $list = $this->cc->listVisitorAssignment($agent);
         return $this->checkout($list, $agent);
     }
     
@@ -124,7 +124,7 @@ class CheckController extends Controller
      * @return View
      */
     public function checkInAjax($agent) {
-        $list = $this->cc->listVasign($agent);
+        $list = $this->cc->listVisitorAssignment($agent);
         return $this->checkin($list, $agent);
     }
     
@@ -153,7 +153,7 @@ class CheckController extends Controller
      * @return View
      */
     public function checkBothAjax($agent) {
-        $list = $this->cc->listVasign($agent);
+        $list = $this->cc->listVisitorAssignment($agent);
         return $this->checkBoth($list, $agent);
     }
     

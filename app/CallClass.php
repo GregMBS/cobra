@@ -69,50 +69,50 @@ and id_cuenta = :id";
 
     /**
      *
-     * @param VisitDataClass $gestion
+     * @param VisitDataClass $visit
      * @return int
      */
-    private function insertVisit(VisitDataClass $gestion)
+    private function insertVisit(VisitDataClass $visit)
     {
-        $visit = new Historia();
-        $visit->C_CVGE = $gestion->getCCVGE();
-        $visit->C_CVBA = $gestion->getCCVBA();
-        $visit->C_CONT = $gestion->getCCONT();
-        $visit->C_CVST = $gestion->getCCVST();
-        $visit->D_FECH = $gestion->getDFECH();
-        $visit->C_HRIN = $gestion->getCHRIN();
-        $visit->C_HRFI = $gestion->getCHRFI();
-        $visit->C_TELE = $gestion->getCTELE();
-        $visit->CUENTA = $gestion->getCUENTA();
-        $visit->C_OBSE1 = $gestion->getCOBSE1();
-        $visit->C_CONTAN = $gestion->getCCONTAN();
-        $visit->C_ATTE = $gestion->getCATTE();
-        $visit->C_CARG = $gestion->getCCARG();
-        $visit->C_RCON = $gestion->getCRCON();
-        $visit->C_NSE = $gestion->getCNSE();
-        $visit->C_CNIV = $gestion->getCCNIV();
-        $visit->C_CFAC = $gestion->getCCFAC();
-        $visit->C_CPTA = $gestion->getCCPTA();
-        $visit->C_VISIT = $gestion->getCVISIT();
-        $visit->D_PROM = $gestion->getDPROM();
-        $visit->N_PROM = $gestion->getNPROM();
-        $visit->D_PROM = $gestion->getDPROM();
-        $visit->N_PROM = $gestion->getNPROM();
-        $visit->C_PROM = $gestion->getCPROM();
-        $visit->C_FREQ = '';
-        $visit->C_ACCION = $gestion->getCACCION();
-        $visit->C_MOTIV = $gestion->getCMOTIV();
-        $visit->C_CREJ = $gestion->getCCREJ();
-        $visit->C_CPAT = $gestion->getCCPAT();
-        $visit->C_CALLE1 = $gestion->getCCALLE1();
-        $visit->C_CALLE2 = $gestion->getCCALLE2();
-        $visit->C_NTEL = $gestion->getCNTEL();
-        $visit->C_NDIR = $gestion->getCNDIR();
-        $visit->C_EMAIL = $gestion->getCEMAIL();
-        $visit->C_OBSE2 = $gestion->getCOBSE2();
-        $visit->C_EJE = $gestion->getCEJE();
-        $visit->save();
-        $auto = $visit->auto;
+        $history = new Historia();
+        $history->C_CVGE = $visit->getCCVGE();
+        $history->C_CVBA = $visit->getCCVBA();
+        $history->C_CONT = $visit->getCCONT();
+        $history->C_CVST = $visit->getCCVST();
+        $history->D_FECH = $visit->getDFECH();
+        $history->C_HRIN = $visit->getCHRIN();
+        $history->C_HRFI = $visit->getCHRFI();
+        $history->C_TELE = $visit->getCTELE();
+        $history->CUENTA = $visit->getCUENTA();
+        $history->C_OBSE1 = $visit->getCOBSE1();
+        $history->C_CONTAN = $visit->getCCONTAN();
+        $history->C_ATTE = $visit->getCATTE();
+        $history->C_CARG = $visit->getCCARG();
+        $history->C_RCON = $visit->getCRCON();
+        $history->C_NSE = $visit->getCNSE();
+        $history->C_CNIV = $visit->getCCNIV();
+        $history->C_CFAC = $visit->getCCFAC();
+        $history->C_CPTA = $visit->getCCPTA();
+        $history->C_VISIT = $visit->getCVISIT();
+        $history->D_PROM = $visit->getDPROM();
+        $history->N_PROM = $visit->getNPROM();
+        $history->D_PROM = $visit->getDPROM();
+        $history->N_PROM = $visit->getNPROM();
+        $history->C_PROM = $visit->getCPROM();
+        $history->C_FREQ = '';
+        $history->C_ACCION = $visit->getCACCION();
+        $history->C_MOTIV = $visit->getCMOTIV();
+        $history->C_CREJ = $visit->getCCREJ();
+        $history->C_CPAT = $visit->getCCPAT();
+        $history->C_CALLE1 = $visit->getCCALLE1();
+        $history->C_CALLE2 = $visit->getCCALLE2();
+        $history->C_NTEL = $visit->getCNTEL();
+        $history->C_NDIR = $visit->getCNDIR();
+        $history->C_EMAIL = $visit->getCEMAIL();
+        $history->C_OBSE2 = $visit->getCOBSE2();
+        $history->C_EJE = $visit->getCEJE();
+        $history->save();
+        $auto = $history->auto;
         return $auto;
     }
 
@@ -144,13 +144,13 @@ and id_cuenta = :id";
     /**
      *
      * @param int $id
-     * @param string $tele
+     * @param string $telData
      * @return array
      */
-    public function addNewTel($id, $tele = '')
+    public function addNewTel($id, $telData = '')
     {
-        if (!empty($tele)) {
-            $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
+        if (!empty($telData)) {
+            $tel = filter_var($telData, FILTER_SANITIZE_NUMBER_INT);
             $query = "UPDATE resumen 
 SET tel_4_verif = tel_3_verif,
 tel_3_verif = tel_2_verif,
@@ -172,10 +172,10 @@ WHERE id_cuenta = :id";
          */
         $result = $query->get();
         /**
-         * @var Resumen $cuenta
+         * @var Resumen $account
          */
-        $cuenta = $result->first();
-        $data = $cuenta->toArray();
+        $account = $result->first();
+        $data = $account->toArray();
         $keys = array_flip(['tel_1_verif', 'tel_2_verif', 'tel_3_verif', 'tel_4_verif']);
         $output = array_intersect_key($data, $keys);
         return $output;
@@ -284,47 +284,47 @@ WHERE id_cuenta = :id";
 
     /**
      *
-     * @param CallDataClass $gestion
+     * @param CallDataClass $call
      * @return int
      */
-    private function insertCall(CallDataClass $gestion)
+    private function insertCall(CallDataClass $call)
     {
         $sti = $this->pdo->prepare($this->historyInsertQuery);
-        $sti->bindValue(':C_CVBA', $gestion->getCCVBA());
-        $sti->bindValue(':C_CVGE', $gestion->getCCVGE());
-        $sti->bindValue(':C_CONT', $gestion->getCCONT(), \PDO::PARAM_INT);
-        $sti->bindValue(':C_CVST', $gestion->getCCVST());
-        $sti->bindValue(':D_FECH', $gestion->getDFECH());
-        $sti->bindValue(':C_HRIN', $gestion->getCHRIN());
-        $sti->bindValue(':C_HRFI', $gestion->getCHRFI());
-        $sti->bindValue(':C_TELE', $gestion->getCTELE());
-        $sti->bindValue(':CUANDO', $gestion->getCUANDO());
-        $sti->bindValue(':CUENTA', $gestion->getCUENTA());
-        $sti->bindValue(':C_OBSE1', $gestion->getCOBSE1());
-        $sti->bindValue(':C_ATTE', $gestion->getCATTE());
-        $sti->bindValue(':C_CARG', $gestion->getCCARG());
-        $sti->bindValue(':D_PROM', $gestion->getDPROM());
-        $sti->bindValue(':N_PROM', $gestion->getNPROM());
-        $sti->bindValue(':C_PROM', $gestion->getCPROM());
-        $sti->bindValue(':D_PROM1', $gestion->getDPROM1());
-        $sti->bindValue(':N_PROM1', $gestion->getNPROM1());
-        $sti->bindValue(':D_PROM2', $gestion->getDPROM2());
-        $sti->bindValue(':N_PROM2', $gestion->getNPROM2());
-        $sti->bindValue(':D_PROM3', $gestion->getDPROM3());
-        $sti->bindValue(':N_PROM3', $gestion->getNPROM3());
-        $sti->bindValue(':D_PROM4', $gestion->getDPROM4());
-        $sti->bindValue(':N_PROM4', $gestion->getNPROM4());
-        $sti->bindValue(':C_CONTAN', $gestion->getCCONTAN());
-        $sti->bindValue(':ACCION', $gestion->getCACCION());
-        $sti->bindValue(':C_CNP', $gestion->getCCNP());
-        $sti->bindValue(':C_MOTIV', $gestion->getCMOTIV());
-        $sti->bindValue(':C_CAMP', $gestion->getCCAMP());
-        $sti->bindValue(':C_NTEL', $gestion->getCNTEL());
-        $sti->bindValue(':C_NDIR', $gestion->getCNDIR());
-        $sti->bindValue(':C_EMAIL', $gestion->getCEMAIL());
-        $sti->bindValue(':C_OBSE2', $gestion->getCOBSE2());
-        $sti->bindValue(':C_EJE', $gestion->getCEJE());
-        $sti->bindValue(':AUTH', $gestion->getAUTH());
+        $sti->bindValue(':C_CVBA', $call->getCCVBA());
+        $sti->bindValue(':C_CVGE', $call->getCCVGE());
+        $sti->bindValue(':C_CONT', $call->getCCONT(), \PDO::PARAM_INT);
+        $sti->bindValue(':C_CVST', $call->getCCVST());
+        $sti->bindValue(':D_FECH', $call->getDate());
+        $sti->bindValue(':C_HRIN', $call->getCHRIN());
+        $sti->bindValue(':C_HRFI', $call->getCHRFI());
+        $sti->bindValue(':C_TELE', $call->getCTELE());
+        $sti->bindValue(':CUANDO', $call->getAvailability());
+        $sti->bindValue(':CUENTA', $call->getAccount());
+        $sti->bindValue(':C_OBSE1', $call->getCOBSE1());
+        $sti->bindValue(':C_ATTE', $call->getCATTE());
+        $sti->bindValue(':C_CARG', $call->getCCARG());
+        $sti->bindValue(':D_PROM', $call->getDPROM());
+        $sti->bindValue(':N_PROM', $call->getNPROM());
+        $sti->bindValue(':C_PROM', $call->getCPROM());
+        $sti->bindValue(':D_PROM1', $call->getDPROM1());
+        $sti->bindValue(':N_PROM1', $call->getNPROM1());
+        $sti->bindValue(':D_PROM2', $call->getDPROM2());
+        $sti->bindValue(':N_PROM2', $call->getNPROM2());
+        $sti->bindValue(':D_PROM3', $call->getDPROM3());
+        $sti->bindValue(':N_PROM3', $call->getNPROM3());
+        $sti->bindValue(':D_PROM4', $call->getDPROM4());
+        $sti->bindValue(':N_PROM4', $call->getNPROM4());
+        $sti->bindValue(':C_CONTAN', $call->getCCONTAN());
+        $sti->bindValue(':ACCION', $call->getCACCION());
+        $sti->bindValue(':C_CNP', $call->getCCNP());
+        $sti->bindValue(':C_MOTIV', $call->getCMOTIV());
+        $sti->bindValue(':C_CAMP', $call->getCCAMP());
+        $sti->bindValue(':C_NTEL', $call->getCNTEL());
+        $sti->bindValue(':C_NDIR', $call->getCNDIR());
+        $sti->bindValue(':C_EMAIL', $call->getCEMAIL());
+        $sti->bindValue(':C_OBSE2', $call->getCOBSE2());
+        $sti->bindValue(':C_EJE', $call->getCEJE());
+        $sti->bindValue(':AUTH', $call->getAuthorized());
         $sti->execute();
         $auto = $this->pdo->lastInsertId();
         return $auto;
@@ -343,51 +343,51 @@ WHERE id_cuenta = :id";
     /**
      *
      * @param int $auto
-     * @param array $gestion
+     * @param array $history
      */
-    private function doCommon($auto, $gestion)
+    private function doCommon($auto, $history)
     {
-        $this->addCapturingAgent($auto, $gestion['C_CVGE']);
-        if (!empty($gestion['C_NTEL'])) {
-            $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
+        $this->addCapturingAgent($auto, $history['C_CVGE']);
+        if (!empty($history['C_NTEL'])) {
+            $this->addNewTel($history['C_CONT'], $history['C_NTEL']);
         }
-        if (!empty($gestion['C_OBSE2'])) {
-            $this->addNewTel($gestion['C_CONT'], $gestion['C_OBSE2']);
+        if (!empty($history['C_OBSE2'])) {
+            $this->addNewTel($history['C_CONT'], $history['C_OBSE2']);
         }
-        if (!empty($gestion['C_NDIR'])) {
-            $this->updateAddress($gestion['C_CONT'], $gestion['C_NDIR']);
+        if (!empty($history['C_NDIR'])) {
+            $this->updateAddress($history['C_CONT'], $history['C_NDIR']);
         }
-        if (!empty($gestion['C_EMAIL'])) {
-            $this->updateEmail($gestion['C_CONT'], $gestion['C_EMAIL']);
+        if (!empty($history['C_EMAIL'])) {
+            $this->updateEmail($history['C_CONT'], $history['C_EMAIL']);
         }
-        if ($gestion['N_PAGO'] > 0) {
-            $who = $this->attributePayment($gestion['C_CVGE'], $gestion['C_CONT']);
-            $this->addPayment($gestion['C_CONT'], $gestion['D_PAGO'], $gestion['N_PAGO'], $who);
+        if ($history['N_PAGO'] > 0) {
+            $who = $this->attributePayment($history['C_CVGE'], $history['C_CONT']);
+            $this->addPayment($history['C_CONT'], $history['D_PAGO'], $history['N_PAGO'], $who);
         }
         $this->updateLastPayments();
         
-        $best = $this->getBest($gestion['C_CVST'], $gestion['C_CONT']);
-        $this->statusUpdate($gestion['C_CONT'], $best);
+        $best = $this->getBest($history['C_CVST'], $history['C_CONT']);
+        $this->statusUpdate($history['C_CONT'], $best);
     }
 
     /**
      * 90 days
      *
-     * @param string $C_CVST
-     * @param int $C_CONT
+     * @param string $status
+     * @param int $id
      * @return string
      */
-    private function getBest($C_CVST, $C_CONT)
+    private function getBest($status, $id)
     {
-        $best = $C_CVST;
+        $best = $status;
         $query = <<<SQL
 select c_cvst,v_cc from historia,dictamenes
-        where c_cvst=dictamen and c_cont = :C_CONT
+        where c_cvst=dictamen and c_cont = :id
         and d_fech>last_day(curdate()-interval 90 day)
         order by v_cc LIMIT 1
 SQL;
         $stb = $this->pdo->prepare($query);
-        $stb->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stb->bindValue(':id', $id, \PDO::PARAM_INT);
         $result = $stb->fetch(\PDO::FETCH_ASSOC);
         if (isset($result['c_cvst'])) {
             $best = $result['c_cvst'];
@@ -399,97 +399,97 @@ SQL;
 
     /**
      * 
-     * @param array $gestion
+     * @param array $visit
      * @return ValidationErrorClass|bool
      */
-    public function doVisit($gestion)
+    public function doVisit($visit)
     {
         $vc = new ValidationClass();
-        $valid = $vc->countVisitErrors($gestion);
+        $valid = $vc->countVisitErrors($visit);
         if ($valid->flag) {
             return $valid;
         }
-        $vdc = new VisitDataClass($gestion['C_CONT']);
-        $vdc->setCCVST($gestion['C_CVST']);
-        $vdc->setCCVGE($gestion['C_CVGE']);
-        $vdc->setCACCION($gestion['C_ACCION']);
-        $vdc->setAUTH($gestion['AUTH']);
-        $vdc->setCVISIT($gestion['C_VISIT']);
-        $vdc->setCCARG($gestion['C_CARG']);
-        $vdc->setCCNP($gestion['C_CNP']);
-        $vdc->setCEMAIL($gestion['C_EMAIL']);
-        $vdc->setCHRIN($gestion['C_HRIN']);
-        $vdc->setCMOTIV($gestion['C_MOTIV']);
-        $vdc->setCNDIR($gestion['C_NDIR']);
-        $vdc->setCNTEL($gestion['C_NTEL']);
-        $vdc->setCOBSE1($gestion['C_OBSE1']);
-        $vdc->setCOBSE2($gestion['C_OBSE2']);
-        $vdc->setDFECH($gestion['D_FECH']);
-        $vdc->setCPROM($gestion['C_PROM']);
-        $vdc->setCOBSE1($gestion['C_OBSE1']);
-        $vdc->setNPAGO($gestion['N_PAGO']);
-        $vdc->setDPAGO($gestion['D_PAGO']);
-        $vdc->setCUANDO($gestion['CUANDO']);
-        $proms = $this->loadProms($gestion);
+        $vdc = new VisitDataClass($visit['C_CONT']);
+        $vdc->setCCVST($visit['C_CVST']);
+        $vdc->setCCVGE($visit['C_CVGE']);
+        $vdc->setCACCION($visit['C_ACCION']);
+        $vdc->setAUTH($visit['AUTH']);
+        $vdc->setCVISIT($visit['C_VISIT']);
+        $vdc->setCCARG($visit['C_CARG']);
+        $vdc->setCCNP($visit['C_CNP']);
+        $vdc->setCEMAIL($visit['C_EMAIL']);
+        $vdc->setCHRIN($visit['C_HRIN']);
+        $vdc->setCMOTIV($visit['C_MOTIV']);
+        $vdc->setCNDIR($visit['C_NDIR']);
+        $vdc->setCNTEL($visit['C_NTEL']);
+        $vdc->setCOBSE1($visit['C_OBSE1']);
+        $vdc->setCOBSE2($visit['C_OBSE2']);
+        $vdc->setDFECH($visit['D_FECH']);
+        $vdc->setCPROM($visit['C_PROM']);
+        $vdc->setCOBSE1($visit['C_OBSE1']);
+        $vdc->setNPAGO($visit['N_PAGO']);
+        $vdc->setDPAGO($visit['D_PAGO']);
+        $vdc->setCUANDO($visit['CUANDO']);
+        $proms = $this->loadProms($visit);
         $vdc->setProms($proms);
         $this->beginTransaction();
         $auto = $this->insertVisit($vdc);
         $this->addDateOfCapture($auto);
-        $this->doCommon($auto, $gestion);
+        $this->doCommon($auto, $visit);
         $this->commitTransaction();
         return true;
     }
 
     /**
-     * @param array $gestion
+     * @param array $history
      * @return array
      */
-    private function loadProms(array $gestion)
+    private function loadProms(array $history)
     {
         $proms = array();
         for ($i=1; $i<5; $i++) {
-            $proms[] = array('n' => $gestion['N_PROM'.$i], 'd' => $gestion['D_PROM'.$i]);
+            $proms[] = array('n' => $history['N_PROM'.$i], 'd' => $history['D_PROM'.$i]);
         }
         return $proms;
     }
 
     /**
-     * @param array $gestion
+     * @param array $call
      * @return ValidationErrorClass|boolean
      * @throws \UnexpectedValueException
      */
-    public function doCall(array $gestion)
+    public function doCall(array $call)
     {
         $vc = new ValidationClass();
-        $valid = $vc->countGestionErrors($gestion);
+        $valid = $vc->countCallErrors($call);
         if ($valid->flag) {
             return $valid;
         }
-        $gdc = new CallDataClass($gestion['C_CONT']);
-        $gdc->setCCVST($gestion['C_CVST']);
-        $gdc->setCCVGE($gestion['C_CVGE']);
-        $gdc->setCACCION($gestion['C_ACCION']);
-        $gdc->setAUTH($gestion['AUTH']);
-        $gdc->setCCARG($gestion['C_CARG']);
-        $gdc->setCCNP($gestion['C_CNP']);
-        $gdc->setCEMAIL($gestion['C_EMAIL']);
-        $gdc->setCHRIN($gestion['C_HRIN']);
-        $gdc->setCMOTIV($gestion['C_MOTIV']);
-        $gdc->setCNDIR($gestion['C_NDIR']);
-        $gdc->setCNTEL($gestion['C_NTEL']);
-        $gdc->setCOBSE1($gestion['C_OBSE1']);
-        $gdc->setCOBSE2($gestion['C_OBSE2']);
-        $gdc->setCTELE($gestion['C_TELE']);
-        $gdc->setCPROM($gestion['C_PROM']);
-        $gdc->setCOBSE1($gestion['C_OBSE1']);
-        $gdc->setNPAGO($gestion['N_PAGO']);
-        $gdc->setDPAGO($gestion['D_PAGO']);
-        $gdc->setCUANDO($gestion['CUANDO']);
-        $proms = $this->loadProms($gestion);
+        $gdc = new CallDataClass($call['C_CONT']);
+        $gdc->setCCVST($call['C_CVST']);
+        $gdc->setCCVGE($call['C_CVGE']);
+        $gdc->setCACCION($call['C_ACCION']);
+        $gdc->setAuthorized($call['AUTH']);
+        $gdc->setCCARG($call['C_CARG']);
+        $gdc->setCCNP($call['C_CNP']);
+        $gdc->setCEMAIL($call['C_EMAIL']);
+        $gdc->setCHRIN($call['C_HRIN']);
+        $gdc->setCMOTIV($call['C_MOTIV']);
+        $gdc->setCNDIR($call['C_NDIR']);
+        $gdc->setCNTEL($call['C_NTEL']);
+        $gdc->setCOBSE1($call['C_OBSE1']);
+        $gdc->setCOBSE2($call['C_OBSE2']);
+        $gdc->setCTELE($call['C_TELE']);
+        $gdc->setCPROM($call['C_PROM']);
+        $gdc->setCOBSE1($call['C_OBSE1']);
+        $gdc->setNPAGO($call['N_PAGO']);
+        $gdc->setDPAGO($call['D_PAGO']);
+        $gdc->setAvailability($call['CUANDO']);
+        $proms = $this->loadProms($call);
         $gdc->setProms($proms);
         $this->beginTransaction();
         $auto = $this->insertCall($gdc);
-        $this->doCommon($auto, $gestion);
+        $this->doCommon($auto, $call);
         $this->commitTransaction();
         return true;
     }

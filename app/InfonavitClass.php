@@ -56,18 +56,18 @@ class InfonavitClass {
     public function getCall() {
         $result = array();
         foreach ($this->data as $row) {
-            $fechaHora = $this->excelDateToUnix($row['startDate']);
-            $d_fech = $fechaHora['date'];
-            $c_hrin = $fechaHora['time'];
-            $c_hrfi = $fechaHora['time'];
-            if (!empty($d_fech)) {
+            $dateTime = $this->excelDateToUnix($row['startDate']);
+            $date = $dateTime['date'];
+            $startTime = $dateTime['time'];
+            $endTime = $dateTime['time'];
+            if (!empty($date)) {
                 $temp = array(
                     'CUENTA' => $row['txtNC'],
                     'C_CVGE' => $row['user'],
                     'C_VISIT' => $row['user'],
-                    'D_FECH' => $d_fech,
-                    'C_HRIN' => $c_hrin,
-                    'C_HRFI' => $c_hrfi,
+                    'D_FECH' => $date,
+                    'C_HRIN' => $startTime,
+                    'C_HRFI' => $endTime,
                     'C_CVST' => $row['dictamenbmp'],
                     'C_CSTAT' => $row['EdoAprobacion'],
                     'C_COWN' => $row['etiquetaRI'],

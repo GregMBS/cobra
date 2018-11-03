@@ -142,19 +142,19 @@ AND NOT EXISTS (
     public function getPromises($type, $capt)
     {
         $result = [];
-        $fromResumen = $this->fromSummary();
-        foreach ($fromResumen as $row) {
-            $id_cuenta = $row['id_cuenta'];
+        $debtors = $this->fromSummary();
+        foreach ($debtors as $row) {
+            $id = $row['id_cuenta'];
             if ($type == 'admin') {
-                $fromHistory = $this->fromHistoryAdmin($id_cuenta);
+                $fromHistory = $this->fromHistoryAdmin($id);
             }
             if ($type != 'admin') {
-                $fromHistory = $this->fromHistory($id_cuenta, $capt);
+                $fromHistory = $this->fromHistory($id, $capt);
             }
             if (!empty($fromHistory)) {
-                $d_fech = $fromHistory['d_fech'];
-                $fromPagos = $this->fromPayments($id_cuenta, $d_fech);
-                $result[] = array_merge($row, $fromHistory, $fromPagos);
+                $date = $fromHistory['d_fech'];
+                $payments = $this->fromPayments($id, $date);
+                $result[] = array_merge($row, $fromHistory, $payments);
             }
         }
         return $result;

@@ -36,7 +36,7 @@ class LoadController extends Controller
      */
     public function index()
     {
-        $clients = $this->cc->listClientes();
+        $clients = $this->cc->listClients();
         $view = view('carga')->with('clientes', $clients);
         return $view;
     }
@@ -47,7 +47,7 @@ class LoadController extends Controller
      */
     private function indexMsg(string $msg)
     {
-        $clients = $this->cc->listClientes();
+        $clients = $this->cc->listClients();
         $view = view('carga')->with('clientes', $clients)->with('msg', $msg);
         return $view;
     }
@@ -197,10 +197,10 @@ class LoadController extends Controller
             $countUpload = $dataHeader['countUpload'];
             $this->cc->prepareTemp($header);
             $countLoaded = $this->cc->loadData($data, $header);
-            $countUpdated = $this->cc->updateResumen($header);
-            $countInserted = $this->cc->insertIntoResumen($header);
-            $this->cc->updateClientes();
-            $this->cc->updatePagos();
+            $countUpdated = $this->cc->updateDebtors($header);
+            $countInserted = $this->cc->insertIntoDebtors($header);
+            $this->cc->updateClients();
+            $this->cc->updatePayments();
             $msg = '<p>Uploaded: ' . $countUpload . '<br>' . 'Loaded: ' . $countLoaded . '<br>' . 'Updated: ' . $countUpdated . '<br>' . 'Inserted: ' . $countInserted . '</p>';
             return $this->indexMsg($msg);
         }

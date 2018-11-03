@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\QueuesqcClass;
+use App\QueuesReportClass;
 use App\QueuesReportDataClass;
 use Tests\TestCase;
 
@@ -15,7 +15,7 @@ class QueuesqcClassTest extends TestCase
      */
     public function testNormalQueues()
     {
-        $qc = new QueuesqcClass();
+        $qc = new QueuesReportClass();
         $result = $qc->normalQueues();
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
@@ -24,7 +24,7 @@ class QueuesqcClassTest extends TestCase
 
     public function testSpecialQueues()
     {
-        $qc = new QueuesqcClass();
+        $qc = new QueuesReportClass();
         $result = $qc->specialQueues();
         if ($result) {
             $this->assertGreaterThan(0, count($result));

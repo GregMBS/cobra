@@ -45,22 +45,22 @@ order by iniciales;';
 
     /**
      *
-     * @param string $gestor
-     * @param integer $dom
+     * @param string $agent
+     * @param integer $day
      * @return array
      */
-    private function getStartStopDiff($gestor, $dom)
+    private function getStartStopDiff($agent, $day)
     {
         $query = "select min(C_HRIN) as start, max(C_HRFI) as stop,
             time_to_sec(timediff(max(C_HRFI),min(C_HRIN))) as diff
             from historia
-            where c_cvge=:gestor and c_msge is null
+            where c_cvge=:agent and c_msge is null
             and c_cniv is null
-            and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
+            and D_FECH=last_day(curdate() - interval 1 month) + interval :day day
             and c_cont=0";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':agent', $agent);
+        $stq->bindValue(':day', $day, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -93,11 +93,11 @@ order by iniciales;';
 
     /**
      *
-     * @param string $visitador
-     * @param int $dom
+     * @param string $visitor
+     * @param int $day
      * @return array
      */
-    private function getVisitorMain($visitador, $dom)
+    private function getVisitorMain($visitor, $day)
     {
         $query = "select count(distinct c_cont) as cuentas,
             sum(n_prom > 0) as promesas,
@@ -106,13 +106,13 @@ order by iniciales;';
             sum(queue='SIN CONTACTOS') as contactos
             from historia
             left join dictamenes on c_cvst=dictamen
-            where c_visit=:visitador and c_msge is null
+            where c_visit=:visitor and c_msge is null
             and c_cniv <> '' and c_cont>0
-            and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
+            and D_FECH=last_day(curdate() - interval 1 month) + interval :day day
             ";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':visitador', $visitador);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':visitor', $visitor);
+        $stq->bindValue(':day', $day, \PDO::PARAM_INT);
         $stq->execute();
         return $stq->fetch(\PDO::FETCH_ASSOC);
     }
@@ -144,37 +144,37 @@ order by iniciales;';
         for ($i = 1; $i <= $todayDay; $i++) {
             $data = new HoursDataClass($i);
             $main = $this->getVisitorMain($c_visit, $i);
-            $data->gestiones = $main['gestiones'];
-            $data->cuentas = $main['cuentas'];
-            $data->contactos = $main['contactos'];
-            $data->nocontactos = $main['nocontactos'];
-            $data->promesas = $main['promesas'];
-            $data->pagos = 0;
+            $data->calls = $main['gestiones'];
+            $data->accounts = $main['cuentas'];
+            $data->contacts = $main['contactos'];
+            $data->noContacts = $main['nocontactos'];
+            $data->promises = $main['promesas'];
+            $data->payments = 0;
             $row[$i] = $data;
         }
         return $row;
     }
 
     /**
-     * @param string $c_cvge
+     * @param string $agent
      * @param int $todayDay
      * @return array
      */
-    public function packData(string $c_cvge, int $todayDay) {
+    public function packData(string $agent, int $todayDay) {
         $row = array();
         for ($i = 1; $i <= $todayDay; $i++) {
             $data = new HoursDataClass($i);
-            $startStop = $this->getStartStopDiff($c_cvge, $i);
+            $startStop = $this->getStartStopDiff($agent, $i);
             $data->start = $startStop['start'];
             $data->stop = $startStop['stop'];
             $data->diff = $startStop['diff'];
-            $main = $this->getCurrentMain($c_cvge, $i);
-            $data->gestiones = $main['gestiones'];
-            $data->cuentas = $main['cuentas'];
-            $data->contactos = $main['contactos'];
-            $data->nocontactos = $main['nocontactos'];
-            $data->promesas = $main['promesas'];
-            $data->pagos = 0;
+            $main = $this->getCurrentMain($agent, $i);
+            $data->calls = $main['gestiones'];
+            $data->accounts = $main['cuentas'];
+            $data->contacts = $main['contactos'];
+            $data->noContacts = $main['nocontactos'];
+            $data->promises = $main['promesas'];
+            $data->payments = 0;
             $row[$i] = $data;
         }
         return $row;

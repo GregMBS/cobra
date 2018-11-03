@@ -74,13 +74,13 @@ class HoursController extends Controller
             $dataSum = new HoursDataClass($i);
             $mainSum = $this->hac->getCurrentMain($i);
             if ($mainSum) {
-                $dataSum->gestiones = intval($mainSum['gestiones']);
-                $dataSum->cuentas = intval($mainSum['cuentas']);
-                $dataSum->contactos = intval($mainSum['contactos']);
-                $dataSum->nocontactos = intval($mainSum['nocontactos']);
-                $dataSum->promesas = intval($mainSum['promesas']);
+                $dataSum->calls = intval($mainSum['gestiones']);
+                $dataSum->accounts = intval($mainSum['cuentas']);
+                $dataSum->contacts = intval($mainSum['contactos']);
+                $dataSum->noContacts = intval($mainSum['nocontactos']);
+                $dataSum->promises = intval($mainSum['promesas']);
             }
-            $dataSum->pagos = $this->hac->getPayments($i);
+            $dataSum->payments = $this->hac->getPayments($i);
             $summary[$i] = $dataSum;
         }
         $initials = array_column($agents, 'c_cvge');

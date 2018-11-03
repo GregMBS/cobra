@@ -136,7 +136,7 @@ class DebtorController extends Controller
     public function call(StoreCall $r)
     {
         $vc = new ValidationClass();
-        $valid = $vc->countGestionErrors($r->all());
+        $valid = $vc->countCallErrors($r->all());
         if ($valid->flag) {
             dd('invalid');
         }

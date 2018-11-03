@@ -50,49 +50,49 @@
     {% for q in normal %}
         <tr>
             <td>
-                {{ q.CLIENTE }}
+                {{ q.client }}
             </td>
             <td>
-                {{ q.SDC }}
+                {{ q.sdc }}
             </td>
             <td>
-                {{ q.ASIGNADOS }}<br>
-                {{ d.DINERO }}
+                {{ q.assigned }}<br>
+                {{ q.money }}
             </td>
             <td>
-                {{ q.QUEUE }}
+                {{ q.queue }}
             </td>
             <td class='legibility'>
-                <a href="/speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&sdc={{ q.SDC }}&rato=total">
-                    {{ q.count }}<br>{{ q.monto }}</a>
+                <a href="/speclistqc?cliente={{ q.client }}&queue={{ q.queue }}&sdc={{ q.sdc }}&rato=total">
+                    {{ q.count }}<br>{{ q.amount }}</a>
             </td>
-            <td>{{ q.pcc }}%<br>{{ q.pcmc }}%
+            <td>{{ q.percent }}%<br>{{ q.percentMoney }}%
             </td>
-            <td {{ q.empd }}>
-                <a href="/speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&sdc={{ q.SDC }}&rato=diario">
-                    {{ q.countd }}<br>{{ q.montod }}</a>
+            <td {{ q.alertDay }}>
+                <a href="/speclistqc?cliente={{ q.client }}&queue={{ q.queue }}&sdc={{ q.sdc }}&rato=diario">
+                    {{ q.countDay }}<br>{{ q.amountDay }}</a>
             </td>
-            <td {{ q.empd }}>
-                <a href="/speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&sdc={{ q.SDC }}&rato=diario">
-                    {{ q.pcd }}<br>{{ q.pcmd }}
+            <td {{ q.alertDay }}>
+                <a href="/speclistqc?cliente={{ q.client }}&queue={{ q.queue }}&sdc={{ q.sdc }}&rato=diario">
+                    {{ q.percentDay }}<br>{{ q.percentMoneyDay }}
                 </a>
             </td>
-            <td {{ q.emps }}>
-                <a href="/speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&sdc={{ q.SDC }}&rato=semanal">
-                    {{ q.counts }}<br>{{ q.montos }}</a>
+            <td {{ q.alertWeek }}>
+                <a href="/speclistqc?cliente={{ q.client }}&queue={{ q.queue }}&sdc={{ q.sdc }}&rato=semanal">
+                    {{ q.countWeek }}<br>{{ q.amountWeek }}</a>
             </td>
-            <td {{ q.emps }}>
-                <a href="/speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&sdc={{ q.SDC }}&rato=semanal">
-                    {{ q.pcs }}<br>{{ q.pcms }}
+            <td {{ q.alertWeek }}>
+                <a href="/speclistqc?cliente={{ q.client }}&queue={{ q.queue }}&sdc={{ q.sdc }}&rato=semanal">
+                    {{ q.percentWeek }}<br>{{ q.percentMoneyWeek }}
                 </a>
             </td>
-            <td {{ q.empm }}>
-                <a href="/speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&sdc={{ q.SDC }}&rato=mensual">
-                    {{ q.countm }}<br>{{ q.montom }}</a>
+            <td {{ q.alertMonth }}>
+                <a href="/speclistqc?cliente={{ q.client }}&queue={{ q.queue }}&sdc={{ q.sdc }}&rato=mensual">
+                    {{ q.countMonth }}<br>{{ q.amountMonth }}</a>
             </td>
-            <td {{ q.empm }}>
-                <a href="/speclistqc?cliente={{ q.CLIENTE }}&queue={{ q.QUEUE }}&sdc={{ q.SDC }}&rato=mensual">
-                    {{ q.pcm }}<br>{{ q.pcmm }}
+            <td {{ q.alertMonth }}>
+                <a href="/speclistqc?cliente={{ q.client }}&queue={{ q.queue }}&sdc={{ q.sdc }}&rato=mensual">
+                    {{ q.percentMonth }}<br>{{ q.percentMoneyMonth }}
                 </a>
             </td>
         </tr>
@@ -114,22 +114,22 @@
     {% for q in special %}
         <tr>
             <td>
-                {{ q.CLIENTE }}
+                {{ q.client }}
             </td>
             <td>
-                {{ q.SDC }}
+                {{ q.sdc }}
             </td>
             <td>
-                {{ q.ASIGNADOS }}<br>
-                {{ q.DINERO }}
+                {{ q.assigned }}<br>
+                {{ q.money }}
             </td>
             <td>
                 {{ q.count }}<br>
-                {{ q.mount }}
+                {{ q.amount }}
             </td>
             <td>
-                {{ q.pcc }}<br>
-                {{ q.pcmc }}
+                {{ q.percent }}<br>
+                {{ q.percentMoney }}
             </td>
         </tr>
     {% endfor %}

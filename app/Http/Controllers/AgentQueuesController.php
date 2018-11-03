@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 use App\UserClass;
 use View;
 use Illuminate\Http\Request;
-use App\QueuesgClass;
+use App\AgentQueuesClass;
 
 class AgentQueuesController extends Controller
 {
 
     /**
      *
-     * @var QueuesgClass
+     * @var AgentQueuesClass
      */
     private $qc;
 
@@ -23,7 +23,7 @@ class AgentQueuesController extends Controller
 
     public function __construct()
     {
-        $this->qc = new QueuesgClass();
+        $this->qc = new AgentQueuesClass();
         $this->uc = new UserClass();
     }
 

@@ -73,18 +73,18 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
 
     /**
      *
-     * @param string $cliente
+     * @param string $client
      * @return array
      */
-    public function getInventoryReport($cliente) {
-        $clientestr = '';
-        if ($cliente != 'todos') {
-            $clientestr = " and cliente=:cliente ";
+    public function getInventoryReport($client) {
+        $clientString = '';
+        if ($client != 'todos') {
+            $clientString = " and cliente=:cliente ";
         }
-        $querymain = $this->queryMainStart . $clientestr . $this->queryMainEnd;
-        $stm = $this->pdo->prepare($querymain);
-        if ($cliente != 'todos') {
-            $stm->bindValue(':cliente', $cliente);
+        $query = $this->queryMainStart . $clientString . $this->queryMainEnd;
+        $stm = $this->pdo->prepare($query);
+        if ($client != 'todos') {
+            $stm->bindValue(':cliente', $client);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
@@ -93,18 +93,18 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
     
     /**
      *
-     * @param string $cliente
+     * @param string $client
      * @return array
      */
-    public function getFullInventoryReport($cliente) {
-        $clientestr = '';
-        if ($cliente != 'todos') {
-            $clientestr = " and cliente=:cliente ";
+    public function getFullInventoryReport($client) {
+        $clientString = '';
+        if ($client != 'todos') {
+            $clientString = " and cliente=:cliente ";
         }
-        $querymain = $this->fullQueryMainStart . $clientestr . $this->fullQueryMainEnd;
-        $stm = $this->pdo->prepare($querymain);
-        if ($cliente != 'todos') {
-            $stm->bindValue(':cliente', $cliente);
+        $query = $this->fullQueryMainStart . $clientString . $this->fullQueryMainEnd;
+        $stm = $this->pdo->prepare($query);
+        if ($client != 'todos') {
+            $stm->bindValue(':cliente', $client);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);

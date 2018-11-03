@@ -2,18 +2,18 @@
 namespace App\Http\Controllers;
 
 use View;
-use App\QueuesqcClass;
+use App\QueuesReportClass;
 
 class QueueReportController extends Controller
 {
     /**
-     * @var QueuesqcClass 
+     * @var QueuesReportClass
      */
     private $qc;
     
     public function __construct()
     {
-        $this->qc = new QueuesqcClass();
+        $this->qc = new QueuesReportClass();
     }
 
     /**

@@ -9,61 +9,61 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class CallDataClass
 {
     /** @var string */
-    private $C_CVBA;
+    private $creditor;
 
     /** @var int */
-    private $C_CONT;
+    private $id;
 
     /** @var int */
-    private $C_CAMP;
+    private $campaign;
 
     /** @var string */
-    private $C_HRIN;
+    private $startTime;
 
     /** @var string */
-    private $C_HRFI;
+    private $endTime;
 
     /** @var string */
-    private $CUENTA;
+    private $account;
 
     /** @var string */
-    private $C_ATTE = '';
+    private $responder = '';
 
     /** @var string */
-    private $C_CONTAN = '';
+    private $previousStatus = '';
 
     /** @var string */
-    private $C_EJE = '';
+    private $assigned = '';
 
     /** @var string */
-    private $C_CVGE;
+    private $initials;
 
     /** @var string */
-    private $AUTH = '';
+    private $authorized = '';
 
     /** @var string */
-    private $C_TELE;
+    private $called;
 
     /** @var string */
-    private $C_CARG = '';
+    private $relationship = '';
 
     /** @var string */
-    private $C_OBSE1;
+    private $text;
 
     /** @var string */
-    private $C_ACCION;
+    private $action;
 
     /** @var string */
-    private $C_CVST;
+    private $status;
 
     /** @var string */
-    private $C_CNP = '';
+    private $excuse = '';
 
     /** @var string */
-    private $C_MOTIV = '';
+    private $motive = '';
 
     /** @var string */
-    private $CUANDO = '';
+    private $availability = '';
 
     /** @var float */
     private $N_PROM1 = 0;
@@ -120,62 +120,62 @@ class CallDataClass
     private $N_PROM_OLD;
 
     /** @var int  */
-    private $N_PAGO = 0;
+    private $amountPaid = 0;
 
     /** @var string */
-    private $D_PAGO = '';
+    private $datePaid = '';
 
     /** @var string */
-    private $C_NTEL = '';
+    private $newTel = '';
 
     /** @var string */
-    private $C_OBSE2 = '';
+    private $newTel2 = '';
 
     /** @var string */
-    private $C_NDIR = '';
+    private $newAddress = '';
 
     /** @var string */
-    private $C_EMAIL = '';
+    private $email = '';
 
     /** @var string */
-    private $D_FECH;
+    private $date;
 
     /** @var int  */
-    private $C_CNIV = 0;
+    private $floors = 0;
 
     public function __construct(int $C_CONT)
     {
-        $this->setDFECH();
+        $this->setDate();
         $this->setCHRFI();
         /** @var Builder $query */
         $query = Resumen::whereIdCuenta($C_CONT);
-        $cuenta = $query->first();
-        $this->setCCONT($cuenta->id_cuenta);
-        $this->setCCVBA($cuenta->cliente);
-        $this->setCUENTA($cuenta->numero_de_cuenta);
-        $this->setCCONTAN($cuenta->status_aarsa);
-        $this->setCEJE($cuenta->ejecutivo_asignado_call_center);
+        $debtor = $query->first();
+        $this->setCCONT($debtor->id_cuenta);
+        $this->setCCVBA($debtor->cliente);
+        $this->setCUENTA($debtor->numero_de_cuenta);
+        $this->setCCONTAN($debtor->status_aarsa);
+        $this->setCEJE($debtor->ejecutivo_asignado_call_center);
     }
 
     /**
      * @return int
      */
-    public function getCCNIV(): int
+    public function getFloors(): int
     {
-        return $this->C_CNIV;
+        return $this->floors;
     }
 
     /**
      * @return string
      */
-    public function getDFECH(): string
+    public function getDate(): string
     {
-        return $this->D_FECH;
+        return $this->date;
     }
 
-    private function setDFECH()
+    private function setDate()
     {
-        $this->D_FECH = date('Y-m-d');
+        $this->date = date('Y-m-d');
     }
 
     /**
@@ -183,12 +183,12 @@ class CallDataClass
      */
     public function getCHRFI(): string
     {
-        return $this->C_HRFI;
+        return $this->endTime;
     }
 
     private function setCHRFI()
     {
-        $this->C_HRFI = date('H:i:s');
+        $this->endTime = date('H:i:s');
     }
 
     /**
@@ -218,7 +218,7 @@ class CallDataClass
      */
     public function getCCVBA(): string
     {
-        return $this->C_CVBA;
+        return $this->creditor;
     }
 
     /**
@@ -226,7 +226,7 @@ class CallDataClass
      */
     private function setCCVBA(string $creditor)
     {
-        $this->C_CVBA = $creditor;
+        $this->creditor = $creditor;
     }
 
     /**
@@ -234,7 +234,7 @@ class CallDataClass
      */
     public function getCCONT(): int
     {
-        return $this->C_CONT;
+        return $this->id;
     }
 
     /**
@@ -242,7 +242,7 @@ class CallDataClass
      */
     private function setCCONT(int $id)
     {
-        $this->C_CONT = $id;
+        $this->id = $id;
     }
 
     /**
@@ -250,7 +250,7 @@ class CallDataClass
      */
     public function getCCAMP(): int
     {
-        return $this->C_CAMP;
+        return $this->campaign;
     }
 
     /**
@@ -258,7 +258,7 @@ class CallDataClass
      */
     private function setCCAMP(int $campaign)
     {
-        $this->C_CAMP = $campaign;
+        $this->campaign = $campaign;
     }
 
     /**
@@ -266,7 +266,7 @@ class CallDataClass
      */
     public function getCHRIN(): string
     {
-        return $this->C_HRIN;
+        return $this->startTime;
     }
 
     /**
@@ -274,15 +274,15 @@ class CallDataClass
      */
     public function setCHRIN(string $startTime)
     {
-        $this->C_HRIN = $startTime;
+        $this->startTime = $startTime;
     }
 
     /**
      * @return string
      */
-    public function getCUENTA(): string
+    public function getAccount(): string
     {
-        return $this->CUENTA;
+        return $this->account;
     }
 
     /**
@@ -290,7 +290,7 @@ class CallDataClass
      */
     private function setCUENTA(string $accountNumber)
     {
-        $this->CUENTA = $accountNumber;
+        $this->account = $accountNumber;
     }
 
     /**
@@ -298,7 +298,7 @@ class CallDataClass
      */
     public function getCATTE()
     {
-        return $this->C_ATTE;
+        return $this->responder;
     }
 
     /**
@@ -306,7 +306,7 @@ class CallDataClass
      */
     public function setCATTE($responder)
     {
-        $this->C_ATTE = $responder;
+        $this->responder = $responder;
     }
 
     /**
@@ -314,7 +314,7 @@ class CallDataClass
      */
     public function getCCONTAN()
     {
-        return $this->C_CONTAN;
+        return $this->previousStatus;
     }
 
     /**
@@ -322,7 +322,7 @@ class CallDataClass
      */
     private function setCCONTAN($previousStatus)
     {
-        $this->C_CONTAN = $previousStatus;
+        $this->previousStatus = $previousStatus;
     }
 
     /**
@@ -330,7 +330,7 @@ class CallDataClass
      */
     public function getCEJE()
     {
-        return $this->C_EJE;
+        return $this->assigned;
     }
 
     /**
@@ -338,7 +338,7 @@ class CallDataClass
      */
     private function setCEJE($assigned)
     {
-        $this->C_EJE = $assigned;
+        $this->assigned = $assigned;
     }
 
     /**
@@ -346,7 +346,7 @@ class CallDataClass
      */
     public function getCCVGE(): string
     {
-        return $this->C_CVGE;
+        return $this->initials;
     }
 
     /**
@@ -359,7 +359,7 @@ class CallDataClass
         try {
             /** @var User $user */
             $user = $query->firstOrFail();
-            $this->C_CVGE = $user->iniciales;
+            $this->initials = $user->iniciales;
             $this->setCCAMP($user->camp);
         } catch (ModelNotFoundException $e) {
             dd('C_CVGE'.$agent);
@@ -369,17 +369,17 @@ class CallDataClass
     /**
      * @return string
      */
-    public function getAUTH()
+    public function getAuthorized()
     {
-        return $this->AUTH;
+        return $this->authorized;
     }
 
     /**
      * @param string $authorized
      */
-    public function setAUTH($authorized)
+    public function setAuthorized($authorized)
     {
-        $this->AUTH = $authorized;
+        $this->authorized = $authorized;
     }
 
     /**
@@ -387,7 +387,7 @@ class CallDataClass
      */
     public function getCTELE(): string
     {
-        return $this->C_TELE;
+        return $this->called;
     }
 
     /**
@@ -398,7 +398,7 @@ class CallDataClass
         if (empty($telCalled)) {
             dd('C_TELE'.$telCalled);
         }
-        $this->C_TELE = $telCalled;
+        $this->called = $telCalled;
     }
 
     /**
@@ -406,7 +406,7 @@ class CallDataClass
      */
     public function getCCARG()
     {
-        return $this->C_CARG;
+        return $this->relationship;
     }
 
     /**
@@ -414,7 +414,7 @@ class CallDataClass
      */
     public function setCCARG($relationship)
     {
-        $this->C_CARG = $relationship;
+        $this->relationship = $relationship;
     }
 
     /**
@@ -422,7 +422,7 @@ class CallDataClass
      */
     public function getCOBSE1(): string
     {
-        return $this->C_OBSE1;
+        return $this->text;
     }
 
     /**
@@ -430,7 +430,7 @@ class CallDataClass
      */
     public function setCOBSE1(string $text)
     {
-        $this->C_OBSE1 = $text;
+        $this->text = $text;
     }
 
     /**
@@ -438,7 +438,7 @@ class CallDataClass
      */
     public function getCACCION(): string
     {
-        return $this->C_ACCION;
+        return $this->action;
     }
 
     /**
@@ -453,7 +453,7 @@ class CallDataClass
             dd('C_ACCION'.$action);
         }
         $code = $value->accion;
-        $this->C_ACCION = $code;
+        $this->action = $code;
     }
 
     /**
@@ -461,7 +461,7 @@ class CallDataClass
      */
     public function getCCVST(): string
     {
-        return $this->C_CVST;
+        return $this->status;
     }
 
     /**
@@ -476,7 +476,7 @@ class CallDataClass
             dd('C_CVST'.$value);
         }
         $code = $value->dictamen;
-        $this->C_CVST = $code;
+        $this->status = $code;
     }
 
     /**
@@ -484,7 +484,7 @@ class CallDataClass
      */
     public function getCCNP()
     {
-        return $this->C_CNP;
+        return $this->excuse;
     }
 
     /**
@@ -492,7 +492,7 @@ class CallDataClass
      */
     public function setCCNP($excuse)
     {
-        $this->C_CNP = $excuse;
+        $this->excuse = $excuse;
     }
 
     /**
@@ -500,7 +500,7 @@ class CallDataClass
      */
     public function getCMOTIV()
     {
-        return $this->C_MOTIV;
+        return $this->motive;
     }
 
     /**
@@ -517,24 +517,24 @@ class CallDataClass
             if ($value !== $motive) {
                 dd('C_MOTIV' . $motive);
             }
-            $this->C_MOTIV = $value;
+            $this->motive = $value;
         }
     }
 
     /**
      * @return string
      */
-    public function getCUANDO()
+    public function getAvailability()
     {
-        return $this->CUANDO;
+        return $this->availability;
     }
 
     /**
      * @param string $availability
      */
-    public function setCUANDO($availability)
+    public function setAvailability($availability)
     {
-        $this->CUANDO = $availability;
+        $this->availability = $availability;
     }
 
     /**
@@ -766,7 +766,7 @@ class CallDataClass
      */
     public function getNPAGO(): int
     {
-        return $this->N_PAGO;
+        return $this->amountPaid;
     }
 
     /**
@@ -774,7 +774,7 @@ class CallDataClass
      */
     public function setNPAGO($amountPaid)
     {
-        $this->N_PAGO = $amountPaid;
+        $this->amountPaid = $amountPaid;
     }
 
     /**
@@ -782,7 +782,7 @@ class CallDataClass
      */
     public function getDPAGO()
     {
-        return $this->D_PAGO;
+        return $this->datePaid;
     }
 
     /**
@@ -790,7 +790,7 @@ class CallDataClass
      */
     public function setDPAGO($datePaid)
     {
-        $this->D_PAGO = $datePaid;
+        $this->datePaid = $datePaid;
     }
 
     /**
@@ -798,7 +798,7 @@ class CallDataClass
      */
     public function getCNTEL()
     {
-        return $this->C_NTEL;
+        return $this->newTel;
     }
 
     /**
@@ -806,7 +806,7 @@ class CallDataClass
      */
     public function setCNTEL($newTel)
     {
-        $this->C_NTEL = $newTel;
+        $this->newTel = $newTel;
     }
 
     /**
@@ -814,7 +814,7 @@ class CallDataClass
      */
     public function getCOBSE2()
     {
-        return $this->C_OBSE2;
+        return $this->newTel2;
     }
 
     /**
@@ -822,7 +822,7 @@ class CallDataClass
      */
     public function setCOBSE2($newTel2)
     {
-        $this->C_OBSE2 = $newTel2;
+        $this->newTel2 = $newTel2;
     }
 
     /**
@@ -830,7 +830,7 @@ class CallDataClass
      */
     public function getCNDIR()
     {
-        return $this->C_NDIR;
+        return $this->newAddress;
     }
 
     /**
@@ -838,7 +838,7 @@ class CallDataClass
      */
     public function setCNDIR($newAddress)
     {
-        $this->C_NDIR = $newAddress;
+        $this->newAddress = $newAddress;
     }
 
     /**
@@ -846,7 +846,7 @@ class CallDataClass
      */
     public function getCEMAIL()
     {
-        return $this->C_EMAIL;
+        return $this->email;
     }
 
     /**
@@ -854,7 +854,7 @@ class CallDataClass
      */
     public function setCEMAIL($email)
     {
-        $this->C_EMAIL = $email;
+        $this->email = $email;
     }
 
     /**

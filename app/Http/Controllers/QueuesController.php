@@ -25,13 +25,13 @@ class QueuesController extends Controller
      */
     public function index()
     {
-        $agents = $this->qc->getGestores();
+        $agents = $this->qc->getAgents();
         $queues = $this->qc->getQueues();
         $myQueue = [];
         $myQueueList = [];
         foreach ($agents as $agent) {
             $myQueue[$agent] = $this->qc->getMyQueue($agent);
-            $myQueueList[$agent] = $this->qc->getMyQueuelist($agent);
+            $myQueueList[$agent] = $this->qc->getMyQueues($agent);
         }
         $view = view('queues')->with('gestores', $agents)
             ->with('queues', $queues)

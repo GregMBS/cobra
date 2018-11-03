@@ -79,7 +79,7 @@ class ValidationClassTest extends TestCase
     {
         $vc = new ValidationClass();
         $gestion = $this->testEmpty;
-        $result = $vc->countGestionErrors($gestion);
+        $result = $vc->countCallErrors($gestion);
         $this->assertEquals('App\ValidationErrorClass', get_class($result));
         $this->assertGreaterThan(0, $result->flag);
         $gestion['C_CVST'] = 'something';
@@ -87,11 +87,11 @@ class ValidationClassTest extends TestCase
         $gestion['C_TELE'] = '8888888888';
         $gestion['C_ACCION'] = 'do';
         $gestion['C_OBSE1'] = 'something';
-        $result = $vc->countGestionErrors($gestion);
+        $result = $vc->countCallErrors($gestion);
         $this->assertEquals('App\ValidationErrorClass', get_class($result));
         $this->assertGreaterThan(0, $result->flag);
         $gestion['C_OBSE1'] = 'something something something';
-        $result = $vc->countGestionErrors($gestion);
+        $result = $vc->countCallErrors($gestion);
         $this->assertEquals('App\ValidationErrorClass', get_class($result));
         $this->assertEquals(0, $result->flag);
     }

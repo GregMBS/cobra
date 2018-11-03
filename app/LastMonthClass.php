@@ -23,7 +23,7 @@ class LastMonthClass extends BaseClass
     /**
      * @var false|string
      */
-    public $mes;
+    public $month;
 
     /**
      * @var false|string
@@ -33,7 +33,7 @@ class LastMonthClass extends BaseClass
     /**
      * @var false|string
      */
-    private $hoy;
+    private $today;
 
     /**
      * @var false|string
@@ -43,32 +43,18 @@ class LastMonthClass extends BaseClass
     /**
      * @var false|string
      */
-    private $yrmes;
+    private $yearMonth;
 
     public function __construct()
     {
         parent::__construct();
         $this->yr = date('Y', strtotime("last day of previous month"));
-        $this->mes = date('m', strtotime("last day of previous month"));
+        $this->month = date('m', strtotime("last day of previous month"));
         $this->todayDay = date('d', strtotime("last day of previous month"));
-        $this->hoy = date('Y-m-d', strtotime("last day of previous month"));
+        $this->today = date('Y-m-d', strtotime("last day of previous month"));
         $this->start = date('Y-m-d', strtotime("last day of two months ago"));
-        $this->yrmes = date('Y-m-', strtotime("last day of previous month"));
+        $this->yearMonth = date('Y-m-', strtotime("last day of previous month"));
     }
-
-    /**
-     *
-     * @param float $dec
-     * @return string
-     */
-    /*
-	public function convertTime($dec)
-	{
-		$hour	 = floor($dec);
-		$min	 = round(60 * ($dec - $hour));
-		return $hour.':'.str_pad($min, 2, '0', STR_PAD_LEFT);
-	}
-    */
 
     /**
      *
@@ -83,7 +69,7 @@ class LastMonthClass extends BaseClass
             order by c_cvge limit 100;';
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':start', $this->start);
-        $stq->bindValue(':end', $this->hoy);
+        $stq->bindValue(':end', $this->today);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -102,7 +88,7 @@ class LastMonthClass extends BaseClass
 	    order by iniciales;';
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':start', $this->start);
-        $stq->bindValue(':end', $this->hoy);
+        $stq->bindValue(':end', $this->today);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -110,11 +96,11 @@ class LastMonthClass extends BaseClass
 
     /**
      *
-     * @param string $gestor
+     * @param string $agent
      * @param integer $dom
      * @return array
      */
-    private function getStartStopDiff($gestor, $dom)
+    private function getStartStopDiff($agent, $dom)
     {
         $query = "select min(C_HRIN) as start, max(C_HRFI) as stop,
             TIME_TO_SEC(TIMEDIFF(max(C_HRFI),min(C_HRIN))) as diff
@@ -125,7 +111,7 @@ class LastMonthClass extends BaseClass
             and c_cont=0
             group by D_FECH";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
+        $stq->bindValue(':gestor', $agent);
         $stq->bindValue(':start', $this->start);
         $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
@@ -134,11 +120,11 @@ class LastMonthClass extends BaseClass
 
     /**
      *
-     * @param string $gestor
+     * @param string $agent
      * @param int $dom
      * @return array
      */
-    private function getCurrentMain($gestor, $dom)
+    private function getCurrentMain($agent, $dom)
     {
         $query = "select count(distinct c_cont) as cuentas,
             sum(c_cvst like 'PROMESA DE%') as promesas,
@@ -153,7 +139,7 @@ class LastMonthClass extends BaseClass
             group by D_FECH";
         try {
             $stq = $this->pdo->prepare($query);
-            $stq->bindValue(':gestor', $gestor);
+            $stq->bindValue(':gestor', $agent);
             $stq->bindValue(':start', $this->start);
             $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
             $stq->execute();
@@ -167,11 +153,11 @@ class LastMonthClass extends BaseClass
 
     /**
      *
-     * @param string $visitador
+     * @param string $visitor
      * @param int $dom
      * @return array
      */
-    private function getVisitorMain($visitador, $dom)
+    private function getVisitorMain($visitor, $dom)
     {
         $query = "select count(distinct c_cont) as cuentas,
             sum(c_cvst like 'PROMESA DE%') as promesas,
@@ -185,7 +171,7 @@ class LastMonthClass extends BaseClass
             and D_FECH=:start + interval :dom day
             group by D_FECH";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':visitador', $visitador);
+        $stq->bindValue(':visitador', $visitor);
         $stq->bindValue(':start', $this->start);
         $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
@@ -194,17 +180,17 @@ class LastMonthClass extends BaseClass
 
     /**
      *
-     * @param string $gestor
+     * @param string $agent
      * @param int $dom
      * @return array
      */
-    private function getPayments($gestor, $dom)
+    private function getPayments($agent, $dom)
     {
         $query = "select count(1) as ct from pagos
             where gestor=:gestor
             and fecha=:start + interval :dom day";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':gestor', $gestor);
+        $stq->bindValue(':gestor', $agent);
         $stq->bindValue(':start', $this->start);
         $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
         $stq->execute();
@@ -228,26 +214,26 @@ class LastMonthClass extends BaseClass
     }
 
     /**
-     * @param string $c_cvge
+     * @param string $initials
      * @return array
      */
-    public function packData(string $c_cvge)
+    public function packData(string $initials)
     {
         $row = array();
         for ($i = 1; $i <= $this->todayDay; $i++) {
             $data = new HoursDataClass($i);
-            $startStop = $this->getStartStopDiff($c_cvge, $i);
+            $startStop = $this->getStartStopDiff($initials, $i);
             $data->start = $startStop['start'];
             $data->stop = $startStop['stop'];
             $data->diff = $startStop['diff'];
-            $main = $this->getCurrentMain($c_cvge, $i);
+            $main = $this->getCurrentMain($initials, $i);
             if ($main) {
-                $data->gestiones = $main['gestiones'];
-                $data->cuentas = $main['cuentas'];
-                $data->contactos = $main['contactos'];
-                $data->nocontactos = $main['nocontactos'];
-                $data->promesas = $main['promesas'];
-                $data->pagos = $this->getPayments($c_cvge, $i);
+                $data->calls = $main['gestiones'];
+                $data->accounts = $main['cuentas'];
+                $data->contacts = $main['contactos'];
+                $data->noContacts = $main['nocontactos'];
+                $data->promises = $main['promesas'];
+                $data->payments = $this->getPayments($initials, $i);
             }
             $row[$i] = $data;
         }
@@ -264,12 +250,12 @@ class LastMonthClass extends BaseClass
         for ($i = 1; $i <= $this->todayDay; $i++) {
             $data = new HoursDataClass($i);
             $main = $this->getVisitorMain($c_visit, $i);
-            $data->gestiones = $main['gestiones'];
-            $data->cuentas = $main['cuentas'];
-            $data->contactos = $main['contactos'];
-            $data->nocontactos = $main['nocontactos'];
-            $data->promesas = $main['promesas'];
-            $data->pagos = 0;
+            $data->calls = $main['gestiones'];
+            $data->accounts = $main['cuentas'];
+            $data->contacts = $main['contactos'];
+            $data->noContacts = $main['nocontactos'];
+            $data->promises = $main['promesas'];
+            $data->payments = 0;
             $row[$i] = $data;
         }
         return $row;

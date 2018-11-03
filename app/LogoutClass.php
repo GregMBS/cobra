@@ -31,7 +31,7 @@ class LogoutClass extends BaseClass
      *
      * @param string $capt
      */
-    private function unlockCuentas($capt)
+    private function unlockDebtors($capt)
     {
         $query = "UPDATE resumen "
             . "SET timeLock = NULL, locker = NULL "
@@ -73,7 +73,7 @@ class LogoutClass extends BaseClass
      * @param string $date
      * @param string $time
      */
-    private function insertHistoria($capt, $go, $date, $time)
+    private function insertHistory($capt, $go, $date, $time)
     {
         $query = "INSERT INTO historia
 		(C_CVGE, C_CVBA, C_CONT, CUENTA, C_CVST, D_FECH, C_HRIN, C_HRFI)
@@ -92,7 +92,7 @@ class LogoutClass extends BaseClass
      *
      * @param string $capt
      */
-    private function clearResumenLocks($capt)
+    private function clearDebtorLocks($capt)
     {
         $query = "UPDATE resumen SET locker=NULL, timeLock=NULL "
             . "WHERE locker = :capt";
@@ -105,7 +105,7 @@ class LogoutClass extends BaseClass
      *
      * @param string $capt
      */
-    private function clearRSlice($capt)
+    private function clearSlice($capt)
     {
         $query = "DELETE from rslice "
             . "WHERE user = :capt";
@@ -134,13 +134,13 @@ class LogoutClass extends BaseClass
      */
     public function processLogout($capt, $why)
     {
-        $this->unlockCuentas($capt);
+        $this->unlockDebtors($capt);
         $dt = $this->getLogoutDatetime($capt, $why);
         $date = $dt->toDateString();
         $time = $dt->toTimeString();
-        $this->insertHistoria($capt, $why, $date, $time);
-        $this->clearResumenLocks($capt);
-        $this->clearRSlice($capt);
+        $this->insertHistory($capt, $why, $date, $time);
+        $this->clearDebtorLocks($capt);
+        $this->clearSlice($capt);
         $this->expireTicket($capt);
     }
 }

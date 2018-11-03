@@ -158,7 +158,7 @@ class LoadClass extends BaseClass
      * @throws Exception
      * @return number
      */
-    public function updateResumen(array $columnNames)
+    public function updateDebtors(array $columnNames)
     {
         $fields = $this->prepareUpdate($columnNames);
         /** @noinspection SyntaxError */
@@ -180,7 +180,7 @@ class LoadClass extends BaseClass
      * @throws Exception
      * @return number
      */
-    public function insertIntoResumen(array $columnNames)
+    public function insertIntoDebtors(array $columnNames)
     {
         $fields = implode(',', $columnNames);
         $query = "insert ignore into resumen ($fields) select $fields from temp";
@@ -196,7 +196,7 @@ class LoadClass extends BaseClass
 
     /**
      */
-    public function updateClientes()
+    public function updateClients()
     {
         $queryClear = "TRUNCATE clientes";
         $this->pdo->query($queryClear);
@@ -206,7 +206,7 @@ class LoadClass extends BaseClass
 
     /**
      */
-    public function updatePagos()
+    public function updatePayments()
     {
         $query = "insert ignore into pagos (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta)
 select numero_de_cuenta, fecha_de_ultimo_pago, 
@@ -227,7 +227,7 @@ group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
      *
      * @return string[]
      */
-    public function listClientes()
+    public function listClients()
     {
         $result = Cliente::all()->toArray();
         return $result;

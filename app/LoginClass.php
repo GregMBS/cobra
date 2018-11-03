@@ -62,7 +62,7 @@ class LoginClass extends BaseClass {
      * @param string $capt
      * @param string $local
      */
-    private function setUserlog($capt, $local) {
+    private function setUserLog($capt, $local) {
         $queryDelete = "delete from userlog "
                 . "where gestor = :capt ";
         $std = $this->pdo->prepare($queryDelete);
@@ -93,7 +93,7 @@ class LoginClass extends BaseClass {
      * 
      * @param string $capt
      */
-    private function insertHistoria($capt) {
+    private function insertHistory($capt) {
         $query = "INSERT INTO historia
 			(C_CVGE,C_CVBA,C_CONT,CUENTA,C_CVST,D_FECH,C_HRIN,C_HRFI)
 			VALUES (:capt, '', 0, 0, 'login', curdate(), curtime(), curtime())";
@@ -125,9 +125,9 @@ class LoginClass extends BaseClass {
         $cookie = $this->setCookie($capt, $pwd);
         $this->setTicket($cookie, $capt, $tipo);
         $this->setInitialQueue($capt);
-        $this->setUserlog($capt, $local);
+        $this->setUserLog($capt, $local);
         $this->insertPermanentLog($capt, $local);
-        $this->insertHistoria($capt);
+        $this->insertHistory($capt);
         return $cookie;
     }
     

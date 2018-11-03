@@ -8,18 +8,18 @@
 namespace App;
 
 /**
- * Description of QueuesqcClass
+ * Description of QueuesReportClass
  *
  * @author gmbs
  */
-class QueuesqcClass extends BaseClass
+class QueuesReportClass extends BaseClass
 {
 
     /**
      *
      * @var string
      */
-    private $querysubhead = "select count(1) as ctt,
+    private $queryHead = "select count(1) as ctt,
 sum(fecha_ultima_gestion > curdate()) as ctd,
 sum(fecha_ultima_gestion > :startWeek) as ctw,
 sum(fecha_ultima_gestion > :startMonth) as ctm,
@@ -34,25 +34,25 @@ and queue = :queue ";
 
     /**
      *
-     * @param string $CLIENTE
-     * @param string $SDC
+     * @param string $client
+     * @param string $sdc
      * @return array
      */
-    private function getSegmentoCount($CLIENTE, $SDC='')
+    private function getSegmentCount($client, $sdc='')
     {
-        $queryc = "SELECT count(1) as ct, sum(saldo_total) as sst
+        $query = "SELECT count(1) as ct, sum(saldo_total) as sst
                             FROM resumen
                             WHERE cliente = :cliente";
-        if ($SDC !== '') {
-            $queryc = "SELECT count(1) as ct, sum(saldo_total) as sst
+        if ($sdc !== '') {
+            $query = "SELECT count(1) as ct, sum(saldo_total) as sst
                                 FROM resumen
                                 WHERE status_de_credito = :sdc
                                 AND cliente = :cliente";
         }
-        $stc = $this->pdo->prepare($queryc);
-        $stc->bindValue(':cliente', $CLIENTE);
-        if (!empty($SDC)) {
-            $stc->bindValue(':sdc', $SDC);
+        $stc = $this->pdo->prepare($query);
+        $stc->bindValue(':cliente', $client);
+        if (!empty($sdc)) {
+            $stc->bindValue(':sdc', $sdc);
         }
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);
@@ -61,26 +61,26 @@ and queue = :queue ";
 
     /**
      *
-     * @param string $CLIENTE
-     * @param string $SDC
-     * @param string $QUEUE
+     * @param string $client
+     * @param string $sdc
+     * @param string $queue
      * @return array
      */
-    private function getQueueCounts($CLIENTE, $SDC, $QUEUE)
+    private function getQueueCounts($client, $sdc, $queue)
     {
-        $querysub = $this->querysubhead;
-        if ($SDC != '') {
-            $querysub = $this->querysubhead . " and status_de_credito = :sdc";
+        $query = $this->queryHead;
+        if ($sdc != '') {
+            $query = $this->queryHead . " and status_de_credito = :sdc";
         }
-        $stc = $this->pdo->prepare($querysub);
-        $stc->bindValue(':cliente', $CLIENTE);
-        $stc->bindValue(':queue', $QUEUE);
+        $stc = $this->pdo->prepare($query);
+        $stc->bindValue(':cliente', $client);
+        $stc->bindValue(':queue', $queue);
         $stc->bindValue(':startWeek', date('Y-m-d', strtotime('last Saturday')));
         $stc->bindValue(':startMonth', date('Y-m-d', strtotime('first day of this month')));
         $stc->bindValue(':startOfWeek', date('Y-m-d', strtotime('last Saturday')));
         $stc->bindValue(':startOfMonth', date('Y-m-d', strtotime('first day of this month')));
-        if ($SDC !== '') {
-            $stc->bindValue(':sdc', $SDC);
+        if ($sdc !== '') {
+            $stc->bindValue(':sdc', $sdc);
         }
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);
@@ -164,42 +164,43 @@ group by cliente,status_de_credito
      */
     public function normalQueues()
     {
+        /** @var QueuesReportDataClass[] $output */
         $output = [];
         $queues = $this->getQueues();
         foreach ($queues as $q) {
             $temp = new QueuesReportDataClass();
-            $temp->CLIENTE = $q['cliente'];
-            $temp->QUEUE = $q['status_aarsa'];
-            $temp->SDC = $q['sdc'];
+            $temp->client = $q['cliente'];
+            $temp->queue = $q['status_aarsa'];
+            $temp->sdc = $q['sdc'];
             $output[] = $temp;
         }
         foreach ($output as &$o) {
-            $segmentCounts = $this->getSegmentoCount($o->CLIENTE, $o->SDC);
-            $o->ASIGNADOS = $segmentCounts['ct'];
-            $o->DINERO = $segmentCounts['sst'];
-            $queueCounts = $this->getQueueCounts($o->CLIENTE, $o->SDC, $o->QUEUE);
+            $segmentCounts = $this->getSegmentCount($o->client, $o->sdc);
+            $o->assigned = $segmentCounts['ct'];
+            $o->money = $segmentCounts['sst'];
+            $queueCounts = $this->getQueueCounts($o->client, $o->sdc, $o->queue);
             $o->count = $queueCounts['ctt'];
-            $o->countd = $queueCounts['ctd'];
-            $o->counts = $queueCounts['ctw'];
-            $o->countm = $queueCounts['ctm'];
-            $o->monto = $queueCounts['stt'];
-            $o->montod = $queueCounts['std'];
-            $o->montos = $queueCounts['stw'];
-            $o->montom = $queueCounts['stm'];
-            $o->pcc  = $this->roundPc($o->count, $o->ASIGNADOS);
-            $pcd  = $this->roundPc($o->countd, $o->count);
-            $o->empd = $this->alertClass($pcd, 80, 40);
-            $o->pcd = max([$pcd, 0]);
-            $pcs  = $this->roundPc($o->counts, $o->count);
-            $o->emps = $this->alertClass($pcs, 80, 40);
-            $o->pcs = max([$pcs, 0]);
-            $pcm  = $this->roundPc($o->countm, $o->count);
-            $o->empm = $this->alertClass($pcm, 80, 40);
-            $o->pcm = max([$pcm, 0]);
-            $o->pcmc = max([$this->roundPc($o->monto, $o->DINERO),0]);
-            $o->pcmd = max([$this->roundPc($o->montod, $o->monto),0]);
-            $o->pcms = max([$this->roundPc($o->montos, $o->monto),0]);
-            $o->pcmm = max([$this->roundPc($o->montom, $o->monto),0]);            
+            $o->countDay = $queueCounts['ctd'];
+            $o->countWeek = $queueCounts['ctw'];
+            $o->countMonth = $queueCounts['ctm'];
+            $o->amount = $queueCounts['stt'];
+            $o->amountDay = $queueCounts['std'];
+            $o->amountWeek = $queueCounts['stw'];
+            $o->amountMonth = $queueCounts['stm'];
+            $o->percent  = $this->roundPc($o->count, $o->assigned);
+            $pcd  = $this->roundPc($o->countDay, $o->count);
+            $o->alertDay = $this->alertClass($pcd, 80, 40);
+            $o->percentDay = max([$pcd, 0]);
+            $pcs  = $this->roundPc($o->countWeek, $o->count);
+            $o->alertWeek = $this->alertClass($pcs, 80, 40);
+            $o->percentWeek = max([$pcs, 0]);
+            $pcm  = $this->roundPc($o->countMonth, $o->count);
+            $o->alertMonth = $this->alertClass($pcm, 80, 40);
+            $o->percentMonth = max([$pcm, 0]);
+            $o->percentMoney = max([$this->roundPc($o->amount, $o->money),0]);
+            $o->percentDay = max([$this->roundPc($o->amountDay, $o->amount),0]);
+            $o->percentWeek = max([$this->roundPc($o->amountWeek, $o->amount),0]);
+            $o->percentMonth = max([$this->roundPc($o->amountMonth, $o->amount),0]);
         }
         return $output;
     }
@@ -213,14 +214,14 @@ group by cliente,status_de_credito
         $queues = $this->getSpecial();
         foreach ($queues as $q) {
             $temp = new QueuesReportDataClass();
-            $temp->CLIENTE = $q['cliente'];
-            $temp->SDC =  $q['status_de_credito'];
-            $temp->ASIGNADOS = $q['ct'];
-            $temp->DINERO = $q['mt'];
+            $temp->client = $q['cliente'];
+            $temp->sdc =  $q['status_de_credito'];
+            $temp->assigned = $q['ct'];
+            $temp->money = $q['mt'];
             $temp->count = $q['ect'];
-            $temp->monto = $q['emt'];
-            $temp->pcc  = $this->roundPc($temp->count, $temp->ASIGNADOS);
-            $temp->pcmc = $this->roundPc($temp->monto, $temp->DINERO);
+            $temp->amount = $q['emt'];
+            $temp->percent  = $this->roundPc($temp->count, $temp->assigned);
+            $temp->percentMoney = $this->roundPc($temp->amount, $temp->money);
             $output[] = $temp;
         }
         return $output;

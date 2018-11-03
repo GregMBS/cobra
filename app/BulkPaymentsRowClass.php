@@ -21,83 +21,83 @@ class BulkPaymentsRowClass {
      *
      * @var string
      */
-    private $cuenta = '';
+    private $account = '';
 
     /**
      *
      * @var string
      */
-    private $fecha = '';
+    private $date = '';
 
     /**
      *
      * @var float 
      */
-    private $monto = 0;
+    private $amount = 0;
 
     /**
      *
      * @var string
      */
-    private $gestor = '';
+    private $agent = '';
 
     public function __construct($rowArray) {
-        $this->setCuenta($rowArray[0]);
-        $this->setFecha($rowArray[1]);
-        $this->setMonto($rowArray[2]);
+        $this->setAccount($rowArray[0]);
+        $this->setDate($rowArray[1]);
+        $this->setAmount($rowArray[2]);
     }
 
     /**
      * 
      * @return string
      */
-    public function getCuenta() {
-        return $this->cuenta;
+    public function getAccount() {
+        return $this->account;
     }
 
     /**
      * 
      * @return string
      */
-    public function getFecha() {
-        return $this->fecha;
+    public function getDate() {
+        return $this->date;
     }
 
     /**
      * 
      * @return float
      */
-    public function getMonto() {
-        return $this->monto;
+    public function getAmount() {
+        return $this->amount;
     }
 
     /**
      * 
      * @return float
      */
-    public function getGestor() {
-        return $this->gestor;
+    public function getAgent() {
+        return $this->agent;
     }
 
     /**
      * 
      * @param string $value
      */
-    private function setCuenta($value) {
-        $this->cuenta = $value;
+    private function setAccount($value) {
+        $this->account = $value;
     }
 
     /**
      * 
      * @param string $value
      */
-    private function setFecha($value) {
+    private function setDate($value) {
         $time = strtotime($value);
         $date = date('Y-m-d');
         if ($time) {
             $date = date('Y-m-d', $time);
         }
-        $this->fecha = $date;
+        $this->date = $date;
     }
 
     /**
@@ -105,9 +105,9 @@ class BulkPaymentsRowClass {
      * @param float $value
      * 
      */
-    private function setMonto($value) {
+    private function setAmount($value) {
         if (is_numeric($value)) {
-            $this->monto = $value;
+            $this->amount = $value;
         }
     }
 
@@ -115,36 +115,36 @@ class BulkPaymentsRowClass {
      * 
      * @param string $value
      */
-    public function setGestor($value) {
-        $this->gestor = $value;
+    public function setAgent($value) {
+        $this->agent = $value;
     }
 
     /**
      * 
      * @return boolean
      */
-    private function invalidCuenta() {
-        return ($this->cuenta == '');
+    private function invalidAccount() {
+        return ($this->account == '');
     }
 
     /**
      * 
      * @return boolean
      */
-    private function validFecha() {
+    private function validDate() {
         $dt = new DateTime();
-        $d = $dt->createFromFormat('Y-m-d', $this->fecha);
-        return ($d && $d->format('Y-m-d') === $this->fecha);
+        $d = $dt->createFromFormat('Y-m-d', $this->date);
+        return ($d && $d->format('Y-m-d') === $this->date);
     }
 
     /**
      * 
      * @return boolean
      */
-    private function invalidMonto() {
-        $isNum = is_numeric($this->monto);
+    private function invalidAmount() {
+        $isNum = is_numeric($this->amount);
         if ($isNum) {
-            return ($this->monto == 0);
+            return ($this->amount == 0);
         }
         return false;
     }
@@ -155,16 +155,16 @@ class BulkPaymentsRowClass {
      */
     public function valid() {
         $valid = TRUE;
-        if ($this->invalidCuenta()) {
+        if ($this->invalidAccount()) {
             $valid = FALSE;
         }
-        if (!$this->validFecha()) {
+        if (!$this->validDate()) {
             $valid = FALSE;
         }
-        if ($this->invalidMonto()) {
+        if ($this->invalidAmount()) {
             $valid = FALSE;
         }
-        if (!is_numeric($this->monto)) {
+        if (!is_numeric($this->amount)) {
             $valid = FALSE;
         }
         return $valid;
