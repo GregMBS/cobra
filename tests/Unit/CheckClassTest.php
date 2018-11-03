@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use App\CheckClass;
 use App\User;
-use App\Vasign;
-use App\Resumen;
+use App\VisitAssignment;
+use App\Debtor;
 use Tests\TestCase;
 
 class CheckClassTest extends TestCase
@@ -72,7 +72,7 @@ class CheckClassTest extends TestCase
      */
     public function testInsertUpdateVasign()
     {
-        $resumen = Resumen::where('numero_de_cuenta', '<>', '')->first();
+        $resumen = Debtor::where('numero_de_cuenta', '<>', '')->first();
         if ($resumen) {
             $r = collect();
             $r->CUENTA = $resumen->id_cuenta;
@@ -92,7 +92,7 @@ class CheckClassTest extends TestCase
             $array['fechain'] = date('Y-m-d');
             $cc->updateVisitorAssignment($r);
             $this->assertDatabaseHas('vasign', $array);
-            Vasign::whereGestor('gregb')->whereFechaout(date('Y-m-d'))->delete();
+            VisitAssignment::whereGestor('gregb')->whereFechaout(date('Y-m-d'))->delete();
         }
         $this->assertTrue(true);
     }

@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Motivador
+ * Class Motive
  * @package App
- * @method static|Motivador findOrFail(string $motiv)
+ * @method static|Motive findOrFail(string $motive)
  */
-class Motivador extends Model
+class Motive extends Model
 {
     protected $table = 'motivadores';
 

@@ -28,9 +28,9 @@ class AgentQueuesClass extends BaseClass {
      */
     public function getCamp($client, $queue, $sdc, $capt) {
         try {
-            $qc = new Queuelist();
+            $qc = new Queue();
             /**
-             * @var Queuelist $queues
+             * @var Queue $queues
              */
             $queues = $qc->whereCliente($client);
             $queues = $queues->whereStatusAarsa($queue);
@@ -51,11 +51,11 @@ class AgentQueuesClass extends BaseClass {
      */
     public function getClients() {
         /**
-         * @var Queuelist|Builder $qc
+         * @var Queue|Builder $qc
          */
-        $qc = new Queuelist();
+        $qc = new Queue();
         /**
-         * @var Queuelist|Model|Builder $query
+         * @var Queue|Model|Builder $query
          */
         $query = $qc->distinct()->select(['cliente'])
             ->where('cliente', '<>', '');
@@ -70,9 +70,9 @@ class AgentQueuesClass extends BaseClass {
      */
     public function getSdcClients($capt) {
         /** @var Builder $qc */
-        $qc = new Queuelist();
+        $qc = new Queue();
         /**
-         * @var Queuelist|Builder $results
+         * @var Queue|Builder $results
          */
         $results = $qc->distinct()->select(['cliente', 'sdc']);
         $results = $results->whereGestor($capt);
@@ -91,9 +91,9 @@ class AgentQueuesClass extends BaseClass {
      */
     public function getQueueSdcClients($capt) {
         /** @var Builder $qc */
-        $qc = new Queuelist();
+        $qc = new Queue();
         /**
-         * @var Queuelist|Builder $results
+         * @var Queue|Builder $results
          */
         $results = $qc->distinct()->select(['cliente', 'sdc', 'status_aarsa']);
         $results = $results->whereGestor($capt);

@@ -25,7 +25,7 @@ class SpecListManClass extends BaseClass {
      */
     public function getReport($client, $sdc) {
         /** @var Builder $debtor */
-        $debtor = Resumen::whereStatusDeCredito($sdc);
+        $debtor = Debtor::whereStatusDeCredito($sdc);
         /** @var Builder $result */
         $result = $debtor->join('dictamenes', 'dictamen', '=', 'status_aarsa')
             ->leftJoin('pagos', 'pagos.id_cuenta', '=', 'resumen.id_cuenta')

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Resumen;
+use App\Debtor;
 use App\User;
 use Tests\TestCase;
 
@@ -11,7 +11,7 @@ class BuscarControllerTest extends TestCase
     public function testSearch()
     {
         $user = User::first();
-        $query = Resumen::first();
+        $query = Debtor::first();
         if ($query) {
             $request = [
                 'field' => 'nombre_deudor',

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Historia;
+use App\History;
 use App\HoursAllClass;
 use Tests\TestCase;
 
@@ -33,7 +33,7 @@ class HorariosAllClassTest extends TestCase
     public function testCountAccounts()
     {
         $from = date('Y-m-d', strtotime('last day of last month'));
-        $count = Historia::where('d_fech', '>', $from)->where('c_cont', '>', 0)->count();
+        $count = History::where('d_fech', '>', $from)->where('c_cont', '>', 0)->count();
         $hc = new HoursAllClass();
         $result = $hc->countAccounts();
         if ($count > 0) {

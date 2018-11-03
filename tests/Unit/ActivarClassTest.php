@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\ActivateClass;
-use App\Resumen;
+use App\Debtor;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
@@ -15,7 +15,7 @@ class ActivateClassTest extends TestCase
     private function getCuentas()
     {
         /** @var Collection $query */
-        $query = Resumen::where('status_de_credito', 'not regexp', '-')->get();
+        $query = Debtor::where('status_de_credito', 'not regexp', '-')->get();
         $this->cuentas = $query->pluck('numero_de_cuenta')->toArray();
     }
 

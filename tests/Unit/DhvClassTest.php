@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\VisitorActivityClass;
-use App\Historia;
+use App\History;
 use Tests\TestCase;
 
 class DhvClassTest extends TestCase
@@ -15,7 +15,7 @@ class DhvClassTest extends TestCase
      */
     public function testGetPromesas()
     {
-        $gestion = Historia::join('resumen', 'id_cuenta', '=', 'c_cont')
+        $gestion = History::join('resumen', 'id_cuenta', '=', 'c_cont')
             ->where('n_prom', '>', 0)
             ->where('c_visit', '<>', '')
             ->first();
@@ -52,7 +52,7 @@ class DhvClassTest extends TestCase
 
     public function testGetGestiones()
     {
-        $gestion = Historia::join('resumen', 'id_cuenta', '=', 'c_cont')
+        $gestion = History::join('resumen', 'id_cuenta', '=', 'c_cont')
             ->where('c_visit', '<>', '')
             ->first();
         $testKeys = [

@@ -74,7 +74,7 @@ and id_cuenta = :id";
      */
     private function insertVisit(VisitDataClass $visit)
     {
-        $history = new Historia();
+        $history = new History();
         $history->C_CVGE = $visit->getCCVGE();
         $history->C_CVBA = $visit->getCCVBA();
         $history->C_CONT = $visit->getCCONT();
@@ -162,7 +162,7 @@ WHERE id_cuenta = :id";
             $stn->bindValue(':id', $id, \PDO::PARAM_INT);
             $stn->execute();
         }
-        $rc = new Resumen();
+        $rc = new Debtor();
         /**
          * @var Builder $query
          */
@@ -172,7 +172,7 @@ WHERE id_cuenta = :id";
          */
         $result = $query->get();
         /**
-         * @var Resumen $account
+         * @var Debtor $account
          */
         $account = $result->first();
         $data = $account->toArray();
@@ -296,7 +296,7 @@ WHERE id_cuenta = :id";
         $sti->bindValue(':C_CVST', $call->getCCVST());
         $sti->bindValue(':D_FECH', $call->getDate());
         $sti->bindValue(':C_HRIN', $call->getCHRIN());
-        $sti->bindValue(':C_HRFI', $call->getCHRFI());
+        $sti->bindValue(':C_HRFI', $call->getEndTime());
         $sti->bindValue(':C_TELE', $call->getCTELE());
         $sti->bindValue(':CUANDO', $call->getAvailability());
         $sti->bindValue(':CUENTA', $call->getAccount());

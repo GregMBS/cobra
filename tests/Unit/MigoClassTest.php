@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\AccountsClass;
-use App\Resumen;
+use App\Debtor;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
@@ -37,7 +37,7 @@ class MigoClassTest extends TestCase
     public function testAdminReport()
     {
         $mc = new AccountsClass();
-        $count = Resumen::count();
+        $count = Debtor::count();
         if ($count > 0) {
             $result = $mc->adminReport();
             $this->assertGreaterThan(0, count($result));
@@ -51,8 +51,8 @@ class MigoClassTest extends TestCase
     {
         $mc = new AccountsClass();
         /** @var Builder $query */
-        $query = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->where('ejecutivo_asignado_call_center', '<>', '');
-        /** @var Resumen $cuenta */
+        $query = Debtor::where('status_de_credito', 'NOT REGEXP', '-')->where('ejecutivo_asignado_call_center', '<>', '');
+        /** @var Debtor $cuenta */
         $cuenta = $query->first();
         if ($cuenta) {
             $result = $mc->userReport($cuenta->ejecutivo_asignado_call_center);

@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\ChangeStatusClass;
-use App\Resumen;
+use App\Debtor;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
@@ -19,8 +19,8 @@ class ChangestClassTest extends TestCase
     {
         $cc = new ChangeStatusClass();
         /** @var Builder $query */
-        $query = Resumen::where('status_de_credito', 'REGEXP', '-');
-        /** @var Resumen $cuenta */
+        $query = Debtor::where('status_de_credito', 'REGEXP', '-');
+        /** @var Debtor $cuenta */
         $cuenta = $query->first();
         if ($cuenta) {
             $id_cuenta = $cuenta->id_cuenta;

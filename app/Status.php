@@ -5,12 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Dictamen
+ * Class Status
  * @package App
- * @method static|Dictamen whereDictamen(string $dictamen)
+ * @method static|Status whereDictamen(string $status)
  * @property string $dictamen
  */
-class Dictamen extends Model
+class Status extends Model
 {
     protected $table = 'dictamenes';
 }

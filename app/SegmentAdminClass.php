@@ -19,9 +19,9 @@ class SegmentAdminClass extends BaseClass {
      * @throws \Exception
      */
 	public function eraseSegment($client, $segment) {
-	    $qc = new Queuelist();
+	    $qc = new Queue();
         /**
-         * @var Queuelist $query
+         * @var Queue $query
          */
 	    $query = $qc->whereCliente($client);
 	    $query = $query->whereSdc($segment);
@@ -57,9 +57,9 @@ SQL;
 	 */
 	public function addAllSegments() {
 	    /** @var Builder $rc */
-	    $rc = new Resumen();
+	    $rc = new Debtor();
         /**
-         * @var Resumen|\Illuminate\Database\Eloquent\Builder $queryCS
+         * @var Debtor|\Illuminate\Database\Eloquent\Builder $queryCS
          */
         $queryCS = $rc->distinct()->select(['cliente', 'status_de_credito'])
             ->where('status_de_credito', 'NOT REGEXP', '-');

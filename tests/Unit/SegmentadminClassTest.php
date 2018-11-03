@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Resumen;
+use App\Debtor;
 use App\SegmentAdminClass;
 use Tests\TestCase;
 
@@ -76,8 +76,8 @@ class SegmentadminClassTest extends TestCase
      */
     private function reactivarSegmento($cliente, $segmento)
     {
-        $rc = new Resumen();
-        /** @var Resumen $query */
+        $rc = new Debtor();
+        /** @var Debtor $query */
         $query = $rc->where('cliente','=' ,$cliente);
         $query = $query->where('status_de_credito', '=', $segmento.'-inactivo');
         $query->update(array('status_de_credito' => $segmento));

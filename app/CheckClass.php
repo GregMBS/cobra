@@ -39,7 +39,7 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
     public function insertVisitorAssignment(Collection $r)
     {
         $cdc = new CheckDataClass($r);
-        $assignment = new Vasign();
+        $assignment = new VisitAssignment();
         try {
             $assignment->CUENTA = $cdc->getAccount();
             $assignment->gestor = $cdc->getAgent();
@@ -111,7 +111,7 @@ where gestor=:agent";
             "fechaIn"
         );
         /** @var Builder $rc */
-        $rc = new Resumen();
+        $rc = new Debtor();
         /** @var Builder $debtors */
         $debtors = $rc->join('vasign', 'id_cuenta', '=', 'c_cont')
             ->join('users', 'iniciales', '=', 'gestor')
@@ -146,9 +146,9 @@ where gestor=:agent";
          */
         $now = date('Y-m-d');
         /** @var Builder $query */
-        $query = Vasign::whereCCont($C_CONT)
+        $query = VisitAssignment::whereCCont($C_CONT)
             ->whereNull('fechaIn');
-        /** @var Vasign $assignment */
+        /** @var VisitAssignment $assignment */
         $assignment = $query->get();
         foreach ($assignment as $v) {
             $v->fechaIn = $now;

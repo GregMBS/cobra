@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Historia;
+use App\History;
 use App\HoursDataClass;
-use App\Pago;
+use App\Payment;
 use App\LastMonthAllClass;
 use Carbon\Carbon;
 use Tests\TestCase;
@@ -15,7 +15,7 @@ class PerfmesAllClassTest extends TestCase
     {
         $start = date('Y-m-d', strtotime('first day of last month'));
         $end = date('Y-m-d', strtotime('last day of last month'));
-        $gestion = Historia::whereBetween('d_fech', [$start, $end])->first();
+        $gestion = History::whereBetween('d_fech', [$start, $end])->first();
         /** @var Carbon $fecha */
         $fecha = new Carbon($gestion->D_FECH);
         $dom = $fecha->day;
@@ -35,8 +35,8 @@ class PerfmesAllClassTest extends TestCase
     {
         $start = date('Y-m-d', strtotime('first day of 1 month ago'));
         $end = date('Y-m-d', strtotime('last day of 1 month ago'));
-        $pago = Pago::whereBetween('fecha', [$start, $end])->first();
-        $count = Pago::whereFecha($pago->fecha)->count();
+        $pago = Payment::whereBetween('fecha', [$start, $end])->first();
+        $count = Payment::whereFecha($pago->fecha)->count();
         if ($pago) {
             /** @var Carbon $fecha */
             $fecha = new Carbon($pago->fecha);
@@ -52,7 +52,7 @@ class PerfmesAllClassTest extends TestCase
     {
         $from = date('Y-m-d', strtotime('first day of last month'));
         $to = date('Y-m-d', strtotime('last day of last month'));
-        $query = Historia::whereBetween('d_fech', [$from, $to])
+        $query = History::whereBetween('d_fech', [$from, $to])
             ->where('c_cont', '>', 0)
             ->whereNull('c_cniv')
             ->whereNull('c_msge');
@@ -70,7 +70,7 @@ class PerfmesAllClassTest extends TestCase
     {
         $start = date('Y-m-d', strtotime('first day of last month'));
         $end = date('Y-m-d', strtotime('last day of last month'));
-        $gestion = Historia::whereBetween('d_fech', [$start, $end])
+        $gestion = History::whereBetween('d_fech', [$start, $end])
             ->where('c_cont', '>', 0)
             ->whereNull('c_cniv')
             ->whereNull('c_msge')

@@ -17,7 +17,7 @@ class ReferenceClass extends BaseClass
      * @return string[][]
      */
     public function index($id) {
-        $rc = new Referencia();
+        $rc = new Reference();
         /**
          * @var Builder $query
          */

@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Cliente;
-use App\Dictamen;
-use App\Historia;
-use App\Pago;
-use App\Resumen;
+use App\Client;
+use App\Status;
+use App\History;
+use App\Payment;
+use App\Debtor;
 use App\DebtorClass;
 use Illuminate\Database\Query\Builder;
 use Tests\TestCase;
@@ -48,7 +48,7 @@ class DebtorClassTest extends TestCase
     public function testHighlight()
     {
         $rc = new DebtorClass();
-        $statuses = Dictamen::all('dictamen');
+        $statuses = Status::all('dictamen');
         $visit = '';
         foreach ($statuses as $status) {
             $stat = $status->dictamen;
@@ -73,7 +73,7 @@ class DebtorClassTest extends TestCase
     {
         $rc = new DebtorClass();
         /** @var Builder $history */
-        $history = new Historia();
+        $history = new History();
         $query = $history->where('c_cont', '>', 0)->first();
         if ($query) {
             $capt = $query->C_CVGE;
@@ -238,7 +238,7 @@ class DebtorClassTest extends TestCase
 
     public function testGetClientList()
     {
-        $query = Cliente::first();
+        $query = Client::first();
         if ($query) {
             $cliente = $query->cliente;
             $rc = new DebtorClass();
@@ -286,7 +286,7 @@ class DebtorClassTest extends TestCase
     {
         $date = date('Y-m-d', strtotime('first day of last month'));
         /** @var Builder $query */
-        $query = Historia::where('c_cont', '>', 0)->where('d_fech', '>', $date);
+        $query = History::where('c_cont', '>', 0)->where('d_fech', '>', $date);
         $gestiones = $query->get();
         $first = $gestiones->first();
         if ($first) {
@@ -300,7 +300,7 @@ class DebtorClassTest extends TestCase
 
     public function testCountPromesas()
     {
-        $query = Historia::where('c_cont', '>', 0)->where('n_prom', '>', 0)->first();
+        $query = History::where('c_cont', '>', 0)->where('n_prom', '>', 0)->first();
         if ($query) {
             $id = $query->C_CONT;
             $rc = new DebtorClass();
@@ -313,8 +313,8 @@ class DebtorClassTest extends TestCase
     public function testCountPagos()
     {
         $rc = new DebtorClass();
-        /** @var Pago $pago */
-        $pago = Pago::first();
+        /** @var Payment $pago */
+        $pago = Payment::first();
         if ($pago) {
             $id = $pago->id_cuenta;
             $count = $rc->countPaymentsByAccount($id);
@@ -329,7 +329,7 @@ class DebtorClassTest extends TestCase
         $id = 0;
         $cuenta = $rc->getAccountNumberFromId($id);
         $this->assertEquals('', $cuenta);
-        $query = Resumen::where('id_cuenta', '>', 0)->first();
+        $query = Debtor::where('id_cuenta', '>', 0)->first();
         if ($query) {
             $id = $query->id_cuenta;
             $cuenta = $rc->getAccountNumberFromId($id);
@@ -352,7 +352,7 @@ class DebtorClassTest extends TestCase
             "D_PROM4_OLD" => null
         ];
         $rc = new DebtorClass();
-        $query = Historia::where('n_prom', '>', 0)->first();
+        $query = History::where('n_prom', '>', 0)->first();
         if ($query) {
             $id = $query->C_CONT;
             $promises = $rc->getPromiseData($id);
@@ -373,12 +373,12 @@ class DebtorClassTest extends TestCase
     {
         $now = date('r');
         $rc = new DebtorClass();
-        $query = Resumen::whereNull('locker')->first();
+        $query = Debtor::whereNull('locker')->first();
         if ($query) {
             $timeLock = $rc->getTimelock($query->id_cuenta);
             $this->assertEquals($now, $timeLock, '', 2);
         }
-        $query = Resumen::where('locker', '<>', '')->first();
+        $query = Debtor::where('locker', '<>', '')->first();
         if ($query) {
             $timeLock = $rc->getTimelock($query->id_cuenta);
             $this->assertLessThan(strtotime($now), strtotime($timeLock));
@@ -399,9 +399,9 @@ class DebtorClassTest extends TestCase
         ];
         $rc = new DebtorClass();
         /** @var Builder $query */
-        $query = Historia::where('c_cniv', '<>', '')->take(10);
+        $query = History::where('c_cniv', '<>', '')->take(10);
         $tenVisits = $query->get();
-        /** @var Historia $first */
+        /** @var History $first */
         $first = $tenVisits->first();
         if ($first) {
             $id = $first->C_CONT;

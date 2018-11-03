@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Queuelist;
+use App\Queue;
 use App\AgentQueuesClass;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
@@ -18,11 +18,11 @@ class QueuesgClassTest extends TestCase
     {
         $qc = new AgentQueuesClass();
         /** @var Builder $query */
-        $query = Queuelist::where('cliente', '<>', '')
+        $query = Queue::where('cliente', '<>', '')
             ->where('status_aarsa', '<>', '')
             ->where('sdc', '<>', '')
             ->where('gestor', '<>', '');
-        /** @var Queuelist $camp */
+        /** @var Queue $camp */
         $camp = $query->first();
         $result = $qc->getCamp($camp->cliente, $camp->status_aarsa, $camp->sdc, $camp->gestor);
         $this->assertNotEquals(-1, $result);

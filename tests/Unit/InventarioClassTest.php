@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Cliente;
+use App\Client;
 use App\InventoryClass;
-use App\Resumen;
+use App\Debtor;
 use Tests\TestCase;
 
 class InventarioClassTest extends TestCase
@@ -39,7 +39,7 @@ class InventarioClassTest extends TestCase
         $ic = new InventoryClass();
         $result = $ic->getInventoryReport('todos');
         $this->checkKeys($testKeys, $result);
-        $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
+        $cuenta = Debtor::where('status_de_credito', 'NOT REGEXP', '-')->first();
         if ($cuenta) {
             $cliente = $cuenta->cliente;
             $result = $ic->getInventoryReport($cliente);
@@ -83,7 +83,7 @@ class InventarioClassTest extends TestCase
         $ic = new InventoryClass();
         $result = $ic->getFullInventoryReport('todos');
         $this->checkKeys($testKeys, $result);
-        $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
+        $cuenta = Debtor::where('status_de_credito', 'NOT REGEXP', '-')->first();
         if ($cuenta) {
             $cliente = $cuenta->cliente;
             $result = $ic->getFullInventoryReport($cliente);
@@ -93,7 +93,7 @@ class InventarioClassTest extends TestCase
 
     public function testListCliente()
     {
-        $clientes = Cliente::all()->toArray();
+        $clientes = Client::all()->toArray();
         $ic = new InventoryClass();
         $result = $ic->listClients();
         $this->assertEquals(count($clientes), count($result));

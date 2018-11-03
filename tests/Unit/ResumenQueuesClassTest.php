@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Queuelist;
-use App\Resumen;
+use App\Queue;
+use App\Debtor;
 use App\DebtorQueuesClass;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -160,8 +160,8 @@ class ResumenQueuesClassTest extends TestCase
         ];
         $rc = new DebtorQueuesClass();
         /** @var \Illuminate\Database\Query\Builder $query */
-        $query = Queuelist::whereGestor('gmbs');
-        /** @var Queuelist $queuelist */
+        $query = Queue::whereGestor('gmbs');
+        /** @var Queue $queuelist */
         $queuelist = $query->first();
         $result = $rc->getMyQueue('gmbs', $queuelist->camp);
         $keys = array_keys($result);
@@ -174,7 +174,7 @@ class ResumenQueuesClassTest extends TestCase
     public function testSearchCount()
     {
         $rc = new DebtorQueuesClass();
-        $query = Resumen::first();
+        $query = Debtor::first();
         if ($query) {
             $field = 'cliente';
             $find = $query->cliente;
@@ -190,8 +190,8 @@ class ResumenQueuesClassTest extends TestCase
     public function testGetOne()
     {
         $rc = new DebtorQueuesClass();
-        /** @var Resumen $cuenta */
-        $cuenta = Resumen::first();
+        /** @var Debtor $cuenta */
+        $cuenta = Debtor::first();
         if ($cuenta) {
             $id_cuenta = $cuenta->id_cuenta;
             $result = $rc->getOne($id_cuenta);
@@ -206,9 +206,9 @@ class ResumenQueuesClassTest extends TestCase
     {
         $rc = new DebtorQueuesClass();
         /* no cliente, no sdc, yes cr, not MANUAL or INICIAL */
-        /** @var Queuelist|Builder $queue */
+        /** @var Queue|Builder $queue */
         /*
-        $queue = Queuelist::whereCliente('');
+        $queue = Queue::whereCliente('');
         $queue = $queue->whereSdc('');
         $queue = $queue->whereNotIn('status_aarsa', ['','MANUAL','INICIAL'])->first();
         $result = $rc->getDebtor($queue->gestor, $queue->camp);
@@ -221,8 +221,8 @@ class ResumenQueuesClassTest extends TestCase
         */
         /* INICIAL */
         $this->expectException(\Exception::class);
-        /** @var Queuelist $query */
-        $query = Queuelist::whereStatusAarsa('INICIAL');
+        /** @var Queue $query */
+        $query = Queue::whereStatusAarsa('INICIAL');
         $queue = $query->first();
         $resultI = $rc->getDebtor($queue->gestor, $queue->camp);
         $this->assertArrayHasKey('id_cuenta', $resultI);
@@ -233,7 +233,7 @@ class ResumenQueuesClassTest extends TestCase
         $keys = array_keys($resultI1);
         $this->assertEquals($this->resumenKeys, $keys);
         /* SIN GESTION */
-        $query = Queuelist::whereStatusAarsa('SIN GESTION');
+        $query = Queue::whereStatusAarsa('SIN GESTION');
         $queue = $query->first();
         $resultI = $rc->getDebtor($queue->gestor, $queue->camp);
         $this->assertArrayHasKey('id_cuenta', $resultI);

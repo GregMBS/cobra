@@ -16,7 +16,7 @@ class OldNamesAdminClass extends AgentAdminClass
      */
     private function updateOpenParams($fullName, $tipo, $capt) {
         /** @var Builder $oldNamesQuery */
-        $oldNamesQuery = Nombre::where('iniciales', '=', $capt);
+        $oldNamesQuery = OldUser::where('iniciales', '=', $capt);
         $name = $oldNamesQuery->first();
         $name->completo = $fullName;
         $name->tipo = $tipo;
@@ -28,7 +28,7 @@ class OldNamesAdminClass extends AgentAdminClass
      * @param string $capt
      */
     private function deleteFromUsers($capt) {
-        $oldNamesQuery = Nombre::where('iniciales', '=', $capt);
+        $oldNamesQuery = OldUser::where('iniciales', '=', $capt);
         try {
             $oldNamesQuery->delete();
         } catch (\Exception $e) {
@@ -44,7 +44,7 @@ class OldNamesAdminClass extends AgentAdminClass
     private function updatePassword($pass, $capt) {
         if ((strlen($pass) < 50) && (strlen($pass) > 0)) {
             /** @var Builder $oldNamesQuery */
-            $oldNamesQuery = Nombre::where('iniciales', '=', $capt)
+            $oldNamesQuery = OldUser::where('iniciales', '=', $capt)
                 ->where('passw','=', sha1($pass));
             $name = $oldNamesQuery->first();
             $fullName = $name->completo;

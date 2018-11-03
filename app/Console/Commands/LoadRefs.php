@@ -19,7 +19,7 @@ class LoadRefs extends Command
      *
      * @var string
      */
-    protected $description = 'Build or rebuild Referencias table from Resumen';
+    protected $description = 'Build or rebuild Referencias table from Debtor';
 
     /** @var ReferenceClass */
     protected $rc;

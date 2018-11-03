@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Referencia
+ * Class Reference
  * @package App
  * @method static whereIdCuenta(int $id)
  */
-class Referencia extends Model
+class Reference extends Model
 {
-    //
+    protected $table = 'referencias';
 }

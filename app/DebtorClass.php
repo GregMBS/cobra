@@ -296,7 +296,7 @@ SQL;
      */
     public function getClientList()
     {
-        $clients = Cliente::all()->toArray();
+        $clients = Client::all()->toArray();
         $names = array_column($clients, 'cliente');
         return $names;
     }
@@ -310,7 +310,7 @@ SQL;
     {
         $today = date('Y-m-d');
         /** @var Builder $query */
-        $query = Historia::whereCCvge($capt)->whereDFech($today);
+        $query = History::whereCCvge($capt)->whereDFech($today);
         $query = $query->where('c_cont', '<>', 0);
         $count = $query->count();
         return $count;
@@ -324,7 +324,7 @@ SQL;
     public function getTimeLock($id)
     {
         $tl = date('r');
-        $rc = new Resumen();
+        $rc = new Debtor();
 
         /**
          * @var Builder $query
@@ -346,7 +346,7 @@ SQL;
     public function getUserData($capt)
     {
         /** @var Builder $oldUserBuilder */
-        $oldUserBuilder = new Nombre();
+        $oldUserBuilder = new OldUser();
         /** @var Builder $oldUserQuery */
         $oldUserQuery = $oldUserBuilder->where('iniciales', '=', $capt);
         $oldUser = $oldUserQuery->get();
@@ -365,7 +365,7 @@ SQL;
     public function getPromiseData($id)
     {
         /** @var Builder $history */
-        $history = Historia::whereCCont($id);
+        $history = History::whereCCont($id);
         /** @var Model $promise */
         $promise = $history->where('n_prom', '>', 0)
             ->where('c_cvst', 'LIKE', 'PROMESA DE%')
@@ -415,7 +415,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
     public function countCallsByAccount($id)
     {
         /** @var Builder $history */
-        $history = Historia::whereCCont($id);
+        $history = History::whereCCont($id);
         $calls = $history->where('c_cont', '>', 0)
             ->count();
         return $calls;
@@ -429,7 +429,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
     public function countPromisesByAccount($id)
     {
         /** @var Builder $history */
-        $history = Historia::whereCCont($id);
+        $history = History::whereCCont($id);
         $promises = $history->where('n_prom', '>', 0)
             ->count();
         return $promises;
@@ -443,7 +443,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
     public function countPaymentsByAccount($id)
     {
         /** @var Builder $builder */
-        $builder = Pago::whereIdCuenta($id);
+        $builder = Payment::whereIdCuenta($id);
         $payments = $builder->count();
         return $payments;
     }
@@ -457,7 +457,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
     {
         $accountNumber = '';
         if ($id > 0) {
-            $rc = new Resumen();
+            $rc = new Debtor();
             /** @var Builder $query */
             $query = $rc->whereIdCuenta($id);
             $debtor = $query->first();

@@ -25,7 +25,7 @@ class AccountsClass extends BaseClass
     public function adminReport()
     {
         /** @var Builder $rc */
-        $rc = new Resumen();
+        $rc = new Debtor();
         /** @var Builder $query */
         $query = $rc->where('status_de_credito', 'NOT REGEXP', '-');
         $result = $query->get();
@@ -39,8 +39,8 @@ class AccountsClass extends BaseClass
      */
     public function userReport($capt)
     {
-        /** @var Resumen|Builder $rc */
-        $rc = new Resumen();
+        /** @var Debtor|Builder $rc */
+        $rc = new Debtor();
         /** @var Builder $debtors */
         $debtors = $rc->whereEjecutivoAsignadoCallCenter($capt);
         $query = $debtors->where('status_de_credito', 'NOT REGEXP', '-');

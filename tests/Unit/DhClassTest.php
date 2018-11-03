@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\AgentActivityClass;
-use App\Historia;
+use App\History;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
@@ -20,8 +20,8 @@ class DhClassTest extends TestCase
         parent::setUp();
         $date = date('Y-m-d', strtotime('last day of last month'));
         /** @var Builder $query */
-        $query = Historia::where('N_PROM', '>', 0)->where('d_fech', '>', $date);
-        /** @var Historia $gestion */
+        $query = History::where('N_PROM', '>', 0)->where('d_fech', '>', $date);
+        /** @var History $gestion */
         $gestion = $query->first();
         if ($gestion) {
             $this->gestor = $gestion->C_CVGE;

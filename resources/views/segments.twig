@@ -49,7 +49,7 @@
         {% endfor %}
         <tr>
             <td colspan=3>
-                <label for="cliseg">Cliente/Segmento</label>
+                <label for="cliseg">Client/Segmento</label>
                 <select name="cliseg" id="cliseg" form="gestoradd">
                     {% for ru in resultU %}
                         <option value="{{ ru.cliente ~ ';' ~ ru.sdc }}">

@@ -110,7 +110,7 @@ class LoadController extends Controller
             throw new Exception('Invalid Column Names:' . $names);
         }
         if (!in_array('cliente', $row)) {
-            throw new Exception('Missing Cliente');
+            throw new Exception('Missing Client');
         }
         if (!in_array('numero_de_cuenta', $row)) {
             throw new Exception('Missing Cuenta');

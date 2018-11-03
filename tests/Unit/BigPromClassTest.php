@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\BigDataClass;
 use App\BigPromClass;
-use App\Historia;
+use App\History;
 use Illuminate\Http\Request;
 use Tests\TestCase;
 
@@ -63,7 +63,7 @@ class BigPromClassTest extends TestCase
     private function hasProms()
     {
         $date = date('Y-m-d', strtotime('last day of last month'));
-        $count = Historia::where('n_prom', '>', 0)->where('d_fech', '>', $date)->count();
+        $count = History::where('n_prom', '>', 0)->where('d_fech', '>', $date)->count();
         return ($count > 0);
     }
 

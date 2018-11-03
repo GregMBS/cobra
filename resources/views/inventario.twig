@@ -10,7 +10,7 @@
         <button onclick="window.location = '/reports'">Regresar a la plantilla administrativa</button><br>
         <form action="{{ here }}" method="post" name="queryparms">
         	{{ csrf_field() }}
-            <label for="cliente">Cliente:</label>
+            <label for="cliente">Client:</label>
                 <select name="cliente" id="cliente">
                     <option value="todos" style="font-size:120%;">todos</option>
                     {% for c in clientes %}

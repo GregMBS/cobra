@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Resumen</title>
+    <title>Debtor</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -128,7 +128,7 @@
                         <select name="field" id="field">
                             <option value="numero_de_cuenta">Cuenta</option>
                             <option value="numero_de_credito"># del Grupo</option>
-                            <option value="nombre_deudor">Nombre</option>
+                            <option value="nombre_deudor">OldUser</option>
                             <option value="domicilio_deudor">Dirección</option>
                             <option value="TELS">Telefonos</option>
                             <option value="REFS">Aval/Referencias</option>
@@ -181,7 +181,7 @@
             <div role="tabpanel" class="tab-pane" id="REFERENCIAS">
                 <div class="row">
                     <div class="col-md-2">
-                    {% include 'resfield.twig' with {'field': 'nombre_deudor_alterno', 'label': 'Nombre Aval', 'value': r.nombre_deudor_alterno} %}
+                    {% include 'resfield.twig' with {'field': 'nombre_deudor_alterno', 'label': 'OldUser Aval', 'value': r.nombre_deudor_alterno} %}
                     </div>
                     <div class="col-md-2">
                     {% include 'resfield.twig' with {'field': 'domicilio_deudor_alterno', 'label': 'Dirección Aval', 'value': r.domicilio_deudor_alterno} %}
@@ -202,7 +202,7 @@
                 {% for ref in referencias %}
                     <div class="row">
                         <div class="col-md-2">
-                        {% include 'resfield.twig' with {'field': 'nombre_'~ref.id, 'label': 'Referencia', 'value': ref.nombre} %}
+                        {% include 'resfield.twig' with {'field': 'nombre_'~ref.id, 'label': 'Reference', 'value': ref.nombre} %}
                         </div>
                         <div class="col-md-2">
                         {% include 'resfield.twig' with {'field': 'tel_1_'~ref.id, 'label': 'Tel Casa', 'value': ref.tel_1} %}
@@ -350,7 +350,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Dictamen Domicilio Particular</h4>
+                            <h4>Status Domicilio Particular</h4>
                         </div>
                     </div>
                     <div class="row">
@@ -650,7 +650,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Pago</h4>
+                            <h4>Payment</h4>
                         </div>
                     </div>
                     <div class="row" id="pagocaptv">
@@ -782,7 +782,7 @@
                         <select id="C_TELE" name="C_TELE">
                                 <option value=''></option>
                                 <option value='Entrante '>Llamada entrante</option>
-                                <option value='Oficina '>Cliente Visito</option>
+                                <option value='Oficina '>Client Visito</option>
                                 <option value='040'>040</option>
                                 <option value=''>Nuevo Tel . 1</option>
                                 <option value=''>Nuevo Tel . 2</option>

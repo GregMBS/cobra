@@ -183,7 +183,7 @@ class VisitDataClass
     {
         $this->setCHRFI();
         /** @var Builder $query */
-        $query = Resumen::whereIdCuenta($C_CONT);
+        $query = Debtor::whereIdCuenta($C_CONT);
         $cuenta = $query->first();
         $this->setCCONT($cuenta->id_cuenta);
         $this->setCCVBA($cuenta->cliente);
@@ -690,8 +690,8 @@ class VisitDataClass
     public function setCACCION(string $C_ACCION)
     {
         /** @var Builder $query */
-        $query = Accion::whereAccion($C_ACCION);
-        /** @var Accion $value */
+        $query = Action::whereAccion($C_ACCION);
+        /** @var Action $value */
         $value = $query->first();
         if (empty($value)) {
             dd('C_ACCION'.$C_ACCION);
@@ -714,9 +714,9 @@ class VisitDataClass
     public function setCCVST(string $C_CVST)
     {
         /** @var Builder $query */
-        $query = Dictamen::whereDictamen($C_CVST);
+        $query = Status::whereDictamen($C_CVST);
         $dictamenes = $query->get();
-        /** @var Dictamen $value */
+        /** @var Status $value */
         $value = $dictamenes->first();
         if (empty($value)) {
             dd('C_CVST'.$value);
@@ -756,7 +756,7 @@ class VisitDataClass
     {
         if (!empty($C_MOTIV)) {
             try {
-                $value = Motivador::findOrFail($C_MOTIV);
+                $value = Motive::findOrFail($C_MOTIV);
             } catch (ModelNotFoundException $e) {
                 $value = '';
             }

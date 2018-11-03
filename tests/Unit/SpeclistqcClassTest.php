@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Resumen;
+use App\Debtor;
 use App\StatusListDataClass;
 use App\StatusListClass;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +18,7 @@ class SpeclistqcClassTest extends TestCase
      */
     private function getAQueue(array $data) {
         /** @var Builder $query */
-        $query = Resumen::join('dictamenes', 'status_aarsa', '=', 'dictamen')
+        $query = Debtor::join('dictamenes', 'status_aarsa', '=', 'dictamen')
             ->where('fecha_ultima_gestion', '>', date('Y-m-d', strtotime('end of last month')));
         $resumen = $query->first();
         if ($resumen) {

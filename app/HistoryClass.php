@@ -38,7 +38,7 @@ and c_cvba is null";
      */
     private function getId($accountNumber) {
         /** @var Builder $rc */
-        $rc = new Resumen();
+        $rc = new Debtor();
         $query = $rc->where('numero_de_cuenta', '=', $accountNumber);
         $debtor = $query->first();
         $id = $debtor->id_cuenta;
@@ -53,7 +53,7 @@ and c_cvba is null";
      */
     private function unsafeInsert(array $calls) {
         /** @var Builder $hc */
-        $hc = new Historia();
+        $hc = new History();
         $test = $hc->insert($calls);
         return $test;
     }

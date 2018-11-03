@@ -5,13 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Historia
+ * Class History
  * @package App
- * @method static|Historia whereCCvge($c_cvge)
- * @method static|Historia whereCCont($c_cont)
- * @method static|Historia whereDFech($d_fech)
+ * @method static|History whereCCvge(string $agent)
+ * @method static|History whereCCont(int $id)
+ * @method static|History whereDFech(string $date)
  */
-class Historia extends Model
+class History extends Model
 {
     protected $table = 'historia';
 

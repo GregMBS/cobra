@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use App\LoadClass;
-use App\Cliente;
-use App\Resumen;
+use App\Client;
+use App\Debtor;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
@@ -12,7 +12,7 @@ class LoadClassTest extends TestCase
 {
     public function testListClientes()
     {
-        $count = Cliente::count();
+        $count = Client::count();
         if ($count > 0) {
             $testKeys = ['cliente'];
             $cc = new LoadClass();
@@ -26,9 +26,9 @@ class LoadClassTest extends TestCase
     {
         $cc = new LoadClass();
         $cc->updateClients();
-        $clientes = Cliente::all(['cliente'])->toArray();
+        $clientes = Client::all(['cliente'])->toArray();
         /** @var Builder $query */
-        $query = Resumen::distinct()->orderBy('cliente');
+        $query = Debtor::distinct()->orderBy('cliente');
         $resumen = $query->get(['cliente'])->toArray();
         $this->assertEquals($resumen, $clientes);
     }

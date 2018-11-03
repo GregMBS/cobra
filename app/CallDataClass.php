@@ -146,9 +146,9 @@ class CallDataClass
     public function __construct(int $C_CONT)
     {
         $this->setDate();
-        $this->setCHRFI();
+        $this->setEndTime();
         /** @var Builder $query */
-        $query = Resumen::whereIdCuenta($C_CONT);
+        $query = Debtor::whereIdCuenta($C_CONT);
         $debtor = $query->first();
         $this->setCCONT($debtor->id_cuenta);
         $this->setCCVBA($debtor->cliente);
@@ -181,12 +181,12 @@ class CallDataClass
     /**
      * @return string
      */
-    public function getCHRFI(): string
+    public function getEndTime(): string
     {
         return $this->endTime;
     }
 
-    private function setCHRFI()
+    private function setEndTime()
     {
         $this->endTime = date('H:i:s');
     }
@@ -447,7 +447,7 @@ class CallDataClass
     public function setCACCION(string $action)
     {
         /** @var \Illuminate\Database\Query\Builder $query */
-        $query = Accion::whereAccion($action);
+        $query = Action::whereAccion($action);
         $value = $query->first();
         if (empty($value)) {
             dd('C_ACCION'.$action);
@@ -470,7 +470,7 @@ class CallDataClass
     public function setCCVST(string $status)
     {
         /** @var \Illuminate\Database\Query\Builder $query */
-        $query = Dictamen::whereDictamen($status);
+        $query = Status::whereDictamen($status);
         $value = $query->first();
         if (empty($value)) {
             dd('C_CVST'.$value);
@@ -510,7 +510,7 @@ class CallDataClass
     {
         if (!empty($motive)) {
             try {
-                $value = Motivador::findOrFail($motive);
+                $value = Motive::findOrFail($motive);
             } catch (ModelNotFoundException $e) {
                 $value = '';
             }

@@ -5,7 +5,7 @@ s/balance/saldo/
 s/Balance/Saldo/
 s/BALANCE/SALDO/
 s/name/nombre/
-s/Name/Nombre/
+s/Name/OldUser/
 s/NAME/NOMBRE/
 s/debtor/deudor/
 s/Debtor/Deudor/
@@ -14,7 +14,7 @@ s/promise/promesa/
 s/Promise/Promesa/
 s/PROMISE/PROMESA/
 s/paid/pago/
-s/Paid/Pago/
+s/Paid/Payment/
 s/PAID/PAGO/
 s/date/fecha/
 s/Date/Fecha/

@@ -63,11 +63,11 @@ class CheckDataClass
     private function getIdFromAccountNumber($account)
     {
         /**
-         * @var Resumen|Builder $rc
-         * @method Resumen whereNumeroDeCuenta($account)
+         * @var Debtor|Builder $rc
+         * @method Debtor whereNumeroDeCuenta($account)
          */
-        $rc = new Resumen();
-        /** @var Builder|Resumen $query */
+        $rc = new Debtor();
+        /** @var Builder|Debtor $query */
         $query = $rc->whereNumeroDeCuenta($account);
         $debtors = $query->get();
         if ($debtors->count() > 0) {
@@ -85,10 +85,10 @@ class CheckDataClass
     private function getAccountNumberFromId($id)
     {
         /**
-         * @var Resumen $query
-         * @method Resumen whereIdCuenta($id)
+         * @var Debtor $query
+         * @method Debtor whereIdCuenta($id)
          */
-        $rc = new Resumen();
+        $rc = new Debtor();
         /** @var Builder $query */
         $query = $rc->whereIdCuenta($id);
         $debtors = $query->get();

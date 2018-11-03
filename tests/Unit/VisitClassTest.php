@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use App\CallClass;
-use App\Historia;
-use App\Resumen;
+use App\History;
+use App\Debtor;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
@@ -50,7 +50,7 @@ class VisitClassTest extends TestCase
     {
         $gc = new CallClass();
         /** @var Builder $query */
-        $query = Resumen::whereIdCuenta($gestion['C_CONT']);
+        $query = Debtor::whereIdCuenta($gestion['C_CONT']);
         $cuenta = $query->first();
         $contan = $cuenta->status_aarsa;
         $cliente = $cuenta->cliente;
@@ -60,7 +60,7 @@ class VisitClassTest extends TestCase
         $this->assertTrue($result);
         unset($gestion['N_PAGO']);
         unset($gestion['D_PAGO']);
-        $effect = Historia::where('C_CONT', '=', $gestion['C_CONT'])
+        $effect = History::where('C_CONT', '=', $gestion['C_CONT'])
             ->where('C_CVGE', '=', $gestion['C_CVGE'])
             ->where('C_VISIT', '=', $gestion['C_VISIT'])
             ->get()->first()->toArray();
@@ -127,7 +127,7 @@ class VisitClassTest extends TestCase
             'error' => 0,
             'C_TELE' => null
         ];
-        Historia::where('C_CONT', '=', $gestion['C_CONT'])
+        History::where('C_CONT', '=', $gestion['C_CONT'])
             ->where('C_VISIT', '=', $gestion['C_VISIT'])
             ->where('D_FECH', '=', $gestion['D_FECH'])
             ->delete();
@@ -137,7 +137,7 @@ class VisitClassTest extends TestCase
     public function testNotificationBajoPuerta()
     {
         $gestion = $this->testEmpty;
-        $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
+        $cuenta = Debtor::where('status_de_credito', 'REGEXP', '-')->first();
         if ($cuenta) {
             $gestion['C_CONT'] = $cuenta->id_cuenta;
             $gestion['C_CVST'] = 'NOTIFICACION BAJO PUERTA';

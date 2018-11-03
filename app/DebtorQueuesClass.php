@@ -27,9 +27,9 @@ class DebtorQueuesClass extends BaseClass
      */
     public function getMyQueue($capt, $camp)
     {
-        $ql = new Queuelist();
+        $ql = new Queue();
         /**
-         * @var Queuelist $queueList
+         * @var Queue $queueList
          */
         $queueList = $ql->whereGestor($capt);
         $queueList = $queueList->whereCamp($camp);
@@ -56,9 +56,9 @@ class DebtorQueuesClass extends BaseClass
     public function searchCount($field, $find)
     {
         /** @var Builder $rc */
-        $rc = new Resumen();
+        $rc = new Debtor();
         /**
-         * @var Resumen|Builder $query
+         * @var Debtor|Builder $query
          */
         $query = $rc->where($field, '=', $find);
         $count = $query->count();
@@ -199,8 +199,8 @@ and especial > 0";
      */
     public function getOne($id)
     {
-        /** @var Resumen|Builder $rc */
-        $rc = new Resumen();
+        /** @var Debtor|Builder $rc */
+        $rc = new Debtor();
         /**
          * @var \Illuminate\Database\Eloquent\Builder $query
          */

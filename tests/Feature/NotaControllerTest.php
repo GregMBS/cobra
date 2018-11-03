@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Resumen;
+use App\Debtor;
 use App\User;
 use Tests\TestCase;
 
@@ -20,7 +20,7 @@ class NotaControllerTest extends TestCase
     {
         $user = new User();
         $user->tipo = 'callcenter';
-        $query = Resumen::first();
+        $query = Debtor::first();
         if ($query) {
             $response = $this->actingAs($user)
                 ->get('/notas/' . $query->id_cuenta);

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\DocumentController;
-use App\Resumen;
+use App\Debtor;
 use App\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\View\View;
@@ -20,7 +20,7 @@ class DocumentControllerTest extends TestCase
     /** @var User */
     private $user;
 
-    /** @var Resumen */
+    /** @var Debtor */
     private $resumen;
 
     public function setUp()
@@ -28,7 +28,7 @@ class DocumentControllerTest extends TestCase
         parent::setUp();
         $this->dc = new DocumentController();
         $this->user = User::first();
-        $this->resumen = Resumen::first();
+        $this->resumen = Debtor::first();
     }
 
     public function testIndex()

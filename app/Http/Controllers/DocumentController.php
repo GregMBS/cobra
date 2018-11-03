@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Resumen;
+use App\Debtor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Spatie\MediaLibrary\Models\Media;
@@ -16,7 +16,7 @@ class DocumentController extends Controller
      */
     public function store(int $id, Request $request)
     {
-        $debtor = Resumen::find($id);
+        $debtor = Debtor::find($id);
         if ($debtor) {
             $debtor->addMedia($request->file('document'))->toMediaCollection('documents');
             return true;
@@ -31,7 +31,7 @@ class DocumentController extends Controller
     public function index(int $id)
     {
         $output = new Collection();
-        $debtor = Resumen::find($id);
+        $debtor = Debtor::find($id);
         if ($debtor) {
             if ($debtor->hasMedia('documents')) {
                 /** @var Collection $documents */
@@ -59,7 +59,7 @@ class DocumentController extends Controller
      */
     public function remove(int $id, int $docId)
     {
-        $debtor = Resumen::find($id);
+        $debtor = Debtor::find($id);
         if ($debtor) {
             if ($debtor->hasMedia('documents')) {
                 try {

@@ -5,12 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Accion
+ * Class Action
  * @package App
- * @method static|Accion whereAccion(string $action)
+ * @method static|Action whereAccion(string $action)
  * @property string $accion
  */
-class Accion extends Model
+class Action extends Model
 {
     protected $table = 'acciones';
 

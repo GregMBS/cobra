@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Resumen;
+use App\Debtor;
 use App\User;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class InventarioControllerTest extends TestCase
 
     public function testMakeReport()
     {
-        $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
+        $cuenta = Debtor::where('status_de_credito', 'NOT REGEXP', '-')->first();
         if ($cuenta) {
             $data = ['cliente' => $cuenta->cliente];
             $user = User::whereTipo('admin')->first();
@@ -39,7 +39,7 @@ class InventarioControllerTest extends TestCase
 
     public function testMakeReportRapid()
     {
-        $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
+        $cuenta = Debtor::where('status_de_credito', 'NOT REGEXP', '-')->first();
         if ($cuenta) {
             $data = ['cliente' => $cuenta->cliente];
             $user = User::whereTipo('admin')->first();

@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App\CallClass;
-use App\Historia;
-use App\Pago;
-use App\Resumen;
+use App\History;
+use App\Payment;
+use App\Debtor;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;
 
@@ -47,7 +47,7 @@ class GestionClassTest extends TestCase
     public function testAddNewTel()
     {
         $gc = new CallClass();
-        $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
+        $cuenta = Debtor::where('status_de_credito', 'REGEXP', '-')->first();
         if ($cuenta) {
             $id_cuenta = $cuenta->id_cuenta;
             $newTel = '8888888888';
@@ -65,7 +65,7 @@ class GestionClassTest extends TestCase
         unset($gestion['C_CAMP']);
         $gc = new CallClass();
         /** @var Builder $query */
-        $query = Resumen::whereIdCuenta($gestion['C_CONT']);
+        $query = Debtor::whereIdCuenta($gestion['C_CONT']);
         $cuenta = $query->first();
         $contan = $cuenta->status_aarsa;
         $cliente = $cuenta->cliente;
@@ -75,7 +75,7 @@ class GestionClassTest extends TestCase
         $this->assertTrue($result);
         unset($gestion['N_PAGO']);
         unset($gestion['D_PAGO']);
-        $effect = Historia::where('C_CONT', '=', $gestion['C_CONT'])
+        $effect = History::where('C_CONT', '=', $gestion['C_CONT'])
             ->where('C_CVGE', '=', $gestion['C_CVGE'])
             ->where('C_TELE', '=', $gestion['C_TELE'])
             ->get()->first()->toArray();
@@ -134,7 +134,7 @@ class GestionClassTest extends TestCase
             'C_EJE' => $gestor,
             'error' => 0
         ];
-        Historia::where('C_CONT', '=', $gestion['C_CONT'])
+        History::where('C_CONT', '=', $gestion['C_CONT'])
             ->where('C_CVGE', '=', $gestion['C_CVGE'])
             ->where('D_FECH', '=', date('Y-m-d'))
             ->delete();
@@ -145,7 +145,7 @@ class GestionClassTest extends TestCase
     public function testTelNoContesta()
     {
         $gestion = $this->testEmpty;
-        $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
+        $cuenta = Debtor::where('status_de_credito', 'REGEXP', '-')->first();
         if ($cuenta) {
             $gestion['C_CONT'] = $cuenta->id_cuenta;
             $gestion['C_CVST'] = 'TEL NO CONTESTA';
@@ -161,7 +161,7 @@ class GestionClassTest extends TestCase
     public function testPago()
     {
         $gestion = $this->testEmpty;
-        $cuenta = Resumen::where('status_de_credito', 'REGEXP', '-')->first();
+        $cuenta = Debtor::where('status_de_credito', 'REGEXP', '-')->first();
         if ($cuenta) {
             $gestion['C_CONT'] = $cuenta->id_cuenta;
             $gestion['C_CVST'] = 'PAGO PARCIAL';
@@ -173,7 +173,7 @@ class GestionClassTest extends TestCase
             $gestion['D_PAGO'] = '2008-01-01';
             $this->doGestionTest($gestion);
             /** @var Builder $query */
-            $query = Pago::whereMonto($gestion['N_PAGO'])->whereFecha($gestion['D_PAGO'])->whereIdCuenta($gestion['C_CONT']);
+            $query = Payment::whereMonto($gestion['N_PAGO'])->whereFecha($gestion['D_PAGO'])->whereIdCuenta($gestion['C_CONT']);
             $count = $query->count();
             $this->assertEquals(1, $count);
             $query->delete();

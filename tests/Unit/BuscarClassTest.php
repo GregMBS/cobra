@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\SearchClass;
-use App\Resumen;
+use App\Debtor;
 use Tests\TestCase;
 
 class BuscarClassTest extends TestCase
@@ -19,7 +19,7 @@ class BuscarClassTest extends TestCase
     public function testSearchAccounts()
     {
         $bc = new SearchClass();
-        $cuenta = Resumen::where('tel_1', '<>', '')
+        $cuenta = Debtor::where('tel_1', '<>', '')
             ->where('tel_1_ref_1', '<>', '')
             ->first();
         if ($cuenta) {

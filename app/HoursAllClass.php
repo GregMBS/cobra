@@ -28,7 +28,7 @@ class HoursAllClass extends BaseClass
         $text = $start . " + $dom days";
         $date = date('Y-m-d', strtotime($text));
         /** @var Builder $hc */
-        $hc = new Historia();
+        $hc = new History();
         $select = "count(distinct c_cont) as cuentas, " .
             "sum(n_prom > 0) as promesas, " .
             "count(1) as gestiones, " .
@@ -52,7 +52,7 @@ class HoursAllClass extends BaseClass
     {
         $day = $dom . ' day of last month';
         $date = date('Y-m-d', strtotime($day));
-        $pc = new Pago();
+        $pc = new Payment();
         /** @var Builder $query */
         $query = $pc->whereFecha($date);
         $count = $query->count();
@@ -68,7 +68,7 @@ class HoursAllClass extends BaseClass
         $day = 'last day of last month';
         $date = date('Y-m-d', strtotime($day));
         /** @var Builder $hc */
-        $hc = new Historia();
+        $hc = new History();
         $query = $hc->distinct()->select(['c_cont'])->where('c_cont', '>', 0)
             ->whereNull('c_cniv')
             ->whereNull('c_msge')
@@ -87,7 +87,7 @@ class HoursAllClass extends BaseClass
         $day = $dom . ' day of last month';
         $date = date('Y-m-d', strtotime($day));
         /** @var Builder $hc */
-        $hc = new Historia();
+        $hc = new History();
         $query = $hc->distinct()->select(['c_cont'])->where('c_cont', '>', 0)
             ->whereNull('c_cniv')
             ->whereNull('c_msge')
