@@ -71,7 +71,7 @@ class BigPromClassTest extends TestCase
     {
         if ($this->hasProms()) {
             $bc = new BigPromClass();
-            $clientes = $bc->getPromClientes();
+            $clientes = $bc->getPromiseClients();
             $this->assertInternalType('array', $clientes);
             $this->assertNotEmpty($clientes);
         }
@@ -82,7 +82,7 @@ class BigPromClassTest extends TestCase
     {
         if ($this->hasProms()) {
             $bc = new BigPromClass();
-            $gestores = $bc->getPromGestores();
+            $gestores = $bc->getPromiseAgents();
             $this->assertInternalType('array', $gestores);
             $this->assertNotEmpty($gestores);
         }

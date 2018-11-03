@@ -40,18 +40,18 @@ class BigCallClass extends BaseClass
      */
     private function getHistory($queryFront, $queryBack, BigDataClass $bdc)
     {
-        $agentString = $bdc->getGestorString();
-        $clientString = $bdc->getClienteString();
+        $agentString = $bdc->getAgentString();
+        $clientString = $bdc->getClientString();
         $userTypeString = $bdc->getTipoString();
         $query = $queryFront . $agentString . $clientString . $userTypeString . $queryBack;
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':fecha1', $bdc->fecha1);
-        $stq->bindValue(':fecha2', $bdc->fecha2);
-        if ($bdc->hasGestor()) {
-            $stq->bindValue(':gestor', $bdc->gestor);
+        $stq->bindValue(':fecha1', $bdc->date1);
+        $stq->bindValue(':fecha2', $bdc->date2);
+        if ($bdc->hasAgent()) {
+            $stq->bindValue(':gestor', $bdc->agent);
         }
-        if ($bdc->hasCliente()) {
-            $stq->bindValue(':cliente', $bdc->cliente);
+        if ($bdc->hasClient()) {
+            $stq->bindValue(':cliente', $bdc->client);
         }
         $stq->execute();
         $data = $stq->fetchAll(\PDO::FETCH_ASSOC);

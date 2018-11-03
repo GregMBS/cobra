@@ -19,7 +19,7 @@ class BreaksDataClass
     /**
      * @var string
      */
-    private $gestor;
+    private $agent;
 
     /**
      * @var string
@@ -53,11 +53,11 @@ class BreaksDataClass
     }
 
     /**
-     * @param string $gestor
+     * @param string $agent
      */
-    public function setGestor($gestor)
+    public function setAgent($agent)
     {
-        $this->gestor = $gestor;
+        $this->agent = $agent;
     }
 
     /**
@@ -84,7 +84,7 @@ class BreaksDataClass
         $object = new \stdClass();
         $object->auto = $this->auto;
         $object->start = $this->start;
-        $object->gestor = $this->gestor;
+        $object->gestor = $this->agent;
         $object->finish = $this->finish;
         $object->tipo = $this->tipo;
         return $object;

@@ -96,7 +96,7 @@ class BreaksController extends Controller
             'finish' => 'required'
         ]);
         $break = new BreaksDataClass();
-        $break->setGestor($r->gestor);
+        $break->setAgent($r->gestor);
         $break->setTipo($r->tipo);
         $break->setStart($r->start);
         $break->setFinish($r->finish);

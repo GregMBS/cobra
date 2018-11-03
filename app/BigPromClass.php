@@ -60,8 +60,8 @@ SQL;
     public function getProms($bdc)
     {
         $result = [];
-        $gestorstr = $bdc->getGestorString();
-        $clientestr = $bdc->getClienteString();
+        $agentString = $bdc->getAgentString();
+        $clientString = $bdc->getClientString();
         $start = <<<SQL
 select id_cuenta, Status_aarsa AS 'STATUS',c_cvge AS 'GESTOR',
     numero_de_cuenta as 'CUENTA',nombre_deudor as 'NOMBRE',
@@ -82,31 +82,31 @@ and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
 SQL;
         $end = " and status_de_credito NOT REGEXP '-' and c_visit is null 
         ORDER BY d_fech,c_hrin";
-        $querymain = $start . $gestorstr . $clientestr . $end;
-        $stm = $this->pdo->prepare($querymain);
-        $stm->bindValue(':fecha1', $bdc->fecha1);
-        $stm->bindValue(':fecha2', $bdc->fecha2);
-        $stm->bindValue(':fecha3', $bdc->fecha3);
-        $stm->bindValue(':fecha4', $bdc->fecha4);
-        if ($bdc->hasGestor()) {
-            $stm->bindValue(':gestor', $bdc->gestor);
+        $query = $start . $agentString . $clientString . $end;
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(':fecha1', $bdc->date1);
+        $stm->bindValue(':fecha2', $bdc->date2);
+        $stm->bindValue(':fecha3', $bdc->date3);
+        $stm->bindValue(':fecha4', $bdc->date4);
+        if ($bdc->hasAgent()) {
+            $stm->bindValue(':gestor', $bdc->agent);
         }
-        if ($bdc->hasCliente()) {
-            $stm->bindValue(':cliente', $bdc->cliente);
+        if ($bdc->hasClient()) {
+            $stm->bindValue(':cliente', $bdc->client);
         }
         $stm->execute();
         $main = $stm->fetchAll(\PDO::FETCH_ASSOC);
-        $queryPagos = "SELECT MAX(fecha) AS 'FECHA PAGO',
+        $queryPayments = "SELECT MAX(fecha) AS 'FECHA PAGO',
             SUM(monto) AS 'MONTO PAGO',MAX(confirmado) as 'CONFIRMADO'
             FROM pagos WHERE id_cuenta = :id";
-        $stp = $this->pdo->prepare($queryPagos);
+        $stp = $this->pdo->prepare($queryPayments);
         foreach ($main as $m) {
             $obj = (object)$m;
-            $id_cuenta = $obj->id_cuenta;
-            $stp->bindValue(':id', $id_cuenta);
+            $id = $obj->id_cuenta;
+            $stp->bindValue(':id', $id);
             $stp->execute();
-            $pagos = $stp->fetch(\PDO::FETCH_ASSOC);
-            $merged = array_merge($m, $pagos);
+            $payments = $stp->fetch(\PDO::FETCH_ASSOC);
+            $merged = array_merge($m, $payments);
             array_push($result, $merged);
         }
         return $result;
@@ -116,7 +116,7 @@ SQL;
      *
      * @return string[]
      */
-    public function getPromClientes()
+    public function getPromiseClients()
     {
         $query = "SELECT distinct c_cvba FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
@@ -125,15 +125,15 @@ SQL;
 	";
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        $clientes = array_column($result, 'c_cvba');
-        return $clientes;
+        $clients = array_column($result, 'c_cvba');
+        return $clients;
     }
 
     /**
      *
      * @return string[]
      */
-    public function getPromGestores()
+    public function getPromiseAgents()
     {
         $query = "SELECT c_cvge, count(1) FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
@@ -141,8 +141,8 @@ SQL;
         group by c_cvge";
         $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        $gestores = array_column($result, 'c_cvge');
-        return $gestores;
+        $agents = array_column($result, 'c_cvge');
+        return $agents;
     }
 
 }
