@@ -1145,7 +1145,7 @@
 
                                 if (isset($nrpp)) {
                                     ?>
-                                <td>Placa</td>
+                                <td>Plaza</td>
                                 <td><input type='text' name=subproducto readonly='readonly' value='<?php
                                     echo htmlentities($nrpp);
                                     ?>'></td>
