@@ -263,8 +263,8 @@ and c_hrin='" . $C_HRIN . "' and c_cvst='" . $C_CVST . "'
 and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
     $resultdup = mysqli_query($con, $querydup) or die("ERROR RM23 - " . mysqli_error($con));
     while ($answerdup = mysqli_fetch_row($resultdup)) {
-        $error = $error + $answerdup[0];
-        $flagmsg = "DOBLE ENTRANTE";
+        //$error = $error + $answerdup[0];
+        //$flagmsg = "DOBLE ENTRANTE";
     }
     if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO J')) {
         $error = $error + 1;

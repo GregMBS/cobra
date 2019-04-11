@@ -131,7 +131,7 @@ LIMIT 1";
             } else {
                 $c_cvge = '';
             }
-            $this->runAddTemp($sta, $data[$cuenta], $data[$fecha], $data[$monto], $data[$c_cvge]);
+            $this->runAddTemp($sta, $data[$cuenta], $data[$fecha], $data[$monto], $c_cvge);
         }
         $this->insertPagos();
     }
