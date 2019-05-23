@@ -23,7 +23,7 @@ require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenClass.php';
 $pdoc = new PdoClass();
-/* @var $pdo \PDO */
+/* @var $pdo PDO */
 $pdo = $pdoc->dbConnectUser();
 $con = $pdoc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
@@ -814,7 +814,7 @@ $parentesco_aval = $row[107];
 $localizar = $row[108];
 $campo_libre_9 = $row[109];
 $empresa = $row[110];
-$fecha_de_convenio = $row[113];
+$fecha_convenio = $row[113];
 $direccion_nueva = $row[115];
 $C_OBSE2 = '';
 $CUANDO = '';

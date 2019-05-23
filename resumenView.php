@@ -945,8 +945,7 @@
                         echo $ciudad_laboral;
                     }
                     ?>'><br>
-                    <!--<span class='formcap'>Estado/CP</span><input type='text' name=estado_laboral readonly='readonly' value='<?php echo $estado_laboral.'/'.$cp_laboral; ?>'><br>
-                    --><br>
+                    <br>
                     <span class='formcap'>Tel 1</span><input type='text' name=tel_1_laboral id="tel_1_laboral" readonly='readonly' value='<?php
                     if (isset($tel_1_laboral)) {
                         echo $tel_1_laboral;
@@ -1145,10 +1144,19 @@
 
                                 if (isset($nrpp)) {
                                     ?>
-                                <td>Plaza</td>
-                                <td><input type='text' name=subproducto readonly='readonly' value='<?php
-                                    echo htmlentities($nrpp);
-                                    ?>'></td>
+                                    <td>Plaza</td>
+                                    <td><input type='text' name=subproducto readonly='readonly' value='<?php
+                                        echo htmlentities($nrpp);
+                                        ?>'></td>
+                                    <?php
+                                }
+
+                                if (isset($fecha_convenio)) {
+                                    ?>
+                                    <td>Facha convenio</td>
+                                    <td><input type='text' name=fecha-convenio readonly='readonly' value='<?php
+                                        echo htmlentities($fecha_convenio);
+                                        ?>'></td>
                                     <?php
                                 }
                                 ?>
