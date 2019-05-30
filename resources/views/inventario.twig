@@ -14,7 +14,7 @@
                 <select name="cliente" id="cliente">
                     <option value="todos" style="font-size:120%;">todos</option>
                     {% for c in clientes %}
-                        <option value="{{ c }}" style="font-size:120%;">{{ c }}</option>
+                        <option value="{{ c.cliente }}" style="font-size:120%;">{{ c.cliente }}</option>
                     {% endfor %}
                 </select>
             <br>

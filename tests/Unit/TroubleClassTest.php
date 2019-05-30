@@ -25,10 +25,7 @@ class TroubleClassTest extends TestCase
         ];
         $tc = new TroubleClass();
         $result = $tc->listTrouble();
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $this->checkKeys($testKeys, $result);
     }
 
     /**
@@ -50,16 +47,16 @@ class TroubleClassTest extends TestCase
     {
         $tc = new TroubleClass();
         $tdc = new TroubleDataClass();
-        $tdc->sistema = 'localhost';
-        $tdc->usuario = 'gregb';
-        $tdc->fuente = 'COBRA';
-        $tdc->descripcion = 'test';
+        $tdc->system = 'localhost';
+        $tdc->user = 'gregb';
+        $tdc->source = 'COBRA';
+        $tdc->description = 'test';
         $tdc->error_msg = '404';
         $trouble = $tc->insertTrouble($tdc);
         $temp = $this->checkTrouble($trouble);
         $this->assertEquals('404', $temp->error_msg);
         $tdc->auto = $temp->auto;
-        $tdc->reparacion = 'wontfix';
+        $tdc->fix = 'wontfix';
         $tc->updateTrouble($tdc, 'gmbs');
         $tro = $this->checkTrouble($trouble);
         $this->assertEquals('wontfix', $tro->reparacion);

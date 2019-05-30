@@ -39,8 +39,8 @@ AND cliente=:clientea";
         $data = preg_split("/[\s,]+/", $dataPost, 0, PREG_SPLIT_NO_EMPTY);
         $max = count($data);
         for ($i = 0; $i < $max; $i++) {
-            $sti->bindParam(':data', $data[$i]);
-            $sti->bindParam(':clientea', $clientea);
+            $sti->bindValue(':data', $data[$i]);
+            $sti->bindValue(':clientea', $clientea);
             $sti->execute();
         }
     }

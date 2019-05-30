@@ -42,7 +42,7 @@ class BreaksController extends Controller
      *
      * @return View
      */
-    public function admindex() {
+    public function admIndex() {
         $breaks = $this->bc->listBreaks();
         $gestores = $this->uc->listUsers();
         $view = view('breakAdmin')
@@ -56,9 +56,9 @@ class BreaksController extends Controller
      * @return View
      * @throws \Exception
      */
-    public function borrar($auto) {
+    public function erase($auto) {
         $this->bc->deleteBreak($auto);
-        return $this->admindex();
+        return $this->admIndex();
     }
     
     /**
@@ -66,20 +66,20 @@ class BreaksController extends Controller
      * @param Request $r
      * @return View
      */
-    public function cambiar(Request $r) {
+    public function change(Request $r) {
         $r->validate([
             'auto' => 'required|exists:breaks|integer',
             'tipo' => 'required',
-            'empieza' => 'required',
-            'termina' => 'required'
+            'start' => 'required',
+            'finish' => 'required'
         ]);
         $break = new BreaksDataClass();
         $break->setAuto($r->auto);
         $break->setTipo($r->tipo);
-        $break->setEmpieza($r->empieza);
-        $break->setTermina($r->termina);
+        $break->setStart($r->start);
+        $break->setFinish($r->finish);
         $this->bc->updateBreak($break);
-        return $this->admindex();        
+        return $this->admIndex();
     }
 
     /**
@@ -87,19 +87,19 @@ class BreaksController extends Controller
      * @param Request $r
      * @return View
      */
-    public function agregar(Request $r) {
+    public function add(Request $r) {
         $r->validate([
             'gestor' => 'required',
             'tipo' => 'required',
-            'empieza' => 'required',
-            'termina' => 'required'
+            'start' => 'required',
+            'finish' => 'required'
         ]);
         $break = new BreaksDataClass();
         $break->setGestor($r->gestor);
         $break->setTipo($r->tipo);
-        $break->setEmpieza($r->empieza);
-        $break->setTermina($r->termina);
+        $break->setStart($r->start);
+        $break->setFinish($r->finish);
         $this->bc->insertBreak($break);
-        return $this->admindex();
+        return $this->admIndex();
     }
 }

@@ -1,97 +1,160 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Cobra Administraci&oacute;n</title>
-        <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    </head>
-    <body>
-        <div data-role="page" id='Administracion'>
-            <div data-role="header">
-                <div data-role="navbar">
-                    <UL>
-                        <LI><A href="#Administracion" class="ui-btn-active">Administraci&oacute;n</A></LI>
-                        <LI><A href="#Generales">Reportes Generales</A></LI>
-                    </UL>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cobra Administraci&oacute;n</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a href="#Administracion" class="nav-link active" role="tab" id="Administracion-tab" data-toggle="tab" aria-controls="home" aria-selected="true">Administraci&oacute;n</a>
+        </li>
+        <li class="nav-item">
+            <a href="#Generales" class="nav-link" role="tab" id="Generales-tab" data-toggle="tab" aria-controls="profile" aria-selected="false">Reportes Generales</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div id="Administracion" role="tabpanel" class="tab-pane active">
+            <div class="card" id="admin-cards">
+                <div class="card-header" id="cargar-header">
+                    <h2>
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#cargar" aria-expanded="false" aria-controls="cargar">
+                            Cargar
+                        </button>
+                    </h2>
+                </div>
+                <div id="cargar" class="collapse" aria-labelledby="cargar-header" data-parent="#admin-cards">
+                    <div class="card-body">
+                        <button onclick="window.location = '/carga'">Cargar Cartera</button><br>
+                        <button onclick="window.location = '/pagobulk'">Cargar Pagos</button>
+                    </div>
+                </div>
+
+                <div class="card-header" id="visitar-header">
+                    <h2>
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#visitar" aria-expanded="false" aria-controls="visitar">
+                            Visitar
+                        </button>
+                    </h2>
+                </div>
+                <div id="visitar" class="collapse" aria-labelledby="visitar-header" data-parent="#admin-cards">
+                    <div class="card-body">
+                        <button onclick="window.location = '/checkout'">Asignar Visitas</button><br>
+                        <button onclick="window.location = '/checkin'">Recibir Visitas</button>
+                    </div>
+                </div>
+
+                <div class="card-header" id="administrar-header">
+                    <h2>
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#administrar" aria-expanded="false" aria-controls="administrar">
+                            Administrar
+                        </button>
+                    </h2>
+                </div>
+                <div id="administrar" class="collapse" aria-labelledby="administrar-header" data-parent="#admin-cards">
+                    <div class="card-body">
+                        <button onclick="window.location = '/gestoradmin'">Administrar Acesso</button><br>
+                        <button onclick="window.location = '/breakAdmin'">Administrar Breaks</button><br>
+                        <button onclick="window.location = '/queues'">Administrar Queues</button><br>
+                        <button onclick="window.location = '/notadmin'">Administrar Notas</button><br>
+                        <button onclick="window.location = '/segmento'">Administrar Segmentos</button><br>
+                        <button onclick="window.location = '/changest'">Cambiar Status de Credito</button><br>
+                        <button onclick="window.location = '/activate'">Activar Cuentas</button><br>
+                        <button onclick="window.location = '/inactivate'">Inactivar Cuentas</button>
+                    </div>
                 </div>
             </div>
-            <div data-role="collapsible">
-                <h2>Cargar</h2>
-                <button onclick="window.location = '/carga'">Cargar Cartera</button>
-                <button onclick="window.location = '/pagobulk'">Cargar Pagos</button>
-            </div>
-            <div data-role="collapsible">
-                <h2>Visitar</h2>
-                <button onclick="window.location = '/checkout'">Asignar Visitas</button>
-                <button onclick="window.location = '/checkin'">Recibir Visitas</button>
-            </div>
-            <div data-role="collapsible">
-                <h2>Administrar</h2>
-                <button onclick="window.location = '/gestoradmin'">Administrar Acesso</button>
-                <button onclick="window.location = '/breakAdmin'">Administrar Breaks</button>
-                <button onclick="window.location = '/queues'">Administrar Queues</button>
-                <button onclick="window.location = '/notadmin'">Administrar Notas</button>
-                <button onclick="window.location = '/segmento'">Administrar Segmentos</button>
-                <button onclick="window.location = '/changest'">Cambiar Status de Credito</button>
-                <button onclick="window.location = '/inactivar'">Inactivar Cuentas</button>
-                <button onclick="window.location = '/queuemanual'">Cargar Queue MANUAL</button>
-                <button onclick="window.location = '/reporteManual'">Reporte Queue MANUAL</button>
-            </div>
-            <div data-role="footer">
-                <button onclick="window.location = '/quick'">Tiempo Real</button>
-                <button onclick="window.location = '/resumen'">Las Cuentas</button>
-                <button onclick="window.location = '/logout'">LOGOUT</button>
-            </div>
         </div>
-        <div data-role="page" id='Generales'>
-            <div data-role="header">
-                <div data-role="navbar">
-                    <UL>
-                        <LI><A href="#Administracion">Administraci&oacute;n</A></LI>
-                        <LI><A href="#Generales" class="ui-btn-active">Reportes Generales</A></LI>
-                    </UL>
+        <div id='Generales' role="tabpanel" class="tab-pane">
+            <div class="card" id="general-cards">
+                <div class="card-header" id="cargar-header">
+                    <h2>
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#estatus" aria-expanded="false" aria-controls="estatus">
+                            Estatus de cuentas
+                        </button>
+                    </h2>
+                </div>
+                <div id="estatus" class="collapse" aria-labelledby="estatus-header" data-parent="#general-cards">
+                    <div class="card-body">
+                        <button onclick="window.location = '/queuesqc'">Queues por Cliente</button><br>
+                        <button onclick="window.location = '/ultimo_mejor'">Ultimo y Mejor Status</button>
+                    </div>
+                </div>
+
+                <div class="card-header" id="promesas-header">
+                    <h2>
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#promesas" aria-expanded="false" aria-controls="promesas">
+                            Promesas y Pagos
+                        </button>
+                    </h2>
+                </div>
+                <div id="promesas" class="collapse" aria-labelledby="promesas-header" data-parent="#general-cards">
+                    <div class="card-body">
+                        <button onclick="window.location = '/rotas'">Promesas del Mes Actual</button><br>
+                        <button onclick="window.location = '/pagosum'">Pagos por Cliente</button>
+                    </div>
+                </div>
+
+                <div class="card-header" id="productividad-header">
+                    <h2>
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#productividad" aria-expanded="false" aria-controls="productividad">
+                            Recursos Humanos
+                        </button>
+                    </h2>
+                </div>
+                <div id="productividad" class="collapse" aria-labelledby="productividad-header" data-parent="#general-cards">
+                    <div class="card-body">
+                        <button onclick="window.location = '/horarios'">Productividad este Mes</button><br>
+                        <button onclick="window.location = '/perfmes'">Productividad Mes Anterior</button><br>
+                        <button onclick="window.location = '/horariosv'">Productividad Visit. este Mes</button><br>
+                        <button onclick="window.location = '/perfmesv'">Productividad Visit. Mes Ant.</button><br>
+                        <button onclick="window.location = '/horario'">Solo uno Empleo</button>
+                    </div>
+                </div>
+
+                <div class="card-header" id="query-header">
+                    <h2>
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#query" aria-expanded="false" aria-controls="query">
+                            Gestiones y Inventarios de Descargar
+                        </button>
+                    </h2>
+                </div>
+                <div id="query" class="collapse" aria-labelledby="query-header" data-parent="#general-cards">
+                    <div class="card-body">
+                        <button onclick="window.location = '/bigQuery'">Query de las Gestiones XLSX</button><br>
+                        <button onclick="window.location = '/bigProms'">Query de las Promesas XLSX</button><br>
+                        <button onclick="window.location = '/inventario'">Query del Inventario XLSX</button><br>
+                        <button onclick="window.location = '/inventarioRapid'">Query del Inventario Rapido XLSX</button><br>
+                        <button onclick="window.location = '/intensidad'">Query del Intensidad XLSX</button>
+                    </div>
+                </div>
+
+                <div class="card-header" id="misc-header">
+                    <h2>
+                        <button class="btn btn-block" data-toggle="collapse" data-target="#misc" aria-expanded="false" aria-controls="misc">
+                            Miscelánea
+                        </button>
+                    </h2>
+                </div>
+                <div id="misc" class="collapse" aria-labelledby="misc-header" data-parent="#general-cards">
+                    <div class="card-body">
+                        <button onclick="window.location = '/comparativo'">Comparativo de 3 meses HTML</button>
+                    </div>
                 </div>
             </div>
-            <div data-role="collapsible">
-                <h2>Estatus de cuentas</h2>
-                <button onclick="window.location = '/queuesqc'">Queues por Cliente</button>
-                <button onclick="window.location = '/ultimo_mejor'">Ultimo y Mejor Status</button>
-            </div>
-            <div data-role="collapsible">
-                <h2>Promesas y Pagos</h2>
-                <button onclick="window.location = '/rotas'">Promesas del Mes Actual</button>
-                <button onclick="window.location = '/pagosum'">Pagos por Cliente</button>
-                <button onclick="window.location = '/pagodet'">Pagos este mes (XLSX)</button>
-            </div>
-            <div data-role="collapsible">
-                <h2>Recursos Humanos</h2>
-                <button onclick="window.location = '/horarios'">Productividad este Mes</button>
-                <button onclick="window.location = '/perfmes'">Productividad Mes Anterior</button>
-                <button onclick="window.location = '/horariosv'">Productividad Visit. este Mes</button>
-                <button onclick="window.location = '/perfmesv'">Productividad Visit. Mes Ant.</button>
-                <button onclick="window.location = '/horario'">Solo uno Empleo</button><br>
-            </div>
-            <div data-role="collapsible">
-                <h2>Gestiones y Inventarios de Deascargar</h2>
-                <button onclick="window.location = '/bigquery'">Query de las Gestiones XLSX</button>
-                <button onclick="window.location = '/bigproms'">Query de las Promesas XLSX</button>
-                <button onclick="window.location = '/inventario'">Query del Inventario XLSX</button>
-                <button onclick="window.location = '/inventarioRapid'">Query del Inventario Rapido XLSX</button>
-                <button onclick="window.location = '/intensidad'">Query del Intensidad XLSX</button>
-            </div>
-            <div data-role="collapsible">
-                <h2>Miscelánea</h2>
-                <button onclick="window.location = '/comparativo'">Comparativo de 3 meses HTML</button><br>
-                <button onclick="window.location = '/contactados'">Reporte de Tel&eacute;fonos Contactados XLS</button>
-                <button onclick="window.location = '/marcados'">Reporte de Tel&eacute;fonos Marcados XLS</button>
-            </div>
         </div>
-        <div data-role="footer">
-            <button onclick="window.location = '/quick'">Tiempo Real</button>
-            <button onclick="window.location = '/resumen'">Las Cuentas</button>
-            <button onclick="window.location = '/logout'">LOGOUT</button><br>
-        </div>
-    </body>
+    </div>
+    <div data-role="footer">
+        <hr>
+        <button onclick="window.location = '/quick'">Tiempo Real</button>
+        <button onclick="window.location = '/resumen'">Las Cuentas</button>
+        <button onclick="window.location = '/logout'">LOGOUT</button>
+        <br>
+    </div>
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
+</body>
 </html>

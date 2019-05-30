@@ -2,14 +2,23 @@
 
 namespace Tests\Unit;
 
-use App\HorariosDataClass;
-use App\PerfmesAllClass;
+use App\Historia;
+use App\HoursDataClass;
+use App\Pago;
+use App\LastMonthAllClass;
+use Carbon\Carbon;
 use Tests\TestCase;
 
 class PerfmesAllClassTest extends TestCase
 {
     public function testGetCurrentMain()
     {
+        $start = date('Y-m-d', strtotime('first day of last month'));
+        $end = date('Y-m-d', strtotime('last day of last month'));
+        $gestion = Historia::whereBetween('d_fech', [$start, $end])->first();
+        /** @var Carbon $fecha */
+        $fecha = new Carbon($gestion->D_FECH);
+        $dom = $fecha->day;
         $testKeys = [
             'cuentas',
             'promesas',
@@ -17,39 +26,72 @@ class PerfmesAllClassTest extends TestCase
             'nocontactos',
             'contactos'
         ];
-        $hc = new PerfmesAllClass();
-        $result = $hc->getCurrentMain(2);
-        $keys = array_keys($result);
-        $this->assertEquals($testKeys, $keys);
+        $hc = new LastMonthAllClass();
+        $result = $hc->getCurrentMain($dom);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testGetPagos()
     {
-        $hc = new PerfmesAllClass();
-        $result = $hc->getPagos(2);
-        $this->assertGreaterThan(0, $result['ct']);
+        $start = date('Y-m-d', strtotime('first day of 1 month ago'));
+        $end = date('Y-m-d', strtotime('last day of 1 month ago'));
+        $pago = Pago::whereBetween('fecha', [$start, $end])->first();
+        $count = Pago::whereFecha($pago->fecha)->count();
+        if ($pago) {
+            /** @var Carbon $fecha */
+            $fecha = new Carbon($pago->fecha);
+            $dom = $fecha->day;
+            $hc = new LastMonthAllClass();
+            $result = $hc->getPayments($dom);
+            $this->assertEquals($count, $result['ct']);
+        }
+        $this->assertTrue(true);
     }
 
     public function testCountAccounts()
     {
-        $hc = new PerfmesAllClass();
+        $from = date('Y-m-d', strtotime('first day of last month'));
+        $to = date('Y-m-d', strtotime('last day of last month'));
+        $query = Historia::whereBetween('d_fech', [$from, $to])
+            ->where('c_cont', '>', 0)
+            ->whereNull('c_cniv')
+            ->whereNull('c_msge');
+        $count = $query->count();
+        $hc = new LastMonthAllClass();
         $result = $hc->countAccounts();
-        $this->assertGreaterThan(0, $result);
+        if ($count > 0) {
+            $this->assertGreaterThan(0, $result);
+        } else {
+            $this->assertEquals(0, $result);
+        }
     }
 
     public function testCountAccountsPerDay()
     {
-        $hc = new PerfmesAllClass();
-        $result = $hc->countAccountsPerDay(2);
-        $this->assertGreaterThan(0, $result);
+        $start = date('Y-m-d', strtotime('first day of last month'));
+        $end = date('Y-m-d', strtotime('last day of last month'));
+        $gestion = Historia::whereBetween('d_fech', [$start, $end])
+            ->where('c_cont', '>', 0)
+            ->whereNull('c_cniv')
+            ->whereNull('c_msge')
+            ->first();
+        if ($gestion) {
+            /** @var Carbon $fecha */
+            $fecha = new Carbon($gestion->D_FECH);
+            $dom = $fecha->day;
+            $hc = new LastMonthAllClass();
+            $result = $hc->countAccountsPerDay($dom);
+            $this->assertGreaterThan(0, $result);
+        }
+        $this->assertTrue(true);
     }
 
     public function testGetReport()
     {
-        $hc = new PerfmesAllClass();
+        $hc = new LastMonthAllClass();
         $result = $hc->getReport(2);
         $this->assertGreaterThan(0, count($result));
         $first = array_pop($result);
-        $this->assertInstanceOf(HorariosDataClass::class, $first);
+        $this->assertInstanceOf(HoursDataClass::class, $first);
     }
 }

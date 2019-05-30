@@ -6,15 +6,15 @@ namespace App;
  * Class TroubleDataClass
  * @package App
  * @property int $auto
- * @property string $sistema
- * @property string $usuario
- * @property string $fechacomp
+ * @property string $system
+ * @property string $user
+ * @property string $dateComplete
  * @property string $it_guy
- * @property string $reparacion
+ * @property string $fix
  * @property string $capt
- * @property string $fechahora
- * @property string $fuente
- * @property string $descripcion
+ * @property string $dateTime
+ * @property string $source
+ * @property string $description
  * @property string $error_msg
  */
 class TroubleDataClass
@@ -27,17 +27,17 @@ class TroubleDataClass
     /**
      * @var string
      */
-    public $sistema;
+    public $system;
 
     /**
      * @var string
      */
-    public $usuario;
+    public $user;
 
     /**
      * @var string
      */
-    public $fechacomp;
+    public $dateComplete;
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class TroubleDataClass
     /**
      * @var string
      */
-    public $reparacion;
+    public $fix;
 
     /**
      * @var string
@@ -57,17 +57,17 @@ class TroubleDataClass
     /**
      * @var string
      */
-    public $fechahora;
+    public $dateTime;
 
     /**
      * @var string
      */
-    public $fuente;
+    public $source;
 
     /**
      * @var string
      */
-    public $descripcion;
+    public $description;
 
     /**
      * @var string

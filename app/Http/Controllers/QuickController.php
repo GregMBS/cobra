@@ -1,18 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\QuickAhoraClass;
+use App\QuickNowClass;
 use App\QuickBreaksClass;
 use App\QuickHoyClass;
 use App\QuickPorHoraClass;
-use Illuminate\Support\Facades\View;
+use View;
 
 class QuickController extends Controller
 {
 
     /**
      * 
-     * @var QuickAhoraClass
+     * @var QuickNowClass
      */
     private $qa;
     
@@ -36,7 +36,7 @@ class QuickController extends Controller
     
     public function __construct()
     {
-        $this->qa = new QuickAhoraClass();
+        $this->qa = new QuickNowClass();
         $this->qh = new QuickHoyClass();
         $this->qb = new QuickBreaksClass();
         $this->qp = new QuickPorHoraClass();
@@ -48,10 +48,11 @@ class QuickController extends Controller
      */
     public function index()
     {
-        $resultAhora = $this->qa->getAhora();
+        $resultAhora = $this->qa->getNow();
         $resultHoy = $this->qh->getHoy();
         $resultBreaks = $this->qb->getBreaks();
         $resultPorHora = $this->qp->getPorHora();
+        /** @var View $view */
         $view = view('quick')
         ->with('resultAhora', $resultAhora)
         ->with('resultHoy', $resultHoy)

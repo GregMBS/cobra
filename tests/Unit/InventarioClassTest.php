@@ -2,7 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\InventarioClass;
+use App\Cliente;
+use App\InventoryClass;
 use App\Resumen;
 use Tests\TestCase;
 
@@ -35,13 +36,15 @@ class InventarioClassTest extends TestCase
             'contactos',
             'fecha_de_asignacion',
         ];
-        $ic = new InventarioClass();
-        $result = $ic->getInventarioReport('todos');
+        $ic = new InventoryClass();
+        $result = $ic->getInventoryReport('todos');
         $this->checkKeys($testKeys, $result);
         $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
-        $cliente = $cuenta->cliente;
-        $result = $ic->getInventarioReport($cliente);
-        $this->checkKeys($testKeys, $result);
+        if ($cuenta) {
+            $cliente = $cuenta->cliente;
+            $result = $ic->getInventoryReport($cliente);
+            $this->checkKeys($testKeys, $result);
+        }
     }
 
     public function testGetFullInventarioReport()
@@ -77,21 +80,23 @@ class InventarioClassTest extends TestCase
             27 => 'tel_2_laboral',
             28 => 't2l efectivo'
         ];
-        $ic = new InventarioClass();
-        $result = $ic->getFullInventarioReport('todos');
+        $ic = new InventoryClass();
+        $result = $ic->getFullInventoryReport('todos');
         $this->checkKeys($testKeys, $result);
         $cuenta = Resumen::where('status_de_credito', 'NOT REGEXP', '-')->first();
-        $cliente = $cuenta->cliente;
-        $result = $ic->getFullInventarioReport($cliente);
-        $this->checkKeys($testKeys, $result);
+        if ($cuenta) {
+            $cliente = $cuenta->cliente;
+            $result = $ic->getFullInventoryReport($cliente);
+            $this->checkKeys($testKeys, $result);
+        }
     }
 
     public function testListCliente()
     {
-        $ic = new InventarioClass();
+        $clientes = Cliente::all()->toArray();
+        $ic = new InventoryClass();
         $result = $ic->listClients();
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $this->assertEquals(['cliente' => ''], $first);
+        $this->assertEquals(count($clientes), count($result));
+        $this->assertEquals($clientes, $result);
     }
 }

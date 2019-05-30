@@ -8,6 +8,7 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
 use PDO;
 
 /**
@@ -96,7 +97,7 @@ SQL;
                      AND c_cont <> 0 
                      ORDER BY d_fech DESC, c_hrfi DESC LIMIT 1";
         $stu = $this->pdo->prepare($query);
-        $stu->bindParam(':capt', $capt);
+        $stu->bindValue(':capt', $capt);
         $stu->execute();
         $result = $stu->fetch(\PDO::FETCH_ASSOC);
         $find = $result['c_cont'];
@@ -223,7 +224,7 @@ SQL;
     public function getBadNo($id_cuenta)
     {
         $stb = $this->pdo->prepare($this->badNoQuery);
-        $stb->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stb->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $stb->execute();
         $answerBadNo = $stb->fetch(PDO::FETCH_ASSOC);
         return $answerBadNo;
@@ -244,7 +245,7 @@ SQL;
                     AND c_cont > 0  
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $sts->execute();
         $row = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $row;
@@ -294,7 +295,7 @@ SQL;
      */
     public function getClientList()
     {
-        $clientes = Cliente::get()->toArray();
+        $clientes = Cliente::all()->toArray();
         $names = array_column($clientes, 'cliente');
         return $names;
     }
@@ -307,7 +308,10 @@ SQL;
     public function getNumGests($capt)
     {
         $today = date('Y-m-d');
-        $count = Historia::whereCCvge($capt)->whereDFech($today)->where('c_cont', '<>', 0)->count();
+        /** @var Builder $query */
+        $query = Historia::whereCCvge($capt)->whereDFech($today);
+        $query = $query->where('c_cont', '<>', 0);
+        $count = $query->count();
         return $count;
     }
 
@@ -322,7 +326,7 @@ SQL;
         $rc = new Resumen();
 
         /**
-         * @var Resumen $query
+         * @var Builder $query
          */
         $query = $rc->whereIdCuenta($id_cuenta);
         $resumen = $query->first();
@@ -340,8 +344,14 @@ SQL;
      */
     public function getUserData($capt)
     {
-        $nombre = Nombre::where('iniciales','=' , $capt)->get();
-        $user = User::where('iniciales','=' , $capt)->get();
+        /** @var Builder $NBuilder */
+        $NBuilder = new Nombre();
+        /** @var Builder $nombreQuery */
+        $nombreQuery = $NBuilder->where('iniciales', '=', $capt);
+        $nombre = $nombreQuery->get();
+        /** @var Builder $UBuilder */
+        $UBuilder = new User();
+        $user = $UBuilder->where('iniciales', '=', $capt)->get();
         $result = $nombre->merge($user);
         return $result->first()->toArray();
     }
@@ -353,24 +363,25 @@ SQL;
      */
     public function getPromData($id_cuenta)
     {
-       $promesa = Historia::whereCCont($id_cuenta)
-            ->where('n_prom', '>', 0)
+        /** @var Builder $historia */
+        $historia = Historia::whereCCont($id_cuenta);
+        $promesa = $historia->where('n_prom', '>', 0)
             ->where('c_cvst', 'LIKE', 'PROMESA DE%')
             ->orderByDesc('d_fech')
             ->orderByDesc('c_hrin')
             ->first();
         $array = array(
-                'N_PROM_OLD' => $promesa->N_PROM,
-                'N_PROM1_OLD' => $promesa->N_PROM1,
-                'N_PROM2_OLD' => $promesa->N_PROM2,
-                'N_PROM3_OLD' => $promesa->N_PROM3,
-                'N_PROM4_OLD' => $promesa->N_PROM4,
-                'D_PROM_OLD' => $promesa->D_PROM,
-                'D_PROM1_OLD' => $promesa->D_PROM1,
-                'D_PROM2_OLD' => $promesa->D_PROM2,
-                'D_PROM3_OLD' => $promesa->D_PROM3,
-                'D_PROM4_OLD' => $promesa->D_PROM4
-            );
+            'N_PROM_OLD' => $promesa->N_PROM,
+            'N_PROM1_OLD' => $promesa->N_PROM1,
+            'N_PROM2_OLD' => $promesa->N_PROM2,
+            'N_PROM3_OLD' => $promesa->N_PROM3,
+            'N_PROM4_OLD' => $promesa->N_PROM4,
+            'D_PROM_OLD' => $promesa->D_PROM,
+            'D_PROM1_OLD' => $promesa->D_PROM1,
+            'D_PROM2_OLD' => $promesa->D_PROM2,
+            'D_PROM3_OLD' => $promesa->D_PROM3,
+            'D_PROM4_OLD' => $promesa->D_PROM4
+        );
         return $array;
     }
 
@@ -388,7 +399,7 @@ SQL;
 WHERE (historia.C_CONT=:id_cuenta) AND (c_visit <> '')
 ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
         $sts->execute();
         $row = $sts->fetchAll(\PDO::FETCH_ASSOC);
         return $row;
@@ -401,8 +412,9 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countGestiones($id_cuenta)
     {
-        $gestiones = Historia::whereCCont($id_cuenta)
-            ->where('c_cont', '>', 0)
+        /** @var Builder $historia */
+        $historia = Historia::whereCCont($id_cuenta);
+        $gestiones = $historia->where('c_cont', '>', 0)
             ->count();
         return $gestiones;
     }
@@ -414,8 +426,9 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countPromesas($id_cuenta)
     {
-        $promesas = Historia::whereCCont($id_cuenta)
-            ->where('n_prom', '>', 0)
+        /** @var Builder $historia */
+        $historia = Historia::whereCCont($id_cuenta);
+        $promesas = $historia->where('n_prom', '>', 0)
             ->count();
         return $promesas;
     }
@@ -427,7 +440,9 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countPagos($id_cuenta)
     {
-        $pagos = Pago::whereIdCuenta($id_cuenta)->count();
+        /** @var Builder $builder */
+        $builder = Pago::whereIdCuenta($id_cuenta);
+        $pagos = $builder->count();
         return $pagos;
     }
 
@@ -441,10 +456,8 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $cuenta = '';
         if ($id_cuenta > 0) {
             $rc = new Resumen();
-            /**
-             * @var Resumen $query
-             */
-            $query =$rc->whereIdCuenta($id_cuenta);
+            /** @var Builder $query */
+            $query = $rc->whereIdCuenta($id_cuenta);
             $resumen = $query->first();
             $cuenta = $resumen->numero_de_cuenta;
         }

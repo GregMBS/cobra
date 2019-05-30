@@ -1,218 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Horarios mes anterior</title>
-<meta charset="utf-8" />
-    <link rel="stylesheet"
-          href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
-          type="text/css" media="all"/>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-            type="text/javascript"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-            type="text/javascript"></script>
-<style type="text/css">
-tr:hover {
-	background-color: #ffff00;
-}
+    <title>Horarios mes anterior</title>
+    <meta charset="utf-8"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+        tr:hover {
+            background-color: #ffff00;
+        }
 
-.heavy {
-	font-weight: bold;
-	font-size: 10pt;
-}
+        .heavy {
+            font-weight: bold;
+            font-size: 10pt;
+        }
 
-th, th {
-    text-align: center;
-}
-</style>
+        th, th {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-	<h2>HORARIOS</h2>
-    {% for gestor in gestores %}
-        <table class="ui-widget">
-            <thead class="ui-widget-header">
-            <tr>
-                <th><a href='/gestor/{{ gestor }}'>{{ gestor }}</a></th>
-                {% for i in 1..dhoy %}
-                    <th>{{ dowArray[i] }} {{ i }}</th>
-                {% endfor %}
-                <th>TOTAL</th>
-            </tr>
-            </thead>
-            <tbody class="ui-widget-content">
-            <tr>
-                <td class="heavy">LOGIN</td>
-                {% for i in 1..dhoy %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].start == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].start }}</td>
-                {% endfor %}
-                <td></td>
-            </tr>
-            <tr>
-                <td class="heavy">LOGOUT</td>
-                {% for i in 1..dhoy %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].stop == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].stop }}</td>
-                {% endfor %}
-                <td></td>
-            </tr>
-            <tr>
-                <td class="heavy">HORAS</td>
-                {% set sumdiff = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumdiff = sumdiff + data[gestor][i].diff %}
-                    {% if data[gestor][i].diff == 0 %}
-                        <td></td>
-                    {% else %}
-                        <td class="light">{{ data[gestor][i].diff | date('H:i:s') }}</td>
-                    {% endif %}
-                {% endfor %}
-                <th>{{ sumdiff | date('d \\dí\\a\\s H:i:s') }}</th>
-            </tr>
-            <tr>
-                <td class="heavy">TIEMPO BREAK</td>
-                {% set sumbreak = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumbreak = sumbreak + data[gestor][i].break %}
-                    {% if data[gestor][i].break == 0 %}
-                        <td class="light"></td>
-                    {% else %}
-                        <td class="light">{{ data[gestor][i].break | date('H:i:s') }}</td>
-                    {% endif %}
-                {% endfor %}
-                <th>{{ sumbreak | date('H:i:s') }}</th>
-            </tr>
-            <tr>
-                <td class="heavy">TIEMPO BAÑO</td>
-                {% set sumbano = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumbano = sumbano + data[gestor][i].bano %}
-                    {% if data[gestor][i].bano == 0 %}
-                        <td class="light"></td>
-                    {% else %}
-                        <td class="light">{{ data[gestor][i].bano | date('H:i:s') }}</td>
-                    {% endif %}
-                {% endfor %}
-                <th>{{ sumbano | date('H:i:s') }}</th>
-            </tr>
-            <tr>
-                <td class="heavy">GESTIONES</td>
-                {% set sumgest = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumgest = sumgest + data[gestor][i].gestiones %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].gestiones == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td>
-                        <a href='/ddh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].gestiones }}
-                        </a>
-                    </td>
-                {% endfor %}
-                <th>{{ sumgest }}</th>
-            </tr>
-            <tr>
-                <td class="heavy">CUENTAS</td>
-                {% set sumcta = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumcta = sumcta + data[gestor][i].cuentas %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].cuentas == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td>
-                        <a href='/ddh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].cuentas }}
-                        </a>
-                    </td>
-                {% endfor %}
-                <td>{{ sumcta }}</td>
-            </tr>
-            <tr>
-                <td class="heavy">CONTACTOS</td>
-                {% set sumcont = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumcont = sumcont + data[gestor][i].contactos %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].contactos == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].contactos }}</td>
-                {% endfor %}
-                <td>{{ sumcont }}</td>
-            </tr>
-            <tr>
-                <td class="heavy">NO CONTACTOS</td>
-                {% set sumnoc = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumnoc = sumnoc + data[gestor][i].nocontactos %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].nocontactos == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].nocontactos }}</td>
-                {% endfor %}
-                <td>{{ sumnoc }}</td>
-            </tr>
-            <tr>
-                <td class="heavy">PROMESAS</td>
-                {% set sumprom = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumprom = sumprom + data[gestor][i].promesas %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].promesas == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td>
-                        <a href='/pdh/{{ gestor }}/{{ yrmes }}{{ i }}'> {{ data[gestor][i].promesas }}
-                        </a>
-                    </td>
-                {% endfor %}
-                <td>{{ sumprom }}</td>
-            </tr>
-            <tr>
-                <td class="heavy">PAGOS</td>
-                {% set sumpag = 0 %}
-                {% for i in 1..dhoy %}
-                    {% set sumpag = sumpag + data[gestor][i].pagos %}
-                    {% set zeros = '' %}
-                    {% if data[gestor][i].pagos == 0 %}
-                        {% set zeros = ' style="color:red;"' %}
-                    {% endif %}
-                    <td class="light"{{ zeros }}>{{ data[gestor][i].pagos }}</td>
-                {% endfor %}
-                <td>{{ sumpag }}</td>
-            </tr>
-            <tr style="height: 2em"></tr>
-            </tbody>
-        </table>
-    {% endfor %}
-    <table class="ui-widget">
-        <thead class="ui-widget-header">
+<h2>HORARIOS</h2>
+{% for gestor in gestores %}
+    <table class="table">
+        <thead>
         <tr>
-            <th>TOTAL</th>
+            <th><a href='/gestor/{{ gestor }}'>{{ gestor }}</a></th>
             {% for i in 1..dhoy %}
                 <th>{{ dowArray[i] }} {{ i }}</th>
             {% endfor %}
             <th>TOTAL</th>
         </tr>
         </thead>
-        <tbody class="ui-widget-content">
+        <tbody>
+        <tr>
+            <td class="heavy">LOGIN</td>
+            {% for i in 1..dhoy %}
+                {% set zeros = '' %}
+                {% if data[gestor][i].start == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+                <td class="light"{{ zeros }}>{{ data[gestor][i].start }}</td>
+            {% endfor %}
+            <td></td>
+        </tr>
+        <tr>
+            <td class="heavy">LOGOUT</td>
+            {% for i in 1..dhoy %}
+                {% set zeros = '' %}
+                {% if data[gestor][i].stop == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+                <td class="light"{{ zeros }}>{{ data[gestor][i].stop }}</td>
+            {% endfor %}
+            <td></td>
+        </tr>
+        <tr>
+            <td class="heavy">HORAS</td>
+            {% set sumdiff = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumdiff = sumdiff + data[gestor][i].diff %}
+                {% if data[gestor][i].diff == 0 %}
+                    <td></td>
+                {% else %}
+                    <td class="light">{{ data[gestor][i].diff | date('H:i:s') }}</td>
+                {% endif %}
+            {% endfor %}
+            <th>{{ sumdiff | date('d \\dí\\a\\s H:i:s') }}</th>
+        </tr>
+        <tr>
+            <td class="heavy">TIEMPO BREAK</td>
+            {% set sumbreak = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumbreak = sumbreak + data[gestor][i].break %}
+                {% if data[gestor][i].break == 0 %}
+                    <td class="light"></td>
+                {% else %}
+                    <td class="light">{{ data[gestor][i].break | date('H:i:s') }}</td>
+                {% endif %}
+            {% endfor %}
+            <th>{{ sumbreak | date('H:i:s') }}</th>
+        </tr>
+        <tr>
+            <td class="heavy">TIEMPO BAÑO</td>
+            {% set sumbano = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumbano = sumbano + data[gestor][i].bano %}
+                {% if data[gestor][i].bano == 0 %}
+                    <td class="light"></td>
+                {% else %}
+                    <td class="light">{{ data[gestor][i].bano | date('H:i:s') }}</td>
+                {% endif %}
+            {% endfor %}
+            <th>{{ sumbano | date('H:i:s') }}</th>
+        </tr>
         <tr>
             <td class="heavy">GESTIONES</td>
             {% set sumgest = 0 %}
             {% for i in 1..dhoy %}
-                {% set sumgest = sumgest + summary[i].gestiones %}
+                {% set sumgest = sumgest + data[gestor][i].gestiones %}
                 {% set zeros = '' %}
-                {% if summary.gestiones == 0 %}
+                {% if data[gestor][i].gestiones == 0 %}
                     {% set zeros = ' style="color:red;"' %}
                 {% endif %}
                 <td>
-                    {{ summary[i].gestiones }}
+                    <a href='/ddh/{{ gestor }}/{{ yrmes }}{{ "%02d"|format(i) }}'> {{ data[gestor][i].gestiones }}
+                    </a>
                 </td>
             {% endfor %}
             <th>{{ sumgest }}</th>
@@ -221,13 +115,14 @@ th, th {
             <td class="heavy">CUENTAS</td>
             {% set sumcta = 0 %}
             {% for i in 1..dhoy %}
-                {% set sumcta = sumcta + summary[i].cuentas %}
+                {% set sumcta = sumcta + data[gestor][i].cuentas %}
                 {% set zeros = '' %}
-                {% if summary.cuentas == 0 %}
+                {% if data[gestor][i].cuentas == 0 %}
                     {% set zeros = ' style="color:red;"' %}
                 {% endif %}
                 <td>
-                    {{ summary[i].cuentas }}
+                    <a href='/ddh/{{ gestor }}/{{ yrmes }}{{ "%02d"|format(i) }}'> {{ data[gestor][i].cuentas }}
+                    </a>
                 </td>
             {% endfor %}
             <td>{{ sumcta }}</td>
@@ -236,12 +131,12 @@ th, th {
             <td class="heavy">CONTACTOS</td>
             {% set sumcont = 0 %}
             {% for i in 1..dhoy %}
-                {% set sumcont = sumcont +summary[i].contactos %}
+                {% set sumcont = sumcont + data[gestor][i].contactos %}
                 {% set zeros = '' %}
-                {% if summary[i].contactos == 0 %}
+                {% if data[gestor][i].contactos == 0 %}
                     {% set zeros = ' style="color:red;"' %}
                 {% endif %}
-                <td class="light"{{ zeros }}>{{ summary[i].contactos }}</td>
+                <td class="light"{{ zeros }}>{{ data[gestor][i].contactos }}</td>
             {% endfor %}
             <td>{{ sumcont }}</td>
         </tr>
@@ -249,12 +144,12 @@ th, th {
             <td class="heavy">NO CONTACTOS</td>
             {% set sumnoc = 0 %}
             {% for i in 1..dhoy %}
-            {% set sumnoc = sumnoc + summary[i].nocontactos %}
-            {% set zeros = '' %}
-            {% if summary[i].nocontactos == 0 %}
-            {% set zeros = ' style="color:red;"' %}
-            {% endif %}
-            <td class="light"{{ zeros }}>{{ summary[i].nocontactos }}</td>
+                {% set sumnoc = sumnoc + data[gestor][i].nocontactos %}
+                {% set zeros = '' %}
+                {% if data[gestor][i].nocontactos == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+                <td class="light"{{ zeros }}>{{ data[gestor][i].nocontactos }}</td>
             {% endfor %}
             <td>{{ sumnoc }}</td>
         </tr>
@@ -262,16 +157,118 @@ th, th {
             <td class="heavy">PROMESAS</td>
             {% set sumprom = 0 %}
             {% for i in 1..dhoy %}
+                {% set sumprom = sumprom + data[gestor][i].promesas %}
+                {% set zeros = '' %}
+                {% if data[gestor][i].promesas == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+                <td>
+                    <a href='/pdh/{{ gestor }}/{{ yrmes }}{{ "%02d"|format(i) }}'> {{ data[gestor][i].promesas }}
+                    </a>
+                </td>
+            {% endfor %}
+            <td>{{ sumprom }}</td>
+        </tr>
+        <tr>
+            <td class="heavy">PAGOS</td>
+            {% set sumpag = 0 %}
+            {% for i in 1..dhoy %}
+                {% set sumpag = sumpag + data[gestor][i].pagos %}
+                {% set zeros = '' %}
+                {% if data[gestor][i].pagos == 0 %}
+                    {% set zeros = ' style="color:red;"' %}
+                {% endif %}
+                <td class="light"{{ zeros }}>{{ data[gestor][i].pagos }}</td>
+            {% endfor %}
+            <td>{{ sumpag }}</td>
+        </tr>
+        <tr style="height: 2em"></tr>
+        </tbody>
+    </table>
+{% endfor %}
+<table class="table">
+    <thead class="ui-widget-header">
+    <tr>
+        <th>TOTAL</th>
+        {% for i in 1..dhoy %}
+            <th>{{ dowArray[i] }} {{ i }}</th>
+        {% endfor %}
+        <th>TOTAL</th>
+    </tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    <tr>
+        <td class="heavy">GESTIONES</td>
+        {% set sumgest = 0 %}
+        {% for i in 1..dhoy %}
+            {% set sumgest = sumgest + summary[i].gestiones %}
+            {% set zeros = '' %}
+            {% if summary.gestiones == 0 %}
+                {% set zeros = ' style="color:red;"' %}
+            {% endif %}
+            <td>
+                {{ summary[i].gestiones }}
+            </td>
+        {% endfor %}
+        <th>{{ sumgest }}</th>
+    </tr>
+    <tr>
+        <td class="heavy">CUENTAS</td>
+        {% set sumcta = 0 %}
+        {% for i in 1..dhoy %}
+            {% set sumcta = sumcta + summary[i].cuentas %}
+            {% set zeros = '' %}
+            {% if summary.cuentas == 0 %}
+                {% set zeros = ' style="color:red;"' %}
+            {% endif %}
+            <td>
+                {{ summary[i].cuentas }}
+            </td>
+        {% endfor %}
+        <td>{{ sumcta }}</td>
+    </tr>
+    <tr>
+        <td class="heavy">CONTACTOS</td>
+        {% set sumcont = 0 %}
+        {% for i in 1..dhoy %}
+            {% set sumcont = sumcont +summary[i].contactos %}
+            {% set zeros = '' %}
+            {% if summary[i].contactos == 0 %}
+                {% set zeros = ' style="color:red;"' %}
+            {% endif %}
+            <td class="light"{{ zeros }}>{{ summary[i].contactos }}</td>
+        {% endfor %}
+        <td>{{ sumcont }}</td>
+    </tr>
+    <tr>
+        <td class="heavy">NO CONTACTOS</td>
+        {% set sumnoc = 0 %}
+        {% for i in 1..dhoy %}
+            {% set sumnoc = sumnoc + summary[i].nocontactos %}
+            {% set zeros = '' %}
+            {% if summary[i].nocontactos == 0 %}
+                {% set zeros = ' style="color:red;"' %}
+            {% endif %}
+            <td class="light"{{ zeros }}>{{ summary[i].nocontactos }}</td>
+        {% endfor %}
+        <td>{{ sumnoc }}</td>
+    </tr>
+    <tr>
+        <td class="heavy">PROMESAS</td>
+        {% set sumprom = 0 %}
+        {% for i in 1..dhoy %}
             {% set sumprom = sumprom + summary[i].promesas %}
             {% set zeros = '' %}
             {% if summary[i].promesas == 0 %}
                 {% set zeros = ' style="color:red;"' %}
             {% endif %}
             <td>{{ summary[i].promesas }}</td>
-                {% endfor %}
-            <td>{{ sumprom }}</td>
-		</tr>
-		</tbody>
-	</table>
+        {% endfor %}
+        <td>{{ sumprom }}</td>
+    </tr>
+    </tbody>
+</table>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
 </body>
 </html>

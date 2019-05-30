@@ -1,76 +1,79 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>COBRA - Buscar</title>
-        <meta charset="utf-8">
-        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-        <script>
-            $(function () {
-                $('#buscarTable').dataTable({
-                    "bJQueryUI": true
-                });
-            });
-        </script>
-    </head>
-    <body>
-        <h1>BUSCAR</h1>
-        <button onClick="window.location = '/resumen/{{ C_CONT }}'">
-        	Regresar al resumen
-        </button>
-        <table class="ui-widget" id="buscarTable">
-            <thead class="ui-widget-header">
-                <tr>
-                    <th>CUENTA</th>
-                    <th>NOMBRE</th>
-                    <th>CLIENTE</th>
-                    <th>CAMPAÑA</th>
-                </tr>
-            </thead>
-            <tbody class="ui-widget-content">
-            {% for row in result %}
-                {% if row.status_de_credito matches '/-/' %}
-                    {% set col = "gray" %}
-                {% else %}
-                    {% set col = 'blue' %}
-                {% endif %}                
-                <tr>
-                    <td><a style='color:{{ col }}' href='/resumen/{{ row.id_cuenta }}'>
-                    {{ row.numero_de_cuenta }}
+<head>
+    <title>COBRA - Buscar</title>
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+</head>
+<body>
+<div id="app">
+    <h1>BUSCAR</h1>
+    <button onClick="window.location = '/resumen/{{ C_CONT }}'">
+        Regresar al resumen
+    </button>
+    <table class="ui-widget" id="buscarTable">
+        <thead class="ui-widget-header">
+        <tr>
+            <th>CUENTA</th>
+            <th>NOMBRE</th>
+            <th>CLIENTE</th>
+            <th>CAMPAÑA</th>
+        </tr>
+        </thead>
+        <tbody class="ui-widget-content">
+        {% for row in result %}
+            {% if row.status_de_credito matches '/-/' %}
+                {% set col = "gray" %}
+            {% else %}
+                {% set col = 'blue' %}
+            {% endif %}
+            <tr>
+                <td><a style='color:{{ col }}' href='/resumen/{{ row.id_cuenta }}'>
+                        {{ row.numero_de_cuenta }}
                     </a></td>
-                    <td>{{ row.nombre_deudor }}</td>
-                    <td>{{ row.cliente }}</td>
-                    <td>{{ row.status_de_credito }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div id="searchbox">
-            <h2>Buscar</h2>
-            <form name="search" method="get" action="buscar" id="search">
-            	Buscar a: <input type= "text" name="find"> en 
-            	<select name="field">
-                    <option value="numero_de_cuenta">Cuenta</option>
-                    <option value="numero_de_credito"># del Grupo</option>
-                    <option value="nombre_deudor">Nombre</option>
-                    <option value="domicilio_deudor">Direcci&oacute;n</option>
-                    <option value="TELS">Telefonos</option>
-                    <option value="REFS">Aval/Referencias</option>
-                    <option value="id_cuenta">Expediente</option>
-                </select><br>
-                Client = <select name="cliente">
-                    <option value=" ">Todos</option>
-                    {% for cliente in resultcl %}
-                        <option value="{{ cliente }}">{{ cliente }}</option>
-                    {% endfor %}
-                </select><br>
-                <input type="submit" value="BUSCAR">
-                <input type="button" name="cancel" onclick="cancelbox('searchbox')"
-                       value="Cancel">
-            </form>
-        </div>
-    </body>
+                <td>{{ row.nombre_deudor }}</td>
+                <td>{{ row.cliente }}</td>
+                <td>{{ row.status_de_credito }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="searchbox">
+        <h2>Buscar</h2>
+        <form name="search" method="get" action="/buscar" id="search">
+            <label for="find">Buscar a:</label>
+            <input type="text" name="find" id="find">
+            <label for="field"> en </label>
+            <select name="field" id="field">
+                <option value="numero_de_cuenta">Cuenta</option>
+                <option value="numero_de_credito"># del Grupo</option>
+                <option value="nombre_deudor">Nombre</option>
+                <option value="domicilio_deudor">Direcci&oacute;n</option>
+                <option value="TELS">Telefonos</option>
+                <option value="REFS">Aval/Referencias</option>
+                <option value="id_cuenta">Expediente</option>
+            </select><br>
+            <label for="cliente">Client = </label>
+            <select name="cliente" id="cliente">
+                <option value=" ">Todos</option>
+                {% for cliente in resultcl %}
+                    <option value="{{ cliente }}">{{ cliente }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="submit" value="BUSCAR">
+            <input type="button" name="cancel" onclick="cancelbox('searchbox')"
+                   value="Cancel">
+        </form>
+    </div>
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#buscarTable').DataTable();
+    } );
+</script>
+</body>
 </html> 

@@ -86,7 +86,7 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
     from vasign
 where gestor=:gestor";
         $stc = $this->pdo->prepare($query);
-        $stc->bindParam(':gestor', $gestor);
+        $stc->bindValue(':gestor', $gestor);
         $stc->execute();
         $result = $stc->fetch(\PDO::FETCH_ASSOC);
         return $result;

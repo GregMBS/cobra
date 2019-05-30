@@ -30,14 +30,14 @@ class LoginClass extends BaseClass {
      * @param string $tipo
      */
     private function setTicket($cpw, $capt, $tipo) {
-        $queryc = "update users "
+        $query = "update users "
                 . "set ticket = :cpw "
                 . "where iniciales = :capt "
                 . "and tipo = :tipo";
-        $stc = $this->pdo->prepare($queryc);
-        $stc->bindParam(':cpw', $cpw);
-        $stc->bindParam(':capt', $capt);
-        $stc->bindParam(':tipo', $tipo);
+        $stc = $this->pdo->prepare($query);
+        $stc->bindValue(':cpw', $cpw);
+        $stc->bindValue(':capt', $capt);
+        $stc->bindValue(':tipo', $tipo);
         $stc->execute();
     }
     
@@ -46,14 +46,14 @@ class LoginClass extends BaseClass {
      * @param string $capt
      */
     private function setInitialQueue($capt) {
-        $queryq = "update users n, queuelist qu
+        $query = "update users n, queuelist qu
 			set n.camp = qu.camp
 			where iniciales = gestor
 			and status_aarsa = 'Inicial'
 			and tipo = 'callcenter'
 			and gestor = :capt";
-        $stq = $this->pdo->prepare($queryq);
-        $stq->bindParam(':capt', $capt);
+        $stq = $this->pdo->prepare($query);
+        $stq->bindValue(':capt', $capt);
         $stq->execute();
     }
     
@@ -63,17 +63,17 @@ class LoginClass extends BaseClass {
      * @param string $local
      */
     private function setUserlog($capt, $local) {
-        $queryu = "delete from userlog "
+        $queryDelete = "delete from userlog "
                 . "where gestor = :capt ";
-        $stdu = $this->pdo->prepare($queryu);
-        $stdu->bindParam(':capt', $capt);
-        $stdu->execute();
-        $queryl = "insert into userlog (usuario,tipo,fechahora,gestor) "
+        $std = $this->pdo->prepare($queryDelete);
+        $std->bindValue(':capt', $capt);
+        $std->execute();
+        $queryInsert = "insert into userlog (usuario,tipo,fechahora,gestor) "
                 . "values (:local, 'login', now(), :capt)";
-        $stlu = $this->pdo->prepare($queryl);
-        $stlu->bindParam(':capt', $capt);
-        $stlu->bindParam(':local', $local);
-        $stlu->execute();
+        $sti = $this->pdo->prepare($queryInsert);
+        $sti->bindValue(':capt', $capt);
+        $sti->bindValue(':local', $local);
+        $sti->execute();
     }
     
     /**
@@ -81,14 +81,12 @@ class LoginClass extends BaseClass {
      * @param string $capt
      * @param string $local
      */
-    private function insertPermalog($capt, $local) {
-        $querypl = "insert into permalog "
-                . "(usuario,tipo,fechahora,gestor) "
-                . "values (:local, 'login', now(), :capt)";
-        $stlp = $this->pdo->prepare($querypl);
-        $stlp->bindParam(':capt', $capt);
-        $stlp->bindParam(':local', $local);
-        $stlp->execute();
+    private function insertPermanentLog($capt, $local) {
+        $query = "insert into permalog (usuario,tipo,fechahora,gestor) values (:local, 'login', now(), :capt)";
+        $sti = $this->pdo->prepare($query);
+        $sti->bindValue(':capt', $capt);
+        $sti->bindValue(':local', $local);
+        $sti->execute();
     }
     
     /**
@@ -96,12 +94,12 @@ class LoginClass extends BaseClass {
      * @param string $capt
      */
     private function insertHistoria($capt) {
-        $queryins = "INSERT INTO historia
+        $query = "INSERT INTO historia
 			(C_CVGE,C_CVBA,C_CONT,CUENTA,C_CVST,D_FECH,C_HRIN,C_HRFI)
 			VALUES (:capt, '', 0, 0, 'login', curdate(), curtime(), curtime())";
-        $stih = $this->pdo->prepare($queryins);
-        $stih->bindParam(':capt', $capt);
-        $stih->execute();
+        $sti = $this->pdo->prepare($query);
+        $sti->bindValue(':capt', $capt);
+        $sti->execute();
     }
     
     /**
@@ -128,7 +126,7 @@ class LoginClass extends BaseClass {
         $this->setTicket($cookie, $capt, $tipo);
         $this->setInitialQueue($capt);
         $this->setUserlog($capt, $local);
-        $this->insertPermalog($capt, $local);
+        $this->insertPermanentLog($capt, $local);
         $this->insertHistoria($capt);
         return $cookie;
     }

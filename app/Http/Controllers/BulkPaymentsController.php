@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use View;
+use App\BulkPaymentsClass;
+
+class BulkPaymentsController extends Controller
+{
+    /**
+     *
+     * @var BulkPaymentsClass
+     */
+    private $bc;
+    
+        
+    public function __construct() {
+        $this->bc = new BulkPaymentsClass();
+    }
+
+    /**
+     * 
+     * @param string $message
+     * @return View
+     */
+    public function index($message = '') {
+        $view = view('pagobulk')->with('message', $message);
+        return $view;
+    }
+    
+    /**
+     * 
+     * @param Request $r
+     * @return View
+     */
+    public function confirm(Request $r) {
+        $input = $r->data;
+        $message = $this->bc->main($input);
+        return $this->index($message);
+    }
+}

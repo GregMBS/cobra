@@ -66,52 +66,52 @@ class CheckController extends Controller
     }
 
     /**
-     * @param string $gestor
+     * @param string $agent
      * @return mixed
      * @throws \Exception
      */
-    public function listing($gestor) {
-        $visitador = $this->cc->getCompleto($gestor);
+    public function listing($agent) {
+        $visitador = $this->cc->getCompleto($agent);
         $capt = $this->cc->getCompleto(auth()->user()->iniciales);
-        $list = $this->cc->listVasign($gestor);
-        $cuentas = count($list);
-        $saldos = array_sum(array_column($list, 'saldo_total'));
+        $list = $this->cc->listVasign($agent);
+        $accounts = count($list);
+        $balances = array_sum(array_column($list, 'saldo_total'));
         /**
          * @var View $view
-         * @method static View with(string $label, mixed $value)
+         * @method static|View with(string $label, mixed $value)
          */
-        $view = view('checkOutList')
-        ->with('visitador', $visitador)
+        $view = view('checkOutList');
+        $view = $view->with('visitador', $visitador)
         ->with('capt', $capt)
         ->with('list', $list)
-        ->with('cuentas', $cuentas)
-        ->with('saldos', $saldos);
+        ->with('cuentas', $accounts)
+        ->with('saldos', $balances);
         return $view;
     }   
     
     /**
      * 
-     * @param string $gestor
+     * @param string $agent
      * @return View
      */
-    public function checkoutAjax($gestor) {
-        $list = $this->cc->listVasign($gestor);
-        return $this->checkout($list, $gestor);
+    public function checkoutAjax($agent) {
+        $list = $this->cc->listVasign($agent);
+        return $this->checkout($list, $agent);
     }
     
     /**
      * 
      * @param array $list
-     * @param string $gestor
+     * @param string $agent
      * @param string $tipo
      * @return View
      */
-    public function checkout(array $list = [], $gestor = '', $tipo = '') {
-        $gestores = $this->uc->getVisitadores();
-        $counts = $this->cc->countInOut($gestor);
+    public function checkout(array $list = [], $agent = '', $tipo = '') {
+        $agents = $this->uc->getVisitadores();
+        $counts = $this->cc->countInOut($agent);
         $view = view('checkout')
-        ->with('gestor', $gestor)
-        ->with('gestores', $gestores)
+        ->with('gestor', $agent)
+        ->with('gestores', $agents)
         ->with('tipo', $tipo)
         ->with('list', $list)
         ->with('counts', $counts);
@@ -120,27 +120,27 @@ class CheckController extends Controller
     
     /**
      *
-     * @param string $gestor
+     * @param string $agent
      * @return View
      */
-    public function checkInAjax($gestor) {
-        $list = $this->cc->listVasign($gestor);
-        return $this->checkin($list, $gestor);
+    public function checkInAjax($agent) {
+        $list = $this->cc->listVasign($agent);
+        return $this->checkin($list, $agent);
     }
     
     /**
      *
      * @param array $list
-     * @param string $gestor
+     * @param string $agent
      * @param string $tipo
      * @return View
      */
-    public function checkIn(array $list = [], $gestor = '', $tipo = '') {
-        $gestores = $this->uc->getVisitadores();
-        $counts = $this->cc->countInOut($gestor);
+    public function checkIn(array $list = [], $agent = '', $tipo = '') {
+        $agents = $this->uc->getVisitadores();
+        $counts = $this->cc->countInOut($agent);
         $view = view('checkIn')
-        ->with('gestor', $gestor)
-        ->with('gestores', $gestores)
+        ->with('gestor', $agent)
+        ->with('gestores', $agents)
         ->with('tipo', $tipo)
         ->with('list', $list)
         ->with('counts', $counts);
@@ -149,28 +149,29 @@ class CheckController extends Controller
     
     /**
      *
-     * @param string $gestor
+     * @param string $agent
      * @return View
      */
-    public function checkBothAjax($gestor) {
-        $list = $this->cc->listVasign($gestor);
-        return $this->checkBoth($list, $gestor);
+    public function checkBothAjax($agent) {
+        $list = $this->cc->listVasign($agent);
+        return $this->checkBoth($list, $agent);
     }
     
     /**
      * 
      * @param array $list
-     * @param string $gestor
+     * @param string $agent
      * @param string $tipo
      * @param string $fechaOut
      * @return View
      */
-    public function checkBoth(array $list = [], $gestor = '', $tipo = '', $fechaOut = '') {
-        $gestores = $this->uc->getVisitadores();
-        $counts = $this->cc->countInOut($gestor);
+    public function checkBoth(array $list = [], $agent = '', $tipo = '', $fechaOut = '') {
+        $agents = $this->uc->getVisitadores();
+        $counts = $this->cc->countInOut($agent);
+        /** @var View $view */
         $view = view('checkBoth')
-        ->with('gestor', $gestor)
-        ->with('gestores', $gestores)
+        ->with('gestor', $agent)
+        ->with('gestores', $agents)
         ->with('tipo', $tipo)
         ->with('fechaOut', $fechaOut)
         ->with('list', $list)

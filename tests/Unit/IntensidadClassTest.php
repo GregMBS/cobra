@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\IntensidadClass;
+use App\IntensityClass;
 use Tests\TestCase;
 
 class IntensidadClassTest extends TestCase
@@ -14,19 +14,13 @@ class IntensidadClassTest extends TestCase
             'numero_de_cuenta',
             'intensidad'
         ];
-        $ic = new IntensidadClass();
+        $ic = new IntensityClass();
         $start = date('Y-m-d', strtotime('2 months ago'));
         $end = date('Y-m-d');
-        $result = $ic->getByCuenta($start, $end);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
-        $result = $ic->getByCuenta($end, $start);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $result = $ic->getByAccount($start, $end);
+        $this->checkKeys($testKeys, $result);
+        $result = $ic->getByAccount($end, $start);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testGetBySegmento()
@@ -37,19 +31,13 @@ class IntensidadClassTest extends TestCase
             2 => 'queue',
             3 => 'intensidad'
         ];
-        $ic = new IntensidadClass();
+        $ic = new IntensityClass();
         $start = date('Y-m-d', strtotime('2 months ago'));
         $end = date('Y-m-d');
-        $result = $ic->getBySegmento($start, $end);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
-        $result = $ic->getBySegmento($end, $start);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        $result = $ic->getBySegment($start, $end);
+        $this->checkKeys($testKeys, $result);
+        $result = $ic->getBySegment($end, $start);
+        $this->checkKeys($testKeys, $result);
     }
 
     public function testGetGestionDates()
@@ -57,18 +45,18 @@ class IntensidadClassTest extends TestCase
         $testKeys = [
             'd_fech'
         ];
-        $ic = new IntensidadClass();
-        $result = $ic->getGestionDates('asc');
+        $ic = new IntensityClass();
+        $result = $ic->getCallDates('asc');
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);
         $this->assertEquals($testKeys, $keys);
-        $result = $ic->getGestionDates('desc');
+        $result = $ic->getCallDates('desc');
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);
         $this->assertEquals($testKeys, $keys);
-        $result = $ic->getGestionDates('');
+        $result = $ic->getCallDates('');
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);
@@ -80,8 +68,8 @@ class IntensidadClassTest extends TestCase
         $testKeys = [
             'c_cvba'
         ];
-        $ic = new IntensidadClass();
-        $result = $ic->getGestionClientes();
+        $ic = new IntensityClass();
+        $result = $ic->getCallClientes();
         $this->assertGreaterThan(0, count($result));
         $first = $result[0];
         $keys = array_keys($first);

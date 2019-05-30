@@ -54,10 +54,10 @@ class TroubleController extends Controller
     {
         $capt = auth()->user()->iniciales;
         $tdc = new TroubleDataClass();
-        $tdc->sistema = $r->sistema;
-        $tdc->usuario = $capt;
-        $tdc->fuente = $r->fuente;
-        $tdc->descripcion = $r->descripcion;
+        $tdc->system = $r->system;
+        $tdc->user = $capt;
+        $tdc->source = $r->source;
+        $tdc->description = $r->description;
         $tdc->error_msg = $r->error_msg;
         $this->tc->insertTrouble($tdc);
         return redirect('/');
@@ -102,8 +102,8 @@ class TroubleController extends Controller
         $capt = auth()->user()->iniciales;
         $tdc = new TroubleDataClass();
         $tdc->auto = $id;
-        $tdc->usuario = $capt;
-        $tdc->reparacion = $request->reparacion;
+        $tdc->user = $capt;
+        $tdc->fix = $request->reparacion;
         $this->tc->updateTrouble($tdc, $capt);
         return redirect('/');
     }

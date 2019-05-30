@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
+use View;
 use App\DhClass;
 
 class DhController extends Controller
@@ -29,7 +29,7 @@ class DhController extends Controller
         $view = view('pdh')
         ->with('gestor', $gestor)
         ->with('fecha', $fecha)
-        ->with('result', $result);
+        ->with('results', $result);
         return $view;
     }
     
@@ -42,10 +42,10 @@ class DhController extends Controller
     public function gestiones($gestor, $fecha)
     {
         $result = $this->dc->getGestiones($gestor, $fecha);
-        $view = view('pdh')
+        $view = view('ddh')
         ->with('gestor', $gestor)
         ->with('fecha', $fecha)
-        ->with('result', $result);
+        ->with('results', $result);
         return $view;
     }
     

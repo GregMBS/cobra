@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\DhvClass;
+use App\Historia;
 use Tests\TestCase;
 
 class DhvClassTest extends TestCase
@@ -14,6 +15,10 @@ class DhvClassTest extends TestCase
      */
     public function testGetPromesas()
     {
+        $gestion = Historia::join('resumen', 'id_cuenta', '=', 'c_cont')
+            ->where('n_prom', '>', 0)
+            ->where('c_visit', '<>', '')
+            ->first();
         $testKeys = [
             'numero_de_cuenta',
             'nombre_deudor',
@@ -32,19 +37,24 @@ class DhvClassTest extends TestCase
             'fecha_promesa',
             'vcc'
         ];
-
         $dc = new DhvClass();
-        $gestor = 'irineo';
-        $fecha = '2014-04-27';
-        $result = $dc->getPromesas($gestor, $fecha);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        if ($gestion) {
+            $gestor = $gestion->C_VISIT;
+            $fecha = $gestion->D_FECH;
+            $result = $dc->getPromesas($gestor, $fecha);
+            $this->assertGreaterThan(0, count($result));
+            $first = $result[0];
+            $keys = array_keys($first);
+            $this->assertEquals($testKeys, $keys);
+        }
+        $this->assertTrue(true);
     }
 
     public function testGetGestiones()
     {
+        $gestion = Historia::join('resumen', 'id_cuenta', '=', 'c_cont')
+            ->where('c_visit', '<>', '')
+            ->first();
         $testKeys = [
             'numero_de_cuenta',
             'nombre_deudor',
@@ -63,15 +73,14 @@ class DhvClassTest extends TestCase
             'd_prom',
             'v_cc'
         ];
-
         $dc = new DhvClass();
-        $gestor = 'irineo';
-        $fecha = '2014-04-27';
-        $result = $dc->getGestiones($gestor, $fecha);
-        $this->assertGreaterThan(0, count($result));
-        $first = $result[0];
-        $keys = array_keys($first);
-        $this->assertEquals($testKeys, $keys);
+        if ($gestion) {
+            $gestor = $gestion->C_VISIT;
+            $fecha = $gestion->D_FECH;
+            $result = $dc->getGestiones($gestor, $fecha);
+            $this->checkKeys($testKeys, $result);
+        }
+        $this->assertTrue(true);
     }
 
 }

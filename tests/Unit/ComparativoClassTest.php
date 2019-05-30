@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\ComparativoClass;
+use App\ComparisonClass;
 use Tests\ReportTest;
 
 
@@ -25,7 +25,7 @@ class ComparativoClassTest extends ReportTest
 
     public function testGetReport()
     {
-        $this->class = new ComparativoClass();
+        $this->class = new ComparisonClass();
         parent::testGetReport();
     }
 }

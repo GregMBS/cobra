@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Files <a href="{{ url('documents/create') }}" class="btn btn-info">Add files</a> </div>
+
+                <div class="card-body">
+                    {% if (files.count()) %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for file in files %}
+                            <tr>
+                                <td>{{ file.name }}</td>
+                                <td>{{ file.url }}</td>
+                                <td>{{ file.id }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    You have no files yet!
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

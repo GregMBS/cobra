@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 use Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -64,6 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        /** @var User|Builder $user */
         $user = new User();
         return $user->create([
             'completo' => $data['completo'],

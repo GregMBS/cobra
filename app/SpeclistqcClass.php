@@ -20,7 +20,8 @@ class SpeclistqcClass extends BaseClass {
      *
      * @var string
      */
-    private $queryhead = "SELECT numero_de_cuenta, nombre_deudor, saldo_total,
+    private $queryHead = <<<SQL
+SELECT numero_de_cuenta, nombre_deudor, saldo_total,
 	status_aarsa, ejecutivo_asignado_call_center, sum(monto) as sm,
 	status_de_credito, producto, estado_deudor, ciudad_deudor,
 	resumen.cliente as cli, resumen.id_cuenta as idc,
@@ -29,13 +30,15 @@ FROM resumen
 JOIN dictamenes ON dictamen=status_aarsa
 LEFT JOIN pagos using (id_cuenta)
 WHERE resumen.cliente=:cliente
-AND queue=:queue ";
+AND queue=:queue 
+SQL;
+
     
     /**
      *
      * @var string
      */
-    private $querytail = " GROUP BY id_cuenta
+    private $queryTail = " GROUP BY cli, numero_de_cuenta
 ORDER BY saldo_total desc";
 
     /**
@@ -43,17 +46,17 @@ ORDER BY saldo_total desc";
      * @return array
      */
     public function getSpecListReport(SpeclistDataClass $data) {
-        $cliente = $data->cliente;
+        $client = $data->cliente;
         $queue = $data->queue;
-        $sdc = $data->sdc;
-        $ratoStr = $data->ratoString;
-        $sdcStr = $data->sdcString;
-        $querymain = $this->queryhead . $sdcStr . $ratoStr . $this->querytail;
+        $status = $data->sdc;
+        $rateString = $data->rateString;
+        $statusString = $data->statusString;
+        $querymain = $this->queryHead . $statusString . $rateString . $this->queryTail;
         $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':cliente', $cliente);
-        $stm->bindParam(':queue', $queue);
+        $stm->bindValue(':cliente', $client);
+        $stm->bindValue(':queue', $queue);
         if (!(empty($data->sdc))) {
-            $stm->bindParam(':sdc', $sdc);
+            $stm->bindValue(':sdc', $status);
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);

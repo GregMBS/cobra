@@ -33,8 +33,8 @@ where c_cvge=:gestor and d_fech=:fecha and n_prom>0
 group by id_cuenta
 ORDER BY saldo_descuento_2 desc";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
-        $stq->bindParam(':fecha', $fecha);
+        $stq->bindValue(':gestor', $gestor);
+        $stq->bindValue(':fecha', $fecha);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -56,8 +56,8 @@ join historia on c_cont=id_cuenta
 where c_cvge=:gestor and d_fech=:fecha
 ORDER BY d_fech,c_hrin";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
-        $stq->bindParam(':fecha', $fecha);
+        $stq->bindValue(':gestor', $gestor);
+        $stq->bindValue(':fecha', $fecha);
         $stq->execute();
         $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -83,8 +83,8 @@ ORDER BY d_fech,c_hrin";
     where c_cvge=:gestor and d_fech=:fecha
     ORDER BY d_fech, c_hrin";
         $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':gestor', $gestor);
-        $stm->bindParam(':fecha', $fecha);
+        $stm->bindValue(':gestor', $gestor);
+        $stm->bindValue(':fecha', $fecha);
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $result;

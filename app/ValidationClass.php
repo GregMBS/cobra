@@ -62,12 +62,12 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     {
         $output = array();
         $std = $this->pdo->prepare($this->querydup);
-        $std->bindParam(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
-        $std->bindParam(':d_fech', $gestion['D_FECH']);
-        $std->bindParam(':c_hrin', $gestion['C_HRIN']);
-        $std->bindParam(':c_cvst', $gestion['C_CVST']);
-        $std->bindParam(':c_cvge', $gestion['C_CVGE']);
-        $std->bindParam(':c_obse1', $gestion['C_OBSE1']);
+        $std->bindValue(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
+        $std->bindValue(':d_fech', $gestion['D_FECH']);
+        $std->bindValue(':c_hrin', $gestion['C_HRIN']);
+        $std->bindValue(':c_cvst', $gestion['C_CVST']);
+        $std->bindValue(':c_cvge', $gestion['C_CVGE']);
+        $std->bindValue(':c_obse1', $gestion['C_OBSE1']);
         $std->execute();
         $result = $std->fetch(\PDO::FETCH_ASSOC);
         $output['value'] = $result['ct'];
@@ -139,7 +139,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
                 'VISITADOR ES NECESARIO<br>'
             ),
             array(
-                empty($gestion['ACCION']),
+                empty($gestion['C_ACCION']),
                 'ACCION ES NECESARIO<br>'
             ),
             array(
@@ -219,6 +219,31 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
         $output = new ValidationErrorClass();
         $error = 0;
         $flagmsg = '';
+        if (empty($gestion['C_CVST'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita estatus<br>';
+        }
+        if (empty($gestion['C_CVGE'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita gestor<br>';
+        }
+        if (empty($gestion['C_TELE'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita telefono<br>';
+        }
+        if (empty($gestion['C_ACCION'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita accion<br>';
+        }
+        if (empty($gestion['C_OBSE1'])) {
+            $error = 1;
+            $flagmsg .= 'se necesita gestion<br>';
+        } elseif (str_word_count($gestion['C_OBSE1']) < 3) {
+            $error = 1;
+            $flagmsg .= 'gestion incumplida<br>';
+        }
+        $D_PROM = max($gestion['D_PROM1'], $gestion['D_PROM2'], $gestion['D_PROM3'], $gestion['D_PROM4']);
+        $D_FECH = date('Y-m-d');
         $conditionalArray = array(
             array(
                 ($gestion['N_PAGO'] == 0),
@@ -237,7 +262,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
             ),
             array(
                 ($gestion['N_PROM'] > 0),
-                (in_array($gestion['D_PROM'], $this->blankDates)),
+                (in_array($D_PROM, $this->blankDates)),
                 'promesa necesita fecha<br>'
             ),
             array(
@@ -267,7 +292,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
             ),
             array(
                 ($gestion['N_PROM'] == 0),
-                ($gestion['D_PROM'] >= $gestion['D_FECH']),
+                ($D_PROM >= $D_FECH),
                 "PROMESA NECESITA MONTO<br>"
             ),
             array(

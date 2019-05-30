@@ -6,4 +6,10 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Flatly
+@import url("https://stackpath.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css");
+
+// Flatpickr
+@import '~flatpickr/dist/flatpickr.min';

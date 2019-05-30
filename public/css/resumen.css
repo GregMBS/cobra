@@ -16,42 +16,12 @@ span.formcap {
 	font-weight: bold;
 }
 
-span.formcapa {
-	display: block;
-	width: 13em;
-	float: left;
-	font-size: 100%;
-	font-weight: bold;
-}
-
-span.formcaps {
-	display: block;
-	width: 6em;
-	float: left;
-	font-size: 100%;
-	font-weight: bold;
-}
-
 #deudor {
 	width: 7em;
 }
 
 #domicilio {
 	width: 7em;
-}
-
-span.formtit {
-	display: block;
-	width: 24em;
-	float: left;
-	font-size: 100%;
-	font-weight: bold;
-}
-
-span.formfirst {
-	display: block;
-	width: 24em;
-	float: left;
 }
 
 .buttons input {

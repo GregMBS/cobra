@@ -8,6 +8,8 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
+
 /**
  * Description of TroubleClass
  *
@@ -21,6 +23,7 @@ class TroubleClass extends BaseClass {
      */
     public function updateTrouble(TroubleDataClass $tdc, $capt) {
         $now = date('Y-m-d');
+        /** @var Builder $tc */
         $tc = new Trouble();
         /**
          * @var Trouble $query
@@ -28,7 +31,7 @@ class TroubleClass extends BaseClass {
         $query = $tc->find($tdc->auto);
         $query->fechacomp = $now;
         $query->it_guy = $capt;
-        $query->reparacion = $tdc->reparacion;
+        $query->reparacion = $tdc->fix;
         $query->save();
    }
 
@@ -37,7 +40,9 @@ class TroubleClass extends BaseClass {
      * @return array
      */
     public function listTrouble() {
+        /** @var Builder $tc */
         $tc = new Trouble();
+        /** @var Trouble $query */
         $query = $tc->orderByDesc('fechahora')->get();
         $result = $query->toArray();
         return $result;
@@ -53,11 +58,11 @@ class TroubleClass extends BaseClass {
          * @var Trouble $query
          */
         $query = new Trouble();
-        $query->sistema = $tdc->sistema;
-        $query->usuario = $tdc->usuario;
+        $query->sistema = $tdc->system;
+        $query->usuario = $tdc->user;
         $query->fechahora = $now;
-        $query->fuente = $tdc->fuente;
-        $query->descripcion = $tdc->descripcion;
+        $query->fuente = $tdc->source;
+        $query->descripcion = $tdc->description;
         $query->error_msg = $tdc->error_msg;
         $query->save();
         return $query;

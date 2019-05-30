@@ -9,7 +9,7 @@ class GestorQueuesControllerTest extends TestCase
 {
     public function testIndex()
     {
-        $user = User::find(20);
+        $user = User::first();
         $response = $this->actingAs($user)->get('/queuesg');
         $response->assertViewIs('queuesg');
     }

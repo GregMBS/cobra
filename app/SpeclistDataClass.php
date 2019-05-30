@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gmbs
- * Date: 9/11/18
- * Time: 5:28 PM
- */
 
 namespace App;
 
@@ -29,12 +23,12 @@ class SpeclistDataClass
     /**
      * @var string
      */
-    public $sdcString = '';
+    public $statusString = '';
 
     /**
      * @var string
      */
-    public $ratoString = '';
+    public $rateString = '';
 
     public function __construct(array $array)
     {
@@ -44,44 +38,45 @@ class SpeclistDataClass
                 $this->$field = $array[$field];
             }
         }
-        $this->sdcString = $this->getSdcString();
-        $this->ratoString = $this->getRatoString($array['rato']);
+        $this->statusString = $this->getStatusString();
+        $this->rateString = $this->getRateString($array['rato']);
     }
 
     /**
      *
-     * @param string $rato
+     * @param string $rate
      * @return string
      */
-    private function getRatoString($rato) {
-        switch ($rato) {
+    private function getRateString($rate) {
+        switch ($rate) {
             case 'diario':
-                $ratoString = " AND fecha_ultima_gestion>curdate() ";
+                // daily
+                $rateString = " AND fecha_ultima_gestion>curdate() ";
                 break;
             case 'semanal':
-                $ratoString = "AND week(fecha_ultima_gestion)=week(curdate())
-        AND year(fecha_ultima_gestion)=year(curdate()) ";
+                // weekly
+                $rateString = "AND week(fecha_ultima_gestion)=week(curdate()) AND year(fecha_ultima_gestion)=year(curdate()) ";
                 break;
             case 'mensual':
-                $ratoString = "AND fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day ";
+                // monthly
+                $rateString = "AND fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day ";
                 break;
             default:
-                $ratoString = "";
+                $rateString = "";
                 break;
         }
-        return $ratoString;
+        return $rateString;
     }
 
     /**
-     * @param string $sdc
      * @return string
      */
-    private function getSdcString()
+    private function getStatusString()
     {
-        $sdcString = 'AND status_de_credito not regexp "-" ';
+        $statusString = 'AND status_de_credito not regexp "-" ';
         if (!(empty($this->sdc))) {
-            $sdcString = "AND status_de_credito=:sdc ";
+            $statusString = "AND status_de_credito=:sdc ";
         }
-        return $sdcString;
+        return $statusString;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
+use View;
 use App\QueuesqcClass;
 
 class QueueReportController extends Controller

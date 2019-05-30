@@ -53,7 +53,7 @@ SQL;
      */
     private function getLastHistoriaData(\PDOStatement $stq, $c_cont)
     {
-        $stq->bindParam(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cont', $c_cont, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -82,7 +82,7 @@ SQL;
      */
     private function getBestHistoriaData(\PDOStatement $stq, $c_cont)
     {
-        $stq->bindParam(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cont', $c_cont, \PDO::PARAM_INT);
         $stq->execute();
         $result = $stq->fetch(\PDO::FETCH_ASSOC);
         return $result;
@@ -132,10 +132,12 @@ SQL;
             $resumen = $temp;
         }
         foreach ($resumen as $row) {
-            $id_cuenta = $row['id_cuenta'];
-            $ultimo = $this->getUltimo($lastQuery, $id_cuenta);
-            $mejor = $this->getMejor($bestQuery, $id_cuenta);
-            $data[] = array_merge($row, $ultimo, $mejor);
+            if ($row) {
+                $id_cuenta = $row['id_cuenta'];
+                $ultimo = $this->getUltimo($lastQuery, $id_cuenta);
+                $mejor = $this->getMejor($bestQuery, $id_cuenta);
+                $data[] = array_merge($row, $ultimo, $mejor);
+            }
         }
         return $data;
     }

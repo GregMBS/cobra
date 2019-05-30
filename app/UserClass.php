@@ -9,6 +9,8 @@
 namespace App;
 
 
+use Illuminate\Database\Eloquent\Builder;
+
 class UserClass extends BaseClass
 {
     /**
@@ -48,9 +50,27 @@ class UserClass extends BaseClass
         $queryupd = "UPDATE users SET camp=:camp "
             . "where iniciales=:capt";
         $stu = $this->pdo->prepare($queryupd);
-        $stu->bindParam(':camp', $camp);
-        $stu->bindParam(':capt', $capt);
+        $stu->bindValue(':camp', $camp);
+        $stu->bindValue(':capt', $capt);
         $stu->execute();
+    }
+
+    /**
+     *
+     * @param string $capt
+     * @return int
+     */
+    public function getCamp($capt) {
+        try {
+            /** @var Builder $query */
+            $query = User::whereIniciales($capt);
+            /** @var User $user */
+            $user= $query->firstOrFail();
+            $camp = $user->camp;
+        } catch (\Exception $e) {
+            $camp = 0;
+        }
+        return $camp;
     }
 
 }
