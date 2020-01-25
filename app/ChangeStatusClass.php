@@ -8,6 +8,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Description of ChangeStatusClass
  *
@@ -37,7 +39,7 @@ AND id_cuenta=:C_CONT";
         $stc->bindValue(':tags', $tags);
         $stc->bindValue(':C_CONT', $C_CONT);
         $stc->execute();
-        $count = $stc->fetch(\PDO::FETCH_ASSOC);
+        $count = $stc->fetch(PDO::FETCH_ASSOC);
         return ($count['ct'] === 1);
     }
     
@@ -50,9 +52,9 @@ AND id_cuenta=:C_CONT";
     private function getTags($C_CONT, $inactivo) {
         $query = "SELECT status_de_credito FROM resumen where id_cuenta = :id_cuenta";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':id_cuenta', $C_CONT, \PDO::PARAM_INT);
+        $stq->bindValue(':id_cuenta', $C_CONT, PDO::PARAM_INT);
         $stq->execute();
-        $cuenta = $stq->fetch(\PDO::FETCH_ASSOC);
+        $cuenta = $stq->fetch(PDO::FETCH_ASSOC);
         $sdc = $cuenta['status_de_credito'];
         $tagArray      = explode('-', $sdc);
         $trimmed       = trim($tagArray[0]);

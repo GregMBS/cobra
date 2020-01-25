@@ -28,7 +28,7 @@ class QueuesClass extends BaseClass
         $query = "UPDATE users SET camp=:camp "
             . "where iniciales=:gestor";
         $stu = $this->pdo->prepare($query);
-        $stu->bindValue(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindValue(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindValue(':gestor', $GESTOR);
         $stu->execute();
     }
@@ -44,7 +44,7 @@ class QueuesClass extends BaseClass
             . "WHERE gestor = :gestor "
             . "AND camp = :camp";
         $stu = $this->pdo->prepare($query);
-        $stu->bindValue(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindValue(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindValue(':gestor', $GESTOR);
         $stu->execute();
     }
@@ -60,7 +60,7 @@ class QueuesClass extends BaseClass
             . "WHERE gestor = :gestor "
             . "AND camp = :camp";
         $stu = $this->pdo->prepare($query);
-        $stu->bindValue(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindValue(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindValue(':gestor', $GESTOR);
         $stu->execute();
     }
@@ -157,7 +157,7 @@ and sdc=:sdc and status_aarsa=:status";
         WHERE cliente<> ''
         ORDER BY cliente,sdc,status_aarsa";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
+        $result = $stq->fetchAll(PDO::FETCH_BOTH);
         return $result;
     }
 

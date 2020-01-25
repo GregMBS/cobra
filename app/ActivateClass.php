@@ -8,6 +8,8 @@
 
 namespace App;
 
+use \PDO;
+
 /**
  * Description of ActivateClass
  *
@@ -24,11 +26,13 @@ class ActivateClass extends BaseClass {
         $queryCheck = "select 1 as fail from resumen 
 where numero_de_cuenta = :cta 
 and status_de_credito not regexp '-'";
-        $stc = $this->pdo->prepare($queryCheck);
+        /** @var PDO $pdo */
+        $pdo = $this->pdo;
+        $stc = $pdo->prepare($queryCheck);
         foreach ($data as $d) {
             $stc->bindValue(':cta', $d);
             $stc->execute();
-            $fail = $stc->fetch(\PDO::FETCH_ASSOC);
+            $fail = $stc->fetch(PDO::FETCH_ASSOC);
             $count += $fail['fail'];
         }
         return $count;
@@ -47,7 +51,7 @@ and status_de_credito regexp '-'";
         foreach ($data as $d) {
             $stc->bindValue(':cta', $d);
             $stc->execute();
-            $fail = $stc->fetch(\PDO::FETCH_ASSOC);
+            $fail = $stc->fetch(PDO::FETCH_ASSOC);
             $count += $fail['fail'];
         }
         return $count;

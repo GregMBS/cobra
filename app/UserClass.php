@@ -9,7 +9,9 @@
 namespace App;
 
 
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use PDO;
 
 class UserClass extends BaseClass
 {
@@ -25,7 +27,7 @@ class UserClass extends BaseClass
                 SELECT iniciales FROM nombres
                     WHERE tipo <> ''";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         $gestores = array_column($result, 'iniciales');
         return $gestores;
     }
@@ -38,7 +40,7 @@ class UserClass extends BaseClass
     {
         $query = "SELECT iniciales,completo FROM users where tipo IN ('visitador','admin')";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -67,7 +69,7 @@ class UserClass extends BaseClass
             /** @var User $user */
             $user= $query->firstOrFail();
             $camp = $user->camp;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $camp = 0;
         }
         return $camp;

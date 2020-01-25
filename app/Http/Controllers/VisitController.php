@@ -21,7 +21,7 @@ class VisitController extends Controller
     /**
      * 
      * @param int $id_cuenta
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index($id_cuenta)
     {

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * IntensityClass
  *
@@ -38,7 +40,7 @@ class IntensityClass extends BaseClass
         $stq->bindValue(':fecha1', $date1);
         $stq->bindValue(':fecha2', $date2);
         $stq->execute();
-        $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $data = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -105,7 +107,7 @@ SQL;
         $end = " limit 360";
         $query = $start . $dir . $end;
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -121,7 +123,7 @@ SELECT distinct c_cvba FROM historia
 	
 SQL;
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

@@ -7,6 +7,8 @@ namespace App;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Database Class for ddh/pdh
  *
@@ -33,7 +35,7 @@ saldo_total desc, pagos_vencidos";
         $stq->bindValue(':gestor', $gestor);
         $stq->bindValue(':fecha', $fecha);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -53,7 +55,7 @@ saldo_total desc, pagos_vencidos,d_fech,c_hrin";
         $stq->bindValue(':gestor', $gestor);
         $stq->bindValue(':fecha', $fecha);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Description of QuickHoyClass
  *
@@ -86,7 +88,7 @@ class QuickHoyClass extends BaseClass
         foreach ($gestores as $gestor) {
            $stp->bindValue(':gestor', $gestor['name']);
            $stp->execute();
-           $result = $stp->fetch(\PDO::FETCH_ASSOC);
+           $result = $stp->fetch(PDO::FETCH_ASSOC);
            $stu->bindValue(':gestor', $gestor['name']);
            $stu->bindValue(':count', $result['ct']);
            $stu->execute();
@@ -105,7 +107,7 @@ class QuickHoyClass extends BaseClass
         $this->getPagos();
         $this->pdo->query($this->updateHoyEfectividad);
         $sta    = $this->pdo->query($this->queryHoy);
-        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $sta->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 }

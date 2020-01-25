@@ -20,7 +20,7 @@ class DocumentControllerTest extends TestCase
     /** @var User */
     private $user;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->dc = new DocumentController();

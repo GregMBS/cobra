@@ -9,6 +9,8 @@
 namespace App;
 
 
+use PDO;
+
 /**
  * Description of SpeclistqcClass
  *
@@ -59,7 +61,7 @@ ORDER BY saldo_total desc";
             $stm->bindValue(':sdc', $status);
         }
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

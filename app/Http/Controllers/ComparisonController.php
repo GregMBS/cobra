@@ -27,7 +27,7 @@ class ComparisonController extends Controller
     
     /**
      * 
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index() {
         $result = $this->cc->getReport();

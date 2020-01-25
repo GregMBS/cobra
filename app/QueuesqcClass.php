@@ -7,6 +7,8 @@
  */
 namespace App;
 
+use PDO;
+
 /**
  * Description of QueuesqcClass
  *
@@ -55,7 +57,7 @@ and queue = :queue ";
             $stc->bindValue(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -83,7 +85,7 @@ and queue = :queue ";
             $stc->bindValue(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -100,7 +102,7 @@ and sdc <> ''
 order by cliente, sdc, status_aarsa limit 1000
 ";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -119,7 +121,7 @@ where status_de_credito not regexp '-'
 group by cliente,status_de_credito
 ";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
     

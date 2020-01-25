@@ -2,6 +2,7 @@
 namespace App;
 
 use Exception;
+use PDOException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -91,19 +92,19 @@ class LoadClass extends BaseClass
         $queryDrop = "DROP TABLE IF EXISTS temp";
         try {
             $this->pdo->query($queryDrop);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
         $queryStart = "CREATE TABLE temp " . "ENGINE=INNODB AUTO_INCREMENT=10 " . "DEFAULT CHARSET=utf8 " . "COLLATE=utf8_spanish_ci " . "SELECT " . implode(',', $columnNames) . " FROM resumen LIMIT 0";
         try {
             $this->pdo->query($queryStart);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
         $queryIndex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50))";
         try {
             $this->pdo->query($queryIndex);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
     }
@@ -117,7 +118,6 @@ class LoadClass extends BaseClass
      */
     public function loadData(array $data, array $columnNames)
     {
-        /** @noinspection SyntaxError */
         $queryLoadFront = "INSERT INTO" . " temp (";
         $queryLoadEnd =") VALUES ";
         $queryLoad = $queryLoadFront . implode(",", $columnNames) . $queryLoadEnd;
@@ -132,7 +132,7 @@ class LoadClass extends BaseClass
         try {
             $stl = $this->pdo->prepare($queryLoadTrim);
             $stl->execute();
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
         return $stl->rowCount();
@@ -161,14 +161,13 @@ class LoadClass extends BaseClass
     public function updateResumen(array $columnNames)
     {
         $fields = $this->prepareUpdate($columnNames);
-        /** @noinspection SyntaxError */
         $queryUpdateStart = "UPDATE temp, resumen " . " SET ";
         $queryUpdateEnd = " WHERE temp.numero_de_cuenta=resumen.numero_de_cuenta";
         $queryUpdate = $queryUpdateStart . $fields . $queryUpdateEnd;
         try {
             $stu = $this->pdo->prepare($queryUpdate);
             $stu->execute();
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
         return $stu->rowCount();
@@ -188,7 +187,7 @@ class LoadClass extends BaseClass
         try {
             $sti = $this->pdo->prepare($query);
             $sti->execute();
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
         return $sti->rowCount();

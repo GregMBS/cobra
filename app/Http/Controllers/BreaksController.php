@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\BreaksDataClass;
 use App\UserClass;
+use Exception;
+use Illuminate\Validation\ValidationException;
 use View;
 use App\BreaksClass;
 use Illuminate\Http\Request;
@@ -30,7 +32,7 @@ class BreaksController extends Controller
     /**
      *
      * @param string $capt
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index($capt) {
         $result = $this->bc->breaksPageData($capt);
@@ -40,7 +42,7 @@ class BreaksController extends Controller
     
     /**
      *
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function admIndex() {
         $breaks = $this->bc->listBreaks();
@@ -54,25 +56,30 @@ class BreaksController extends Controller
     /**
      * @param int $auto
      * @return View
-     * @throws \Exception
+     * @throws Exception
      */
     public function erase($auto) {
         $this->bc->deleteBreak($auto);
         return $this->admIndex();
     }
-    
+
     /**
-     * 
+     *
      * @param Request $r
      * @return View
+     * @throws ValidationException
      */
     public function change(Request $r) {
-        $r->validate([
-            'auto' => 'required|exists:breaks|integer',
-            'tipo' => 'required',
-            'start' => 'required',
-            'finish' => 'required'
-        ]);
+        try {
+            $this->validate($r, [
+                'auto' => 'required|exists:breaks|integer',
+                'tipo' => 'required',
+                'start' => 'required',
+                'finish' => 'required'
+            ]);
+        } catch (ValidationException $e) {
+            throw $e;
+        }
         $break = new BreaksDataClass();
         $break->setAuto($r->auto);
         $break->setTipo($r->tipo);
@@ -86,14 +93,19 @@ class BreaksController extends Controller
      *
      * @param Request $r
      * @return View
+     * @throws ValidationException
      */
     public function add(Request $r) {
-        $r->validate([
-            'gestor' => 'required',
-            'tipo' => 'required',
-            'start' => 'required',
-            'finish' => 'required'
-        ]);
+        try {
+            $this->validate($r, [
+                'gestor' => 'required',
+                'tipo' => 'required',
+                'start' => 'required',
+                'finish' => 'required'
+            ]);
+        } catch (ValidationException $e) {
+            throw $e;
+        }
         $break = new BreaksDataClass();
         $break->setGestor($r->gestor);
         $break->setTipo($r->tipo);

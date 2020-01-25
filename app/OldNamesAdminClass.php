@@ -3,6 +3,7 @@
 namespace App;
 
 
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
 class OldNamesAdminClass extends AgentAdminClass
@@ -31,7 +32,7 @@ class OldNamesAdminClass extends AgentAdminClass
         $nombreQuery = Nombre::where('iniciales', '=', $capt);
         try {
             $nombreQuery->delete();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             //
         }
     }

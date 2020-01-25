@@ -8,6 +8,7 @@
 
 namespace App;
 
+use \stdClass;
 
 class BreaksDataClass
 {
@@ -77,11 +78,11 @@ class BreaksDataClass
     }
 
     /**
-     * @return \stdClass
+     * @return stdClass
      */
     public function getBreak()
     {
-        $object = new \stdClass();
+        $object = new stdClass();
         $object->auto = $this->auto;
         $object->start = $this->start;
         $object->gestor = $this->gestor;

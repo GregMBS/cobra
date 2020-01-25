@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
+use Exception;
 use Illuminate\Http\Request;
 use App\BigPromClass;
 use App\BigDataClass;
@@ -23,13 +28,18 @@ class BigPromsController extends Controller
     /**
      * @param Request $r
      * @param OutputClass $oc
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws UnsupportedTypeException
+     * @throws WriterNotOpenedException
+     * @throws Exception
      */
     public function makeReport(Request $r, OutputClass $oc) {
-        $bdc = new BigDataClass($r);
+        try {
+            $bdc = new BigDataClass($r);
+        } catch (Exception $e) {
+            throw $e;
+        }
         $filename = "Query_de_promesas.xlsx";
         $data = $this->bc->getProms($bdc);
         if ($data) {
@@ -40,7 +50,7 @@ class BigPromsController extends Controller
     
     /**
      * 
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index() {
         $gestores = $this->bc->getPromGestores();

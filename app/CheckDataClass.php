@@ -4,6 +4,8 @@ namespace App;
 
 
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
@@ -41,6 +43,7 @@ class CheckDataClass
 
     /**
      * @param Collection $r
+     * @throws Exception
      */
     public function __construct(Collection $r)
     {
@@ -52,7 +55,11 @@ class CheckDataClass
             $this->CUENTA = $r->CUENTA;
             $this->id_cuenta = $this->getIdCuentaFromCuenta($this->CUENTA);
         }
-        $this->fechaOut = new Carbon($r->fechaout);
+        try {
+            $this->fechaOut = new Carbon($r->fechaout);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -67,8 +74,10 @@ class CheckDataClass
          * @method Resumen whereNumeroDeCuenta($cuenta)
          */
         $rc = new Resumen();
-        /** @var Resumen $resumen */
-        $resumen = $rc->whereNumeroDeCuenta($cuenta)->get();
+        /** @var Resumen|Model $resumenStructure */
+        $resumenStructure = $rc->whereNumeroDeCuenta($cuenta);
+        /** @var Collection $resumen */
+        $resumen = $resumenStructure->get();
         if ($resumen->count() > 0) {
             $cuenta = $resumen->first();
             return $cuenta->id_cuenta;

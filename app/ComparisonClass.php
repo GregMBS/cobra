@@ -8,6 +8,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Description of ComparisonClass
  *
@@ -41,7 +43,7 @@ SQL;
         $stc->bindValue(':start', $start);
         $stc->bindValue(':startDay', $startDay);
         $stc->execute();
-        return $stc->fetchAll(\PDO::FETCH_ASSOC);
+        return $stc->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

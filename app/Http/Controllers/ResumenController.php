@@ -61,7 +61,7 @@ class ResumenController extends Controller
     }
     /**
      * @param ValidationErrorClass $valid
-     * @return View
+     * @return RedirectResponse
      * @throws \Exception
      */
     public function latest(ValidationErrorClass $valid)
@@ -98,7 +98,7 @@ class ResumenController extends Controller
 
     /**
      * @param StoreVisit $r
-     * @return View
+     * @return RedirectResponse|View
      * @throws \Exception
      */
     public function capture(StoreVisit $r)
@@ -115,7 +115,7 @@ class ResumenController extends Controller
 
     /**
      * @param Request $r
-     * @return View
+     * @return RedirectResponse|View|\Illuminate\View\View
      * @throws \Exception
      */
     public function addNew(Request $r)
@@ -198,34 +198,30 @@ class ResumenController extends Controller
         $referencias = $this->fc->index($id_cuenta);
         $imagePath = public_path('images/') . $id_cuenta . '.jpg';
         $photo_exists = file_exists($imagePath);
-        /**
-         * @var View
-         */
-        $baseView = view('resumen');
-        /** @noinspection PhpUndefinedMethodInspection */
-        $view = $baseView
-            ->with('r', $result)
-            ->with('history', $history)
-            ->with('notas', $notas)
-            ->with('acciones', $acciones)
-            ->with('accionesV', $accionesV)
-            ->with('dictamenes', $dictamenes)
-            ->with('dictamenesV', $dictamenesV)
-            ->with('motiv', $motiv)
-            ->with('motivV', $motivV)
-            ->with('cnp', $cnp)
-            ->with('referencias', $referencias)
-            ->with('gestores', $gestores)
-            ->with('visitadores', $visitadores)
-            ->with('capt', $capt)
-            ->with('tipo', $tipo)
-            ->with('tl', $tl)
-            ->with('sdc', $sdc)
-            ->with('cr', $cr)
-            ->with('numgest', $numgest)
-            ->with('from', $from)
-            ->with('camp', $camp)
-            ->with('photo_exists', $photo_exists);
+        /** @var View|\Illuminate\View\View|\Illuminate\Contracts\View\View $baseView */
+        $data = [['r', $result],
+            ['history', $history],
+            ['notas', $notas],
+            ['acciones', $acciones],
+            ['accionesV', $accionesV],
+            ['dictamenes', $dictamenes],
+            ['dictamenesV', $dictamenesV],
+            ['motiv', $motiv],
+            ['motivV', $motivV],
+            ['cnp', $cnp],
+            ['referencias', $referencias],
+            ['gestores', $gestores],
+            ['visitadores', $visitadores],
+            ['capt', $capt],
+            ['tipo', $tipo],
+            ['tl', $tl],
+            ['sdc', $sdc],
+            ['cr', $cr],
+            ['numgest', $numgest],
+            ['from', $from],
+            ['camp', $camp],
+            ['photo_exists', $photo_exists]];
+        $view = view('resumen', $data);
         return $view;
     }
 }

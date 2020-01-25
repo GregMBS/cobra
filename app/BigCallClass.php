@@ -8,6 +8,8 @@ namespace App;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Database queries for 'big' reports
  *
@@ -54,7 +56,7 @@ class BigCallClass extends BaseClass
             $stq->bindValue(':cliente', $bdc->cliente);
         }
         $stq->execute();
-        $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $data = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -92,7 +94,7 @@ ORDER BY d_fech,c_hrin";
         $end = " LIMIT 360";
         $query = $start . $dir . $end;
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_BOTH);
+        $result = $stq->fetchAll(PDO::FETCH_BOTH);
         return $result;
     }
 
@@ -107,7 +109,7 @@ ORDER BY d_fech,c_hrin";
         limit 10
 	";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         $clientes = array_column($result, 'c_cvba');
         return $clientes;
     }
@@ -122,7 +124,7 @@ ORDER BY d_fech,c_hrin";
         where d_fech>last_day(curdate()-interval 2 month)
         group by c_cvge";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         $gestores = array_column($result, 'c_cvge');
         return $gestores;
     }

@@ -8,6 +8,8 @@ namespace App;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Database queries for 'big' reports
  *
@@ -48,7 +50,7 @@ SQL;
         $query = $start . $dir . $end;
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -95,7 +97,7 @@ SQL;
             $stm->bindValue(':cliente', $bdc->cliente);
         }
         $stm->execute();
-        $main = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $main = $stm->fetchAll(PDO::FETCH_ASSOC);
         $queryPagos = "SELECT MAX(fecha) AS 'FECHA PAGO',
             SUM(monto) AS 'MONTO PAGO',MAX(confirmado) as 'CONFIRMADO'
             FROM pagos WHERE id_cuenta = :id";
@@ -105,7 +107,7 @@ SQL;
             $id_cuenta = $obj->id_cuenta;
             $stp->bindValue(':id', $id_cuenta);
             $stp->execute();
-            $pagos = $stp->fetch(\PDO::FETCH_ASSOC);
+            $pagos = $stp->fetch(PDO::FETCH_ASSOC);
             $merged = array_merge($m, $pagos);
             array_push($result, $merged);
         }
@@ -124,7 +126,7 @@ SQL;
         limit 10
 	";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         $clientes = array_column($result, 'c_cvba');
         return $clientes;
     }
@@ -140,7 +142,7 @@ SQL;
         and N_PROM>0
         group by c_cvge";
         $stq = $this->pdo->query($query);
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         $gestores = array_column($result, 'c_cvge');
         return $gestores;
     }

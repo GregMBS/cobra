@@ -57,7 +57,7 @@ class NoteController extends Controller
     /**
      *
      * @param int $id_cuenta
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function indexAdmin($id_cuenta = 0)
     {

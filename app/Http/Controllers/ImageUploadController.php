@@ -3,19 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ImageUploadController extends Controller
 {
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws ValidationException
      */
     public function load(Request $request)
     {
-        $this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,jpg|max:2048',
-            'id_cuenta' => 'required|integer|exists:resumen,id_cuenta'
-        ]);
+        try {
+            $this->validate($request, [
+                'image' => 'required|image|mimes:jpeg,jpg|max:2048',
+                'id_cuenta' => 'required|integer|exists:resumen,id_cuenta'
+            ]);
+        } catch (ValidationException $e) {
+            throw $e;
+        }
 
         $image = $request->file('image');
         $id_cuenta = $request->id_cuenta;

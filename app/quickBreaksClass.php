@@ -2,6 +2,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Description of QuickBreaksClass
  *
@@ -83,7 +85,7 @@ where tipo<>'junta' group by gestor";
         $this->pdo->query($this->dropBreaktemp);
         $this->pdo->query($this->createBreaktemp);
         $sta    = $this->pdo->query($this->queryBreakTab);
-        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $sta->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 }

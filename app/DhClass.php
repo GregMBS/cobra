@@ -8,6 +8,8 @@ namespace App;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Database Class for ddh/pdh
  *
@@ -36,7 +38,7 @@ ORDER BY saldo_descuento_2 desc";
         $stq->bindValue(':gestor', $gestor);
         $stq->bindValue(':fecha', $fecha);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -59,7 +61,7 @@ ORDER BY d_fech,c_hrin";
         $stq->bindValue(':gestor', $gestor);
         $stq->bindValue(':fecha', $fecha);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -86,7 +88,7 @@ ORDER BY d_fech,c_hrin";
         $stm->bindValue(':gestor', $gestor);
         $stm->bindValue(':fecha', $fecha);
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

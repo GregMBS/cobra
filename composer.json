@@ -1,63 +1,63 @@
 {
-	"name" : "laravel/laravel",
-	"description" : "The Laravel Framework.",
-	"keywords" : [
-		"framework",
-		"laravel"
-	],
-	"license" : "MIT",
-	"type" : "project",
-	"require" : {
-		"php": ">=7.0.0",
-		"ext-PDO": "*",
-		"ext-fileinfo": "*",
-		"ext-http": "*",
-		"ext-json": "*",
-		"barryvdh/laravel-ide-helper": "^2.4",
-		"box/spout": "^2.7",
-		"fideloper/proxy": "~3.3",
-		"filp/whoops": "~2.0",
-		"fzaninotto/faker": "~1.4",
-		"laravel/framework": "5.5.*",
-		"laravel/homestead": "^7.16",
-		"laravel/tinker": "~1.0",
-		"laravelcollective/html": "5.*",
-		"maatwebsite/excel": "~3.0",
-		"rcrowe/twigbridge": "~0.9",
-		"spatie/laravel-medialibrary": "^7.0.0",
-		"twig/extensions": "^1.5",
-		"twig/twig": "~1.30"
-	},
-	"require-dev" : {
-		"laravel/dusk": "^2.0",
-		"mockery/mockery": "0.9.*",
-		"phpunit/phpunit": "~6.0"
-	},
-	"autoload" : {
-		"classmap" : [
-			"database/seeds",
-			"database/factories"
-		],
-		"psr-4" : {
-			"App\\" : "app/"
-		}
-	},
-	"autoload-dev" : {
-		"psr-4" : {
-			"Tests\\" : "tests/"
-		}
-	},
-	"scripts" : {
-		"post-root-package-install" : "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-		"post-create-project-cmd" : "@php artisan key:generate",
-		"post-autoload-dump" : [
-			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-			"@php artisan package:discover"
-		]
-	},
-	"config" : {
-		"preferred-install" : "dist",
-		"sort-packages" : true,
-		"optimize-autoloader" : true
-	}
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=7.1.0",
+        "ext-PDO": "*",
+        "ext-fileinfo": "*",
+        "ext-http": "*",
+        "ext-json": "*",
+        "barryvdh/laravel-ide-helper": "^2.4",
+        "box/spout": "^2.7",
+        "fideloper/proxy": "~4.0",
+        "filp/whoops": "~2.0",
+        "fzaninotto/faker": "~1.4",
+        "laravel/framework": "^5.8.0",
+        "laravel/homestead": "^7.16",
+        "laravel/tinker": "~1.0",
+        "laravelcollective/html": "5.*",
+        "maatwebsite/excel": "~3.0",
+        "rcrowe/twigbridge": "~0.9",
+        "spatie/laravel-medialibrary": "^7.0.0",
+        "twig/extensions": "^1.5",
+        "twig/twig": "~1.30"
+    },
+    "require-dev": {
+        "laravel/dusk": "^5.0.0",
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+        "post-create-project-cmd": "@php artisan key:generate",
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
 }

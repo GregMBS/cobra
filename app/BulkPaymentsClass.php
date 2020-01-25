@@ -2,7 +2,9 @@
 
 namespace App;
 
-use PDOStatement;
+use Exception;
+use \PDO;
+use \PDOStatement;
 
 /**
  * Description of BulkPaymentsClass
@@ -111,7 +113,7 @@ SQL;
         $stp->bindValue(':cuenta', $rc->getCuenta());
         $stp->bindValue(':fecha', $rc->getFecha());
         $stp->execute();
-        $result = $stp->fetch(\PDO::FETCH_ASSOC);
+        $result = $stp->fetch(PDO::FETCH_ASSOC);
         $c_cvge = '';
         if ($result) {
             $c_cvge = $result['c_cvge'];
@@ -137,6 +139,7 @@ SQL;
      *
      * @param string $input
      * @return string
+     * @throws /Exception
      */
     public function main($input)
     {
@@ -146,11 +149,17 @@ SQL;
         $count = 0;
         foreach ($array as $row) {
             $rc = new BulkPaymentsRowClass($row);
-            if ($rc->valid()) {
-                $this->cleanPago($rc);
-                $this->getGestor($rc);
-                $this->fillTemp($rc);
-                $count++;
+            if (isset($rc)) {
+                try {
+                    if ($rc->valid()) {
+                        $this->cleanPago($rc);
+                        $this->getGestor($rc);
+                        $this->fillTemp($rc);
+                        $count++;
+                    }
+                } catch (Exception $e) {
+                    throw $e;
+                }
             }
         }
         $counted = $this->finish();

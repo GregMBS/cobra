@@ -85,7 +85,7 @@ class SegmentController extends Controller
 
     /**
      *
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index()
     {

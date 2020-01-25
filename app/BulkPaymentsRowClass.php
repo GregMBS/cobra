@@ -9,6 +9,7 @@
 namespace App;
 
 use DateTime;
+use Exception;
 
 /**
  * Description of BulkPaymentsRowClass
@@ -128,8 +129,9 @@ class BulkPaymentsRowClass {
     }
 
     /**
-     * 
+     *
      * @return boolean
+     * @throws Exception
      */
     private function validFecha() {
         $dt = new DateTime();
@@ -150,16 +152,21 @@ class BulkPaymentsRowClass {
     }
 
     /**
-     * 
+     *
      * @return boolean
+     * @throws Exception
      */
     public function valid() {
         $valid = TRUE;
         if ($this->invalidCuenta()) {
             $valid = FALSE;
         }
-        if (!$this->validFecha()) {
-            $valid = FALSE;
+        try {
+            if (!$this->validFecha()) {
+                $valid = FALSE;
+            }
+        } catch (Exception $e) {
+            throw $e;
         }
         if ($this->invalidMonto()) {
             $valid = FALSE;

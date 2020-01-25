@@ -9,6 +9,9 @@
 namespace App;
 
 
+use Exception;
+use PDO;
+
 /**
  * Description of BreaksClass
  *
@@ -35,7 +38,7 @@ and c_hrin>:times";
         $sdq->bindValue(':times', $time);
         $sdq->bindValue(':gestor', $gestor);
         $sdq->execute();
-        $result = $sdq->fetch(\PDO::FETCH_ASSOC);
+        $result = $sdq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -58,7 +61,7 @@ order by C_CVGE,C_CVST,c_hrin";
         $sdp = $this->pdo->prepare($query);
         $sdp->bindValue(':capt', $capt);
         $sdp->execute();
-        $result = $sdp->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $sdp->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -83,7 +86,7 @@ order by C_CVGE,C_CVST,c_hrin";
     /**
      * @param int $auto
      * @return bool|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function deleteBreak($auto)
     {

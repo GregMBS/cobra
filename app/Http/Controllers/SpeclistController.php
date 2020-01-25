@@ -22,7 +22,7 @@ class SpeclistController extends Controller
     /**
      *
      * @param Request $request
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index(Request $request)
     {

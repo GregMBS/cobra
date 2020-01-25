@@ -8,6 +8,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Description of SearchClass
  *
@@ -63,9 +65,6 @@ SQL;
     private function searchField($field)
     {
         switch ($field) {
-            case 'id_cuenta':
-                $output = "where id_cuenta = :find order by id_cuenta ";
-                break;
             case 'nombre_deudor':
                 $output = "where nombre_deudor regexp :find ";
                 break;
@@ -114,7 +113,7 @@ SQL;
             $stm->bindValue(':cliente', $CLIENTE);
         }
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -127,7 +126,7 @@ SQL;
         $query = "SELECT cliente FROM clientes";
         $stc = $this->pdo->prepare($query);
         $stc->execute();
-        $result = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stc->fetchAll(PDO::FETCH_ASSOC);
         $clients = array_column($result, 'cliente');
         return $clients;
     }

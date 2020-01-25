@@ -7,6 +7,8 @@ namespace App;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Database Class for Hours
  *
@@ -25,7 +27,7 @@ class HoursClass extends BaseClass
             where d_fech>last_day(curdate() - interval 1 month)
             order by c_cvge limit 1000;';
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -40,7 +42,7 @@ where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())
 order by iniciales;';
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -60,9 +62,9 @@ order by iniciales;';
             and c_cont=0";
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':gestor', $gestor);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':dom', $dom, PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -86,9 +88,9 @@ order by iniciales;';
             and D_FECH=last_day(curdate() - interval 1 month) + interval :day day";
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':agent', $agent);
-        $stq->bindValue(':day', $day, \PDO::PARAM_INT);
+        $stq->bindValue(':day', $day, PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -112,9 +114,9 @@ order by iniciales;';
             ";
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':visitador', $visitador);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':dom', $dom, PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

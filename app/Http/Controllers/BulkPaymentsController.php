@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use View;
 use App\BulkPaymentsClass;
@@ -22,17 +23,18 @@ class BulkPaymentsController extends Controller
     /**
      * 
      * @param string $message
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index($message = '') {
         $view = view('pagobulk')->with('message', $message);
         return $view;
     }
-    
+
     /**
-     * 
+     *
      * @param Request $r
      * @return View
+     * @throws Exception
      */
     public function confirm(Request $r) {
         $input = $r->data;

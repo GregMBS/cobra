@@ -12,8 +12,8 @@ class HorariosClassTest extends TestCase
      * @var HoursClass
      */
     protected $uc;
-    
-    public function setUp()
+
+    public function setUp(): void
     {
         parent::setUp();
         $this->uc = new HoursClass();

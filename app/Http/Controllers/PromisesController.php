@@ -10,7 +10,7 @@ class PromisesController extends Controller
     /**
      * 
      * @param PromisesClass $rc
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index(PromisesClass $rc) {
         $capt = auth()->user()->iniciales;

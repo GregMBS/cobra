@@ -29,7 +29,7 @@ class UploadController extends Controller
 
     /**
      * @param Request $r
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function update(Request $r)
     {

@@ -8,6 +8,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Description of PaymentsClass
  *
@@ -27,7 +29,7 @@ where fecha>last_day(curdate()-interval 1 month)
 and status_de_credito not like '%vo'
 group by cli, sdc with rollup";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -41,7 +43,7 @@ from pagos
 where fecha>last_day(curdate()-interval 1 month)
 group by gestor,cliente";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -54,7 +56,7 @@ from pagos
 where fecha>last_day(curdate()-interval 1 month)
 order by cliente,gestor,fecha";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -70,7 +72,7 @@ and fecha>last_day(curdate()-interval 2 month)
 and status_de_credito not like '%vo'
 group by cli, sdc with rollup";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -85,7 +87,7 @@ where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 group by gestor,cliente";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -99,7 +101,7 @@ where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 order by cliente,gestor,fecha";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -112,9 +114,9 @@ order by cliente,gestor,fecha";
 FROM resumen 
 WHERE id_cuenta=:id";
         $stc = $this->pdo->prepare($query);
-        $stc->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stc->bindValue(':id', $id, PDO::PARAM_INT);
         $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -131,7 +133,7 @@ ORDER BY fecha";
         $sts = $this->pdo->prepare($query);
         $sts->bindValue(':id', $id);
         $sts->execute();
-        $row = $sts->fetchAll(\PDO::FETCH_ASSOC);
+        $row = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
 
@@ -150,7 +152,7 @@ and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
         $std = $this->pdo->query($queryDA);
         if ($std) {
-            return $std->fetchAll(\PDO::FETCH_ASSOC);
+            return $std->fetchAll(PDO::FETCH_ASSOC);
         }
         return [];
     }
@@ -169,7 +171,7 @@ order by d_fech desc, c_hrin desc limit 1";
         $stn = $this->pdo->prepare($query);
         $stn->bindValue(':account', $account);
         $stn->execute();
-        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        $result = $stn->fetch(PDO::FETCH_ASSOC);
         if (isset($result['c_cvge'])) {
             $who = $result['c_cvge'];
         }

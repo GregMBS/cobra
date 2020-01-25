@@ -9,6 +9,8 @@
 namespace App;
 
 
+use PDO;
+
 /**
  * Description of TelsClass
  *
@@ -106,7 +108,7 @@ order by c_tele";
      */
     public function getMercadosReport() {
         $statement = $this->pdo->query($this->mercadosReportQuery);
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -116,7 +118,7 @@ order by c_tele";
      */
     public function getContactosReport() {
         $statement = $this->pdo->query($this->contactosReportQuery);
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

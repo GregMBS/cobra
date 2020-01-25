@@ -8,6 +8,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Description of AgentAdminClass
  *
@@ -135,7 +137,7 @@ class AgentAdminClass extends BaseClass {
     WHERE iniciales <> 'gmbs')    
     order by tipo, iniciales";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -145,7 +147,7 @@ class AgentAdminClass extends BaseClass {
     public function getGroups() {
         $query = "SELECT grupo FROM grupos";
         $stg = $this->pdo->query($query);
-        $result = $stg->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stg->fetchAll(PDO::FETCH_ASSOC);
         $groups = array_column($result, 'grupo');
         return $groups;
     }

@@ -12,6 +12,7 @@ use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 use Box\Spout\Reader\XLSX\Reader;
 use Box\Spout\Reader\XLSX\Sheet;
+use Exception;
 
 /**
  * Description of UploadClass
@@ -49,7 +50,7 @@ class UploadClass {
             }
             $output = $this->toAssociative($titles, $data);
             return $output;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }

@@ -24,6 +24,7 @@ class AccountsController extends Controller
     public function getList() {
         if (auth()->user()->tipo == 'admin') {
             $result = $this->mc->adminReport();
+            /* @var View $view */
             $view = view('migo')->with('result', $result);
             return $view;
         }
@@ -36,6 +37,7 @@ class AccountsController extends Controller
      */
     private function userList() {
         $result = $this->mc->userReport(auth()->user()->iniciales);
+        /* @var View $view */
         $view = view('migo')->with('result', $result)->with('capt', auth()->user()->iniciales);
         return $view;
     }

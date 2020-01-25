@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use DB;
 use Illuminate\Console\Command;
+use PDO;
 
 class CleanUsers extends Command
 {
@@ -20,7 +22,7 @@ class CleanUsers extends Command
      */
     protected $description = 'remove anti-COBRA elements from users table';
 
-    /** @var \PDO */
+    /** @var PDO */
     protected $pdo;
 
     /**
@@ -31,7 +33,7 @@ class CleanUsers extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->pdo = \DB::getPdo();
+        $this->pdo = DB::getPdo();
     }
 
     /**

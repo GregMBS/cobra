@@ -9,6 +9,8 @@
 namespace App;
 
 
+use stdClass;
+
 class AgentDataClass
 {
     /**
@@ -66,18 +68,18 @@ class AgentDataClass
     }
 
     /**
-     * @return \stdClass
+     * @return stdClass
      */
     public function getUser()
     {
         /**
-         * @var \stdClass $object
+         * @var stdClass $object
          * @property string $tipo
          * @property string $completo
          * @property string $iniciales
          * @property string $pass
          */
-        $object = new \stdClass();
+        $object = new stdClass();
         $object->tipo = $this->tipo;
         $object->completo = $this->completo;
         $object->iniciales = $this->iniciales;

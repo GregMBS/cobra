@@ -20,7 +20,7 @@ class PaymentsController extends Controller
     /**
      * 
      * @param int $id
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function showOne($id) {
         $accountClient = $this->pc->getAccountClientFromID($id);

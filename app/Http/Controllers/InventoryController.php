@@ -53,7 +53,7 @@ class InventoryController extends Controller
     
 /**
      *
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index() {
         $here = '/inventario';
@@ -63,7 +63,7 @@ class InventoryController extends Controller
     
     /**
      *
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function indexRapid() {
         $here = '/inventarioRapid';

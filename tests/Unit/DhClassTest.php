@@ -15,7 +15,7 @@ class DhClassTest extends TestCase
     /** @var string */
     private $fecha = '0000-00-00';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $date = date('Y-m-d', strtotime('last day of last month'));

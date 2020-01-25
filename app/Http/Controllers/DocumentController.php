@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Resumen;
+use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig;
 use Spatie\MediaLibrary\Models\Media;
 
 class DocumentController extends Controller
@@ -18,7 +24,12 @@ class DocumentController extends Controller
     {
         $resumen = Resumen::find($id);
         if ($resumen) {
-            $resumen->addMedia($request->file('document'))->toMediaCollection('documents');
+            try {
+                $resumen->addMedia($request->file('document'))->toMediaCollection('documents');
+            } catch (DiskDoesNotExist $e) {
+            } catch (FileDoesNotExist $e) {
+            } catch (FileIsTooBig $e) {
+            }
             return true;
         }
         return false;
@@ -26,7 +37,7 @@ class DocumentController extends Controller
 
     /**
      * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(int $id)
     {
@@ -71,7 +82,7 @@ class DocumentController extends Controller
                         $document->delete();
                         return true;
                     }
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     return false;
                 }
             }

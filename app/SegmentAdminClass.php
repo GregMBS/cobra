@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Query\Builder;
+use PDO;
 
 /**
  * Description of SegmentAdminClass
@@ -103,7 +104,7 @@ SELECT q.cliente as 'cliente', sdc, max(r.counter) as cnt, min(q.auto) as id
     
 SQL;
 		$stq = $this->pdo->query($query);
-		$result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+		$result = $stq->fetchAll(PDO::FETCH_ASSOC);
 		return $result;
 	}
 
@@ -126,7 +127,7 @@ select distinct cliente,sdc from queuelist";
     group by r.cliente,status_de_credito
     ";
 		$stq = $this->pdo->query($query);
-		$result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+		$result = $stq->fetchAll(PDO::FETCH_ASSOC);
 		return $result;
 	}
 

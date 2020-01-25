@@ -8,8 +8,10 @@
 
 namespace App;
 
+use Exception;
 use Illuminate\Database\Query\Builder;
 use PDO;
+use UnexpectedValueException;
 
 /**
  * Description of ResumenClass
@@ -99,7 +101,7 @@ SQL;
         $stu = $this->pdo->prepare($query);
         $stu->bindValue(':capt', $capt);
         $stu->execute();
-        $result = $stu->fetch(\PDO::FETCH_ASSOC);
+        $result = $stu->fetch(PDO::FETCH_ASSOC);
         $find = $result['c_cont'];
         return $find;
     }
@@ -107,7 +109,7 @@ SQL;
     /**
      * @param $mytipo
      * @return string[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function getDict($mytipo)
     {
@@ -132,7 +134,7 @@ SQL;
                     . "order by dictamen";
                 break;
             default:
-                throw new \UnexpectedValueException('Tipo de usuario no es correcto.');
+                throw new UnexpectedValueException('Tipo de usuario no es correcto.');
         }
         $result = $this->pdo->query($query);
         $all = $result->fetchAll();
@@ -142,7 +144,7 @@ SQL;
 
     /**
      * @return string[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function getDictV()
     {
@@ -224,7 +226,7 @@ SQL;
     public function getBadNo($id_cuenta)
     {
         $stb = $this->pdo->prepare($this->badNoQuery);
-        $stb->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stb->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stb->execute();
         $answerBadNo = $stb->fetch(PDO::FETCH_ASSOC);
         return $answerBadNo;
@@ -245,7 +247,7 @@ SQL;
                     AND c_cont > 0  
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($query);
-        $sts->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
         $row = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $row;
@@ -286,7 +288,7 @@ and tipo IN ('visitador','admin'))
 ORDER BY iniciales
 SQL;
         $resultGestorV = $this->pdo->query($queryGestorV);
-        return $resultGestorV->fetchAll(\PDO::FETCH_ASSOC);
+        return $resultGestorV->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -399,9 +401,9 @@ SQL;
 WHERE (historia.C_CONT=:id_cuenta) AND (c_visit <> '')
 ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($query);
-        $sts->bindValue(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
-        $row = $sts->fetchAll(\PDO::FETCH_ASSOC);
+        $row = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
 

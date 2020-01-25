@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use View;
+
 class HomeController extends Controller
 {
     /**
@@ -17,7 +19,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return View |\Illuminate\View\View
      */
     public function index()
     {

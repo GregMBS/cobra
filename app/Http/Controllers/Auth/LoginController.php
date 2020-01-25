@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+use \PDO;
 
 class LoginController extends Controller
 {
@@ -50,8 +53,8 @@ class LoginController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
-     * @throws \Illuminate\Validation\ValidationException
+     * @return Response|\Symfony\Component\HttpFoundation\Response
+     * @throws ValidationException
      */
     public function login(Request $request)
     {
@@ -92,6 +95,7 @@ class LoginController extends Controller
      * @return array
      */
     private function oldLogin(Request $request) {
+        /** @var PDO $pdo */
         $pdo = DB::connection()->getPdo();
         $capt = $request->iniciales;
         $pw = $request->password;
@@ -103,7 +107,7 @@ class LoginController extends Controller
         $std->bindValue(':pw', $pw);
         $std->bindValue(':capt', $capt);
         $std->execute();
-        $result = $std->fetch(\PDO::FETCH_ASSOC);
+        $result = $std->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
     
@@ -116,7 +120,7 @@ class LoginController extends Controller
     private function oldToNew(array $oldData, $password) {
         /**
          * 
-         * @var \PDO $pdo
+         * @var PDO $pdo
          */
         $pdo = DB::connection()->getPdo();
         $pwd = bcrypt($password);

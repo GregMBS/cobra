@@ -9,6 +9,9 @@
 namespace App;
 
 use Carbon\Carbon;
+use Exception;
+use PDO;
+use \PDOStatement;
 
 /**
  * Description of LogoutClass
@@ -46,17 +49,18 @@ class LogoutClass extends BaseClass
      * @param string $capt
      * @param string $why
      * @return \Carbon\Carbon
+     * @throws Exception
      */
     private function getLogoutDatetime($capt, $why)
     {
         $carbon = new Carbon();
         $dt = $carbon->now();
         if ($why == 'forgot') {
-            /** @var \PDOStatement $stl */
+            /** @var PDOStatement $stl */
             $stl = $this->pdo->prepare($this->queryDateTime);
             $stl->bindValue(':capt', $capt);
             $stl->execute();
-            $result = $stl->fetch(\PDO::FETCH_ASSOC);
+            $result = $stl->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 $date = $result['d_fech'];
                 $time = $result['c_hrin'];
@@ -131,11 +135,16 @@ class LogoutClass extends BaseClass
      *
      * @param string $capt
      * @param string $why
+     * @throws Exception
      */
     public function processLogout($capt, $why)
     {
         $this->unlockCuentas($capt);
-        $dt = $this->getLogoutDatetime($capt, $why);
+        try {
+            $dt = $this->getLogoutDatetime($capt, $why);
+        } catch (Exception $e) {
+            throw $e;
+        }
         $date = $dt->toDateString();
         $time = $dt->toTimeString();
         $this->insertHistoria($capt, $why, $date, $time);

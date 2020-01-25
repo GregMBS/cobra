@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use PDO;
+use UnexpectedValueException;
 
 /**
  * Description of CallClass
@@ -124,7 +126,7 @@ and id_cuenta = :id";
     {
         $query = "INSERT IGNORE INTO histdate VALUES (:auto, CURDATE())";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':auto', $auto, \PDO::PARAM_INT);
+        $stq->bindValue(':auto', $auto, PDO::PARAM_INT);
         $stq->execute();
     }
 
@@ -136,7 +138,7 @@ and id_cuenta = :id";
     {
         $query = "INSERT IGNORE INTO histgest VALUES (:auto, :agent)";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':auto', $auto, \PDO::PARAM_INT);
+        $stq->bindValue(':auto', $auto, PDO::PARAM_INT);
         $stq->bindValue(':agent', $agent);
         $stq->execute();
     }
@@ -159,7 +161,7 @@ tel_1_verif = :tel
 WHERE id_cuenta = :id";
             $stn = $this->pdo->prepare($query);
             $stn->bindValue(':tel', $tel);
-            $stn->bindValue(':id', $id, \PDO::PARAM_INT);
+            $stn->bindValue(':id', $id, PDO::PARAM_INT);
             $stn->execute();
         }
         $rc = new Resumen();
@@ -191,7 +193,7 @@ WHERE id_cuenta = :id";
         $query = "UPDATE resumen SET direccion_nueva = :dir WHERE id_cuenta = :id";
         $stn = $this->pdo->prepare($query);
         $stn->bindValue(':dir', $dir);
-        $stn->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stn->bindValue(':id', $id, PDO::PARAM_INT);
         $stn->execute();
     }
 
@@ -205,7 +207,7 @@ WHERE id_cuenta = :id";
         $query = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :id";
         $stn = $this->pdo->prepare($query);
         $stn->bindValue(':email', $email);
-        $stn->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stn->bindValue(':id', $id, PDO::PARAM_INT);
         $stn->execute();
     }
 
@@ -222,9 +224,9 @@ WHERE id_cuenta = :id";
         where n_prom>0 and c_cvge like 'PRO%' and c_cont = :id 
         order by d_fech desc, c_hrin desc limit 1";
         $stn = $this->pdo->prepare($query);
-        $stn->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stn->bindValue(':id', $id, PDO::PARAM_INT);
         $stn->execute();
-        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        $result = $stn->fetch(PDO::FETCH_ASSOC);
         if (isset($result['c_cvge'])) {
             $who = $result['c_cvge'];
         }
@@ -244,7 +246,7 @@ WHERE id_cuenta = :id";
     SELECT numero_de_cuenta, :date, :amount, cliente, :who, numero_de_credito, id_cuenta 
     FROM resumen WHERE id_cuenta = :id";
         $sti = $this->pdo->prepare($query);
-        $sti->bindValue(':id', $id, \PDO::PARAM_INT);
+        $sti->bindValue(':id', $id, PDO::PARAM_INT);
         $sti->bindValue(':date', $date);
         $sti->bindValue(':amount', $amount);
         $sti->bindValue(':who', $who);
@@ -270,15 +272,15 @@ WHERE id_cuenta = :id";
     {
         $query = "update resumen set status_aarsa = :best where id_cuenta = :id";
         $stb = $this->pdo->prepare($query);
-        $stb->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stb->bindValue(':id', $id, PDO::PARAM_INT);
         $stb->bindValue(':best', $best);
         $stb->execute();
         $sti = $this->pdo->prepare($this->setPromiseFailed);
-        $sti->bindValue(':id', $id, \PDO::PARAM_INT);
+        $sti->bindValue(':id', $id, PDO::PARAM_INT);
         $sti->execute();
         
         $stp = $this->pdo->prepare($this->setOldPayment);
-        $stp->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stp->bindValue(':id', $id, PDO::PARAM_INT);
         $stp->execute();
     }
 
@@ -292,7 +294,7 @@ WHERE id_cuenta = :id";
         $sti = $this->pdo->prepare($this->historyInsertQuery);
         $sti->bindValue(':C_CVBA', $gestion->getCCVBA());
         $sti->bindValue(':C_CVGE', $gestion->getCCVGE());
-        $sti->bindValue(':C_CONT', $gestion->getCCONT(), \PDO::PARAM_INT);
+        $sti->bindValue(':C_CONT', $gestion->getCCONT(), PDO::PARAM_INT);
         $sti->bindValue(':C_CVST', $gestion->getCCVST());
         $sti->bindValue(':D_FECH', $gestion->getDFECH());
         $sti->bindValue(':C_HRIN', $gestion->getCHRIN());
@@ -387,8 +389,8 @@ select c_cvst,v_cc from historia,dictamenes
         order by v_cc LIMIT 1
 SQL;
         $stb = $this->pdo->prepare($query);
-        $stb->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
-        $result = $stb->fetch(\PDO::FETCH_ASSOC);
+        $stb->bindValue(':C_CONT', $C_CONT, PDO::PARAM_INT);
+        $result = $stb->fetch(PDO::FETCH_ASSOC);
         if (isset($result['c_cvst'])) {
             $best = $result['c_cvst'];
         }
@@ -456,7 +458,7 @@ SQL;
     /**
      * @param array $gestion
      * @return ValidationErrorClass|boolean
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
     public function doCall(array $gestion)
     {

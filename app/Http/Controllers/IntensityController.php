@@ -81,7 +81,7 @@ class IntensityController extends Controller
     
     /**
      * 
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index() {
         return view('intensidad');

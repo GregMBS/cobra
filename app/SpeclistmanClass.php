@@ -18,10 +18,10 @@ use Illuminate\Database\Query\Builder;
 class SpecListManClass extends BaseClass {
 
     /**
-     * 
+     *
      * @param string $cliente
      * @param string $sdc
-     * @return array
+     * @return Builder|\Illuminate\Support\Collection
      */
     public function getReport($cliente, $sdc) {
         /** @var Builder $resumen */

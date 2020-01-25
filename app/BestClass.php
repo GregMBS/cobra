@@ -2,6 +2,9 @@
 
 namespace App;
 
+use PDO;
+use PDOStatement;
+
 /**
  * Database Queries for 'best' reports
  *
@@ -25,11 +28,11 @@ select id_cuenta,numero_de_cuenta,status_de_credito as segmento,
         order by numero_de_cuenta
 SQL;
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     * @return bool|\PDOStatement
+     * @return bool|PDOStatement
      */
     private function prepareLastQuery()
     {
@@ -47,20 +50,20 @@ SQL;
     }
 
     /**
-     * @param \PDOStatement $stq
+     * @param PDOStatement $stq
      * @param int $c_cont
      * @return mixed | array
      */
-    private function getLastHistoriaData(\PDOStatement $stq, $c_cont)
+    private function getLastHistoriaData(PDOStatement $stq, $c_cont)
     {
-        $stq->bindValue(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cont', $c_cont, PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     /**
-     * @return bool|\PDOStatement
+     * @return bool|PDOStatement
      */
     private function prepareBestQuery()
     {
@@ -76,20 +79,20 @@ SQL;
     }
 
     /**
-     * @param \PDOStatement $stq
+     * @param PDOStatement $stq
      * @param int $c_cont
      * @return mixed | array
      */
-    private function getBestHistoriaData(\PDOStatement $stq, $c_cont)
+    private function getBestHistoriaData(PDOStatement $stq, $c_cont)
     {
-        $stq->bindValue(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindValue(':c_cont', $c_cont, PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     /**
-     * @param \PDOStatement $lastQuery
+     * @param PDOStatement $lastQuery
      * @param int $id_cuenta
      * @return array|mixed
      */
@@ -104,7 +107,7 @@ SQL;
     }
 
     /**
-     * @param \PDOStatement $bestQuery
+     * @param PDOStatement $bestQuery
      * @param int $id_cuenta
      * @return array|mixed
      */

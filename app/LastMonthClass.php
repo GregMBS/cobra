@@ -8,6 +8,9 @@ namespace App;
  * and open the template in the editor.
  */
 
+use PDO;
+use PDOException;
+
 /**
  * Last months hours
  *
@@ -85,7 +88,7 @@ class LastMonthClass extends BaseClass
         $stq->bindValue(':start', $this->start);
         $stq->bindValue(':end', $this->hoy);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -104,7 +107,7 @@ class LastMonthClass extends BaseClass
         $stq->bindValue(':start', $this->start);
         $stq->bindValue(':end', $this->hoy);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -127,9 +130,9 @@ class LastMonthClass extends BaseClass
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':gestor', $gestor);
         $stq->bindValue(':start', $this->start);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':dom', $dom, PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -155,11 +158,11 @@ class LastMonthClass extends BaseClass
             $stq = $this->pdo->prepare($query);
             $stq->bindValue(':gestor', $gestor);
             $stq->bindValue(':start', $this->start);
-            $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
+            $stq->bindValue(':dom', $dom, PDO::PARAM_INT);
             $stq->execute();
-            $result = $stq->fetch(\PDO::FETCH_ASSOC);
+            $result = $stq->fetch(PDO::FETCH_ASSOC);
             return $result;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             dd($e);
         }
         return array();
@@ -187,9 +190,9 @@ class LastMonthClass extends BaseClass
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':visitador', $visitador);
         $stq->bindValue(':start', $this->start);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':dom', $dom, PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -206,9 +209,9 @@ class LastMonthClass extends BaseClass
         $stq = $this->pdo->prepare($query);
         $stq->bindValue(':gestor', $gestor);
         $stq->bindValue(':start', $this->start);
-        $stq->bindValue(':dom', $dom, \PDO::PARAM_INT);
+        $stq->bindValue(':dom', $dom, PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetch(\PDO::FETCH_ASSOC);
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

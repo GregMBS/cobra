@@ -8,6 +8,7 @@
 
 namespace App;
 
+use Exception;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,7 +41,7 @@ class QueuesgClass extends BaseClass {
             $queuelist = $queuelist->firstOrFail();
             $camp = $queuelist->camp;
             return $camp;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return -1;
         }
     }

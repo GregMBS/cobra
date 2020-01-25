@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use App\LoginClass;
 use App\LogoutClass;
@@ -31,18 +32,24 @@ class LoginController extends Controller
      * @param string $capt
      * @param string $why
      * @return RedirectResponse
+     * @throws Exception
      */
     public function adminLogout($capt, $why)
     {
-        $this->loc->processLogout($capt, $why);
+        try {
+            $this->loc->processLogout($capt, $why);
+        } catch (Exception $e) {
+            throw $e;
+        }
         $redirect = redirect('/quick');
         return $redirect;
     }
 
     /**
-     * 
+     *
      * @param string $why
      * @return RedirectResponse
+     * @throws Exception
      */
     public function logout($why)
     {
@@ -53,7 +60,11 @@ class LoginController extends Controller
         $capt = auth()->user()->iniciales;
         $redirect = redirect('/');
         if ($capt) {
-            $this->loc->processLogout($capt, $why);
+            try {
+                $this->loc->processLogout($capt, $why);
+            } catch (Exception $e) {
+                throw $e;
+            }
             auth()->logout();
             if (!in_array($why, $terminal)) {
                 $redirect = redirect('/breaks/' . $capt);

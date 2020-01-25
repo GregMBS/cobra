@@ -7,6 +7,8 @@
  */
 namespace App;
 
+use PDO;
+
 /**
  * Description of ValidationClass
  *
@@ -62,14 +64,14 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     {
         $output = array();
         $std = $this->pdo->prepare($this->querydup);
-        $std->bindValue(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
+        $std->bindValue(':c_cont', $gestion['C_CONT'], PDO::PARAM_INT);
         $std->bindValue(':d_fech', $gestion['D_FECH']);
         $std->bindValue(':c_hrin', $gestion['C_HRIN']);
         $std->bindValue(':c_cvst', $gestion['C_CVST']);
         $std->bindValue(':c_cvge', $gestion['C_CVGE']);
         $std->bindValue(':c_obse1', $gestion['C_OBSE1']);
         $std->execute();
-        $result = $std->fetch(\PDO::FETCH_ASSOC);
+        $result = $std->fetch(PDO::FETCH_ASSOC);
         $output['value'] = $result['ct'];
         $output['message'] = $message;
         if ($result['ct'] == 0) {

@@ -32,8 +32,6 @@ class CreateVasignTable extends Migration
 
             $table->index(["fechain", "fechaout"], 'reverse');
 
-            $table->index(["c_cont", "gestor", "fechaout"], 'dups');
-
             $table->index(["c_cont", "gestor"], 'dups2');
 
             $table->index(["gestor"], 'visitador');

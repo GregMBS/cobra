@@ -2,8 +2,14 @@
 
 namespace App;
 
+use DateInterval;
+use DatePeriod;
+use DateTime;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use PDO;
+use PDOException;
 
 /**
  * Description of CheckClass
@@ -15,10 +21,15 @@ class CheckClass extends BaseClass
 
     /**
      * @param Collection $r
+     * @throws Exception
      */
     public function insertVasignBoth(Collection $r)
     {
-        $cdc = new CheckDataClass($r);
+        try {
+            $cdc = new CheckDataClass($r);
+        } catch (Exception $e) {
+            throw $e;
+        }
         $query = "INSERT INTO vasign (cuenta, gestor, fechaOut, fechaIn, c_cont)
 VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
         try {
@@ -28,17 +39,22 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
             $sti->bindValue(':fechaOut', $cdc->getFechaOut());
             $sti->bindValue(':id_cuenta', $cdc->getIdCuenta());
             $sti->execute();
-        } catch (\PDOException $p) {
+        } catch (PDOException $p) {
             dd($p->getMessage());
         }
     }
 
     /**
      * @param Collection $r
+     * @throws Exception
      */
     public function insertVasign(Collection $r)
     {
-        $cdc = new CheckDataClass($r);
+        try {
+            $cdc = new CheckDataClass($r);
+        } catch (Exception $e) {
+            throw $e;
+        }
         $vasign = new Vasign();
         try {
             $vasign->CUENTA = $cdc->getCUENTA();
@@ -46,27 +62,27 @@ VALUES (:cuenta, :gestor, :fechaOut, now(), :id_cuenta)";
             $vasign->fechaout = date('Y-m-d');
             $vasign->c_cont = $cdc->getIdCuenta();
             $vasign->save();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e->getMessage());
         }
     }
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function getOneMonth()
     {
         $output = array();
-        $end = new \DateTime();
-        $begin = new \DateTime();
+        $end = new DateTime();
+        $begin = new DateTime();
         $begin = $begin->modify('-1 month');
 
-        $interval = new \DateInterval('P1D');
-        $dateRange = new \DatePeriod($begin, $interval, $end);
+        $interval = new DateInterval('P1D');
+        $dateRange = new DatePeriod($begin, $interval, $end);
 
         /**
-         * @var \DateTime $date
+         * @var DateTime $date
          */
         foreach ($dateRange as $date) {
             $output[] = $date->format("Y-m-d");
@@ -88,7 +104,7 @@ where gestor=:gestor";
         $stc = $this->pdo->prepare($query);
         $stc->bindValue(':gestor', $gestor);
         $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -133,10 +149,15 @@ where gestor=:gestor";
 
     /**
      * @param Collection $r
+     * @throws Exception
      */
     public function updateVasign(Collection $r)
     {
-        $cdc = new CheckDataClass($r);
+        try {
+            $cdc = new CheckDataClass($r);
+        } catch (Exception $e) {
+            throw $e;
+        }
         /**
          * @var int $C_CONT
          */
@@ -160,7 +181,7 @@ where gestor=:gestor";
      *
      * @param string $gestor
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getCompleto($gestor)
     {
@@ -174,7 +195,7 @@ where gestor=:gestor";
             /** @var User $result */
             $result = $query->get()->first();
             return $result->completo;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return '';
         }
     }

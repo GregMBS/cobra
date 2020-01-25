@@ -7,6 +7,8 @@ namespace App;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Description of PromisesClass
  *
@@ -59,7 +61,7 @@ and status_de_credito not regexp '-'
 ";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -75,10 +77,10 @@ and status_de_credito not regexp '-'
                     WHERE id_cuenta = :id
                     AND fecha >= :date";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stq->bindValue(':id', $id, PDO::PARAM_INT);
         $stq->bindValue(':date', $date);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
     
@@ -101,9 +103,9 @@ AND NOT EXISTS (
     AND n_prom>0 AND CONCAT(h2.d_fech,h2.c_hrfi)>CONCAT(h1.d_fech,h1.c_hrfi)
 )";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stq->bindValue(':id', $id, PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
     
@@ -127,10 +129,10 @@ AND NOT EXISTS (
     AND n_prom>0 AND CONCAT(h2.d_fech,h2.c_hrfi)>CONCAT(h1.d_fech,h1.c_hrfi)
 )";
         $stq = $this->pdo->prepare($query);
-        $stq->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stq->bindValue(':id', $id, PDO::PARAM_INT);
         $stq->bindValue(':agent', $agent);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 

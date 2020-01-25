@@ -21,7 +21,7 @@ class DhController extends Controller
      * 
      * @param string $gestor
      * @param string $fecha
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function promesas($gestor, $fecha)
     {
@@ -37,7 +37,7 @@ class DhController extends Controller
      *
      * @param string $gestor
      * @param string $fecha
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function gestiones($gestor, $fecha)
     {

@@ -58,7 +58,7 @@ class HoursController extends Controller
 
     /**
      *
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function index()
     {
@@ -95,7 +95,7 @@ class HoursController extends Controller
     }
 
     /**
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function indexV()
     {
@@ -120,7 +120,7 @@ class HoursController extends Controller
     /**
      *
      * @param string $c_cvge
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function show($c_cvge)
     {
@@ -138,7 +138,7 @@ class HoursController extends Controller
     /**
      *
      * @param string $c_visit
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function showV($c_visit)
     {
@@ -154,7 +154,7 @@ class HoursController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View|\Illuminate\View\View
      */
     public function select()
     {

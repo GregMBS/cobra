@@ -2,6 +2,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 
 /**
@@ -54,9 +55,10 @@ class BigDataClass
     public $fecha4;
 
     /**
-     * 
+     *
      * @param Request $a
      * @return BigDataClass
+     * @throws Exception
      */
     public function __construct(Request $a)
     {

@@ -8,6 +8,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Description of InventoryClass
  *
@@ -87,7 +89,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
             $stm->bindValue(':cliente', $cliente);
         }
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
     
@@ -107,7 +109,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
             $stm->bindValue(':cliente', $cliente);
         }
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
     
@@ -118,7 +120,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
     public function listClients() {
         $query = "SELECT cliente FROM clientes";
         $result = $this->pdo->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

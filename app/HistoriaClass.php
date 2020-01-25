@@ -9,6 +9,7 @@
 namespace App;
 
 use Illuminate\Database\Query\Builder;
+use PDO;
 
 /**
  * Description of CallClass
@@ -77,9 +78,9 @@ and c_cvba is null";
         FROM resumen 
         WHERE id_cuenta = :C_CONT";
         $sts = $this->pdo->prepare($query);
-        $sts->bindValue(':C_CONT',$C_CONT, \PDO::PARAM_INT);
+        $sts->bindValue(':C_CONT',$C_CONT, PDO::PARAM_INT);
         $sts->execute();
-        $result = $sts->fetch(\PDO::FETCH_ASSOC);
+        $result = $sts->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -105,7 +106,7 @@ SQL;
         $stn->bindValue(':tel2', $newTels[2]);
         $stn->bindValue(':tel1', $newTels[1]);
         $stn->bindValue(':tel', $newTels[0]);
-        $stn->bindValue(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindValue(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
         $telCheck = $this->getCurrentTels($C_CONT);
         $diff = array_diff($newTels, $telCheck);

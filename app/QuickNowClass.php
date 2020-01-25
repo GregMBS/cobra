@@ -2,6 +2,8 @@
 
 namespace App;
 
+use PDO;
+
 /**
  * Class QuickNowClass
  * @package App
@@ -117,7 +119,7 @@ where breakfast.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
         $this->pdo->query($this->createBreakStat);
         $this->pdo->query($this->updateNowBreakStat);
         $sta    = $this->pdo->query($this->queryNow);
-        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $sta->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 }

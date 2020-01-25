@@ -8,8 +8,11 @@
 
 namespace App;
 
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\Builder;
+use \PDOStatement;
+use \PDO;
 
 /**
  * Description of ResumenQueuesClass
@@ -70,7 +73,7 @@ class ResumenQueuesClass extends BaseClass
      * @param string $cliente
      * @param string $sdc
      * @param string $cr
-     * @return \PDOStatement
+     * @return PDOStatement|bool
      */
     private function prepareResumenMain($cliente, $sdc, $cr)
     {
@@ -129,12 +132,12 @@ and especial > 0";
 
     /**
      *
-     * @param \PDOStatement $stm
+     * @param PDOStatement $stm
      * @param string $capt
      * @param string $cliente
      * @param string $sdc
      * @param string $cr
-     * @return \PDOStatement
+     * @return PDOStatement
      */
     private function bindResumenMain($stm, $capt, $cliente, $sdc, $cr)
     {
@@ -160,16 +163,16 @@ and especial > 0";
 
     /**
      *
-     * @param \PDOStatement $stm
+     * @param PDOStatement $stm
      * @return array
      */
     private function runResumenMain($stm)
     {
         try {
             $stm->execute();
-            $result = $stm->fetch(\PDO::FETCH_ASSOC);
+            $result = $stm->fetch(PDO::FETCH_ASSOC);
             return $result;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return array();
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CheckClass;
 use App\UserClass;
+use Exception;
 use Illuminate\Http\Request;
 use View;
 
@@ -25,41 +26,56 @@ class CheckController extends Controller
         $this->cc = new CheckClass();
         $this->uc = new UserClass();
     }
-    
-    /**
-     * 
-     * @param Request $r
-     * @return View
-     */
-    public function assign(Request $r) {
-        $data = collect($r->all());
-        $this->cc->insertVasign($data);
-        $list = $this->cc->listVasign($r->gestor);
-        $view = $this->checkout($list, $r->gestor, $r->tipo);
-        return $view;
-    }
-    
+
     /**
      *
      * @param Request $r
      * @return View
+     * @throws Exception
+     */
+    public function assign(Request $r) {
+        $data = collect($r->all());
+        try {
+            $this->cc->insertVasign($data);
+        } catch (Exception $e) {
+            throw $e;
+        }
+        $list = $this->cc->listVasign($r->gestor);
+        $view = $this->checkout($list, $r->gestor, $r->tipo);
+        return $view;
+    }
+
+    /**
+     *
+     * @param Request $r
+     * @return View
+     * @throws Exception
      */
     public function assignBoth(Request $r) {
         $data = collect($r->all());
-        $this->cc->insertVasignBoth($data);
+        try {
+            $this->cc->insertVasignBoth($data);
+        } catch (Exception $e) {
+            throw $e;
+        }
         $list = $this->cc->listVasign($r->gestor);
         $view = $this->checkBoth($list, $r->gestor, $r->tipo, $r->fechaout);
         return $view;
     }
-    
+
     /**
-     * 
+     *
      * @param Request $r
      * @return View
+     * @throws Exception
      */
     public function receive(Request $r) {
         $data = collect($r->all());
-        $this->cc->updateVasign($data);
+        try {
+            $this->cc->updateVasign($data);
+        } catch (Exception $e) {
+            throw $e;
+        }
         $list = $this->cc->listVasign($r->gestor);
         $view = $this->checkIn($list, $r->gestor, $r->tipo);
         return $view;
@@ -68,7 +84,7 @@ class CheckController extends Controller
     /**
      * @param string $agent
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function listing($agent) {
         $visitador = $this->cc->getCompleto($agent);
@@ -104,7 +120,7 @@ class CheckController extends Controller
      * @param array $list
      * @param string $agent
      * @param string $tipo
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function checkout(array $list = [], $agent = '', $tipo = '') {
         $agents = $this->uc->getVisitadores();
@@ -133,7 +149,7 @@ class CheckController extends Controller
      * @param array $list
      * @param string $agent
      * @param string $tipo
-     * @return View
+     * @return View|\Illuminate\View\View
      */
     public function checkIn(array $list = [], $agent = '', $tipo = '') {
         $agents = $this->uc->getVisitadores();
