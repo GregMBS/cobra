@@ -2,6 +2,9 @@
 
 namespace cobra_salsa;
 
+use PDO;
+use PDOStatement;
+
 /**
  * Description of BigClass
  *
@@ -9,6 +12,7 @@ namespace cobra_salsa;
  */
 class QuickAhoraClass
 {
+    /** @var PDO $pdo */
     protected $pdo;
     protected $createAhora          = "CREATE TEMPORARY TABLE  `ahora` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
@@ -28,18 +32,18 @@ class QuickAhoraClass
 )";
     protected $insertAhora          = "insert into ahora (gestor,cuenta,nombre,cliente,camp,status,
 tiempo,queue,sistema,logout,id_cuenta) 
-SELECT distinct permalog.gestor,numero_de_cuenta,nombre_deudor,
+SELECT distinct userlog.gestor,numero_de_cuenta,nombre_deudor,
 rslice.cliente, status_de_credito,rslice.status_aarsa,
 time_to_sec(timediff(now(),timeuser))/60,
 ifnull(queuelist.status_aarsa,if(rslice.status_aarsa<>'','ELASTIX','BREAK')),
-usuario,permalog.gestor,id_cuenta
-FROM permalog
-left join rslice on user=permalog.gestor
-left JOIN nombres ON permalog.gestor=iniciales
-LEFT JOIN queuelist ON nombres.camp=queuelist.camp and user=permalog.gestor
-WHERE permalog.gestor IS NOT NULL
+usuario,userlog.gestor,id_cuenta
+FROM userlog
+left join rslice on user=userlog.gestor
+left JOIN nombres ON userlog.gestor=iniciales
+LEFT JOIN queuelist ON nombres.camp=queuelist.camp and user=userlog.gestor
+WHERE userlog.gestor IS NOT NULL
 and fechahora>curdate()
-order by nombres.tipo desc,gestor;";
+order by nombres.tipo desc,userlog.gestor;";
     protected $createLogins         = "create temporary table logins
 select c_cvge,min(c_hrin) as tlog from historia
 where d_fech=curdate() and c_cvst='login'
@@ -63,6 +67,9 @@ where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK';";
         $this->pdo = $pdo;
     }
 
+    /**
+     * @return PDOStatement
+     */
     public function getAhora()
     {
         $this->pdo->query($this->createAhora);
@@ -74,7 +81,8 @@ where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK';";
         $this->pdo->query($this->createBreakstat);
         $this->pdo->query($this->updateAhoraBreakstat);
         $sta    = $this->pdo->query($this->queryAhora);
-        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
+        /** @var PDOStatement $result */
+        $result = $sta->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 }
