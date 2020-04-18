@@ -1,12 +1,10 @@
 {
 	"require" : {
-		"box/spout" : "v1.1.0",
-		"phpmd/phpmd" : "^2.4",
-		"instaclick/php-code-sniffer" : "^1.4",
-		"phpunit/phpunit" : "^6.5",
-		"squizlabs/php_codesniffer": "^3.3",
-		"ext-pdo": "*"
-	},
+		"box/spout" : "*",
+		"ext-pdo": "*",
+        "ext-mysqli": "*",
+        "ext-json": "*"
+    },
 	"autoload" : {
 		"psr-4" : {
 			"cobra_salsa\\" : "classes"

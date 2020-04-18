@@ -6,7 +6,7 @@ my $calldir = "/var/spool/asterisk/outgoing";
 my @outchan = ("SIP/AxtelConmigo","SIP/AxtelConmigo2","SIP/AxtelConmigo3","SIP/AxtelConmigo4");
 ; # What channel do we call our customers back on?
 my $dbhost = "localhost";
-my $dbuser = "root";
+my $dbuser = "gmbs";
 my $dbpass = "4sale";
 my $dbname = "robot";
 my @row0;

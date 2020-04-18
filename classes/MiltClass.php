@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use ConfigClass;
 use PDO;
 use PDOException;
 
@@ -30,7 +31,7 @@ class MiltClass {
      *
      * @var string
      */
-    private $dbuser = "root";
+    private $dbuser = "gmbs";
 
     /**
      *
@@ -63,7 +64,7 @@ class MiltClass {
     private $lim;
 
     public function __construct() {
-        $config = new \ConfigClass();
+        $config = new ConfigClass();
         $this->dbname = $config->robotDb;
         $this->dbh = $this->getDb();
     }
@@ -74,7 +75,7 @@ class MiltClass {
      */
     private function getDb() {
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=' . $this->dbname, $this->dbuser, $this->dbpass);
+            $dbh = new PDO('mysql:host='.$this->dbhost.';dbname=' . $this->dbname, $this->dbuser, $this->dbpass);
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
             die(json_encode(''));
