@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Reporte de los queues por cliente</title>
         <meta http-equiv="refresh" content="60"/>
@@ -52,6 +52,16 @@
                             $DINERO = $answerc['sst'];
                         }
                         $resultsub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
+                        /**
+                         * @var integer $ctt
+                         * @var integer $ctd
+                         * @var integer $ctw
+                         * @var integer $ctm
+                         * @var float $mtt
+                         * @var float $mtd
+                         * @var float $mtw
+                         * @var float $mtm
+                         */
                         extract($resultsub, EXTR_OVERWRITE);
                         $pcc = number_format($ctt / ($ASIGNADOS + 0.001) * 100, 0);
                         $pcd = number_format($ctd / ($ctt + 0.001) * 100, 0);

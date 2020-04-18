@@ -74,7 +74,7 @@ VALUES (:sistema, :capt, now(), :fuente, :descripcion, :error_msg)";
         $sti->bindParam(':fuente', $fuente);
         $sti->bindParam(':descripcion', $descripcion);
         $sti->bindParam(':error_msg', $error_msg);
-        $sti->exeute();
+        $sti->execute();
     }
 
 }

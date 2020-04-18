@@ -161,6 +161,8 @@ $post = filter_input_array(INPUT_POST);
                         <input type="submit" name="go" value="asociar" />
                     </p>
             </form>
+                </body>
+                </html>
             <?php
         }
 

@@ -1128,4 +1128,4 @@ if (realpath($path)) {
 $gestiones = $rc->countGestiones($id_cuenta);
 $promesas = $rc->countPromesas($id_cuenta);
 $pagos = $rc->countPagos($id_cuenta);
-include 'resumenView.php';
+include 'views/resumenView.php';

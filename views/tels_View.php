@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Query de las Tels</title>
         <meta charset="utf-8">
@@ -12,13 +12,15 @@
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php
         echo $capt;
-        ?>'">Regressar a la plantilla administrativa</button><br>
-        <form action="<?php echo $here; ?>" method="get" name="queryparms">
+        ?>'">Regresar a la pagina administrativa</button><br>
+        <form action="<?php /** @var string $here */
+        echo $here; ?>" method="get" name="queryParams">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
-            <p>HECHO de:
-                <select name="fecha1">
+            <p><label for="fecha1">HECHO de:</label>
+                <select id="fecha1" name="fecha1">
                     <?php
-foreach ($daterange as $date) {
+                    /** @var DatePeriod $dateRange */
+                    foreach ($dateRange as $date) {
                         ?>
                         <option value="<?php echo $date->format('Y-m-d'); ?>" style="font-size:120%;">
                             <?php echo $date->format('Y-m-d'); ?></option>
@@ -26,10 +28,10 @@ foreach ($daterange as $date) {
 }
                     ?>
                 </select>
-                a:
-                <select name="fecha2">
+                <label for="fecha2">a:</label>
+                <select id="fecha2" name="fecha2">
                     <?php
-foreach ($daterange as $date) {
+foreach ($dateRange as $date) {
                         ?>
                         <option value="<?php echo $date->format('Y-m-d'); ?>" style="font-size:120%;">
                             <?php echo $date->format('Y-m-d'); ?></option>

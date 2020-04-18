@@ -108,9 +108,11 @@ ORDER BY d_fech,c_hrin
     <html>
         <head>
             <title>Query de las Promesas/Propuestas</title>
-            <link rel="Stylesheet" href="css/redmond/jquery-ui.css" />
-            <script type="text/javascript" charset="utf8" src="js/jquery-1.9.1.min.js"></script>
-            <script type="text/javascript" charset="utf8" src="js/jquery-ui.min.js"></script>
+            <link rel="stylesheet"
+                  href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
+                  type="text/css" media="all" />
+            <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+            <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         </head>
         <body>
             <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>

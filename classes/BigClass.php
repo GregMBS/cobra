@@ -360,15 +360,15 @@ WHERE n_prom>0
             . $this->queryBack;
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindParam(':fecha1', $bio->getFecha1());
-        $stm->bindParam(':fecha2', $bio->getFecha2());
-        $stm->bindParam(':fecha3', $bio->getFecha3());
-        $stm->bindParam(':fecha4', $bio->getFecha4());
+        $stm->bindValue(':fecha1', $bio->getFecha1());
+        $stm->bindValue(':fecha2', $bio->getFecha2());
+        $stm->bindValue(':fecha3', $bio->getFecha3());
+        $stm->bindValue(':fecha4', $bio->getFecha4());
         if ($bio->hasGestor()) {
-            $stm->bindParam(':gestor', $bio->getGestor());
+            $stm->bindValue(':gestor', $bio->getGestor());
         }
         if ($bio->hasCliente()) {
-            $stm->bindParam(':cliente', $bio->getCliente());
+            $stm->bindValue(':cliente', $bio->getCliente());
         }
         $stm->execute();
         $result = $stm->fetchAll(\PDO::FETCH_ASSOC);

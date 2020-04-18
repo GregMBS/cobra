@@ -22,11 +22,11 @@ if (isset($result)) {
     $tc->outputDocument($result);
 } else {
     $begin = new DateTime('first day of last month');
-    $endday = new DateTime('now');
-    $end = $endday->modify('+1 day');
+    $endDay = new DateTime('now');
+    $end = $endDay->modify('+1 day');
 
     $interval = new DateInterval('P1D');
-    $daterange = new DatePeriod($begin, $interval, $end);
+    $dateRange = new DatePeriod($begin, $interval, $end);
     $here = $_SERVER['PHP_SELF'];
     require_once 'views/tels_View.php';
 }

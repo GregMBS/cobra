@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of QueuesqcClass
  *
@@ -138,7 +140,7 @@ and queue = :queue ";
 
     /**
      * 
-     * @return array
+     * @return array|PDOStatement
      */
     function getQueues() {
         $querymainq = "select distinct cliente, status_aarsa, sdc

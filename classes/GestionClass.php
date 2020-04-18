@@ -298,7 +298,7 @@ and id_cuenta = :c_cont";
             $sti->bindParam(':C_CVST', $gestion['C_CVST']);
             $sti->bindParam(':D_FECH', $gestion['D_FECH']);
             $sti->bindParam(':C_HRIN', $gestion['C_HRIN']);
-            $sti->bindParam(':C_HRFI', date('H:i:s'));
+            $sti->bindValue(':C_HRFI', date('H:i:s'));
             $sti->bindParam(':C_TELE', $gestion['C_TELE']);
             $sti->bindParam(':CUANDO', $gestion['CUANDO']);
             $sti->bindParam(':CUENTA', $gestion['CUENTA']);
