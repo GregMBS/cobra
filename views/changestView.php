@@ -35,11 +35,11 @@
                     }
                     ?>
                     <tr>
-                        <td><a href='resumen.php?go=FROMBUSCAR&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>&highlight=<?php echo $field ?>&hfind=<?php echo $find ?>'><?php echo $CUENTA; ?></a></td>
+                        <td><a href='/resumen.php?go=FROMBUSCAR&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>&highlight=<?php echo $field ?>&hfind=<?php echo $find ?>'><?php echo $CUENTA; ?></a></td>
                         <td><?php echo utf8_decode($NOMBRE); ?></td>
                         <td><?php echo $CLIENTE; ?></td>
                         <td><?php echo $STATUS; ?><br>
-                            <form method='get' action='changest.php' name='<?php echo $ID_CUENTA; ?>'>
+                            <form method='get' action='/changest.php' name='<?php echo $ID_CUENTA; ?>'>
                                 INACTIVO<input type="checkbox" name="inactivo" value="inactivo"<?php
                                 if ($INACTIVO == 1) {
                                     ?> checked=checked<?php } ?>><br>
@@ -57,7 +57,7 @@
         <div id="searchbox">
             <h2>Buscar</h2>
             <form name="search" method="get" action=
-                  "changest.php" id="search">Buscar a: <input type=
+                  "/changest.php" id="search">Buscar a: <input type=
                                                         "text" name="find"> en <select name="field">
                     <option value="nombre_deudor">Nombre</option>
                     <option value="numero_de_cuenta">Cuenta</option>

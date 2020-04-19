@@ -18,7 +18,7 @@ if ($go == 'ENVIAR') { ?>
         </SCRIPT>
     </head>
     <body>
-        <form action="trouble.php" method="get" name="trouble">
+        <form action="/trouble.php" method="get" name="trouble">
             <span class="formcap">Fuente de problema</span><select name='fuente'>
                 <option value='CobraMas'>CobraMas</option>
                 <option value='SIPCLIENT'>SFLPHONE</option>

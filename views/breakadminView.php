@@ -7,7 +7,7 @@
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <table class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
@@ -98,13 +98,13 @@
                             </select>
                         </td>
                         <td>
-                            <form method="get" action="breakadmin.php" name="cambiar">
+                            <form method="get" action="/breakadmin.php" name="cambiar">
                                 <input type="submit" name="go" value="CAMBIAR" />
                                 <input type="hidden" name="capt" value="<?php echo $capt; ?>" />
                             </form>
                         </td>
                         <td>
-                            <form method="get" action="breakadmin.php" name="borrar">
+                            <form method="get" action="/breakadmin.php" name="borrar">
                                 <input type="submit" name="go" value="BORRAR" />
                                 <input type="hidden" name="capt" value="<?php echo $capt; ?>" />
                             </form>
@@ -183,7 +183,7 @@
                         </select>
                     </td>
                     <td>
-                        <form name="agregar" method="get" action="breakadmin.php">
+                        <form name="agregar" method="get" action="/breakadmin.php">
                             <input type="hidden" name="capt" value="<?php echo $capt ?>">
                             <input type="submit" name="go" value="AGREGAR">
                         </form>

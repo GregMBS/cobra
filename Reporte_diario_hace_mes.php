@@ -189,7 +189,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
                 background-color:red; font-weight:bold;
                 text-decoration:blink;}
             </style>
-            <script type="text/javascript" src="dom-drag.js"></script>
+            <script type="text/javascript" src="js/dom-drag.js"></script>
             <SCRIPT TYPE="text/JavaScript">
                 function paging(pageid) {
                 pageida=pageid+"a";
@@ -215,7 +215,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
                 <LI><A id='analyticaa' onClick="paging('analytica')">ANALYTICA</A></LI>
             </UL>
         </div>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <div id='pagos'>
             <?php
 // pagos

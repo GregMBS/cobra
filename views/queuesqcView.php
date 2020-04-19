@@ -19,7 +19,7 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <h2>Queues Normales</h2>
             <table class="ui-widget" id="normales">
                 <thead class="ui-widget-header">
@@ -107,7 +107,7 @@
                             <td>
                                 <?php echo $QUEUE; ?>
                             </td>
-                            <td class='legibility'><a href="speclistqc.php?capt=<?php
+                            <td class='legibility'><a href="/speclistqc.php?capt=<?php
                                 echo $capt
                                 ?>&cliente=<?php
                                                       echo $CLIENTE
@@ -122,7 +122,7 @@
                             </td>
                             <td><?php echo $pcc . '%<br>' . number_format($pcmc, 0) . "%"; ?>
                             </td>
-                            <td <?php echo $empd ?>><a href="speclistqc.php?capt=<?php echo $capt ?>
+                            <td <?php echo $empd ?>><a href="/speclistqc.php?capt=<?php echo $capt ?>
                                                        &cliente=<?php echo $CLIENTE ?>
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
@@ -133,7 +133,7 @@
                             <td <?php echo $empd ?>><?php echo $pcd . '%<br>' . number_format($pcmd, 0) . "%";
                                                           ?>
                             </td>
-                            <td <?php echo $emps ?>><a href="speclistqc.php?capt=<?php echo $capt ?>
+                            <td <?php echo $emps ?>><a href="/speclistqc.php?capt=<?php echo $capt ?>
                                                        &cliente=<?php echo $CLIENTE ?>
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
@@ -144,7 +144,7 @@
                             <td <?php echo $emps ?>><?php echo $pcs . '%<br>' . number_format($pcms, 0) . "%";
                                                           ?>
                             </td>
-                            <td <?php echo $empm ?>><a href="speclistqc.php?capt=<?php echo $capt ?>
+                            <td <?php echo $empm ?>><a href="/speclistqc.php?capt=<?php echo $capt ?>
                                                        &cliente=<?php echo $CLIENTE ?>
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>

@@ -12,7 +12,7 @@
           <?php } ?>">
         <div id="vtable">
             <h1><?php echo $message; ?></h1>
-            <form id='asigform' action='checkout.php' method='get'>
+            <form id='asigform' action='/checkout.php' method='get'>
                 <span class="formcap">Visitador:</span>
                 <select name="gestor" onmouseup="this.form.submit">
                     <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
@@ -90,6 +90,6 @@
                 </tbody>
             </table>
         </div>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
     </body>
 </html> 

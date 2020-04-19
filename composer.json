@@ -3,7 +3,8 @@
 		"box/spout" : "*",
 		"ext-pdo": "*",
         "ext-mysqli": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-calendar": "*"
     },
 	"autoload" : {
 		"psr-4" : {

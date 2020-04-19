@@ -826,7 +826,7 @@ if ($cliente != "Prestamo Familiar") {
             #avalbox input {font-size: 85%}
             #avalbox .shortinp {width: 5em;}
         </style>
-        <script type="text/javascript" src="dom-drag.js"></script>
+        <script type="text/javascript" src="js/dom-drag.js"></script>
         <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
             $(function() {
             $( "#tab" ).tabs();
@@ -910,7 +910,7 @@ if ($lockflag == 1) {
 
             var r={
             'special':/[\W]/g,
-            'quotes':/['\''&'\"']/g,
+            'quotes':/['"]/g,
             'notnumbers':/[^\d]/g
             }
 
@@ -959,20 +959,14 @@ if ($lockflag == 1) {
             }
             }
         </SCRIPT>
-        <script type="text/javascript" src="depuracion.js"></script>
-        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
+        <script type="text/javascript" src="js/depuracion.js"></script>
+        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="js/CalendarPopup.js"></SCRIPT>
     </head>
     <body onLoad="alerttxt = new String('');
             paging('HISTORIA');
             openSearch();<?php ?>" id="todos">
         <div id="buttonbox">
                 <?php if (true) { ?>
-                <form class="buttons" name="visitlist" method="get" action=
-                      "visitlist.php" id="visitlist" target="_blank">
-                    <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                    <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
-                    <input type="hidden" name="ejecutivo_asignado_call_center" value="<?php echo $ejecutivo_asignado_call_center ?>">
-                    <input type="submit" name="go" value="VISITAS"></form>
                 <form class="buttons" name="pagos" method="get" action="pagos.php" id="pagos" target="_blank">
                     <input type="hidden" name="capt" value="<?php
                            if (isset($capt)) {
@@ -989,25 +983,7 @@ if ($lockflag == 1) {
                     $CTA = $numero_de_credito;
                     if ($cliente != 'Prestamo Relampago') {
                         $CTA = $numero_de_cuenta;
-                    }
-                    if (($cliente == 'Credito Si B') || ($cliente == 'Credito Si F')) {
-                        ?>
-                    <form class="buttons" name="folios" method="get" action="folios.php" id="folios" target="_blank">
-                        <input type="hidden" name="capt" value="<?php
-                               if (isset($capt)) {
-                                   echo $capt;
-                               }
-                               ?>">
-                        <input type="hidden" name="tipo" value="<?php
-                    if (isset($mytipo)) {
-                        echo $mytipo;
-                    }
-                    ?>">
-                        <input type="hidden" name="CUENTA" value="<?php echo $CTA; ?>">
-                        <input type="hidden" name="CLIENTE" value="<?php echo $cliente; ?>">
-                        <input type="hidden" name="source" value="resumen-elastix">
-                        <input type="submit" name="go" value="FOLIOS"></form>
-                    <?php } ?>
+                    }?>
                 <form class="buttons" name="notas" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
                                                                                                                      name="capt" value="<?php
                            if (isset($capt)) {

@@ -9,7 +9,7 @@
     <body>
 	<h1>CobraMas - LOGOUT</h1>
 	<div class="forma">
-	    <form action='logout.php' method='get'>
+	    <form action='/logout.php' method='get'>
 		<input type='hidden' name='capt' value='<?php echo $capt ?>'>
 		<button name='gone' value='Bano'>BA&Ntilde;O</button><br>
 		<button name='gone' value='Junta'>JUNTA</button><br>

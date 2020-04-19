@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
     </head>
     <body>
-        <form action="queuemanual.php" method="post" name="cargar">
+        <form action="/queuemanual.php" method="post" name="cargar">
             <p>Usa formato CUENTA,CUENTA,CUENTA,...</p>
             <label for="clientea">CLIENTE PARA CARGAR</label>
             <select name="clientea" id="cliente">
@@ -38,6 +38,6 @@
         <?php
     }
     ?>
-    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
 </body>
 </html>

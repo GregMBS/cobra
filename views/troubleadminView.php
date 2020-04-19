@@ -36,7 +36,7 @@
                                 <td><?php echo $answer['error_msg']; ?></td>
                                 <td>
                                     <?php if (empty($answer['it_guy'])) { ?>
-                                        <form action="troubleadmin.php" method="get" name="lista<?php echo $answer['auto'];?>" >
+                                        <form action="/troubleadmin.php" method="get" name="lista<?php echo $answer['auto'];?>" >
                                             <input type="hidden" name="which" readonly="readonly" value=<?php echo $answer['auto']; ?> />
                                             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> />
                                             <input type="text" name="reparacion" />

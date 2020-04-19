@@ -10,7 +10,7 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <table summary="Segmentos" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
@@ -36,7 +36,7 @@
                         <td><?php echo $count; ?></td>
                         <?php if ($count == 0) { ?>
                             <td><form class="gestorchange" name="gestorchange<?php echo $j ?>" method="get" action=
-                                      "segmentadmin.php" id="gestorchange<?php echo $j ?>">
+                                      "/segmentadmin.php" id="gestorchange<?php echo $j ?>">
                                     <input type="hidden" name="capt" value="<?php echo $capt ?>">
                                     <input type="hidden" name="j" value="<?php echo $j ?>">
                                     <input type="hidden" name="cliente" readonly="readonly" value="<?php echo $cliente; ?>" />
@@ -59,7 +59,7 @@
                             <?php } ?>
                         </select></td>
                     <td><form class="gestoradd" name="gestoradd" method="get" action=
-                              "segmentadmin.php" id="gestoradd">
+                              "/segmentadmin.php" id="gestoradd">
                             <input type="hidden" name="capt" value="<?php echo $capt ?>">
                             <input type="submit" name="go" value="AGREGAR">
                         </form></td>
@@ -69,7 +69,7 @@
         </table>
         <p>
         <form class="gestoradd" name="gestoradd" method="get" action=
-              "segmentadmin.php" id="gestoradd">
+              "/segmentadmin.php" id="gestoradd">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <input type="submit" name="go" value="AGREGARALL">
         </form>

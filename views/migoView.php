@@ -36,7 +36,7 @@
                     $ID_CUENTA = $row['id_cuenta'];
                     ?>
                     <tr>
-                        <td><a href='resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
+                        <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
                         <td><?php echo htmlentities($NOMBRE); ?></td>
                         <td><?php echo $CLIENTE; ?></td>
                         <td><?php echo $SEGMENTO; ?></td>

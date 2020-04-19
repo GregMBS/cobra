@@ -12,7 +12,7 @@
         </style>
     </head>
     <body>
-        <form action="cargatel.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
+        <form action="/cargatel.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
             <p>Usa formato CUENTA,TELE</p>
             <textarea name='data' rows='20' cols='50'></textarea>
             <p>Mensaje <select name="msgtag">
@@ -34,6 +34,6 @@
     <?php
     echo $msg;
     ?>
-    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
 </body>
 </html>

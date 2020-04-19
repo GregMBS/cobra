@@ -33,7 +33,7 @@
                                     echo htmlentities($answer['nota'], null, 'utf-8');
                                     ?></th>
                                 <td>
-                                    <form action="notadmin.php"
+                                    <form action="/notadmin.php"
                                           method="get" name="lista<?php echo $answer['auto']; ?>">
                                         <input type="hidden" name="which" readonly="readonly" value=<?php echo $answer['auto']; ?> />
                                         <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> />
@@ -54,7 +54,7 @@
             <?php
         }
         ?>
-        <form action="notadmin.php" method="get" name="notas">
+        <form action="/notadmin.php" method="get" name="notas">
             <span class="formcap">Gestor</span><SELECT NAME="target">
                 <OPTION VALUE='todos'>todos</option>
 <?php

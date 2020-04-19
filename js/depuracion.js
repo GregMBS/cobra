@@ -629,7 +629,7 @@ function validate_form(tf, evt, minprom, authorized, at)
     }
 
 //monto de promesa can only have numbers and one decimal point.
-    if ((n1.toString()).match(/[0-9\.]/)) {
+    if ((n1.toString()).match(/[0-9.]/)) {
         flag = flag + 0;
     } else
     {
@@ -637,7 +637,7 @@ function validate_form(tf, evt, minprom, authorized, at)
         tf.N_PROM1.style.backgroundColor = "yellow";
         flag = 1;
     }
-    if ((n2.toString()).match(/[0-9\.]/)) {
+    if ((n2.toString()).match(/[0-9.]/)) {
         flag = flag + 0;
     } else
     {
@@ -646,7 +646,7 @@ function validate_form(tf, evt, minprom, authorized, at)
         flag = 1;
     }
 //monto de pago can only have numbers and one decimal point.
-    if ((npa.toString()).match(/[0-9\.]/)) {
+    if ((npa.toString()).match(/[0-9.]/)) {
         flag = flag + 0;
     } else
     {

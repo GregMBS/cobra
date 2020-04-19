@@ -15,7 +15,7 @@ $post = filter_input_array(INPUT_POST);
         <title>COBRA Carga</title>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <form action="carga2.php" method="post" enctype="multipart/form-data" name="cargar">
             <p>Filename:
                 <input type="hidden" name="capt" id="capt" value="<?php echo $capt ?>" />

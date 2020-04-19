@@ -56,7 +56,7 @@ foreach ($result as $row) {
     $HORA              = $row['c_hrin'];
                     ?>
                     <tr>
-                        <td><a href='resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php 
+                        <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php
                         echo $ID_CUENTA;
                         ?>&capt=<?php 
                         echo $capt;

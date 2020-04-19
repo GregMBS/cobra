@@ -51,7 +51,7 @@ class RobotClass extends BaseClass {
      */
     private function dataPrep($datastring) {
         $data0 = preg_replace('/[^0-9a-zA-Z]/', ',', $datastring);
-        $data1 = preg_replace('/\,\,/', ',', $data0);
+        $data1 = preg_replace('/,,/', ',', $data0);
         $data = explode(',', $data1);
         return $data;
     }

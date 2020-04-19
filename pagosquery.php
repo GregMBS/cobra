@@ -3,20 +3,18 @@ require_once 'vendor/autoload.php';
 
 use cobra_salsa\PdoClass;
 use cobra_salsa\PagosClass;
-use Box\Spout\Writer\WriterFactory;
-use Box\Spout\Common\Type;
 use cobra_salsa\OutputClass;
 
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
-$pc = new PagosClass($pdo);
+$pc = new PdoClass();
+$pdo = $pc->dbConnectAdmin();
+$pgc = new PagosClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $fecha1 = filter_input(INPUT_GET, 'fecha1');
 $fecha2 = filter_input(INPUT_GET, 'fecha2');
 $cliente = filter_input(INPUT_GET, 'cliente');
-$resultc = $pc->listClientes();
+$resultc = $pgc->listClientes();
 if (filter_has_var(INPUT_GET, 'go')) {
-    $result = $pc->queryAll($fecha1, $fecha2, $cliente);
+    $result = $pgc->queryAll($fecha1, $fecha2, $cliente);
     if (empty($result)) {
         require_once 'views/pagosqueryView.php';
     } else {

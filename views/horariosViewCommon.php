@@ -2,14 +2,22 @@
     <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a></th>
 <?php
 $day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
+$blanks = array_fill(1, $dhoy, ' ');
+$zeros = array_fill(1, $dhoy, 0);
+$start = $blanks;
+$stop = $blanks;
+$diff = $zeros;
+$break = $zeros;
+$bano = $zeros;
+$lla = $zeros;
+$tlla = $zeros;
+$tsumt = $zeros;
+$tsumb = $zeros;
+$tsumbn = $zeros;
+$tsumgt = $zeros;
+$tsumct = $zeros;
+$ct = $zeros;
 for ($i = 1; $i <= $dhoy; $i++) {
-    $start[$i] = ' ';
-    $stop[$i] = ' ';
-    $diff[$i] = 0;
-    $break[$i] = 0;
-    $bano[$i] = 0;
-    $lla[$i] = 0;
-    $tlla[$i] = 0;
     $prom[$i] = 0;
     $pag[$i] = 0;
     $lph[$i] = 0;

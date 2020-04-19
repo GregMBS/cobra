@@ -96,7 +96,7 @@
                 ul.tabs li a:hover 
                 { color: #ff0; }		
             </style>
-            <script type="text/javascript" src="/dom-drag.js"></script>
+            <script type="text/javascript" src="/js/dom-drag.js"></script>
             <SCRIPT TYPE="text/JavaScript">
                 function aviso() {}
                 function paging(pageid) {
@@ -385,9 +385,9 @@
                 document.getElementById("C_TELE").options[pos].style.backgroundColor="#00FF00";
                 }
             </SCRIPT>
-            <script type="text/javascript" src="depuracion.js"></script>
-            <script type="text/javascript" src="depuracionv.js"></script>
-            <SCRIPT TYPE="text/JavaScript" SRC="CalendarPopup.js"></SCRIPT>
+            <script type="text/javascript" src="/js/depuracion.js"></script>
+            <script type="text/javascript" src="/js/depuracionv.js"></script>
+            <SCRIPT TYPE="text/JavaScript" SRC="/js/CalendarPopup.js"></SCRIPT>
         </head>
         <body onLoad="alerttxt = '';
                 paging('HISTORIA');
@@ -396,20 +396,20 @@
             <div id="buttonbox">
                 <?php if (($go == 'FROMULTIMA') || ($go == 'FROMBUSCAR')) { ?>
                     <form class="buttons" name="seg" method="get" action=
-                          "resumen.php" id="segid">
+                          "/resumen.php" id="segid">
                         <input type="hidden" name="capt" value="<?php echo $capt ?>">
                         <input type="hidden" name="find" value="<?php echo $id_cuenta ?>">
                         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                         <input type="submit" name="go" value="REINTRO QUEUE"></form>
                 <?php } ?>
                 <form class="buttons" name="ultima" method="get" action=
-                      "resumen.php" id="ultima">
+                      "/resumen.php" id="ultima">
                     <input type="hidden" name="capt" value="<?php echo $capt ?>">
 <!--                    <input type="hidden" name="find" value="<?php echo $id_cuenta ?>">
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                     -->
                     <input type="submit" name="go" value="ULTIMA"></form>
-                <form class="buttons" name="buscar" action="resumen.php" id="buscar">
+                <form class="buttons" name="buscar" action="/resumen.php" id="buscar">
                     <button type="button" value="buscar" onclick=
                             "showsearch();">BUSCAR</button>
                 </form>
@@ -424,13 +424,13 @@
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                     <input type="submit" name="go" value="CUENTAS"></form>
                 <form class="buttons" name="visitlist" method="get" action=
-                      "realvisitlist.php" id="visitlist" target="_blank">
+                      "/realvisitlist.php" id="visitlist" target="_blank">
                     <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>"> 
                     <input type="hidden" name="ejecutivo_asignado_call_center" value="<?php echo $ejecutivo_asignado_call_center ?>"> 
                     <input type="submit" name="go" value="VISITAS"></form>
                 <form class="buttons" name="rotas" method="get" action=
-                      "rotas.php" id="rotas">
+                      "/rotas.php" id="rotas">
                     <input type="hidden" name="capt" value="<?php echo $capt ?>">
                     <input type="submit" name="go" value="PROMESAS"></form>
                         <?php
@@ -442,7 +442,7 @@
                 }
                 if ($id_cuenta > 0) {
                     ?>
-                <form class="buttons" name="pagos" method="get" action="pagos.php" id="pagos" target="_blank">
+                <form class="buttons" name="pagos" method="get" action="/pagos.php" id="pagos" target="_blank">
                     <input type="hidden" name="capt" value="<?php
                     if (isset($capt)) {
                         echo $capt;
@@ -454,7 +454,7 @@
                     <input type="submit" name="go" value="PAGOS"></form>
                 <?php } ?>
                 <?php $CTA = $numero_de_credito; ?>
-                <form class="buttons" name="notasq" method="get" action="notas.php" id="notas" target="_blank"><input type="hidden"
+                <form class="buttons" name="notasq" method="get" action="/notas.php" id="notas" target="_blank"><input type="hidden"
                                                                                                                       name="capt" value="<?php
                                                                                                                       if (isset($capt)) {
                                                                                                                           echo $capt;
@@ -472,7 +472,7 @@
                     ?>">
                     <input type="submit" name="go" value="NOTAS"></form>
                 <form class="buttons" name="queuesg" method="get" action=
-                      "queuesg.php" id="queuesg">
+                      "/queuesg.php" id="queuesg">
                     <input type="hidden"
                            name="mytipo" value="<?php
                            if (isset($mytipo)) {
@@ -487,7 +487,7 @@
                            ?>"> 
                     <input type="submit" name="go" value="QUEUES"></form>
                 <form class="buttons" name="logout" method="get" action=
-                      "resumen.php" id="logout">
+                      "/resumen.php" id="logout">
                     <input type="hidden" name="capt" value="<?php
                     if (isset($capt)) {
                         echo $capt;
@@ -496,7 +496,7 @@
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                     <input type="submit" name="go" value="LOGOUT"></form>
                 <?php if ($camp == 0) { ?>
-                    <form action="resumen.php" method="get">
+                    <form action="/resumen.php" method="get">
                         <input type="hidden" name="capt" value="<?php echo $capt ?>">
                         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                         <select name="clientefilt" onChange="this.form.submit()">
@@ -532,7 +532,7 @@
                 }
                 if ($mytipo == 'admin') {
                     ?>
-                    <form action="reports.php" method="get">
+                    <form action="/reports.php" method="get">
                         <input type="hidden" name="capt" value="<?php echo $capt; ?>">
                         <input type="submit" value="REPORTES">
                     </form>
@@ -545,7 +545,7 @@
                         $cliente;
                         ?>.jpg'></span>
                     <?php } ?>
-                <form class="buttons" name="trouble" method="get" action="trouble.php" id="trouble" target="_blank">
+                <form class="buttons" name="trouble" method="get" action="/trouble.php" id="trouble" target="_blank">
                     <input type="hidden" name="capt" value="<?php
                     if (isset($capt)) {
                         echo $capt;
@@ -577,7 +577,7 @@
                     <LI><A onClick="paging('HISTORIA')">HISTORIA</A></LI>
                 </UL>
             </div>
-            <form action="resumen.php" method="post" name="resumenform" id=
+            <form action="/resumen.php" method="post" name="resumenform" id=
                   "resumenform">
                 <div id="GENERAL">
                     <table summary="demograficas">
@@ -1233,7 +1233,7 @@
             <div id="searchbox">
                 <h2>Buscar</h2>
                 <form name="search" method="get" action=
-                      "buscar.php" id="search">Buscar a: <input type=
+                      "/buscar.php" id="search">Buscar a: <input type=
                                                           "text" name="find" id="find"> en <select name="field">
                         <option value="numero_de_cuenta">Cuenta</option>
                         <option value="numero_de_credito"># del Grupo</option>
@@ -1271,7 +1271,7 @@
                 </form>
             </div>
             <div class="togglebox" id="VISITA">
-                <form action="resumen.php" method="get" id="capturaform" 
+                <form action="/resumen.php" method="get" id="capturaform"
                       onSubmit="this.disabled = true;return validate_form2(this, event,<?php
                       echo $saldo_descuento_2 + 0;
                       ?>,<?php
@@ -1774,7 +1774,7 @@
                 <?php } ?>
             </div>
             <div id="GESTION">
-                <form action="resumen.php" method="get" id="gestionform" 
+                <form action="/resumen.php" method="get" id="gestionform"
                       onSubmit="return validate_form(this, event,<?php
                       echo $saldo_descuento_2 + 0;
                       ?>,<?php

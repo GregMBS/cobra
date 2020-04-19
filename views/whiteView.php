@@ -9,7 +9,7 @@
     </head>
     <body>
         <div>
-            <form action='whitesearch.php' method='get'>
+            <form action='/whitesearch.php' method='get'>
                 <input type="hidden" name="capt" value="<?php echo $capt; ?>">
                 <input type="hidden" name="go" value="BUSCAR">
                 <label for="nombre">Nombre</label>

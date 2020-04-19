@@ -18,19 +18,18 @@
         <h2>VISITAS DEL MES ACTUAL</h2>
         <table summary="LpH">
             <?php
-            for ($i = 1; $i <= $dhoy; $i++) {
-                $tsumt[$i] = 0;
-                $tsumb[$i] = 0;
-                $tsumg[$i] = 0;
-                $tsumgt[$i] = 0;
-                $tsumgt1[$i] = 0;
-                $tsumgt2[$i] = 0;
-                $tsumpp[$i] = 0;
-                $tsump[$i] = 0;
-                $tsumw[$i] = 0;
-                $tsumci[$i] = 0;
-                $tsumco[$i] = 0;
-            }
+            $zeros = array_fill($i, $dhoy, 0);
+            $tsumt = $zeros;
+            $tsumb = $zeros;
+            $tsumg = $zeros;
+            $tsumgt = $zeros;
+            $tsumgt1 = $zeros;
+            $tsumgt2 = $zeros;
+            $tsump = $zeros;
+            $tsumpp = $zeros;
+            $tsumw = $zeros;
+            $tsumci = $zeros;
+            $tsumco = $zeros;
             $resultnom = $hc->listVisitadores();
             foreach ($resultnom as $answernom) {
                 $gestor = $answernom['iniciales'];

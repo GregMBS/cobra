@@ -115,7 +115,7 @@ ORDER BY d_fech,c_hrin
             <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         </head>
         <body>
-            <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+            <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
             <form action="bigquery2.xls.php" method="get" name="queryparms">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                 <p>Gestor: <?php

@@ -163,7 +163,7 @@ AND borrado=0 AND concat(fecha,' ',hora)='" . $notalertt . "' LIMIT 1;";
     }
 } else {
     $flagmsg = "Acceso sin autorizaci&oacute;n";
-    include 'resumenErrorView.php';
+    include 'views/resumenErrorView.php';
     exit();
 }
 if ($go == 'NUEVOS') {
@@ -524,7 +524,7 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
         }
         header($redirector);
     } else {
-        include 'resumenErrorView.php';
+        include 'views/resumenErrorView.php';
     }
 }
 if (substr($capt, 0, 8) == "practica") {

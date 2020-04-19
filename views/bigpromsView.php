@@ -9,8 +9,8 @@
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php 
         echo $capt;
-        ?>'">Regressar a la plantilla administrativa</button><br>
-        <form action="bigproms.php" method="get" name="queryparms">
+        ?>'">Regresar a la pagina administrativa</button><br>
+        <form action="/bigproms.php" method="get" name="queryparms">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <p>Gestor: <?php
 if (isset($gestor)) {

@@ -5,7 +5,7 @@
         <title>COBRA Carga Foto</title>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <?php
         if ($result) {
             ?>
@@ -20,7 +20,7 @@
             <?php
         }
         ?>
-        <form action="cargaPicLoad.php" method="post" enctype="multipart/form-data" name="cargar">
+        <form action="/cargaPicLoad.php" method="post" enctype="multipart/form-data" name="cargar">
             <p>
                 <input type="hidden" name="capt" id="capt" value="<?php echo $capt ?>" />
                 <label for="file">Filename:</label>

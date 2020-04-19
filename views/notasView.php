@@ -29,7 +29,7 @@
                                 <td><?php echo $answer['cuenta']; ?></td>
                                 <td colspan=5><?php echo $answer['nota']; ?></td>
                                 <td><?php if ($answer['c_cvge'] == $capt) { ?>
-                                        <form action="notas.php" method="get" name="lista<?php echo $answer['auto'];?>" >
+                                        <form action="/notas.php" method="get" name="lista<?php echo $answer['auto'];?>" >
                                             <input type="hidden" name="which" readonly="readonly" value=<?php echo $answer['auto']; ?> />
                                             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> />
                                             <input type="submit" name="go" value="BORRAR">
@@ -47,15 +47,15 @@
                 </table>
             </div>
 <?php } ?>
-        <form action="notas.php" method="get" name="notas">
+        <form action="/notas.php" method="get" name="notas">
             <label for='FECHA'>Fecha</label>
-            <INPUT TYPE="text" NAME="FECHA" ID="FECHA" VALUE="" SIZE=15 /><br>
+            <input TYPE="text" NAME="FECHA" ID="FECHA" VALUE="" SIZE=15 /><br>
             <label for='HORA'>Hora</label>
-            <INPUT TYPE="text" NAME="HORA" ID="HORA" VALUE="" />
+            <input TYPE="text" NAME="HORA" ID="HORA" VALUE="" />
             <label for='MIN'>Min</label>
-            <INPUT TYPE="text" NAME="MIN" ID="MIN" VALUE="" /><br>
+            <input TYPE="text" NAME="MIN" ID="MIN" VALUE="" /><br>
             <label for='CUENTA'>Cuenta</label>
-            <input type="text" name="CUENTA" readonly="readonly" value=<?php echo $CUENTA; ?>></input><br>
+            <input type="text" name="CUENTA" readonly="readonly" value=<?php echo $CUENTA; ?> /><br>
             <label for='NOTA'>Nota</label>
             <textarea rows="2" cols="40" name="NOTA" id="NOTA"></textarea><br>
             <input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $C_CONT; ?> /><br>

@@ -5,7 +5,7 @@
         <title>Activar Cuentas</title>
     </head>
     <body>
-        <form action="activar.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
+        <form action="/activar.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
             <p>Usa numero de cuenta</p>
             <textarea name='data' rows='20' cols='50'></textarea>
             <input type="hidden" name="capt" value="<?php

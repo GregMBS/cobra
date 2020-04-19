@@ -10,7 +10,7 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <table summary="Processlist" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
@@ -51,7 +51,7 @@
                         <td>
                             <form class="kill" 
                                   name="kill<?php echo $ID ?>" 
-                                  method="get" action="status.php" 
+                                  method="get" action="/status.php"
                                   id="kill<?php echo $ID ?>">
                                 <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
                                 <input type="submit" name="go" value="KILL">

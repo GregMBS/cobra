@@ -11,11 +11,11 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <table summary="Gestores" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
-            <form action="gestoradmin.php" method="get" name="migoorden">
+            <form action="/gestoradmin.php" method="get" name="migoorden">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                 <th>Gestor</th>
                 <th>Completo</th>
@@ -40,7 +40,7 @@
                     <form class="gestorchange"
                           name="gestorchange<?php echo $j; ?>"
                           method="get"
-                          action="gestoradmin.php"
+                          action="/gestoradmin.php"
                           id="gestorchange<?php echo $j; ?>">
                         <input type="hidden" name="capt" value="<?php echo $capt ?>">
                         <input type="hidden" name="j" value="<?php echo $j ?>">
@@ -83,7 +83,7 @@
                 <form class="gestoradd"
                       name="gestoradd"
                       method="get"
-                      action="gestoradmin.php"
+                      action="/gestoradmin.php"
                       id="gestoradd">
                     <input type="hidden" name="capt" value="<?php echo $capt ?>">
                     <td><input type="text" name="usuaria"  value="" /></td>

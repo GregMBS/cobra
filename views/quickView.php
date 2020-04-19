@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Tiempo Real</title>
         <meta http-equiv="refresh" content="60"/>
@@ -55,7 +55,7 @@
                             }
                             ?>>
                                 <td><?php echo $rowAhora['gestor']; ?></td>
-                                <td><a href="resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $rowAhora['id_cuenta']; ?>&capt=<?php echo $capt; ?>"><?php echo $rowAhora['cuenta']; ?></a></td>
+                                <td><a href="/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $rowAhora['id_cuenta']; ?>&capt=<?php echo $capt; ?>"><?php echo $rowAhora['cuenta']; ?></a></td>
                                 <td><?php echo $rowAhora['nombre']; ?></td>
                                 <td><?php echo $rowAhora['cliente']; ?></td>
                                 <td><?php echo $rowAhora['camp']; ?></td>
@@ -85,6 +85,7 @@
                     </thead>
                     <tbody class="ui-widget-content">
                         <?php
+                        /** @var PDOStatement $resultBreaks */
                         foreach ($resultBreaks as $rowBreaks) {
                             ?>
                             <tr>
@@ -113,6 +114,7 @@
                     </thead>
                     <tbody class="ui-widget-content">
                         <?php
+                        /** @var PDOStatement $resultPorHora */
                         foreach ($resultPorHora as $rowPorHora) {
                             ?>
                             <tr>
@@ -150,6 +152,7 @@
                         $sumNegociaciones = 0;
                         $sumHoras = 0;
                         $sumBreak = 0;
+                        /** @var PDOStatement $resultHoy */
                         foreach ($resultHoy as $rowHoy) {
                             ?>
                             <tr<?php
@@ -189,7 +192,7 @@
                 </table>
             </div>
         </div>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <script>
             $(function () {
                 $("#tab").tabs();

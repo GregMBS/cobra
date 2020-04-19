@@ -8,14 +8,14 @@
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <div style='clear:both;background-color:#ffffff;width:100%'>
             <div style='float:left;width:25%'>Gestor</div>
             <div style='float:left;width:50%'>Queue</div>
         </div>
         <div>
             <div style='clear:both;border:1pt black solid'>
-                <form method='get' action='queues.php' name='todos'>
+                <form method='get' action='/queues.php' name='todos'>
                     <div style='float:left;width:25%'>
                         <input name='gestor' type='text' readonly='readonly' value='todos'>
                     </div>
@@ -52,7 +52,7 @@
             foreach ($resultlist as $rowlist) {
                 ?>
                 <div style='clear:both;border:1pt black solid'>
-                    <form method='get' action='queues.php' name='<?php echo $rowlist['gestor']; ?>'>
+                    <form method='get' action='/queues.php' name='<?php echo $rowlist['gestor']; ?>'>
                         <div style='float:left;width:25%'>
                             <input name='gestor' type='text' readonly='readonly' value='<?php echo $rowlist['gestor']; ?>'>
                         </div>

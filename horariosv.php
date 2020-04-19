@@ -17,6 +17,8 @@ $dhoy		 = date('d');
 $hoy		 = date('Y-m-d');
 $capt		 = filter_input(INPUT_GET, 'capt');
 $resultwd	 = $hc->countVisitadorDays();
+$expw1       = 0;
+$expw2       = 0;
 foreach ($resultwd as $answerwd) {
 	$expw1	 = $answerwd['sfs'] * 15;
 	$expw2	 = $answerwd['sss'] * 15;
