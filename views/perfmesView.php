@@ -24,6 +24,9 @@
                 ?>
                 <table class="ui-widget">
                     <?php
+                    $zeros = array_fill(1, $dhoy, 0);
+                    $nct = $zeros;
+                    $tsumnct = $zeros;
                     for ($i = 1; $i <= $dhoy; $i++) {
                         $tsumt[$i]   = 0;
                         $tsumb[$i]   = 0;

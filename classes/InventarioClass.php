@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of InventarioClass
  *
@@ -68,18 +70,16 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
             $stm->bindParam(':cliente', $cliente);
         }
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $stm->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listClients() {
-        $queryc = "SELECT cliente FROM clientes";
-        $resultc = $this->pdo->query($queryc);
-        return $resultc;
+        $query = "SELECT cliente FROM clientes";
+        return $this->pdo->query($query);
     }
 
 }

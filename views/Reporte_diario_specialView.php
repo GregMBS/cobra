@@ -3,7 +3,7 @@
  * @var string $capt
  */
 ?>
-<!DOCTYPE html">
+<!DOCTYPE html>
 <html>
     <head>
         <title>Promesas y Pagos</title>
@@ -124,7 +124,9 @@ from gmbtemp group by cliente;";
                     <tbody class="ui-widget-content">
                         <?php
                         foreach ($resultAnalytica as $row) {
-                            echo "<tr>";
+                            ?>
+                        <tr>
+                            <?php
                             for ($j = 0; $j < $numberfieldsAnalytica; $j++) {
                                 echo "<td>" . $row[$j] . "</td>";
                             }
@@ -154,7 +156,9 @@ from gmbtemp group by gestor;";
                     <tbody class="ui-widget-content">
                         <?php
                         foreach ($resultGestor as $row) {
-                            echo "<tr>";
+                        ?>
+                        <tr>
+                            <?php
                             for ($j = 0; $j < $numberfieldsGestor; $j++) {
                                 echo "<td>" . $row[$j] . "</td>";
                             }
@@ -184,7 +188,9 @@ from gmbtemp group by cliente,substring_index(sdc,'-',1);";
                     <tbody class="ui-widget-content">
                         <?php
                         foreach ($resultSegmento as $row) {
-                            echo "<tr>";
+                        ?>
+                        <tr>
+                            <?php
                             for ($j = 0; $j < $numberfieldsSegmento; $j++) {
                                 echo "<td>" . $row[$j] . "</td>";
                             }

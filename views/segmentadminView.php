@@ -67,12 +67,11 @@
                 </tr>
             </tbody>
         </table>
-        <p>
+        <hr>
         <form class="gestoradd" name="gestoradd" method="get" action=
               "/segmentadmin.php" id="gestoradd">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <input type="submit" name="go" value="AGREGARALL">
         </form>
-    </p>
-</body>
+    </body>
 </html> 

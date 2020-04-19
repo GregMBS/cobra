@@ -30,6 +30,10 @@
             $tsumw = $zeros;
             $tsumci = $zeros;
             $tsumco = $zeros;
+            $co = $zeros;
+            $ci = $zeros;
+            $prom = $zeros;
+            $pag = $zeros;
             $resultnom = $hc->listVisitadores();
             foreach ($resultnom as $answernom) {
                 $gestor = $answernom['iniciales'];

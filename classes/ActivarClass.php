@@ -20,10 +20,10 @@ class ActivarClass extends BaseClass {
      * @param array $data
      */
     public function activateCuentas($data) {
-        $querydie = "update resumen
+        $query = "update resumen
 set status_de_credito=substring_index(status_de_credito,'-',1)
 where numero_de_cuenta=:cta";
-        $std = $this->pdo->prepare($querydie);
+        $std = $this->pdo->prepare($query);
         foreach ($data as $d) {
             $std->bindParam(':cta', $d);
             $std->execute();

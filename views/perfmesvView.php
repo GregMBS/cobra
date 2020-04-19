@@ -18,6 +18,11 @@
         <h2>VISITAS DEL MES ACTUAL</h2>
         <table summary="LpH">
             <?php
+            $zeros = array_fill(1, $dhoy, 0);
+            $co = $zeros;
+            $ci = $zeros;
+            $prom = $zeros;
+            $pag = $zeros;
             for ($i = 1; $i <= $dhoy; $i++) {
                 $tsumt[$i] = 0;
                 $tsumb[$i] = 0;

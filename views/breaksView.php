@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Breaks del Hoy</title>
         <meta http-equiv="refresh" content="15"/>
@@ -19,7 +19,7 @@
     </head>
     <body>
         <button onclick="window.location = 'index.php'">LOGIN</button><br>
-        <table summary="Breaks">
+        <table id="Breaks">
             <thead>
                 <tr>
                     <th>Gestor</th>

@@ -85,7 +85,6 @@
                     </tbody>
                 </table>
             </div>
-    </div>
     <button onClick='window.close()'>CIERRA</button>
 </body>
 </html> 

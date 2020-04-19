@@ -3,6 +3,8 @@
 namespace cobra_salsa;
 
 use Exception;
+use PDO;
+use PDOException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +21,7 @@ class CargaClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
 
@@ -129,7 +131,7 @@ class CargaClass {
         $querydrop = "DROP TABLE IF EXISTS temp;";
         try {
             $this->pdo->query($querydrop);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
         $querystart = "CREATE TABLE temp "
@@ -142,13 +144,13 @@ class CargaClass {
                 . " FROM resumen LIMIT 0";
         try {
             $this->pdo->query($querystart);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
         $queryindex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50));";
         try {
             $this->pdo->query($queryindex);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
     }
@@ -174,7 +176,7 @@ class CargaClass {
         $queryloadtrim = rtrim($queryload, ",");
         try {
             $this->pdo->query($queryloadtrim);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
     }
@@ -204,7 +206,7 @@ class CargaClass {
             and temp.cliente=resumen.cliente";
         try {
             $this->pdo->query($queryupd);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
     }
@@ -219,7 +221,7 @@ class CargaClass {
 
         try {
             $this->pdo->query($queryins);
-        } catch (\PDOException $Exception) {
+        } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
     }
@@ -247,7 +249,7 @@ where fecha_de_ultimo_pago>last_day(curdate() - INTERVAL 31 day)
 AND monto_ultimo_pago>0 
 and not exists (select * from historia h2 
 where h2.d_fech>h1.d_fech and h2.c_cont=h1.c_cont and h2.n_prom>0) 
-and fecha_de_ultimo_pago<fecha_de_actualizacion 
+and fecha_de_ultimo_pago < fecha_de_actualizacion 
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
         $this->pdo->query($querypagoins);

@@ -15,12 +15,11 @@
             echo $capt
             ?>" />
             <button type="submit" name="go" value="cargar">Cargar</button>
-        </p>
-    </form>
-    <?php echo $message; ?>
-    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">
-        Regresar a la plantilla administrativa
-    </button>
-    <br>
-</body>
+        </form>
+        <?php echo $message; ?>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">
+            Regresar a la plantilla administrativa
+        </button>
+        <br>
+    </body>
 </html>

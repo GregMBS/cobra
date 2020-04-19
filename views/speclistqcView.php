@@ -1,5 +1,5 @@
-<!DOCTYPE html">
-<html>
+<!DOCTYPE html>
+<html lang="es">
     <head>
         <title>Listado por Gestor y Status</title>
         <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>

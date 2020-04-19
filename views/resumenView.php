@@ -580,7 +580,7 @@
             <form action="/resumen.php" method="post" name="resumenform" id=
                   "resumenform">
                 <div id="GENERAL">
-                    <table summary="demograficas">
+                    <table id="demograficas">
                         <tr>
                             <td>
                                 <span class='formcapa' id='deudor'>Deudor</span><input type='text' size=80 style='width:12cm' name=nombre_deudor id="nombre_deudor" readonly='readonly' value='<?php
@@ -967,7 +967,7 @@
                 </div>
                 <br>
                 <div id="EXTRAS">
-                    <table summary="sdh extras">
+                    <table id="sdh_extras">
                         <tr>
                             <th>Cliente</th>
                             <th>Segmento</th>
@@ -994,7 +994,7 @@
                 </div>
 
                 <div id="CONTABLES">
-                    <table summary="contables">
+                    <table id="contablesTable">
                         <tr>
                             <td>Numero de credito</td>
                             <td><input type='text' name=numero_de_credito readonly='readonly' value='<?php

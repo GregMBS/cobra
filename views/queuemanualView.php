@@ -24,8 +24,7 @@
             <hr>
             <p>BORRAR QUEUE MANUAL (opcional)</p>
             <button type="submit" name="go" value="borrar">Borrar</button>
-        </p>
-    </form>
+        </form>
     <?php
     if ($go == 'borrar') {
         ?>

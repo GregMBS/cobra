@@ -63,10 +63,10 @@ class LogoutClass {
     }
 
     /**
-     * 
+     *
      * @param string $capt
      * @param string $go
-     * @return array
+     * @return LogoutClass
      */
     public function getLogoutDatetime($capt, $go) {
         $this->date = date('Y-m-d');

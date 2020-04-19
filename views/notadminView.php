@@ -26,12 +26,13 @@
                             $i++;
                             ?>
                             <tr>
-                                <td><?php echo $answer['c_cvge']; ?></th>
-                                <td><?php echo $answer['fecha']; ?></th>
-                                <td><?php echo $answer['hora']; ?></th>
+                                <td><?php echo $answer['c_cvge']; ?></td>
+                                <td><?php echo $answer['fecha']; ?></td>
+                                <td><?php echo $answer['hora']; ?></td>
                                 <td colspan=5><?php
                                     echo htmlentities($answer['nota'], null, 'utf-8');
-                                    ?></th>
+                                    ?>
+                                </td>
                                 <td>
                                     <form action="/notadmin.php"
                                           method="get" name="lista<?php echo $answer['auto']; ?>">

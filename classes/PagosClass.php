@@ -8,6 +8,9 @@
 
 namespace cobra_salsa;
 
+use PDO;
+use PDOStatement;
+
 /**
  * Description of PagosClass
  *
@@ -16,21 +19,21 @@ namespace cobra_salsa;
 class PagosClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function summaryThisMonth() {
         $queryAct = "select pagos.cliente as cli, status_de_credito as sdc,
@@ -39,8 +42,7 @@ from pagos join resumen using (id_cuenta)
 where fecha>last_day(curdate()-interval 1 month)
 and status_de_credito not like '%vo'
 group by cli, sdc with rollup";
-        $resultAct = $this->pdo->query($queryAct);
-        return $resultAct;
+        return $this->pdo->query($queryAct);
     }
 
     /**
@@ -89,7 +91,7 @@ where fecha>last_day(curdate()-interval 1 month)
 and pagos.id_cuenta = resumen.id_cuenta
 order by cliente,gestor,fecha";
         $resultActDet = $this->pdo->query($queryActDet);
-        $array = $resultActDet->fetchAll(\PDO::FETCH_ASSOC);
+        $array = $resultActDet->fetchAll(PDO::FETCH_ASSOC);
         foreach ($array as $row) {
             $cuenta = $row['cuenta'];
             $cliente = $row['cliente'];
@@ -102,8 +104,8 @@ order by cliente,gestor,fecha";
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function summaryLastMonth() {
         $queryAnt = "select pagos.cliente as cli, status_de_credito as sdc,
@@ -113,8 +115,7 @@ where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 and status_de_credito not like '%vo'
 group by cli, sdc with rollup";
-        $resultAnt = $this->pdo->query($queryAnt);
-        return $resultAnt;
+        return $this->pdo->query($queryAnt);
     }
 
     /**
@@ -164,7 +165,7 @@ where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 order by cliente,gestor,fecha";
         $resultAntDet = $this->pdo->query($queryAntDet);
-        $array = $resultAntDet->fetchAll(\PDO::FETCH_ASSOC);
+        $array = $resultAntDet->fetchAll(PDO::FETCH_ASSOC);
         foreach ($array as $row) {
             $cuenta = $row['cuenta'];
             $cliente = $row['cliente'];
@@ -186,9 +187,9 @@ order by cliente,gestor,fecha";
 FROM resumen 
 WHERE id_cuenta=:id";
         $stc = $this->pdo->prepare($querycc);
-        $stc->bindParam(':id', $ID_CUENTA, \PDO::PARAM_INT);
+        $stc->bindParam(':id', $ID_CUENTA, PDO::PARAM_INT);
         $stc->execute();
-        $resultcc = $stc->fetch(\PDO::FETCH_ASSOC);
+        $resultcc = $stc->fetch(PDO::FETCH_ASSOC);
         return $resultcc;
     }
 
@@ -205,7 +206,7 @@ ORDER BY fecha";
         $sts = $this->pdo->prepare($querysub);
         $sts->bindParam(':id', $ID_CUENTA);
         $sts->execute();
-        $rowsub = $sts->fetchAll(\PDO::FETCH_ASSOC);
+        $rowsub = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $rowsub;
     }
 
@@ -225,7 +226,7 @@ and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
         $std = $this->pdo->query($queryDA) or var_dump($this->pdo->errorInfo());
         if ($std) {
-            $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $std->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $row) {
                 $cuenta = $row['cuenta'];
                 $cliente = $row['cliente'];
@@ -286,7 +287,7 @@ order by cliente,gestor,fecha";
         }
         $std->execute();
         if ($std) {
-            $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $std->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $row) {
                 $cuenta = $row['cuenta'];
                 $cliente = $row['cliente'];
@@ -316,7 +317,7 @@ and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
         $std = $this->pdo->query($queryDA) or var_dump($this->pdo->errorInfo());
         if ($std) {
-            $result = $std->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $std->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $row) {
                 $cuenta = $row['cuenta'];
                 $cliente = $row['cliente'];
@@ -346,7 +347,7 @@ order by cliente,gestor,fecha";
         $stq->bindParam(':cuenta', $cuenta);
         $stq->bindParam(':cliente', $cliente);
         $stq->execute();
-        $resultc = $stq->fetch(\PDO::FETCH_ASSOC);
+        $resultc = $stq->fetch(PDO::FETCH_ASSOC);
         $id_cuenta = $resultc['id_cuenta'];
 
         $queryp = "SELECT * FROM historia 
@@ -359,7 +360,7 @@ order by cliente,gestor,fecha";
         $stp->bindParam(':id_cuenta', $id_cuenta);
         $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
-        $result = $stp->fetch(\PDO::FETCH_ASSOC);
+        $result = $stp->fetch(PDO::FETCH_ASSOC);
         $gestor = $result['C_CVGE'];
         return $gestor;
     }
@@ -375,7 +376,7 @@ order by cliente,gestor,fecha";
                     LIMIT 1000";
         $stc = $this->pdo->prepare($query);
         $stc->execute();
-        $result = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stc->fetchAll(PDO::FETCH_ASSOC);
         return $result;
             
     }

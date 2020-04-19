@@ -29,8 +29,7 @@
             echo $capt
             ?>" />
             <button type="submit" name="go" value="cargar">Cargar</button>
-        </p>
-    </form>
+        </form>
     <?php
     echo $msg;
     ?>
