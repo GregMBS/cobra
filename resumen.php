@@ -238,7 +238,7 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $N_PROM2 = mysqli_real_escape_string($con, $get['N_PROM2']);
     $N_PROM3 = mysqli_real_escape_string($con, $get['N_PROM3']);
     $N_PROM4 = mysqli_real_escape_string($con, $get['N_PROM4']);
-    $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
+    $N_PROM = intval($N_PROM1) + intval($N_PROM2) + intval($N_PROM3) + intval($N_PROM4);
 //$C_FREQ=mysqli_real_escape_string($con,$get['C_FREQ']);
     $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
     $C_NDIR = mysqli_real_escape_string($con, $get['C_NDIR']);
@@ -257,15 +257,17 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     }
     $D_PROM = $D_PROM1;
     $flagmsg = "";
-    $querydup = "SELECT count(1) FROM historia 
+/*
+    $querydup = "SELECT count(1) FROM historia
 WHERE c_cont=" . $C_CONT . " and d_fech='" . $D_FECH . "' 
 and c_hrin='" . $C_HRIN . "' and c_cvst='" . $C_CVST . "' 
 and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
     $resultdup = mysqli_query($con, $querydup) or die("ERROR RM23 - " . mysqli_error($con));
     while ($answerdup = mysqli_fetch_row($resultdup)) {
-        //$error = $error + $answerdup[0];
-        //$flagmsg = "DOBLE ENTRANTE";
+        $error = $error + $answerdup[0];
+        $flagmsg = "DOBLE ENTRANTE";
     }
+*/
     if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO J')) {
         $error = $error + 1;
         $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';

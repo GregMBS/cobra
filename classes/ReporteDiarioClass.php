@@ -259,8 +259,8 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
         $this->updateMultiples();
         $this->createAnalysis();
 
-        $stp = $this->pdo->query($this->queryparcial);
-        $rawResultPagos = $stp->fetchAll(\PDO::FETCH_ASSOC);
+        //$stp = $this->pdo->query($this->queryparcial);
+        //$rawResultPagos = $stp->fetchAll(\PDO::FETCH_ASSOC);
 
         $stv = $this->pdo->prepare($this->queryvencido);
         $stv->bindParam(':lbd', $lbd);

@@ -8,6 +8,8 @@ namespace cobra_salsa;
  * and open the template in the editor.
  */
 
+use PDOStatement;
+
 /**
  * Database Class for horarios
  *
@@ -37,23 +39,22 @@ class HorariosClass
 		return $hour.':'.str_pad($min, 2, '0', STR_PAD_LEFT);
 	}
 
-	/**
-	 *
-	 * @return array
-	 */
+    /**
+     *
+     * @return false|PDOStatement
+     */
 	public function listGestores()
 	{
 		$query	 = 'select distinct c_cvge from historia
             where d_fech>last_day(curdate() - interval 1 month)
             order by c_cvge limit 1000';
-		$result	 = $this->pdo->query($query);
-		return $result;
+        return $this->pdo->query($query);
 	}
 
-	/**
-	 *
-	 * @return array
-	 */
+    /**
+     *
+     * @return false|PDOStatement
+     */
 	public function listVisitadores()
 	{
 		$query	 = 'select distinct completo,iniciales
@@ -61,8 +62,7 @@ from nombres join historia on iniciales=c_visit
 where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())
 order by usuaria;';
-		$result	 = $this->pdo->query($query);
-		return $result;
+        return $this->pdo->query($query);
 	}
 
 	/**
@@ -265,10 +265,10 @@ order by usuaria;';
 		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
-	/**
-	 * 
-	 * @return array
-	 */
+    /**
+     *
+     * @return false|PDOStatement
+     */
 	public function countVisitadorDays()
 	{
 		$query	 = "select sum(fs) as sfs,sum(ss) as sss from
@@ -276,7 +276,6 @@ order by usuaria;';
 dayofweek(d_fech)>1 and day(d_fech)>15 as ss from historia
 where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())) as tmp";
-		$result	 = $this->pdo->query($query);
-		return $result;
+        return $this->pdo->query($query);
 	}
 }

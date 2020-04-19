@@ -245,7 +245,7 @@ order by cliente,gestor,fecha";
      * @param string $start
      * @param string $end
      * @param string $cliente
-     * @return string[]
+     * @return string[][]
      */
     public function queryAll($start, $end, $cliente) {
         $output = array();

@@ -221,7 +221,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
 // pagos
             $id                  = 0;
             $resultParcial       = $pdo->query($queryparcial);
-            $numberfieldsParcial = count(array_keys($resultParcial));
+            $numberfieldsParcial = $resultParcial->columnCount();
             ?>
             <table>
                 <thead>
@@ -320,11 +320,12 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
 // vencidos
 
             $resultVencidos       = $pdo->query($queryvencido);
-            $rvecount = $resultVencidos->setFetchMode(PDO::FETCH_ASSOC);
-            $numberfieldsVencidos = count(array_keys($rvecount));
+            $resultVencidos->setFetchMode(PDO::FETCH_ASSOC);
+            $arrayNames = array_keys($resultVencidos[0]);
+            $numberfieldsVencidos = $resultVencidos->columnCount();
             echo "<table>";
             echo "<tr>";
-            foreach (array_keys($rvecount) as $var) {
+            foreach ($arrayNames as $var) {
                 echo "<th>".$var."</th>";
             }
             ?>
@@ -349,7 +350,7 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
             } else {
                 echo "<td>".$row[$j - 2]."</td>";
                 echo "<td>".$row[$j - 1]."</td>";
-                $k + $k + 2;
+                $k = $k + 2;
             }
             ?>
             <td></td>
@@ -382,11 +383,11 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
     <?php
 // vigentes
     $resultVigentes       = $pdo->query($queryvigente);
-    $rvicount = $resultVigentes->setFetchMode(PDO::FETCH_ASSOC);
-    $numberfieldsVigentes = count(array_keys($rvicount));
+    $resultVigentes->setFetchMode(PDO::FETCH_ASSOC);
+    $numberfieldsVigentes = $resultVigentes->columnCount();
     echo "<table>";
     echo "<tr>";
-    foreach ($rvicount as $var) {
+    foreach ($resultVigentes as $var) {
         echo "<th>".$var."</th>";
     }
     ?>
@@ -412,7 +413,7 @@ while ($row = $resultVigentes->fetch()) {
     } else {
         echo "<td>".$row[$j - 2]."</td>";
         echo "<td>".$row[$j - 1]."</td>";
-        $k + $k + 2;
+        $k = $k + 2;
     }
     ?>
     <td></td>

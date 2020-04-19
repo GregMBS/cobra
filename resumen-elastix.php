@@ -120,7 +120,7 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $N_PROM2         = mysqli_real_escape_string($con, $get['N_PROM2']);
     $N_PROM3         = mysqli_real_escape_string($con, $get['N_PROM3']);
     $N_PROM4         = mysqli_real_escape_string($con, $get['N_PROM4']);
-    $N_PROM          = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
+    $N_PROM          = intval($N_PROM1) + intval($N_PROM2) + intval($N_PROM3) + intval($N_PROM4);
     $C_FREQ          = mysqli_real_escape_string($con, $get['C_FREQ']);
     $C_NTEL          = mysqli_real_escape_string($con, $get['C_NTEL']);
     $C_NDIR          = mysqli_real_escape_string($con, $get['C_NDIR']);
@@ -355,28 +355,14 @@ WHERE id_cuenta='".$C_CONT."'";
                 ."WHERE id_cuenta=$C_CONT "
                 ."AND '$C_CVST' like 'PAGO T%';";
             mysqli_query($con, $querysuc) or die("ERROR EM9a - ".mysqli_error($con));
-
+/*
             $querylast  = "select fecha,monto from pagos where (cuenta,cliente,fecha) in (select cuenta,cliente,max(fecha) from pagos where id_cuenta=".$C_CONT." group by id_cuenta);";
             $resultlast = mysqli_query($con, $querylast) or die("ERROR EM10 - ".mysqli_error($con));
             while ($answerlast = mysqli_fetch_row($resultlast)) {
-//                $mfecha = $answerlast[0];
-//                $mmonto = $answerlast[1];
+                $mfecha = $answerlast[0];
+                $mmonto = $answerlast[1];
             }
-        }
-        /*
-          if ($merci > 0) {
-          foreach ($MERC as $MERCa) {
-          if (!empty($MERCa)) {
-          $queryins = "INSERT INTO sdhmerc (ID_CUENTA,MERC,FECHAMERC,FECHACAPT)
-          VALUES (" . $C_CONT . ",'" . $MERCa . "','" . $D_MERC . "',now())";
-          mysqli_query($con, $queryins) or die("ERROR EM12 - " . mysqli_error($con));
-          }
-          }
-          }
-         */
-        if (!empty($get['localizar'])) {
-//            $queryloc = "update resumen set localizar=" . mysqli_real_escape_string($con, $get['LOCALIZAR']) . " where id_cuenta='" . $c_cont . "';";
-//mysqli_query($con,$queryloc) or die ("ERROR EM13 - ".mysqli_error($con));
+*/
         }
         $queryups = "update folios,historia,resumen 
 set enviado=0,fecha=d_fech+interval (time_to_sec(c_hrfi)) second 

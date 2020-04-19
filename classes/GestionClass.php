@@ -329,7 +329,7 @@ and id_cuenta = :c_cont";
             $sti->bindParam(':AUTH', $gestion['AUTH']);
             $sti->execute();
         } catch (\PDOException $exc) {
-            $auto = 0;
+            //$auto = 0;
             var_dump($exc);
             die();
         }

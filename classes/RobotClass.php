@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOStatement;
 
 require_once 'classes/BaseClass.php';
 
@@ -148,7 +149,7 @@ join msglist rm
 on rc.msg regexp rm.msg
 group by rc.msg";
         $result = $this->pdo->query($queryk);
-        $output = $this->calcTiempo($result);
+        //$output = $this->calcTiempo($result);
         return $result;
     }
 
@@ -157,6 +158,7 @@ group by rc.msg";
      * @param array $array
      * @return array
      */
+    /*
     private function calcTiempo($array) {
         $output = array();
         if (is_array($array)) {
@@ -175,16 +177,15 @@ group by rc.msg";
         }
         return $output;
     }
-
+*/
     /**
      * 
-     * @return array
+     * @return array|PDOStatement
      */
     public function getQueues() {
         $query = "SELECT msg,lineas,auto FROM msglist 
 ORDER BY msg";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
 }

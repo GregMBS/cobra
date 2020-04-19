@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of ChangestClass
  *
@@ -59,7 +61,6 @@ WHERE id_cuenta=:C_CONT";
      */
     private function getClientString($CLIENTE) {
         if (empty($CLIENTE)) {
-            $CLIENTE = '';
             $clientStr = " and :cliente<>'AA'";
         } else {
             if (strlen($CLIENTE) > 1) {
@@ -107,13 +108,12 @@ WHERE id_cuenta=:C_CONT";
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listClientes() {
         $querycl = "SELECT DISTINCT cliente FROM resumen ORDER BY cliente LIMIT 1000";
-        $resultcl = $this->pdo->query($querycl);
-        return $resultcl;
+        return $this->pdo->query($querycl);
     }
 
 }

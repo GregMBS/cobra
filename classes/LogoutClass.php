@@ -72,7 +72,7 @@ class LogoutClass {
         $this->date = date('Y-m-d');
         $this->time = date('H:i:s');
         if ($go == 'forgot') {
-            $go = 'salir';
+            //$go = 'salir';
             $stl = $this->pdo->prepare($this->queryldt);
             $stl->bindParam(':capt', $capt);
             $stl->execute();

@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of BreaksClass
  *
@@ -133,24 +135,22 @@ order by c_cvge,c_cvst,c_hrin";
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listBreaks() {
         $querymain = "SELECT auto, gestor, tipo, empieza, termina FROM breaks 
     order by gestor,empieza";
-        $result = $this->pdo->query($querymain);
-        return $result;
+        return $this->pdo->query($querymain);
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listUsuarias() {
         $query = "SELECT iniciales FROM nombres "
                 . "WHERE tipo <> ''";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 }

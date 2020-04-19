@@ -156,12 +156,14 @@ class CargaClass {
     /**
      * 
      * @param string $filename
-     * @param string $columnNames
+     * @param array $columnNames
      */
     public function loadData($filename, $columnNames) {
         $data = $this->getCsvData($filename, false);
         $count = 0;
-        $queryload = "INSERT INTO temp (" . implode(",", $columnNames) . ") VALUES ";
+        $glue = ",";
+        $columnString = implode($glue, $columnNames);
+        $queryload = "INSERT INTO temp (" . $columnString . ") VALUES ";
         foreach ($data as $row) {
             if ($count > 0) {
                 $limpio = str_replace("'", "", $row);

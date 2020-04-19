@@ -29,7 +29,7 @@ class LoginClass {
     }
 
     public function getUserData($capt, $pw) {
-        $bpw = password_hash($pw, PASSWORD_DEFAULT);
+        //$bpw = password_hash($pw, PASSWORD_DEFAULT);
         $queryg = "SELECT iniciales, enlace, tipo, passw "
                 . "FROM nombres JOIN grupos ON grupo=tipo "
                 . "WHERE LOWER(iniciales) = LOWER(:capt) "

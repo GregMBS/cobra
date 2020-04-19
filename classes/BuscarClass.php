@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of BuscarClass
  *
@@ -153,13 +155,12 @@ tel_4_verif regexp :find )";
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listClients() {
         $querycl = "SELECT cliente FROM clientes";
-        $resultcl = $this->pdo->query($querycl);
-        return $resultcl;
+        return $this->pdo->query($querycl);
     }
 
 }

@@ -8,6 +8,8 @@ namespace cobra_salsa;
  * and open the template in the editor.
  */
 
+use PDOStatement;
+
 /**
  * Database Class for perfmes
  *
@@ -37,10 +39,10 @@ class PerfmesClass
 		return $hour.':'.str_pad($min, 2, '0', STR_PAD_LEFT);
 	}
 
-	/**
-	 *
-	 * @return array
-	 */
+    /**
+     *
+     * @return false|PDOStatement
+     */
 	public function listGestores()
 	{
 		$query	 = 'select distinct c_cvge from historia
@@ -48,14 +50,13 @@ class PerfmesClass
             and d_fech<=last_day(curdate() - interval 1 month)
             and c_msge is null
             order by c_cvge limit 100;';
-		$result	 = $this->pdo->query($query);
-		return $result;
+        return $this->pdo->query($query);
 	}
 
-	/**
-	 *
-	 * @return array
-	 */
+    /**
+     *
+     * @return false|PDOStatement
+     */
 	public function listVisitadores()
 	{
 		$query	 = 'select distinct completo,iniciales
@@ -63,8 +64,7 @@ class PerfmesClass
             where d_fech>last_day(curdate() - interval 2 month)
             and d_fech<=last_day(curdate() - interval 1 month)
 	    order by usuaria;';
-		$result	 = $this->pdo->query($query);
-		return $result;
+        return $this->pdo->query($query);
 	}
 
 	/**
@@ -268,10 +268,10 @@ class PerfmesClass
 		return $stq->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
-	/**
-	 *
-	 * @return array
-	 */
+    /**
+     *
+     * @return false|PDOStatement
+     */
 	public function countVisitadorDays()
 	{
 		$query	 = "select sum(fs) as sfs,sum(ss) as sss from
@@ -280,7 +280,6 @@ dayofweek(d_fech)>1 and day(d_fech)>15 as ss from historia
 where d_fech>last_day(curdate()-interval 2 month)
 and d_fech<=last_day(curdate()-interval 1 month)
 ) as tmp";
-		$result	 = $this->pdo->query($query);
-		return $result;
+        return $this->pdo->query($query);
 	}
 }

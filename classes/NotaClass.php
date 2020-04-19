@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of NotaClass
  *
@@ -115,15 +117,14 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listAllNotas() {
         $querysub = "SELECT auto,fecha,hora,nota,c_cvge "
                 . "FROM notas "
                 . "WHERE borrado=0 ORDER BY fecha desc,hora desc";
-        $rowsub = $this->pdo->query($querysub);
-        return $rowsub;
+        return $this->pdo->query($querysub);
     }
 
     /**
@@ -149,14 +150,13 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listUsers() {
         $queryt = "SELECT iniciales FROM nombres "
                 . "ORDER BY iniciales";
-        $rowt = $this->pdo->query($queryt);
-        return $rowt;
+        return $this->pdo->query($queryt);
     }
 
 }

@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of segmentadminClass
  *
@@ -85,8 +87,8 @@ class SegmentadminClass {
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listQueuedSegmentos() {
         $querytempr = "create temporary table csdcr
@@ -101,13 +103,12 @@ group by cliente, status_de_credito";
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
     group by q.cliente,sdc
     ";
-        $result = $this->pdo->query($querymain);
-        return $result;
+        return $this->pdo->query($querymain);
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listUnqueuedSegments() {
         $querytemp = "create temporary table csdc
@@ -123,8 +124,7 @@ select distinct cliente,sdc from queuelist";
     AND status_de_credito not regexp '-'
     group by r.cliente,status_de_credito
     ";
-        $result = $this->pdo->query($querymain2);
-        return $result;
+        return $this->pdo->query($querymain2);
     }
 
 }

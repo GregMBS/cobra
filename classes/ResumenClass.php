@@ -9,6 +9,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOStatement;
 
 /**
  * Description of ResumenClass
@@ -196,7 +197,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
     /**
      * 
      * @param string $mytipo
-     * @return array
+     * @return PDOStatement
      */
     public function getDict($mytipo) {
         $query = "SELECT dictamen,v_cc,judicial "
@@ -214,68 +215,61 @@ where id_cuenta=:id_cuenta LIMIT 1";
                     . "FROM dictamenes "
                     . "order by dictamen";
         }
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return PDOStatement
      */
     public function getDictV() {
         $mytipo = 'visitador';
-        $result = $this->getDict($mytipo);
-        return $result;
+        return $this->getDict($mytipo);
     }
 
     /**
      * 
-     * @return array
+     * @return PDOStatement
      */
     public function getMotiv() {
         $query = "SELECT motiv FROM motivadores order by motiv";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
     /**
      * 
-     * @return array
+     * @return PDOStatement
      */
     public function getMotivV() {
         $query = "SELECT motiv FROM motivadores where visitas = 1 order by motiv";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
     /**
      * 
-     * @return array
+     * @return PDOStatement
      */
     public function getCnp() {
         $query = "SELECT status FROM cnp";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
     /**
      * 
-     * @return array
+     * @return PDOStatement
      */
     public function getAccion() {
         $query = "SELECT accion FROM acciones where callcenter=1";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
     /**
      * 
-     * @return array
+     * @return PDOStatement
      */
     public function getAccionV() {
         $query = "SELECT accion FROM acciones where visitas=1";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
     /**
@@ -311,36 +305,33 @@ where id_cuenta=:id_cuenta LIMIT 1";
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getGestorList() {
         $queryGestor = "SELECT usuaria,completo FROM nombres 
     ORDER BY usuaria";
-        $resultGestor = $this->pdo->query($queryGestor);
-        return $resultGestor;
+        return $this->pdo->query($queryGestor);
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getVisitadorList() {
         $queryGestorV = "SELECT usuaria,completo FROM nombres 
     where completo<>'' 
 and tipo IN ('visitador','admin')";
-        $resultGestorV = $this->pdo->query($queryGestorV);
-        return $resultGestorV;
+        return $this->pdo->query($queryGestorV);
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getClientList() {
         $querycl = "SELECT cliente FROM clientes;";
-        $resultcl = $this->pdo->query($querycl);
-        return $resultcl;
+        return $this->pdo->query($querycl);
     }
 
     /**

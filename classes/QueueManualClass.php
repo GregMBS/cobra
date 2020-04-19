@@ -9,6 +9,7 @@
 namespace cobra_munoz;
 
 use cobra_salsa\BaseClass;
+use PDOStatement;
 
 /**
  * Description of QueueManualClass
@@ -48,18 +49,17 @@ AND cliente=:clientea";
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listClients() {
         $query = "SELECT cliente FROM clientes";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getReport() {
         $querymain = "SELECT
@@ -75,8 +75,7 @@ WHERE
     especial > 0
         AND status_de_credito NOT REGEXP '-'
 GROUP BY cliente , status_de_credito , ejecutivo_asignado_call_center";
-        $result = $this->pdo->query($querymain);
-        return $result;
+        return $this->pdo->query($querymain);
     }
 
 }

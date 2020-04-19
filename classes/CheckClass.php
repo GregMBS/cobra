@@ -11,6 +11,7 @@ namespace cobra_salsa;
 use DateTime;
 use DateInterval;
 use DatePeriod;
+use PDOStatement;
 
 /**
  * Description of CheckClass
@@ -99,13 +100,12 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
 
     /**
      *
-     * @return array
+     * @return false|PDOStatement
      */
     public function getVisitadores() {
         $query = "SELECT usuaria,completo FROM nombres where completo<>''
 and tipo IN ('visitador','admin')";
-        $result = $this->pdo->query($query);
-        return $result;
+        return $this->pdo->query($query);
     }
 
     /**

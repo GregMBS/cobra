@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of TroubleClass
  *
@@ -48,13 +50,12 @@ class TroubleClass {
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function listTrouble() {
         $querysub = "SELECT * FROM trouble ORDER BY fechahora desc";
-        $rowsub = $this->pdo->query($querysub);
-        return $rowsub;
+        return $this->pdo->query($querysub);
     }
 
     /**

@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 /**
  * Description of ComparativoClass
  *
@@ -29,8 +31,8 @@ class ComparativoClass {
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getReport() {
         $querymain = "select c_cvba, mdf, sum(gest) as sg, sum(contact) as sc,
@@ -47,8 +49,7 @@ and c_cont>0
 group by c_cont,mdf) as tmp
 group by c_cvba,mdf;
 ";
-        $result = $this->pdo->query($querymain);
-        return $result;
+        return $this->pdo->query($querymain);
     }
 
 }

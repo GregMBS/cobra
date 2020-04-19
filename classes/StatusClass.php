@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use PDOStatement;
+
 class StatusClass
 {
     /**
@@ -34,26 +36,24 @@ class StatusClass
         $queryu = "KILL $idi";
         $this->pdo->query($queryu);
     }
-    
+
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getProcesslist() {
        $querymain = "show processlist";
-       $result = $this->pdo->query($querymain);
-       return $result;
+        return $this->pdo->query($querymain);
     }
-    
+
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getTables() {
         $querytab = "SELECT * FROM information_schema.`TABLES` T 
 where table_schema = $this->dbName
 order by data_length desc";
-        $result = $this->pdo->query($querytab);
-        return $result;
+        return $this->pdo->query($querytab);
     }
 }
