@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of SpeclistqcClass
  *
@@ -16,7 +18,7 @@ namespace cobra_salsa;
 class SpeclistqcClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
     
@@ -45,7 +47,7 @@ ORDER BY saldo_total desc";
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -97,7 +99,7 @@ ORDER BY saldo_total desc";
             $stm->bindParam(':sdc', $sdc);
         }
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

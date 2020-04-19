@@ -2,6 +2,7 @@
 
 namespace cobra_salsa;
 
+use ConfigClass;
 use PDO;
 use PDOStatement;
 
@@ -16,22 +17,21 @@ class RobotClass extends BaseClass {
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         parent::__construct($pdo);
-        $config = new \ConfigClass();
+        $config = new ConfigClass();
         $pdo->query('use '.$config->robotDb);
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getMessageList() {
-        $querycl = "SELECT client,tipo FROM msglist";
-        $resultcl = $this->pdo->query($querycl);
-        return $resultcl;
+        $query = "SELECT client,tipo FROM msglist";
+        return $this->pdo->query($query);
     }
 
     private function createTemp() {

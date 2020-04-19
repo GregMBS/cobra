@@ -8,6 +8,10 @@
 
 namespace cobra_salsa;
 
+use Exception;
+use PDO;
+use PDOStatement;
+
 /**
  * Description of ResumenQueuesClass
  *
@@ -16,13 +20,13 @@ namespace cobra_salsa;
 class ResumenQueuesClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -42,9 +46,9 @@ class ResumenQueuesClass {
         LIMIT 1";
         $stq = $this->pdo->prepare($queryquery);
         $stq->bindParam(':capt', $capt);
-        $stq->bindParam(':camp', $camp, \PDO::PARAM_INT);
+        $stq->bindParam(':camp', $camp, PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -62,7 +66,7 @@ class ResumenQueuesClass {
         $stc = $this->pdo->prepare($querycount);
         $stc->bindParam(':find', $find);
         $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
         return $result['ct'];
     }
 
@@ -71,7 +75,7 @@ class ResumenQueuesClass {
      * @param string $cliente
      * @param string $sdc
      * @param string $cr
-     * @return \PDOStatement
+     * @return PDOStatement
      */
     public function prepareResumenMain($cliente, $sdc, $cr) {
         if (empty($cliente)) {
@@ -142,12 +146,12 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
 
     /**
      * 
-     * @param \PDOStatement $stm
+     * @param PDOStatement $stm
      * @param string $capt
      * @param string $cliente
      * @param string $sdc
      * @param string $cr
-     * @return \PDOStatement
+     * @return PDOStatement
      */
     public function bindResumenMain($stm, $capt, $cliente, $sdc, $cr) {
         if (in_array($cr, array('MANUAL','INICIAL'))) {
@@ -173,7 +177,7 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
     /**
      * 
      * @param int $id_cuenta
-     * @return \PDOStatement
+     * @return PDOStatement
      */
     public function prepareQuicksearch($id_cuenta) {
         $querymain = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta LIMIT 1";
@@ -184,15 +188,15 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
 
     /**
      * 
-     * @param \PDOStatement $stm
+     * @param PDOStatement $stm
      * @return array
      */
     public function runResumenMain($stm) {
         try {
             $stm->execute();
-            $result = $stm->fetch(\PDO::FETCH_ASSOC);
+            $result = $stm->fetch(PDO::FETCH_ASSOC);
             return $result;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return array();
         }
     }

@@ -124,8 +124,9 @@ class CargaClass {
     }
 
     /**
-     * 
+     *
      * @param array $columnNames
+     * @throws Exception
      */
     public function prepareTemp($columnNames) {
         $querydrop = "DROP TABLE IF EXISTS temp;";
@@ -156,9 +157,10 @@ class CargaClass {
     }
 
     /**
-     * 
+     *
      * @param string $filename
      * @param array $columnNames
+     * @throws Exception
      */
     public function loadData($filename, $columnNames) {
         $data = $this->getCsvData($filename, false);
@@ -195,8 +197,9 @@ class CargaClass {
     }
 
     /**
-     * 
+     *
      * @param array $fieldlist
+     * @throws Exception
      */
     public function updateResumen($fieldlist) {
         $fields = implode(',', $fieldlist);
@@ -212,15 +215,16 @@ class CargaClass {
     }
 
     /**
-     * 
-     * @param array $fieldlist
+     *
+     * @param array $fieldList
+     * @throws Exception
      */
-    public function insertIntoResumen($fieldlist) {
-        $fields = implode(',', $fieldlist);
-        $queryins = "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
+    public function insertIntoResumen($fieldList) {
+        $fields = implode(',', $fieldList);
+        $query = "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
 
         try {
-            $this->pdo->query($queryins);
+            $this->pdo->query($query);
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }

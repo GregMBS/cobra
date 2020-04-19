@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -19,13 +20,13 @@ class BreaksClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -98,7 +99,7 @@ order by c_cvge,c_cvst,c_hrin";
             termina=:termina
             WHERE auto=:auto";
         $stu = $this->pdo->prepare($queryu);
-        $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stu->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stu->bindParam(':tipo', $tipo);
         $stu->bindParam(':empieza', $empieza);
         $stu->bindParam(':termina', $termina);
@@ -112,7 +113,7 @@ order by c_cvge,c_cvst,c_hrin";
     public function deleteBreak($auto) {
         $queryb = "DELETE FROM breaks WHERE auto=:auto";
         $stb = $this->pdo->prepare($queryb);
-        $stb->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stb->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stb->execute();
     }
 

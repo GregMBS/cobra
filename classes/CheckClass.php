@@ -11,6 +11,7 @@ namespace cobra_salsa;
 use DateTime;
 use DateInterval;
 use DatePeriod;
+use PDO;
 use PDOStatement;
 
 /**
@@ -26,15 +27,15 @@ class CheckClass extends BaseClass {
      * @return int
      */
     public function getIdCuentafromCuenta($CUENTA) {
-        $querycc = "select id_cuenta from resumen
+        $query = "select id_cuenta from resumen
 where numero_de_cuenta=:cuenta
 and status_de_creditonot regexp '-' LIMIT 1";
-        $stcc = $this->pdo->prepare($querycc);
-        $stcc->bindParam(':cuenta', $CUENTA);
-        $stcc->execute();
-        $resultcc = $stcc->fetch(\PDO::FETCH_ASSOC);
-        if (isset($resultcc['id_cuenta'])) {
-            $id_cuenta = $resultcc['id_cuenta'];
+        $stc = $this->pdo->prepare($query);
+        $stc->bindParam(':cuenta', $CUENTA);
+        $stc->execute();
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
+        if (isset($result['id_cuenta'])) {
+            $id_cuenta = $result['id_cuenta'];
         } else {
             $id_cuenta = 0;
         }
@@ -53,7 +54,7 @@ and status_de_creditonot regexp '-' LIMIT 1";
         $stcc = $this->pdo->prepare($querycc);
         $stcc->bindParam(':id_cuenta', $id_cuenta);
         $stcc->execute();
-        $resultcc = $stcc->fetch(\PDO::FETCH_ASSOC);
+        $resultcc = $stcc->fetch(PDO::FETCH_ASSOC);
         if (isset($resultcc['numero_de_cuenta'])) {
             $numero_de_cuenta = $resultcc['numero_de__cuenta'];
         } else {
@@ -183,7 +184,7 @@ limit 1;";
         $stn = $this->pdo->prepare($queryn);
         $stn->bindParam(':vst', $vst);
         $stn->execute();
-        $resultn = $stn->fetch(\PDO::FETCH_ASSOC);
+        $resultn = $stn->fetch(PDO::FETCH_ASSOC);
         return $resultn;
     }
 
@@ -201,7 +202,7 @@ limit 1;";
         $stc = $this->pdo->prepare($querycta);
         $stc->bindParam(':cuenta', $CUENTA);
         $stc->execute();
-        $resultcc = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        $resultcc = $stc->fetchAll(PDO::FETCH_ASSOC);
         foreach ($resultcc as $answercc) {
             $C_CONT = $answercc['id_cuenta'];
         }

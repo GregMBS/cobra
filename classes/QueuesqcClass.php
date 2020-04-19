@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -19,7 +20,7 @@ class QueuesqcClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
 
@@ -59,7 +60,7 @@ and queue = :queue ";
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -88,7 +89,7 @@ and queue = :queue ";
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stc->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -111,7 +112,7 @@ and queue = :queue ";
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -134,7 +135,7 @@ and queue = :queue ";
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -160,11 +161,11 @@ order by cliente, sdc, status_aarsa limit 1000
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     function getMain() {
-        $querymain = "select cliente,
+        $query = "select cliente,
 status_de_credito,count(1),sum(saldo_total),
 sum(fecha_ultima_gestion<=last_day(curdate()-interval 1 month)+interval 1 day) as ecount,
 sum((fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day)*saldo_total) as emount
@@ -172,8 +173,7 @@ from resumen
 where status_de_credito not regexp '[dv]o$'
 group by cliente,status_de_credito
 ";
-        $result = $this->pdo->query($querymain);
-        return $result;
+        return $this->pdo->query($query);
     }
 
 }

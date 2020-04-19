@@ -8,6 +8,8 @@ namespace cobra_salsa;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Description of userCheckClass
  *
@@ -33,7 +35,7 @@ class UserCheckClass
         $stc->bindParam(':ticket', $ticket);
         $stc->bindParam(':capt', $capt);
         $stc->execute();
-        $results=$stc->fetch(\PDO::FETCH_ASSOC);
+        $results=$stc->fetch(PDO::FETCH_ASSOC);
         if ($results['check']==0) {
             $redirect = 'location: index.php';
             header($redirect);

@@ -8,6 +8,9 @@
 
 namespace cobra_salsa;
 
+use PDO;
+use PDOException;
+
 /**
  * Description of GestionClass
  *
@@ -17,7 +20,7 @@ class GestionClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
     private $gestionInsertQuery = "INSERT INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
@@ -87,7 +90,7 @@ and id_cuenta = :c_cont";
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -103,7 +106,7 @@ and id_cuenta = :c_cont";
         $sti = $this->pdo->prepare($this->visitInsertQuery);
         $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
         $sti->bindParam(':C_CVBA', $gestion['C_CVBA']);
-        $sti->bindParam(':C_CONT', $gestion['C_CONT'], \PDO::PARAM_INT);
+        $sti->bindParam(':C_CONT', $gestion['C_CONT'], PDO::PARAM_INT);
         $sti->bindParam(':C_CVST', $gestion['C_CVST']);
         $sti->bindParam(':D_FECH', $gestion['C_VD']);
         $sti->bindParam(':C_HRIN', $hora);
@@ -150,18 +153,19 @@ and id_cuenta = :c_cont";
     private function addHistdate($auto) {
         $query = "INSERT IGNORE INTO histdate VALUES (:auto, CURDATE())";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stq->execute();
     }
 
     /**
-     * 
+     *
      * @param int $auto
+     * @param string $c_cvge
      */
     public function addHistgest($auto, $c_cvge) {
         $query = "INSERT IGNORE INTO histgest VALUES (:auto, :c_cvge)";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stq->bindParam(':c_cvge', $c_cvge);
         $stq->execute();
     }
@@ -181,7 +185,7 @@ and id_cuenta = :c_cont";
                 . "WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($queryntel);
         $stn->bindParam(':tel', $tel);
-        $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
     }
 
@@ -194,7 +198,7 @@ and id_cuenta = :c_cont";
         $queryndir = "UPDATE resumen SET direccion_nueva = :ndir WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($queryndir);
         $stn->bindParam(':ndir', $ndir);
-        $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
     }
 
@@ -207,7 +211,7 @@ and id_cuenta = :c_cont";
         $queryndir = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($queryndir);
         $stn->bindParam(':email', $email);
-        $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
     }
 
@@ -226,9 +230,9 @@ and id_cuenta = :c_cont";
                 . "and c_cont = :C_CONT "
                 . "order by d_fech desc, c_hrin desc limit 1";
         $stn = $this->pdo->prepare($queryd);
-        $stn->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
-        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        $result = $stn->fetch(PDO::FETCH_ASSOC);
         if (isset($result['c_cvge'])) {
             $who = $result['c_cvge'];
         }
@@ -247,7 +251,7 @@ and id_cuenta = :c_cont";
     SELECT numero_de_cuenta, :D_PAGO, :N_PAGO, cliente, :who, numero_de_credito, id_cuenta 
     FROM resumen WHERE id_cuenta = :C_CONT";
         $sti = $this->pdo->prepare($queryins);
-        $sti->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $sti->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $sti->bindParam(':D_PAGO', $D_PAGO);
         $sti->bindParam(':N_PAGO', $N_PAGO);
         $sti->bindParam(':who', $who);
@@ -272,15 +276,15 @@ and id_cuenta = :c_cont";
     private function resumenStatusUpdate($C_CONT, $best = '') {
         $querysa = "update resumen set status_aarsa = :best where id_cuenta = :C_CONT";
         $stb = $this->pdo->prepare($querysa);
-        $stb->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $stb->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stb->bindParam(':best', $best);
         $stb->execute();
         $sti = $this->pdo->prepare($this->setPromesaIncumplida);
-        $sti->bindParam(':c_cont', $C_CONT, \PDO::PARAM_INT);
+        $sti->bindParam(':c_cont', $C_CONT, PDO::PARAM_INT);
         $sti->execute();
 
         $stp = $this->pdo->prepare($this->setPagoAnt);
-        $stp->bindParam(':c_cont', $C_CONT, \PDO::PARAM_INT);
+        $stp->bindParam(':c_cont', $C_CONT, PDO::PARAM_INT);
         $stp->execute();
     }
 
@@ -294,7 +298,7 @@ and id_cuenta = :c_cont";
             $sti = $this->pdo->prepare($this->gestionInsertQuery);
             $sti->bindParam(':C_CVBA', $gestion['C_CVBA']);
             $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
-            $sti->bindParam(':C_CONT', $gestion['C_CONT'], \PDO::PARAM_INT);
+            $sti->bindParam(':C_CONT', $gestion['C_CONT'], PDO::PARAM_INT);
             $sti->bindParam(':C_CVST', $gestion['C_CVST']);
             $sti->bindParam(':D_FECH', $gestion['D_FECH']);
             $sti->bindParam(':C_HRIN', $gestion['C_HRIN']);
@@ -328,7 +332,7 @@ and id_cuenta = :c_cont";
             $sti->bindParam(':C_EJE', $gestion['C_EJE']);
             $sti->bindParam(':AUTH', $gestion['AUTH']);
             $sti->execute();
-        } catch (\PDOException $exc) {
+        } catch (PDOException $exc) {
             //$auto = 0;
             var_dump($exc);
             die();
@@ -405,9 +409,9 @@ and id_cuenta = :c_cont";
                 . "ORDER BY v_cc "
                 . "LIMIT 1";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':c_cont', $c_cont, \PDO::PARAM_INT);
+        $stq->bindParam(':c_cont', $c_cont, PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetch(\PDO::FETCH_ASSOC);
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
         if (isset($result['c_cvst'])) {
             $c_cvst = $result['c_cvst'];
         }

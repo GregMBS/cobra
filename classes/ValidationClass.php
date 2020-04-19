@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of ValidationClass
  *
@@ -17,7 +19,7 @@ class ValidationClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
 
@@ -53,7 +55,7 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
     
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -68,14 +70,14 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
 /*    private function countDup($gestion, $message) {
         $output = array();
         $std = $this->pdo->prepare($this->querydup);
-        $std->bindParam(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
+        $std->bindParam(':c_cont', $gestion['C_CONT'], PDO::PARAM_INT);
         $std->bindParam(':d_fech', $gestion['D_FECH']);
         $std->bindParam(':c_hrin', $gestion['C_HRIN']);
         $std->bindParam(':c_cvst', $gestion['C_CVST']);
         $std->bindParam(':c_cvge', $gestion['C_CVGE']);
         $std->bindParam(':c_obse1', $gestion['C:OBSE1']);
         $std->execute();
-        $result = $std->fetch(\PDO::FETCH_ASSOC);
+        $result = $std->fetch(PDO::FETCH_ASSOC);
         $output['value'] = $result['ct'];
         if ($result['ct'] == 0) {
             $output['message'] = $message;

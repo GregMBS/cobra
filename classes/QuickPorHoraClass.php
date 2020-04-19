@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of BigClass
  *
@@ -37,12 +39,14 @@ group by C_CVGE;";
         $this->pdo = $pdo;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPorHora()
     {
         $this->pdo->query($this->createPorHora);
         $this->pdo->query($this->insertPorHora);
         $sta    = $this->pdo->query($this->queryPorHora);
-        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
 }

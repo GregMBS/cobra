@@ -9,6 +9,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOStatement;
 
 /**
  * Description of QueuesClass
@@ -26,7 +27,7 @@ class QueuesClass extends BaseClass {
         $queryupd = "UPDATE nombres SET camp=:camp "
                 . "where iniciales=:gestor";
         $stu = $this->pdo->prepare($queryupd);
-        $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindParam(':gestor', $GESTOR);
         $stu->execute();
     }
@@ -41,7 +42,7 @@ class QueuesClass extends BaseClass {
                 . "WHERE gestor = :gestor "
                 . "AND camp = :camp";
         $stu = $this->pdo->prepare($queryupd);
-        $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindParam(':gestor', $GESTOR);
         $stu->execute();
     }
@@ -56,7 +57,7 @@ class QueuesClass extends BaseClass {
                 . "WHERE gestor = :gestor "
                 . "AND camp = :camp";
         $stu = $this->pdo->prepare($queryupd);
-        $stu->bindParam(':camp', $CAMP, \PDO::PARAM_INT);
+        $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindParam(':gestor', $GESTOR);
         $stu->execute();
     }
@@ -138,16 +139,15 @@ and sdc=:sdc and status_aarsa=:status";
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function getQueues() {
-        $queryq = "SELECT distinct cliente,sdc,status_aarsa,bloqueado
+        $query = "SELECT distinct cliente,sdc,status_aarsa,bloqueado
         FROM queuelist
         WHERE cliente<> ''
         ORDER BY cliente,sdc,status_aarsa";
-        $resultq = $this->pdo->query($queryq);
-        return $resultq;
+        return $this->pdo->query($query);
     }
 
     /**
@@ -156,7 +156,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getMyQueue($GESTOR) {
-        $queryqc = "SELECT cliente, sdc, status_aarsa, 
+        $query = "SELECT cliente, sdc, status_aarsa, 
                                 nombres.camp as campnow
                                 FROM queuelist, nombres 
                                 WHERE gestor = :gestor and gestor=iniciales 
@@ -164,11 +164,10 @@ and sdc=:sdc and status_aarsa=:status";
                                 and cliente<>''
                                 ORDER BY cliente,sdc,status_aarsa
                                 LIMIT 1";
-        $stqc = $this->pdo->prepare($queryqc);
-        $stqc->bindParam(':gestor', $GESTOR);
-        $stqc->execute();
-        $resultqc = $stqc->fetch(PDO::FETCH_ASSOC);
-        return $resultqc;
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $GESTOR);
+        $stq->execute();
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

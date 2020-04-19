@@ -2,6 +2,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -13,7 +14,7 @@ class InventarioClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
 
@@ -48,7 +49,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -70,7 +71,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
             $stm->bindParam(':cliente', $cliente);
         }
         $stm->execute();
-        return $stm->fetchAll(\PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

@@ -8,8 +8,14 @@
 
 namespace cobra_salsa;
 
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
+use PDO;
+use PDOException;
 
 require_once 'vendor/autoload.php';
 
@@ -21,7 +27,7 @@ require_once 'vendor/autoload.php';
 class TelsClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
 
@@ -72,15 +78,19 @@ where status_de_credito not regexp '-'";
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
     /**
-     * 
+     *
      * @param array $result
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws UnsupportedTypeException
+     * @throws WriterNotOpenedException
      */
     public function outputDocument($result) {
         if (!empty($result)) {
@@ -154,10 +164,10 @@ order by c_tele";
         try {
             $statement = $this->pdo->prepare($this->mercadosReportQuery);
             $statement->execute();
-        } catch (\PDOException $exc) {
+        } catch (PDOException $exc) {
             die($exc->getTraceAsString());
         }
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -167,7 +177,7 @@ order by c_tele";
      */
     public function getContactosReport() {
         $statement = $this->pdo->query($this->contactosReportQuery);
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

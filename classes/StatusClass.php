@@ -2,13 +2,14 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 class StatusClass
 {
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     protected $pdo;
     
@@ -20,7 +21,7 @@ class StatusClass
         
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo)
     {

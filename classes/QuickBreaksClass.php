@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of BigClass
  *
@@ -42,6 +44,9 @@ where tipo<>'junta' group by gestor;";
         $this->pdo = $pdo;
     }
 
+    /**
+     * @return mixed
+     */
     public function getBreaks()
     {
         $this->pdo->query($this->createBreaktab);
@@ -51,7 +56,6 @@ where tipo<>'junta' group by gestor;";
         $this->pdo->query($this->dropBreaktemp);
         $this->pdo->query($this->createBreaktemp);
         $sta    = $this->pdo->query($this->queryBreaktab);
-        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
 }

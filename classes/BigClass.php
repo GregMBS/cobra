@@ -8,6 +8,8 @@ namespace cobra_salsa;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Database queries for 'big' reports
  *
@@ -71,8 +73,6 @@ class BigClass extends BaseClass {
 
     /**
      *
-     * @param string $queryFront
-     * @param string $queryBack
      * @param string $fecha1
      * @param string $fecha2
      * @param string $gestor
@@ -95,7 +95,7 @@ class BigClass extends BaseClass {
             $stq->bindParam(':cliente', $cliente);
         }
         $stq->execute();
-        $data = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $data = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -232,7 +232,7 @@ where d_fech between :fecha1 and :fecha2
         ORDER BY d_fech $dir limit 60";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -249,7 +249,7 @@ where d_fech between :fecha1 and :fecha2
         ORDER BY d_fech $dir limit 60";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -371,7 +371,7 @@ WHERE n_prom>0
             $stm->bindValue(':cliente', $bio->getCliente());
         }
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

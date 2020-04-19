@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -103,8 +104,7 @@ WHERE id_cuenta=:C_CONT";
         $stm->bindParam(':find', $find);
         $stm->bindParam(':cliente', $CLIENTE);
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

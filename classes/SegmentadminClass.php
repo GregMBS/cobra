@@ -2,6 +2,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -13,15 +14,15 @@ class SegmentadminClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
-    public function __construct(\PDO $pdo) {
+    public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
 

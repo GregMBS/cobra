@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of LoginClass
  *
@@ -16,13 +18,13 @@ namespace cobra_salsa;
 class LoginClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -37,7 +39,7 @@ class LoginClass {
         $stg = $this->pdo->prepare($queryg);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
-        $resultg = $stg->fetch(\PDO::FETCH_ASSOC);
+        $resultg = $stg->fetch(PDO::FETCH_ASSOC);
         if (password_verify($pw, $resultg['passw'])) {
             return $resultg;
         }

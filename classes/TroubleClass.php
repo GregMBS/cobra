@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -18,13 +19,13 @@ use PDOStatement;
 class TroubleClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -45,7 +46,7 @@ class TroubleClass {
         $stu = $this->pdo->prepare($queryup);
         $stu->bindParam(':capt', $capt);
         $stu->bindParam(':reparacion', $reparacion);
-        $stu->bindParam(':auto', $auto, \PDO::PARAM_INT);
+        $stu->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stu->execute();
     }
 

@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -18,13 +19,13 @@ use PDOStatement;
 class MigoClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -61,7 +62,7 @@ and ejecutivo_asignado_call_center = :capt
         $stm = $this->pdo->prepare($query);
         $stm->bindParam(':capt', $capt);
         $stm->execute();
-        return $stm->fetchAll(\PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+use PDOException;
 use PDOStatement;
 
 /**
@@ -18,7 +20,7 @@ use PDOStatement;
 class BuscarClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
 
@@ -80,7 +82,7 @@ tel_4_verif regexp :find )";
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -146,8 +148,8 @@ tel_4_verif regexp :find )";
                 $stm->bindParam(':cliente', $CLIENTE);
             }
             $stm->execute();
-            $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
+            $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
             $result = array();
         }
 

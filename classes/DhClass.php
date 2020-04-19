@@ -8,6 +8,8 @@ namespace cobra_salsa;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Database Class for ddh/pdh
  *
@@ -17,7 +19,7 @@ namespace cobra_salsa;
 class DhClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
 
@@ -42,7 +44,7 @@ saldo_total desc, pagos_vencidos";
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -61,7 +63,7 @@ saldo_total desc, pagos_vencidos,d_fech,c_hrin";
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -88,7 +90,7 @@ saldo_total desc, pagos_vencidos,d_fech,c_hrin";
         $stm->bindParam(':gestor', $gestor);
         $stm->bindParam(':fecha', $fecha);
         $stm->execute();
-        $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

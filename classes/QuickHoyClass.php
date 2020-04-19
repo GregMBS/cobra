@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of BigClass
  *
@@ -48,13 +50,15 @@ class QuickHoyClass
         $this->pdo = $pdo;
     }
 
+    /**
+     * @return mixed
+     */
     public function getHoy()
     {
         $this->pdo->query($this->createHoy);
         $this->pdo->query($this->insertHoy);
         $this->pdo->query($this->updateHoyBreaktemp);
         $sta    = $this->pdo->query($this->queryHoy);
-        $result = $sta->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
 }

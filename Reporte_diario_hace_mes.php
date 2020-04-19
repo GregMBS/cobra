@@ -304,8 +304,10 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
             $resultVencidos->setFetchMode(PDO::FETCH_ASSOC);
             $arrayNames = array_keys($resultVencidos[0]);
             $numberfieldsVencidos = $resultVencidos->columnCount();
-            echo "<table>";
-            echo "<tr>";
+            ?>
+            <table>
+            <tr>
+                    <?php
             foreach ($arrayNames as $var) {
                 echo "<th>".$var."</th>";
             }
@@ -366,8 +368,10 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
     $resultVigentes       = $pdo->query($queryvigente);
     $resultVigentes->setFetchMode(PDO::FETCH_ASSOC);
     $numberfieldsVigentes = $resultVigentes->columnCount();
-    echo "<table>";
-    echo "<tr>";
+    ?>
+    <table>
+        <tr>
+            <?php
     foreach ($resultVigentes as $var) {
         echo "<th>".$var."</th>";
     }

@@ -57,12 +57,6 @@ class MiltClass {
      */
     private $msg;
 
-    /**
-     *
-     * @var int
-     */
-    private $lim;
-
     public function __construct() {
         $config = new ConfigClass();
         $this->dbname = $config->robotDb;
@@ -117,11 +111,12 @@ class MiltClass {
      */
     public function getCalls($row) {
         $this->msg = $row['msg'];
-        $this->lim = $row['lineas'];
-        if ($this->lim > 100) {
-            $this->lim = 100;
+        /*
+        $lim = $row['lineas'];
+        if ($lim > 100) {
+            $lim = 100;
         }
-
+        */
         $query = "SELECT auto,id,tel,turno FROM calllist 
                 WHERE msg = :msg 
                 AND id <> '' AND tel <> '' 
@@ -129,13 +124,13 @@ class MiltClass {
                 ORDER BY turno LIMIT 10";
         try {
             $sth1 = $this->dbh->prepare($query);
+            $sth1->bindParam(':msg', $this->msg);
+            $sth1->execute();
+            return $sth1->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo 'Prepare failed: ' . $e->getMessage();
+            return [];
         }
-        $sth1->bindParam(':msg', $this->msg);
-        $sth1->execute();
-        $result = $sth1->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
     }
 
     /**
@@ -159,11 +154,11 @@ class MiltClass {
         $botup = "UPDATE calllist SET turno=turno+1 WHERE auto = :id";
         try {
             $sth = $this->dbh->prepare($botup);
+            $sth->bindParam(':id', $id, PDO::PARAM_INT);
+            $sth->execute();
         } catch (PDOException $e) {
             echo 'Prepare failed: ' . $e->getMessage();
         }
-        $sth->bindParam(':id', $id, PDO::PARAM_INT);
-        $sth->execute();
     }
 
 }

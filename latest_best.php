@@ -55,6 +55,6 @@ try {
     $writer->openToBrowser($filename); // stream data directly to the browser
     $writer->addRows($output); // add multiple rows at a time
     $writer->close();
-} catch (\Exception $e) {
+} catch (Exception $e) {
     // fail silently
 }

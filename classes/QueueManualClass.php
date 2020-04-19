@@ -6,9 +6,8 @@
  * and open the template in the editor.
  */
 
-namespace cobra_munoz;
+namespace cobra_salsa;
 
-use cobra_salsa\BaseClass;
 use PDOStatement;
 
 /**

@@ -2,6 +2,9 @@
 
 namespace cobra_salsa;
 
+use PDO;
+use PDOStatement;
+
 require_once 'classes/BaseClass.php';
 
 class ReporteDiarioClass extends BaseClass {
@@ -214,24 +217,23 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     protected function getDuplicates() {
         $this->pdo->query('DROP TABLE IF EXISTS rotad');
         $this->pdo->query($this->queryrotad);
-        $querypauto = "select pauto from rotad";
-        $resultpauto = $this->pdo->query($querypauto);
-        return $resultpauto;
+        $query = "select pauto from rotad";
+        return $this->pdo->query($query);
     }
 
     /**
      * 
-     * @param array $resultpauto
+     * @param PDOStatement $result
      */
-    protected function deleteDuplicates($resultpauto) {
-        foreach ($resultpauto as $answerpauto) {
-            $pauto = $answerpauto['pauto'];
+    protected function deleteDuplicates($result) {
+        foreach ($result as $answer) {
+            $pauto = $answer['pauto'];
             $std = $this->pdo->prepare($this->querydeldup);
             $std->bindParam(':pauto', $pauto);
             $std->execute();
@@ -260,15 +262,15 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
         $this->createAnalysis();
 
         //$stp = $this->pdo->query($this->queryparcial);
-        //$rawResultPagos = $stp->fetchAll(\PDO::FETCH_ASSOC);
+        //$rawResultPagos = $stp->fetchAll(PDO::FETCH_ASSOC);
 
         $stv = $this->pdo->prepare($this->queryVencido);
         $stv->bindParam(':lbd', $lbd);
         $stv->execute();
-        $this->resultVencidos = $stv->fetchAll(\PDO::FETCH_ASSOC);
+        $this->resultVencidos = $stv->fetchAll(PDO::FETCH_ASSOC);
 
         $sti = $this->pdo->query($this->queryvigente);
-        $this->resultVigentes = $sti->fetchAll(\PDO::FETCH_ASSOC);
+        $this->resultVigentes = $sti->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

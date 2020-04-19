@@ -8,6 +8,9 @@
 
 namespace cobra_salsa;
 
+use ConfigClass;
+use PDO;
+
 require_once 'config.php';
 
 /**
@@ -18,21 +21,21 @@ require_once 'config.php';
 class BaseClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
     
     /**
-     * @var \ConfigClass $config
+     * @var ConfigClass $config
      */
     public $config;
     
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
-        $this->config = new \ConfigClass();
+        $this->config = new ConfigClass();
         $this->pdo = $pdo;
     }
 }

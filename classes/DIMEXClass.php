@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 class DIMEXClass extends BaseClass {
 
     private $columnNames = array(
@@ -50,9 +52,12 @@ class DIMEXClass extends BaseClass {
         }
     }
 
+    /**
+     * @return array
+     */
     private function getFromCobra()
     {
-        $querymain = "select numero_de_cuenta, nombre_deudor, saldo_total,
+        $query = "select numero_de_cuenta, nombre_deudor, saldo_total,
             completo, c_cvst, d_fech,
             c_hrin, c_obse1, d_prom,
             n_prom, 1 as INTENTOS, (c_carg <> '') as CNT,
@@ -63,10 +68,9 @@ class DIMEXClass extends BaseClass {
             and cliente = 'DIMEX'
             and d_fech > curdate() - interval 5 week;
             ";
-        $stm       = $this->pdo->prepare($querymain);
+        $stm       = $this->pdo->prepare($query);
         $stm->execute();
-        $result    = $stm->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     private function addSpecialData($data)

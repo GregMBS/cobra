@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -19,13 +20,13 @@ class GestoradminClass {
 
     /**
      *
-     * @var \PDO 
+     * @var PDO 
      */
     private $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -160,7 +161,7 @@ class GestoradminClass {
     public function getGroups() {
         $queryg = "SELECT grupo FROM grupos";
         $resultg = $this->pdo->query($queryg);
-        $groups = $resultg->fetchAll(\PDO::FETCH_ASSOC);
+        $groups = $resultg->fetchAll(PDO::FETCH_ASSOC);
         return $groups;
     }
 

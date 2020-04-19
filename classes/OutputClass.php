@@ -8,6 +8,10 @@
 
 namespace cobra_salsa;
 
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 
@@ -21,8 +25,14 @@ require_once 'vendor/autoload.php';
 class OutputClass {
 
     /**
-     * 
+     *
+     * @param string $filename
      * @param array $array
+     * @param array $headers
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws UnsupportedTypeException
+     * @throws WriterNotOpenedException
      */
     private function outputCSV($filename, $array, $headers) {
         $writer = WriterFactory::create(Type::CSV); // for CSV files
@@ -39,13 +49,24 @@ class OutputClass {
      * @param array $headers
      */
     public function writeCSVFile($filename, $data, $headers) {
-        $this->outputCSV($filename, $data, $headers);
+        try {
+            $this->outputCSV($filename, $data, $headers);
+        } catch (IOException $e) {
+        } catch (InvalidArgumentException $e) {
+        } catch (UnsupportedTypeException $e) {
+        } catch (WriterNotOpenedException $e) {
+        }
     }
 
     /**
-     * 
+     *
+     * @param $filename
      * @param array $array
      * @param array $headers
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws UnsupportedTypeException
+     * @throws WriterNotOpenedException
      */
     private function outputXLSX($filename, $array, $headers) {
         $writer = WriterFactory::create(Type::XLSX); // for CSV files
@@ -62,7 +83,13 @@ class OutputClass {
      * @param array $headers
      */
     public function writeXLSXFile($filename, $data, $headers) {
-        $this->outputXLSX($filename, $data, $headers);
+        try {
+            $this->outputXLSX($filename, $data, $headers);
+        } catch (IOException $e) {
+        } catch (InvalidArgumentException $e) {
+        } catch (UnsupportedTypeException $e) {
+        } catch (WriterNotOpenedException $e) {
+        }
     }
 
 }

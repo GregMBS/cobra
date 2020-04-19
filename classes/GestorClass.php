@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of GestorClass
  *
@@ -17,13 +19,13 @@ class GestorClass {
 
     /**
      *
-     * @var \PDO 
+     * @var PDO 
      */
     private $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -43,7 +45,7 @@ class GestorClass {
         $stp->bindParam(':cuenta', $CUENTA);
         $stp->bindParam(':cliente', $CLIENTE);
         $stp->execute();
-        $resultp = $stp->fetchAll(\PDO::FETCH_ASSOC);
+        $resultp = $stp->fetchAll(PDO::FETCH_ASSOC);
         return $resultp;
     }
 
@@ -62,7 +64,7 @@ class GestorClass {
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

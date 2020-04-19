@@ -8,6 +8,8 @@ namespace cobra_salsa;
  * and open the template in the editor.
  */
 
+use PDO;
+
 /**
  * Description of rotasClass
  *
@@ -54,6 +56,11 @@ order by c_cvge,sum(monto),d_prom
         return $type;
     }
 
+    /**
+     * @param string $capt
+     * @param string $d_prom
+     * @return mixed
+     */
     public function getRotas($capt, $d_prom = '')
     {
         $gestorstr = " and (ejecutivo_asignado_call_center=:capt or c_cvge=:capt) ";
@@ -73,7 +80,6 @@ order by c_cvge,sum(monto),d_prom
             $stq->bindParam(':dprom', $d_prom);
         }
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace cobra_salsa;
 
+use PDO;
+use PDOStatement;
+
 /**
  * Description of ActivarClass
  *
@@ -25,22 +28,21 @@ class PagobulkClass extends BaseClass {
         $query = "INSERT IGNORE INTO pagos SELECT * FROM pagotemp";
         $this->pdo->query($query);
     }
-    
+
     /**
-     * 
-     * @return \PDOStatement
+     *
+     * @return bool|PDOStatement
      */
     private function prepareCleanOld() {
         $query = "delete from pagos
 where confirmado=0 and cuenta=:cuenta
  and fecha<=:fecha";
-        $stp = $this->pdo->prepare($query);
-        return $stp;
+        return $this->pdo->prepare($query);
     }
 
     /**
      * 
-     * @return \PDOStatement
+     * @return PDOStatement
      */
     private function prepareAddTemp() {
         $select = "SELECT :cuenta, :fecha, :monto, 
@@ -48,13 +50,12 @@ where confirmado=0 and cuenta=:cuenta
                 FROM resumen
                 WHERE numero_de_cuenta = :cuenta";
         $queryAddTemp = "INSERT INTO pagotemp " . $select;
-        $stp = $this->pdo->prepare($queryAddTemp);
-        return $stp;
+        return $this->pdo->prepare($queryAddTemp);
     }
 
     /**
      * 
-     * @return \PDOStatement
+     * @return PDOStatement
      */
     private function prepareFindGestor() {
         $queryFindGestor = "SELECT c_cvge 
@@ -70,7 +71,7 @@ LIMIT 1";
     
     /**
      * 
-     * @param \PDOStatement $stp
+     * @param PDOStatement $stp
      * @param string $cuenta
      * @param string $fecha
      */
@@ -82,7 +83,7 @@ LIMIT 1";
 
     /**
      * 
-     * @param \PDOStatement $stp
+     * @param PDOStatement $stp
      * @param string $cuenta
      * @param string $fecha
      * @param float $monto
@@ -98,7 +99,7 @@ LIMIT 1";
 
     /**
      * 
-     * @param \PDOStatement $stp
+     * @param PDOStatement $stp
      * @param string $cuenta
      * @param string $fecha
      * 
@@ -108,8 +109,7 @@ LIMIT 1";
             $stp->bindValue(':cuenta', $cuenta);
             $stp->bindValue(':fecha', $fecha);
             $stp->execute();
-            $result = $stp->fetch(\PDO::FETCH_ASSOC);
-            return $result;
+        return $stp->fetch(PDO::FETCH_ASSOC);
     }
 
     public function cargar($input) {

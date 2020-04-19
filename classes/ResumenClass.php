@@ -20,7 +20,7 @@ class ResumenClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
 
@@ -79,7 +79,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -114,7 +114,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
         $stu = $this->pdo->prepare($queryult);
         $stu->bindParam(':capt', $capt);
         $stu->execute();
-        $result = $stu->fetch(\PDO::FETCH_ASSOC);
+        $result = $stu->fetch(PDO::FETCH_ASSOC);
         $find = $result['c_cont'];
         return $find;
     }
@@ -159,7 +159,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
         $stn->bindParam(':capt', $capt);
         $stn->bindParam(':fechahora', $fechahora);
         $stn->execute();
-        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        $result = $stn->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -172,7 +172,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
         $stn = $this->pdo->prepare($this->notesQuery);
         $stn->bindParam(':capt', $capt);
         $stn->execute();
-        $result = $stn->fetch(\PDO::FETCH_ASSOC);
+        $result = $stn->fetch(PDO::FETCH_ASSOC);
         if (isset($result['alert'])) {
             $notaData = $this->notaData($capt, $result['fechahora']);
             $output = array(
@@ -279,7 +279,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
      */
     public function getBadNo($id_cuenta) {
         $stbn = $this->pdo->prepare($this->badNoQuery);
-        $stbn->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stbn->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stbn->execute();
         $answerbadno = $stbn->fetch();
         return $answerbadno;
@@ -298,7 +298,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
                     WHERE historia.C_CONT=:id_cuenta   
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($querysub);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
         $rowsub = $sts->fetchAll();
         return $rowsub;
@@ -378,9 +378,10 @@ ORDER BY cliente,sdc,queue";
             FROM resumen 
             WHERE id_cuenta = :id_cuenta";
         $sts = $this->pdo->prepare($querytlock);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
-        $result = $sts->fetch(\PDO::FETCH_ASSOC);
+        $result = $sts->fetch(PDO::FETCH_ASSOC);
+        $tl = '';
         if ($result) {
             $tl = $result['tl'];
         }
@@ -411,8 +412,8 @@ ORDER BY cliente,sdc,queue";
                 . " and d_fech>last_day(curdate()-interval 90 day)"
                 . " order by v_cc LIMIT 1";
         $stb = $this->pdo->prepare($querybest);
-        $stb->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
-        $result = $stb->fetch(\PDO::FETCH_ASSOC);
+        $stb->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
+        $result = $stb->fetch(PDO::FETCH_ASSOC);
         if (isset($result['c_cvst'])) {
             $best = $result['c_cvst'];
         }
@@ -429,7 +430,7 @@ ORDER BY cliente,sdc,queue";
         $stg = $this->pdo->prepare($queryg);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
-        $result = $stg->fetch(\PDO::FETCH_ASSOC);
+        $result = $stg->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -448,7 +449,7 @@ ORDER BY cliente,sdc,queue";
                 . "where id_cuenta = :id_cuenta";
         $sts = $this->pdo->prepare($qslice);
         $sts->bindParam(':capt', $capt);
-        $sts->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
     }
 
@@ -461,9 +462,9 @@ ORDER BY cliente,sdc,queue";
         $querycom = "select c_cvst,cuando from historia where c_cont = :id_cuenta "
                 . "order by d_fech desc, c_hrin desc limit 1";
         $stl = $this->pdo->prepare($querycom);
-        $stl->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stl->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stl->execute();
-        $result = $stl->fetch(\PDO::FETCH_ASSOC);
+        $result = $stl->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -484,9 +485,9 @@ and n_prom>0
 and c_cvst like 'PROMESA DE%'
 order by d_fech desc, c_hrin desc limit 1";
         $stp = $this->pdo->prepare($queryprom);
-        $stp->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stp->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stp->execute();
-        $result = $stp->fetch(\PDO::FETCH_ASSOC);
+        $result = $stp->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -500,9 +501,9 @@ order by d_fech desc, c_hrin desc limit 1";
                 . "FROM resumen "
                 . "WHERE id_cuenta = :id_cuenta";
         $stc = $this->pdo->prepare($querycheck);
-        $stc->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stc->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stc->execute();
-        $result = $stc->fetch(\PDO::FETCH_ASSOC);
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -524,7 +525,7 @@ order by d_fech desc, c_hrin desc limit 1";
         }
         $stl = $this->pdo->prepare($querylock);
         $stl->bindParam(':capt', $capt);
-        $stl->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stl->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $queryunlockslice = "UPDATE rslice SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
         $stus = $this->pdo->prepare($queryunlockslice);
@@ -533,7 +534,7 @@ order by d_fech desc, c_hrin desc limit 1";
                 . "WHERE id_cuenta= :id_cuenta";
         $stls = $this->pdo->prepare($querylockslice);
         $stls->bindParam(':capt', $capt);
-        $stls->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stls->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $this->pdo->beginTransaction();
         $stu->execute();
         $stl->execute();
@@ -555,9 +556,9 @@ order by d_fech desc, c_hrin desc limit 1";
 WHERE (historia.C_CONT=:id_cuenta) AND (c_visit <> '')
 ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
         $sts = $this->pdo->prepare($querysub);
-        $sts->bindParam(':id_cuenta', $ID_CUENTA, \PDO::PARAM_INT);
+        $sts->bindParam(':id_cuenta', $ID_CUENTA, PDO::PARAM_INT);
         $sts->execute();
-        $rowsub = $sts->fetchAll(\PDO::FETCH_ASSOC);
+        $rowsub = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $rowsub;
     }
 

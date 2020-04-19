@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -19,13 +20,13 @@ class NotaClass {
 
     /**
      *
-     * @var \PDO
+     * @var PDO
      */
     private $pdo;
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -55,7 +56,7 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
                 . "where AUTO=:AUTO and C_CVGE=:capt";
         $stbi = $this->pdo->prepare($querybins);
         $stbi->bindParam(':capt', $capt);
-        $stbi->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
+        $stbi->bindParam(':AUTO', $AUTO, PDO::PARAM_INT);
         $stbi->execute();
     }
 
@@ -67,7 +68,7 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
         $querybins = "UPDATE notas set borrado=1 "
                 . "where AUTO=:AUTO";
         $stbi = $this->pdo->prepare($querybins);
-        $stbi->bindParam(':AUTO', $AUTO, \PDO::PARAM_INT);
+        $stbi->bindParam(':AUTO', $AUTO, PDO::PARAM_INT);
         $stbi->execute();
     }
 
@@ -95,7 +96,7 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
         $sti->bindParam(':HORA', $HORA);
         $sti->bindParam(':NOTA', $NOTA);
         $sti->bindParam(':CUENTA', $CUENTA);
-        $sti->bindParam(':C_CONT', $C_CONT, \PDO::PARAM_INT);
+        $sti->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $sti->execute();
     }
 
@@ -112,7 +113,7 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
         $sts = $this->pdo->prepare($querysub);
         $sts->bindParam(':capt', $capt);
         $sts->execute();
-        $result = $sts->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $sts->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

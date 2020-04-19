@@ -8,6 +8,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 /**
  * Description of LogoutClass
  *
@@ -16,7 +18,7 @@ namespace cobra_salsa;
 class LogoutClass {
 
     /**
-     * @var \PDO $pdo
+     * @var PDO $pdo
      */
     protected $pdo;
     
@@ -43,7 +45,7 @@ class LogoutClass {
 
     /**
      * 
-     * @param \PDO $pdo
+     * @param PDO $pdo
      */
     public function __construct($pdo) {
         $this->pdo = $pdo;
@@ -76,7 +78,7 @@ class LogoutClass {
             $stl = $this->pdo->prepare($this->queryldt);
             $stl->bindParam(':capt', $capt);
             $stl->execute();
-            $resultldt = $stl->fetch(\PDO::FETCH_ASSOC);
+            $resultldt = $stl->fetch(PDO::FETCH_ASSOC);
             if ($resultldt) {
                 $this->date = $resultldt['d_fech'];
                 $this->time = $resultldt['c_hrin'];

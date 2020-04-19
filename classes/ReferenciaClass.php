@@ -1,7 +1,7 @@
 <?php
-namespace cobra_salsa\classes;
+namespace cobra_salsa;
 
-use cobra_salsa\BaseClass;
+use PDO;
 
 /**
  *
@@ -19,10 +19,9 @@ class ReferenciaClass extends BaseClass
         $query = "SELECT * FROM referencias 
                     WHERE id_cuenta = :id_cuenta";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':id_cuenta', $id_cuenta, \PDO::PARAM_INT);
+        $stq->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
     
 }
