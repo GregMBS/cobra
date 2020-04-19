@@ -1,34 +1,19 @@
-function validate_form2(tf,evt,minprom,authorized,at)
+function validate_form2(tf,evt,minprom)
 {
-//initialize 
-var alertstr=' ';
-var alerttxt=' ';
-var flag=0;
-var aflag=0;
-var npa=0;
-var n1=0;
-var n2=0;
-var np=0;
-var npo=0;
-np=parseFloat(tf.N_PROMv.value);
-var cvt="";
-var ccn=" ";
-var cnt="";
-var co2="";
-var dp1="0000-00-00";
-var dp2="0000-00-00";
-var dpo="0000-00-00";
-var dpago="0000-00-00";
-var minprom2=minprom*0.95;
-//actual sum de promesa
+    //initialize
+    var alerttxt = ' ', flag = 0, npa = 0, n1 = 0, np = parseFloat(tf.N_PROMv.value), cvt = "", cnt = "",
+        co2 = "", dp1 = "0000-00-00", dpago = "0000-00-00";
+    //actual sum de promesa
 if(typeof(tf.N_PAGOv) !== "undefined")
 {npa=parseFloat(tf.N_PAGOv.value);}
 if(typeof(tf.N_PROMv) !== "undefined")
 {n1=parseFloat(tf.N_PROMv.value);}
 if(typeof(tf.C_CVST) !== "undefined")
 {cvt=trim(tf.C_CVST.value);}
+/*
 if(typeof(tf.C_CONTAN) !== "undefined")
 {ccn=trim(tf.C_CONTAN.value);}
+*/
 if(typeof(tf.C_NTEL) !== "undefined")
 {cnt=trim(tf.C_NTEL.value);}
 if(typeof(tf.C_OBSE2) !== "undefined")
@@ -185,18 +170,18 @@ if (cvt==="NEGATIVA DE PAGO")
    }
 }
 //monto de promesa can only have numbers and one decimal point.
-if ((n1.toString()).match(/[0-9.]/)) {flag=flag;} else
+if (!((n1.toString()).match(/[0-9.]/)))
 	{alerttxt=alerttxt+'No puede usarse un separador de miles'+'\n'+'No puede dejar campo blanco. Usa 0.'+'\n';
 	tf.N_PROMv.style.backgroundColor="yellow";
 	flag=1;}
 //monto de pago can only have numbers and one decimal point.
-if ((npa.toString()).match(/[0-9.]/)) {flag=flag;} else
+if (!((npa.toString()).match(/[0-9.]/)))
 	{alerttxt=alerttxt+'No puede usarse un separador de miles'+'\n';
 	tf.N_PAGOv.style.backgroundColor="yellow";
 	flag=1;}
 //new telephones can only have numbers
 if (cnt!==null) {
-if ((cnt.toString()).match(/[0-9]/)) {flag=flag;} else
+if (!((cnt.toString()).match(/[0-9]/)))
 	{alerttxt=alerttxt+'No puede usarse un separador o letras en telefonos'+'\n';
 	tf.C_NTEL.style.backgroundColor="yellow";
 	flag=1;}
@@ -205,7 +190,7 @@ if ((cnt.length!==0)&&(cnt.length!==8)&&(cnt.length!==10)&&(cnt.length!==13))
 	tf.C_NTEL.style.backgroundColor="yellow";flag=1;}
 }
 if (co2!==null) {
-if ((co2.toString()).match(/[0-9]/))  {flag=flag;}
+//if ((co2.toString()).match(/[0-9]/))  {flag=flag;}
 // else
 //	{alerttxt=alerttxt+'No puede usarse un separador o letras en telefonos'+'\n';
 //	tf.C_OBSE2.style.backgroundColor="yellow";

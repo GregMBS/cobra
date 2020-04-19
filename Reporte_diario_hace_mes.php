@@ -137,19 +137,18 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
 ";
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Promesas y Pagos del Mes Anterior</title>
 
         <style type="text/css">
             body {font-family: verdana,arial, helvetica, sans-serif;
                   font-size: 10pt; background-color: white;color:black;}
-            .hidebox {display:none}
             div {clear:both}
             table {border: 1pt solid black;background-color: white;
                    border-collapse: collapse;}
             th,td {border: 1pt solid black;background-color: white;}
-            th,.heavy {font-weight:bold;}
+            th {font-weight:bold;}
             a:link {color:blue;}
             a:visited {color:green;}
             a:hover {color:red;}
@@ -157,39 +156,21 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
             div {border: 1pt black solid;background-color:white;}
             td {border: 1pt solid black;background-color: white;}
             .visitable td {border:0; background-color: transparent;width:auto;}
-            .deudor {color: red;}
-            .visit {color: green;}
             #ahora td {font-size: 85%}
             ul.tabs
             { list-style-type: none; padding: 0; margin: 0;}
             ul.tabs li
-            { float: left; padding: 0; margin: 0; padding-top: 0;
+            { float: left; padding: 0; margin: 0;
               background: url(tab_right.png) no-repeat right top; margin-right: 1px; }
             ul.tabs li a
-            { display: block; padding: 0px 10px;
+            { display: block; padding: 0 10px;
               color: white; text-decoration: none; background:
                   url(tab_left.png) no-repeat left top; }
             ul.tabs li a:hover
             { color: yellow;}
-            th,.heavy {font-weight:bold;font-size:10pt;}
-            .light {text-align:right;}
-            .rightnow {
-                background-color:orange;
-            }
-            .callcenter {
-                background-color:white;
-            }
-            .admin {
-                background-color:gray;
-            }
-            .late {
-                background-color:yellow; font-weight:bold;
-                text-decoration:blink;}
-            .verylate,.lazy {
-                background-color:red; font-weight:bold;
-                text-decoration:blink;}
+            th {font-weight:bold;font-size:10pt;}
             </style>
-            <script type="text/javascript" src="js/dom-drag.js"></script>
+            <script type="text/javascript" src="js/external/dom-drag.js"></script>
             <SCRIPT TYPE="text/JavaScript">
                 function paging(pageid) {
                 pageida=pageid+"a";

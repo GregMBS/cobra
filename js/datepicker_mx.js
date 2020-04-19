@@ -1,5 +1,5 @@
 function getMx() {
-    var mx = {
+    return {
         closeText: "Cerrar",
         prevText: "&#x3C;Ant",
         nextText: "Sig&#x3E;",
@@ -16,6 +16,6 @@ function getMx() {
         firstDay: 1,
         isRTL: false,
         showMonthAfterYear: false,
-        yearSuffix: ""};
-    return mx;
-};
+        yearSuffix: ""
+    };
+}

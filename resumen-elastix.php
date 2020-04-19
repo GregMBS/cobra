@@ -711,7 +711,7 @@ while ($answerd = mysqli_fetch_row($resultd)) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Resumen desde ELASTIX</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -729,8 +729,6 @@ while ($answerd = mysqli_fetch_row($resultd)) {
             span.formcaps {display: block; width: 6em; float: left; font-size: 100%; font-weight:bold;}
             #deudor {width: 7em;}
             #domicilio {width: 7em;}
-            span.formtit {display: block; width: 24em; float: left; font-size: 100%; font-weight:bold;}
-            span.formfirst {display: block; width: 24em; float: left;}
             select, input, button {font-family: verdana,arial, helvetica, sans-serif;font-size:100%}
             input {font-family: verdana,arial, helvetica, sans-serif;font-size:100%; font-weight:bold;}
             #GESTION input {font-size:80%; width:auto}
@@ -748,32 +746,13 @@ while ($answerd = mysqli_fetch_row($resultd)) {
             a:visited {color:green;}   
             a:hover {color:red;}   
             a:active {color:yellow;}   
-            #telefono2 {font-weight:bold;}   
             #telbox span.formcap {display: block; width: 14em; float: left;}
-            #demobox {float: left;}
-            .telbox {float: left;}
             .verif {font-weight:bold; background-color:#00ff00;}
-            #descbox {float: left;}
-            #gestionbox {clear: right;}
-            #capturabox {float: left;}
-            #guardbox {float: left; width:42em;}
-            #captresbox {float: left;}
-            #notabox {float: left;}
             .clearbox {clear: both; text-align: center;}
             table {color:#000000;}
             tr {height:2em;}
             th {width: 9em;}
-            th.gestion {width: 32em;}
-            th.status {width: 16em;}
-            th.timestamp {width: 8em;}
-            th.telefono {width: 8em;}
-            th.chico {width: 5em;}
             td {border: 1pt solid #000000;background-color: #ffffff; width:10em;}
-            td.gestion {width: 32em;height: 1em;overflow:hidden;}
-            td.status {width: 16em;}
-            td.timestamp {width: 8em;}
-            td.telefono {width: 8em;}
-            td.chico {width: 5em;}
             #tableContainer {height: 4cm; overflow: scroll;}
             .noshow { display: none; width: 0;}
             #searchbox {z-index: 98; display: none; position: absolute; left: 30%; top: 30%; color: #000000; background-color: #ffffff; text-align: center; padding: 1em; border: 2px black solid;}
@@ -812,13 +791,14 @@ if ($cliente != "Prestamo Familiar") {
             #avalbox input {font-size: 85%}
             #avalbox .shortinp {width: 5em;}
         </style>
-        <script type="text/javascript" src="js/dom-drag.js"></script>
-        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
+        <script type="text/javascript" src="js/external/dom-drag.js"></script>
+        <SCRIPT  TYPE="text/JavaScript">
             $(function() {
+                const inactivoId = $( "#inactivo" );
             $( "#tab" ).tabs();
             $( ".buttons button" ).button();
             $( ".buttons input[name='go']" ).button();
-            $( "#inactivo" ).dialog({ 
+            inactivoId.dialog({
             autoOpen: false, 
             modal: true, 
             buttons: { "Ok": function() { $(this).dialog("close"); } } });
@@ -826,7 +806,7 @@ if ($cliente != "Prestamo Familiar") {
 if ((preg_match('/o$/', $status_de_credito)) || (preg_match('/o$/',
         $status_de_credito))) {
     ?>
-                $("#inactivo").dialog("open")
+                inactivoId.dialog("open")
 <?php } ?>
 
             });
@@ -836,7 +816,7 @@ if ((preg_match('/o$/', $status_de_credito)) || (preg_match('/o$/',
             return null;
 
             return str.replace(/^[\s]+/,'').replace(/[\s]+$/,'').replace(/[\s]{2,}/,' ');
-            }function beep() {}
+            }
             function paging(pageid) {
             document.getElementById("TELEFONOS").style.display="none";
             document.getElementById("REFERENCIAS").style.display="none";
@@ -852,12 +832,13 @@ if ((preg_match('/o$/', $status_de_credito)) || (preg_match('/o$/',
             }
             function gestionChange(thisform)
             {
-            with (thisform) {
-            N_PROM.value=(N_PROM1.value*1)+(N_PROM2.value*1)+(N_PROM3.value*1)+(N_PROM4.value*1);
-            if ((C_CVST.value=='PAGO TOTAL')||(C_CVST.value=='PAGO PARCIAL')||(C_CVST.value=='PAGANDO CONVENIO')||(C_CVST.value=='REESTRUCTURADA')||(C_CVST.value=='REGULARIZADA')) {
-            document.getElementById("pagocapt").style.display="table-row";document.getElementById("pagocapt2").style.display="table-row";
-            }
-            }
+                thisform.N_PROM.value=parseInt(thisform.N_PROM1.value)+parseInt(thisform.N_PROM2.value)
+                        +parseInt(thisform.N_PROM3.value)+parseInt(thisform.N_PROM4.value);
+                if ((thisform.C_CVST.value==='PAGO TOTAL')||(thisform.C_CVST.value==='PAGO PARCIAL')
+                    ||(thisform.C_CVST.value==='PAGANDO CONVENIO')||(thisform.C_CVST.value==='REESTRUCTURADA')
+                    ||(thisform.C_CVST.value==='REGULARIZADA')) {
+                    document.getElementById("pagocapt").style.display="table-row";document.getElementById("pagocapt2").style.display="table-row";
+                }
             }
 
             function clock() {
@@ -874,7 +855,7 @@ if ((preg_match('/o$/', $status_de_credito)) || (preg_match('/o$/',
             if (document.getElementById("timerm").value>4) {
             document.getElementById("clock").style.backgroundColor="red";
             }
-            if (document.getElementById("timer").value%2==0) {
+            if (document.getElementById("timer").value%2===0) {
             document.getElementById("clock").style.backgroundColor="green";
             }
             }
@@ -904,7 +885,7 @@ if ($lockflag == 1) {
             o.value = o.value.replace(r[w],' ');
             }
 
-            function tooLong(e)
+            function tooLong()
             {
             if (window.document.getElementById("C_OBSE1").value.length>250) {
             window.document.getElementById("C_OBSE1").value=window.document.getElementById("C_OBSE1").value.replace('  ',' ');
@@ -913,6 +894,7 @@ if ($lockflag == 1) {
             window.document.getElementById("C_OBSE1").style.backgroundColor="yellow";
             return false;}
             }
+            /*
             function logout()
             {
             window.location="resumen-elastix.php?capt=<?php echo $capt; ?>&go='LOGOUT'";
@@ -923,6 +905,7 @@ if ($lockflag == 1) {
             document.getElementById('searchbox').style.display="block";
             document.getElementById('find').focus();
             }
+            */
             function cancelbox(boxname)
             {
             document.getElementById(boxname).style.display="none";
@@ -936,7 +919,7 @@ if ($lockflag == 1) {
             function dial(capt,cta) {
             tel=document.gestion.C_TELE.value;
             if (!parseInt(tel)){alert('ERROR EA6 - No es numero.');}
-            else if ((tel.length!=8) && (tel.length!=10) && (tel.length!=12) && (tel.length!=13)) {
+            else if ((tel.length!==8) && (tel.length!==10) && (tel.length!==12) && (tel.length!==13)) {
             alert('ERROR EA7 - Telefono invalido.');
             }
             else {
@@ -946,9 +929,9 @@ if ($lockflag == 1) {
             }
         </SCRIPT>
         <script type="text/javascript" src="js/depuracion.js"></script>
-        <SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="js/CalendarPopup.js"></SCRIPT>
+        <SCRIPT  TYPE="text/JavaScript" SRC="js/external/CalendarPopup.js"></SCRIPT>
     </head>
-    <body onLoad="alerttxt = new String('');
+    <body onLoad="alerttxt = '';
             paging('HISTORIA');
             openSearch();<?php ?>" id="todos">
         <div id="buttonbox">
@@ -1029,7 +1012,7 @@ if ($lockflag == 1) {
             <form action="#" method="post" name="resumenform" id=
                   "resumenform">
                 <div id="GENERAL">
-                    <table summary="demograficas">
+                    <table id="demograficas">
                         <tr>
                             <td>
                                 <span class='formcapa' id='deudor'>Deudor</span><input type='text' size=50 style='width:7.1cm' name=nombre_deudor id="nombre_deudor" readonly='readonly' value='<?php
@@ -1394,7 +1377,7 @@ AND c_cont <> '0'
     if ($cliente == 'FISA') {
         ?>
                     <div id="EXTRAS">
-                        <table summary="sdh extras">
+                        <table id="sdh_extras">
                             <tr>
                                 <th>Grupo</th>
                                 <th>Dias Vencidos</th>
@@ -1433,7 +1416,7 @@ where credito='".$numero_de_credito."'";
                 </div>
 
                 <div id="CONTABLES">
-                    <table summary="contables">
+                    <table id="contablesTable">
                         <tr>
                             <td>Numero de credito</td>
                             <td><input type='text' name=numero_de_credito readonly='readonly' value='<?php
@@ -1736,8 +1719,7 @@ where credito='".$numero_de_credito."'";
         </div>
 
         <div id="HISTORIA">
-            <table summary="historiahead" border='0' cellpadding='0' cellspacing=
-                   '0' width='100%' id="historyhead">
+            <table id="historiahead" style="border:0; padding:0; width:100%; border-collapse: collapse">
                 <tr>
             <?php
             $fieldnames = array("Status", "Fecha/Hora", "Gestor", "Telefono", "Gestion",
@@ -1765,8 +1747,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                             if (!(empty($rowsub))) {
                                 ?>
                     <div id='tableContainer' class='tableContainer'>
-                        <table summary="historia" border='0' cellpadding='0' cellspacing=
-                               '0' width='100%' id='historybody'>
+                        <table style="border: 0; padding: 0; border-collapse: collapse; width: 100%" id='historybody'>
                             <tbody class="scrollContent">
                                     <?php
                                     $j      = 0;
@@ -1911,7 +1892,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                         <tr>
                             <td>Gestion</td>
                             <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1'
-                                          onkeypress="tooLong(this);" onkeyup="valid(this, 'special');" onmouseover='this.focus();'
+                                          onkeypress="tooLong();" onkeyup="valid(this, 'special');" onmouseover='this.focus();'
                                           onblur="valid(this, 'special');" onmousedown='this.focus();'></textarea></td>
                             <td colspan=2>Acci&oacute;n
                                 <select name="ACCION" id="ACCION">
@@ -1989,7 +1970,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                         </tr>
                         <tr id="pagocapt2" style="display:none">
                             <td>Fecha Pag&oacute;
-                                <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+                                <SCRIPT  type="text/javascript">
                                     var cal9 = new CalendarPopup();
                                     cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
                                     cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');

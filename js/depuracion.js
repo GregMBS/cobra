@@ -39,36 +39,13 @@ function validate_date(f)
     }
 }
 
-function validate_form(tf, evt, minprom, authorized, at)
+function validate_form(tf, evt, minprom, authorized)
 {
-
-//initialize 
-    var alertstr = ' ';
-    var alerttxt = ' ';
-    var flag = 0;
-    var aflag = 0;
-    var npa = 0;
-    var n1 = 0;
-    var n2 = 0;
-    var n3 = 0;
-    var n4 = 0;
-    var np = 0;
-    var npo = 0;
-    var st = 1000000;
-    np = parseFloat(tf.N_PROM1.value) + parseFloat(tf.N_PROM2.value);
-    var cvt = "";
-    var ccn = " ";
-    var cnt = "";
-    var co2 = "";
-    var cargo = "";
-    var cuando = "";
-    var dp1 = "0000-00-00";
-    var dp2 = "0000-00-00";
-    var dp3 = "0000-00-00";
-    var dp4 = "0000-00-00";
-    var dpo = "0000-00-00";
-    var dpago = "0000-00-00";
-    var minprom2 = minprom * 0.95;
+    //initialize
+    //np = parseFloat(tf.N_PROM1.value) + parseFloat(tf.N_PROM2.value);
+    var alerttxt = ' ', flag = 0, npa = 0, n1 = 0, n2 = 0, n3 = 0, n4 = 0,
+        st = 1000000, ccn = " ", cnt = "", co2 = "", cuando = "", dp1 = "0000-00-00",
+        dp2 = "0000-00-00", dpago = "0000-00-00";
 
 //actual sum de promesa
     if (typeof (tf.saldo_total) !== "undefined")
@@ -96,10 +73,12 @@ function validate_form(tf, evt, minprom, authorized, at)
         n4 = parseFloat(tf.N_PROM4.value);
     }
     np = n1 + n2 + n3 + n4;
+    /*
     if (typeof (tf.N_PROM_OLD) !== "undefined")
     {
         npo = parseFloat(tf.N_PROM_OLD.value);
     }
+    */
     if (typeof (tf.C_CVST) !== "undefined")
     {
         cvt = trim(tf.C_CVST.value);
@@ -122,10 +101,12 @@ function validate_form(tf, evt, minprom, authorized, at)
     {
         cuando = tf.CUANDO.value;
     }
+    /*
     if (typeof (tf.C_CARG.value) !== "undefined")
     {
         cargo = tf.C_CARG.value;
     }
+    */
     if (typeof (tf.D_PROM1.value) !== "undefined")
     {
         dp1 = tf.D_PROM1.value;
@@ -134,6 +115,7 @@ function validate_form(tf, evt, minprom, authorized, at)
     {
         dp2 = tf.D_PROM2.value;
     }
+    /*
     if (typeof (tf.D_PROM3.value) !== "undefined")
     {
         dp3 = tf.D_PROM3.value;
@@ -146,6 +128,8 @@ function validate_form(tf, evt, minprom, authorized, at)
     {
         dpo = tf.D_PROM1_OLD.value;
     }
+
+     */
     if (typeof (tf.D_PAGO.value) !== "undefined")
     {
         dpago = tf.D_PAGO.value;
@@ -630,7 +614,7 @@ function validate_form(tf, evt, minprom, authorized, at)
 
 //monto de promesa can only have numbers and one decimal point.
     if ((n1.toString()).match(/[0-9.]/)) {
-        flag = flag + 0;
+        flag = parseInt(flag);
     } else
     {
         alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n' + 'No puede dejar campo blanco. Usa 0.' + '\n';
@@ -638,7 +622,7 @@ function validate_form(tf, evt, minprom, authorized, at)
         flag = 1;
     }
     if ((n2.toString()).match(/[0-9.]/)) {
-        flag = flag + 0;
+        flag = parseInt(flag);
     } else
     {
         alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n' + 'No puede dejar campo blanco. Usa 0.' + '\n';
@@ -647,7 +631,7 @@ function validate_form(tf, evt, minprom, authorized, at)
     }
 //monto de pago can only have numbers and one decimal point.
     if ((npa.toString()).match(/[0-9.]/)) {
-        flag = flag + 0;
+        flag = parseInt(flag);
     } else
     {
         alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n';
@@ -657,7 +641,7 @@ function validate_form(tf, evt, minprom, authorized, at)
 //new telephones can only have numbers
     if (cnt !== null) {
         if ((cnt.toString()).match(/[0-9]/)) {
-            flag = flag + 0;
+            parseInt(flag);
         } else
         {
             alerttxt = alerttxt + 'No puede usarse un separador o letras en telefonos' + '\n';
@@ -673,7 +657,7 @@ function validate_form(tf, evt, minprom, authorized, at)
     }
     if (co2 !== null) {
         if ((co2.toString()).match(/[0-9]/)) {
-            flag = flag + 0;
+            parseInt(flag);
         }
 // else
 //  {alerttxt=alerttxt+'No puede usarse un separador o letras en telefonos'+'\n';
@@ -696,7 +680,7 @@ function validate_form(tf, evt, minprom, authorized, at)
             flag = 1;
         }
         if (authorized < 1) {
-            aflag = flag + 0;
+            //aflag = flag + 0;
             if (ccn === "PROMESA DE PAGO TOTAL")
             {
                 alerttxt = alerttxt + "Solamente un supervisor puede sobreescribido una promesa activa.";
@@ -747,7 +731,7 @@ function validate_form(tf, evt, minprom, authorized, at)
             flag = 1;
         }
     }
-    alertstr = 'Gestion de cuenta ' + tf.CUENTA.value + ' guardado con status ' + cvt + ".\n";
+    let alertstr = 'Gestion de cuenta ' + tf.CUENTA.value + ' guardado con status ' + cvt + ".\n";
     if (n1 > 0) {
         alertstr = alertstr + " Fecha de promisa 1: " + dp1 + " ";
     }

@@ -96,7 +96,7 @@
                 ul.tabs li a:hover 
                 { color: #ff0; }		
             </style>
-            <script type="text/javascript" src="/js/dom-drag.js"></script>
+            <script type="text/javascript" src="/js/external/dom-drag.js"></script>
             <SCRIPT TYPE="text/JavaScript">
                 function aviso() {}
                 function paging(pageid) {
@@ -387,7 +387,7 @@
             </SCRIPT>
             <script type="text/javascript" src="/js/depuracion.js"></script>
             <script type="text/javascript" src="/js/depuracionv.js"></script>
-            <SCRIPT TYPE="text/JavaScript" SRC="/js/CalendarPopup.js"></SCRIPT>
+            <SCRIPT TYPE="text/JavaScript" SRC="/js/external/CalendarPopup.js"></SCRIPT>
         </head>
         <body onLoad="alerttxt = '';
                 paging('HISTORIA');
@@ -1272,18 +1272,9 @@
             </div>
             <div class="togglebox" id="VISITA">
                 <form action="/resumen.php" method="get" id="capturaform"
-                      onSubmit="this.disabled = true;return validate_form2(this, event,<?php
+                      onSubmit="return validate_form2(this, event,<?php
                       echo $saldo_descuento_2 + 0;
-                      ?>,<?php
-                      if (empty($AUTH)) {
-                          $AUTH = '';
-                      }
-                      if (($mytipo == 'admin') || ($AUTH != '')) {
-                          echo 1;
-                      } else {
-                          echo 0;
-                      }
-                      ?>, ' ');">
+                      ?>);">
                     <div class="noshow">
                         <input type="text" name="error" readonly="readonly" value="1" ><br>
                         <input type="text" name="C_HRFI" readonly="readonly" value="<?php
@@ -1786,7 +1777,7 @@
                       } else {
                           echo 0;
                       }
-                      ?>, ' ');">
+                      ?>);">
                     <table id="databox">
                         <?php
                         if ($mytipo == 'admin' || $mytipo == 'supervisor') {
