@@ -1,6 +1,6 @@
 const captura = document.getElementById('capturaForm');
 const capturaForm = document.forms['capturaForm'];
-captura.onclick = function (evt) {
+captura.onsubmit = function (evt) {
     //initialize
     const np = parseFloat(capturaForm['N_PROMv'].value);
     const minProm = parseFloat(capturaForm['minprom'].value);

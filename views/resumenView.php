@@ -1607,10 +1607,7 @@
     </form>
 </div>
 <div class="toggleBox" id="VISITA">
-    <form action="/resumen.php" method="get" id="capturaForm"
-          onSubmit="return validate_form2(this, event,<?php
-          echo $saldo_descuento_2 + 0;
-          ?>);">
+    <form action="/resumen.php" method="get" id="capturaForm">
         <input type="hidden" name="minprom" readonly="readonly" value="<?php
         echo $saldo_descuento_2 + 0;
         ?>">
@@ -2119,19 +2116,20 @@
     <?php } ?>
 </div>
 <div id="GESTION">
-    <form action="/resumen.php" method="get" id="gestionform"
-          onSubmit="return validate_form(this, event,<?php
-          echo $saldo_descuento_2 + 0;
-          ?>,<?php
-          if (empty($AUTH)) {
-              $AUTH = '';
-          }
-          if (($mytipo == 'admin') || ($AUTH != '')) {
-              echo 1;
-          } else {
-              echo 0;
-          }
-          ?>);">
+    <form action="/resumen.php" method="get" id="gestionForm">
+        <input type="hidden" name="minprom" value="<?php
+        echo $saldo_descuento_2 + 0;
+        ?>">
+        <input type="hidden" name="authorized" value="<?php
+        if (empty($AUTH)) {
+            $AUTH = '';
+        }
+        if (($mytipo == 'admin') || ($AUTH != '')) {
+            echo 1;
+        } else {
+            echo 0;
+        }
+        ?>">
         <table id="databox">
             <?php
             if ($mytipo == 'admin' || $mytipo == 'supervisor') {
