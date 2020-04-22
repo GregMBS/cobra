@@ -722,7 +722,7 @@ while ($answerd = mysqli_fetch_row($resultd)) {
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <style type="text/css">
             body {font-family: verdana,arial, helvetica, sans-serif; font-size: 10pt; background-color: #ffffff;color:#000000;}
-            .hidebox {display:none}
+            .hideBox {display:none}
             div {clear:both}
             span.formcap {display: block; width: 20em; float: left; font-size: 100%; font-weight:bold;}
             span.formcapa {display: block; width: 13em; float: left; font-size: 100%; font-weight:bold;}
@@ -1725,7 +1725,7 @@ where credito='".$numero_de_credito."'";
             $fieldnames = array("Status", "Fecha/Hora", "Gestor", "Telefono", "Gestion",
                 "Gestion");
             $fieldsize  = array("status", "timestamp", "chico", "telefono", "gestion",
-                "hidebox");
+                "hideBox");
             for ($j = 0; $j < 5; $j++) {
                 $fieldname = $fieldnames[$j];
                 ?>

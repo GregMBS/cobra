@@ -91,7 +91,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $visit
      * @return string
      */
-    public function highhist($stat, $visit) {
+    public function highlight($stat, $visit) {
         $highstr = '';
         if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
             $highstr = " class='deudor'";
