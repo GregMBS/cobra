@@ -108,15 +108,15 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @return int
      */
     public function lastGestion($capt) {
-        $queryult = "SELECT c_cont FROM historia WHERE c_cvge = :capt"
-                . " AND c_cont <> 0"
-                . " ORDER BY d_fech DESC, c_hrfi DESC LIMIT 1";
+        $queryult = "SELECT c_cont FROM historia 
+        WHERE c_cvge = :capt AND c_cont <> 0 
+        ORDER BY d_fech DESC, c_hrfi DESC 
+        LIMIT 1";
         $stu = $this->pdo->prepare($queryult);
         $stu->bindParam(':capt', $capt);
         $stu->execute();
         $result = $stu->fetch(PDO::FETCH_ASSOC);
-        $find = $result['c_cont'];
-        return $find;
+        return $result['c_cont'];
     }
 
     /**

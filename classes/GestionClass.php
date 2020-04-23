@@ -221,15 +221,12 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @return string
      */
-    private function attributePayment($capt, $C_CONT) {
+    public function attributePayment($capt, $C_CONT) {
         $who = $capt;
-        $queryd = "select c_cvge "
-                . "from historia "
-                . "where n_prom>0 "
-                . "and c_cvge like 'PRO%' "
-                . "and c_cont = :C_CONT "
-                . "order by d_fech desc, c_hrin desc limit 1";
-        $stn = $this->pdo->prepare($queryd);
+        $query = "select c_cvge from historia 
+        where n_prom>0 and c_cvge like 'PRO%' and c_cont = :C_CONT 
+        order by d_fech desc, c_hrin desc limit 1";
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
         $result = $stn->fetch(PDO::FETCH_ASSOC);
