@@ -746,23 +746,23 @@ while ($answerd = mysqli_fetch_row($resultd)) {
             a:visited {color:green;}   
             a:hover {color:red;}   
             a:active {color:yellow;}   
-            #telbox span.formcap {display: block; width: 14em; float: left;}
+            #telBox span.formcap {display: block; width: 14em; float: left;}
             .verif {font-weight:bold; background-color:#00ff00;}
-            .clearbox {clear: both; text-align: center;}
+            .clearBox {clear: both; text-align: center;}
             table {color:#000000;}
             tr {height:2em;}
             th {width: 9em;}
             td {border: 1pt solid #000000;background-color: #ffffff; width:10em;}
             #tableContainer {height: 4cm; overflow: scroll;}
-            .noshow { display: none; width: 0;}
-            #searchbox {z-index: 98; display: none; position: absolute; left: 30%; top: 30%; color: #000000; background-color: #ffffff; text-align: center; padding: 1em; border: 2px black solid;}
-            #searchbox input {color: #000000; background-color: #ffffff;}
+            .noShow { display: none; width: 0;}
+            #searchBox {z-index: 98; display: none; position: absolute; left: 30%; top: 30%; color: #000000; background-color: #ffffff; text-align: center; padding: 1em; border: 2px black solid;}
+            #searchBox input {color: #000000; background-color: #ffffff;}
             #calm {z-index: 98; position: absolute; left: 30%; top: 30%; color: #000000; background-color: #ffffff; text-align: center; padding: 1em; border: 2px black solid;}
             #calm input {color: #000000; background-color: #ffffff;}
             #pagocapt td {background-color: #ffff00;}
             #pagocapt2 td {background-color: #ffff00;}
             .visitable td {border:0; background-color: transparent;width:auto;}
-            #buttonbox form {float:left}
+            #buttonBox form {float:left}
             .buttons {float:left;width:auto}
             .buttons input {float:left}
             .buttons button {float:left;width:auto}
@@ -776,7 +776,7 @@ while ($answerd = mysqli_fetch_row($resultd)) {
                 <?php
             }
             if ($mytipo == 'visitador') { ?> 
-                #databox,#prombox,#nuevoboxt,#combox,#guardbox,#dtelboxt,#clock {display:none;}
+                #dataBox,#prombox,#nuevoboxt,#combox,#guardbox,#dtelboxt,#clock {display:none;}
                 #visitboxt,#visitbox {display:block;}
 <?php
 }
@@ -788,8 +788,8 @@ if ($cliente != "Prestamo Familiar") {
 ?>
             .deudor {color: #ff0000;}
             .visit {color: #00aa00;}
-            #avalbox input {font-size: 85%}
-            #avalbox .shortinp {width: 5em;}
+            #avalBox input {font-size: 85%}
+            #avalBox .shortinp {width: 5em;}
         </style>
         <script type="text/javascript" src="js/external/dom-drag.js"></script>
         <SCRIPT  TYPE="text/JavaScript">
@@ -934,7 +934,7 @@ if ($lockflag == 1) {
     <body onLoad="alerttxt = '';
             paging('HISTORIA');
             openSearch();<?php ?>" id="todos">
-        <div id="buttonbox">
+        <div id="buttonBox">
                 <?php if (true) { ?>
                 <form class="buttons" name="pagos" method="get" action="pagos.php" id="pagos" target="_blank">
                     <input type="hidden" name="capt" value="<?php
@@ -2295,8 +2295,8 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                     minDate: 0,
                     maxDate: '<?php echo $dday2; ?>'
                 });
-                $('#buttonbox input[type="submit"]').button();
-                $('#buttonbox button').button();
+                $('#buttonBox input[type="submit"]').button();
+                $('#buttonBox button').button();
             </script>
         <?php
     }

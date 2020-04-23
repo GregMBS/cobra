@@ -3,329 +3,26 @@
 <head>
     <title>Resumen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <style type="text/css">
-        body {
-            font-family: verdana, arial, helvetica, sans-serif;
-            font-size: 10pt;
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        .hideBox {
-            display: none
-        }
-
-        div {
-            clear: both
-        }
-
-        span.formcap {
-            display: block;
-            width: 20em;
-            float: left;
-            font-size: 100%;
-            font-weight: bold;
-        }
-
-        span.formcapa {
-            display: block;
-            width: 13em;
-            float: left;
-            font-size: 100%;
-            font-weight: bold;
-        }
-
-        span.formcaps {
-            display: block;
-            width: 6em;
-            float: left;
-            font-size: 100%;
-            font-weight: bold;
-        }
-
-        #deudor {
-            width: 7em;
-        }
-
-        #domicilio {
-            width: 7em;
-        }
-
-        select, input, button {
-            font-family: verdana, arial, helvetica, sans-serif;
-            font-size: 100%
-        }
-
-        input {
-            font-family: verdana, arial, helvetica, sans-serif;
-            font-size: 100%;
-            font-weight: bold;
-        }
-
-        #GESTION input {
-            font-size: 80%;
-            width: auto
-        }
-
-        #GENERAL textarea {
-            font-family: verdana, arial, helvetica, sans-serif;
-            font-size: 90%;
-            width: 9cm;
-            font-weight: normal;
-        }
-
-        #GENERAL table {
-            width: 100%
-        }
-
-        #GENERAL td {
-            border: 0
-        }
-
-        #CONTABLES table {
-            width: 100%
-        }
-
-        #CONTABLES td {
-            border: 0;
-            font-weight: normal;
-            font-size: 90%;
-        }
-
-        #GESTION table {
-            width: 100%;
-            background-color: #ddffdd
-        }
-
-        #GESTION tr {
-            background-color: #ddffdd
-        }
-
-        #GESTION td {
-            border: 0;
-            font-weight: bold;
-            font-size: 80%;
-            background-color: #ddffdd
-        }
-
-        #VISITA table {
-            width: 100%
-        }
-
-        #VISITA td {
-            border: 0;
-            font-weight: normal;
-            font-size: 90%;
-        }
-
-        a:link {
-            color: blue;
-        }
-
-        a:visited {
-            color: green;
-        }
-
-        a:hover {
-            color: red;
-        }
-
-        a:active {
-            color: yellow;
-        }
-
-        #telbox span.formcap {
-            display: block;
-            width: 14em;
-            float: left;
-        }
-
-        div {
-            border: 1pt black solid;
-            background-color: #ffffff;
-        }
-
-        .verif {
-            font-weight: bold;
-            background-color: #00ff00;
-        }
-
-        .clearbox {
-            clear: both;
-            text-align: center;
-        }
-
-        table {
-            color: #000000;
-        }
-
-        tr {
-            height: 2em;
-        }
-
-        th {
-            width: 9em;
-        }
-
-        th.gestion {
-            width: 32em;
-        }
-
-        th.status {
-            width: 16em;
-        }
-
-        th.timestamp {
-            width: 8em;
-        }
-
-        th.telefono {
-            width: 8em;
-        }
-
-        th.chico {
-            width: 5em;
-        }
-
-        td {
-            border: 1pt solid #000000;
-            background-color: #ffffff;
-            width: 10em;
-        }
-
-        td.gestion {
-            width: 32em;
-            height: 1em;
-            overflow: hidden;
-        }
-
-        td.status {
-            width: 16em;
-        }
-
-        td.timestamp {
-            width: 8em;
-        }
-
-        td.telefono {
-            width: 8em;
-        }
-
-        td.chico {
-            width: 5em;
-        }
-
-        #tableContainer {
-            height: 4cm;
-            overflow: scroll;
-        }
-
-        .noshow {
-            display: none;
-            width: 0;
-        }
-
-        #searchbox {
-            z-index: 98;
-            display: none;
-            position: absolute;
-            left: 30%;
-            top: 30%;
-            color: #000000;
-            background-color: #ffffff;
-            text-align: center;
-            padding: 1em;
-            border: 2px black solid;
-        }
-
-        #searchbox input {
-            color: #000000;
-            background-color: #ffffff;
-        }
-
-        #quicksearchbox {
-            z-index: 98;
-            display: none;
-            position: absolute;
-            left: 30%;
-            top: 30%;
-            color: #000000;
-            background-color: #ffffff;
-            text-align: center;
-            padding: 1em;
-            border: 2px black solid;
-        }
-
-        #quicksearchbox input {
-            color: #000000;
-            background-color: #ffffff;
-        }
-
-        #calm {
-            z-index: 98;
-            position: absolute;
-            left: 30%;
-            top: 30%;
-            color: #000000;
-            background-color: #ffffff;
-            text-align: center;
-            padding: 1em;
-            border: 2px black solid;
-        }
-
-        #calm input {
-            color: #000000;
-            background-color: #ffffff;
-        }
-
-        #pagocapt td {
-            background-color: #ffffff;
-        }
-
-        #pagocapt2 td {
-            background-color: #ffffff;
-        }
-
-        .visitable td {
-            border: 0;
-            background-color: transparent;
-            width: auto;
-        }
-
-        #buttonbox form {
-            float: left
-        }
-
-        .buttons {
-            float: left;
-            width: auto
-        }
-
-        .buttons input {
-            float: left
-        }
-
-        .buttons button {
-            float: left;
-            width: auto
-        }
-
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css"
+          media="all"/>
+    <link rel="stylesheet" href="/css/resumen.css" />
+    <style>
         <?php if ($notalert > 0) { ?>
         #notasq input {
             background-color: #ff0000;
         }
 
         <?php
-    }
-    if ($pagalert > 0) {
+        }
+        if ($pagalert > 0) {
         ?>
         #pagos input {
             background-color: #ff0000;
         }
 
         <?php
-    }
-    if ((preg_match('/[dv]o$/', $status_de_credito)) && ($mytipo <> 'admin')) {
+        }
+        if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
         ?>
         #GUARDbutt {
             display: none;
@@ -333,58 +30,15 @@
 
         <?php } ?>
         <?php if ($mytipo == 'visitador') { ?>
-        #databox, #prombox, #nuevoboxt, #combox, #guardbox, #dtelboxt, #clock {
+        #dataBox, #clock {
             display: none;
         }
 
-        #visitboxt, #visitbox {
-            display: block;
-        }
-
         <?php } ?>
-        .deudor {
-            color: #ff0000;
-        }
-
-        .visit {
-            color: #00aa00;
-        }
-
-        #avalbox input {
-            font-size: 85%
-        }
-
-        #avalbox .shortinp {
-            width: 5em;
-        }
-
-        ul.tabs {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        ul.tabs li {
-            float: left;
-            padding: 0;
-            background: url(/tab_right.png) no-repeat right top;
-            margin: 0 1px 0 0;
-        }
-
-        ul.tabs li a {
-            display: block;
-            padding: 0 10px;
-            color: #fff;
-            text-decoration: none;
-            background: url(/tab_left.png) no-repeat left top;
-        }
-
-        ul.tabs li a:hover {
-            color: #ff0;
-        }
     </style>
-    <script type="text/javascript" src="/js/external/dom-drag.js"></script>
-    <SCRIPT TYPE="text/JavaScript">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+    <SCRIPT>
         function aviso() {
         }
 
@@ -396,7 +50,6 @@
             document.getElementById("MISCELANEA").style.display = "none";
             document.getElementById("VISITA").style.display = "none";
             document.getElementById("HISTORIA").style.display = "none";
-            document.getElementById("EXTRAS").style.display = "none";
             document.getElementById(pageid).style.display = "block";
             if (document.getElementById("GESTION")) {
                 document.getElementById("GESTION").style.display = "block";
@@ -415,19 +68,6 @@
             <?php } ?>
         }
 
-        function npromChange(thisform) {
-            thisform.N_PROM.value = thisform.N_PROM1.value + thisform.N_PROM2.value
-                + thisform.N_PROM3.value + thisform.N_PROM4.value;
-        }
-
-        function statusChange(thisform) {
-            if (thisform.C_CVST.substr(0, 3) === "PAG") {
-                document.getElementById("pagocapt").style.backgroundColor = "yellow";
-                document.getElementById("pagocapt2").style.backgroundColor = "yellow";
-                document.getElementById("pagocaptv").style.backgroundColor = "yellow";
-            }
-        }
-
         function clock() {
             const d = new Date();
             const tn = d.getTime();
@@ -435,11 +75,11 @@
             const tl = tll.getTime();
             document.getElementById("timer").value = tn - tl;
             document.getElementById("timers").value = (parseInt(document.getElementById("timer").value) / 1000) % 60;
-            document.getElementById("timerm").value = parseInt(document.getElementById("timer").value) / 1000 / 60;
-            if (document.getElementById("timerm").value > 2) {
+            document.getElementById("timerMin").value = parseInt(document.getElementById("timer").value) / 1000 / 60;
+            if (document.getElementById("timerMin").value > 2) {
                 document.getElementById("clock").style.backgroundColor = "yellow";
             }
-            if (document.getElementById("timerm").value > 4) {
+            if (document.getElementById("timerMin").value > 4) {
                 document.getElementById("clock").style.backgroundColor = "red";
             }
             if (document.getElementById("timer").value % 2 === 0) {
@@ -477,151 +117,151 @@
             $nn = 0;
             $highlight = filter_input(INPUT_GET, 'highlight',
                 FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $hfind = filter_input(INPUT_GET, 'hfind',
+            $hFind = filter_input(INPUT_GET, 'hFind',
                 FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (empty($highlight)) {
-                $xfield[0] = '';
-                $xfind = '';
+                $xField[0] = '';
+                $xFind = '';
             } else {
-                $xfield[0] = $highlight;
-                $xfind = "/" . $hfind . "/";
+                $xField[0] = $highlight;
+                $xFind = "/" . $hFind . "/";
             }
-            $ofield = $xfield[0];
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_1))) {
-                $xfield[$nn] = 'tel_1';
+            $oField = $xField[0];
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_1))) {
+                $xField[$nn] = 'tel_1';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_2))) {
-                $xfield[$nn] = 'tel_2';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_2))) {
+                $xField[$nn] = 'tel_2';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_3))) {
-                $xfield[$nn] = 'tel_3';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_3))) {
+                $xField[$nn] = 'tel_3';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_4))) {
-                $xfield[$nn] = 'tel_4';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_4))) {
+                $xField[$nn] = 'tel_4';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind,
+            if (($oField == 'TELS') && (preg_match($xFind,
                     $tel_1_alterno))) {
-                $xfield[$nn] = 'tel_1_alterno';
+                $xField[$nn] = 'tel_1_alterno';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind,
+            if (($oField == 'TELS') && (preg_match($xFind,
                     $tel_2_alterno))) {
-                $xfield[$nn] = 'tel_2_alterno';
+                $xField[$nn] = 'tel_2_alterno';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind,
+            if (($oField == 'TELS') && (preg_match($xFind,
                     $tel_3_alterno))) {
-                $xfield[$nn] = 'tel_3_alterno';
+                $xField[$nn] = 'tel_3_alterno';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind,
+            if (($oField == 'TELS') && (preg_match($xFind,
                     $tel_4_alterno))) {
-                $xfield[$nn] = 'tel_4_alterno';
+                $xField[$nn] = 'tel_4_alterno';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_1_verif))) {
-                $xfield[$nn] = 'tel_1_verif';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_1_verif))) {
+                $xField[$nn] = 'tel_1_verif';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_2_verif))) {
-                $xfield[$nn] = 'tel_2_verif';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_2_verif))) {
+                $xField[$nn] = 'tel_2_verif';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_3_verif))) {
-                $xfield[$nn] = 'tel_3_verif';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_3_verif))) {
+                $xField[$nn] = 'tel_3_verif';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_4_verif))) {
-                $xfield[$nn] = 'tel_4_verif';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_4_verif))) {
+                $xField[$nn] = 'tel_4_verif';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind,
+            if (($oField == 'TELS') && (preg_match($xFind,
                     $tel_1_laboral))) {
-                $xfield[$nn] = 'tel_1_laboral';
+                $xField[$nn] = 'tel_1_laboral';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind,
+            if (($oField == 'TELS') && (preg_match($xFind,
                     $tel_2_laboral))) {
-                $xfield[$nn] = 'tel_2_laboral';
+                $xField[$nn] = 'tel_2_laboral';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_1_ref_1))) {
-                $xfield[$nn] = 'tel_1_ref_1';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_1_ref_1))) {
+                $xField[$nn] = 'tel_1_ref_1';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_2_ref_1))) {
-                $xfield[$nn] = 'tel_2_ref_1';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_2_ref_1))) {
+                $xField[$nn] = 'tel_2_ref_1';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_1_ref_2))) {
-                $xfield[$nn] = 'tel_1_ref_2';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_1_ref_2))) {
+                $xField[$nn] = 'tel_1_ref_2';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_2_ref_2))) {
-                $xfield[$nn] = 'tel_2_ref_2';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_2_ref_2))) {
+                $xField[$nn] = 'tel_2_ref_2';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_1_ref_3))) {
-                $xfield[$nn] = 'tel_1_ref_3';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_1_ref_3))) {
+                $xField[$nn] = 'tel_1_ref_3';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_2_ref_3))) {
-                $xfield[$nn] = 'tel_2_ref_3';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_2_ref_3))) {
+                $xField[$nn] = 'tel_2_ref_3';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_1_ref_4))) {
-                $xfield[$nn] = 'tel_1_ref_4';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_1_ref_4))) {
+                $xField[$nn] = 'tel_1_ref_4';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind, $tel_2_ref_4))) {
-                $xfield[$nn] = 'tel_2_ref_4';
+            if (($oField == 'TELS') && (preg_match($xFind, $tel_2_ref_4))) {
+                $xField[$nn] = 'tel_2_ref_4';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'TELS') && (preg_match($xfind,
+            if (($oField == 'TELS') && (preg_match($xFind,
                     $telefonos_marcados))) {
-                $xfield[$nn] = 'telefonos_marcados';
+                $xField[$nn] = 'telefonos_marcados';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'REFS') && (preg_match($xfind,
+            if (($oField == 'REFS') && (preg_match($xFind,
                     $nombre_deudor_alterno))) {
-                $xfield[$nn] = 'nombre_deudor_alterno';
+                $xField[$nn] = 'nombre_deudor_alterno';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'REFS') && (preg_match($xfind,
+            if (($oField == 'REFS') && (preg_match($xFind,
                     $nombre_referencia_1))) {
-                $xfield[$nn] = 'nombre_referencia_1';
+                $xField[$nn] = 'nombre_referencia_1';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'REFS') && (preg_match($xfind,
+            if (($oField == 'REFS') && (preg_match($xFind,
                     $nombre_referencia_2))) {
-                $xfield[$nn] = 'nombre_referencia_2';
+                $xField[$nn] = 'nombre_referencia_2';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'REFS') && (preg_match($xfind,
+            if (($oField == 'REFS') && (preg_match($xFind,
                     $nombre_referencia_3))) {
-                $xfield[$nn] = 'nombre_referencia_3';
+                $xField[$nn] = 'nombre_referencia_3';
                 $nn = $nn + 1;
             }
-            if (($ofield == 'REFS') && (preg_match($xfind,
+            if (($oField == 'REFS') && (preg_match($xFind,
                     $nombre_referencia_4))) {
-                $xfield[$nn] = 'nombre_referencia_4';
+                $xField[$nn] = 'nombre_referencia_4';
                 $nn = $nn + 1;
             }
-            if ($ofield == 'ROBOT') {
-                $xfield[$nn] = 'historybody';
+            if ($oField == 'ROBOT') {
+                $xField[$nn] = 'historyBody';
                 $nn = $nn + 1;
             }
             $n = 0;
-            while (isset($xfield[$n])) {
-            if (!empty($xfield[$n])) {
+            while (isset($xField[$n])) {
+            if (!empty($xField[$n])) {
             ?>
-            document.getElementById("<?php echo $xfield[$n] ?>").style.backgroundColor = "yellow";
-            document.getElementById("<?php echo $xfield[$n] ?>").style.fontWeight = "bold";
-            document.getElementById("<?php echo $xfield[$n] ?>").parentElement.style.display = "block";
+            document.getElementById("<?php echo $xField[$n] ?>").style.backgroundColor = "yellow";
+            document.getElementById("<?php echo $xField[$n] ?>").style.fontWeight = "bold";
+            document.getElementById("<?php echo $xField[$n] ?>").parentElement.style.display = "block";
             <?php
             }
             $n++;
@@ -660,29 +300,20 @@
         }
 
         function showsearch() {
-            document.getElementById('searchbox').style.display = "block";
+            document.getElementById('searchBox').style.display = "block";
             document.getElementById('find').focus();
         }
 
-        function cancelbox(boxname) {
-            document.getElementById(boxname).style.display = "none";
-        }
-
-        function addToTels(pos, tel) {
-            document.getElementById("C_TELE").options[pos] = new Option(tel.value, tel.value, true, true);
-            document.getElementById("C_TELE").options[pos].style.fontWeight = "bold";
-            document.getElementById("C_TELE").options[pos].style.backgroundColor = "#00FF00";
-        }
     </SCRIPT>
-    <script type="text/javascript" src="/js/depuracion.js"></script>
-    <script type="text/javascript" src="/js/depuracionv.js"></script>
-    <SCRIPT TYPE="text/JavaScript" SRC="/js/external/CalendarPopup.js"></SCRIPT>
+    <script src="/js/resumen.js"></script>
+    <script src="/js/depuracion.js"></script>
+    <script src="/js/depuracionv.js"></script>
 </head>
-<body onLoad="alerttxt = '';
+<body onLoad="alertTxt = '';
                 paging('HISTORIA');
                 openSearch();
                 aviso();" id="todos">
-<div id="buttonbox">
+<div id="buttonBox">
     <?php if (($go == 'FROMULTIMA') || ($go == 'FROMBUSCAR')) { ?>
         <form class="buttons" name="seg" method="get" action=
         "/resumen.php" id="segid">
@@ -787,42 +418,13 @@
         ?>">
         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
         <input type="submit" name="go" value="LOGOUT"></form>
-    <?php if ($camp == 0) { ?>
-        <form action="/resumen.php" method="get">
-            <input type="hidden" name="capt" value="<?php echo $capt ?>">
-            <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
-            <select name="clientefilt" onChange="this.form.submit()">
-                <option value="" <?php if (!empty($clientefilt)) {
-                    ?>
-                    selected="selected"
-                <?php } ?>>todos
-                </option>
-                <?php
-                foreach ($resultfilt as $answerfilt) {
-                    ?>
-                    <option value="<?php echo $answerfilt['cliente']; ?>" <?php
-                    if (($cliente == $answerfilt['cliente']) && ($sdc
-                            == $answerfilt['sdc']) && ($cr == $answerfilt['queue'])) {
-                        ?>
-                        selected='selected'
-                        <?php
-                    }
-                    ?>><?php echo $answerfilt['cliente'] . ' ' . $answerfilt['sdc'] . ' ' . $answerfilt['queue']; ?>
-                    </option>
-                    <?php
-                }
-                ?>
-            </select>
-        </form>
-        <?php
-    } else {
-        if (empty($cliente)) {
-            $cliente = '';
-        }
-        ?>
-        <button><?php echo $cliente . ' ' . $sdc . ' ' . $cr ?></BUTTON>
-        <?php
+    <?php
+    if (empty($cliente)) {
+        $cliente = '';
     }
+    ?>
+    <button><?php echo $cliente . ' ' . $sdc . ' ' . $cr ?></BUTTON>
+    <?php
     if ($mytipo == 'admin') {
         ?>
         <form action="/reports.php" method="get">
@@ -852,41 +454,33 @@
     ?>
 
 </div>
-<div class="clearbox">
+<div class="clearBox">
     <UL class='tabs'>
         <LI><A onClick="paging('TELEFONOS')">TELEFONOS</A></LI>
         <LI><A onClick="paging('REFERENCIAS')">REFERENCIAS</A></LI>
         <LI><A onClick="paging('LABORAL')">LABORAL</A></LI>
         <LI><A onClick="paging('CONTABLES')">CONTABLES</A></LI>
-        <LI><A onClick="paging('MISCELANEA')">MISCELANEA</A></LI>
-        <?php
-        if ($others > 1) {
-            ?>
-            <LI><A onClick="paging('EXTRAS');">OTRAS CUENTAS</A></LI>
-        <?php } ?>
-        <?php if ($cliente == 'Surtidor del Hogar') { ?>
-            <LI><A onClick="paging('EXTRAS');">PRODUCTOS</A></LI>
-        <?php } ?>
+        <LI><A onClick="paging('MISCELANEA')">MISCELÁNEA</A></LI>
         <LI><A onClick="paging('VISITA')">CAPTURA VISITA</A></LI>
         <LI><A onClick="paging('HISTORIA')">HISTORIA</A></LI>
     </UL>
 </div>
-<form action="/resumen.php" method="post" name="resumenform" id=
-"resumenform">
+<form action="/resumen.php" method="post" name="resumenForm" id="resumenForm">
     <div id="GENERAL">
         <table id="demograficas">
             <tr>
                 <td>
-                    <span class='formcapa' id='deudor'>Deudor</span><input type='text' size=80 style='width:12cm'
-                                                                           name=nombre_deudor id="nombre_deudor"
-                                                                           readonly='readonly' value='<?php
+                    <label class='formLabel' for='nombre_deudor'>Deudor</label>
+                    <input type='text' size=80 style='width:12cm'
+                           name=nombre_deudor id="nombre_deudor"
+                           readonly='readonly' value='<?php
                     if (isset($nombre_deudor)) {
                         echo htmlentities($nombre_deudor);
                     }
                     ?>'><br>
                 </td>
                 <td>
-                    <span class='formcapa' id='domicilio'>Domicilio</span>
+                    <label class='formLabel' for='domicilio_deudor'>Domicilio</label>
                     <textarea name=domicilio_deudor id=domicilio_deudor readonly='readonly' rows=4 cols=20>
                                     <?php echo $domicilio_deudor . "\n" . $colonia_deudor . "\n" . $ciudad_deudor . ", " . $estado_deudor . '  ' . $cp_deudor; ?>
                                     <?php
@@ -896,15 +490,16 @@
                                     ?>
                                 </textarea><br>
                     <?php if (!empty($direccion_nueva)) { ?>
-                        <span class='formcapa'>Direcci&oacute;n nueva</span><input type='text' name=direccion_nueva
-                                                                                   readonly='readonly'
-                                                                                   value='<?php echo $direccion_nueva; ?>'>
+                        <label class='formLabel' for="direccion_nueva">Dirección nueva</label>
+                        <input type='text' id=direccion_nueva name=direccion_nueva readonly='readonly'
+                               value='<?php echo $direccion_nueva; ?>'>
                         <br>
                         <?php
                     }
                     if (substr($cliente, 0, 9) == "INFONAVIT") {
                         ?>
-                        <span class='formcapa'>NSS</span><input type='text' name=nss readonly='readonly' value='<?php
+                        <label class='formLabel' for="nss">NSS</label>
+                        <input type='text' id=nss name=nss readonly='readonly' value='<?php
                         if (isset($nss)) {
                             echo $nss;
                         }
@@ -913,32 +508,30 @@
                     }
                     if (!empty($avapar)) {
                         ?>
-                        <span class='formcapa'>Referencia OXXO</span>
-                        <input type='text' name=nss readonly='readonly' value='<?php
-                        if (isset($avapar)) {
-                            echo $avapar;
-                        }
-                        ?>'><br>
+                        <span class='formLabel'>Referencia OXXO</span>
+                        <?php echo $avapar; ?><br>
                     <?php } ?>
                 </td>
             <tr>
                 <td>
-                    <span class='formcapa'>Gestor - call center</span><input type='text'
-                                                                             name=ejecutivo_asignado_call_center
-                                                                             readonly='readonly' value='<?php
+                    <label class='formLabel' for="ejecutivo_asignado_call_center">Gestor - call center</label>
+                    <input type='text' id=ejecutivo_asignado_call_center name=ejecutivo_asignado_call_center
+                           readonly='readonly' value='<?php
                     if (isset($ejecutivo_asignado_call_center)) {
                         echo $ejecutivo_asignado_call_center;
                     }
                     ?>'><br>
-                    <span class='formcapa'>Numero de cuenta</span><input type='text' name=numero_de_cuenta
-                                                                         id="numero_de_cuenta" readonly='readonly'
-                                                                         value='<?php
-                                                                         if (isset($numero_de_cuenta)) {
-                                                                             echo $numero_de_cuenta;
-                                                                         }
-                                                                         ?>'><br>
-                    <span class='formcapa'>Status de cuenta</span><input type='text' name=status_aarsa
-                                                                         readonly='readonly' value='<?php
+                    <label class='formLabel' for="numero_de_cuenta">Numero de cuenta</label>
+                    <input type='text' name=numero_de_cuenta
+                           id="numero_de_cuenta" readonly='readonly'
+                           value='<?php
+                           if (isset($numero_de_cuenta)) {
+                               echo $numero_de_cuenta;
+                           }
+                           ?>'><br>
+                    <label class='formLabel' for="status_aarsa">Status de cuenta</label>
+                    <input type='text' id=status_aarsa name=status_aarsa
+                           readonly='readonly' value='<?php
                     if (isset($status_aarsa)) {
                         echo $status_aarsa;
                     }
@@ -950,51 +543,56 @@
                 <td>
                     <div id='clock'>
                         <input type="hidden" name="timer" id="timer" readonly="readonly" value="0">:
-                        <input type="text" name="timerm" id="timerm" readonly="readonly" value="0" size="3">:
+                        <input type="text" name="timerMin" id="timerMin" readonly="readonly" value="0" size="3">:
                         <input type="text" name="timers" id="timers" readonly="readonly" value="0" size="3"><br>
                         <?php
-                        $campoc = " style='background-color:red; color:white;'";
-                        $numgest = $resultng['cng'] or 0;
-                        $numprom = $resultnp['cnp'] or 0;
+                        $campoColor = " style='background-color:red; color:white;'";
+                        $numGestiones = $resultng['cng'] or 0;
+                        $numProm = $resultnp['cnp'] or 0;
 
-                        if ($numgest > 20) {
-                            $campoc = " style='background-color:yellow; color:black;'";
+                        if ($numGestiones > 20) {
+                            $campoColor = " style='background-color:yellow; color:black;'";
                         }
-                        if ($numgest > 40) {
-                            $campoc = " style='background-color:green; color:white;'";
+                        if ($numGestiones > 40) {
+                            $campoColor = " style='background-color:green; color:white;'";
                         }
                         ?>
-                        <input type="text"<?php echo $campoc; ?> name="numgest" id="numgest" readonly="readonly"
-                               value="<?php echo $numgest . ' gestiones'; ?>">
+                        <input type="text"<?php echo $campoColor; ?> name="numgest" id="numgest" readonly="readonly"
+                               value="<?php echo $numGestiones . ' gestiones'; ?>">
                         <input type="text" name="numprom" id="numprom" readonly="readonly"
-                               value="<?php echo $numprom . ' promesas'; ?>">
+                               value="<?php echo $numProm . ' promesas'; ?>">
                     </div>
                 </td>
             </tr>
         </table>
     </div>
     <div id="TELEFONOS">
-        <span class='formcap'>Tel Casa</span><input type='text' name=tel_1 id="tel_1" readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel Casa</label>
+        <input type='text' name=tel_1 id="tel_1" readonly='readonly' value='<?php
         if (isset($tel_1)) {
             echo $tel_1;
         }
         ?>'><br>
-        <span class='formcap'>Tel Cel</span><input type='text' name=tel_2 id="tel_2" readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel Cel</label>
+        <input type='text' name=tel_2 id="tel_2" readonly='readonly' value='<?php
         if (isset($tel_2)) {
             echo $tel_2;
         }
         ?>'><br>
-        <span class='formcap'>Tel 3</span><input type='text' name=tel_3 id="tel_3" readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel 3</label>
+        <input type='text' name=tel_3 id="tel_3" readonly='readonly' value='<?php
         if (isset($tel_3)) {
             echo $tel_3;
         }
         ?>'><br>
-        <span class='formcap'>Tel 4</span><input type='text' name=tel_4 id="tel_4" readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel 4</label>
+        <input type='text' name=tel_4 id="tel_4" readonly='readonly' value='<?php
         if (isset($tel_4)) {
             echo $tel_4;
         }
         ?>'><br>
-        <span class='formcap'>E-mail</span><input type='text' name=email_deudor readonly='readonly' value='<?php
+        <label class='formLabelBig'>E-mail</label>
+        <input type='text' name=email_deudor readonly='readonly' value='<?php
         if (isset($email_deudor)) {
             echo $email_deudor;
         }
@@ -1002,8 +600,9 @@
     </div>
     <div id="REFERENCIAS">
         <?php if (isset($nombre_deudor_alterno)) { ?>
-            <span class='formcaps'>Recadero</span><input type='text' name=nombre_deudor_alterno
-                                                         id="nombre_deudor_alterno" readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Recadero</label>
+            <input type='text' name=nombre_deudor_alterno
+                   id="nombre_deudor_alterno" readonly='readonly' value='<?php
             if (isset($nombre_deudor_alterno)) {
                 echo htmlentities($nombre_deudor_alterno);
             }
@@ -1012,7 +611,7 @@
         }
         if (isset($domicilio_deudor_alterno)) {
             ?>
-            <br><span class='formcaps'>Dirección Recadero</span>
+            <br><label class='formLabelSmall'>Dirección Recadero</label>
             <textarea readonly='readonly'><?php
                 echo $domicilio_deudor_alterno . "\n" .
                     $colonia_deudor_alterno . "\n" .
@@ -1048,8 +647,9 @@
         <?php } ?>
         <br>
         <?php if (isset($tel_1_alterno)) { ?>
-            <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_alterno id="tel_1_alterno"
-                                                         readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Casa</label>
+            <input type='text' name=tel_1_alterno id="tel_1_alterno"
+                   readonly='readonly' value='<?php
             if (isset($tel_1_alterno)) {
                 echo $tel_1_alterno;
             }
@@ -1058,8 +658,9 @@
         }
         if (isset($tel_2_alterno)) {
             ?>
-            <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_alterno id="tel_2_alterno"
-                                                        readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Cel</label>
+            <input type='text' name=tel_2_alterno id="tel_2_alterno"
+                   readonly='readonly' value='<?php
             if (isset($tel_2_alterno)) {
                 echo $tel_2_alterno;
             }
@@ -1068,8 +669,9 @@
         }
         if (isset($tel_3_alterno)) {
             ?>
-            <span class='formcaps'>Tel 3</span><input type='text' name=tel_3_alterno id="tel_3_alterno"
-                                                      readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel 3</label>
+            <input type='text' name=tel_3_alterno id="tel_3_alterno"
+                   readonly='readonly' value='<?php
             if (isset($tel_3_alterno)) {
                 echo $tel_3_alterno;
             }
@@ -1078,8 +680,9 @@
         }
         if (isset($tel_4_alterno)) {
             ?>
-            <span class='formcaps'>Tel 4</span><input type='text' name=tel_4_alterno id="tel_4_alterno"
-                                                      readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel 4</label>
+            <input type='text' name=tel_4_alterno id="tel_4_alterno"
+                   readonly='readonly' value='<?php
             if (isset($tel_4_alterno)) {
                 echo $tel_4_alterno;
             }
@@ -1088,9 +691,9 @@
         }
         if ($cliente == 'UR') {
             ?>
-            <span class='formcap'>Madre</span>
+            <label class='formLabelBig'>Madre</label>
         <?php } else { ?>
-            <span class='formcaps'>Ref 1</span>
+            <label class='formLabelSmall'>Ref 1</label>
             <?php
         }
         if (isset($nombre_referencia_1)) {
@@ -1113,8 +716,9 @@
         <?php } ?>
         <br>
         <?php if (isset($tel_1_ref_1)) { ?>
-            <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_ref_1 id="tel_1_ref_1"
-                                                         readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Casa</label>
+            <input type='text' name=tel_1_ref_1 id="tel_1_ref_1"
+                   readonly='readonly' value='<?php
             if (isset($tel_1_ref_1)) {
                 echo $tel_1_ref_1;
             }
@@ -1123,8 +727,9 @@
         }
         if (isset($tel_2_ref_1)) {
             ?>
-            <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_ref_1 id="tel_2_ref_1"
-                                                        readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Cel</label>
+            <input type='text' name=tel_2_ref_1 id="tel_2_ref_1"
+                   readonly='readonly' value='<?php
             if (isset($tel_2_ref_1)) {
                 echo $tel_2_ref_1;
             }
@@ -1132,7 +737,7 @@
             <?php
         }
         ?>
-        <span class='formcaps'>Ref 2</span>
+        <label class='formLabelSmall'>Ref 2</label>
         <?php if (isset($nombre_referencia_2)) { ?>
             <input type='text' size=40 name=nombre_referencia_2 id="nombre_referencia_2" readonly='readonly'
                    value='<?php
@@ -1152,8 +757,9 @@
         <?php } ?>
         <br>
         <?php if (isset($tel_1_ref_2)) { ?>
-            <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_ref_2 id="tel_1_ref_2"
-                                                         readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Casa</label>
+            <input type='text' name=tel_1_ref_2 id="tel_1_ref_2"
+                   readonly='readonly' value='<?php
             if (isset($tel_1_ref_2)) {
                 echo $tel_1_ref_2;
             }
@@ -1162,8 +768,9 @@
         }
         if (isset($tel_2_ref_2)) {
             ?>
-            <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_ref_2 id="tel_2_ref_2"
-                                                        readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Cel</label>
+            <input type='text' name=tel_2_ref_2 id="tel_2_ref_2"
+                   readonly='readonly' value='<?php
             if (isset($tel_2_ref_2)) {
                 echo $tel_2_ref_2;
             }
@@ -1172,9 +779,9 @@
         }
         if ($cliente == 'UR') {
             ?>
-            <span class='formcap'>Tutor</span>
+            <label class='formLabelBig'>Tutor</label>
         <?php } else { ?>
-            <span class='formcaps'>Ref 3</span>
+            <label class='formLabelSmall'>Ref 3</label>
             <?php
         }
         if (isset($nombre_referencia_3)) {
@@ -1197,8 +804,9 @@
         <?php } ?>
         <br>
         <?php if (isset($tel_1_ref_3)) { ?>
-            <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_ref_3 id="tel_1_ref_3"
-                                                         readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Casa</label>
+            <input type='text' name=tel_1_ref_3 id="tel_1_ref_3"
+                   readonly='readonly' value='<?php
             if (isset($tel_1_ref_3)) {
                 echo $tel_1_ref_3;
             }
@@ -1207,8 +815,9 @@
         }
         if (isset($tel_2_ref_3)) {
             ?>
-            <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_ref_3 id="tel_2_ref_3"
-                                                        readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Cel</label>
+            <input type='text' name=tel_2_ref_3 id="tel_2_ref_3"
+                   readonly='readonly' value='<?php
             if (isset($tel_2_ref_3)) {
                 echo $tel_2_ref_3;
             }
@@ -1217,7 +826,7 @@
         }
         if (isset($nombre_referencia_4)) {
             ?>
-            <span class='formcaps'>Ref 4</span>
+            <label class='formLabelSmall'>Ref 4</label>
             <input type='text' size=40 name=nombre_referencia_4 id="nombre_referencia_4" readonly='readonly'
                    value='<?php
                    if (isset($nombre_referencia_4)) {
@@ -1236,8 +845,9 @@
         <?php } ?>
         <br>
         <?php if (isset($tel_1_ref_4)) { ?>
-            <span class='formcaps'>Tel Casa</span><input type='text' name=tel_1_ref_4 id="tel_1_ref_4"
-                                                         readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Casa</label>
+            <input type='text' name=tel_1_ref_4 id="tel_1_ref_4"
+                   readonly='readonly' value='<?php
             if (isset($tel_1_ref_4)) {
                 echo $tel_1_ref_4;
             }
@@ -1246,8 +856,9 @@
         }
         if (isset($tel_2_ref_4)) {
             ?>
-            <span class='formcaps'>Tel Cel</span><input type='text' name=tel_2_ref_4 id="tel_2_ref_4"
-                                                        readonly='readonly' value='<?php
+            <label class='formLabelSmall'>Tel Cel</label>
+            <input type='text' name=tel_2_ref_4 id="tel_2_ref_4"
+                   readonly='readonly' value='<?php
             if (isset($tel_2_ref_4)) {
                 echo $tel_2_ref_4;
             }
@@ -1256,68 +867,48 @@
     </div>
 
     <div id="LABORAL">
-        <span class='formcap'>Empresa</span><input type='text' size=100 name=empresa readonly='readonly' value='<?php
+        <label class='formLabelBig'>Empresa</label>
+        <input type='text' size=100 name=empresa readonly='readonly' value='<?php
         if (isset($empresa)) {
             echo $empresa;
         }
         ?>'><br>
-        <span class='formcap'>Domicilio</span><input type='text' name=domicilio_laboral readonly='readonly' value='<?php
+        <label class='formLabelBig'>Domicilio</label>
+        <input type='text' name=domicilio_laboral readonly='readonly' value='<?php
         if (isset($domicilio_laboral)) {
             echo $domicilio_laboral;
         }
         ?>'><br>
-        <span class='formcap'>Colonia</span><input type='text' name=colonia_laboral readonly='readonly' value='<?php
+        <label class='formLabelBig'>Colonia</label>
+        <input type='text' name=colonia_laboral readonly='readonly' value='<?php
         if (isset($colonia_laboral)) {
             echo $colonia_laboral;
         }
         ?>'><br>
-        <span class='formcap'>Ciudad Estado</span><input type='text' name=ciudad_laboral readonly='readonly'
-                                                         value='<?php
-                                                         if (isset($ciudad_laboral)) {
-                                                             echo $ciudad_laboral;
-                                                         }
-                                                         ?>'><br>
+        <label class='formLabelBig'>Ciudad Estado</label>
+        <input type='text' name=ciudad_laboral readonly='readonly'
+               value='<?php
+               if (isset($ciudad_laboral)) {
+                   echo $ciudad_laboral;
+               }
+               ?>'><br>
         <br>
-        <span class='formcap'>Tel 1</span><input type='text' name=tel_1_laboral id="tel_1_laboral" readonly='readonly'
-                                                 value='<?php
-                                                 if (isset($tel_1_laboral)) {
-                                                     echo $tel_1_laboral;
-                                                 }
-                                                 ?>'><br>
-        <span class='formcap'>Tel 2</span><input type='text' name=tel_2_laboral id="tel_2_laboral" readonly='readonly'
-                                                 value='<?php
-                                                 if (isset($tel_2_laboral)) {
-                                                     echo $tel_2_laboral;
-                                                 }
-                                                 ?>'><br>
+        <label class='formLabelBig'>Tel 1</label>
+        <input type='text' name=tel_1_laboral id="tel_1_laboral" readonly='readonly'
+               value='<?php
+               if (isset($tel_1_laboral)) {
+                   echo $tel_1_laboral;
+               }
+               ?>'><br>
+        <label class='formLabelBig'>Tel 2</label>
+        <input type='text' name=tel_2_laboral id="tel_2_laboral" readonly='readonly'
+               value='<?php
+               if (isset($tel_2_laboral)) {
+                   echo $tel_2_laboral;
+               }
+               ?>'><br>
     </div>
     <br>
-    <div id="EXTRAS">
-        <table id="sdh_extras">
-            <tr>
-                <th>Cliente</th>
-                <th>Segmento</th>
-                <th>Status</th>
-                <th>Cuenta</th>
-                <th>Producto</th>
-                <th>Saldo capital</th>
-                <th>Saldo descuento</th>
-            </tr>
-            <?php
-            foreach ($resultextra as $answerextra) {
-                ?>
-                <tr>
-                    <td><?php echo $answerextra['cliente']; ?></td>
-                    <td><?php echo $answerextra['status_de_credito']; ?></td>
-                    <td><?php echo $answerextra['status_aarsa']; ?></td>
-                    <td><?php echo $answerextra['numero_de_cuenta']; ?></td>
-                    <td><?php echo $answerextra['productos']; ?></td>
-                    <td><?php echo number_format($answerextra['sd'], 2); ?></td>
-                    <td><?php echo number_format($answerextra['sdd'], 2); ?></td>
-                </tr>
-            <?php } ?>
-        </table>
-    </div>
 
     <div id="CONTABLES">
         <table id="contablesTable">
@@ -1521,44 +1112,51 @@
         </table>
     </div>
     <div id="MISCELANEA">
-        <span class='formcap'>Telefonos marcados</span><input type='text' name="telefonos_marcados"
-                                                              id="telefonos_marcados" readonly='readonly' value='<?php
+        <label class='formLabelBig'>Telefonos marcados</label>
+        <input type='text' name="telefonos_marcados"
+               id="telefonos_marcados" readonly='readonly' value='<?php
         if (isset($telefonos_marcados)) {
             echo $telefonos_marcados;
         }
         ?>'><br>
-        <span class='formcap'>Tel 1 verificado</span><input type='text' name="tel_1_verif" id="tel_1_verif"
-                                                            readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel 1 verificado</label>
+        <input type='text' name="tel_1_verif" id="tel_1_verif"
+               readonly='readonly' value='<?php
         if (isset($tel_1_verif)) {
             echo $tel_1_verif;
         }
         ?>'><br>
-        <span class='formcap'>Tel 2 verificado</span><input type='text' name="tel_2_verif" id="tel_2_verif"
-                                                            readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel 2 verificado</label>
+        <input type='text' name="tel_2_verif" id="tel_2_verif"
+               readonly='readonly' value='<?php
         if (isset($tel_2_verif)) {
             echo $tel_2_verif;
         }
         ?>'><br>
-        <span class='formcap'>Tel 3 verificado</span><input type='text' name="tel_3_verif" id="tel_3_verif"
-                                                            readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel 3 verificado</label>
+        <input type='text' name="tel_3_verif" id="tel_3_verif"
+               readonly='readonly' value='<?php
         if (isset($tel_3_verif)) {
             echo $tel_3_verif;
         }
         ?>'><br>
-        <span class='formcap'>Tel 4 verificado</span><input type='text' name="tel_4_verif" id="tel_4_verif"
-                                                            readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel 4 verificado</label>
+        <input type='text' name="tel_4_verif" id="tel_4_verif"
+               readonly='readonly' value='<?php
         if (isset($tel_4_verif)) {
             echo $tel_4_verif;
         }
         ?>'><br>
-        <span class='formcap'>Tel de ult. contacto</span><input type='text' name="telefono_de_ultimo_contacto"
-                                                                readonly='readonly' value='<?php
+        <label class='formLabelBig'>Tel de ult. contacto</label>
+        <input type='text' name="telefono_de_ultimo_contacto"
+               readonly='readonly' value='<?php
         if (isset($telefono_de_ultimo_contacto)) {
             echo $telefono_de_ultimo_contacto;
         }
         ?>'><br>
-        <span class='formcap'>Ultimo status</span><input type='text' name='ultimo_status_de_la_gestion'
-                                                         readonly='readonly' value='<?php
+        <label class='formLabelBig'>Ultimo status</label>
+        <input type='text' name='ultimo_status_de_la_gestion'
+               readonly='readonly' value='<?php
         if (isset($ultimo_status_de_la_gestion)) {
             echo $ultimo_status_de_la_gestion;
         }
@@ -1566,7 +1164,7 @@
     </div>
 
 </form>
-<div id="searchbox">
+<div id="searchBox">
     <h2>Buscar</h2>
     <form name="search" method="get" action=
     "/buscar.php" id="search">Buscar a: <input type=
@@ -1583,9 +1181,9 @@
         Client = <select name="cliente">
             <option value=" ">Todos</option>
             <?php
-            foreach ($resultcl as $answercl) {
+            foreach ($resultcl as $clienteList) {
                 ?>
-                <option value="<?php echo $answercl[0]; ?>"><?php echo $answercl[0]; ?>
+                <option value="<?php echo $clienteList[0]; ?>"><?php echo $clienteList[0]; ?>
                 </option>
             <?php } ?>
         </select><br>
@@ -1674,29 +1272,29 @@
             echo $ejecutivo_asignado_call_center;
         }
         ?>">
-        <input type="hidden" name="oldgo" readonly="readonly" value="<?php echo $go; ?>"><br>
+        <input type="hidden" name="oldGo" readonly="readonly" value="<?php echo $go; ?>"><br>
         <p>DICTAMEN DOMICILIO PARTICULAR</p>
         <table class='visitable'>
             <tr>
                 <th>Tipo:</th>
-                <td><label><input type="checkbox" name="domtipo" value="casa" id="casa"> Casa</label></td>
-                <td><label><input type="checkbox" name="domtipo" value="departamento" id="departamento">
+                <td><label><input type="checkbox" name="domTipo" value="casa" id="casa"> Casa</label></td>
+                <td><label><input type="checkbox" name="domTipo" value="departamento" id="departamento">
                         Departamento</label></td>
-                <td><label><input type="checkbox" name="domtipo" value="terreno" id="terreno"> Terreno</label></td>
-                <td><label><input type="checkbox" name="domtipo" value="trabajo" id="trabajo"> Trabajo/Oficina</label>
+                <td><label><input type="checkbox" name="domTipo" value="terreno" id="terreno"> Terreno</label></td>
+                <td><label><input type="checkbox" name="domTipo" value="trabajo" id="trabajo"> Trabajo/Oficina</label>
                 </td>
             </tr>
             <tr>
                 <th>Propio:</th>
-                <td><label><input type="checkbox" name="domown" value="propio" id="propio"> Propio</label></td>
-                <td><label><input type="checkbox" name="domown" value="rentado" id="rentado"> Rentado</label></td>
-                <td><label><input type="checkbox" name="domown" value="abandonado" id="abandonado"> Abandonado</label>
+                <td><label><input type="checkbox" name="domOwn" value="propio" id="propio"> Propio</label></td>
+                <td><label><input type="checkbox" name="domOwn" value="rentado" id="rentado"> Rentado</label></td>
+                <td><label><input type="checkbox" name="domOwn" value="abandonado" id="abandonado"> Abandonado</label>
                 </td>
-                <td><label><input type="checkbox" name="domown" value="deshabilitado" id="deshabilitado"> Deshabilitado</label>
+                <td><label><input type="checkbox" name="domOwn" value="deshabilitado" id="deshabilitado"> Deshabilitado</label>
                 </td>
-                <td><label><input type="checkbox" name="domown" value="invadido" id="invadido"> Invadido</label></td>
-                <td><label><input type="checkbox" name="domown" value="prestado" id="prestado"> Prestado</label></td>
-                <td><label><input type="checkbox" name="domown" value="laborando" id="laborando"> Laborando</label></td>
+                <td><label><input type="checkbox" name="domOwn" value="invadido" id="invadido"> Invadido</label></td>
+                <td><label><input type="checkbox" name="domOwn" value="prestado" id="prestado"> Prestado</label></td>
+                <td><label><input type="checkbox" name="domOwn" value="laborando" id="laborando"> Laborando</label></td>
             </tr>
             <tr>
                 <th>Nivel:</th>
@@ -1706,15 +1304,15 @@
             </tr>
             <tr>
                 <th>Estado:</th>
-                <td><label><input type="checkbox" name="domstat" value="malo" id="malo">Malo</label></td>
-                <td><label><input type="checkbox" name="domstat" value="regular" id="regular">Regular</label></td>
-                <td><label><input type="checkbox" name="domstat" value="bueno" id="bueno">Bueno</label></td>
-                <td><label><input type="checkbox" name="domstat" value="excelente" id="excelente">Excelente</label></td>
+                <td><label><input type="checkbox" name="domStat" value="malo" id="malo">Malo</label></td>
+                <td><label><input type="checkbox" name="domStat" value="regular" id="regular">Regular</label></td>
+                <td><label><input type="checkbox" name="domStat" value="bueno" id="bueno">Bueno</label></td>
+                <td><label><input type="checkbox" name="domStat" value="excelente" id="excelente">Excelente</label></td>
             </tr>
         </table>
         <p>SE&Ntilde;AS:</p>
-        <span class="formcap">Color:</span>
-        <select name="C_CFAC">
+        <label class="formLabelBig" for="C_CFAC">Color:</label>
+        <select id="C_CFAC" name="C_CFAC">
             <option value="no">No especifica</option>
             <option value="Amarilla">Amarilla</option>
             <option value="Azul">Azul</option>
@@ -1737,8 +1335,8 @@
             <option value="Rosa">Rosa</option>
             <option value="Verde">Verde</option>
         </select><br>
-        <span class="formcap">Puerta:</span>
-        <select name="C_CPTA">
+        <label class="formLabelBig" for="C_CPTA">Puerta:</label>
+        <select id="C_CPTA" name="C_CPTA">
             <option value="no">No especifica</option>
             <option value="no_tiene">No tiene</option>
             <option value="Amarilla">Amarilla</option>
@@ -1761,8 +1359,8 @@
             <option value="Rosa">Rosa</option>
             <option value="Verde">Verde</option>
         </select><br>
-        <span class="formcap">Reja/Barandal:</span>
-        <select name="C_CREJ">
+        <label class="formLabelBig" for="C_CREJ">Reja/Barandal:</label>
+        <select id="C_CREJ" name="C_CREJ">
             <option value="no">No especifica</option>
             <option value="No">No tiene</option>
             <option value="Amarilla">Amarilla</option>
@@ -1784,14 +1382,14 @@
             <option value="Rosa">Rosa</option>
             <option value="Verde">Verde</option>
         </select><br>
-        <span class="formcap">Patio/Jard&iacute;n:</span>
-        <select name="C_CPAT">
+        <label class="formLabelBig" for="C_CPAT">Patio/Jard&iacute;n:</label>
+        <select id="C_CPAT" name="C_CPAT">
             <option value="no">No especifica</option>
             <option value="si">S&iacute;</option>
             <option value="no">No</option>
         </select><br>
-        <span class="formcap">Pisos:</span>
-        <select name="C_CNIV">
+        <label class="formLabelBig" for="C_CNIV">Pisos:</label>
+        <select id="C_CNIV" name="C_CNIV">
             <option value="planta baja">planta baja</option>
             <option value="planta alta">planta alta</option>
             <option value="1">1</option>
@@ -1800,8 +1398,8 @@
             <option value=">3">>3</option>
         </select><br>
         <p>DATOS DE LA GESTION</p>
-        <span class="formcap">Hora:</span>
-        <SELECT NAME="C_VH">
+        <label class="formLabelBig" for="C_VH">Hora:</label>
+        <SELECT id="C_VH" NAME="C_VH">
             <OPTION VALUE=0>0</option>
             <OPTION VALUE=1>1</option>
             <OPTION VALUE=2>2</option>
@@ -1890,24 +1488,14 @@
             <OPTION VALUE=59>59</option>
         </select>
         <br>
-        <label for="C_VD" class="formcap">Fecha:</label>
-        <SCRIPT type="text/javascript">
-            const cal6 = new CalendarPopup();
-            cal6.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-            cal6.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-            cal6.setWeekStartDay(1);
-            cal6.setTodayText("Hoy");
-        </SCRIPT>
-        <INPUT TYPE="text" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>" SIZE=15>
-        <BUTTON onClick="cal6.select(document.getElementById('C_VD'), 'anchor6', 'yyyy-MM-dd');
-                            return false;" NAME="anchor6" ID="anchor6">eligir
-        </BUTTON>
+        <label for="C_VD" class="formLabelBig">Fecha:</label>
+        <INPUT TYPE="text" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>">
         <br>
-        <span class="formcap" id="pcap">Parentesco/Cargo</span>
-        <select name="C_CARG">
+        <label class="formLabelBig" id="C_CARGv">Parentesco/Cargo</label>
+        <select name="C_CARG" id="C_CARGv">
             <option value="">&nbsp;</option>
             <option value="Aval">Aval/Recadero</option>
-            <option value="Conyuge">C&oacute;nyuge</option>
+            <option value="Cónyuge">Cónyuge</option>
             <option value="Deudor">Deudor</option>
             <option value="Familiar">Familiar</option>
             <option value="Hermano/a">Hermano/a</option>
@@ -1917,10 +1505,11 @@
             <option value="Padre">Padre</option>
             <option value="Vecino/a">Vecino/a</option>
         </select><br>
-        <span class="formcap">Gestion</span><textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12'
-                                                      onkeypress="tooLong('C_OBSE12')"></textarea><br>
-        <span class="formcap">Acci&oacute;n:</span>
-        <select name="ACCION" style="width: 8cm;">
+        <label class="formLabelBig" for="C_OBSE12">Gestion</label>
+            <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12'
+                      onkeypress="tooLong('C_OBSE12')"></textarea><br>
+        <label class="formLabelBig" for="ACCIONv">Acción:</label>
+        <select id="ACCIONv" name="ACCION" style="width: 8cm;">
             <?php
             foreach ($resultAccionV as $answerAccionV) {
                 ?>
@@ -1930,8 +1519,8 @@
             }
             ?>
         </select><br>
-        <span class="formcap">Status:</span>
-        <select name="C_CVST" style="width: 8cm;" onblur="statusChange(this.form);">
+        <label class="formLabelBig" for="C_CVSTv">Status:</label>
+        <select id="C_CVSTv" name="C_CVST" style="width: 8cm;" onblur="statusChange(this.form);">
             <option value="" selected="selected"></option>
             <?php
             foreach ($resultDictamenV as $answerDictamenV) {
@@ -1942,8 +1531,8 @@
             }
             ?>
         </select><br>
-        <span class="formcap">Motivadores:</span>
-        <select name="MOTIV" style="width: 8cm;">
+        <label class="formLabelBig" for="MOTIVv">Motivadores:</label>
+        <select id="MOTIVv" name="MOTIV" style="width: 8cm;">
             <option style='width: 12cm;' value=" ">
                 <?php
                 foreach ($resultMotivV
@@ -1958,44 +1547,24 @@
         </select><br>
         <table>
             <tr>
-                <td><span class="formcap">Fecha promesa</span>
-                    <SCRIPT type="text/javascript">
-                        var cal7 = new CalendarPopup();
-                        cal7.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                        cal7.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                        cal7.setWeekStartDay(1);
-                        cal7.setTodayText("Hoy");
-                    </SCRIPT>
+                <td><label class="formLabelBig" for="D_PROMv">Fecha promesa</label>
                     <INPUT TYPE="text" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15>
-                    <BUTTON onClick="cal7.select(document.getElementById('D_PROMv'), 'anchor7', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor7" ID="anchor7">eligir
-                    </BUTTON>
                     <br>
-                    <span class="formcap">Cantidad de pago prometido</span>
-                    $<input type="text" name="N_PROMv" value=""><br>
+                    <label class="formLabelBig" for="N_PROMv">Cantidad de pago prometido</label>
+                    $<input type="text" name="N_PROMv" id="N_PROMv" value=""><br>
                 </td>
-                <td id='pagocaptv'><span class="formcap">Fecha ya pag&oacute;</span>
-                    <SCRIPT type="text/javascript">
-                        var cal8 = new CalendarPopup();
-                        cal8.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                        cal8.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                        cal8.setWeekStartDay(1);
-                        cal8.setTodayText("Hoy");
-                    </SCRIPT>
+                <td id='pagocaptv'><label class="formLabelBig" for="D_PAGOv">Fecha ya pagó</label>
                     <INPUT TYPE="text" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15>
-                    <BUTTON onClick="cal8.select(document.getElementById('D_PAGOv'), 'anchor8', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor8" ID="anchor8">eligir
-                    </BUTTON>
                     <br>
-                    <span class="formcap">Cantidad de ya pag&oacute;</span>
-                    $<input type="text" name="N_PAGOv" value=""><br>
+                    <label class="formLabelBig" for="N_PAGOv">Cantidad de ya pagó</label>
+                    $<input type="text" name="N_PAGOv" id="N_PAGOv" value=""><br>
                 </td>
             </tr>
         </table>
-        <span class="formcap">Comentario de promesa</span>
-        <input type="text" name="C_PROM" value=""><br>
-        <span class="formcap">Frecuencia de pago prometido</span>
-        <select name="C_FREQ">
+        <label class="formLabelBig" for="C_PROMv">Comentario de promesa</label>
+        <input type="text" name="C_PROM" id="C_PROMv" value=""><br>
+        <label class="formLabelBig" for="C_FREQv">Frecuencia de pago prometido</label>
+        <select name="C_FREQ" id="C_FREQv">
             <option value="" selected="selected">&nbsp;</option>
             <option value="unico">Unico</option>
             <option value="semanales">Semanales</option>
@@ -2004,7 +1573,7 @@
             <option value="otro">Otro (en Gestion comentas)</option>
         </select>
         <br>
-        <span class="formcap">Visitador:</span>
+        <label class="formLabelBig" for="C_VISIT">Visitador:</label>
         <select name="C_VISIT" id="C_VISIT">
             <option value=''></option>
             <?php
@@ -2015,14 +1584,18 @@
             ?>
         </select>
         <br>
-        <span class="formcap">ENTRE CALLE</span><input type="text" name="C_CALLE1"> Y <input type="text"
-                                                                                             name="C_CALLE2">
+        <label class="formcap">ENTRE CALLE</label>
+        <input type="text" name="C_CALLE1"> Y <input type="text"
+                                                     name="C_CALLE2">
         <br>
         <div class="toggleBox" id="nuevoboxt2">
-            <span class="formcap">Actualizaci&oacute;n de datos</span><br>
-            <span class="formcap">Tel.</span><input type="text" name="C_NTEL" value=""><br>
-            <span class="formcap">Tel 2.</span><input type="text" size=50 name="C_OBSE2" value=""><br>
-            <span class="formcap">Direcci&oacute;n</span><input type="text" size=50 name="C_NDIR" value=""><br>
+            <p class="formLabelBig">Actualización de datos</p><br>
+            <label class="formLabelBig" for="C_NTELv">Tel.</label>
+            <input type="text" id="C_NTELv" name="C_NTEL" value=""><br>
+            <label class="formLabelBig" for="C_OBSE2v">Tel 2.</label>
+            <input type="text" size=50 id="C_OBSE2v" name="C_OBSE2" value=""><br>
+            <label class="formLabelBig" for="C_NDIRv">Direcci&oacute;n</label>
+            <input type="text" size=50 id="C_NDIRv" name="C_NDIR" value=""><br>
         </div>
         <input type="hidden" name="go" value="CAPTURADO">
         <input type="submit" name="CAPTURADO" value="CAPTURADO">
@@ -2031,20 +1604,19 @@
 <!--</div>-->
 
 <div id="HISTORIA">
-    <table summary="historiahead" border='0' cellpadding='0' cellspacing=
-    '0' width='100%' id="historyhead">
+    <table style="border: 0; padding: 0; border-collapse: collapse; width: 100%" id="historyhead">
         <tr>
             <?php
-            $fieldnames = array("Status", "Fecha/Hora", "Gestor",
+            $fieldNames = array("Status", "Fecha/Hora", "Gestor",
                 "Telefono", "Gestion", "Gestion");
-            $fieldsize = array("status", "timestamp", "chico", "telefono",
+            $fieldSize = array("status", "timestamp", "chico", "telefono",
                 "gestion", "hideBox");
             for ($j = 0; $j < 5; $j++) {
-                $fieldname = $fieldnames[$j];
+                $fieldName = $fieldNames[$j];
                 ?>
-                <th<?php echo ' class="' . $fieldsize[$j] . '"'; ?>><?php
-                    if (isset($fieldname)) {
-                        echo $fieldname;
+                <th<?php echo ' class="' . $fieldSize[$j] . '"'; ?>><?php
+                    if (isset($fieldName)) {
+                        echo $fieldName;
                     }
                     ?></th> <?php
             }
@@ -2054,8 +1626,7 @@
     if (!empty($rowsub)) {
         ?>
         <div id='tableContainer' class='tableContainer'>
-            <table summary="historia" border='0' cellpadding='0' cellspacing=
-            '0' width='100%' id='historybody'>
+            <table style="border: 0; padding: 0; border-collapse: collapse; width: 100%" id='historyBody'>
                 <tbody class="scrollContent">
                 <?php
                 $j = 0;
@@ -2070,26 +1641,26 @@
                     ?>
                     <tr<?php echo $rc->highlight($stat, $visit); ?>><?php
                         for ($k = 0; $k < 5; $k++) {
-                            $anku = utf8_encode($answer[$k]);
-                            if (is_null($anku)) {
-                                $anku = "&nbsp;";
+                            $encoded = utf8_encode($answer[$k]);
+                            if (is_null($encoded)) {
+                                $encoded = "&nbsp;";
                             }
                             $ank = str_replace('00:00:00',
-                                '', $anku);
-                            $jscode = '';
-                            if ($fieldsize[$k] == "gestion") {
-                                $jscode1 = " onClick='alert(";
-                                $jscode2 = ")'";
-                                $jscode = $jscode1 . '"' . preg_replace("[\n\r]",
+                                '', $encoded);
+                            $JSCode = '';
+                            if ($fieldSize[$k] == "gestion") {
+                                $JSCode1 = " onClick='alert(";
+                                $JSCode2 = ")'";
+                                $JSCode = $JSCode1 . '"' . preg_replace("[\n\r]",
                                         " ",
-                                        $timestamp . ': ' . $gestion) . '"' . $jscode2;
+                                        $timestamp . ': ' . $gestion) . '"' . $JSCode2;
                             }
                             ?>
                             <td<?php
                             if ($c == 1) {
                                 echo " style='background-color:#dddddd'";
                             }
-                            echo ' class="' . $fieldsize[$k] . '"' . $jscode;
+                            echo ' class="' . $fieldSize[$k] . '"' . $JSCode;
                             ?>>
                                 <?php
                                 if (isset($ank)) {
@@ -2130,7 +1701,7 @@
             echo 0;
         }
         ?>">
-        <table id="databox">
+        <table id="dataBox">
             <?php
             if ($mytipo == 'admin' || $mytipo == 'supervisor') {
                 ?>
@@ -2169,61 +1740,61 @@
                         <?php
                         if (isset($tel_1)) {
                             ?>
-                            <option <?php echo $t1; ?>value='<?php echo $tel_1 ?>'>TEL Casa
+                        <option <?php echo $t1; ?>value='<?php echo $tel_1 ?>'>TEL Casa
                             - <?php echo $tel_1 ?></option><?php } ?>
                         <?php if (isset($tel_1_laboral)) { ?>
-                            <option <?php echo $t1l; ?>value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1
+                        <option <?php echo $t1l; ?>value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1
                             - <?php echo $empresa . ' - ' . $tel_1_laboral; ?></option><?php } ?>
                         <?php if (isset($tel_1_ref_1)) { ?>
-                            <option <?php echo $t1r1; ?>value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1
+                        <option <?php echo $t1r1; ?>value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1
                             - <?php echo $nombre_referencia_1 . ' - ' . $tel_1_ref_1; ?></option><?php } ?>
                         <?php if (isset($tel_1_ref_2)) { ?>
-                            <option <?php echo $t1r2; ?>value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2
+                        <option <?php echo $t1r2; ?>value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2
                             - <?php echo $nombre_referencia_2 . ' - ' . $tel_1_ref_2; ?></option><?php } ?>
                         <?php if (isset($tel_1_ref_3)) { ?>
-                            <option <?php echo $t1r3; ?>value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3
+                        <option <?php echo $t1r3; ?>value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3
                             - <?php echo $nombre_referencia_3 . ' - ' . $tel_1_ref_3; ?></option><?php } ?>
                         <?php if (isset($tel_1_ref_4)) { ?>
-                            <option <?php echo $t1r4; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4
+                        <option <?php echo $t1r4; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4
                             - <?php echo $nombre_referencia_4 . ' - ' . $tel_1_ref_4; ?></option><?php } ?>
                         <?php if (isset($tel_1_verif)) { ?>
-                            <option class='verif' <?php echo $t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF
+                        <option class='verif' <?php echo $t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF
                             - <?php echo $tel_1_verif; ?></option><?php } ?>
                         <?php if (isset($tel_2)) { ?>
-                            <option <?php echo $t2; ?>value='<?php echo $tel_2; ?>'>CELULAR
+                        <option <?php echo $t2; ?>value='<?php echo $tel_2; ?>'>CELULAR
                             - <?php echo $tel_2; ?></option><?php } ?>
                         <?php if (isset($tel_2_laboral)) { ?>
-                            <option <?php echo $t2l; ?>value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2
+                        <option <?php echo $t2l; ?>value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2
                             - <?php echo $empresa . ' - ' . $tel_2_laboral; ?></option><?php } ?>
                         <?php if (isset($tel_2_ref_1)) { ?>
-                            <option <?php echo $t2r1; ?>value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1
+                        <option <?php echo $t2r1; ?>value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1
                             - <?php echo $nombre_referencia_1 . ' - ' . $tel_2_ref_1; ?></option><?php } ?>
                         <?php if (isset($tel_2_ref_2)) { ?>
-                            <option <?php echo $t2r2; ?>value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2
+                        <option <?php echo $t2r2; ?>value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2
                             - <?php echo $nombre_referencia_2 . ' - ' . $tel_2_ref_2; ?></option><?php } ?>
                         <?php if (isset($tel_2_ref_3)) { ?>
-                            <option <?php echo $t2r3; ?>value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3
+                        <option <?php echo $t2r3; ?>value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3
                             - <?php echo $nombre_referencia_3 . ' - ' . $tel_2_ref_3; ?></option><?php } ?>
                         <?php if (isset($tel_2_ref_4)) { ?>
-                            <option <?php echo $t2r4; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4
+                        <option <?php echo $t2r4; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4
                             - <?php echo $nombre_referencia_4 . ' - ' . $tel_2_ref_4; ?></option><?php } ?>
                         <?php if (isset($tel_2_verif)) { ?>
-                            <option class='verif' <?php echo $t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF
+                        <option class='verif' <?php echo $t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF
                             - <?php echo $tel_2_verif; ?></option><?php } ?>
                         <?php if (isset($tel_3)) { ?>
-                            <option <?php echo $t3; ?>value='<?php echo $tel_3; ?>'>TEL 3
+                        <option <?php echo $t3; ?>value='<?php echo $tel_3; ?>'>TEL 3
                             - <?php echo $tel_3; ?></option><?php } ?>
                         <?php if (isset($tel_3_verif)) { ?>
-                            <option class='verif' <?php echo $t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF
+                        <option class='verif' <?php echo $t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF
                             - <?php echo $tel_3_verif; ?></option><?php } ?>
                         <?php if (isset($tel_4)) { ?>
-                            <option <?php echo $t4; ?>value='<?php echo $tel_4; ?>'>TEL 4
+                        <option <?php echo $t4; ?>value='<?php echo $tel_4; ?>'>TEL 4
                             - <?php echo $tel_4; ?></option><?php } ?>
                         <?php if (isset($tel_4_verif)) { ?>
-                            <option class='verif' <?php echo $t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF
+                        <option class='verif' <?php echo $t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF
                             - <?php echo $tel_4_verif; ?></option><?php } ?>
                         <?php if (isset($telefono_de_ultimo_contacto)) { ?>
-                            <option <?php echo $tuc; ?>value='<?php echo $telefono_de_ultimo_contacto; ?>'>TEL DE ULT.
+                        <option <?php echo $tuc; ?>value='<?php echo $telefono_de_ultimo_contacto; ?>'>TEL DE ULT.
                             CONT. - <?php echo $telefono_de_ultimo_contacto; ?></option><?php } ?>
                     </select>
                 </td>
@@ -2368,7 +1939,7 @@
                     </select></td>
             </tr>
             <tr>
-                <td>Cant. de promesa unico o 1o</td>
+                <td>Cant. de promesa única o 1a</td>
                 <td>$<input type="text" name="N_PROM1" value="0" size="8" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td>$<input type="text" name="N_PROM1_OLD" readonly="readonly" size="8" value="<?php
@@ -2378,35 +1949,16 @@
                     ?>"></td>
             </tr>
             <tr>
-                <td>Fecha promesa unico o 1o
-                    <SCRIPT type="text/javascript">
-                        var cal4 = new CalendarPopup();
-                        var yesterday = new Date();
-                        var twoMonths = new Date();
-                        yesterday.setDate(yesterday.getDate() - 1);
-                        twoMonths.setDate(twoMonths.getDate() + 61);
-                        cal4.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                        cal4.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                        cal4.setWeekStartDay(1);
-                        cal4.setTodayText("Hoy");
-                        cal4.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                        cal4.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
-                    </SCRIPT>
-                </td>
-                <td><INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" VALUE="" SIZE=15>
-                    <BUTTON onClick="cal4.select(document.getElementById('D_PROM1'), 'anchor4', 'yyyy-MM-dd');
-                                    return false;" NAME="anchor4" ID="anchor4">eligir
-                    </BUTTON>
-                </td>
-                <td><input type="text" name="D_PROM1_OLD" style="background-color:#c0c0c0;" readonly="readonly"
-                           value="<?php
-                           if (isset($D_PROM1_OLD)) {
-                               echo $D_PROM1_OLD;
-                           }
-                           ?>"></td>
+                <td><label for="D_PROM1">Fecha promesa única o 1a</label></td>
+                <td><INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" VALUE="" SIZE=15></td>
+                <td><?php
+                    if (isset($D_PROM1_OLD)) {
+                        echo $D_PROM1_OLD;
+                    }
+                    ?></td>
             </tr>
             <tr>
-                <td>Cant. de promesa 2o</td>
+                <td>Cant. de promesa 2a</td>
                 <td>$<input type="text" name="N_PROM2" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td>$<input type="text" name="N_PROM2_OLD" size="8" readonly="readonly" value="<?php
@@ -2416,35 +1968,16 @@
                     ?>"><br>
             </tr>
             <tr>
-                <td>Fecha promesa 2o
-                    <SCRIPT type="text/javascript">
-                        var cal5 = new CalendarPopup();
-                        var yesterday = new Date();
-                        var twoMonths = new Date();
-                        yesterday.setDate(yesterday.getDate() - 1);
-                        twoMonths.setDate(twoMonths.getDate() + 61);
-                        cal5.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                        cal5.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                        cal5.setWeekStartDay(1);
-                        cal5.setTodayText("Hoy");
-                        cal5.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                        cal5.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
-                    </SCRIPT>
-                </td>
-                <td><INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" VALUE="" SIZE=15>
-                    <BUTTON onClick="cal5.select(document.getElementById('D_PROM2'), 'anchor5', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5" ID="anchor5">eligir
-                    </BUTTON>
-                </td>
-                <td><input type="text" name="D_PROM2_OLD" style="background-color:#c0c0c0;" readonly="readonly"
-                           value="<?php
-                           if (isset($D_PROM2_OLD)) {
-                               echo $D_PROM2_OLD;
-                           }
-                           ?>"></td>
+                <td><label for="D_PROM2">Fecha promesa 2a</label></td>
+                <td><INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" VALUE="" SIZE=15></td>
+                <td><?php
+                    if (isset($D_PROM2_OLD)) {
+                        echo $D_PROM2_OLD;
+                    }
+                    ?></td>
             </tr>
             <tr>
-                <td>Cant. de promesa 3o</td>
+                <td>Cant. de promesa 3a</td>
                 <td>$<input type="text" name="N_PROM3" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td>$<input type="text" name="N_PROM3_OLD" size="8" readonly="readonly" value="<?php
@@ -2454,35 +1987,16 @@
                     ?>"><br>
             </tr>
             <tr>
-                <td>Fecha promesa 3o
-                    <SCRIPT type="text/javascript">
-                        var cal5c = new CalendarPopup();
-                        var yesterday = new Date();
-                        var twoMonths = new Date();
-                        yesterday.setDate(yesterday.getDate() - 1);
-                        twoMonths.setDate(twoMonths.getDate() + 61);
-                        cal5c.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                        cal5c.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                        cal5c.setWeekStartDay(1);
-                        cal5c.setTodayText("Hoy");
-                        cal5c.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                        cal5c.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
-                    </SCRIPT>
-                </td>
-                <td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE="" SIZE=15>
-                    <BUTTON onClick="cal5c.select(document.getElementById('D_PROM3'), 'anchor5c', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5c" ID="anchor5c">eligir
-                    </BUTTON>
-                </td>
-                <td><input type="text" name="D_PROM3_OLD" style="background-color:#c0c0c0;" readonly="readonly"
-                           value="<?php
-                           if (isset($D_PROM3_OLD)) {
-                               echo $D_PROM3_OLD;
-                           }
-                           ?>"></td>
+                <td>Fecha promesa 3a</td>
+                <td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE="" SIZE=15></td>
+                <td><?php
+                    if (isset($D_PROM3_OLD)) {
+                        echo $D_PROM3_OLD;
+                    }
+                    ?></td>
             </tr>
             <tr>
-                <td>Cant. de promesa 4o</td>
+                <td>Cant. de promesa 4a</td>
                 <td>$<input type="text" name="N_PROM4" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td>$<input type="text" name="N_PROM4_OLD" size="8" readonly="readonly" value="<?php
@@ -2492,32 +2006,13 @@
                     ?>"><br>
             </tr>
             <tr>
-                <td>Fecha promesa 4o
-                    <SCRIPT type="text/javascript">
-                        var cal5d = new CalendarPopup();
-                        var yesterday = new Date();
-                        var twoMonths = new Date();
-                        yesterday.setDate(yesterday.getDate() - 1);
-                        twoMonths.setDate(twoMonths.getDate() + 61);
-                        cal5d.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                        cal5d.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                        cal5d.setWeekStartDay(1);
-                        cal5d.setTodayText("Hoy");
-                        cal5d.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                        cal5d.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
-                    </SCRIPT>
-                </td>
-                <td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE="" SIZE=15>
-                    <BUTTON onClick="cal5d.select(document.getElementById('D_PROM4'), 'anchor5d', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5d" ID="anchor5d">eligir
-                    </BUTTON>
-                </td>
-                <td><input type="text" name="D_PROM4_OLD" style="background-color:#c0c0c0;" readonly="readonly"
-                           value="<?php
-                           if (isset($D_PROM4_OLD)) {
-                               echo $D_PROM4_OLD;
-                           }
-                           ?>"></td>
+                <td>Fecha promesa 4a</td>
+                <td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE="" SIZE=15></td>
+                <td><?php
+                    if (isset($D_PROM4_OLD)) {
+                        echo $D_PROM4_OLD;
+                    }
+                    ?></td>
             </tr>
             <tr>
                 <td>Frecuencia de promesa</td>
@@ -2548,23 +2043,8 @@
                 <td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
             </tr>
             <tr id="pagocapt2">
-                <td>Fecha Pag&oacute;
-                    <SCRIPT type="text/javascript">
-                        var cal9 = new CalendarPopup();
-                        var tomorrow = new Date();
-                        tomorrow.setDate(tomorrow.getDate() + 1);
-                        cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                        cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                        cal9.setWeekStartDay(1);
-                        cal9.setTodayText("Hoy");
-                        cal9.addDisabledDates(formatDate(tomorrow, "yyyy-MM-dd"), null);
-                    </SCRIPT>
-                </td>
-                <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15>
-                    <BUTTON onClick="cal9.select(document.getElementById('D_PAGOi'), 'anchor9', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor9" ID="anchor9">eligir
-                    </BUTTON>
-                </td>
+                <td>Fecha Pagó</td>
+                <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15></td>
             </tr>
             <tr>
                 <td colspan=2>Actualizaci&oacute;n de Datos</td>
@@ -2584,92 +2064,113 @@
                 <td><input type="text" size=50 name="C_NDIR" value="" onmouseover='this.focus();'></td>
             </tr>
             <tr>
-                <td>E-mail</td>
-                <td><input type="text" name="C_EMAIL" value="" onmouseover='this.focus();'></td>
+                <td><label for="C_EMAIL">E-mail</label></td>
+                <td><input type="text" id="C_EMAIL" name="C_EMAIL" value="" onmouseover='this.focus();'></td>
             </tr>
         </table>
         <input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR" ondblclick="return false;">
         <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false">RESET</button>
         <br>
-        <div class="noshow">
-            <input type="text" name="from" readonly="readonly" value="resumen.php"><br>
-            <input type="text" name="D_FECH" readonly="readonly" value="<?php
+        <div class="noShow">
+            <input type="hidden" name="from" readonly="readonly" value="resumen.php">
+            <input type="hidden" name="D_FECH" readonly="readonly" value="<?php
             if (isset($CD)) {
                 echo $CD;
             }
-            ?>"><br>
-            <input type="text" name="D_PROM" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="D_PROM" readonly="readonly" value="<?php
             if (isset($CD)) {
                 echo $CD;
             }
-            ?>"><br>
-            <input type="text" name="C_HRIN" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_HRIN" readonly="readonly" value="<?php
             if (isset($CT)) {
                 echo $CT;
             }
-            ?>"><br>
-            <input type="text" name="C_HRFI" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_HRFI" readonly="readonly" value="<?php
             if (isset($CT)) {
                 echo $CT;
             }
-            ?>"><br>
-            <input type="text" name="AUTO" readonly="readonly" value=""><br>
-            <input type="text" name="find" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="AUTO" readonly="readonly" value=""><br>
+            <input type="hidden" name="find" readonly="readonly" value="<?php
             if (isset($find)) {
                 echo $find;
             }
-            ?>"><br>
-            <input type="text" name="field" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="field" readonly="readonly" value="<?php
             if (isset($field)) {
                 echo $field;
             }
-            ?>"><br>
-            <input type="text" name="capt" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="capt" readonly="readonly" value="<?php
             if (isset($capt)) {
                 echo $capt;
             }
-            ?>"><br>
-            <input type="text" name="camp" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="camp" readonly="readonly" value="<?php
             if (isset($camp)) {
                 echo $camp;
             }
-            ?>"><br>
-            <input type="text" name="neworder" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="neworder" readonly="readonly" value="<?php
             if (isset($neworder)) {
                 echo $neworder;
             }
-            ?>"><br>
-            <input type="text" name="C_CVBA" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_CVBA" readonly="readonly" value="<?php
             if (isset($cliente)) {
                 echo $cliente;
             }
-            ?>"><br>
-            <input type="text" name="C_ATTE" readonly="readonly" value=""><br>
-            <input type="text" name="C_CONT" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_ATTE" readonly="readonly" value="">
+            <input type="hidden" name="C_CONT" readonly="readonly" value="<?php
             if (isset($id_cuenta)) {
                 echo $id_cuenta;
             }
-            ?>"><br>
-            <input type="text" name="C_CONTAN" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_CONTAN" readonly="readonly" value="<?php
             if (isset($status_aarsa)) {
                 echo $status_aarsa;
             }
-            ?>"><br>
-            <input type="text" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
             if (isset($numero_de_cuenta)) {
                 echo $numero_de_cuenta;
             }
-            ?>"><br>
-            <input type="text" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
             if (isset($ejecutivo_asignado_call_center)) {
                 echo $ejecutivo_asignado_call_center;
             }
-            ?>"><br>
-            <input type="text" name="oldgo" readonly="readonly" value="<?php echo $go; ?>"><br>
-            <input type="text" name="error" readonly="readonly" value="1"><br>
-            <input type="text" name="go" readonly="readonly" value="GUARDAR"><br>
+            ?>">
+            <input type="hidden" name="oldGo" readonly="readonly" value="<?php echo $go; ?>">
+            <input type="hidden" name="error" readonly="readonly" value="1">
+            <input type="hidden" name="go" readonly="readonly" value="GUARDAR">
         </div>
     </form>
 </div>
+<script>
+    $(function () {
+        const vdCalendar = $("#C_VD");
+        const prvCalendar = $("#D_PROMv");
+        const pagCalendar = $("#D_PAGOi");
+        const pavCalendar = $("#D_PAGOv");
+        const pr1Calendar = $("#D_PROM1");
+        const pr2Calendar = $("#D_PROM2");
+        const pr3Calendar = $("#D_PROM3");
+        const pr4Calendar = $("#D_PROM4");
+        $.datepicker.setDefaults(getMx());
+        vdCalendar.datepicker("option", "dateFormat", 'yy-mm-dd');
+        prvCalendar.datepicker("option", "dateFormat", 'yy-mm-dd');
+        pavCalendar.datepicker("option", "dateFormat", 'yy-mm-dd');
+        pr1Calendar.datepicker({minDate: 0, maxDate: "+2M", dateFormat: 'yy-mm-dd'});
+        pr2Calendar.datepicker({minDate: 0, maxDate: "+2M", dateFormat: 'yy-mm-dd'});
+        pr3Calendar.datepicker({minDate: 0, maxDate: "+2M", dateFormat: 'yy-mm-dd'});
+        pr4Calendar.datepicker({minDate: 0, maxDate: "+2M", dateFormat: 'yy-mm-dd'});
+        pagCalendar.datepicker({maxDate: 0, dateFormat: 'yy-mm-dd'});
+    });
+</script>
 </body>
 </html>

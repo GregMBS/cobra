@@ -188,7 +188,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
             </SCRIPT>
         </head>
         <body onLoad="paging('pagos');">
-            <div class="clearbox">
+            <div class="clearBox">
             <UL class='tabs'>
                 <LI><A id='pagosa' onClick="paging('pagos')">PAGOS</A></LI>
                 <LI><A id='vigentesa' onClick="paging('vigentes')">VIGENTES</A></LI>

@@ -54,7 +54,7 @@
                 <?php } ?>
             </tbody>
         </table>
-        <div id="searchbox">
+        <div id="searchBox">
             <h2>Buscar</h2>
             <form name="search" method="get" action=
                   "/changest.php" id="search">Buscar a: <input type=

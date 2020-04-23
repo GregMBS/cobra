@@ -1,0 +1,259 @@
+body {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 10pt;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.hideBox {
+    display: none
+}
+
+div {
+    clear: both
+}
+
+label.formLabelBig {
+    display: block;
+    width: 20em;
+    float: left;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+label.formLabel {
+    display: block;
+    width: 13em;
+    float: left;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+label.formLabelSmall {
+    display: block;
+    width: 6em;
+    float: left;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+select, input, button {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 100%
+}
+
+input {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+#GESTION input {
+    font-size: 80%;
+    width: auto
+}
+
+#GENERAL textarea {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 90%;
+    width: 9cm;
+    font-weight: normal;
+}
+
+#GENERAL table {
+    width: 100%
+}
+
+#GENERAL td {
+    border: 0
+}
+
+#CONTABLES table {
+    width: 100%
+}
+
+#CONTABLES td {
+    border: 0;
+    font-weight: normal;
+    font-size: 90%;
+}
+
+#GESTION table {
+    width: 100%;
+    background-color: #ddffdd
+}
+
+#GESTION tr {
+    background-color: #ddffdd
+}
+
+#GESTION td {
+    border: 0;
+    font-weight: bold;
+    font-size: 80%;
+    background-color: #ddffdd
+}
+
+#VISITA table {
+    width: 100%
+}
+
+#VISITA td {
+    border: 0;
+    font-weight: normal;
+    font-size: 90%;
+}
+
+a:link {
+    color: blue;
+}
+
+a:visited {
+    color: green;
+}
+
+a:hover {
+    color: red;
+}
+
+a:active {
+    color: yellow;
+}
+
+#telBox label.formLabelBig {
+    display: block;
+    width: 14em;
+    float: left;
+}
+
+div {
+    border: 1pt black solid;
+    background-color: #ffffff;
+}
+
+.verif {
+    font-weight: bold;
+    background-color: #00ff00;
+}
+
+.clearBox {
+    clear: both;
+    text-align: center;
+}
+
+table {
+    color: #000000;
+}
+
+tr {
+    height: 2em;
+}
+
+th {
+    width: 9em;
+}
+
+td {
+    border: 1pt solid #000000;
+    background-color: #ffffff;
+    width: 10em;
+}
+
+#tableContainer {
+    height: 4cm;
+    overflow: scroll;
+}
+
+.noShow {
+    display: none;
+    width: 0;
+}
+
+#searchBox {
+    z-index: 98;
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 30%;
+    color: #000000;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 1em;
+    border: 2px black solid;
+}
+
+#searchBox input {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+#quickSearchBox input {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+#calm input {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+#pagocapt td {
+    background-color: #ffffff;
+}
+
+#pagocapt2 td {
+    background-color: #ffffff;
+}
+
+.visitable td {
+    border: 0;
+    background-color: transparent;
+    width: auto;
+}
+
+#buttonBox form {
+    float: left
+}
+
+.buttons {
+    float: left;
+    width: auto
+}
+
+.buttons input {
+    float: left
+}
+
+.buttons button {
+    float: left;
+    width: auto
+}
+
+#avalBox input {
+    font-size: 85%
+}
+
+ul.tabs {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.tabs li {
+    float: left;
+    padding: 0;
+    background: url(/tab_right.png) no-repeat right top;
+    margin: 0 1px 0 0;
+}
+
+ul.tabs li a {
+    display: block;
+    padding: 0 10px;
+    color: #fff;
+    text-decoration: none;
+    background: url(/tab_left.png) no-repeat left top;
+}
+
+ul.tabs li a:hover {
+    color: #ff0;
+}

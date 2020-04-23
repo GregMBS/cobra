@@ -30,7 +30,7 @@
                             for ($j = 0; $j < 4; $j++) {
                                 $fieldname = $fieldnames[$j];
                                 ?>
-                                <th<?php echo ' class="' . $fieldsize[$j] . '"'; ?>><?php
+                                <th<?php echo ' class="' . $fieldSize[$j] . '"'; ?>><?php
                                     if (isset($fieldname)) {
                                         echo $fieldname;
                                     }
@@ -66,7 +66,7 @@
                                     if ($c == 1) {
                                         echo " style='background-color:#dddddd'";
                                     }
-                                    echo ' class="' . $fieldsize[$k] . '"' . $jscode;
+                                    echo ' class="' . $fieldSize[$k] . '"' . $jscode;
                                     ?>>
                                             <?php
                                             if (isset($ank)) {

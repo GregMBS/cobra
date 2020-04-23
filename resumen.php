@@ -255,35 +255,13 @@ and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
         $flagmsg = "DOBLE ENTRANTE";
     }
 */
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO DE CONVENIO J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO DE CONVENIO')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO TOTAL J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO TOTAL')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO PARCIAL')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO PARCIAL J')) {
+    $necesitanMontos = [
+        'PAGANDO CONVENIO',
+        'PAGO DE CONVENIO',
+        'PAGO TOTAL',
+        'PAGO PARCIAL'
+    ];
+    if (($N_PAGO == 0) && (in_array($C_CVST, $necesitanMontos))) {
         $error = $error + 1;
         $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
     }
@@ -295,15 +273,7 @@ and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
         $error = $error + 1;
         $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
     }
-    if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO TOTAL J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
-    }
     if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO PARCIAL')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
-    }
-    if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO PARCIAL J')) {
         $error = $error + 1;
         $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
     }
