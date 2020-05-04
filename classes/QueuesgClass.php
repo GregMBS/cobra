@@ -41,22 +41,21 @@ class QueuesgClass {
      * @return int
      */
     public function getCamp($cliente, $queue, $sdc, $capt) {
-        $queryqueue  = "select camp from queuelist
+        $query  = "select camp from queuelist
     where cliente=:cliente
     and status_aarsa=:queue
     and sdc=:sdc
     and gestor=:capt
     and bloqueado=0 limit 1
     ";
-        $stq         = $this->pdo->prepare($queryqueue);
+        $stq         = $this->pdo->prepare($query);
         $stq->bindParam(':cliente', $cliente);
         $stq->bindParam(':queue', $queue);
         $stq->bindParam(':sdc', $sdc);
         $stq->bindParam(':capt', $capt);
         $stq->execute();
-        $resultqueue = $stq->fetch(PDO::FETCH_ASSOC);
-        $camp = $resultqueue['camp'];
-        return $camp;
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
+        return $result['camp'];
     }
     
     /**
@@ -90,14 +89,13 @@ class QueuesgClass {
      * @return array
      */
     public function getSdcClients($capt) {
-        $querys  = "SELECT distinct sdc,cliente
+        $query  = "SELECT distinct sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado=0 and cliente<>''
         ORDER BY cliente,sdc,status_aarsa";
-        $sts = $this->pdo->prepare($querys);
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':capt', $capt);
         $sts->execute();
-        $results=$sts->fetchAll(PDO::FETCH_ASSOC);
-        return $results;
+        return $sts->fetchAll(PDO::FETCH_ASSOC);
     }
     
     /**
@@ -106,13 +104,12 @@ class QueuesgClass {
      * @return array
      */
     public function getQueueSdcClients($capt) {
-        $querysa  = "SELECT distinct status_aarsa,sdc,cliente
+        $query  = "SELECT distinct status_aarsa,sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado = 0
         ORDER BY cliente,sdc,status_aarsa";
-        $stsa = $this->pdo->prepare($querysa);
-        $stsa->bindParam(':capt', $capt);
-        $stsa->execute();
-        $resultsa=$stsa->fetchAll(PDO::FETCH_ASSOC);
-        return $resultsa;
+        $sts = $this->pdo->prepare($query);
+        $sts->bindParam(':capt', $capt);
+        $sts->execute();
+        return $sts->fetchAll(PDO::FETCH_ASSOC);
     }
 }

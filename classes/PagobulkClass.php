@@ -65,8 +65,7 @@ AND cuenta = :cuenta
 AND n_prom > 0 
 ORDER BY d_fech DESC, c_hrin DESC 
 LIMIT 1";
-        $stp = $this->pdo->prepare($queryFindGestor);
-        return $stp;
+        return $this->pdo->prepare($queryFindGestor);
     }
     
     /**

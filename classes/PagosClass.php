@@ -134,14 +134,13 @@ order by cliente,gestor,fecha";
      */
     public function getCuentaClienteFromID($ID_CUENTA)
     {
-        $querycc = "SELECT numero_de_cuenta, cliente
+        $query = "SELECT numero_de_cuenta, cliente
 FROM resumen 
 WHERE id_cuenta=:id";
-        $stc = $this->pdo->prepare($querycc);
+        $stc = $this->pdo->prepare($query);
         $stc->bindParam(':id', $ID_CUENTA, PDO::PARAM_INT);
         $stc->execute();
-        $resultcc = $stc->fetch(PDO::FETCH_ASSOC);
-        return $resultcc;
+        return $stc->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -151,15 +150,14 @@ WHERE id_cuenta=:id";
      */
     public function listPagos($ID_CUENTA)
     {
-        $querysub = "SELECT fecha,monto,confirmado
+        $query = "SELECT fecha,monto,confirmado
 FROM pagos
 WHERE id_cuenta=:id
 ORDER BY fecha";
-        $sts = $this->pdo->prepare($querysub);
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':id', $ID_CUENTA);
         $sts->execute();
-        $rowsub = $sts->fetchAll(PDO::FETCH_ASSOC);
-        return $rowsub;
+        return $sts->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -268,29 +266,28 @@ order by cliente,gestor,fecha";
      */
     private function assignCredit($cuenta, $cliente, $fechapago)
     {
-        $quertcc = "select id_cuenta from resumen 
+        $queryID = "select id_cuenta from resumen 
                 where numero_de_cuenta = :cuenta
                 and cliente = :cliente";
-        $stq = $this->pdo->prepare($quertcc);
+        $stq = $this->pdo->prepare($queryID);
         $stq->bindParam(':cuenta', $cuenta);
         $stq->bindParam(':cliente', $cliente);
         $stq->execute();
         $resultc = $stq->fetch(PDO::FETCH_ASSOC);
         $id_cuenta = $resultc['id_cuenta'];
 
-        $queryp = "SELECT * FROM historia 
+        $query = "SELECT * FROM historia 
             WHERE c_cont= :id_cuenta
                 AND d_fech <= :fechapago 
                 AND n_prom > 0
                 order by auto desc
                 limit 1";
-        $stp = $this->pdo->prepare($queryp);
+        $stp = $this->pdo->prepare($query);
         $stp->bindParam(':id_cuenta', $id_cuenta);
         $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
         $result = $stp->fetch(PDO::FETCH_ASSOC);
-        $gestor = $result['C_CVGE'];
-        return $gestor;
+        return $result['C_CVGE'];
     }
 
     /**
@@ -304,8 +301,7 @@ order by cliente,gestor,fecha";
                     LIMIT 1000";
         $stc = $this->pdo->prepare($query);
         $stc->execute();
-        $result = $stc->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stc->fetchAll(PDO::FETCH_ASSOC);
 
     }
 

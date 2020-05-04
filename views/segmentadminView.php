@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>Administraci&oacute;n de las segmentos</title>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
@@ -11,7 +11,7 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
-        <table summary="Segmentos" class="ui-widget">
+        <table class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
                     <th>CLIENTE</th>

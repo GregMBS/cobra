@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>Query de las Gestiones</title>
         <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />

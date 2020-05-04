@@ -167,8 +167,7 @@ order by c_tele";
         } catch (PDOException $exc) {
             die($exc->getTraceAsString());
         }
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -177,8 +176,7 @@ order by c_tele";
      */
     public function getContactosReport() {
         $statement = $this->pdo->query($this->contactosReportQuery);
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

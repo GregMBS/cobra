@@ -45,13 +45,13 @@ function validate_date(f) {
  * @property {float} gestion.N_PROM2
  * @property {float} gestion.N_PROM3
  * @property {float} gestion.N_PROM4
- * @property {date} gestion.D_FECH
- * @property {date} gestion.D_PAGO
- * @property {date} gestion.D_PROM
- * @property {date} gestion.D_PROM1
- * @property {date} gestion.D_PROM2
- * @property {date} gestion.D_PROM3
- * @property {date} gestion.D_PROM4
+ * @property {string} gestion.D_FECH
+ * @property {string} gestion.D_PAGO
+ * @property {string} gestion.D_PROM
+ * @property {string} gestion.D_PROM1
+ * @property {string} gestion.D_PROM2
+ * @property {string} gestion.D_PROM3
+ * @property {string} gestion.D_PROM4
  * @property {string} gestion.C_OBSE1
  * @property {string} gestion.C_OBSE2
  * @property {string} gestion.C_CVST

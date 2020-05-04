@@ -1,3 +1,11 @@
+<?php
+/**
+ * @var NoteObject $notes
+ */
+
+use cobra_salsa\NoteObject;
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,14 +15,15 @@
           media="all"/>
     <link rel="stylesheet" href="/css/resumen.css" />
     <style>
-        <?php if ($notalert > 0) { ?>
+        <?php
+        if ($notes->notAlert > 0) { ?>
         #notasq input {
             background-color: #ff0000;
         }
 
         <?php
         }
-        if ($pagalert > 0) {
+        if ($pagAlert > 0) {
         ?>
         #pagos input {
             background-color: #ff0000;
@@ -95,13 +104,13 @@
             alert("ERROR RA3 - Hay <?php echo $qcount; ?> cuentas con este número.");
             <?php
             }
-            if ($notalert == 1) {
+            if ($notes->notAlert == 1) {
             /**
-             * @var string $notalertt
+             * @var string $notAlertT
              * @var string $alertcuenta
              */
             ?>
-            const goalert = confirm("Tiene alerta pendiente <?php echo $notalertt; ?> para cuenta <?php echo $alertcuenta; ?> Quiere verlo?");
+            const goalert = confirm("Tiene alerta pendiente <?php echo $notAlertT; ?> para cuenta <?php echo $alertcuenta; ?> Quiere verlo?");
             if (goalert) {
                 window.location = "resumen.php?find=<?php echo $alertcuenta; ?>&field=numero_de_cuenta&capt=<?php echo $capt; ?>&go=FROMALERT&from=resumen.php&go1=FROMALERT";
             }
@@ -340,7 +349,7 @@
         echo 'admin';
     }
     ?>.php" id="migo">
-        <input type="hidden" name="find" value="<?php echo $tcapt ?>">
+        <input type="hidden" name="find" value="<?php echo $capt ?>">
         <input type="hidden" name="capt" value="<?php echo $capt ?>">
         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
         <input type="submit" name="go" value="CUENTAS"></form>

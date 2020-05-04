@@ -166,11 +166,10 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
 //        $errorv += $dupcount['value'];
 //        $flagmsgv .= $dupcount['message'];
 
-        $output = array(
+        return array(
             'errorv' => $errorv,
             'flagmsgv' => $flagmsgv
         );
-        return $output;
     }
 
     /**
@@ -217,11 +216,10 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
 //        $error += $dupcount['value'];
 //        $flagmsg .= $dupcount['message'];
 
-         $output = array(
-            'errors' => $error,
-            'flagmsg' => $flagmsg
-        );
-        return $output;
+        return array(
+           'errors' => $error,
+           'flagmsg' => $flagmsg
+       );
     }
 
 }

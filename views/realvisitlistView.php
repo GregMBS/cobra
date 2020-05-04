@@ -1,22 +1,12 @@
 <!DOCTYPE html>
-    <html>
+    <html lang='es'>
         <head>
             <title>Visitas</title>
             <meta charset="utf-8">
             <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
             <style>
                 th {width: 9em;}
-                th.gestion {width: 32em;}
-                th.status {width: 16em;}
-                th.timestamp {width: 8em;}
-                th.telefono {width: 8em;}
-                th.chico {width: 5em;}
                 td {width:10em;}
-                td.gestion {width: 32em;height: 1em;overflow:hidden;}
-                td.status {width: 16em;}
-                td.timestamp {width: 8em;}
-                td.telefono {width: 8em;}
-                td.chico {width: 5em;}
             </style>
             <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
             <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>

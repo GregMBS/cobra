@@ -4,7 +4,7 @@
  */
 ?>
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>Promesas y Pagos</title>
         <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />

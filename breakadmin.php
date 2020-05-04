@@ -5,8 +5,8 @@ use cobra_salsa\BreaksClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BreaksClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 $bc = new BreaksClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');

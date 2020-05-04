@@ -6,8 +6,8 @@ use cobra_salsa\InventarioClass;
 
 set_time_limit(300);
 require_once 'classes/PdoClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 require_once 'classes/InventarioClass.php';
 $ic = new InventarioClass($pdo);
 require_once 'classes/OutputClass.php';

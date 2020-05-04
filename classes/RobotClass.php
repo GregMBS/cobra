@@ -53,8 +53,7 @@ class RobotClass extends BaseClass {
     private function dataPrep($datastring) {
         $data0 = preg_replace('/[^0-9a-zA-Z]/', ',', $datastring);
         $data1 = preg_replace('/,,/', ',', $data0);
-        $data = explode(',', $data1);
-        return $data;
+        return explode(',', $data1);
     }
 
     /**
@@ -148,9 +147,8 @@ from calllist rc
 join msglist rm 
 on rc.msg regexp rm.msg
 group by rc.msg";
-        $result = $this->pdo->query($queryk);
         //$output = $this->calcTiempo($result);
-        return $result;
+        return $this->pdo->query($queryk);
     }
 
     /**

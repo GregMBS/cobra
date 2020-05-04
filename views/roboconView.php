@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<html>
+<html lang='es'>
     <head>
         <title>ROBOT Control</title>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" /> 
@@ -13,7 +13,7 @@
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <div>
-            <table summary='ACTUAL' class="ui-widget">
+            <table class="ui-widget">
                 <thead class="ui-widget-header">
                     <tr>
                         <th>Cliente</th>
@@ -70,7 +70,7 @@
             <table>
                 <tr>
                     <td>
-                        <table summary='CHANGE' class="ui-widget">
+                        <table class="ui-widget">
                             <tr>
                                 <th>Grabaci&oacute;n</th>
                                 <th>Lineas</th>
@@ -81,13 +81,15 @@
                                 $lineas = (int) $row['lineas'];
                                 $auto = (int) $row['auto'];
                                 ?>
-                                <form action='#' method='get' name='<?php echo $msg; ?>'>
-                                    <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
-                                    <input type='hidden' name='auto' value='<?php echo $auto; ?>'>
+
                                     <tr>
-                                        <td><?php echo $msg; ?></td>
+                                        <td><form action='#' method='get' name='<?php echo $msg; ?>'>
+                                                <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
+                                                <input type='hidden' name='auto' value='<?php echo $auto; ?>'><?php echo $msg; ?>
+                                            </form>
+                                        </td>
                                         <td>
-                                            <select name="lineas">
+                                            <label><select form="<?php echo $msg; ?>" name="lineas">
                                                 <?php
                                                 for ($i = 0; $i < 15; $i++) {
                                                     ?>
@@ -100,12 +102,11 @@
                                                                 echo $i;
                                                             }
                                                             ?></option>
-                                            </select>
+                                            </select></label>
                                         </td>
-                                        <td><input type='submit' name='go' value='CAMBIAR'></td>
-                                        <td><input type='submit' name='go' value='BORRAR'></td>
+                                        <td><input form="<?php echo $msg; ?>" type='submit' name='go' value='CAMBIAR'></td>
+                                        <td><input form="<?php echo $msg; ?>" type='submit' name='go' value='BORRAR'></td>
                                     </tr>
-                                </form>
 <?php } ?>
                         </table>
                     </td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>Query del Inventario</title>
 
@@ -8,8 +8,6 @@
             table {border: 1pt solid #000000;background-color: #c0c0c0;}
             tr:hover {background-color: #ff0000;}
             th {border: 1pt solid #000000;background-color: #c0c0c0;}
-            .loud {text-align:center; font-weight:bold; color:red;}
-            .num {text-align:right;}
         </style>
     </head>
     <body>

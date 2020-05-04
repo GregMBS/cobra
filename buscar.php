@@ -5,8 +5,8 @@ use cobra_salsa\BuscarClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BuscarClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectUser();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectUser();
 $bc = new BuscarClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 set_time_limit(300);

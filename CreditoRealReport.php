@@ -8,8 +8,8 @@ require_once 'classes/PdoClass.php';
 require_once 'classes/CreditoRealClass.php';
 require_once 'classes/OutputClass.php';
 
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 $cr = new CreditoRealClass($pdo);
 $cc = new OutputClass();
 $output = array();

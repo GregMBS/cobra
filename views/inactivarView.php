@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
-<html>
+<html lang='es'>
     <head>
         <title>Inactivar Cuentas</title>
     </head>
     <body>
         <form action="/inactivar.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
-            <p>Usa numero de cuenta</p>
-            <textarea name='data' rows='20' cols='50'></textarea>
+            <p><label for="data">Usa numero de cuenta</label></p>
+            <textarea id='data' name='data' rows='20' cols='50'></textarea>
             <input type="hidden" name="capt" value="<?php
             echo $capt
             ?>" />

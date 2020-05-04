@@ -5,8 +5,8 @@ use cobra_salsa\PagosClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/PagosClass.php';
-$pdoc		 = new PdoClass();
-$pdo		 = $pdoc->dbConnectAdmin();
+$pd		 = new PdoClass();
+$pdo		 = $pd->dbConnectAdmin();
 $pc              = new PagosClass($pdo);
 $capt		 = filter_input(INPUT_GET, 'capt');
 $resultAct	 = $pc->summaryThisMonth();

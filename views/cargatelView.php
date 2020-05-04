@@ -1,11 +1,10 @@
 <!DOCTYPE HTML>
 
-<html>
+<html lang='es'>
     <head>
         <title>ROBOT Carga</title>
         <style>
             body {background-color:blue;}
-            .num {text-align:right}
             textarea,select,option {background-color:white;}
             form {margin-left:auto;margin-right:auto;}
             p {background-color:gray;}
@@ -13,9 +12,9 @@
     </head>
     <body>
         <form action="/cargatel.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
-            <p>Usa formato CUENTA,TELE</p>
-            <textarea name='data' rows='20' cols='50'></textarea>
-            <p>Mensaje <select name="msgtag">
+            <p><label for="data">Usa formato CUENTA,TELE</label></p>
+            <textarea id='data' name='data' rows='20' cols='50'></textarea>
+            <p><label for="msgtag">Mensaje </label><select id="msgtag" name="msgtag">
                     <?php
                     foreach ($resultcl as $answercl) {
                         ?>

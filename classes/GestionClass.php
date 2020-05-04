@@ -357,8 +357,7 @@ and id_cuenta = :c_cont";
             var_dump($exc);
             die();
         }
-        $auto = $this->pdo->lastInsertId();
-        return $auto;
+        return $this->pdo->lastInsertId();
     }
 
     private function beginTransaction() {

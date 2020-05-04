@@ -53,8 +53,7 @@ class WhiteClass {
                 $searchstr .= " AND $column regexp :$key ";
             }
         }
-        $querymain = "SELECT SQL_NO_CACHE * FROM rlook WHERE tel IS NOT NULL" . $searchstr;
-        return $querymain;
+        return "SELECT SQL_NO_CACHE * FROM rlook WHERE tel IS NOT NULL" . $searchstr;
     }
 
     /**
@@ -79,8 +78,7 @@ class WhiteClass {
         } catch (PDOException $e) {
             die($e->getMessage());
         }
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

@@ -190,8 +190,7 @@ ORDER BY d_fech, c_hrin";
      */
     private function checkstat($c_cvst) {
         $stats = array_keys($this->resCode);
-        $good = in_array($c_cvst, $stats);
-        return $good;
+        return in_array($c_cvst, $stats);
     }
 
     private function loadArray($inrow) {
@@ -232,8 +231,7 @@ ORDER BY d_fech, c_hrin";
         $cobra = $this->getFromCobra();
         $data = $this->addSpecialData($cobra);
         $columns = $this->columnNames;
-        $output = array('headers' => $columns, 'data' => $data);
-        return $output;
+        return array('headers' => $columns, 'data' => $data);
     }
 
     /**
@@ -244,8 +242,7 @@ ORDER BY d_fech, c_hrin";
         $cobra = $this->getMonthlyFromCobra();
         $data = $this->addSpecialData($cobra);
         $columns = $this->columnNames;
-        $output = array('headers' => $columns, 'data' => $data);
-        return $output;
+        return array('headers' => $columns, 'data' => $data);
     }
 
 }

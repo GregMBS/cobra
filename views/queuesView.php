@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>Administraci&oacute;n de los queues</title>
         <meta charset="utf-8">

@@ -4,9 +4,9 @@ use cobra_salsa\PagobulkClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/PagobulkClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
-$capt = $pdoc->capt;
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
+$capt = $pd->capt;
 $pc = new PagobulkClass($pdo);
 $go = filter_input(INPUT_POST, 'go');
 $data = filter_input(INPUT_POST, 'data');

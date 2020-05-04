@@ -134,8 +134,7 @@ and sdc=:sdc and status_aarsa=:status";
         ORDER BY gestor";
         $stl = $this->pdo->prepare($querylist);
         $stl->execute();
-        $resultlist = $stl->fetchAll(PDO::FETCH_ASSOC);
-        return $resultlist;
+        return $stl->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -176,17 +175,16 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getMyQueuelist($GESTOR) {
-        $queryqa = "SELECT cliente, sdc, status_aarsa,
+        $query = "SELECT cliente, sdc, status_aarsa,
                                     camp, bloqueado
                                     FROM queuelist
                                     WHERE gestor = :gestor
                                     and cliente<>''
                                     ORDER BY cliente,sdc,camp;";
-        $stqa = $this->pdo->prepare($queryqa);
-        $stqa->bindParam(':gestor', $GESTOR);
-        $stqa->execute();
-        $resultqa = $stqa->fetchAll(PDO::FETCH_ASSOC);
-        return $resultqa;
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $GESTOR);
+        $stq->execute();
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

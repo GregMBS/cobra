@@ -6,7 +6,7 @@
  */
 ?>
 <!DOCTYPE html>
-<HTML>
+<html lang='es'>
     <HEAD>
         <TITLE>Error de capturar gestion</TITLE>
     </HEAD>

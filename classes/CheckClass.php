@@ -133,15 +133,14 @@ and tipo IN ('visitador','admin')";
      * @return array
      */
     public function countInOut($gestor) {
-        $querycount = "select sum(fechaout>curdate()) as countOut,
+        $query = "select sum(fechaout>curdate()) as countOut,
     sum(fechain>curdate()) as countIn
     from vasign
 where gestor=:gestor";
-        $stc = $this->pdo->prepare($querycount);
+        $stc = $this->pdo->prepare($query);
         $stc->bindParam(':gestor', $gestor);
         $stc->execute();
-        $resultcount = $stc->fetch();
-        return $resultcount;
+        return $stc->fetch();
     }
 
     /**
@@ -151,25 +150,24 @@ where gestor=:gestor";
      */
     public function listVasign($gestor) {
         if (!empty($gestor)) {
-            $gstring = "WHERE gestor = :gestor "
+            $gString = "WHERE gestor = :gestor "
                     . "ORDER BY fechain DESC";
         } else {
-            $gstring = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
+            $gString = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
         }
 
-        $querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
+        $query = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
 queue, completo, fechaout, fechain, gestor
 from resumen
 join vasign on id_cuenta=c_cont
 join nombres on iniciales=gestor
-join dictamenes on dictamen = status_aarsa " . $gstring;
-        $stm = $this->pdo->query($querymain);
+join dictamenes on dictamen = status_aarsa " . $gString;
+        $stm = $this->pdo->query($query);
         if (!empty($gestor)) {
             $stm->bindParam(':gestor', $gestor);
         }
         $stm->execute();
-        $resultmain = $stm->fetchAll();
-        return $resultmain;
+        return $stm->fetchAll();
     }
 
     /**
@@ -178,14 +176,13 @@ join dictamenes on dictamen = status_aarsa " . $gstring;
      * @return array
      */
     public function getCompleto($vst) {
-        $queryn = "SELECT completo FROM nombres
+        $query = "SELECT completo FROM nombres
 where iniciales=:vst
 limit 1;";
-        $stn = $this->pdo->prepare($queryn);
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':vst', $vst);
         $stn->execute();
-        $resultn = $stn->fetch(PDO::FETCH_ASSOC);
-        return $resultn;
+        return $stn->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

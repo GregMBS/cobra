@@ -3,7 +3,11 @@
 set_time_limit(300);
 require_once 'vendor/autoload.php';
 
+use Box\Spout\Common\Exception\InvalidArgumentException as InvalidArgumentExceptionAlias;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Common\Exception\UnsupportedTypeException;
 use Box\Spout\Common\Type;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Box\Spout\Writer\WriterFactory;
 use cobra_salsa\BigClass;
 use cobra_salsa\BigInputObject;
@@ -12,8 +16,8 @@ use cobra_salsa\PdoClass;
 require_once 'classes/PdoClass.php';
 require_once 'classes/BigClass.php';
 require_once 'classes/BigInputObject.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 $bc = new BigClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $fecha1 = filter_input(INPUT_GET, 'fecha1');
@@ -34,9 +38,20 @@ if (!empty($fecha1)) {
 		foreach ($result as $row) {
 			$output[] = $row;
 		}
-		$writer = WriterFactory::create(Type::XLSX);
-		$writer->openToBrowser($filename); // stream data directly to the browser
-		$writer->addRows($output); // add multiple rows at a time
+        try {
+            $writer = WriterFactory::create(Type::XLSX);
+        } catch (UnsupportedTypeException $e) {
+        }
+        try {
+            $writer->openToBrowser($filename);
+        } catch (IOException $e) {
+        } // stream data directly to the browser
+        try {
+            $writer->addRows($output);
+        } catch (IOException $e) {
+        } catch (InvalidArgumentExceptionAlias $e) {
+        } catch (WriterNotOpenedException $e) {
+        } // add multiple rows at a time
 		$writer->close();
 	}
 } else {

@@ -95,8 +95,7 @@ class BigClass extends BaseClass {
             $stq->bindParam(':cliente', $cliente);
         }
         $stq->execute();
-        $data = $stq->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -125,8 +124,7 @@ and pagos.fecha between :fecha1 and :fecha2
 ";
         $this->queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
 group by resumen.id_cuenta ORDER BY d_fech,c_hrin";
-        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
-        return $data;
+        return $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
     }
 
     /**
@@ -154,8 +152,7 @@ where d_fech between :fecha1 and :fecha2
 ";
 
         $this->queryBack = " AND c_cniv <> '' ";
-        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
-        return $data;
+        return $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
     }
 
     /**
@@ -176,8 +173,7 @@ where d_fech between :fecha1 and :fecha2
 
         $this->queryBack = "and status_de_credito not like '%tivo'
 ORDER BY d_fech,c_hrin";
-        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
-        return $data;
+        return $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
     }
 
     /**
@@ -216,8 +212,7 @@ where d_fech between :fecha1 and :fecha2
 ";
 
         $this->queryBack = "";
-        $data = $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
-        return $data;
+        return $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
     }
 
     /**
@@ -232,8 +227,7 @@ where d_fech between :fecha1 and :fecha2
         ORDER BY d_fech $dir limit 60";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -249,8 +243,7 @@ where d_fech between :fecha1 and :fecha2
         ORDER BY d_fech $dir limit 60";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -371,8 +364,7 @@ WHERE n_prom>0
             $stm->bindValue(':cliente', $bio->getCliente());
         }
         $stm->execute();
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

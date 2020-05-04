@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>CobraMas Trouble Admin</title>
         <meta http-equiv="refresh" content="60"/>

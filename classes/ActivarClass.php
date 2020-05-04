@@ -35,10 +35,10 @@ where numero_de_cuenta=:cta";
      * @param array $data
      */
     public function inactivateCuentas($data) {
-        $querydie = "update resumen
+        $query = "update resumen
 set status_de_credito=concat(substring_index(status_de_credito,'-',1),'-inactivo') 
 where status_de_credito not regexp '-' and numero_de_cuenta=:cta";
-        $std = $this->pdo->prepare($querydie);
+        $std = $this->pdo->prepare($query);
         foreach ($data as $d) {
             $std->bindParam(':cta', $d);
             $std->execute();

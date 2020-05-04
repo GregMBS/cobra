@@ -5,10 +5,10 @@ use cobra_salsa\RobotClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/RobotClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 $rc = new RobotClass($pdo);
-$capt = $pdoc->capt;
+$capt = $pd->capt;
 $go = filter_input(INPUT_GET, 'go');
 $killall = filter_input(INPUT_GET, 'killall');
 $cleanslate = filter_input(INPUT_GET, 'cleanslate');

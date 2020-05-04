@@ -3,7 +3,7 @@
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 require_once 'views/reportsView.php';

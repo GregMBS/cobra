@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>Horarios mes anterior</title>
         <meta charset="utf-8" />
@@ -9,9 +9,7 @@
         <style type="text/css">
             tr:hover {background-color: #ffff00;}
             .heavy {font-weight:bold;font-size:10pt;}
-            .heavytot {font-weight:bold;font-size:10pt;text-align:right;}
             .light {text-align:right;}
-            .zeros {color:red;}
         </style>
     </head>
     <body>

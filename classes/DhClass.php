@@ -44,8 +44,7 @@ saldo_total desc, pagos_vencidos";
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
         $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getGestiones($gestor, $fecha) {
@@ -63,8 +62,7 @@ saldo_total desc, pagos_vencidos,d_fech,c_hrin";
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
         $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -90,8 +88,7 @@ saldo_total desc, pagos_vencidos,d_fech,c_hrin";
         $stm->bindParam(':gestor', $gestor);
         $stm->bindParam(':fecha', $fecha);
         $stm->execute();
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

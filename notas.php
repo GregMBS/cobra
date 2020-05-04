@@ -5,8 +5,8 @@ use cobra_salsa\NotaClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/NotaClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectUser();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectUser();
 $nc = new NotaClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $CUENTA = filter_input(INPUT_GET, 'CUENTA');

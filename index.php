@@ -10,22 +10,19 @@ $pw = filter_input(INPUT_POST, 'pwd');
 if (!empty($go)) {
     require_once 'classes/PdoClass.php';
     require_once 'classes/LoginClass.php';
-    $pdoc = new PdoClass();
-    $pdo = $pdoc->dbConnectNobody();
+    $pd = new PdoClass();
+    $pdo = $pd->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
     if (isset($userData['tipo'])) {
         switch ($userData['tipo']) {
+            case "admin":
             case "callcenter":
             $field = "ejecutivo_asignado_call_center";
                 break;
 
             case "visitador":
             $field = "ejecutivo_asignado_domiciliario";
-                break;
-
-            case "admin":
-            $field = "ejecutivo_asignado_call_center";
                 break;
 
             default:

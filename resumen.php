@@ -18,6 +18,7 @@ $rc = new ResumenClass($pdo);
 $capt = $pc->capt;
 $mytipo = $pc->tipo;
 $C_CVGE = $capt;
+$pagAlert = 0;
 if (!empty($mytipo)) {
     $oldgo = '';
 
@@ -43,32 +44,23 @@ if (!empty($mytipo)) {
         $find = trim($findStripped);
     }
 
-    $pagalert = 0;
-    $querypagos = "select (c_cvst like 'PAG%'),c_cont from historia 
+    $queryPagos = "select (c_cvst like 'PAG%'),c_cont from historia 
 where c_cvge='" . $capt . "' and d_fech=curdate() and c_cvst like 'PAG%'
 and (cuenta,c_cvba) not in (select cuenta,cliente from pagos)
 order by d_fech desc,c_hrin desc limit 1";
-    $resultpagos = mysqli_query($con, $querypagos) or die("ERROR RM1 - " . mysqli_error($con));
-    while ($answerpagos = mysqli_fetch_row($resultpagos)) {
-        $pagalert = $answerpagos[0];
-        $pagid = $answerpagos[1];
-        if (empty($pagalert)) {
-            $pagalert = 0;
+    $resultPagos = mysqli_query($con, $queryPagos) or die("ERROR RM1 - " . mysqli_error($con));
+    while ($answerPagos = mysqli_fetch_row($resultPagos)) {
+        $pagAlert = $answerPagos[0];
+        $pagid = $answerPagos[1];
+        if (empty($pagAlert)) {
+            $pagAlert = 0;
         }
         if ($mytipo == 'visitador') {
-            $pagalert = 0;
+            $pagAlert = 0;
         }
     }
 
-    $notas = $rc->notAlert($capt);
-    /**
-     * @var string $notalert
-     * @var string $notalertt
-     * @var string $cuenta
-     * @var string $nota
-     * @var string $fuente
-     */
-    extract($notas);
+    $notes = $rc->notAlert($capt);
 
     if ($go == 'LOGOUT') {
         $page = "Location: logout.php?gone=&capt=" . $capt;

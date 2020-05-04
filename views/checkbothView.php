@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>CobraMas Visitador Asignaciones y Recepciones</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

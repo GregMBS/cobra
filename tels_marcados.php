@@ -3,23 +3,33 @@ set_time_limit(300);
 require_once 'vendor/autoload.php';
 
 
+use Box\Spout\Common\Exception\InvalidArgumentException as InvalidArgumentExceptionAlias;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use cobra_salsa\PdoClass;
 use cobra_salsa\TelsClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/TelsClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 $tc = new TelsClass($pdo);
 $fecha1 = filter_input(INPUT_GET, 'fecha1');
 $fecha2 = filter_input(INPUT_GET, 'fecha2');
-$capt = $pdoc->capt;
+$capt = $pd->capt;
 if (!empty($fecha1)) {
     $tc->createMarcados($fecha1, $fecha2);
     $result = $tc->getMercadosReport();
 }
 if (isset($result)) {
-    $tc->outputDocument($result);
+    try {
+        $tc->outputDocument($result);
+    } catch (IOException $e) {
+    } catch (InvalidArgumentExceptionAlias $e) {
+    } catch (UnsupportedTypeException $e) {
+    } catch (WriterNotOpenedException $e) {
+    }
 } else {
     $begin = new DateTime('first day of last month');
     $endDay = new DateTime('now');

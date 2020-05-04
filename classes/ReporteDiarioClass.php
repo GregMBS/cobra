@@ -201,8 +201,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
         if ($wday == 6) {
             $lbdg--;
         }
-        $lbd = date("Y-m-d", strtotime("$year-$month-$lbdg"));
-        return $lbd;
+        return date("Y-m-d", strtotime("$year-$month-$lbdg"));
     }
 
     /**

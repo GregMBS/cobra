@@ -142,8 +142,7 @@ class MiltClass {
         $tt = $row['tel'];
         $auto = $row['auto'];
         $cta = $row['id'];
-        $array = array('id' => $auto, 'cuenta' => $cta, 'tel' => $tt, 'msg' => $this->msg);
-        return $array;
+        return array('id' => $auto, 'cuenta' => $cta, 'tel' => $tt, 'msg' => $this->msg);
     }
 
     /**

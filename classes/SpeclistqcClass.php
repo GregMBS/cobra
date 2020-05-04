@@ -99,8 +99,7 @@ ORDER BY saldo_total desc";
             $stm->bindParam(':sdc', $sdc);
         }
         $stm->execute();
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

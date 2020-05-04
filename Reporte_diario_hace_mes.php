@@ -3,9 +3,9 @@
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
-$pdoc = new PdoClass();
-$pdo  = $pdoc->dbConnectAdmin();
-$capt = $pdoc->capt;
+$pd = new PdoClass();
+$pdo  = $pd->dbConnectAdmin();
+$capt = $pd->capt;
 
 function last_business_day($year, $month)
 {
@@ -19,8 +19,7 @@ function last_business_day($year, $month)
         $lbday--;
     }
 
-    $lbd = date("Y-m-d", strtotime("$year-$month-$lbday"));
-    return $lbd;
+    return date("Y-m-d", strtotime("$year-$month-$lbday"));
 }
 $lm      = strtotime("-1 month");
 $lm2     = strtotime("-2 month");
@@ -81,13 +80,13 @@ status_de_credito as 'campa&ntilde;a',producto,subproducto,q(status_aarsa) as 'q
 nombre_deudor,n_prom as 'Imp. Neg.',n_prom1 as 'pp1',d_prom1 as 'fpp1',n_prom2 as 'pp2',d_prom2 as 'fpp2',
 folio,c_cvge as 'gestor'
 from historia h1 join resumen on c_cont=id_cuenta 
-left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio<f2.folio)
+left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio < f2.folio)
 where n_prom>0 and d_fech>'".$lbd0."'
 and d_fech<='".$lbd1."' 
 and d_prom<'".$lbd1."' and c_cvst like 'PROMESA DE%'
 and not exists 
 (select auto from historia h2 
-where h1.c_cont=h2.c_cont and h1.auto<h2.auto and h2.n_prom>0) 
+where h1.c_cont=h2.c_cont and h1.auto < h2.auto and h2.n_prom > 0) 
 and not exists 
 (select auto from pagos 
 where h1.c_cont=id_cuenta and fecha>'".$lbd0."') 
@@ -97,13 +96,13 @@ status_de_credito as 'campa&ntilde;a',producto,subproducto,q(status_aarsa) as 'q
 nombre_deudor,n_prom as 'Imp. Neg.',n_prom1 as 'pp1',d_prom1 as 'fpp1',n_prom2 as 'pp2',d_prom2 as 'fpp2',
 folio,c_cvge as 'gestor'
 from historia h1 join resumen on c_cont=id_cuenta 
-left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio<f2.folio)
+left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio < f2.folio)
 where n_prom>0 and d_fech>'".$lbd0."' 
 and d_fech<='".$lbd1."' 
 and d_prom>='".$lbd1."' and c_cvst like 'PROMESA DE%'
 and not exists 
 (select auto from historia h2 
-where h1.c_cont=h2.c_cont and h1.auto<h2.auto and h2.n_prom>0) 
+where h1.c_cont=h2.c_cont and h1.auto < h2.auto and h2.n_prom > 0) 
 and not exists 
 (select auto from pagos 
 where h1.c_cont=id_cuenta and fecha>'".$lbd0."');";
@@ -160,8 +159,10 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
             ul.tabs
             { list-style-type: none; padding: 0; margin: 0;}
             ul.tabs li
-            { float: left; padding: 0; margin: 0;
-              background: url(tab_right.png) no-repeat right top; margin-right: 1px; }
+            { float: left; padding: 0;
+                background: url(tab_right.png) no-repeat right top;
+                margin: 0 1px 0 0;
+            }
             ul.tabs li a
             { display: block; padding: 0 10px;
               color: white; text-decoration: none; background:
@@ -173,7 +174,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
             <script type="text/javascript" src="js/external/dom-drag.js"></script>
             <SCRIPT TYPE="text/JavaScript">
                 function paging(pageid) {
-                pageida=pageid+"a";
+                const pageida=pageid+"a";
                 document.getElementById("pagos").style.display="none";
                 document.getElementById("pagosa").style.fontWeight="normal";
                 document.getElementById("vigentes").style.display="none";

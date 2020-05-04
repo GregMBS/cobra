@@ -4,8 +4,8 @@ use cobra_salsa\PdoClass;
 use cobra_salsa\GestorClass;
 
 require_once 'classes/PdoClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 require_once 'classes/GestorClass.php';
 $gc = new GestorClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>Visitas del Mes Actual</title>
         <meta charset="utf-8" />
@@ -9,14 +9,12 @@
         <style type="text/css">
             tr:hover {background-color: #ffff00;}
             .heavy {font-weight:bold;font-size:10pt;}
-            .heavytot {font-weight:bold;font-size:10pt;text-align:right;}
             .light {text-align:right;}
-            .zeros {color:red;}
         </style>
     </head>
     <body>
         <h2>VISITAS DEL MES ACTUAL</h2>
-        <table summary="LpH">
+        <table>
             <?php
             $zeros = array_fill($i, $dhoy, 0);
             $tsumt = $zeros;

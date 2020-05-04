@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>Cuentas gestionado por <?php echo $gestor; ?> en <?php 
         echo $fecha;

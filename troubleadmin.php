@@ -5,8 +5,8 @@ use cobra_salsa\TroubleClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/TroubleClass.php';
-$pdoc    = new PdoClass();
-$pdo     = $pdoc->dbConnectAdmin();
+$pd    = new PdoClass();
+$pdo     = $pd->dbConnectAdmin();
 $tc = new TroubleClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');

@@ -89,8 +89,7 @@ and queue = :queue ";
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        $result = $stc->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stc->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -140,8 +139,7 @@ where status_aarsa = dictamen
 )
 order by cliente, sdc, status_aarsa limit 1000
 ";
-        $result = $this->pdo->query($querymainq);
-        return $result;
+        return $this->pdo->query($querymainq);
     }
 
     /**

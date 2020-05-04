@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='es'>
     <head>
         <title>CobraMas - Buscar</title>
         <meta charset="utf-8">

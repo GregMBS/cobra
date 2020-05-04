@@ -48,8 +48,7 @@ class ResumenQueuesClass {
         $stq->bindParam(':capt', $capt);
         $stq->bindParam(':camp', $camp, PDO::PARAM_INT);
         $stq->execute();
-        $result = $stq->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -139,9 +138,8 @@ and status_aarsa not in (
 	)
 and especial > 0
 order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_1 desc limit 1";
-    }        
-        $stm = $this->pdo->prepare($querymain);
-        return $stm;
+    }
+        return $this->pdo->prepare($querymain);
     }
 
     /**
@@ -194,8 +192,7 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
     public function runResumenMain($stm) {
         try {
             $stm->execute();
-            $result = $stm->fetch(PDO::FETCH_ASSOC);
-            return $result;
+            return $stm->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             return array();
         }

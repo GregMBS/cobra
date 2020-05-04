@@ -52,8 +52,7 @@ order by c_cvge,sum(monto),d_prom
         $stq->bindParam(':gestor', $capt);
         $stq->execute();
         $types = $stq->fetch();
-        $type  = $types['tipo'];
-        return $type;
+        return $types['tipo'];
     }
 
     /**

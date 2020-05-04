@@ -5,8 +5,8 @@ use cobra_salsa\LogoutClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/LogoutClass.php';
-$pdoc		 = new PdoClass();
-$pdo		 = $pdoc->dbConnectUser();
+$pd		 = new PdoClass();
+$pdo		 = $pd->dbConnectUser();
 $lc              = new LogoutClass($pdo);
 $capt		 = filter_input(INPUT_GET, 'capt');
 $go		 = filter_input(INPUT_GET, 'gone');

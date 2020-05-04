@@ -45,8 +45,7 @@ class GestorClass {
         $stp->bindParam(':cuenta', $CUENTA);
         $stp->bindParam(':cliente', $CLIENTE);
         $stp->execute();
-        $resultp = $stp->fetchAll(PDO::FETCH_ASSOC);
-        return $resultp;
+        return $stp->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -64,8 +63,7 @@ class GestorClass {
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
