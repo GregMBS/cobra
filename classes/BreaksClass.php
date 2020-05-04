@@ -48,8 +48,7 @@ and c_hrin>:tiempo;";
         $sdq->bindParam(':tiempo', $TIEMPO);
         $sdq->bindParam(':gestor', $GESTOR);
         $sdq->execute();
-        $resultq = $sdq->fetchAll();
-        return $resultq;
+        return $sdq->fetchAll();
     }
 
     /**
@@ -81,8 +80,7 @@ order by c_cvge,c_cvst,c_hrin";
         $sdp = $this->pdo->prepare($queryp);
         $sdp->bindParam(':capt', $capt);
         $sdp->execute();
-        $resultp = $sdp->fetchAll();
-        return $resultp;
+        return $sdp->fetchAll();
     }
 
     /**

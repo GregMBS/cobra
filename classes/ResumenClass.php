@@ -358,14 +358,13 @@ AND c_cont <> 0
      * @return array
      */
     public function getQueueList($capt) {
-        $queryfilt = "SELECT cliente,sdc,queue FROM queuelist 
+        $query = "SELECT cliente,sdc,queue FROM queuelist 
 WHERE gestor = :capt 
 ORDER BY cliente,sdc,queue";
-        $stf = $this->pdo->prepare($queryfilt);
+        $stf = $this->pdo->prepare($query);
         $stf->bindParam(':capt', $capt);
         $stf->execute();
-        $resultfilt = $stf->fetchAll();
-        return $resultfilt;
+        return $stf->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -374,10 +373,10 @@ ORDER BY cliente,sdc,queue";
      * @return string
      */
     public function getTimelock($id_cuenta) {
-        $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') as tl
+        $query = "SELECT date_format(timelock,'%a, %d %b %Y %T') as tl
             FROM resumen 
             WHERE id_cuenta = :id_cuenta";
-        $sts = $this->pdo->prepare($querytlock);
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
         $result = $sts->fetch(PDO::FETCH_ASSOC);
@@ -407,11 +406,10 @@ ORDER BY cliente,sdc,queue";
      */
     public function getBest($C_CVST, $C_CONT) {
         $best = $C_CVST;
-        $querybest = "select c_cvst,v_cc from historia,dictamenes"
-                . " where c_cvst=dictamen and c_cont = :C_CONT"
-                . " and d_fech>last_day(curdate()-interval 90 day)"
-                . " order by v_cc LIMIT 1";
-        $stb = $this->pdo->prepare($querybest);
+        $query = "select c_cvst,v_cc from historia,dictamenes
+        where c_cvst=dictamen and c_cont = :C_CONT and d_fech>last_day(curdate()-interval 90 day)
+        order by v_cc LIMIT 1";
+        $stb = $this->pdo->prepare($query);
         $stb->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $result = $stb->fetch(PDO::FETCH_ASSOC);
         if (isset($result['c_cvst'])) {
@@ -514,16 +512,16 @@ order by d_fech desc, c_hrin desc limit 1";
      * @param string $mytipo
      */
     public function setLocks($capt, $id_cuenta, $mytipo) {
-        $queryunlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
+        $queryUnlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
-        $stu = $this->pdo->prepare($queryunlock);
+        $stu = $this->pdo->prepare($queryUnlock);
         $stu->bindParam(':capt', $capt);
-        $querylock = "UPDATE resumen SET timelock = now(), locker = :capt "
+        $queryLock = "UPDATE resumen SET timelock = now(), locker = :capt "
                 . "WHERE id_cuenta = :id_cuenta";
         if ($mytipo == 'admin') {
-            $querylock = "SELECT :capt, :id_cuenta";
+            $queryLock = "SELECT :capt, :id_cuenta";
         }
-        $stl = $this->pdo->prepare($querylock);
+        $stl = $this->pdo->prepare($queryLock);
         $stl->bindParam(':capt', $capt);
         $stl->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $queryunlockslice = "UPDATE rslice SET timelock = NULL, locker = NULL "

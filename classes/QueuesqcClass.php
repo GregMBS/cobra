@@ -101,19 +101,11 @@ and queue = :queue ";
      * @return array
      */
     function getQueueCounts($CLIENTE, $SDC, $QUEUE) {
-        $querysub = $this->querysubhead . " and status_de_credito not regexp '-'";
+        $query = $this->querysubhead . " and status_de_credito not regexp '-'";
         if ($SDC <> '') {
-            $querysub = $this->querysubhead . " and status_de_credito = :sdc";
+            $query = $this->querysubhead . " and status_de_credito = :sdc";
         }
-        $stc = $this->pdo->prepare($querysub);
-        $stc->bindParam(':cliente', $CLIENTE);
-        $stc->bindParam(':queue', $QUEUE);
-        if (!empty($SDC)) {
-            $stc->bindParam(':sdc', $SDC);
-        }
-        $stc->execute();
-        $result = $stc->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        return $this->subQuery($query, $CLIENTE, $QUEUE, $SDC);
     }
 
     /**
@@ -124,19 +116,11 @@ and queue = :queue ";
      * @return array
      */
     function getReportSub($CLIENTE, $SDC, $QUEUE) {
-        $querysub = $this->reportsubhead . " and status_de_credito not regexp '-'";
+        $query = $this->reportsubhead . " and status_de_credito not regexp '-'";
         if ($SDC <> '') {
-            $querysub = $this->reportsubhead . " and status_de_credito = :sdc";
+            $query = $this->reportsubhead . " and status_de_credito = :sdc";
         }
-        $stc = $this->pdo->prepare($querysub);
-        $stc->bindParam(':cliente', $CLIENTE);
-        $stc->bindParam(':queue', $QUEUE);
-        if (!empty($SDC)) {
-            $stc->bindParam(':sdc', $SDC);
-        }
-        $stc->execute();
-        $result = $stc->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        return $this->subQuery($query, $CLIENTE, $QUEUE, $SDC);
     }
 
     /**
@@ -174,6 +158,25 @@ where status_de_credito not regexp '[dv]o$'
 group by cliente,status_de_credito
 ";
         return $this->pdo->query($query);
+    }
+
+    /**
+     * @param $query
+     * @param $CLIENTE
+     * @param $QUEUE
+     * @param $SDC
+     * @return array
+     */
+    private function subQuery($query, $CLIENTE, $QUEUE, $SDC)
+    {
+        $stc = $this->pdo->prepare($query);
+        $stc->bindParam(':cliente', $CLIENTE);
+        $stc->bindParam(':queue', $QUEUE);
+        if (!empty($SDC)) {
+            $stc->bindParam(':sdc', $SDC);
+        }
+        $stc->execute();
+        return $stc->fetch(PDO::FETCH_ASSOC);
     }
 
 }

@@ -101,7 +101,7 @@ and id_cuenta = :c_cont";
      * @param array $gestion
      * @return int
      */
-    private function insertVisit($gestion) {
+    private function insertVisit(array $gestion) {
         $hora = $gestion['C_VH'].':'.$gestion['C_VMN'];
         $sti = $this->pdo->prepare($this->visitInsertQuery);
         $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
@@ -142,15 +142,14 @@ and id_cuenta = :c_cont";
         $sti->bindParam(':C_OBSE2', $gestion['C_OBSE2']);
         $sti->bindParam(':C_EJE', $gestion['C_EJE']);
         $sti->execute();
-        $auto = $this->pdo->lastInsertId();
-        return $auto;
+        return $this->pdo->lastInsertId();
     }
 
     /**
      * 
      * @param int $auto
      */
-    private function addHistdate($auto) {
+    private function addHistDate($auto) {
         $query = "INSERT IGNORE INTO histdate VALUES (:auto, CURDATE())";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
@@ -158,12 +157,36 @@ and id_cuenta = :c_cont";
     }
 
     /**
-     *
+     * @param string $c_cvge
+     * @param int $c_cont
+     * @param string $d_fech
+     * @param string $c_hrin
+     * @param string $c_hrfi
+     */
+    public function addHistGest($c_cvge, $c_cont, $d_fech, $c_hrin, $c_hrfi) {
+        $query = "INSERT IGNORE INTO histgest VALUES (auto, c_cvge) 
+        SELECT auto, :c_cvge 
+        FROM historia 
+        WHERE c_cont = :c_cont AND d_fech = :d_fech AND c_hrin = :c_hrin AND c_hrfi = :c_hrfi";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
+        $stq->bindParam(':c_cvge', $c_cvge);
+        $stq->bindParam(':c_cont', $c_cont, PDO::PARAM_INT);
+        $stq->bindParam(':d_fech', $d_fech);
+        $stq->bindParam(':c_hrin', $c_hrin);
+        $stq->bindParam(':c_hrfi', $c_hrfi);
+        $stq->execute();
+    }
+
+    /**
      * @param int $auto
      * @param string $c_cvge
      */
-    public function addHistgest($auto, $c_cvge) {
-        $query = "INSERT IGNORE INTO histgest VALUES (:auto, :c_cvge)";
+    private function addHistGestAuto($auto, $c_cvge) {
+        $query = "INSERT IGNORE INTO histgest VALUES (auto, c_cvge) 
+        SELECT auto, :c_cvge 
+        FROM historia 
+        WHERE auto = :auto";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stq->bindParam(':c_cvge', $c_cvge);
@@ -177,13 +200,13 @@ and id_cuenta = :c_cont";
      */
     public function addNewTel($C_CONT, $tele) {
         $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
-        $queryntel = "UPDATE resumen "
+        $query = "UPDATE resumen "
                 . "SET tel_4_verif = tel_3_verif,"
                 . "tel_3_verif = tel_2_verif,"
                 . "tel_2_verif = tel_1_verif,"
                 . "tel_1_verif = :tel "
                 . "WHERE id_cuenta = :C_CONT";
-        $stn = $this->pdo->prepare($queryntel);
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':tel', $tel);
         $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
@@ -195,8 +218,8 @@ and id_cuenta = :c_cont";
      * @param string $ndir
      */
     public function updateAddress($C_CONT, $ndir) {
-        $queryndir = "UPDATE resumen SET direccion_nueva = :ndir WHERE id_cuenta = :C_CONT";
-        $stn = $this->pdo->prepare($queryndir);
+        $query = "UPDATE resumen SET direccion_nueva = :ndir WHERE id_cuenta = :C_CONT";
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':ndir', $ndir);
         $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
@@ -208,8 +231,8 @@ and id_cuenta = :c_cont";
      * @param string $email
      */
     private function updateEmail($C_CONT, $email) {
-        $queryndir = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
-        $stn = $this->pdo->prepare($queryndir);
+        $query = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':email', $email);
         $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
@@ -290,7 +313,7 @@ and id_cuenta = :c_cont";
      * @param array $gestion
      * @return int
      */
-    private function insertGestion($gestion) {
+    private function insertGestion(array $gestion) {
         try {
             $sti = $this->pdo->prepare($this->gestionInsertQuery);
             $sti->bindParam(':C_CVBA', $gestion['C_CVBA']);
@@ -352,7 +375,7 @@ and id_cuenta = :c_cont";
      * @param array $gestion
      */
     private function doCommon($auto, $gestion) {
-        $this->addHistgest($auto, $gestion['C_CVGE']);
+        $this->addHistGestAuto($auto, $gestion['C_CVGE']);
         if (!empty($gestion['C_NTEL'])) {
             $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
         }
@@ -375,13 +398,19 @@ and id_cuenta = :c_cont";
         $this->resumenStatusUpdate($gestion['C_CONT'], $best);
     }
 
-    public function doVisit($gestion) {
+    /**
+     * @param array $gestion
+     */
+    public function doVisit(array $gestion) {
         $auto = $this->insertVisit($gestion);
-        $this->addHistdate($auto);
+        $this->addHistDate($auto);
         $this->doCommon($auto, $gestion);
     }
 
-    public function doGestion($gestion) {
+    /**
+     * @param array $gestion
+     */
+    public function doGestion(array $gestion) {
         $this->beginTransaction();
         $auto = $this->insertGestion($gestion);
         if ($auto == 0) {

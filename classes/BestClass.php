@@ -36,8 +36,7 @@ class BestClass extends BaseClass
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':c_cont', $c_cont);
         $stq->execute();
-        $result = $stq->fetchAll();
-        return $result;
+        return $stq->fetchAll();
     }
 
     /**
@@ -53,8 +52,7 @@ order by v_cc asc, d_fech desc limit 1";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':c_cont', $c_cont);
         $stq->execute();
-        $result = $stq->fetchAll();
-        return $result;
+        return $stq->fetchAll();
     }
     
     /**

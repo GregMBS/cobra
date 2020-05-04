@@ -149,11 +149,11 @@ if ($go == 'NUEVOS') {
     header($redirector);
 }
 if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
-    $oldgo = mysqli_real_escape_string($con, $get['oldgo']);
+    $oldgo = filter_input(INPUT_GET,'oldgo');
     $error = 0;
-    $flag = mysqli_real_escape_string($con, $get['error']);
-    $C_CVGE = mysqli_real_escape_string($con, urldecode($get['C_CVGE']));
-    $AUTH = mysqli_real_escape_string($con, $get['AUTH']);
+    $flag = filter_input(INPUT_GET,'error');
+    $C_CVGE = filter_input(INPUT_GET,'C_CVGE');
+    $AUTH = filter_input(INPUT_GET,'AUTH');
     if ($C_CVGE != $capt) {
         $AUTH = $capt;
     }
@@ -163,49 +163,46 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     if (empty($AUTH)) {
         $AUTH = '';
     }
-    $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
-    $C_CVST = mysqli_real_escape_string($con, urldecode($get['C_CVST']));
-    $C_CVBA = mysqli_real_escape_string($con, urldecode($get['C_CVBA']));
-    $ACCION = mysqli_real_escape_string($con, urldecode($get['ACCION']));
-    $C_MOTIV = mysqli_real_escape_string($con, urldecode($get['C_MOTIV']));
-    $D_FECH = mysqli_real_escape_string($con, $get['D_FECH']);
-    $C_HRIN = mysqli_real_escape_string($con, $get['C_HRIN']);
+    $C_CONT = filter_input(INPUT_GET,'C_CONT');
+    $C_CVST = filter_input(INPUT_GET,'C_CVST');
+    $C_CVBA = filter_input(INPUT_GET,'C_CVBA');
+    $ACCION = filter_input(INPUT_GET,'ACCION');
+    $C_MOTIV = filter_input(INPUT_GET,'C_MOTIV');
+    $D_FECH = filter_input(INPUT_GET,'D_FECH');
+    $C_HRIN = filter_input(INPUT_GET,'C_HRIN');
     $C_HRFI = date('H:i:s');
-    $C_TELE = mysqli_real_escape_string($con, $get['C_TELE']);
-    $CUANDO = mysqli_real_escape_string($con, $get['CUANDO']);
-    $CUENTA = mysqli_real_escape_string($con, $get['CUENTA']);
-    $C_OBSE1 = utf8_decode(strtoupper(mysqli_real_escape_string($con, $get['C_OBSE1'])));
-    $C_ATTE = mysqli_real_escape_string($con, $get['C_ATTE']);
-    $C_CNP = mysqli_real_escape_string($con, $get['C_CNP']);
-//$C_CREJ=mysqli_real_escape_string($con,$get['C_CREJ']);
-//$C_CPAT=mysqli_real_escape_string($con,$get['C_CPAT']);
-    $C_CONTAN = mysqli_real_escape_string($con, urldecode($get['C_CONTAN']));
-    $C_CARG = utf8_encode(mysqli_real_escape_string($con, urldecode($get['C_CARG'])));
-    $C_CAMP = mysqli_real_escape_string($con, $get['camp']);
-    $D_PROM1 = mysqli_real_escape_string($con, $get['D_PROM1']);
-    $D_PROM2 = mysqli_real_escape_string($con, $get['D_PROM2']);
-    $D_PROM3 = mysqli_real_escape_string($con, $get['D_PROM3']);
-    $D_PROM4 = mysqli_real_escape_string($con, $get['D_PROM4']);
-    $D_PAGO = mysqli_real_escape_string($con, $get['D_PAGO']);
-    $N_PAGO = mysqli_real_escape_string($con, $get['N_PAGO']);
-    if (isset($get['D_MERC'])) {
-        $D_MERC = mysqli_real_escape_string($con, $get['D_MERC']);
+    $C_TELE = filter_input(INPUT_GET,'C_TELE');
+    $CUANDO = filter_input(INPUT_GET,'CUANDO');
+    $CUENTA = filter_input(INPUT_GET,'CUENTA');
+    $C_OBSE1 = utf8_decode(strtoupper(filter_input(INPUT_GET,'C_OBSE1')));
+    $C_ATTE = filter_input(INPUT_GET,'C_ATTE');
+    $C_CNP = filter_input(INPUT_GET,'C_CNP');
+    $C_CONTAN = filter_input(INPUT_GET,'C_CONTAN');
+    $C_CARG = utf8_encode(filter_input(INPUT_GET,'C_CARG'));
+    $C_CAMP = filter_input(INPUT_GET,'camp', FILTER_VALIDATE_INT);
+    $D_PROM1 = filter_input(INPUT_GET,'D_PROM1');
+    $D_PROM2 = filter_input(INPUT_GET,'D_PROM2');
+    $D_PROM3 = filter_input(INPUT_GET,'D_PROM3');
+    $D_PROM4 = filter_input(INPUT_GET,'D_PROM4');
+    $D_PAGO = filter_input(INPUT_GET,'D_PAGO');
+    $N_PAGO = filter_input(INPUT_GET,'N_PAGO', FILTER_VALIDATE_FLOAT);
+    if (filter_has_var(INPUT_GET,'D_MERC')) {
+        $D_MERC = filter_input(INPUT_GET,'D_MERC');
     } else {
         $D_MERC = '';
     }
-    $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
-    $N_PROM_OLD = mysqli_real_escape_string($con, $get['N_PROM_OLD']);
-    $N_PROM1 = mysqli_real_escape_string($con, $get['N_PROM1']);
-    $N_PROM2 = mysqli_real_escape_string($con, $get['N_PROM2']);
-    $N_PROM3 = mysqli_real_escape_string($con, $get['N_PROM3']);
-    $N_PROM4 = mysqli_real_escape_string($con, $get['N_PROM4']);
-    $N_PROM = intval($N_PROM1) + intval($N_PROM2) + intval($N_PROM3) + intval($N_PROM4);
-//$C_FREQ=mysqli_real_escape_string($con,$get['C_FREQ']);
-    $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
-    $C_NDIR = mysqli_real_escape_string($con, $get['C_NDIR']);
-    $C_EMAIL = trim(mysqli_real_escape_string($con, $get['C_EMAIL']));
-    $C_OBSE2 = mysqli_real_escape_string($con, $get['C_OBSE2']);
-    $C_EJE = mysqli_real_escape_string($con, $get['C_EJE']);
+    $C_PROM = filter_input(INPUT_GET,'C_PROM');
+    $N_PROM_OLD = filter_input(INPUT_GET,'N_PROM_OLD', FILTER_VALIDATE_FLOAT);
+    $N_PROM1 = filter_input(INPUT_GET,'N_PROM1', FILTER_VALIDATE_FLOAT);
+    $N_PROM2 = filter_input(INPUT_GET,'N_PROM2', FILTER_VALIDATE_FLOAT);
+    $N_PROM3 = filter_input(INPUT_GET,'N_PROM3', FILTER_VALIDATE_FLOAT);
+    $N_PROM4 = filter_input(INPUT_GET,'N_PROM4', FILTER_VALIDATE_FLOAT);
+    $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
+    $C_NTEL = filter_input(INPUT_GET,'C_NTEL');
+    $C_NDIR = filter_input(INPUT_GET,'C_NDIR');
+    $C_EMAIL = trim(filter_input(INPUT_GET,'C_EMAIL'));
+    $C_OBSE2 = filter_input(INPUT_GET,'C_OBSE2');
+    $C_EJE = filter_input(INPUT_GET,'C_EJE');
     $montomax = 0;
     $fechamin = '2020-12-31';
     $fechamax = '2007-01-01';
@@ -325,12 +322,7 @@ VALUES ('" . $C_CVBA . "','" .
         mysqli_autocommit($con, FALSE);
         $queryins = str_replace(';', ' ', $qins);
         mysqli_query($con, $queryins) or die("ERROR RM24 - " . mysqli_error($con));
-        $querygest = "INSERT ignore INTO histgest (auto,c_cvge) SELECT auto,'" . $C_CVGE . "' 
-FROM historia 
-WHERE c_cont=" . $C_CONT . " AND d_fech='" . $D_FECH . "'
-AND c_hrin='" . $C_HRIN . "' AND c_hrfi='" . $C_HRFI . "'
-;";
-        mysqli_query($con, $querygest) or die("ERROR RM24a - " . mysqli_error($con));
+        $gc->addHistGest($C_CVGE, $C_CONT, $D_FECH, $C_HRIN, $C_HRFI);
         if ($N_PAGO > 0) {
             $who = $gc->attributePayment($capt, $C_CONT);
             $gc->addPago($C_CONT, $D_PAGO, $N_PAGO, $who);
@@ -346,18 +338,7 @@ AND c_hrin='" . $C_HRIN . "' AND c_hrfi='" . $C_HRFI . "'
 where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
         mysqli_query($con, $querypupa) or die("ERROR RM32a - " . mysqli_error($con));
         $best = $C_CVST;
-        $querybest = "select c_cvst,v_cc from historia,dictamenes 
-where v_cc=
-(select min(v_cc) from historia,dictamenes where c_cont=" . $C_CONT . " 
-and c_cvst=dictamen and left(c_cvba,2)=left('" . $C_CVBA . "',2)) 
-and c_cont=" . $C_CONT . " and left(c_cvba,2)=left('" . $C_CVBA . "',2)
-and (d_prom1>=curdate() or d_prom2>=curdate() or n_prom=0)
-and c_cvst=dictamen;";
-        $resultbest = mysqli_query($con, $querybest) or die("ERROR RM25 - " . mysqli_error($con));
-        while ($answerbest = mysqli_fetch_row($resultbest)) {
-            $best = $answerbest[0];
-        }
-//$querysa = "update resumen set status_aarsa='".$best."', especial=1,fecha_ultima_gestion=now() where id_cuenta='".$C_CONT."';";;
+        $best = $rc->getBest($C_CVST, $C_CONT);
         $querysa = "update resumen set status_aarsa='" . $best . "',fecha_ultima_gestion=now() where id_cuenta='" . $C_CONT . "';";
         mysqli_query($con, $querysa) or die("ERROR RM26 - " . mysqli_error($con));
         $queryhot = "select c_cvst,v_cc from historia,dictamenes 
@@ -809,44 +790,11 @@ if ($mytipo != 'admin') {
     if (!(empty($locker)) && ($locker != $capt)) {
         $lockflag = 1;
     } else {
-        $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL 
-WHERE locker='" . $capt . "';";
-        $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-        if ($cliente == 'Surtidor del Hogar') {
-            $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
-        }
-        if ($mytipo == 'admin') {
-            $querylock = "SELECT 1;";
-        }
-        $queryunlock2 = "UPDATE rslice SET timelock=NULL, locker=NULL 
-WHERE locker='" . $capt . "';";
-        $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-        if ($cliente == 'Surtidor del Hogar') {
-            $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
-        }
-        mysqli_autocommit($con, FALSE);
-        mysqli_query($con, $queryunlock) or die("ERROR RM51 - " . mysqli_error($con));
-        mysqli_query($con, $querylock) or die("ERROR RM52 - " . mysqli_error($con));
-        mysqli_query($con, $queryunlock2) or die("ERROR RM51 - " . mysqli_error($con));
-        mysqli_query($con, $querylock2) or die("ERROR RM52 - " . mysqli_error($con));
-        mysqli_commit($con);
-        $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') FROM 
-resumen 
-WHERE id_cuenta='" . $id_cuenta . "';";
-        $resulttlock = mysqli_query($con, $querytlock) or die("ERROR RM53 - " . mysqli_error($con));
-        if ($resulttlock) {
-            while ($answertlock = mysqli_fetch_row($resulttlock)) {
-                $tl = $answertlock[0];
-            }
-        }
+        $rc->setLocks($capt, $id_cuenta, $mytipo);
+        $tl = $rc->getTimelock($id_cuenta);
     }
 }
-//$queryeom = "select last_day(curdate())+interval 1 month";
-//$resulteom = mysqli_query($con, $queryeom) or die("ERROR RMeom - " . mysqli_error($con));
-//while ($roweom = mysqli_fetch_row($resulteom)) {
-//    $dday = $roweom[0];
-//    $dday2 = $roweom[0];
-//}
+
 if ($mytipo == 'admin') {
     $dday = date("Y-m-d", strtotime("+1 month")) ;
     $dday2 = date("Y-m-d", strtotime("+1 month")) ;
