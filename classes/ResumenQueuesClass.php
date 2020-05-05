@@ -198,4 +198,18 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
         }
     }
 
+    /**
+     *
+     * @param int $camp
+     * @param string $capt
+     */
+    public function updateQueue($camp, $capt) {
+        $query = "UPDATE nombres SET camp=:camp WHERE iniciales=:gestor";
+        $stu = $this->pdo->prepare($query);
+        $stu->bindParam(':camp', $camp, PDO::PARAM_INT);
+        $stu->bindParam(':gestor', $capt);
+        $stu->execute();
+    }
+
+
 }

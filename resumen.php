@@ -3,6 +3,7 @@
 use cobra_salsa\PdoClass;
 use cobra_salsa\GestionClass;
 use cobra_salsa\ResumenClass;
+use cobra_salsa\ResumenQueuesClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
@@ -11,10 +12,12 @@ setlocale(LC_MONETARY, 'en_US');
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenClass.php';
+require_once 'classes/ResumenQueuesClass.php';
 $pc = new PdoClass();
 $pdo = $pc->dbConnectUser();
 $gc = new GestionClass($pdo);
 $rc = new ResumenClass($pdo);
+$qc = new ResumenQueuesClass($pdo);
 $capt = $pc->capt;
 $mytipo = $pc->tipo;
 $C_CVGE = $capt;
@@ -732,8 +735,7 @@ ORDER BY queuelist.camp LIMIT 1";
     while ($answercamp = mysqli_fetch_row($resultcamp)) {
         $newcamp = $answercamp[0];
     }
-    $queryccamp = "UPDATE nombres SET camp=" . $newcamp . " WHERE iniciales='" . $capt . "';";
-    mysqli_query($con, $queryccamp) or die("ERROR RM43 - " . mysqli_error($con));
+    $qc->updateQueue($newcamp, $capt);
 }
 if ($id_cuenta > 0) {
     $queryprom = "select n_prom,d_prom,
@@ -770,12 +772,14 @@ if ($id_cuenta > 0) {
     $D_PROM4_OLD = '';
 }
 $nmerc = 0;
-$querycheck = "SELECT timelock, locker,time_to_sec(timediff(now(),timelock))/60 from resumen  WHERE id_cuenta='" . $id_cuenta . "';";
-$resultcheck = mysqli_query($con, $querycheck) or die("ERROR RM50 - " . mysqli_error($con));
-while ($answercheck = mysqli_fetch_row($resultcheck)) {
-    $timelock = $answercheck[0];
-    $locker = $answercheck[1];
-    $sofar = $answercheck[2];
+$timelock = '';
+$locker = '';
+$sofar = 0;
+$answerCheck = $rc->getTimeCheck($id_cuenta);
+if ($answerCheck) {
+    $timelock = $answerCheck['timelock'];
+    $locker = $answerCheck['locker'];
+    $sofar = $answerCheck['sofar'];
 }
 $tl = date('r');
 if ($mytipo != 'admin') {
@@ -797,32 +801,10 @@ if ($mytipo == 'admin') {
 $CD = date("Y-m-d");
 $CT = date("H:i:s");
 $others = 0;
-$queryothers = "select count(1) FROM resumen 
-where nombre_deudor='$nombre_deudor'
-and '$cliente'='Surtidor del Hogar';";
-$resultothers = mysqli_query($con, $queryothers) or die("ERROR RMothers - " . mysqli_error($con));
-while ($rowothers = mysqli_fetch_row($resultothers)) {
-    $others = $rowothers[0];
-}
 
-$queryfilt = "SELECT cliente,sdc,queue FROM queuelist 
-WHERE gestor=':capt' 
-ORDER BY cliente,sdc,queue
-;";
-$stf = $pdo->prepare($queryfilt);
-$stf->bindParam(':capt', $capt);
-$stf->execute();
-$resultfilt = $stf->fetchAll();
+$resultfilt = $rc->getQueueList($capt);
 
-$queryng = "SELECT count(1) as cng FROM historia 
-WHERE c_cvge=:capt 
-AND d_fech=curdate()
-AND c_cont <> 0
-";
-$stn = $pdo->prepare($queryng);
-$stn->bindParam(':capt', $capt);
-$stn->execute();
-$resultng = $stn->fetch();
+$resultng = $rc->getNumGests($capt);
 
 $querynp = "SELECT count(1) as cnp FROM historia 
 WHERE c_cvge=:capt 
@@ -834,17 +816,6 @@ $stp = $pdo->prepare($querynp);
 $stp->bindParam(':capt', $capt);
 $stp->execute();
 $resultnp = $stp->fetch();
-
-$queryextra = "SELECT *
- FROM resumen,sdhextras 
-WHERE cuenta=numero_de_credito 
-AND nombre_deudor=:nombre_deudor
-AND :cliente='Surtidor del Hogar';";
-$ste = $pdo->prepare($queryextra);
-$ste->bindParam(':nombre_deudor', $nombre_deudor);
-$ste->bindParam(':cliente', $cliente);
-$ste->execute();
-$resultextra = $ste->fetchAll();
 
 $querycl = "SELECT cliente FROM clientes;";
 $resultcl = $pdo->query($querycl);

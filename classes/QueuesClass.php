@@ -20,15 +20,14 @@ class QueuesClass extends BaseClass {
 
     /**
      * 
-     * @param int $CAMP
-     * @param string $GESTOR
+     * @param int $camp
+     * @param string $capt
      */
-    public function updateQueue($CAMP, $GESTOR) {
-        $queryupd = "UPDATE nombres SET camp=:camp "
-                . "where iniciales=:gestor";
-        $stu = $this->pdo->prepare($queryupd);
-        $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
-        $stu->bindParam(':gestor', $GESTOR);
+    public function updateQueue($camp, $capt) {
+        $query = "UPDATE nombres SET camp=:camp WHERE iniciales=:gestor";
+        $stu = $this->pdo->prepare($query);
+        $stu->bindParam(':camp', $camp, PDO::PARAM_INT);
+        $stu->bindParam(':gestor', $capt);
         $stu->execute();
     }
 
