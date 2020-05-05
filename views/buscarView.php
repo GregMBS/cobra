@@ -69,9 +69,9 @@
                 Client = <select name="cliente">
                     <option value=" ">Todos</option>
                     <?php
-                    foreach ($resultcl as $answercl) {
+                    foreach ($clientes as $client) {
                         ?>
-                        <option value="<?php echo $answercl['cliente']; ?>"><?php echo $answercl[0]; ?>
+                        <option value="<?php echo $client['cliente']; ?>"><?php echo $client['cliente']; ?>
                         </option>
                     <?php } ?>
                 </select><br>

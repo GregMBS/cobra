@@ -3,7 +3,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 require_once 'classes/NoteObject.php';
 
@@ -91,14 +90,14 @@ where id_cuenta=:id_cuenta LIMIT 1";
      */
     public function highlight($stat, $visit)
     {
-        $highstr = '';
+        $highlight = '';
         if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
-            $highstr = " class='deudor'";
+            $highlight = " class='deudor'";
         }
         if (!empty($visit)) {
-            $highstr = " class='visit'";
+            $highlight = " class='visit'";
         }
-        return $highstr;
+        return $highlight;
     }
 
     /**
@@ -108,11 +107,11 @@ where id_cuenta=:id_cuenta LIMIT 1";
      */
     public function lastGestion($capt)
     {
-        $queryult = "SELECT c_cont FROM historia 
+        $query = "SELECT c_cont FROM historia 
         WHERE c_cvge = :capt AND c_cont <> 0 
         ORDER BY d_fech DESC, c_hrfi DESC 
         LIMIT 1";
-        $stu = $this->pdo->prepare($queryult);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':capt', $capt);
         $stu->execute();
         $result = $stu->fetch(PDO::FETCH_ASSOC);
@@ -190,31 +189,32 @@ where id_cuenta=:id_cuenta LIMIT 1";
     /**
      *
      * @param string $mytipo
-     * @return PDOStatement
+     * @return array
      */
     public function getDict($mytipo)
     {
-        $query = "SELECT dictamen,v_cc,judicial "
-            . "FROM dictamenes "
-            . "where callcenter=1 "
-            . "order by dictamen";
+        $query = "SELECT dictamen,v_cc 
+        FROM dictamenes 
+        where callcenter = 1 
+        order by dictamen";
         if ($mytipo == 'visitador') {
-            $query = "SELECT dictamen,v_cc,judicial "
-                . "FROM dictamenes "
-                . "where visitas=1 "
-                . "order by dictamen";
+            $query = "SELECT dictamen,v_cc 
+                FROM dictamenes 
+                where visitas = 1 
+                order by dictamen";
         }
         if ($mytipo == 'admin') {
-            $query = "SELECT dictamen,v_cc,judicial "
-                . "FROM dictamenes "
-                . "order by dictamen";
+            $query = "SELECT dictamen,v_cc 
+            FROM dictamenes 
+            order by dictamen";
         }
-        return $this->pdo->query($query);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      *
-     * @return PDOStatement
+     * @return array
      */
     public function getDictV()
     {
@@ -224,32 +224,46 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      *
-     * @return PDOStatement
+     * @return array
      */
     public function getMotiv()
     {
         $query = "SELECT motiv FROM motivadores order by motiv";
-        return $this->pdo->query($query);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      *
-     * @return PDOStatement
+     * @return array
      */
     public function getMotivV()
     {
         $query = "SELECT motiv FROM motivadores where visitas = 1 order by motiv";
-        return $this->pdo->query($query);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      *
-     * @return PDOStatement
+     * @return array
      */
     public function getCnp()
     {
         $query = "SELECT status FROM cnp";
-        return $this->pdo->query($query);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getAccionCallcenter()
+    {
+        $query = "SELECT accion FROM acciones where callcenter = 1 ORDER BY accion";
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -265,12 +279,13 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      *
-     * @return PDOStatement
+     * @return array
      */
     public function getAccionV()
     {
         $query = "SELECT accion FROM acciones where visitas=1";
-        return $this->pdo->query($query);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -307,35 +322,38 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      *
-     * @return false|PDOStatement
+     * @return array
      */
     public function getGestorList()
     {
-        $queryGestor = "SELECT usuaria,completo FROM nombres 
+        $query = "SELECT usuaria,completo FROM nombres 
     ORDER BY usuaria";
-        return $this->pdo->query($queryGestor);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      *
-     * @return false|PDOStatement
+     * @return array
      */
     public function getVisitadorList()
     {
-        $queryGestorV = "SELECT usuaria,completo FROM nombres 
+        $query = "SELECT usuaria,completo FROM nombres 
     where completo<>'' 
 and tipo IN ('visitador','admin')";
-        return $this->pdo->query($queryGestorV);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      *
-     * @return false|PDOStatement
+     * @return array
      */
     public function getClientList()
     {
-        $querycl = "SELECT cliente FROM clientes;";
-        return $this->pdo->query($querycl);
+        $query = "SELECT cliente FROM clientes;";
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -343,14 +361,14 @@ and tipo IN ('visitador','admin')";
      * @param string $capt
      * @return array
      */
-    public function getNumGests($capt)
+    public function getNumGestiones($capt)
     {
-        $queryng = "SELECT count(1) as cng FROM historia 
+        $query = "SELECT count(1) as cng FROM historia 
 WHERE c_cvge=:capt 
 AND d_fech=curdate()
 AND c_cont <> 0
 ";
-        $stn = $this->pdo->prepare($queryng);
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':capt', $capt);
         $stn->execute();
         return $stn->fetch(PDO::FETCH_ASSOC);
@@ -446,55 +464,17 @@ ORDER BY cliente,sdc,queue";
      */
     public function setSlice($capt, $id_cuenta)
     {
-        $qsliced = "delete from rslice where user = :capt";
-        $std = $this->pdo->prepare($qsliced);
+        $qSliced = "delete from rslice where user = :capt";
+        $std = $this->pdo->prepare($qSliced);
         $std->bindParam(':capt', $capt);
         $std->execute();
 
-        $qslice = "replace into rslice select *, :capt, now() from resumen 
+        $qSlice = "replace into rslice select *, :capt, now() from resumen 
         where id_cuenta = :id_cuenta";
-        $sts = $this->pdo->prepare($qslice);
+        $sts = $this->pdo->prepare($qSlice);
         $sts->bindParam(':capt', $capt);
         $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
-    }
-
-    /**
-     *
-     * @param int $id_cuenta
-     * @return array
-     */
-    public function getLastStatus($id_cuenta)
-    {
-        $query = "select c_cvst,cuando from historia where c_cont = :id_cuenta "
-            . "order by d_fech desc, c_hrin desc limit 1";
-        $stl = $this->pdo->prepare($query);
-        $stl->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $stl->execute();
-        return $stl->fetch(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     *
-     * @param int $id_cuenta
-     * @return array
-     */
-    public function getPromData($id_cuenta)
-    {
-        $query = "select n_prom as N_PROM_OLD, d_prom as D_PROM_OLD,
-    n_prom1 as N_PROM1_OLD, d_prom1 as D_PROM1_OLD,
-    n_prom2 as N_PROM2_OLD, d_prom2 as D_PROM2_OLD,
-    n_prom3 as N_PROM3_OLD, d_prom1 as D_PROM1_OLD,
-    n_prom1 as N_PROM1_OLD, d_prom1 as D_PROM1_OLD
-from historia 
-where c_cont = :id_cuenta 
-and n_prom>0 
-and c_cvst like 'PROMESA DE%'
-order by d_fech desc, c_hrin desc limit 1";
-        $stp = $this->pdo->prepare($query);
-        $stp->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $stp->execute();
-        return $stp->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -533,20 +513,20 @@ order by d_fech desc, c_hrin desc limit 1";
         $stl = $this->pdo->prepare($queryLock);
         $stl->bindParam(':capt', $capt);
         $stl->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $queryunlockslice = "UPDATE rslice SET timelock = NULL, locker = NULL "
-            . "WHERE locker = :capt";
-        $stus = $this->pdo->prepare($queryunlockslice);
-        $stus->bindParam(':capt', $capt);
-        $querylockslice = "UPDATE rslice SET timelock = now(), locker = :capt "
-            . "WHERE id_cuenta= :id_cuenta";
-        $stls = $this->pdo->prepare($querylockslice);
-        $stls->bindParam(':capt', $capt);
-        $stls->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $queryUnlockSlice = "UPDATE rslice SET timelock = NULL, locker = NULL 
+        WHERE locker = :capt";
+        $stuS = $this->pdo->prepare($queryUnlockSlice);
+        $stuS->bindParam(':capt', $capt);
+        $queryLockSlice = "UPDATE rslice SET timelock = now(), locker = :capt 
+        WHERE id_cuenta= :id_cuenta";
+        $stlS = $this->pdo->prepare($queryLockSlice);
+        $stlS->bindParam(':capt', $capt);
+        $stlS->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $this->pdo->beginTransaction();
         $stu->execute();
         $stl->execute();
-        $stus->execute();
-        $stls->execute();
+        $stu->execute();
+        $stlS->execute();
         $this->pdo->commit();
     }
 
@@ -576,14 +556,14 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      */
     public function countGestiones($id_cuenta)
     {
-        $query = "SELECT COUNT(1) as gest FROM historia 
+        $query = "SELECT COUNT(1) as gestiones FROM historia 
                 WHERE c_cont = :id_cuenta
                 AND c_cont > 0";
         $stg = $this->pdo->prepare($query);
         $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stg->execute();
         $result = $stg->fetch(PDO::FETCH_ASSOC);
-        $count = $result['gest'];
+        $count = $result['gestiones'];
         if (empty($count)) {
             $count = 0;
         }

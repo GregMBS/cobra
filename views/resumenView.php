@@ -484,7 +484,7 @@ use cobra_salsa\NoteObject;
                            name=nombre_deudor id="nombre_deudor"
                            readonly='readonly' value='<?php
                     if (isset($nombre_deudor)) {
-                        echo htmlentities($nombre_deudor);
+                        echo utf8_encode($nombre_deudor);
                     }
                     ?>'><br>
                 </td>
@@ -611,7 +611,7 @@ use cobra_salsa\NoteObject;
             <input type='text' name=nombre_deudor_alterno
                    id="nombre_deudor_alterno" readonly='readonly' value='<?php
             if (isset($nombre_deudor_alterno)) {
-                echo htmlentities($nombre_deudor_alterno);
+                echo utf8_encode($nombre_deudor_alterno);
             }
             ?>'>
             <?php
@@ -708,7 +708,7 @@ use cobra_salsa\NoteObject;
             <input type='text' size=40 name=nombre_referencia_1 id="nombre_referencia_1" readonly='readonly'
                    value='<?php
                    if (isset($nombre_referencia_1)) {
-                       echo htmlentities($nombre_referencia_1);
+                       echo utf8_encode($nombre_referencia_1);
                    }
                    ?>'>
             <?php
@@ -749,7 +749,7 @@ use cobra_salsa\NoteObject;
             <input type='text' size=40 name=nombre_referencia_2 id="nombre_referencia_2" readonly='readonly'
                    value='<?php
                    if (isset($nombre_referencia_2)) {
-                       echo htmlentities($nombre_referencia_2);
+                       echo utf8_encode($nombre_referencia_2);
                    }
                    ?>'>
             <?php
@@ -796,7 +796,7 @@ use cobra_salsa\NoteObject;
             <input type='text' size=40 name=nombre_referencia_3 id="nombre_referencia_3" readonly='readonly'
                    value='<?php
                    if (isset($nombre_referencia_3)) {
-                       echo htmlentities($nombre_referencia_3);
+                       echo utf8_encode($nombre_referencia_3);
                    }
                    ?>'>
             <?php
@@ -837,7 +837,7 @@ use cobra_salsa\NoteObject;
             <input type='text' size=40 name=nombre_referencia_4 id="nombre_referencia_4" readonly='readonly'
                    value='<?php
                    if (isset($nombre_referencia_4)) {
-                       echo htmlentities($nombre_referencia_4);
+                       echo utf8_encode($nombre_referencia_4);
                    }
                    ?>'>
             <?php
@@ -1040,7 +1040,7 @@ use cobra_salsa\NoteObject;
                     if (!empty($prods)) {
                         echo $prods;
                     } else {
-                        echo htmlentities($producto);
+                        echo utf8_encode($producto);
                     }
                     ?>'></td>
                 <?php
@@ -1048,7 +1048,7 @@ use cobra_salsa\NoteObject;
                     ?>
                     <td>Subproducto</td>
                     <td><input type='text' name=subproducto readonly='readonly' value='<?php
-                        echo htmlentities($subproducto);
+                        echo utf8_encode($subproducto);
                         ?>'></td>
                     <?php
                 }
@@ -1072,7 +1072,7 @@ use cobra_salsa\NoteObject;
                     ?>
                     <td>VIN</td>
                     <td><input type='text' name=subproducto readonly='readonly' value='<?php
-                        echo htmlentities($cuenta_concentradora_1);
+                        echo utf8_encode($cuenta_concentradora_1);
                         ?>'></td>
                     <?php
                 }
@@ -1081,7 +1081,7 @@ use cobra_salsa\NoteObject;
                     ?>
                     <td>Plaza</td>
                     <td><input type='text' name=subproducto readonly='readonly' value='<?php
-                        echo htmlentities($NRPP);
+                        echo utf8_encode($NRPP);
                         ?>'></td>
                     <?php
                 }
@@ -1090,7 +1090,7 @@ use cobra_salsa\NoteObject;
                     ?>
                     <td>Facha convenio</td>
                     <td><input type='text' name=fecha-convenio readonly='readonly' value='<?php
-                        echo htmlentities($fecha_convenio);
+                        echo utf8_encode($fecha_convenio);
                         ?>'></td>
                     <?php
                 }
@@ -1188,9 +1188,9 @@ use cobra_salsa\NoteObject;
         Client = <select name="cliente">
             <option value=" ">Todos</option>
             <?php
-            foreach ($resultcl as $clienteList) {
+            foreach ($clientes as $clienteList) {
                 ?>
-                <option value="<?php echo $clienteList[0]; ?>"><?php echo $clienteList[0]; ?>
+                <option value="<?php echo $clienteList['cliente']; ?>"><?php echo $clienteList['cliente']; ?>
                 </option>
             <?php } ?>
         </select><br>
@@ -1436,7 +1436,7 @@ use cobra_salsa\NoteObject;
             foreach ($resultAccionV as $answerAccionV) {
                 ?>
                 <option style='width: 12cm;'
-                        value="<?php echo $answerAccionV[0]; ?>"><?php echo $answerAccionV[0]; ?></option>
+                        value="<?php echo $answerAccionV['accion']; ?>"><?php echo $answerAccionV['accion']; ?></option>
                 <?php
             }
             ?>
@@ -1448,7 +1448,7 @@ use cobra_salsa\NoteObject;
             foreach ($resultDictamenV as $answerDictamenV) {
                 ?>
                 <option style='width: 12cm;'
-                        value="<?php echo $answerDictamenV[0]; ?>"><?php echo $answerDictamenV[0]; ?></option>
+                        value="<?php echo $answerDictamenV['dictamen']; ?>"><?php echo $answerDictamenV['dictamen']; ?></option>
                 <?php
             }
             ?>
@@ -1457,12 +1457,10 @@ use cobra_salsa\NoteObject;
         <select id="MOTIVv" name="MOTIV" style="width: 8cm;">
             <option style='width: 12cm;' value=" ">
                 <?php
-                foreach ($resultMotivV
-
-                as $answerMotivV) {
+                foreach ($resultMotivV as $answerMotivV) {
                 ?>
             <option style='width: 12cm;'
-                    value="<?php echo $answerMotivV[0]; ?>"><?php echo $answerMotivV[0]; ?></option>
+                    value="<?php echo $answerMotivV['motiv']; ?>"><?php echo $answerMotivV['motiv']; ?></option>
             <?php
             }
             ?>
@@ -1501,7 +1499,7 @@ use cobra_salsa\NoteObject;
             <?php
             foreach ($resultGestorV as $answerGestorV) {
                 ?>
-                <option value="<?php echo $answerGestorV[0]; ?>"><?php echo htmlentities($answerGestorV[1]); ?></option>
+                <option value="<?php echo $answerGestorV['usuaria']; ?>"><?php echo utf8_encode($answerGestorV['completo']); ?></option>
             <?php }
             ?>
         </select>
@@ -1586,8 +1584,7 @@ use cobra_salsa\NoteObject;
                             ?>>
                                 <?php
                                 if (isset($ank)) {
-                                    echo htmlentities($ank,
-                                        ENT_QUOTES, "UTF-8");
+                                    echo utf8_encode($ank);
                                 }
                                 ?>
                             </td>
@@ -1634,7 +1631,7 @@ use cobra_salsa\NoteObject;
                             <?php
                             foreach ($resultGestor as $answerGestor) {
                                 ?>
-                                <option value="<?php echo $answerGestor[0]; ?>"><?php echo $answerGestor[0]; ?></option>
+                                <option value="<?php echo $answerGestor['usuaria']; ?>"><?php echo $answerGestor['usuaria']; ?></option>
                             <?php }
                             ?>
                         </select></td>
@@ -1749,9 +1746,9 @@ use cobra_salsa\NoteObject;
                         <?php
                         foreach ($resultAccion as $answerAccion) {
                             ?>
-                            <option value="<?php echo $answerAccion[0]; ?>" style="font-size:120%;"><?php
-                                if (isset($answerAccion[0])) {
-                                    echo $answerAccion[0];
+                            <option value="<?php echo $answerAccion['accion']; ?>" style="font-size:120%;"><?php
+                                if (isset($answerAccion['accion'])) {
+                                    echo $answerAccion['accion'];
                                 }
                                 ?></option>
                             <?php
@@ -1766,27 +1763,27 @@ use cobra_salsa\NoteObject;
                         foreach ($resultDictamen as $answerDictamen) {
                             ?>
                             <option value="<?php
-                            if (isset($answerDictamen[0])) {
-                                echo htmlentities($answerDictamen[0]);
+                            if (isset($answerDictamen['dictamen'])) {
+                                echo utf8_encode($answerDictamen['dictamen']);
                             }
                             ?>"
                                     style="font-size:120%;">
                                 <?php
-                                if (isset($answerDictamen[0])) {
-                                    echo htmlentities($answerDictamen[0]);
+                                if (isset($answerDictamen['dictamen'])) {
+                                    echo utf8_encode($answerDictamen['dictamen']);
                                 }
                                 ?>
                             </option>
                         <?php } ?>
                     </select><br>
-                    Causa no pago
+                    <label for="C_CNP">Causa no pago</label>
                     <select name="C_CNP" id="C_CNP">
                         <?php
                         foreach ($resultCnp as $answerCnp) {
                             ?>
-                            <option value="<?php echo $answerCnp[0]; ?>" style="font-size:120%;"><?php
-                                if (isset($answerCnp[0])) {
-                                    echo htmlentities($answerCnp[0]);
+                            <option value="<?php echo $answerCnp['status']; ?>" style="font-size:120%;"><?php
+                                if (isset($answerCnp['status'])) {
+                                    echo utf8_encode($answerCnp['status']);
                                 }
                                 ?></option>
                             <?php
@@ -1801,11 +1798,9 @@ use cobra_salsa\NoteObject;
                 <td><select id="C_MOTIV" name="C_MOTIV">
                         <option value=" ">
                             <?php
-                            foreach ($resultMotiv
-
-                            as $answerMotiv) {
+                            foreach ($resultMotiv as $answerMotiv) {
                             ?>
-                        <option value="<?php echo $answerMotiv[0]; ?>"><?php echo $answerMotiv[0]; ?></option>
+                        <option value="<?php echo $answerMotiv['motiv']; ?>"><?php echo $answerMotiv['motiv']; ?></option>
                         <?php
                         }
                         ?>

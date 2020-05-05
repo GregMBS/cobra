@@ -27,7 +27,7 @@
                     $CLIENTE = $row['cliente'];
                     $ID_CUENTA = $row['id_cuenta'];
                     $STATUS = $row['status_de_credito'];
-                    $STATUSC = $row['status_aarsa'];
+                    $StatusC = $row['status_aarsa'];
                     if (preg_match('/-/', $STATUS)) {
                         $INACTIVO = 1;
                     } else {
@@ -66,10 +66,10 @@
                 Client = <select name="cliente">
                     <option value=" ">Todos</option>
                     <?php
-                    foreach ($resultcl as $answercl) {
+                    foreach ($clientes as $client) {
                         ?>
-                        <option value="<?php echo $answercl['cliente']; ?>">
-                            <?php echo $answercl['cliente']; ?>
+                        <option value="<?php echo $client['cliente']; ?>">
+                            <?php echo $client['cliente']; ?>
                         </option>
                     <?php } ?>
                 </select><br>

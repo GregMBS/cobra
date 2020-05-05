@@ -42,9 +42,7 @@ if (!empty($mytipo)) {
                 $field = $fieldGet;
             }
         }
-        $findUpper = strtoupper($findGet);
-        $findStripped = strip_tags($findUpper);
-        $find = trim($findStripped);
+        $find = $rc->cleanFind($findGet);
     }
 
     $queryPagos = "select (c_cvst like 'PAG%'),c_cont from historia 
@@ -112,7 +110,7 @@ order by d_fech desc,c_hrin desc limit 1";
         if (empty($N_PROM0)) {
             $N_PROM0 = 0;
         }
-        $N_PROM = str_replace('$', '', $N_PROM0);
+        $N_PROM = $rc->demonetize($N_PROM0);
         $C_FREQ = filter_input(INPUT_GET, 'C_FREQ');
         $MERCv = filter_input(INPUT_GET, 'MERCv', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
         $gc->doVisit($get);
@@ -427,18 +425,12 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
         include 'views/resumenErrorView.php';
     }
 }
-if (substr($capt, 0, 8) == "practica") {
-    $tcapt = "practica";
-} else {
-    $tcapt = $capt;
-}
 $mynombre = '';
-$queryg = "SELECT usuaria,tipo,camp FROM nombres WHERE iniciales='" . $capt . "';";
-$resultg = mysqli_query($con, $queryg) or die("ERROR RM37 - " . mysqli_error($con));
-while ($answerg = mysqli_fetch_row($resultg)) {
-    $mynombre = $answerg[0];
-    $mytipo = $answerg[1];
-    $camp = $answerg[2];
+$userData = $rc->getUserData($capt);
+if ($userData) {
+    $mynombre = $userData['usuaria'];
+    $mytipo = $userData['tipo'];
+    $camp = $userData['camp'];
 }
 $id_cuenta = 0;
 $qcount = 0;
@@ -727,7 +719,7 @@ $others = 0;
 
 $resultfilt = $rc->getQueueList($capt);
 
-$resultng = $rc->getNumGests($capt);
+$resultng = $rc->getNumGestiones($capt);
 
 $querynp = "SELECT count(1) as cnp FROM historia 
 WHERE c_cvge=:capt 
@@ -740,59 +732,38 @@ $stp->bindParam(':capt', $capt);
 $stp->execute();
 $resultnp = $stp->fetch();
 
-$querycl = "SELECT cliente FROM clientes;";
-$resultcl = $pdo->query($querycl);
+$clientes = $rc->getClientList();
 
-$queryAccion = "SELECT accion FROM acciones where callcenter=1 order by accion";
-if ($mytipo == 'admin') {
-    $queryAccion = "SELECT accion FROM acciones order by accion";
+switch ($mytipo) {
+    case 'admin':
+        $resultAccion = $rc->getAccion();
+        break;
+    case 'visitador':
+        $resultAccion = $rc->getAccionV();
+        break;
+    default:
+        $resultAccion = $rc->getAccionCallcenter();
 }
-$resultAccion = $pdo->query($queryAccion);
 
-$queryMotiv = "SELECT motiv FROM motivadores;";
-$resultMotiv = $pdo->query($queryMotiv);
 
-$queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-    . "where callcenter=1 order by dictamen";
-if ($mytipo == 'visitador') {
-    $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-        . "where visitas=1 order by dictamen";
-}
-if ($mytipo == 'admin') {
-    $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-        . "order by dictamen";
-}
-$resultDictamen = $pdo->query($queryDictamen);
+
+$resultMotiv = $rc->getMotiv();
+
+$resultDictamen = $rc->getDict($mytipo);
 
 $queryAccionV = "SELECT accion FROM acciones where visitas=1;";
 $resultAccionV = $pdo->query($queryAccionV);
 
-$queryDictamenV = "SELECT dictamen FROM dictamenes where visitas=1;";
-$resultDictamenV = $pdo->query($queryDictamenV);
+$resultDictamenV = $rc->getDictV();
 
-$queryMotivV = "SELECT motiv FROM motivadores where visitas=1;";
-$resultMotivV = $pdo->query($queryMotivV);
+$resultMotivV = $rc->getMotivV();
 
-$queryGestorV = "SELECT usuaria,completo FROM nombres 
-    where completo<>'' 
-and tipo IN ('visitador','admin')";
-$resultGestorV = $pdo->query($queryGestorV);
+$resultGestorV = $rc->getVisitadorList();
 
-$queryGestor = "SELECT usuaria,completo FROM nombres 
-    ORDER BY usuaria";
-$resultGestor = $pdo->query($queryGestor);
+$resultGestor = $rc->getGestorList();
 
 if ($id_cuenta > 0) {
-    $querysub = "SELECT c_cvst,concat(d_fech,' ',c_hrin) as fecha,
-                    c_cvge,c_tele,left(c_obse1,50) as short,c_obse1,
-                    auto,c_cniv 
-                    FROM historia 
-                    WHERE historia.C_CONT=:id_cuenta   
-                    ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
-    $sts = $pdo->prepare($querysub);
-    $sts->bindParam(':id_cuenta', $id_cuenta);
-    $sts->execute();
-    $rowsub = $sts->fetchAll();
+    $rowSub = $rc->getHistory($id_cuenta);
 }
 
 $t1 = '';
@@ -818,63 +789,34 @@ $t2v = '';
 $t3v = '';
 $t4v = '';
 $tuc = '';
-$querybadno = "select if(tel_1 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_2 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_3 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_4 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_1_alterno in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_2_alterno in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_3_alterno in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_4_alterno in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_1_ref_1 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_2_ref_1 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_1_ref_2 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_2_ref_2 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_1_ref_3 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_2_ref_3 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_1_ref_4 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_2_ref_4 in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_1_laboral in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_2_laboral in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_1_verif in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_2_verif in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_3_verif in (select * from deadlines),' class=\"badno\" ',''),
-if(tel_4_verif in (select * from deadlines),' class=\"badno\" ',''),
-if(telefono_de_ultimo_contacto in (select * from deadlines),' class=\"badno\" ','')
-from resumen
-where id_cuenta=:id_cuenta;";
-$stbn = $pdo->prepare($querybadno);
-$stbn->bindParam(':id_cuenta', $id_cuenta);
-$stbn->execute();
-$resultbadno = $stbn->fetchAll();
-foreach ($resultbadno as $answerbadno) {
-    $t1 = $answerbadno[0];
-    $t2 = $answerbadno[1];
-    $t3 = $answerbadno[2];
-    $t4 = $answerbadno[3];
-    $t1r = $answerbadno[4];
-    $t2r = $answerbadno[5];
-    $t3r = $answerbadno[6];
-    $t4r = $answerbadno[7];
-    $t1r1 = $answerbadno[8];
-    $t2r1 = $answerbadno[9];
-    $t1r2 = $answerbadno[10];
-    $t2r2 = $answerbadno[11];
-    $t1r3 = $answerbadno[12];
-    $t2r3 = $answerbadno[13];
-    $t1r4 = $answerbadno[14];
-    $t2r4 = $answerbadno[15];
-    $t1l = $answerbadno[16];
-    $t2l = $answerbadno[17];
-    $t1v = $answerbadno[18];
-    $t2v = $answerbadno[19];
-    $t3v = $answerbadno[20];
-    $t4v = $answerbadno[21];
-    $tuc = $answerbadno[22];
+$resultBadNo = $rc->getBadNo($id_cuenta);
+foreach ($resultBadNo as $answerBadNo) {
+    $t1 = $answerBadNo[0];
+    $t2 = $answerBadNo[1];
+    $t3 = $answerBadNo[2];
+    $t4 = $answerBadNo[3];
+    $t1r = $answerBadNo[4];
+    $t2r = $answerBadNo[5];
+    $t3r = $answerBadNo[6];
+    $t4r = $answerBadNo[7];
+    $t1r1 = $answerBadNo[8];
+    $t2r1 = $answerBadNo[9];
+    $t1r2 = $answerBadNo[10];
+    $t2r2 = $answerBadNo[11];
+    $t1r3 = $answerBadNo[12];
+    $t2r3 = $answerBadNo[13];
+    $t1r4 = $answerBadNo[14];
+    $t2r4 = $answerBadNo[15];
+    $t1l = $answerBadNo[16];
+    $t2l = $answerBadNo[17];
+    $t1v = $answerBadNo[18];
+    $t2v = $answerBadNo[19];
+    $t3v = $answerBadNo[20];
+    $t4v = $answerBadNo[21];
+    $tuc = $answerBadNo[22];
 }
 
-$queryCnp = "SELECT status FROM cnp";
-$resultCnp = $pdo->query($queryCnp);
+$resultCnp = $rc->getCnp();
 
 $hasPic = FALSE;
 $picFile = '';
