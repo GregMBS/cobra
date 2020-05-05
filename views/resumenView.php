@@ -23,14 +23,6 @@ use cobra_salsa\NoteObject;
 
         <?php
         }
-        if ($pagAlert > 0) {
-        ?>
-        #pagos input {
-            background-color: #ff0000;
-        }
-
-        <?php
-        }
         if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
         ?>
         #GUARDbutt {
@@ -99,9 +91,9 @@ use cobra_salsa\NoteObject;
         function openSearch() {
             setInterval('clock()', 1000);
             <?php
-            if ($qcount > 1) {
+            if ($qCount > 1) {
             ?>
-            alert("ERROR RA3 - Hay <?php echo $qcount; ?> cuentas con este número.");
+            alert("ERROR RA3 - Hay <?php echo $qCount; ?> cuentas con este número.");
             <?php
             }
             if ($notes->notAlert == 1) {
@@ -122,7 +114,7 @@ use cobra_salsa\NoteObject;
             alert("Esta cuenta está <?php echo $status_de_credito ?>");
             <?php
             }
-            if ($lockflag == 0) {
+            if ($lockFlag == 0) {
             $nn = 0;
             $highlight = filter_input(INPUT_GET, 'highlight',
                 FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -276,7 +268,7 @@ use cobra_salsa\NoteObject;
             $n++;
             }
             }
-            if ($lockflag == 1) {
+            if ($lockFlag == 1) {
             /** @var string $locker */
             ?>
             alert("ERROR RA4 - Esta record está en uso de <?php echo $locker ?>");

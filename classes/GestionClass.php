@@ -200,12 +200,12 @@ and id_cuenta = :c_cont";
      */
     public function addNewTel($C_CONT, $tele) {
         $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
-        $query = "UPDATE resumen "
-                . "SET tel_4_verif = tel_3_verif,"
-                . "tel_3_verif = tel_2_verif,"
-                . "tel_2_verif = tel_1_verif,"
-                . "tel_1_verif = :tel "
-                . "WHERE id_cuenta = :C_CONT";
+        $query = "UPDATE resumen 
+        SET tel_4_verif = tel_3_verif,
+        tel_3_verif = tel_2_verif,
+        tel_2_verif = tel_1_verif,
+        tel_1_verif = :tel 
+        WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':tel', $tel);
         $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
@@ -215,12 +215,12 @@ and id_cuenta = :c_cont";
     /**
      * 
      * @param int $C_CONT
-     * @param string $ndir
+     * @param string $newDir
      */
-    public function updateAddress($C_CONT, $ndir) {
-        $query = "UPDATE resumen SET direccion_nueva = :ndir WHERE id_cuenta = :C_CONT";
+    public function updateAddress($C_CONT, $newDir) {
+        $query = "UPDATE resumen SET direccion_nueva = :newDir WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($query);
-        $stn->bindParam(':ndir', $ndir);
+        $stn->bindParam(':newDir', $newDir);
         $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stn->execute();
     }
@@ -230,7 +230,7 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $email
      */
-    private function updateEmail($C_CONT, $email) {
+    public function updateEmail($C_CONT, $email) {
         $query = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':email', $email);
@@ -267,10 +267,10 @@ and id_cuenta = :c_cont";
      * @param string $who
      */
     public function addPago($C_CONT, $D_PAGO, $N_PAGO, $who) {
-        $queryins = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
+        $query = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
     SELECT numero_de_cuenta, :D_PAGO, :N_PAGO, cliente, :who, numero_de_credito, id_cuenta 
     FROM resumen WHERE id_cuenta = :C_CONT";
-        $sti = $this->pdo->prepare($queryins);
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $sti->bindParam(':D_PAGO', $D_PAGO);
         $sti->bindParam(':N_PAGO', $N_PAGO);
@@ -281,11 +281,11 @@ and id_cuenta = :c_cont";
     /**
      * 
      */
-    private function updateAllUltimoPagos() {
-        $querypup = "update resumen,pagos 
+    public function updateAllUltimoPagos() {
+        $query = "update resumen,pagos 
                 set fecha_de_ultimo_pago = fecha, monto_ultimo_pago = monto 
                 where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
-        $this->pdo->query($querypup);
+        $this->pdo->query($query);
     }
 
     /**
