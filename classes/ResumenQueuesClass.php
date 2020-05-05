@@ -39,12 +39,12 @@ class ResumenQueuesClass {
      * @return array
      */
     public function getMyQueue($capt, $camp) {
-        $queryquery = "SELECT cliente, status_aarsa as cr, sdc 
+        $query = "SELECT cliente, status_aarsa as cr, sdc 
         FROM queuelist 
         WHERE gestor = :capt 
         AND camp= :camp 
         LIMIT 1";
-        $stq = $this->pdo->prepare($queryquery);
+        $stq = $this->pdo->prepare($query);
         $stq->bindParam(':capt', $capt);
         $stq->bindParam(':camp', $camp, PDO::PARAM_INT);
         $stq->execute();
@@ -58,15 +58,18 @@ class ResumenQueuesClass {
      * @return int
      */
     public function searchCount($field, $find) {
-        $querycount = "SELECT count(1) as ct 
+        $query = "SELECT count(1) as ct 
             FROM resumen 
             WHERE " . $field . " = :find 
             LIMIT 1";
-        $stc = $this->pdo->prepare($querycount);
+        $stc = $this->pdo->prepare($query);
         $stc->bindParam(':find', $find);
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
-        return $result['ct'];
+        if ($result) {
+            return $result['ct'];
+        }
+        return 0;
     }
 
     /**
@@ -93,7 +96,7 @@ class ResumenQueuesClass {
             $crStr = " AND queue = :cr ";
         }
 
-        $querymain = "SELECT * FROM resumen 
+        $query = "SELECT * FROM resumen 
 join dictamenes on dictamen=status_aarsa 
 WHERE locker is null
 $clientStr
@@ -102,7 +105,7 @@ $crStr
 ORDER BY fecha_ultima_gestion LIMIT 1";
 
         if ($cr == 'SIN GESTION') {
-            $querymain = "SELECT * FROM resumen " .
+            $query = "SELECT * FROM resumen " .
                     "WHERE locker is null " .
                     $clientStr . $sdcStr .
                     " AND ((status_aarsa='') or (status_aarsa is null)) " .
@@ -110,7 +113,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
         }
 
         if (($cr == 'INICIAL')) {
-            $querymain = "SELECT * FROM resumen
+            $query = "SELECT * FROM resumen
 WHERE status_de_credito not regexp '-' 
 AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION')
 AND ejecutivo_asignado_call_center = :capt
@@ -119,7 +122,7 @@ and fecha_ultima_gestion < curdate()
 order by fecha_ultima_gestion  LIMIT 1";
         }
         if ($cr == 'ESPECIAL') {
-            $querymain = "SELECT * FROM resumen
+            $query = "SELECT * FROM resumen
 WHERE locker is null
  $clientStr
      $sdcStr
@@ -128,7 +131,7 @@ order by fecha_ultima_gestion  LIMIT 1
 ";
         }
     if ($cr == 'MANUAL') {
-        $querymain = "select * from resumen
+        $query = "select * from resumen
 where locker is null
 $clientStr
 $sdcStr
@@ -139,7 +142,7 @@ and status_aarsa not in (
 and especial > 0
 order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_1 desc limit 1";
     }
-        return $this->pdo->prepare($querymain);
+        return $this->pdo->prepare($query);
     }
 
     /**
@@ -177,9 +180,9 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
      * @param int $id_cuenta
      * @return PDOStatement
      */
-    public function prepareQuicksearch($id_cuenta) {
-        $querymain = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta LIMIT 1";
-        $stm = $this->pdo->prepare($querymain);
+    public function prepareQuickSearch($id_cuenta) {
+        $query = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta LIMIT 1";
+        $stm = $this->pdo->prepare($query);
         $stm->bindParam(':id_cuenta', $id_cuenta);
         return $stm;
     }
@@ -211,5 +214,24 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
         $stu->execute();
     }
 
+    /**
+     * @param $capt
+     * @return int|mixed
+     */
+    public function getNewCamp($capt)
+    {
+        $query = "SELECT queuelist.camp  as 'newCamp' FROM nombres,queuelist 
+WHERE gestor = iniciales and status_aarsa <> '' and queuelist.camp > nombres.camp
+AND gestor = :capt AND bloqueado=0
+ORDER BY queuelist.camp LIMIT 1";
+        $stc = $this->pdo->prepare($query);
+        $stc->bindValue(':capt', $capt);
+        $stc->execute();
+        $camp = $stc->fetch(PDO::FETCH_ASSOC);
+        if ($camp['newCamp']) {
+            return $camp['newCamp'];
+        }
+        return 1;
+    }
 
 }

@@ -166,7 +166,6 @@ ORDER BY fecha";
      */
     public function querySheet()
     {
-        $output = array();
         $query = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
@@ -175,7 +174,7 @@ from pagos, resumen
 where fecha>last_day(curdate()-interval 5 week)
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
-        return $this->buildCredit($query, $output);
+        return $this->buildCredit($query);
     }
 
     /**
@@ -187,21 +186,20 @@ order by cliente,gestor,fecha";
      */
     public function queryAll($start, $end, $cliente)
     {
-        $output = array();
         if (!empty($start)) {
-            $startquery = " and fecha >= :start ";
+            $startQuery = " and fecha >= :start ";
         } else {
-            $startquery = " ";
+            $startQuery = " ";
         }
         if (!empty($end)) {
-            $endquery = " and fecha <= :end ";
+            $endQuery = " and fecha <= :end ";
         } else {
-            $endquery = " ";
+            $endQuery = " ";
         }
         if ($cliente != "todos") {
-            $clientequery = " and pagos.cliente = :cliente ";
+            $clienteQuery = " and pagos.cliente = :cliente ";
         } else {
-            $clientequery = " ";
+            $clienteQuery = " ";
         }
         $query = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
@@ -209,9 +207,9 @@ order by cliente,gestor,fecha";
                     gestor, confirmado, pagos.id_cuenta
 from pagos, resumen
 where pagos.id_cuenta=resumen.id_cuenta 
-$startquery
-$endquery
-$clientequery
+$startQuery
+$endQuery
+$clienteQuery
 order by cliente,gestor,fecha";
         $std = $this->pdo->prepare($query);
         if (!empty($start)) {
@@ -224,18 +222,7 @@ order by cliente,gestor,fecha";
             $std->bindParam(':cliente', $cliente);
         }
         $std->execute();
-        if ($std) {
-            $result = $std->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($result as $row) {
-                $cuenta = $row['cuenta'];
-                $cliente = $row['cliente'];
-                $fechapago = $row['fecha'];
-                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
-                $output[] = $row;
-            }
-        }
-
-        return $output;
+        return $this->getCreditSub($std);
     }
 
     /**
@@ -244,7 +231,6 @@ order by cliente,gestor,fecha";
      */
     public function queryOldSheet()
     {
-        $output = array();
         $query = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
                     status_de_credito as 'sdc',
@@ -254,17 +240,17 @@ where fecha<=last_day(curdate()-interval 5 week)
 and fecha>(last_day(curdate()-interval 5 week - interval 1 month))
 and pagos.id_cuenta=resumen.id_cuenta
 order by cliente,gestor,fecha";
-        return $this->buildCredit($query, $output);
+        return $this->buildCredit($query);
     }
 
     /**
      *
      * @param string $cuenta
      * @param string $cliente
-     * @param string $fechapago
+     * @param string $fechaPago
      * @return string
      */
-    private function assignCredit($cuenta, $cliente, $fechapago)
+    private function assignCredit($cuenta, $cliente, $fechaPago)
     {
         $queryID = "select id_cuenta from resumen 
                 where numero_de_cuenta = :cuenta
@@ -284,7 +270,7 @@ order by cliente,gestor,fecha";
                 limit 1";
         $stp = $this->pdo->prepare($query);
         $stp->bindParam(':id_cuenta', $id_cuenta);
-        $stp->bindParam(':fechapago', $fechapago);
+        $stp->bindParam(':fechapago', $fechaPago);
         $stp->execute();
         $result = $stp->fetch(PDO::FETCH_ASSOC);
         return $result['C_CVGE'];
@@ -347,8 +333,8 @@ order by cliente,gestor,fecha";
         foreach ($array as $row) {
             $cuenta = $row['cuenta'];
             $cliente = $row['cliente'];
-            $fechapago = $row['fecha'];
-            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
+            $fechaPago = $row['fecha'];
+            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechaPago);
             $output[] = $row;
         }
 
@@ -356,26 +342,32 @@ order by cliente,gestor,fecha";
     }
 
     /**
-     * @param $query
-     * @param array $output
+     * @param string $query
      * @return array
      */
-    private function buildCredit($query, array $output)
+    private function buildCredit($query)
     {
         $std = $this->pdo->query($query) or var_dump($this->pdo->errorInfo());
+        return $this->getCreditSub($std);
+    }
+
+    /**
+     * @param PDOStatement $std
+     * @return array
+     */
+    private function getCreditSub(PDOStatement $std)
+    {
+        $output = [];
         if ($std) {
             $result = $std->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $row) {
                 $cuenta = $row['cuenta'];
                 $cliente = $row['cliente'];
-                $fechapago = $row['fecha'];
-                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
+                $fechaPago = $row['fecha'];
+                $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechaPago);
                 $output[] = $row;
             }
-        } else {
-            die();
         }
-
         return $output;
     }
 

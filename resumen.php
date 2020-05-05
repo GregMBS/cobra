@@ -1,7 +1,7 @@
 <?php
 
-use cobra_salsa\PdoClass;
 use cobra_salsa\GestionClass;
+use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenClass;
 use cobra_salsa\ResumenQueuesClass;
 
@@ -31,8 +31,8 @@ if (!empty($mytipo)) {
         $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FROMULTIMA";
         header($redirector);
     }
-    $getUpdate = filter_has_var(INPUT_GET,'find');
-    $isOldId = filter_has_var(INPUT_GET,'id_cuenta');
+    $getUpdate = filter_has_var(INPUT_GET, 'find');
+    $isOldId = filter_has_var(INPUT_GET, 'id_cuenta');
     if ($getUpdate) {
         $findGet = filter_input(INPUT_GET, 'find');
         $field = 'id_cuenta';
@@ -71,7 +71,7 @@ order by d_fech desc,c_hrin desc limit 1";
     }
 
     if (($go == 'CAPTURADO') && (!empty($get['C_CVST']))) {
-        $C_HRIN = filter_input(INPUT_GET,'C_VH') . ':' . filter_input(INPUT_GET,'C_VMN');
+        $C_HRIN = filter_input(INPUT_GET, 'C_VH') . ':' . filter_input(INPUT_GET, 'C_VMN');
         $C_HRFI = date('H:i:s');
         $C_CVGE = filter_input(INPUT_GET, 'C_CVGE');
         $C_CVBA = filter_input(INPUT_GET, 'C_CVBA');
@@ -144,11 +144,11 @@ if ($go == 'NUEVOS') {
     header($redirector);
 }
 if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
-    $oldgo = filter_input(INPUT_GET,'oldgo');
+    $oldgo = filter_input(INPUT_GET, 'oldgo');
     $error = 0;
-    $flag = filter_input(INPUT_GET,'error');
-    $C_CVGE = filter_input(INPUT_GET,'C_CVGE');
-    $AUTH = filter_input(INPUT_GET,'AUTH');
+    $flag = filter_input(INPUT_GET, 'error');
+    $C_CVGE = filter_input(INPUT_GET, 'C_CVGE');
+    $AUTH = filter_input(INPUT_GET, 'AUTH');
     if ($C_CVGE != $capt) {
         $AUTH = $capt;
     }
@@ -158,46 +158,46 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     if (empty($AUTH)) {
         $AUTH = '';
     }
-    $C_CONT = filter_input(INPUT_GET,'C_CONT');
-    $C_CVST = filter_input(INPUT_GET,'C_CVST');
-    $C_CVBA = filter_input(INPUT_GET,'C_CVBA');
-    $ACCION = filter_input(INPUT_GET,'ACCION');
-    $C_MOTIV = filter_input(INPUT_GET,'C_MOTIV');
-    $D_FECH = filter_input(INPUT_GET,'D_FECH');
-    $C_HRIN = filter_input(INPUT_GET,'C_HRIN');
+    $C_CONT = filter_input(INPUT_GET, 'C_CONT');
+    $C_CVST = filter_input(INPUT_GET, 'C_CVST');
+    $C_CVBA = filter_input(INPUT_GET, 'C_CVBA');
+    $ACCION = filter_input(INPUT_GET, 'ACCION');
+    $C_MOTIV = filter_input(INPUT_GET, 'C_MOTIV');
+    $D_FECH = filter_input(INPUT_GET, 'D_FECH');
+    $C_HRIN = filter_input(INPUT_GET, 'C_HRIN');
     $C_HRFI = date('H:i:s');
-    $C_TELE = filter_input(INPUT_GET,'C_TELE');
-    $CUANDO = filter_input(INPUT_GET,'CUANDO');
-    $CUENTA = filter_input(INPUT_GET,'CUENTA');
-    $C_OBSE1 = utf8_decode(strtoupper(filter_input(INPUT_GET,'C_OBSE1')));
-    $C_ATTE = filter_input(INPUT_GET,'C_ATTE');
-    $C_CNP = filter_input(INPUT_GET,'C_CNP');
-    $C_CONTAN = filter_input(INPUT_GET,'C_CONTAN');
-    $C_CARG = utf8_encode(filter_input(INPUT_GET,'C_CARG'));
-    $C_CAMP = filter_input(INPUT_GET,'camp', FILTER_VALIDATE_INT);
-    $D_PROM1 = filter_input(INPUT_GET,'D_PROM1');
-    $D_PROM2 = filter_input(INPUT_GET,'D_PROM2');
-    $D_PROM3 = filter_input(INPUT_GET,'D_PROM3');
-    $D_PROM4 = filter_input(INPUT_GET,'D_PROM4');
-    $D_PAGO = filter_input(INPUT_GET,'D_PAGO');
-    $N_PAGO = filter_input(INPUT_GET,'N_PAGO', FILTER_VALIDATE_FLOAT);
-    if (filter_has_var(INPUT_GET,'D_MERC')) {
-        $D_MERC = filter_input(INPUT_GET,'D_MERC');
+    $C_TELE = filter_input(INPUT_GET, 'C_TELE');
+    $CUANDO = filter_input(INPUT_GET, 'CUANDO');
+    $CUENTA = filter_input(INPUT_GET, 'CUENTA');
+    $C_OBSE1 = utf8_decode(strtoupper(filter_input(INPUT_GET, 'C_OBSE1')));
+    $C_ATTE = filter_input(INPUT_GET, 'C_ATTE');
+    $C_CNP = filter_input(INPUT_GET, 'C_CNP');
+    $C_CONTAN = filter_input(INPUT_GET, 'C_CONTAN');
+    $C_CARG = utf8_encode(filter_input(INPUT_GET, 'C_CARG'));
+    $C_CAMP = filter_input(INPUT_GET, 'camp', FILTER_VALIDATE_INT);
+    $D_PROM1 = filter_input(INPUT_GET, 'D_PROM1');
+    $D_PROM2 = filter_input(INPUT_GET, 'D_PROM2');
+    $D_PROM3 = filter_input(INPUT_GET, 'D_PROM3');
+    $D_PROM4 = filter_input(INPUT_GET, 'D_PROM4');
+    $D_PAGO = filter_input(INPUT_GET, 'D_PAGO');
+    $N_PAGO = filter_input(INPUT_GET, 'N_PAGO', FILTER_VALIDATE_FLOAT);
+    if (filter_has_var(INPUT_GET, 'D_MERC')) {
+        $D_MERC = filter_input(INPUT_GET, 'D_MERC');
     } else {
         $D_MERC = '';
     }
-    $C_PROM = filter_input(INPUT_GET,'C_PROM');
-    $N_PROM_OLD = filter_input(INPUT_GET,'N_PROM_OLD', FILTER_VALIDATE_FLOAT);
-    $N_PROM1 = filter_input(INPUT_GET,'N_PROM1', FILTER_VALIDATE_FLOAT);
-    $N_PROM2 = filter_input(INPUT_GET,'N_PROM2', FILTER_VALIDATE_FLOAT);
-    $N_PROM3 = filter_input(INPUT_GET,'N_PROM3', FILTER_VALIDATE_FLOAT);
-    $N_PROM4 = filter_input(INPUT_GET,'N_PROM4', FILTER_VALIDATE_FLOAT);
+    $C_PROM = filter_input(INPUT_GET, 'C_PROM');
+    $N_PROM_OLD = filter_input(INPUT_GET, 'N_PROM_OLD', FILTER_VALIDATE_FLOAT);
+    $N_PROM1 = filter_input(INPUT_GET, 'N_PROM1', FILTER_VALIDATE_FLOAT);
+    $N_PROM2 = filter_input(INPUT_GET, 'N_PROM2', FILTER_VALIDATE_FLOAT);
+    $N_PROM3 = filter_input(INPUT_GET, 'N_PROM3', FILTER_VALIDATE_FLOAT);
+    $N_PROM4 = filter_input(INPUT_GET, 'N_PROM4', FILTER_VALIDATE_FLOAT);
     $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
-    $C_NTEL = filter_input(INPUT_GET,'C_NTEL');
-    $C_NDIR = filter_input(INPUT_GET,'C_NDIR');
-    $C_EMAIL = trim(filter_input(INPUT_GET,'C_EMAIL'));
-    $C_OBSE2 = filter_input(INPUT_GET,'C_OBSE2');
-    $C_EJE = filter_input(INPUT_GET,'C_EJE');
+    $C_NTEL = filter_input(INPUT_GET, 'C_NTEL');
+    $C_NDIR = filter_input(INPUT_GET, 'C_NDIR');
+    $C_EMAIL = trim(filter_input(INPUT_GET, 'C_EMAIL'));
+    $C_OBSE2 = filter_input(INPUT_GET, 'C_OBSE2');
+    $C_EJE = filter_input(INPUT_GET, 'C_EJE');
     $montomax = 0;
     $fechamin = '2020-12-31';
     $fechamax = '2007-01-01';
@@ -210,17 +210,17 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     }
     $D_PROM = $D_PROM1;
     $flagmsg = "";
-/*
-    $querydup = "SELECT count(1) FROM historia
-WHERE c_cont=" . $C_CONT . " and d_fech='" . $D_FECH . "' 
-and c_hrin='" . $C_HRIN . "' and c_cvst='" . $C_CVST . "' 
-and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
-    $resultdup = mysqli_query($con, $querydup) or die("ERROR RM23 - " . mysqli_error($con));
-    while ($answerdup = mysqli_fetch_row($resultdup)) {
-        $error = $error + $answerdup[0];
-        $flagmsg = "DOBLE ENTRANTE";
-    }
-*/
+    /*
+        $querydup = "SELECT count(1) FROM historia
+    WHERE c_cont=" . $C_CONT . " and d_fech='" . $D_FECH . "'
+    and c_hrin='" . $C_HRIN . "' and c_cvst='" . $C_CVST . "'
+    and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
+        $resultdup = mysqli_query($con, $querydup) or die("ERROR RM23 - " . mysqli_error($con));
+        while ($answerdup = mysqli_fetch_row($resultdup)) {
+            $error = $error + $answerdup[0];
+            $flagmsg = "DOBLE ENTRANTE";
+        }
+    */
     $necesitanMontoPago = [
         'PAGANDO CONVENIO',
         'PAGO DE CONVENIO',
@@ -279,40 +279,40 @@ D_PROM1,N_PROM1,D_PROM2,N_PROM2,
 D_PROM3,N_PROM3,D_PROM4,N_PROM4,
 C_CONTAN,C_ACCION,C_CNP,C_MOTIV,C_CAMP,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE,AUTH) 
 VALUES ('" . $C_CVBA . "','" .
-            $C_CVGE . "','" .
-            $C_CONT . "','" .
-            $C_CVST . "',date('" .
-            $D_FECH . "'),'" .
-            $C_HRIN . "','" .
-            $C_HRFI . "','" .
-            $C_TELE . "','" .
-            $CUANDO . "','" .
-            $CUENTA . "','" .
-            $C_OBSE1 . "','" .
-            $C_ATTE . "','" .
-            $C_CARG . "','" .
-            $D_PROM . "','" .
-            $N_PROM . "','" .
-            $C_PROM . "','" .
-            $D_PROM1 . "','" .
-            $N_PROM1 . "','" .
-            $D_PROM2 . "','" .
-            $N_PROM2 . "','" .
-            $D_PROM3 . "','" .
-            $N_PROM3 . "','" .
-            $D_PROM4 . "','" .
-            $N_PROM4 . "','" .
-            $C_CONTAN . "','" .
-            $ACCION . "','" .
-            $C_CNP . "','" .
-            $C_MOTIV . "','" .
-            $C_CAMP . "','" .
-            $C_NTEL . "','" .
-            $C_NDIR . "','" .
-            $C_EMAIL . "','" .
-            $C_OBSE2 . "','" .
-            $C_EJE . "','" .
-            $AUTH . "')";
+        $C_CVGE . "','" .
+        $C_CONT . "','" .
+        $C_CVST . "',date('" .
+        $D_FECH . "'),'" .
+        $C_HRIN . "','" .
+        $C_HRFI . "','" .
+        $C_TELE . "','" .
+        $CUANDO . "','" .
+        $CUENTA . "','" .
+        $C_OBSE1 . "','" .
+        $C_ATTE . "','" .
+        $C_CARG . "','" .
+        $D_PROM . "','" .
+        $N_PROM . "','" .
+        $C_PROM . "','" .
+        $D_PROM1 . "','" .
+        $N_PROM1 . "','" .
+        $D_PROM2 . "','" .
+        $N_PROM2 . "','" .
+        $D_PROM3 . "','" .
+        $N_PROM3 . "','" .
+        $D_PROM4 . "','" .
+        $N_PROM4 . "','" .
+        $C_CONTAN . "','" .
+        $ACCION . "','" .
+        $C_CNP . "','" .
+        $C_MOTIV . "','" .
+        $C_CAMP . "','" .
+        $C_NTEL . "','" .
+        $C_NDIR . "','" .
+        $C_EMAIL . "','" .
+        $C_OBSE2 . "','" .
+        $C_EJE . "','" .
+        $AUTH . "')";
     if ($error == 0) {
         mysqli_autocommit($con, FALSE);
         $queryins = str_replace(';', ' ', $qins);
@@ -441,11 +441,11 @@ while ($answerg = mysqli_fetch_row($resultg)) {
     $camp = $answerg[2];
 }
 $id_cuenta = 0;
+$qcount = 0;
 $lockflag = 0;
 $sdc = '';
 $cr = '';
-$queryquery = "SELECT cliente, status_aarsa, camp, 
-orden1, updown1, orden2, updown2, orden3, updown3, sdc FROM queuelist 
+$queryquery = "SELECT cliente, status_aarsa, camp, sdc FROM queuelist 
 WHERE gestor='" . $capt . "' AND camp='" . $camp . "'";
 $resultquery = mysqli_query($con, $queryquery) or die("ERROR RM38 - " . mysqli_error($con));
 while ($answerquery = mysqli_fetch_row($resultquery)) {
@@ -453,32 +453,6 @@ while ($answerquery = mysqli_fetch_row($resultquery)) {
     $sdc = $answerquery[9];
     $CR = $answerquery[1];
     $cr = $answerquery[1];
-    $order1 = $answerquery[3];
-    $updown1 = '';
-    if ($answerquery[4] == 1) {
-        $updown1 = ' desc';
-    }
-    $order2 = $answerquery[5];
-    $updown2 = '';
-    if ($answerquery[6] == 1) {
-        $updown2 = ' desc';
-    }
-    $sep12 = '';
-    $lockflag = 0;
-
-    if ($order2 != '') {
-        $sep12 = ',';
-    }
-    $order3 = $answerquery[7];
-    $updown3 = '';
-    if ($answerquery[8] == 1) {
-        $updown3 = ' desc';
-    }
-    if (($order3 != '') && ($order1 . $order2 != '')) {
-        $sep23 = ',';
-    } else {
-        $sep23 = '';
-    }
 }
 if (isset($cr)) {
     $codres = ' AND queue="' . $cr . '" ';
@@ -501,7 +475,7 @@ join dictamenes on dictamen=status_aarsa
 WHERE status_de_credito  = '" . $sdc . "' 
  AND locker is null
  AND cliente='" . $cliente . "'" . $codres .
-                "
+            "
  ORDER BY " . $order1 . $updown1 . $sep12 . $order2 . $updown2 . $sep23 . $order3 . $updown3 . " LIMIT 1";
     }
     if ($cr == 'SIN GESTION') {
@@ -515,12 +489,12 @@ WHERE (status_de_credito  = '" . $sdc . "'
     }
     if ($cr == 'MANUAL') {
         $querymain = "select * from resumen 
-where cliente='".$cliente."' 
+where cliente='" . $cliente . "' 
 and status_de_credito not regexp '-' 
 and status_aarsa not in (select dictamen from dictamenes where queue in ('PAGOS','PROMESAS','ACLARACION'))
 and especial = 1
 and locker is null
-and ejecutivo_asignado_call_center in ('".$capt."','sinasig')
+and ejecutivo_asignado_call_center in ('" . $capt . "','sinasig')
 order by (ejecutivo_asignado_call_center='sinasig'),fecha_ultima_gestion limit 1";
     }
 
@@ -571,20 +545,13 @@ ORDER BY fecha_ultima_gestion,saldo_total desc LIMIT 1";
 if (($go == 'FROMBUSCAR') || ($go == 'FROMMIGO') || ($go == 'FROMULTIMA') || ($go == 'FROMPROM')) {
     $querymain = "SELECT * FROM resumen WHERE id_cuenta = '" . $find . "' LIMIT 1";
 }
-$qcount = 0;
 if ($go == 'QUICKSEARCH' || $go == 'FROMALERT') {
-    $querycount = "SELECT count(1) FROM resumen 
-    WHERE " . $field . " = '" . $find . "';";
-//if ($capt=='moises') {die(htmlentities($querymain));} 
-    $resultcount = mysqli_query($con, $querycount) or die("ERROR RM39 - " . mysqli_error($con));
-    while ($answercount = mysqli_fetch_row($resultcount)) {
-        $qcount = $answercount[0];
-    }
+    $qcount = $qc->searchCount($field, $find);
     $querymain = "SELECT * FROM resumen 
     WHERE " . $field . " = '" . $find . "' order by " . $field . " 
     LIMIT 1";
 }
-//if ($capt=='gmbs') {die(htmlentities($querymain));}
+
 $row = array_fill(0, 200, '');
 $result = mysqli_query($con, $querymain) or die("ERROR RM40 - " . mysqli_error($con) . htmlentities($querymain));
 if ($result) {
@@ -596,8 +563,6 @@ $colonia_deudor = $row[2];
 $ciudad_deudor = $row[3];
 $estado_deudor = $row[4];
 $cp_deudor = $row[5];
-$plano_guia_roji = $row[6];
-$cuadrante_guia_roji = $row[7];
 $tel_1 = $row[8];
 $tel_2 = $row[9];
 $tel_3 = $row[10];
@@ -608,7 +573,7 @@ $domicilio_deudor_alterno = $row[13];
 $colonia_deudor_alterno = $row[14];
 $ciudad_deudor_alterno = $row[15];
 $estado_deudor_alterno = $row[16];
-$cp_deudor_aterno = $row[17];
+$cp_deudor_alterno = $row[17];
 $tel_1_alterno = $row[18];
 $tel_2_alterno = $row[19];
 $tel_3_alterno = $row[20];
@@ -692,10 +657,7 @@ if (empty($saldo_cuota)) {
 $email_deudor = $row[92];
 if (isset($row[93])) {
     $id_cuenta = $row[93];
-    $qsliced = "delete from rslice where user='" . $capt . "';";
-    mysqli_query($con, $qsliced) or die("ERROR RM55 - " . mysqli_error($con));
-    $qslice = "replace into rslice select *, '" . $capt . "', now() from resumen where id_cuenta=" . $id_cuenta;
-    mysqli_query($con, $qslice) or die("ERROR RM55 - " . mysqli_error($con));
+    $rc->setSlice($capt, $id_cuenta);
 }
 $nss = $row[94];
 $rfc_deudor = $row[95];
@@ -709,68 +671,29 @@ $dias_vencidos = $row[102];
 $ejecutivo_asignado_call_center = $row[103];
 $ejecutivo_asignado_domiciliario = $row[104];
 $prioridad_de_gestion = $row[105];
-$nrpp = $row[106];
+$NRPP = $row[106];
 $parentesco_aval = $row[107];
 $localizar = $row[108];
 $campo_libre_9 = $row[109];
 $empresa = $row[110];
 $fecha_convenio = $row[113];
 $direccion_nueva = $row[115];
-$C_OBSE2 = '';
-$CUANDO = '';
-$querycom = "select c_obse2,c_cvst,cuando from historia where c_cont='" . $id_cuenta . "' order by d_fech desc, c_hrin desc limit 1";
-$resultcom = mysqli_query($con, $querycom) or die("ERROR RM41 - " . mysqli_error($con));
-while ($answercom = mysqli_fetch_row($resultcom)) {
-    $C_OBSE2 = $answercom[0];
-    $ultimo_status_de_la_gestion = $answercom[1];
-    $CUANDO = $answercom[2];
-}
+
+list($C_OBSE2, $ultimo_status_de_la_gestion, $CUANDO) = $rc->getLastData($id_cuenta);
+
 if ($id_cuenta == 0) {
-    $newcamp = 3;
-    $querycamp = "SELECT queuelist.camp FROM nombres,queuelist 
-WHERE gestor=iniciales and status_aarsa<>'' and queuelist.camp>nombres.camp
-AND gestor='" . $capt . "' AND bloqueado=0
-ORDER BY queuelist.camp LIMIT 1";
-    $resultcamp = mysqli_query($con, $querycamp) or die("ERROR RM42 - " . mysqli_error($con));
-    while ($answercamp = mysqli_fetch_row($resultcamp)) {
-        $newcamp = $answercamp[0];
-    }
-    $qc->updateQueue($newcamp, $capt);
+    $newCamp = $qc->getNewCamp($capt);
+    $qc->updateQueue($newCamp, $capt);
 }
+
+list($N_PROM_OLD, $N_PROM1_OLD, $N_PROM2_OLD, $N_PROM3_OLD, $N_PROM4_OLD) = array_fill(1, 5, 0);
+list($D_PROM_OLD, $D_PROM1_OLD, $D_PROM2_OLD, $D_PROM3_OLD, $D_PROM4_OLD) = array_fill(1, 5, '');
+
 if ($id_cuenta > 0) {
-    $queryprom = "select n_prom,d_prom,
-        n_prom1,d_prom1,n_prom2,d_prom2,
-        n_prom3,d_prom3,n_prom4,d_prom4,
-        c_freq 
-    from historia 
-    where c_cont=" . $id_cuenta . " and n_prom>0 
-    and c_cvst like 'PROM%DE%'
-    order by d_fech desc, c_hrin desc limit 1";
-    $resultprom = mysqli_query($con, $queryprom) or die("ERROR RM45 - " . mysqli_error($con));
-    while ($answerprom = mysqli_fetch_row($resultprom)) {
-        $N_PROM_OLD = $answerprom[0];
-        $D_PROM_OLD = $answerprom[1];
-        $N_PROM1_OLD = $answerprom[2];
-        $D_PROM1_OLD = $answerprom[3];
-        $N_PROM2_OLD = $answerprom[4];
-        $D_PROM2_OLD = $answerprom[5];
-        $N_PROM3_OLD = $answerprom[6];
-        $D_PROM3_OLD = $answerprom[7];
-        $N_PROM4_OLD = $answerprom[8];
-        $D_PROM4_OLD = $answerprom[9];
-    }
-} else {
-    $N_PROM_OLD = '';
-    $D_PROM_OLD = '';
-    $N_PROM1_OLD = '';
-    $D_PROM1_OLD = '';
-    $N_PROM2_OLD = '';
-    $D_PROM2_OLD = '';
-    $N_PROM3_OLD = '';
-    $D_PROM3_OLD = '';
-    $N_PROM4_OLD = '';
-    $D_PROM4_OLD = '';
+    list($N_PROM_OLD, $N_PROM1_OLD, $N_PROM2_OLD, $N_PROM3_OLD, $N_PROM4_OLD,
+        $D_PROM_OLD, $D_PROM1_OLD, $D_PROM2_OLD, $D_PROM3_OLD, $D_PROM4_OLD) = $rc->getOldProms($id_cuenta);
 }
+
 $nmerc = 0;
 $timelock = '';
 $locker = '';
@@ -792,11 +715,11 @@ if ($mytipo != 'admin') {
 }
 
 if ($mytipo == 'admin') {
-    $dday = date("Y-m-d", strtotime("+1 month")) ;
-    $dday2 = date("Y-m-d", strtotime("+1 month")) ;
+    $dday = date("Y-m-d", strtotime("+1 month"));
+    $dday2 = date("Y-m-d", strtotime("+1 month"));
 } else {
-    $dday = date("Y-m-d", strtotime("+1 week")) ;
-    $dday2 = date("Y-m-d", strtotime("+15 day")) ;
+    $dday = date("Y-m-d", strtotime("+1 week"));
+    $dday2 = date("Y-m-d", strtotime("+15 day"));
 }
 $CD = date("Y-m-d");
 $CT = date("H:i:s");
@@ -830,14 +753,14 @@ $queryMotiv = "SELECT motiv FROM motivadores;";
 $resultMotiv = $pdo->query($queryMotiv);
 
 $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-        . "where callcenter=1 order by dictamen";
+    . "where callcenter=1 order by dictamen";
 if ($mytipo == 'visitador') {
     $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-            . "where visitas=1 order by dictamen";
+        . "where visitas=1 order by dictamen";
 }
 if ($mytipo == 'admin') {
     $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-            . "order by dictamen";
+        . "order by dictamen";
 }
 $resultDictamen = $pdo->query($queryDictamen);
 

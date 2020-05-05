@@ -13,7 +13,7 @@ use cobra_salsa\NoteObject;
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css"
           media="all"/>
-    <link rel="stylesheet" href="/css/resumen.css" />
+    <link rel="stylesheet" href="/css/resumen.css"/>
     <style>
         <?php
         if ($notes->notAlert > 0) { ?>
@@ -551,9 +551,9 @@ use cobra_salsa\NoteObject;
                 </td>
                 <td>
                     <div id='clock'>
-                        <input type="hidden" name="timer" id="timer" readonly="readonly" value="0">:
-                        <input type="text" name="timerMin" id="timerMin" readonly="readonly" value="0" size="3">:
-                        <input type="text" name="timers" id="timers" readonly="readonly" value="0" size="3"><br>
+                        <input type="hidden" name="timer" id="timer" value="0">:
+                        <input type="text" name="timerMin" id="timerMin" value="0" size="3">:
+                        <input type="text" name="timers" id="timers" value="0" size="3"><br>
                         <?php
                         $campoColor = " style='background-color:red; color:white;'";
                         $numGestiones = $resultng['cng'] or 0;
@@ -566,10 +566,8 @@ use cobra_salsa\NoteObject;
                             $campoColor = " style='background-color:green; color:white;'";
                         }
                         ?>
-                        <input type="text"<?php echo $campoColor; ?> name="numgest" id="numgest" readonly="readonly"
-                               value="<?php echo $numGestiones . ' gestiones'; ?>">
-                        <input type="text" name="numprom" id="numprom" readonly="readonly"
-                               value="<?php echo $numProm . ' promesas'; ?>">
+                        <code<?php echo $campoColor; ?>><?php echo $numGestiones . ' gestiones'; ?></code>
+                        <code><?php echo $numProm . ' promesas'; ?></code>
                     </div>
                 </td>
             </tr>
@@ -1079,11 +1077,11 @@ use cobra_salsa\NoteObject;
                     <?php
                 }
 
-                if (isset($nrpp)) {
+                if (isset($NRPP)) {
                     ?>
                     <td>Plaza</td>
                     <td><input type='text' name=subproducto readonly='readonly' value='<?php
-                        echo htmlentities($nrpp);
+                        echo htmlentities($NRPP);
                         ?>'></td>
                     <?php
                 }
@@ -1215,73 +1213,73 @@ use cobra_salsa\NoteObject;
 </div>
 <div class="toggleBox" id="VISITA">
     <form action="/resumen.php" method="get" id="capturaForm">
-        <input type="hidden" name="minprom" readonly="readonly" value="<?php
+        <input type="hidden" name="minprom" value="<?php
         echo $saldo_descuento_2 + 0;
         ?>">
-        <input type="hidden" name="error" readonly="readonly" value="1">
-        <input type="hidden" name="C_HRFI" readonly="readonly" value="<?php
+        <input type="hidden" name="error" value="1">
+        <input type="hidden" name="C_HRFI" value="<?php
         if (isset($CT)) {
             echo $CT;
         }
         ?>">
-        <input type="hidden" name="AUTO" readonly="readonly" value="">
-        <input type="hidden" name="find" readonly="readonly" value="<?php
+        <input type="hidden" name="AUTO" value="">
+        <input type="hidden" name="find" value="<?php
         if (isset($find)) {
             echo $find;
         }
         ?>">
-        <input type="hidden" name="field" readonly="readonly" value="<?php
+        <input type="hidden" name="field" value="<?php
         if (isset($field)) {
             echo $field;
         }
         ?>">
-        <input type="hidden" name="capt" readonly="readonly" value="<?php
+        <input type="hidden" name="capt" value="<?php
         if (isset($capt)) {
             echo $capt;
         }
         ?>">
-        <input type="hidden" name="camp" readonly="readonly" value="<?php
+        <input type="hidden" name="camp" value="<?php
         if (isset($camp)) {
             echo $camp;
         }
         ?>">
-        <input type="hidden" name="neworder" readonly="readonly" value="<?php
+        <input type="hidden" name="neworder" value="<?php
         if (isset($neworder)) {
             echo $neworder;
         }
         ?>">
-        <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
+        <input type="hidden" name="C_CVGE" value="<?php
         if (isset($C_CVGE)) {
             echo $C_CVGE;
         }
         ?>">
-        <input type="hidden" name="C_CVBA" readonly="readonly" value="<?php
+        <input type="hidden" name="C_CVBA" value="<?php
         if (isset($cliente)) {
             echo $cliente;
         }
         ?>">
-        <input type="hidden" name="C_ATTE" readonly="readonly" value="">
-        <input type="hidden" name="C_CONT" readonly="readonly" value="<?php
+        <input type="hidden" name="C_ATTE" value="">
+        <input type="hidden" name="C_CONT" value="<?php
         if (isset($id_cuenta)) {
             echo $id_cuenta;
         }
         ?>">
-        <input type="hidden" name="C_CONTAN" readonly="readonly" value="<?php
+        <input type="hidden" name="C_CONTAN" value="<?php
         if (isset($status_aarsa)) {
             echo $status_aarsa;
         }
         ?>">
-        <input type="hidden" name="CUENTA" id="CUENTA2" readonly="readonly" value="<?php
+        <input type="hidden" name="CUENTA" id="CUENTA2" value="<?php
         if (isset($numero_de_cuenta)) {
             echo $numero_de_cuenta;
         }
         ?>">
-        <input type="hidden" name="C_EJE" readonly="readonly" value="<?php
+        <input type="hidden" name="C_EJE" value="<?php
         if (isset($ejecutivo_asignado_call_center)) {
             echo $ejecutivo_asignado_call_center;
         }
         ?>">
-        <input type="hidden" name="oldGo" readonly="readonly" value="<?php echo $go; ?>"><br>
+        <input type="hidden" name="oldGo" value="<?php echo $go; ?>"><br>
         <p>DICTAMEN DOMICILIO PARTICULAR</p>
         <table class='visitable'>
             <tr>
@@ -1408,94 +1406,9 @@ use cobra_salsa\NoteObject;
         </select><br>
         <p>DATOS DE LA GESTION</p>
         <label class="formLabelBig" for="C_VH">Hora:</label>
-        <SELECT id="C_VH" NAME="C_VH">
-            <OPTION VALUE=0>0</option>
-            <OPTION VALUE=1>1</option>
-            <OPTION VALUE=2>2</option>
-            <OPTION VALUE=3>3</option>
-            <OPTION VALUE=4>4</option>
-            <OPTION VALUE=5>5</option>
-            <OPTION VALUE=6>6</option>
-            <OPTION VALUE=7>7</option>
-            <OPTION VALUE=8>8</option>
-            <OPTION VALUE=9>9</option>
-            <OPTION VALUE=10>10</option>
-            <OPTION VALUE=11>11</option>
-            <OPTION VALUE=12>12</option>
-            <OPTION VALUE=13>13</option>
-            <OPTION VALUE=14>14</option>
-            <OPTION VALUE=15>15</option>
-            <OPTION VALUE=16>16</option>
-            <OPTION VALUE=17>17</option>
-            <OPTION VALUE=18>18</option>
-            <OPTION VALUE=19>19</option>
-            <OPTION VALUE=20>20</option>
-            <OPTION VALUE=21>21</option>
-            <OPTION VALUE=22>22</option>
-            <OPTION VALUE=23>23</option>
-        </select>:
-        <SELECT NAME="C_VMN">
-            <OPTION VALUE=00>00</option>
-            <OPTION VALUE=01>01</option>
-            <OPTION VALUE=02>02</option>
-            <OPTION VALUE=03>03</option>
-            <OPTION VALUE=04>04</option>
-            <OPTION VALUE=05>05</option>
-            <OPTION VALUE=06>06</option>
-            <OPTION VALUE=07>07</option>
-            <OPTION VALUE=08>08</option>
-            <OPTION VALUE=09>09</option>
-            <OPTION VALUE=10>10</option>
-            <OPTION VALUE=11>11</option>
-            <OPTION VALUE=12>12</option>
-            <OPTION VALUE=13>13</option>
-            <OPTION VALUE=14>14</option>
-            <OPTION VALUE=15>15</option>
-            <OPTION VALUE=16>16</option>
-            <OPTION VALUE=17>17</option>
-            <OPTION VALUE=18>18</option>
-            <OPTION VALUE=19>19</option>
-            <OPTION VALUE=20>20</option>
-            <OPTION VALUE=21>21</option>
-            <OPTION VALUE=22>22</option>
-            <OPTION VALUE=23>23</option>
-            <OPTION VALUE=24>24</option>
-            <OPTION VALUE=25>25</option>
-            <OPTION VALUE=26>26</option>
-            <OPTION VALUE=27>27</option>
-            <OPTION VALUE=28>28</option>
-            <OPTION VALUE=29>29</option>
-            <OPTION VALUE=30>30</option>
-            <OPTION VALUE=31>31</option>
-            <OPTION VALUE=32>32</option>
-            <OPTION VALUE=33>33</option>
-            <OPTION VALUE=34>34</option>
-            <OPTION VALUE=35>35</option>
-            <OPTION VALUE=36>36</option>
-            <OPTION VALUE=37>37</option>
-            <OPTION VALUE=38>38</option>
-            <OPTION VALUE=39>39</option>
-            <OPTION VALUE=40>40</option>
-            <OPTION VALUE=41>41</option>
-            <OPTION VALUE=42>42</option>
-            <OPTION VALUE=43>43</option>
-            <OPTION VALUE=44>44</option>
-            <OPTION VALUE=45>45</option>
-            <OPTION VALUE=46>46</option>
-            <OPTION VALUE=47>47</option>
-            <OPTION VALUE=48>48</option>
-            <OPTION VALUE=49>49</option>
-            <OPTION VALUE=50>50</option>
-            <OPTION VALUE=51>51</option>
-            <OPTION VALUE=52>52</option>
-            <OPTION VALUE=53>53</option>
-            <OPTION VALUE=54>54</option>
-            <OPTION VALUE=55>55</option>
-            <OPTION VALUE=56>56</option>
-            <OPTION VALUE=57>57</option>
-            <OPTION VALUE=58>58</option>
-            <OPTION VALUE=59>59</option>
-        </select>
+        <input type="number" min="0" max="23" id="C_VH" name="C_VH">
+        <label for="C_VMN">:</label>
+        <input type="number" min="0" max="59" id="C_VMN" name="C_VMN">
         <br>
         <label for="C_VD" class="formLabelBig">Fecha:</label>
         <INPUT TYPE="text" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>">
@@ -1515,8 +1428,8 @@ use cobra_salsa\NoteObject;
             <option value="Vecino/a">Vecino/a</option>
         </select><br>
         <label class="formLabelBig" for="C_OBSE12">Gestion</label>
-            <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12'
-                      onkeypress="tooLong('C_OBSE12')"></textarea><br>
+        <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12'
+                  onkeypress="tooLong('C_OBSE12')"></textarea><br>
         <label class="formLabelBig" for="ACCIONv">Acción:</label>
         <select id="ACCIONv" name="ACCION" style="width: 8cm;">
             <?php
@@ -1727,7 +1640,7 @@ use cobra_salsa\NoteObject;
                         </select></td>
                 </tr>
             <?php } else { ?>
-                <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
+                <input type="hidden" name="C_CVGE" value="<?php
                 if (isset($C_CVGE)) {
                     echo $C_CVGE;
                 }
@@ -1951,7 +1864,7 @@ use cobra_salsa\NoteObject;
                 <td>Cant. de promesa única o 1a</td>
                 <td>$<input type="text" name="N_PROM1" value="0" size="8" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
-                <td>$<input type="text" name="N_PROM1_OLD" readonly="readonly" size="8" value="<?php
+                <td>$<input type="text" name="N_PROM1_OLD" size="8" value="<?php
                     if (isset($N_PROM1_OLD)) {
                         echo $N_PROM1_OLD;
                     }
@@ -1970,7 +1883,7 @@ use cobra_salsa\NoteObject;
                 <td>Cant. de promesa 2a</td>
                 <td>$<input type="text" name="N_PROM2" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
-                <td>$<input type="text" name="N_PROM2_OLD" size="8" readonly="readonly" value="<?php
+                <td>$<input type="text" name="N_PROM2_OLD" size="8" value="<?php
                     if (isset($N_PROM2_OLD)) {
                         echo $N_PROM2_OLD;
                     }
@@ -1989,7 +1902,7 @@ use cobra_salsa\NoteObject;
                 <td>Cant. de promesa 3a</td>
                 <td>$<input type="text" name="N_PROM3" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
-                <td>$<input type="text" name="N_PROM3_OLD" size="8" readonly="readonly" value="<?php
+                <td>$<input type="text" name="N_PROM3_OLD" size="8" value="<?php
                     if (isset($N_PROM3_OLD)) {
                         echo $N_PROM3_OLD;
                     }
@@ -2008,7 +1921,7 @@ use cobra_salsa\NoteObject;
                 <td>Cant. de promesa 4a</td>
                 <td>$<input type="text" name="N_PROM4" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
-                <td>$<input type="text" name="N_PROM4_OLD" size="8" readonly="readonly" value="<?php
+                <td>$<input type="text" name="N_PROM4_OLD" size="8" value="<?php
                     if (isset($N_PROM4_OLD)) {
                         echo $N_PROM4_OLD;
                     }
@@ -2037,7 +1950,7 @@ use cobra_salsa\NoteObject;
             </tr>
             <tr>
                 <td>Cant. de promesa total</td>
-                <td><input type="text" name="N_PROM" id="N_PROM" readonly="readonly" style="background-color:#c0c0c0;"
+                <td><input type="text" name="N_PROM" id="N_PROM" style="background-color:#c0c0c0;"
                            value=""></td>
                 <td>Cant. prometido anterior</td>
                 <td><input type="text" name="N_PROM_OLD" id="N_PROM_OLD" readonly="readonly"
@@ -2081,82 +1994,82 @@ use cobra_salsa\NoteObject;
         <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false">RESET</button>
         <br>
         <div class="noShow">
-            <input type="hidden" name="from" readonly="readonly" value="resumen.php">
-            <input type="hidden" name="D_FECH" readonly="readonly" value="<?php
+            <input type="hidden" name="from" value="resumen.php">
+            <input type="hidden" name="D_FECH" value="<?php
             if (isset($CD)) {
                 echo $CD;
             }
             ?>">
-            <input type="hidden" name="D_PROM" readonly="readonly" value="<?php
+            <input type="hidden" name="D_PROM" value="<?php
             if (isset($CD)) {
                 echo $CD;
             }
             ?>">
-            <input type="hidden" name="C_HRIN" readonly="readonly" value="<?php
+            <input type="hidden" name="C_HRIN" value="<?php
             if (isset($CT)) {
                 echo $CT;
             }
             ?>">
-            <input type="hidden" name="C_HRFI" readonly="readonly" value="<?php
+            <input type="hidden" name="C_HRFI" value="<?php
             if (isset($CT)) {
                 echo $CT;
             }
             ?>">
-            <input type="hidden" name="AUTO" readonly="readonly" value=""><br>
-            <input type="hidden" name="find" readonly="readonly" value="<?php
+            <input type="hidden" name="AUTO" value=""><br>
+            <input type="hidden" name="find" value="<?php
             if (isset($find)) {
                 echo $find;
             }
             ?>">
-            <input type="hidden" name="field" readonly="readonly" value="<?php
+            <input type="hidden" name="field" value="<?php
             if (isset($field)) {
                 echo $field;
             }
             ?>">
-            <input type="hidden" name="capt" readonly="readonly" value="<?php
+            <input type="hidden" name="capt" value="<?php
             if (isset($capt)) {
                 echo $capt;
             }
             ?>">
-            <input type="hidden" name="camp" readonly="readonly" value="<?php
+            <input type="hidden" name="camp" value="<?php
             if (isset($camp)) {
                 echo $camp;
             }
             ?>">
-            <input type="hidden" name="neworder" readonly="readonly" value="<?php
+            <input type="hidden" name="neworder" value="<?php
             if (isset($neworder)) {
                 echo $neworder;
             }
             ?>">
-            <input type="hidden" name="C_CVBA" readonly="readonly" value="<?php
+            <input type="hidden" name="C_CVBA" value="<?php
             if (isset($cliente)) {
                 echo $cliente;
             }
             ?>">
-            <input type="hidden" name="C_ATTE" readonly="readonly" value="">
-            <input type="hidden" name="C_CONT" readonly="readonly" value="<?php
+            <input type="hidden" name="C_ATTE" value="">
+            <input type="hidden" name="C_CONT" value="<?php
             if (isset($id_cuenta)) {
                 echo $id_cuenta;
             }
             ?>">
-            <input type="hidden" name="C_CONTAN" readonly="readonly" value="<?php
+            <input type="hidden" name="C_CONTAN" value="<?php
             if (isset($status_aarsa)) {
                 echo $status_aarsa;
             }
             ?>">
-            <input type="hidden" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
+            <input type="hidden" name="CUENTA" id="CUENTA" value="<?php
             if (isset($numero_de_cuenta)) {
                 echo $numero_de_cuenta;
             }
             ?>">
-            <input type="hidden" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
+            <input type="hidden" name="C_EJE" id="C_EJE" value="<?php
             if (isset($ejecutivo_asignado_call_center)) {
                 echo $ejecutivo_asignado_call_center;
             }
             ?>">
-            <input type="hidden" name="oldGo" readonly="readonly" value="<?php echo $go; ?>">
-            <input type="hidden" name="error" readonly="readonly" value="1">
-            <input type="hidden" name="go" readonly="readonly" value="GUARDAR">
+            <input type="hidden" name="oldGo" value="<?php echo $go; ?>">
+            <input type="hidden" name="error" value="1">
+            <input type="hidden" name="go" value="GUARDAR">
         </div>
     </form>
 </div>

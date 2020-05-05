@@ -254,12 +254,13 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      *
-     * @return PDOStatement
+     * @return array
      */
     public function getAccion()
     {
-        $query = "SELECT accion FROM acciones where callcenter=1";
-        return $this->pdo->query($query);
+        $query = "SELECT accion FROM acciones where callcenter = 1 ORDER BY accion";
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -450,8 +451,8 @@ ORDER BY cliente,sdc,queue";
         $std->bindParam(':capt', $capt);
         $std->execute();
 
-        $qslice = "replace into rslice select *, :capt, now() from resumen "
-            . "where id_cuenta = :id_cuenta";
+        $qslice = "replace into rslice select *, :capt, now() from resumen 
+        where id_cuenta = :id_cuenta";
         $sts = $this->pdo->prepare($qslice);
         $sts->bindParam(':capt', $capt);
         $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
@@ -628,6 +629,67 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
             $count = 0;
         }
         return $count;
+    }
+
+    /**
+     * @param $id_cuenta
+     * @return array
+     */
+    function getLastData($id_cuenta)
+    {
+        $C_OBSE2 = '';
+        $ultimo_status_de_la_gestion = '';
+        $CUANDO = '';
+        $query = "select c_obse2,c_cvst,cuando from historia where c_cont = :id_cuenta order by d_fech desc, c_hrin desc limit 1";
+        $stg = $this->pdo->prepare($query);
+        $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $stg->execute();
+        $result = $stg->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $C_OBSE2 = $result['c_obse2'];
+            $ultimo_status_de_la_gestion = $result['c_cvst'];
+            $CUANDO = $result['cuando'];
+        }
+        return [
+            $C_OBSE2,
+            $ultimo_status_de_la_gestion,
+            $CUANDO
+        ];
+    }
+
+    /**
+     * @param int $id_cuenta
+     * @return array
+     */
+    function getOldProms($id_cuenta)
+    {
+        $query = "select n_prom,d_prom,
+        n_prom1,d_prom1,n_prom2,d_prom2,
+        n_prom3,d_prom3,n_prom4,d_prom4,
+        c_freq 
+    from historia 
+    where c_cont = :id_cuenta and n_prom>0 
+    and c_cvst like 'PROM%DE%'
+    order by d_fech desc, c_hrin desc limit 1";
+        $stg = $this->pdo->prepare($query);
+        $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $stg->execute();
+        $result = $stg->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return [
+                $result['n_prom'],
+                $result['n_prom1'],
+                $result['n_prom2'],
+                $result['n_prom3'],
+                $result['n_prom4'],
+                $result['d_prom'],
+                $result['d_prom1'],
+                $result['d_prom2'],
+                $result['d_prom3'],
+                $result['d_prom4']
+            ];
+        }
+        return [0, '', 0, '', 0, '', 0, '', 0, ''];
     }
 
 }
