@@ -314,10 +314,10 @@ where d_fech between :fecha1 and :fecha2
 
     /**
      *
-     * @param BigInputObject $bio
+     * @param PromsObject $bio
      * @return array
      */
-    public function getProms(BigInputObject $bio) {
+    public function getProms(PromsObject $bio) {
         $this->queryFront = "SELECT 
     numero_de_cuenta,
     nombre_deudor AS 'NOMBRE',

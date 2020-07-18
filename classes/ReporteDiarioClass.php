@@ -13,7 +13,7 @@ class ReporteDiarioClass extends BaseClass {
      *
      * @var string
      */
-    protected $queryrrotas = "create table rrotas
+    protected $queryCreateRotas = "create table rrotas
 select numero_de_cuenta,resumen.cliente,status_de_credito,status_aarsa,producto,subproducto,
 nombre_deudor,pagos.auto as pauto,monto,fecha,historia.auto as hauto,
 n_prom1,d_prom1,n_prom2,d_prom2,
@@ -210,7 +210,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
      */
     protected function createPromesasTable($last_business_day) {
         $this->pdo->query('DROP TABLE IF EXISTS rrotas');
-        $sta = $this->pdo->prepare($this->queryrrotas);
+        $sta = $this->pdo->prepare($this->queryCreateRotas);
         $sta->bindParam(':lbd0', $last_business_day);
         $sta->execute();
     }
@@ -246,8 +246,8 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
     }
 
     protected function createAnalysis() {
-        $querydrop = "DROP TABLE IF EXISTS `gmbtemp`;";
-        $this->pdo->query($querydrop);
+        $queryDrop = "DROP TABLE IF EXISTS `gmbtemp`;";
+        $this->pdo->query($queryDrop);
         $this->pdo->query($this->querymake);
         $this->pdo->query($this->querycalc);
     }

@@ -7,8 +7,6 @@ namespace Box\Spout\Common\Helper;
  * This class wraps global functions to facilitate testing
  *
  * @codeCoverageIgnore
- *
- * @package Box\Spout\Common\Helper
  */
 class GlobalFunctionsHelper
 {
@@ -22,7 +20,7 @@ class GlobalFunctionsHelper
      */
     public function fopen($fileName, $mode)
     {
-        return fopen($fileName, $mode);
+        return \fopen($fileName, $mode);
     }
 
     /**
@@ -30,12 +28,12 @@ class GlobalFunctionsHelper
      * @see fgets()
      *
      * @param resource $handle
-     * @param int|void $length
+     * @param int|null $length
      * @return string
      */
     public function fgets($handle, $length = null)
     {
-        return fgets($handle, $length);
+        return \fgets($handle, $length);
     }
 
     /**
@@ -48,7 +46,7 @@ class GlobalFunctionsHelper
      */
     public function fputs($handle, $string)
     {
-        return fputs($handle, $string);
+        return \fputs($handle, $string);
     }
 
     /**
@@ -60,7 +58,7 @@ class GlobalFunctionsHelper
      */
     public function fflush($handle)
     {
-        return fflush($handle);
+        return \fflush($handle);
     }
 
     /**
@@ -73,7 +71,7 @@ class GlobalFunctionsHelper
      */
     public function fseek($handle, $offset)
     {
-        return fseek($handle, $offset);
+        return \fseek($handle, $offset);
     }
 
     /**
@@ -81,14 +79,20 @@ class GlobalFunctionsHelper
      * @see fgetcsv()
      *
      * @param resource $handle
-     * @param int|void $length
-     * @param string|void $delimiter
-     * @param string|void $enclosure
+     * @param int|null $length
+     * @param string|null $delimiter
+     * @param string|null $enclosure
      * @return array
      */
     public function fgetcsv($handle, $length = null, $delimiter = null, $enclosure = null)
     {
-        return fgetcsv($handle, $length, $delimiter, $enclosure);
+        // PHP uses '\' as the default escape character. This is not RFC-4180 compliant...
+        // To fix that, simply disable the escape character.
+        // @see https://bugs.php.net/bug.php?id=43225
+        // @see http://tools.ietf.org/html/rfc4180
+        $escapeCharacter = PHP_VERSION_ID >= 70400 ? '' : "\0";
+
+        return \fgetcsv($handle, $length, $delimiter, $enclosure, $escapeCharacter);
     }
 
     /**
@@ -97,13 +101,19 @@ class GlobalFunctionsHelper
      *
      * @param resource $handle
      * @param array $fields
-     * @param string|void $delimiter
-     * @param string|void $enclosure
+     * @param string|null $delimiter
+     * @param string|null $enclosure
      * @return int
      */
     public function fputcsv($handle, array $fields, $delimiter = null, $enclosure = null)
     {
-        return fputcsv($handle, $fields, $delimiter, $enclosure);
+        // PHP uses '\' as the default escape character. This is not RFC-4180 compliant...
+        // To fix that, simply disable the escape character.
+        // @see https://bugs.php.net/bug.php?id=43225
+        // @see http://tools.ietf.org/html/rfc4180
+        $escapeCharacter = PHP_VERSION_ID >= 70400 ? '' : "\0";
+
+        return \fputcsv($handle, $fields, $delimiter, $enclosure, $escapeCharacter);
     }
 
     /**
@@ -116,7 +126,7 @@ class GlobalFunctionsHelper
      */
     public function fwrite($handle, $string)
     {
-        return fwrite($handle, $string);
+        return \fwrite($handle, $string);
     }
 
     /**
@@ -128,7 +138,7 @@ class GlobalFunctionsHelper
      */
     public function fclose($handle)
     {
-        return fclose($handle);
+        return \fclose($handle);
     }
 
     /**
@@ -140,7 +150,7 @@ class GlobalFunctionsHelper
      */
     public function rewind($handle)
     {
-        return rewind($handle);
+        return \rewind($handle);
     }
 
     /**
@@ -152,7 +162,7 @@ class GlobalFunctionsHelper
      */
     public function file_exists($fileName)
     {
-        return file_exists($fileName);
+        return \file_exists($fileName);
     }
 
     /**
@@ -160,11 +170,60 @@ class GlobalFunctionsHelper
      * @see file_get_contents()
      *
      * @param string $filePath
-     * @return bool
+     * @return string
      */
     public function file_get_contents($filePath)
     {
-        return file_get_contents($filePath);
+        $realFilePath = $this->convertToUseRealPath($filePath);
+
+        return \file_get_contents($realFilePath);
+    }
+
+    /**
+     * Updates the given file path to use a real path.
+     * This is to avoid issues on some Windows setup.
+     *
+     * @param string $filePath File path
+     * @return string The file path using a real path
+     */
+    protected function convertToUseRealPath($filePath)
+    {
+        $realFilePath = $filePath;
+
+        if ($this->isZipStream($filePath)) {
+            if (\preg_match('/zip:\/\/(.*)#(.*)/', $filePath, $matches)) {
+                $documentPath = $matches[1];
+                $documentInsideZipPath = $matches[2];
+                $realFilePath = 'zip://' . \realpath($documentPath) . '#' . $documentInsideZipPath;
+            }
+        } else {
+            $realFilePath = \realpath($filePath);
+        }
+
+        return $realFilePath;
+    }
+
+    /**
+     * Returns whether the given path is a zip stream.
+     *
+     * @param string $path Path pointing to a document
+     * @return bool TRUE if path is a zip stream, FALSE otherwise
+     */
+    protected function isZipStream($path)
+    {
+        return (\strpos($path, 'zip://') === 0);
+    }
+
+    /**
+     * Wrapper around global function feof()
+     * @see feof()
+     *
+     * @param resource $handle
+     * @return bool
+     */
+    public function feof($handle)
+    {
+        return \feof($handle);
     }
 
     /**
@@ -176,7 +235,7 @@ class GlobalFunctionsHelper
      */
     public function is_readable($fileName)
     {
-        return is_readable($fileName);
+        return \is_readable($fileName);
     }
 
     /**
@@ -184,12 +243,12 @@ class GlobalFunctionsHelper
      * @see basename()
      *
      * @param string $path
-     * @param string|void $suffix
+     * @param string|null $suffix
      * @return string
      */
     public function basename($path, $suffix = null)
     {
-        return basename($path, $suffix);
+        return \basename($path, $suffix);
     }
 
     /**
@@ -201,6 +260,70 @@ class GlobalFunctionsHelper
      */
     public function header($string)
     {
-        header($string);
+        \header($string);
+    }
+
+    /**
+     * Wrapper around global function ob_end_clean()
+     * @see ob_end_clean()
+     *
+     * @return void
+     */
+    public function ob_end_clean()
+    {
+        if (\ob_get_length() > 0) {
+            \ob_end_clean();
+        }
+    }
+
+    /**
+     * Wrapper around global function iconv()
+     * @see iconv()
+     *
+     * @param string $string The string to be converted
+     * @param string $sourceEncoding The encoding of the source string
+     * @param string $targetEncoding The encoding the source string should be converted to
+     * @return string|bool the converted string or FALSE on failure.
+     */
+    public function iconv($string, $sourceEncoding, $targetEncoding)
+    {
+        return \iconv($sourceEncoding, $targetEncoding, $string);
+    }
+
+    /**
+     * Wrapper around global function mb_convert_encoding()
+     * @see mb_convert_encoding()
+     *
+     * @param string $string The string to be converted
+     * @param string $sourceEncoding The encoding of the source string
+     * @param string $targetEncoding The encoding the source string should be converted to
+     * @return string|bool the converted string or FALSE on failure.
+     */
+    public function mb_convert_encoding($string, $sourceEncoding, $targetEncoding)
+    {
+        return \mb_convert_encoding($string, $targetEncoding, $sourceEncoding);
+    }
+
+    /**
+     * Wrapper around global function stream_get_wrappers()
+     * @see stream_get_wrappers()
+     *
+     * @return array
+     */
+    public function stream_get_wrappers()
+    {
+        return \stream_get_wrappers();
+    }
+
+    /**
+     * Wrapper around global function function_exists()
+     * @see function_exists()
+     *
+     * @param string $functionName
+     * @return bool
+     */
+    public function function_exists($functionName)
+    {
+        return \function_exists($functionName);
     }
 }

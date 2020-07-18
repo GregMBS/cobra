@@ -17,7 +17,8 @@ use PDOStatement;
  *
  * @author gmbs
  */
-class ResumenQueuesClass {
+class ResumenQueuesClass
+{
 
     /**
      * @var PDO $pdo
@@ -25,20 +26,22 @@ class ResumenQueuesClass {
     protected $pdo;
 
     /**
-     * 
+     *
      * @param PDO $pdo
      */
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
     /**
-     * 
+     *
      * @param string $capt
      * @param int $camp
      * @return array
      */
-    public function getMyQueue($capt, $camp) {
+    public function getMyQueue($capt, $camp)
+    {
         $query = "SELECT cliente, status_aarsa as cr, sdc 
         FROM queuelist 
         WHERE gestor = :capt 
@@ -52,12 +55,13 @@ class ResumenQueuesClass {
     }
 
     /**
-     * 
+     *
      * @param string $field
      * @param string $find
      * @return int
      */
-    public function searchCount($field, $find) {
+    public function searchCount($field, $find)
+    {
         $query = "SELECT count(1) as ct 
             FROM resumen 
             WHERE " . $field . " = :find 
@@ -73,13 +77,14 @@ class ResumenQueuesClass {
     }
 
     /**
-     * 
+     *
      * @param string $cliente
      * @param string $sdc
      * @param string $cr
      * @return PDOStatement
      */
-    public function prepareResumenMain($cliente, $sdc, $cr) {
+    public function prepareResumenMain($cliente, $sdc, $cr)
+    {
         if (empty($cliente)) {
             $clientStr = '';
         } else {
@@ -105,11 +110,11 @@ $crStr
 ORDER BY fecha_ultima_gestion LIMIT 1";
 
         if ($cr == 'SIN GESTION') {
-            $query = "SELECT * FROM resumen " .
-                    "WHERE locker is null " .
-                    $clientStr . $sdcStr .
-                    " AND ((status_aarsa='') or (status_aarsa is null)) " .
-                    " ORDER BY saldo_total desc LIMIT 1";
+            $query = "SELECT * FROM resumen 
+            WHERE locker is null " .
+                $clientStr . $sdcStr .
+                " AND ((status_aarsa='') or (status_aarsa is null)) 
+                ORDER BY saldo_total desc LIMIT 1";
         }
 
         if (($cr == 'INICIAL')) {
@@ -130,23 +135,11 @@ AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
 order by fecha_ultima_gestion  LIMIT 1
 ";
         }
-    if ($cr == 'MANUAL') {
-        $query = "select * from resumen
-where locker is null
-$clientStr
-$sdcStr
-and status_aarsa not in (
-	select dictamen from dictamenes
-	where queue in ('PAGOS','PROMESAS','ACLARACION')
-	)
-and especial > 0
-order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_1 desc limit 1";
-    }
         return $this->pdo->prepare($query);
     }
 
     /**
-     * 
+     *
      * @param PDOStatement $stm
      * @param string $capt
      * @param string $cliente
@@ -154,8 +147,9 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
      * @param string $cr
      * @return PDOStatement
      */
-    public function bindResumenMain($stm, $capt, $cliente, $sdc, $cr) {
-        if (in_array($cr, array('MANUAL','INICIAL'))) {
+    public function bindResumenMain($stm, $capt, $cliente, $sdc, $cr)
+    {
+        if (in_array($cr, array('MANUAL', 'INICIAL'))) {
             $stm->bindParam(':capt', $capt);
             return $stm;
         }
@@ -176,23 +170,38 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
     }
 
     /**
-     * 
+     *
      * @param int $id_cuenta
      * @return PDOStatement
      */
-    public function prepareQuickSearch($id_cuenta) {
+    public function prepareIDSearch($id_cuenta)
+    {
         $query = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta LIMIT 1";
         $stm = $this->pdo->prepare($query);
-        $stm->bindParam(':id_cuenta', $id_cuenta);
+        $stm->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         return $stm;
     }
 
     /**
-     * 
+     *
+     * @param string $cuenta
+     * @return PDOStatement
+     */
+    public function prepareCuentaSearch($cuenta)
+    {
+        $query = "SELECT * FROM resumen WHERE numero_de_cuenta = :numero_de_cuenta LIMIT 1";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(':numero_de_cuenta', $cuenta);
+        return $stm;
+    }
+
+    /**
+     *
      * @param PDOStatement $stm
      * @return array
      */
-    public function runResumenMain($stm) {
+    public function runResumenMain($stm)
+    {
         try {
             $stm->execute();
             return $stm->fetch(PDO::FETCH_ASSOC);
@@ -206,7 +215,8 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
      * @param int $camp
      * @param string $capt
      */
-    public function updateQueue($camp, $capt) {
+    public function updateQueue($camp, $capt)
+    {
         $query = "UPDATE nombres SET camp=:camp WHERE iniciales=:gestor";
         $stu = $this->pdo->prepare($query);
         $stu->bindParam(':camp', $camp, PDO::PARAM_INT);
@@ -232,6 +242,43 @@ ORDER BY queuelist.camp LIMIT 1";
             return $camp['newCamp'];
         }
         return 1;
+    }
+
+    /**
+     * @param $camp
+     * @param $sdc
+     * @param $cr
+     * @param $cliente
+     * @param $capt
+     * @param $go
+     * @param $find
+     * @return array
+     */
+    public function getNextGestion($camp, $sdc, $cr, $cliente, $capt, $go, $find)
+    {
+        if ($camp > 0) {
+            $stq = $this->prepareResumenMain($cliente, $sdc, $cr);
+            $stm = $this->bindResumenMain($stq, $capt, $cliente, $sdc, $cr);
+        } else {
+            $stq = $this->prepareResumenMain('', $sdc, '');
+            $stm = $this->bindResumenMain($stq, $capt, '', $sdc, '');
+        }
+        if (($go == 'FROMBUSCAR') || ($go == 'FROMMIGO') || ($go == 'FROMULTIMA') || ($go == 'FROMPROM')) {
+            $stm = $this->prepareIDSearch($find);
+        }
+        if ($go == 'FROMALERT') {
+            $qCount = $this->searchCount('numero_de_cuenta', $find);
+            if ($qCount == 1) {
+                $stm = $this->prepareCuentaSearch($find);
+            } else {
+                $stq = $this->prepareResumenMain('', $sdc, '');
+                $stm = $this->bindResumenMain($stq, $capt, '', $sdc, '');
+            }
+        }
+
+        $row = array_fill(0, 200, '');
+        $result = $this->runResumenMain($stm);
+        return array($row, $result);
     }
 
 }

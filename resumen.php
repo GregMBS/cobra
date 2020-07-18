@@ -1,6 +1,7 @@
 <?php
 
 use cobra_salsa\GestionClass;
+use cobra_salsa\GestionObject;
 use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenClass;
 use cobra_salsa\ResumenQueuesClass;
@@ -11,6 +12,7 @@ setlocale(LC_MONETARY, 'en_US');
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
+require_once 'classes/GestionObject.php';
 require_once 'classes/ResumenClass.php';
 require_once 'classes/ResumenQueuesClass.php';
 $pc = new PdoClass();
@@ -96,7 +98,6 @@ if (!empty($mytipo)) {
         }
         $N_PROM = $rc->demonetize($N_PROM0);
         $C_FREQ = filter_input(INPUT_GET, 'C_FREQ');
-        $MERCv = filter_input(INPUT_GET, 'MERCv', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
         $gc->doVisit($get);
     }
 } else {
@@ -229,53 +230,47 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
         $error = $error + 1;
         $flagmsg = $flagmsg . '<BR>' . "GESTION NECESITA TELEFONO";
     }
+$gestion = new GestionObject();
+    $gestion->C_CVBA	=	$C_CVBA;
+    $gestion->C_CVGE	=	$C_CVGE;
+    $gestion->C_CONT	=	$C_CONT;
+    $gestion->C_CVST	=	$C_CVST;
+    $gestion->D_FECH	=	$D_FECH;
+    $gestion->C_HRIN	=	$C_HRIN;
+    $gestion->C_HRFI	=	$C_HRFI;
+    $gestion->C_TELE	=	$C_TELE;
+    $gestion->CUANDO	=	$CUANDO;
+    $gestion->CUENTA	=	$CUENTA;
+    $gestion->C_OBSE1	=	$C_OBSE1;
+    $gestion->C_ATTE	=	$C_ATTE;
+    $gestion->C_CARG	=	$C_CARG;
+    $gestion->D_PROM	=	$D_PROM;
+    $gestion->N_PROM	=	$N_PROM;
+    $gestion->C_PROM	=	$C_PROM;
+    $gestion->D_PROM1	=	$D_PROM1;
+    $gestion->N_PROM1	=	$N_PROM1;
+    $gestion->D_PROM2	=	$D_PROM2;
+    $gestion->N_PROM2	=	$N_PROM2;
+    $gestion->D_PROM3	=	$D_PROM3;
+    $gestion->N_PROM3	=	$N_PROM3;
+    $gestion->D_PROM4	=	$D_PROM4;
+    $gestion->N_PROM4	=	$N_PROM4;
+    $gestion->C_CONTAN	=	$C_CONTAN;
+    $gestion->ACCION	=	$ACCION;
+    $gestion->C_CNP	=	$C_CNP;
+    $gestion->C_MOTIV	=	$C_MOTIV;
+    $gestion->C_CAMP	=	$C_CAMP;
+    $gestion->C_NTEL	=	$C_NTEL;
+    $gestion->C_NDIR	=	$C_NDIR;
+    $gestion->C_EMAIL	=	$C_EMAIL;
+    $gestion->C_OBSE2	=	$C_OBSE2;
+    $gestion->C_EJE	=	$C_EJE;
+    $gestion->AUTH	=	$AUTH;
 
-
-    $qins = "INSERT INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
-C_TELE,CUANDO,CUENTA,C_OBSE1,C_ATTE,C_CARG,D_PROM,N_PROM,C_PROM,
-D_PROM1,N_PROM1,D_PROM2,N_PROM2,
-D_PROM3,N_PROM3,D_PROM4,N_PROM4,
-C_CONTAN,C_ACCION,C_CNP,C_MOTIV,C_CAMP,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE,AUTH) 
-VALUES ('" . $C_CVBA . "','" .
-        $C_CVGE . "','" .
-        $C_CONT . "','" .
-        $C_CVST . "',date('" .
-        $D_FECH . "'),'" .
-        $C_HRIN . "','" .
-        $C_HRFI . "','" .
-        $C_TELE . "','" .
-        $CUANDO . "','" .
-        $CUENTA . "','" .
-        $C_OBSE1 . "','" .
-        $C_ATTE . "','" .
-        $C_CARG . "','" .
-        $D_PROM . "','" .
-        $N_PROM . "','" .
-        $C_PROM . "','" .
-        $D_PROM1 . "','" .
-        $N_PROM1 . "','" .
-        $D_PROM2 . "','" .
-        $N_PROM2 . "','" .
-        $D_PROM3 . "','" .
-        $N_PROM3 . "','" .
-        $D_PROM4 . "','" .
-        $N_PROM4 . "','" .
-        $C_CONTAN . "','" .
-        $ACCION . "','" .
-        $C_CNP . "','" .
-        $C_MOTIV . "','" .
-        $C_CAMP . "','" .
-        $C_NTEL . "','" .
-        $C_NDIR . "','" .
-        $C_EMAIL . "','" .
-        $C_OBSE2 . "','" .
-        $C_EJE . "','" .
-        $AUTH . "')";
     if ($error == 0) {
         $pdo->beginTransaction();
-        $queryInsert = str_replace(';', ' ', $qins);
-        mysqli_query($con, $queryInsert) or die("ERROR RM24 - " . mysqli_error($con));
-        $gc->addHistGest($C_CVGE, $C_CONT, $D_FECH, $C_HRIN, $C_HRFI);
+        $gc->insertGestion($gestion);
+        $gc->addHistoriaGestion($C_CVGE, $C_CONT, $D_FECH, $C_HRIN, $C_HRFI);
         if ($N_PAGO > 0) {
             $who = $gc->attributePayment($capt, $C_CONT);
             $gc->addPago($C_CONT, $D_PAGO, $N_PAGO, $who);
@@ -283,45 +278,7 @@ VALUES ('" . $C_CVBA . "','" .
         $gc->updateAllUltimoPagos();
         $best = $C_CVST;
         $best = $rc->getBest($C_CVST, $C_CONT);
-        $queryBest = "update resumen set status_aarsa='" . $best . "',fecha_ultima_gestion=now() where id_cuenta='" . $C_CONT . "';";
-        mysqli_query($con, $queryBest) or die("ERROR RM26 - " . mysqli_error($con));
-/*        $queryHot = "select c_cvst,v_cc from historia,dictamenes
-where c_cvst=dictamen and c_cont=" . $C_CONT . " and left(c_cvba,2)=left('" . $C_CVBA . "',2) 
-and d_fech>last_day(curdate()-interval 1 month - interval 2 day)
-order by v_cc LIMIT 1;";
-        $resultHot = mysqli_query($con, $queryHot) or die("ERROR RM14a - " . mysqli_error($con));
-        while ($answerHot = mysqli_fetch_row($resultHot)) {
-            $hot = $answerHot[0];
-        }
-        $queryBest = "update resumen set status_aarsa='" . $best . "' where id_cuenta=" . $C_CONT . ";";
-        mysqli_query($con, $queryBest) or die("ERROR RM15 - " . mysqli_error($con));
-        $querysa3 = "update resumen set status_aarsa='" . $hot . "' 
-where id_cuenta=" . $C_CONT . "
-and cliente not like 'J%' and cliente not like '%JUR';";
-        mysqli_query($con, $querysa3) or die("ERROR RM15c - " . mysqli_error($con));*/
-        $queryIncumplida = "update resumen set status_aarsa='PROMESA INCUMPLIDA' 
-where id_cuenta not in (select c_cont from historia where n_prom>0 
-and d_prom>=curdate()) 
-and id_cuenta in (select c_cont from historia where n_prom>0 
-and d_prom<curdate()) 
-and numero_de_cuenta not in 
-(select cuenta from pagos where fecha>last_day(curdate()-interval 1 month)) 
-and status_aarsa not regexp 'rota' and status_aarsa not regexp 'propuesta'
-and (status_aarsa like 'PROMESA DE P%' or status_aarsa like 'CONFIRMA P%')
-and id_cuenta=" . $C_CONT . ";";
-        mysqli_query($con, $queryIncumplida) or die("ERROR RM15a - " . mysqli_error($con));
-        $queryYaPago = "update resumen,dictamenes
-set status_aarsa='PAGO DEL MES ANTERIOR' 
-where status_aarsa=dictamen 
-and queue='pagos'
-and id_cuenta not in (
-select c_cont from historia,dictamenes where c_cvst=dictamen
-and queue='PAGOS'
-and d_fech>last_day(curdate()-interval 1 month))
-and id_cuenta not in (
-select id_cuenta from pagos where fecha>last_day(curdate()-interval 1 month))
-and id_cuenta=" . $C_CONT . ";";
-        mysqli_query($con, $queryYaPago) or die("ERROR RM15b - " . mysqli_error($con));
+        $gc->resumenStatusUpdate($C_CONT, $best);
         if (!empty($C_NTEL)) {
             $gc->addNewTel($C_CONT, $C_NTEL);
         }
@@ -382,96 +339,9 @@ if (isset($cr)) {
 if ($cr == '') {
     $camp = 0;
 }
-if ($camp > 0) {
-    $querymain = "SELECT * FROM resumen 
-left join dictamenes on status_aarsa=dictamen
-WHERE status_de_credito = '" . $sdc . "'
- AND locker is null
- ORDER BY fecha_ultima_gestion, v_cc, saldo_total desc LIMIT 1";
-    if ($cr <> '') {
-        $querymain = "SELECT * FROM resumen 
-join dictamenes on dictamen=status_aarsa 
-WHERE status_de_credito  = '" . $sdc . "' 
- AND locker is null
- AND cliente='" . $cliente . "'" . $codres .
-            "
- ORDER BY " . $order1 . $updown1 . $sep12 . $order2 . $updown2 . $sep23 . $order3 . $updown3 . " LIMIT 1";
-    }
-    if ($cr == 'SIN GESTION') {
-        $querymain = "SELECT * FROM resumen 
-WHERE (status_de_credito  = '" . $sdc . "' 
- AND locker is null
- AND status_de_credito not regexp '-'
- AND cliente='" . $cliente . "' 
- AND ((status_aarsa='') or (status_aarsa is null)))
- ORDER BY saldo_total desc LIMIT 1";
-    }
-    if ($cr == 'MANUAL') {
-        $querymain = "select * from resumen 
-where cliente='" . $cliente . "' 
-and status_de_credito not regexp '-' 
-and status_aarsa not in (select dictamen from dictamenes where queue in ('PAGOS','PROMESAS','ACLARACION'))
-and especial = 1
-and locker is null
-and ejecutivo_asignado_call_center in ('" . $capt . "','sinasig')
-order by (ejecutivo_asignado_call_center='sinasig'),fecha_ultima_gestion limit 1";
-    }
 
-    if (($cr == 'INICIAL')) {
-        $querymain = "SELECT * FROM resumen
-WHERE status_de_credito not regexp '[dv]o$' 
-AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO')
-AND ejecutivo_asignado_call_center='" . $capt . "'
-AND locker is null 
-and fecha_ultima_gestion < curdate()
-order by fecha_ultima_gestion  LIMIT 1
-";
-    }
-    if (($cr == 'ESPECIAL')) {
-        $querymain = "SELECT * FROM resumen
-WHERE status_de_credito = '" . $sdc . "' 
-AND cliente='" . $cliente . "'
- AND locker is null
-AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
-order by fecha_ultima_gestion  LIMIT 1
-";
-        if ($sdc == '') {
-            $querymain = "SELECT * FROM resumen
-WHERE cliente='" . $cliente . "'
- AND locker is null
-AND fecha_ultima_gestion<curdate()
-order by fecha_ultima_gestion  LIMIT 1
-";
-        }
-    }
-} else {
-    $clientestr = '';
-    if (!empty($get['clientefilt'])) {
-        $clienteFilter = filter_input(INPUT_GET, 'clientefilt');
-        if (strlen($clienteFilter) > 1) {
-            $clienteFilter = "AND cliente='" . $clienteFilter . "' ";
-        }
-    }
-    $gestorstr = "";
-//if (($mytipo=='supervisor'||$mytipo=='admin')&&(substr($CR,0,4)!='SELF')) {$gestorstr='';}
-    $querymain = "SELECT * FROM resumen 
-WHERE status_de_credito  = '" . $sdc . "' 
- AND locker is null
- " . $clientestr . " 
-ORDER BY fecha_ultima_gestion,saldo_total desc LIMIT 1";
-}
-if (($go == 'FROMBUSCAR') || ($go == 'FROMMIGO') || ($go == 'FROMULTIMA') || ($go == 'FROMPROM')) {
-    $querymain = "SELECT * FROM resumen WHERE id_cuenta = '" . $find . "' LIMIT 1";
-}
-if ($go == 'QUICKSEARCH' || $go == 'FROMALERT') {
-    $qCount = $qc->searchCount($field, $find);
-    $querymain = "SELECT * FROM resumen 
-    WHERE " . $field . " = '" . $find . "' order by " . $field . " 
-    LIMIT 1";
-}
+list($row, $result) = $qc->getNextGestion($camp, $sdc, $cr, $cliente, $capt, $go, $find);
 
-$row = array_fill(0, 200, '');
-$result = mysqli_query($con, $querymain) or die("ERROR RM40 - " . mysqli_error($con) . htmlentities($querymain));
 if ($result) {
     $row = mysqli_fetch_row($result);
 }
@@ -677,8 +547,7 @@ $resultMotiv = $rc->getMotiv();
 
 $resultDictamen = $rc->getDict($mytipo);
 
-$queryAccionV = "SELECT accion FROM acciones where visitas=1;";
-$resultAccionV = $pdo->query($queryAccionV);
+$resultAccionV = $rc->getAccionV();
 
 $resultDictamenV = $rc->getDictV();
 

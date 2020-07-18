@@ -1,6 +1,0 @@
-/tests/resources/generated
-/tests/coverage
-/vendor
-composer.lock
-/.idea
-*.iml

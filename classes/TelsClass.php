@@ -10,10 +10,8 @@ namespace cobra_salsa;
 
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\Exception\WriterNotOpenedException;
-use Box\Spout\Writer\WriterFactory;
-use Box\Spout\Common\Type;
 use PDO;
 use PDOException;
 
@@ -89,7 +87,6 @@ where status_de_credito not regexp '-'";
      * @param array $result
      * @throws IOException
      * @throws InvalidArgumentException
-     * @throws UnsupportedTypeException
      * @throws WriterNotOpenedException
      */
     public function outputDocument($result) {
@@ -100,7 +97,7 @@ where status_de_credito not regexp '-'";
             foreach ($result as $row) {
                 $output[] = $row;
             }
-            $writer = WriterFactory::create(Type::XLSX);
+            $writer = WriterEntityFactory::createXLSXWriter();
             $writer->openToBrowser($filename); // stream data directly to the browser
             $writer->addRows($output); // add multiple rows at a time
             $writer->close();

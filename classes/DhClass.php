@@ -47,24 +47,6 @@ saldo_total desc, pagos_vencidos";
         return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getGestiones($gestor, $fecha) {
-        $query = "select numero_de_cuenta,nombre_deudor,saldo_total,
-status_de_credito,ejecutivo_asignado_call_center,
-pagos_vencidos,c_cvst,
-saldo_descuento_1,producto,estado_deudor,ciudad_deudor,cliente,id_cuenta,
-n_prom,d_prom,v_cc from resumen
-join historia on id_cuenta=c_cont
-join dictamenes on dictamen=status_aarsa
-where c_cvge=:gestor and d_fech=:fecha
-ORDER BY
-saldo_total desc, pagos_vencidos,d_fech,c_hrin";
-        $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
-        $stq->bindParam(':fecha', $fecha);
-        $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     /**
      * 
      * @param string $gestor
@@ -72,7 +54,7 @@ saldo_total desc, pagos_vencidos,d_fech,c_hrin";
      * @return array
      */
     public function getDhMain($gestor, $fecha) {
-        $querymain = "select numero_de_cuenta, nombre_deudor,
+        $query = "select numero_de_cuenta, nombre_deudor,
     saldo_total, status_de_credito, status_aarsa,
     ejecutivo_asignado_call_center,
     dias_vencidos, c_cvst, c_hrin,
@@ -84,7 +66,7 @@ saldo_total desc, pagos_vencidos,d_fech,c_hrin";
     join dictamenes on dictamen=status_aarsa
     where c_cvge=:gestor and d_fech=:fecha
     ORDER BY d_fech, c_hrin;";
-        $stm = $this->pdo->prepare($querymain);
+        $stm = $this->pdo->prepare($query);
         $stm->bindParam(':gestor', $gestor);
         $stm->bindParam(':fecha', $fecha);
         $stm->execute();

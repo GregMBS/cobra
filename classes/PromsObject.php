@@ -9,11 +9,11 @@
 namespace cobra_salsa;
 
 /**
- * Description of BigInputObject
+ * Description of PromsObject
  *
  * @author gmbs
  */
-class BigInputObject {
+class PromsObject {
 
     /**
      *

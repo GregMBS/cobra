@@ -10,10 +10,8 @@ namespace cobra_salsa;
 
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\Exception\WriterNotOpenedException;
-use Box\Spout\Writer\WriterFactory;
-use Box\Spout\Common\Type;
 
 require_once 'vendor/autoload.php';
 
@@ -31,13 +29,13 @@ class OutputClass {
      * @param array $headers
      * @throws IOException
      * @throws InvalidArgumentException
-     * @throws UnsupportedTypeException
      * @throws WriterNotOpenedException
      */
     private function outputCSV($filename, $array, $headers) {
-        $writer = WriterFactory::create(Type::CSV); // for CSV files
+        $writer = WriterEntityFactory::createCSVWriter(); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
-        $writer->addRow($headers);
+        $row = WriterEntityFactory::createRowFromArray($headers);
+        $writer->addRow($row);
         $writer->addRows($array); // add multiple rows at a time
         $writer->close();
     }
@@ -53,7 +51,6 @@ class OutputClass {
             $this->outputCSV($filename, $data, $headers);
         } catch (IOException $e) {
         } catch (InvalidArgumentException $e) {
-        } catch (UnsupportedTypeException $e) {
         } catch (WriterNotOpenedException $e) {
         }
     }
@@ -65,13 +62,13 @@ class OutputClass {
      * @param array $headers
      * @throws IOException
      * @throws InvalidArgumentException
-     * @throws UnsupportedTypeException
      * @throws WriterNotOpenedException
      */
     private function outputXLSX($filename, $array, $headers) {
-        $writer = WriterFactory::create(Type::XLSX); // for CSV files
+        $writer = WriterEntityFactory::createXLSXWriter(); // for XLSX files
         $writer->openToBrowser($filename); // stream data directly to the browser
-        $writer->addRow($headers);
+        $row = WriterEntityFactory::createRowFromArray($headers);
+        $writer->addRow($row);
         $writer->addRows($array); // add multiple rows at a time
         $writer->close();
     }
@@ -87,7 +84,6 @@ class OutputClass {
             $this->outputXLSX($filename, $data, $headers);
         } catch (IOException $e) {
         } catch (InvalidArgumentException $e) {
-        } catch (UnsupportedTypeException $e) {
         } catch (WriterNotOpenedException $e) {
         }
     }
