@@ -19,7 +19,7 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
         <h2>Queues Normales</h2>
             <table class="ui-widget" id="normales">
                 <thead class="ui-widget-header">
@@ -51,20 +51,9 @@
                             $ASIGNADOS = $answerc['ct'];
                             $DINERO = $answerc['sst'];
                         }
-                        $resultsub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
-                        /**
-                         * @var integer $ctt
-                         * @var integer $ctd
-                         * @var integer $ctw
-                         * @var integer $ctm
-                         * @var float $mtt
-                         * @var float $mtd
-                         * @var float $mtw
-                         * @var float $mtm
-                         */
-                        extract($resultsub, EXTR_OVERWRITE);
-                        $pcc = number_format($ctt / ($ASIGNADOS + 0.001) * 100, 0);
-                        $pcd = number_format($ctd / ($ctt + 0.001) * 100, 0);
+                        $sub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
+                        $pcc = number_format($sub->ctt / ($ASIGNADOS + 0.001) * 100, 0);
+                        $pcd = number_format($sub->ctd / ($sub->ctt + 0.001) * 100, 0);
                         $empd = "class='good'";
                         if ($pcd < 80) {
                             $empd = "class='fair'";
@@ -72,7 +61,7 @@
                         if ($pcd < 40) {
                             $empd = "class='bad'";
                         }
-                        $pcs = number_format($ctw / ($ctt + 0.001) * 100, 0);
+                        $pcs = number_format($sub->ctw / ($sub->ctt + 0.001) * 100, 0);
                         $emps = "class='good'";
                         if ($pcs < 80) {
                             $emps = "class='fair'";
@@ -80,7 +69,7 @@
                         if ($pcs < 40) {
                             $emps = "class='bad'";
                         }
-                        $pcm = number_format($ctm / ($ctt + 0.001) * 100, 0);
+                        $pcm = number_format($sub->ctm / ($sub->ctt + 0.001) * 100, 0);
                         $empm = "class='good'";
                         if ($pcm < 80) {
                             $empm = "class='fair'";
@@ -88,10 +77,10 @@
                         if ($pcm < 40) {
                             $empm = "class='bad'";
                         }
-                        $pcmc = number_format($mtt / ($DINERO + 0.001) * 100, 0);
-                        $pcmd = number_format($mtd / ($mtt + 0.001) * 100, 0);
-                        $pcms = number_format($mtw / ($mtt + 0.001) * 100, 0);
-                        $pcmm = number_format($mtm / ($mtt + 0.001) * 100, 0);
+                        $pcmc = number_format($sub->mtt / ($DINERO + 0.001) * 100, 0);
+                        $pcmd = number_format($sub->mtd / ($sub->mtt + 0.001) * 100, 0);
+                        $pcms = number_format($sub->mtw / ($sub->mtt + 0.001) * 100, 0);
+                        $pcmm = number_format($sub->mtm / ($sub->mtt + 0.001) * 100, 0);
                         ?>
                         <tr>
                             <td>
@@ -116,8 +105,8 @@
                                                       ?>&status_de_credito=<?php
                                                       echo $SDCS
                                                       ?>&rato=total"><?php
-                                                          echo $ctt
-                                                          . '<br>' . number_format($mtt, 0);
+                                                          echo $sub->ctt
+                                                          . '<br>' . number_format($sub->mtt, 0);
                                                           ?></a>
                             </td>
                             <td><?php echo $pcc . '%<br>' . number_format($pcmc, 0) . "%"; ?>
@@ -127,7 +116,7 @@
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=diario
-                                                       "><?php echo $ctd . '<br>' . number_format($mtd, 0);
+                                                       "><?php echo $sub->ctd . '<br>' . number_format($sub->mtd, 0);
                                                           ?></a>
                             </td>
                             <td <?php echo $empd ?>><?php echo $pcd . '%<br>' . number_format($pcmd, 0) . "%";
@@ -138,7 +127,7 @@
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=semanal
-                                                       "><?php echo $ctw . '<br>' . number_format($mtw, 0);
+                                                       "><?php echo $sub->ctw . '<br>' . number_format($sub->mtw, 0);
                                                           ?></a>
                             </td>
                             <td <?php echo $emps ?>><?php echo $pcs . '%<br>' . number_format($pcms, 0) . "%";
@@ -149,7 +138,7 @@
                                                        &queue=<?php echo $QUEUES ?>
                                                        &status_de_credito=<?php echo $SDCS ?>
                                                        &rato=mensual
-                                                       "><?php echo $ctm . '<br>' . number_format($mtm, 0);
+                                                       "><?php echo $sub->ctm . '<br>' . number_format($sub->mtm, 0);
                                                           ?></a>
                             </td>
                             <td <?php echo $empm ?>><?php echo $pcm . '%<br>' . number_format($pcmm, 0) . "%";

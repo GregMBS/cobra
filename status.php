@@ -4,8 +4,8 @@ use cobra_salsa\PdoClass;
 use cobra_salsa\StatusClass;
 
 require_once 'classes/PdoClass.php';
-$pd = new PdoClass();
-$pdo = $pd->dbConnectAdmin();
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectAdmin();
 require_once 'classes/StatusClass.php';
 $sc = new StatusClass($pdo);
 $go = filter_input(INPUT_GET, 'go');

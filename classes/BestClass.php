@@ -29,12 +29,16 @@ class BestClass extends BaseClass
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $c_cont
+     * @return array
+     */
     public function getLastHistoriaData($c_cont) {
         $query = "select * from historia
         where c_cont=:c_cont
         order by d_fech desc, c_hrin desc limit 1";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':c_cont', $c_cont);
+        $stq->bindParam(':c_cont', $c_cont, PDO::PARAM_INT);
         $stq->execute();
         return $stq->fetchAll();
     }

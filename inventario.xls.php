@@ -10,10 +10,10 @@ require_once 'classes/OutputClass.php';
 
 set_time_limit(300);
 
-$pd = new PdoClass();
-$pdo = $pd->dbConnectAdmin();
+$pc = new PdoClass();
+$pdo = $pc->dbConnectAdmin();
 $ic = new InventarioClass($pdo);
-$capt = $pd->capt;
+$capt = $pc->capt;
 $oc = new OutputClass();
 set_time_limit(180);
 

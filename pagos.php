@@ -5,8 +5,8 @@ use cobra_salsa\PagosClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/PagosClass.php';
-$pd      = new PdoClass();
-$pdo       = $pd->dbConnectUser();
+$pdoc      = new PdoClass();
+$pdo       = $pdoc->dbConnectUser();
 $pc = new PagosClass($pdo);
 $capt      = filter_input(INPUT_GET, 'capt');
 $ID_CUENTA = filter_input(INPUT_GET, 'id_cuenta');

@@ -3,8 +3,8 @@
  * @var string $capt
  */
 ?>
-<!DOCTYPE html>
-<html lang='es'>
+<!DOCTYPE html">
+<html lang="es">
     <head>
         <title>Promesas y Pagos</title>
         <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />
@@ -12,7 +12,7 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">
-            Regresar a la pagina administrativa
+            Regressar a la plantilla administrativa
         </button><br>
         <div id="tabs"> 
             <ul> 
@@ -124,9 +124,7 @@ from gmbtemp group by cliente;";
                     <tbody class="ui-widget-content">
                         <?php
                         foreach ($resultAnalytica as $row) {
-                            ?>
-                        <tr>
-                            <?php
+                            echo "<tr>";
                             for ($j = 0; $j < $numberfieldsAnalytica; $j++) {
                                 echo "<td>" . $row[$j] . "</td>";
                             }
@@ -156,9 +154,7 @@ from gmbtemp group by gestor;";
                     <tbody class="ui-widget-content">
                         <?php
                         foreach ($resultGestor as $row) {
-                        ?>
-                        <tr>
-                            <?php
+                            echo "<tr>";
                             for ($j = 0; $j < $numberfieldsGestor; $j++) {
                                 echo "<td>" . $row[$j] . "</td>";
                             }
@@ -188,9 +184,7 @@ from gmbtemp group by cliente,substring_index(sdc,'-',1);";
                     <tbody class="ui-widget-content">
                         <?php
                         foreach ($resultSegmento as $row) {
-                        ?>
-                        <tr>
-                            <?php
+                            echo "<tr>";
                             for ($j = 0; $j < $numberfieldsSegmento; $j++) {
                                 echo "<td>" . $row[$j] . "</td>";
                             }

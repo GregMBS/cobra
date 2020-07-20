@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>Comparativo de 3 Meses</title>
 
@@ -9,6 +9,11 @@
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <style>
+            tr.odd { background-color: white }
+            tr.even { background-color: #dddddd }
+            tr.now { background-color: yellow }
+        </style>
 
     </head>
     <body>
@@ -21,8 +26,8 @@
         <h1>COMPARATIVO</h1>
         <button onClick="window.location = 'reports.php?capt=<?php 
         echo $capt;
-        ?>'">Regresar al administración</button>
-        <table id='buscarTab' class='ui-widget'>
+        ?>'">Regresar al administraci&oacute;n</button>
+        <table summary="Cuentas" id='buscartab' class='ui-widget'>
             <thead class='ui-widget-header'>
                 <tr>
                     <th>CLIENTE</th>
@@ -50,7 +55,7 @@ foreach ($result as $answer) {
     $promesas  = $answer['sp'];
     $pp        = round($promesas / $contactos * 100);
     $gestores  = $answer['cg'];
-    $manHours  = $answer['ch'];
+    $manhours  = $answer['ch'];
                     ?>
                     <tr class='<?php echo $class[$i]; ?>'>
                         <td><?php echo $cliente; ?></td>
@@ -61,7 +66,7 @@ foreach ($result as $answer) {
                         <td><?php echo $promesas; ?></td>
                         <td><?php echo $pp; ?>%</td>
                         <td><?php echo $gestores; ?></td>
-                        <td><?php echo $manHours; ?></td>
+                        <td><?php echo $manhours; ?></td>
                     </tr>
                 <?php 
                 

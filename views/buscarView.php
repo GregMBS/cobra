@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>CobraMas - Buscar</title>
         <meta charset="utf-8">
@@ -52,7 +52,7 @@
                 ?>
             </tbody>
         </table>
-        <div id="searchBox">
+        <div id="searchbox">
             <h2>Buscar</h2>
             <form name="search" method="get" action=
                   "/buscar.php" id="search">Buscar a: <input type=
@@ -69,9 +69,9 @@
                 Client = <select name="cliente">
                     <option value=" ">Todos</option>
                     <?php
-                    foreach ($clientes as $client) {
+                    foreach ($resultcl as $answercl) {
                         ?>
-                        <option value="<?php echo $client['cliente']; ?>"><?php echo $client['cliente']; ?>
+                        <option value="<?php echo $answercl['cliente']; ?>"><?php echo $answercl[0]; ?>
                         </option>
                     <?php } ?>
                 </select><br>

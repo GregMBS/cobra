@@ -31,20 +31,19 @@ class LoginClass {
     }
 
     public function getUserData($capt, $pw) {
-        //$bpw = password_hash($pw, PASSWORD_DEFAULT);
-        $queryg = "SELECT iniciales, enlace, tipo, passw "
+        $query = "SELECT iniciales, enlace, tipo, passw "
                 . "FROM nombres JOIN grupos ON grupo=tipo "
                 . "WHERE LOWER(iniciales) = LOWER(:capt) "
                 . "LIMIT 1";
-        $stg = $this->pdo->prepare($queryg);
+        $stg = $this->pdo->prepare($query);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
-        $resultg = $stg->fetch(PDO::FETCH_ASSOC);
-        if (password_verify($pw, $resultg['passw'])) {
-            return $resultg;
+        $result = $stg->fetch(PDO::FETCH_ASSOC);
+        if (password_verify($pw, $result['passw'])) {
+            return $result;
         }
-        if (sha1($pw) == $resultg['passw']) {
-            return $resultg;
+        if (sha1($pw) == $result['passw']) {
+            return $result;
         }
         return FALSE;
     }

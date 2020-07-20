@@ -10,8 +10,8 @@ $pw = filter_input(INPUT_POST, 'pwd');
 if (!empty($go)) {
     require_once 'classes/PdoClass.php';
     require_once 'classes/LoginClass.php';
-    $pd = new PdoClass();
-    $pdo = $pd->dbConnectNobody();
+    $pdoc = new PdoClass();
+    $pdo = $pdoc->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
     if (isset($userData['tipo'])) {

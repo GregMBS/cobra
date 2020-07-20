@@ -3,10 +3,11 @@
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
-$pc = new PdoClass();
-$pdo = $pc->dbConnectUser();
-$capt = $pc->capt;
+$pdoc = new PdoClass();
+/* @var $pdo PDO */
+$pdo = $pdoc->dbConnectUser();
+$capt = $pdoc->capt;
 $query = "SELECT distinct cliente FROM resumen LIMIT 1000";
-$clientQuery = $pdo->query($query);
-$clientes = $clientQuery->fetchAll();
+$clientq = $pdo->query($query);
+$clientes = $clientq->fetchAll();
 require_once 'views/cargaPicView.php';

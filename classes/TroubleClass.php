@@ -9,7 +9,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 /**
  * Description of TroubleClass
@@ -51,12 +50,14 @@ class TroubleClass {
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listTrouble() {
-        $querysub = "SELECT * FROM trouble ORDER BY fechahora desc";
-        return $this->pdo->query($querysub);
+        $query = "SELECT * FROM trouble ORDER BY fechahora desc";
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -68,9 +69,9 @@ class TroubleClass {
      * @param string $error_msg
      */
     public function insertTrouble($sistema, $capt, $fuente, $descripcion, $error_msg) {
-        $queryins = "INSERT INTO trouble (sistema,usuario,fechahora,fuente,descripcion,error_msg)
+        $query = "INSERT INTO trouble (sistema,usuario,fechahora,fuente,descripcion,error_msg)
 VALUES (:sistema, :capt, now(), :fuente, :descripcion, :error_msg)";
-        $sti = $this->pdo->prepare($queryins);
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':sistema', $sistema);
         $sti->bindParam(':capt', $capt);
         $sti->bindParam(':fuente', $fuente);

@@ -9,7 +9,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 /**
  * Description of QueuesgClass
@@ -20,7 +19,7 @@ class QueuesgClass {
 
     /**
      *
-     * @var PDO 
+     * @var PDO
      */
     private $pdo;
 
@@ -41,21 +40,21 @@ class QueuesgClass {
      * @return int
      */
     public function getCamp($cliente, $queue, $sdc, $capt) {
-        $query  = "select camp from queuelist
+        $queryqueue  = "select camp from queuelist
     where cliente=:cliente
     and status_aarsa=:queue
     and sdc=:sdc
     and gestor=:capt
     and bloqueado=0 limit 1
     ";
-        $stq         = $this->pdo->prepare($query);
+        $stq         = $this->pdo->prepare($queryqueue);
         $stq->bindParam(':cliente', $cliente);
         $stq->bindParam(':queue', $queue);
         $stq->bindParam(':sdc', $sdc);
         $stq->bindParam(':capt', $capt);
         $stq->execute();
-        $result = $stq->fetch(PDO::FETCH_ASSOC);
-        return $result['camp'];
+        $resultqueue = $stq->fetch(PDO::FETCH_ASSOC);
+        return $resultqueue['camp'];
     }
     
     /**
@@ -71,16 +70,18 @@ class QueuesgClass {
         $stu->bindParam(':capt', $capt);
         $stu->execute();
     }
-
+    
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function getClients() {
         $query  = "SELECT distinct cliente
         FROM queuelist where cliente<>''
         ORDER BY cliente";
-        return $this->pdo->query($query);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
     
     /**
@@ -89,10 +90,10 @@ class QueuesgClass {
      * @return array
      */
     public function getSdcClients($capt) {
-        $query  = "SELECT distinct sdc,cliente
+        $querys  = "SELECT distinct sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado=0 and cliente<>''
         ORDER BY cliente,sdc,status_aarsa";
-        $sts = $this->pdo->prepare($query);
+        $sts = $this->pdo->prepare($querys);
         $sts->bindParam(':capt', $capt);
         $sts->execute();
         return $sts->fetchAll(PDO::FETCH_ASSOC);
@@ -104,12 +105,12 @@ class QueuesgClass {
      * @return array
      */
     public function getQueueSdcClients($capt) {
-        $query  = "SELECT distinct status_aarsa,sdc,cliente
+        $querysa  = "SELECT distinct status_aarsa,sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado = 0
         ORDER BY cliente,sdc,status_aarsa";
-        $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':capt', $capt);
-        $sts->execute();
-        return $sts->fetchAll(PDO::FETCH_ASSOC);
+        $stsa = $this->pdo->prepare($querysa);
+        $stsa->bindParam(':capt', $capt);
+        $stsa->execute();
+        return $stsa->fetchAll(PDO::FETCH_ASSOC);
     }
 }

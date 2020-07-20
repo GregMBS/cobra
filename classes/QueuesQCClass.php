@@ -1,15 +1,11 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 use PDO;
 use PDOStatement;
+
+require_once __DIR__ . '/QueuesReportObject.php';
 
 /**
  * Description of QueuesQCClass
@@ -80,7 +76,7 @@ and queue = :queue ";
      * @param string $CLIENTE
      * @param string $SDC
      * @param string $QUEUE
-     * @return array
+     * @return QueuesReportObject
      */
     function getReportSub($CLIENTE, $SDC, $QUEUE) {
         $query = $this->reportSubHead . " and status_de_credito not regexp '-'";
@@ -131,7 +127,7 @@ group by cliente,status_de_credito
      * @param $CLIENTE
      * @param $QUEUE
      * @param $SDC
-     * @return array
+     * @return QueuesReportObject
      */
     private function subQuery($query, $CLIENTE, $QUEUE, $SDC)
     {
@@ -142,7 +138,7 @@ group by cliente,status_de_credito
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        return $stc->fetch(PDO::FETCH_ASSOC);
+        return $stc->fetch(PDO::FETCH_CLASS, QueuesReportObject::class);
     }
 
 }

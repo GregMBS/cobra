@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html">
 <html lang="es">
     <head>
         <title>Listado por Gestor y Status</title>

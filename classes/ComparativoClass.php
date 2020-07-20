@@ -9,7 +9,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 /**
  * Description of ComparativoClass
@@ -32,11 +31,11 @@ class ComparativoClass {
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function getReport() {
-        $querymain = "select c_cvba, mdf, sum(gest) as sg, sum(contact) as sc,
+        $query = "select c_cvba, mdf, sum(gest) as sg, sum(contact) as sc,
     sum(prom) as sp, count(distinct c_cvge) as cg,
     count(distinct c_cvge,hour(c_hrin)) as ch
 from (
@@ -50,7 +49,9 @@ and c_cont>0
 group by c_cont,mdf) as tmp
 group by c_cvba,mdf;
 ";
-        return $this->pdo->query($querymain);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

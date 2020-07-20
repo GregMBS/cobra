@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>CobraMas Visitador Checklist</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,7 +12,7 @@
     <body>
         <div id="vtable">
             <p>Visitador: <?php echo $visitador; ?><br>
-                Autorizó por: <?php echo $capt; ?><br>
+                Autorizó por: <?php echo $capt; ?></p>
             Fecha: <?php echo date('d/m/Y'); ?></p>
         <table class="ui-widget">
             <thead class="ui-widget-header">
@@ -71,6 +71,6 @@ if ($result) {
     </div>
     <button onclick="window.location = 'reports.php?capt=<?php 
     echo $capt;
-    ?>'">Regresar a la pagina administrativa</button><br>
+    ?>'">Regressar a la plantilla administrativa</button><br>
 </body>
 </html> 

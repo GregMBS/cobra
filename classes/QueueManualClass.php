@@ -8,7 +8,7 @@
 
 namespace cobra_salsa;
 
-use PDOStatement;
+use PDO;
 
 /**
  * Description of QueueManualClass
@@ -48,20 +48,22 @@ AND cliente=:clientea";
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listClients() {
         $query = "SELECT cliente FROM clientes";
-        return $this->pdo->query($query);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function getReport() {
-        $querymain = "SELECT
+        $query = "SELECT
     cliente,
     status_de_credito AS segmento,
     ejecutivo_asignado_call_center as asignado,
@@ -74,7 +76,9 @@ WHERE
     especial > 0
         AND status_de_credito NOT REGEXP '-'
 GROUP BY cliente , status_de_credito , ejecutivo_asignado_call_center";
-        return $this->pdo->query($querymain);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

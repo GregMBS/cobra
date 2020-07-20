@@ -6,9 +6,9 @@ use cobra_salsa\ReporteDiarioClass;
 require_once 'classes/PdoClass.php';
 require_once 'classes/ReporteDiarioClass.php';
 
-$pd = new PdoClass();
-$pdo = $pd->dbConnectAdmin();
-$capt = $pd->capt;
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectAdmin();
+$capt = $pdoc->capt;
 $rd = new ReporteDiarioClass($pdo);
 
 $rd->buildReport();

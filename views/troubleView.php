@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>CobraMas Trouble</title>
         <meta charset="utf-8">

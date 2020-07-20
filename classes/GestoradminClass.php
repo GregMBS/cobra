@@ -9,7 +9,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 /**
  * Description of GestoradminClass
@@ -20,7 +19,7 @@ class GestoradminClass {
 
     /**
      *
-     * @var PDO 
+     * @var PDO
      */
     private $pdo;
 
@@ -143,15 +142,17 @@ class GestoradminClass {
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function getNombres() {
-        $querymain = "SELECT USUARIA, COMPLETO, TIPO, CAMP, INICIALES, PASSW 
+        $query = "SELECT USUARIA, COMPLETO, TIPO, CAMP, INICIALES, PASSW 
     FROM nombres 
     where iniciales <> 'gmbs'
     order by TIPO, USUARIA";
-        return $this->pdo->query($querymain);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

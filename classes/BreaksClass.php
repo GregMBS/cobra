@@ -9,7 +9,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 /**
  * Description of BreaksClass
@@ -56,8 +55,8 @@ and c_hrin>:tiempo;";
      * @param string $capt
      */
     function clearUserlog($capt) {
-        $queryl = "delete from userlog where gestor = :capt";
-        $sdl = $this->pdo->prepare($queryl);
+        $query = "delete from userlog where gestor = :capt";
+        $sdl = $this->pdo->prepare($query);
         $sdl->bindParam(':capt', $capt);
         $sdl->execute();
     }
@@ -134,22 +133,26 @@ order by c_cvge,c_cvst,c_hrin";
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listBreaks() {
         $querymain = "SELECT auto, gestor, tipo, empieza, termina FROM breaks 
     order by gestor,empieza";
-        return $this->pdo->query($querymain);
+        $stm = $this->pdo->query($querymain);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listUsuarias() {
         $query = "SELECT iniciales FROM nombres "
                 . "WHERE tipo <> ''";
-        return $this->pdo->query($query);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 }

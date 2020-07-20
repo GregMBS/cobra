@@ -1,42 +1,28 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
-        <title>Horarios mes anterior</title>
+        <title>Horarios</title>
         <meta charset="utf-8" />
-        <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <style type="text/css">
             tr:hover {background-color: #ffff00;}
             .heavy {font-weight:bold;font-size:10pt;}
+            .heavytot {font-weight:bold;font-size:10pt;text-align:right;}
             .light {text-align:right;}
+            .zeros {color:red;}
         </style>
     </head>
     <body>
         <h2>HORARIOS</h2>
         <div>
             <?php
-            $day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
+            $to = $hc->visitPrep($dhoy);
             foreach ($resultnom as $answernom) {
                 $gestor = $answernom['c_cvge'];
                 ?>
                 <table class="ui-widget">
-                    <?php
-                    $zeros = array_fill(1, $dhoy, 0);
-                    $nct = $zeros;
-                    $tsumnct = $zeros;
-                    for ($i = 1; $i <= $dhoy; $i++) {
-                        $tsumt[$i]   = 0;
-                        $tsumb[$i]   = 0;
-                        $tsumbn[$i]  = 0;
-                        $tsumg[$i]   = 0;
-                        $tsumgt[$i]  = 0;
-                        $tsumct[$i]  = 0;
-                        $tsumnct[$i] = 0;
-                        $tsumpp[$i]  = 0;
-                        $tsump[$i]   = 0;
-                    }
-                    ?>
                     <thead class="ui-widget-header">
                         <tr>
                             <th><a href='<?php echo strtolower('gestor.php?capt='.$capt.'&gestor='.$gestor); ?>'><?php echo $gestor; ?></a></th>
@@ -54,22 +40,22 @@
                                 $lph[$i]   = 0;
                                 $ct[$i]    = 0;
                                 $nct[$i]   = 0;
-                                $resultssd = $pc->getStartStopDiff($gestor, $i);
+                                $resultssd = $hc->getStartStopDiff($gestor, $i);
                                 foreach ($resultssd as $answerssd) {
                                     $start[$i] = substr($answerssd['start'], 0,
                                         5);
                                     $stop[$i]  = substr($answerssd['stop'], 0, 5);
                                     $diff[$i]  = $answerssd['diff'];
                                 }
-                                $resultss = $pc->getCurrentMain($gestor, $i);
+                                $resultss = $hc->getCurrentMain($gestor, $i);
                                 foreach ($resultss as $answerss) {
                                     $break[$i]   = 0;
-                                    $resultbreak = $pc->getTiempoDiff($gestor,
+                                    $resultbreak = $hc->getTiempoDiff($gestor,
                                         $i, 'break');
                                     foreach ($resultbreak as $answerpi) {
                                         $TIEMPO  = $answerpi['tiempo'];
                                         $DIFF    = $answerpi['diff'];
-                                        $resultq = $pc->getNTPDiff($gestor, $i,
+                                        $resultq = $hc->getNTPDiff($gestor, $i,
                                             $TIEMPO);
                                         if ($resultq) {
                                             foreach ($resultq as $answerq) {
@@ -80,12 +66,12 @@
                                         }
                                     }
                                     $bano[$i] = 0;
-                                    $resultpo = $pc->getTiempoDiff($gestor, $i,
+                                    $resultpo = $hc->getTiempoDiff($gestor, $i,
                                         'bano');
                                     foreach ($resultpo as $answerpo) {
                                         $TIEMPO  = $answerpo['tiempo'];
                                         $DIFF    = $answerpo['diff'];
-                                        $resultq = $pc->getNTPDiff($gestor, $i,
+                                        $resultq = $hc->getNTPDiff($gestor, $i,
                                             $TIEMPO);
                                         if ($resultq) {
                                             foreach ($resultq as $answerq) {
@@ -110,7 +96,7 @@
                                     $sumnct   = 0;
                                     $sumpp    = 0;
                                     $sump     = 0;
-                                    $resultp  = $pc->getPagos($gestor, $i);
+                                    $resultp  = $hc->getPagos($gestor, $i);
                                     foreach ($resultp as $answerp) {
                                         $pag[$i] = $answerp['ct'];
                                     }
@@ -163,7 +149,7 @@
                                         ?></td>
                                 <?php
                                 $sumt += $diff[$i];
-                                $tsumt[$i] += $diff[$i];
+                                $to->tsumt[$i] += $diff[$i];
                                 $hours_all[$i] += $diff[$i];
                             }
                             ?>
@@ -190,7 +176,7 @@
                                         ?></td>
                                 <?php
                                 $sumb      = $sumb + $break[$i];
-                                $tsumb[$i] = $tsumb[$i] + $break[$i];
+                                $to->tsumb[$i] = $to->tsumb[$i] + $break[$i];
                             }
                             ?>
                             <td class="heavy"><?php
@@ -216,7 +202,7 @@
                                         ?></td>
                                 <?php
                                 $sumbn      = $sumbn + $bano[$i];
-                                $tsumbn[$i] = $tsumbn[$i] + $bano[$i];
+                                $to->tsumbn[$i] = $to->tsumbn[$i] + $bano[$i];
                             }
                             ?>
                             <td class="heavy"><?php
@@ -239,7 +225,7 @@
                                         <?php echo $tlla[$i]; ?></a></td>
                                 <?php
                                 $sumgt += $tlla[$i];
-                                $tsumgt[$i] += $tlla[$i];
+                                $to->tsumgt[$i] += $tlla[$i];
                                 $gestiones_all[$i] += $tlla[$i];
                                 ?>
                             <?php }
@@ -260,7 +246,7 @@
                                         <?php echo $lla[$i]; ?></a></td>
                                 <?php
                             }
-                            $resultsumg = $pc->countAccounts($gestor);
+                            $resultsumg = $hc->countAccounts($gestor);
                             foreach ($resultsumg as $answersumg) {
                                 $sumg = $answersumg['ct'];
                             }
@@ -279,7 +265,7 @@
                                 ?>"><?php echo $ct[$i]; ?></td>
                                     <?php
                                     $sumct += $ct[$i];
-                                    $tsumct[$i] += $ct[$i];
+                                    $to->tsumct[$i] += $ct[$i];
                                     $contactos_all[$i] += $ct[$i];
                                     ?>
                                 <?php }
@@ -289,6 +275,7 @@
                         <tr><td class="heavy">NO CONTACTOS</td>
                             <?php
                             $sumnct = 0;
+                            $nct = array_fill(1, $dhoy, 0);
                             for ($i = 1; $i <= $dhoy; $i++) {
                                 ?>
                                 <td class="light<?php
@@ -298,7 +285,7 @@
                                 ?>"><?php echo $nct[$i]; ?></td>
                                     <?php
                                     $sumnct += $nct[$i];
-                                    $tsumnct[$i] += $nct[$i];
+                                    $to->tsumnct[$i] += $nct[$i];
                                     $nocontactos_all[$i] += $nct[$i];
                                     ?>
                                 <?php }
@@ -308,6 +295,7 @@
                         <tr><td class="heavy">PROMESAS</td>
                             <?php
                             $sumpp = 0;
+                            $prom = array_fill(1, $dhoy, 0);
                             for ($i = 1; $i <= $dhoy; $i++) {
                                 ?>
                                 <td class="light<?php
@@ -319,7 +307,7 @@
                                         <?php echo $prom[$i]; ?></a></td>
                                 <?php
                                 $sumpp += $prom[$i];
-                                $tsumpp[$i] += $prom[$i];
+                                $to->tsumpp[$i] += $prom[$i];
                                 $promesas_all[$i] += $prom[$i];
                                 ?>
                             <?php }
@@ -329,6 +317,7 @@
                         <tr><td class="heavy">PAGOS</td>
                             <?php
                             $sump = 0;
+                            $pag = array_fill(1, $dhoy, 0);
                             for ($i = 1; $i <= $dhoy; $i++) {
                                 ?>
                                 <td class="light<?php
@@ -338,7 +327,7 @@
                                 ?>"><?php echo $pag[$i]; ?></td>
                                     <?php
                                     $sump      = $sump + $pag[$i];
-                                    $tsump[$i] = $tsump[$i] + $pag[$i];
+                                    $to->tsump[$i] = $to->tsump[$i] + $pag[$i];
                                     $pagos_all[$i] += $pag[$i];
                                     ?>
                                 <?php }
@@ -369,13 +358,13 @@
                         for ($i = 1; $i <= $dhoy; $i++) {
                             ?>
                             <td class="light"><?php
-                                echo $pc->convertTime($hours_all[$i] / 3600);
+                                echo $hc->convertTime($hours_all[$i] / 3600);
                                 ?></td>
                             <?php
                             $hours_total += $hours_all[$i] / 3600;
                         }
                         ?>
-                        <td class="heavy"><?php echo $pc->convertTime($hours_total); ?></td>
+                        <td class="heavy"><?php echo $hc->convertTime($hours_total); ?></td>
                     </tr>
                     <tr><td class="heavy">GESTIONES</td>
                         <?php
@@ -392,11 +381,11 @@
                     <tr><td class="heavy">CUENTAS</td>
                         <?php
                         for ($i = 1; $i <= $dhoy; $i++) {
-                            $cuentas_all   = $pac->countAccountsPerDay($i);
+                            $cuentas_all   = $hac->countAccountsPerDay($i);
                             ?>
                             <td class="light"><?php echo $cuentas_all; ?></td>
                             <?php
-                            $cuentas_total = $pac->countAccounts();
+                            $cuentas_total = $hac->countAccounts();
                         }
                         ?>
                         <td class="heavy"><?php echo $cuentas_total; ?></td>

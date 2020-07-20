@@ -1,0 +1,22 @@
+tr:hover {
+    background-color: #ffff00;
+}
+
+.heavy {
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.heavytot {
+    font-weight: bold;
+    font-size: 10pt;
+    text-align: right;
+}
+
+.light {
+    text-align: right;
+}
+
+.zeros {
+    color: red;
+}

@@ -5,10 +5,10 @@ use cobra_salsa\WhiteClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/WhiteClass.php';
-$pd = new PdoClass();
-$pdo = $pd->dbConnectUser();
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectUser();
 $wc = new WhiteClass($pdo);
-$capt = $pd->capt;
+$capt = $pdoc->capt;
 
 $search = filter_input_array(INPUT_GET);
 $querymain = $wc->buildQuery($search);

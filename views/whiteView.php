@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>Directorio</title>
         <meta charset="utf-8">

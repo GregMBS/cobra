@@ -6,8 +6,8 @@ use cobra_salsa\CheckClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/CheckClass.php';
-$pd = new PdoClass();
-$pdo = $pd->dbConnectAdmin();
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectAdmin();
 $cc = new CheckClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $tipo = filter_input(INPUT_GET, 'tipo');

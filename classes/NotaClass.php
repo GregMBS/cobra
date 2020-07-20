@@ -9,7 +9,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 /**
  * Description of NotaClass
@@ -38,9 +37,9 @@ class NotaClass {
      * @param int $C_CONT
      */
     public function softDeleteNotas($capt, $C_CONT) {
-        $query = "UPDATE notas SET borrado=1
+        $querybor = "UPDATE notas SET borrado=1
 WHERE c_cvge=:capt and c_cont=:C_CONT";
-        $stb = $this->pdo->prepare($query);
+        $stb = $this->pdo->prepare($querybor);
         $stb->bindParam(':capt', $capt);
         $stb->bindParam(':C_CONT', $C_CONT);
         $stb->execute();
@@ -52,11 +51,12 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      * @param int $AUTO
      */
     public function softDeleteOneNota($capt, $AUTO) {
-        $query = "UPDATE notas set borrado=1 where AUTO=:AUTO and C_CVGE=:capt";
-        $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':capt', $capt);
-        $stb->bindParam(':AUTO', $AUTO, PDO::PARAM_INT);
-        $stb->execute();
+        $querybins = "UPDATE notas set borrado=1 "
+                . "where AUTO=:AUTO and C_CVGE=:capt";
+        $stbi = $this->pdo->prepare($querybins);
+        $stbi->bindParam(':capt', $capt);
+        $stbi->bindParam(':AUTO', $AUTO, PDO::PARAM_INT);
+        $stbi->execute();
     }
 
     /**
@@ -64,10 +64,11 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      * @param int $AUTO
      */
     public function softDeleteOneNotaAdmin($AUTO) {
-        $query = "UPDATE notas set borrado=1 where AUTO=:AUTO";
-        $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':AUTO', $AUTO, PDO::PARAM_INT);
-        $stb->execute();
+        $querybins = "UPDATE notas set borrado=1 "
+                . "where AUTO=:AUTO";
+        $stbi = $this->pdo->prepare($querybins);
+        $stbi->bindParam(':AUTO', $AUTO, PDO::PARAM_INT);
+        $stbi->execute();
     }
 
     /**
@@ -82,11 +83,11 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      * @param int $C_CONT
      */
     public function insertNota($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $CUENTA, $C_CONT) {
-        $query = "INSERT INTO notas
+        $queryins = "INSERT INTO notas
         (C_CVGE,fuente,D_FECH,C_HORA,FECHA,HORA,NOTA,CUENTA,C_CONT)
 VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
 :CUENTA, :C_CONT)";
-        $sti = $this->pdo->prepare($query);
+        $sti = $this->pdo->prepare($queryins);
         $sti->bindParam(':capt', $capt);
         $sti->bindParam(':D_FECH', $D_FECH);
         $sti->bindParam(':C_HORA', $C_HORA);
@@ -104,26 +105,27 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      * @return array
      */
     public function listMyNotas($capt) {
-        $query = "SELECT auto,fecha,hora,nota,c_cvge,cuenta 
-        FROM notas 
-        WHERE c_cvge IN (:capt, 'todos') 
-        AND borrado=0 ORDER BY fecha desc,hora desc";
-        $sts = $this->pdo->prepare($query);
+        $querysub = "SELECT auto,fecha,hora,nota,c_cvge,cuenta "
+                . "FROM notas "
+                . "WHERE c_cvge IN (:capt, 'todos') "
+                . "AND borrado=0 ORDER BY fecha desc,hora desc";
+        $sts = $this->pdo->prepare($querysub);
         $sts->bindParam(':capt', $capt);
         $sts->execute();
         return $sts->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listAllNotas() {
-        $query = "SELECT auto,fecha,hora,nota,c_cvge 
-        FROM notas 
-        WHERE borrado=0 
-        ORDER BY fecha desc,hora desc";
-        return $this->pdo->query($query);
+        $query = "SELECT auto,fecha,hora,nota,c_cvge "
+                . "FROM notas "
+                . "WHERE borrado=0 ORDER BY fecha desc,hora desc";
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -135,11 +137,11 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      * @param string $NOTA
      */
     public function insertNotaAdmin($target, $capt, $FECHA, $HORA, $NOTA) {
-        $query = "INSERT INTO notas
+        $queryins = "INSERT INTO notas
             (C_CVGE, fuente, D_FECH, C_HORA, FECHA, HORA, NOTA)
             VALUES
             (:target, :capt, curdate(), curtime(), :fecha, :hora, :nota)";
-        $sti = $this->pdo->prepare($query);
+        $sti = $this->pdo->prepare($queryins);
         $sti->bindParam(':target', $target);
         $sti->bindParam(':capt', $capt);
         $sti->bindParam(':fecha', $FECHA);
@@ -149,12 +151,15 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listUsers() {
-        $query = "SELECT iniciales FROM nombres ORDER BY iniciales";
-        return $this->pdo->query($query);
+        $query = "SELECT iniciales FROM nombres "
+                . "ORDER BY iniciales";
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

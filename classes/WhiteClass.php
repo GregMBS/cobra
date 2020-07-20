@@ -22,6 +22,10 @@ class WhiteClass {
      * @var PDO $pdo
      */
     protected $pdo;
+
+    /**
+     * @var string[]
+     */
     private $datamatch = array(
         'tel' => 'tel',
         'nombre' => 'nomnre_deudor',

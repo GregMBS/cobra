@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>Administraci&oacute;n de los queues</title>
         <meta charset="utf-8">
@@ -8,7 +8,7 @@
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
         <div style='clear:both;background-color:#ffffff;width:100%'>
             <div style='float:left;width:25%'>Gestor</div>
             <div style='float:left;width:50%'>Queue</div>

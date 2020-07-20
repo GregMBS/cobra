@@ -5,8 +5,8 @@ use cobra_salsa\TroubleClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/TroubleClass.php';
-$pd    = new PdoClass();
-$pdo     = $pd->dbConnectUser();
+$pdoc    = new PdoClass();
+$pdo     = $pdoc->dbConnectUser();
 $tc = new TroubleClass($pdo);
 $capt    = filter_input(INPUT_GET, 'capt');
 $sistema = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);

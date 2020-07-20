@@ -10,5 +10,8 @@
 		"psr-4" : {
 			"cobra_salsa\\" : "classes"
 		}
+	},
+	"require-dev": {
+		"sebastian/phpcpd": "^5.0"
 	}
 }

@@ -4,7 +4,6 @@ namespace cobra_salsa;
 
 use ConfigClass;
 use PDO;
-use PDOStatement;
 
 require_once 'classes/BaseClass.php';
 
@@ -26,12 +25,14 @@ class RobotClass extends BaseClass {
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function getMessageList() {
         $query = "SELECT client,tipo FROM msglist";
-        return $this->pdo->query($query);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     private function createTemp() {
@@ -132,23 +133,28 @@ SET turno=0";
      * @param int $auto
      */
     public function eraseOneQueue($auto) {
-        $queryu = "DELETE FROM calllist
+        $query = "DELETE FROM calllist
                 WHERE auto = :auto";
-        $stq = $this->pdo->prepare($queryu);
+        $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stq->execute();
     }
 
+    /**
+     * @return array
+     */
     public function getReport() {
-        $queryk = "select rc.msg as 'msg', count(distinct trim(id)) as 'countid',
+        $query = "select rc.msg as 'msg', count(distinct trim(id)) as 'countid',
             count(distinct tel) as 'counttel', lineas, 
             sum(turno>0)/count(1)*100 as percent, sum(1) as total
 from calllist rc 
 join msglist rm 
 on rc.msg regexp rm.msg
 group by rc.msg";
-        //$output = $this->calcTiempo($result);
-        return $this->pdo->query($queryk);
+        $stk = $this->pdo->query($query);
+        $stk->execute();
+        $result = $stk->fetchAll(PDO::FETCH_ASSOC);
+        return $this->calcTiempo($result);
     }
 
     /**
@@ -156,7 +162,6 @@ group by rc.msg";
      * @param array $array
      * @return array
      */
-    /*
     private function calcTiempo($array) {
         $output = array();
         if (is_array($array)) {
@@ -175,15 +180,17 @@ group by rc.msg";
         }
         return $output;
     }
-*/
+
     /**
      * 
-     * @return array|PDOStatement
+     * @return array
      */
     public function getQueues() {
         $query = "SELECT msg,lineas,auto FROM msglist 
 ORDER BY msg";
-        return $this->pdo->query($query);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

@@ -9,6 +9,7 @@
 namespace cobra_salsa;
 
 use ConfigClass;
+use Exception;
 use PDO;
 use PDOException;
 
@@ -25,13 +26,7 @@ class MiltClass {
      *
      * @var string
      */
-    private $dbhost = "localhost";
-
-    /**
-     *
-     * @var string
-     */
-    private $dbuser = "gmbs";
+    private $dbuser = "root";
 
     /**
      *
@@ -69,7 +64,7 @@ class MiltClass {
      */
     private function getDb() {
         try {
-            $dbh = new PDO('mysql:host='.$this->dbhost.';dbname=' . $this->dbname, $this->dbuser, $this->dbpass);
+            $dbh = new PDO('mysql:host=localhost;dbname=' . $this->dbname, $this->dbuser, $this->dbpass);
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
             die(json_encode(''));
@@ -105,32 +100,31 @@ class MiltClass {
     }
 
     /**
-     * 
+     *
      * @param array $row
      * @return array
+     * @throws Exception
      */
     public function getCalls($row) {
         $this->msg = $row['msg'];
-        /*
-        $lim = $row['lineas'];
-        if ($lim > 100) {
-            $lim = 100;
-        }
-        */
+//        $lim = $row['lineas'];
+//        if ($lim > 100) {
+//            $lim = 100;
+//        }
+
         $query = "SELECT auto,id,tel,turno FROM calllist 
                 WHERE msg = :msg 
                 AND id <> '' AND tel <> '' 
                 AND turno = 0 
                 ORDER BY turno LIMIT 10";
         try {
-            $sth1 = $this->dbh->prepare($query);
-            $sth1->bindParam(':msg', $this->msg);
-            $sth1->execute();
-            return $sth1->fetchAll(PDO::FETCH_ASSOC);
+            $sth = $this->dbh->prepare($query);
         } catch (PDOException $e) {
-            echo 'Prepare failed: ' . $e->getMessage();
-            return [];
+            throw new Exception($e);
         }
+        $sth->bindValue(':msg', $this->msg);
+        $sth->execute();
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -150,9 +144,9 @@ class MiltClass {
      * @param int $id
      */
     public function updateCount($id) {
-        $botup = "UPDATE calllist SET turno=turno+1 WHERE auto = :id";
+        $query = "UPDATE calllist SET turno=turno+1 WHERE auto = :id";
         try {
-            $sth = $this->dbh->prepare($botup);
+            $sth = $this->dbh->prepare($query);
             $sth->bindParam(':id', $id, PDO::PARAM_INT);
             $sth->execute();
         } catch (PDOException $e) {

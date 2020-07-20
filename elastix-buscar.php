@@ -3,14 +3,15 @@ use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
 
-$pc = new PdoClass();
-$pdo = $pc->dbConnectNobody();
+$pdoc = new PdoClass();
+/* @var $pdo PDO */
+$pdo = $pdoc->dbConnectNobody();
 $ticket = filter_input(INPUT_COOKIE, 'auth');
-$queryCheck="SELECT gestor,nombres.tipo FROM nombres,userlog 
+$querycheck="SELECT gestor,nombres.tipo FROM nombres,userlog 
 WHERE ticket = :ticket 
 and iniciales = gestor
 and userlog.fechahora>curdate() order by fechahora desc limit 1";
-$stc = $pdo->prepare($queryCheck);
+$stc = $pdo->prepare($querycheck);
 $stc->bindParam(':ticket', $ticket);
 $stc->execute();
 $answercheck=$stc->fetch();

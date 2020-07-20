@@ -1,19 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
+
+require_once __DIR__ . '/DateClass.php';
 
 /**
  * Description of PromsObject
  *
  * @author gmbs
  */
-class PromsObject {
+class PromsObject extends DateClass {
 
     /**
      *
@@ -233,40 +229,6 @@ class PromsObject {
                 break;
         }
         return $tipoString;
-    }
-
-    /**
-     * 
-     * @param string $date
-     * @return boolean
-     */
-    public function validDate($date) {
-        if (empty($date)) {
-            return FALSE;
-        }
-        $time = strtotime($date);
-        $year = date('Y',$time);
-        $month = date('m',$time);
-        $day = date('d',$time);
-        if (checkdate($month, $day, $year)) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-
-    /**
-     * 
-     * @param string $date
-     * @param string $default
-     * @return string
-     */
-    public function fixDate($date, $default) {
-        if ($this->validDate($date)) {
-            return $date;
-        } else {
-            return $default;
-        }
     }
 
 }

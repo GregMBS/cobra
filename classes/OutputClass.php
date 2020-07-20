@@ -23,7 +23,6 @@ require_once 'vendor/autoload.php';
 class OutputClass {
 
     /**
-     *
      * @param string $filename
      * @param array $array
      * @param array $headers
@@ -31,28 +30,13 @@ class OutputClass {
      * @throws InvalidArgumentException
      * @throws WriterNotOpenedException
      */
-    private function outputCSV($filename, $array, $headers) {
+    public function writeCSVFile($filename, $array, $headers) {
         $writer = WriterEntityFactory::createCSVWriter(); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
         $row = WriterEntityFactory::createRowFromArray($headers);
         $writer->addRow($row);
         $writer->addRows($array); // add multiple rows at a time
         $writer->close();
-    }
-    
-    /**
-     * 
-     * @param string $filename
-     * @param array $data
-     * @param array $headers
-     */
-    public function writeCSVFile($filename, $data, $headers) {
-        try {
-            $this->outputCSV($filename, $data, $headers);
-        } catch (IOException $e) {
-        } catch (InvalidArgumentException $e) {
-        } catch (WriterNotOpenedException $e) {
-        }
     }
 
     /**
@@ -64,28 +48,15 @@ class OutputClass {
      * @throws InvalidArgumentException
      * @throws WriterNotOpenedException
      */
-    private function outputXLSX($filename, $array, $headers) {
-        $writer = WriterEntityFactory::createXLSXWriter(); // for XLSX files
+    public function writeXLSXFile($filename, $array, $headers = []) {
+        $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
         $writer->openToBrowser($filename); // stream data directly to the browser
-        $row = WriterEntityFactory::createRowFromArray($headers);
-        $writer->addRow($row);
+        if (count($headers) > 0) {
+            $row = WriterEntityFactory::createRowFromArray($headers);
+            $writer->addRow($row);
+        }
         $writer->addRows($array); // add multiple rows at a time
         $writer->close();
-    }
-    
-    /**
-     * 
-     * @param string $filename
-     * @param array $data
-     * @param array $headers
-     */
-    public function writeXLSXFile($filename, $data, $headers) {
-        try {
-            $this->outputXLSX($filename, $data, $headers);
-        } catch (IOException $e) {
-        } catch (InvalidArgumentException $e) {
-        } catch (WriterNotOpenedException $e) {
-        }
     }
 
 }

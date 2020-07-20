@@ -1,30 +1,140 @@
 <?php
 
 use cobra_salsa\PdoClass;
-use cobra_salsa\ReporteDiarioClass;
 
 require_once 'classes/PdoClass.php';
-require_once 'classes/ReporteDiarioClass.php';
-$pd = new PdoClass();
-$pdo  = $pd->dbConnectAdmin();
-$rc = new ReporteDiarioClass($pdo);
-$capt = $pd->capt;
+$pdoc = new PdoClass();
+$pdo  = $pdoc->dbConnectAdmin();
+$capt = $pdoc->capt;
 
 function last_business_day($year, $month)
 {
 
-    $lastBusinessDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-    $weekday  = date("N", strtotime("$year-$month-$lastBusinessDay"));
-    if ($weekday == 7) {
-        $lastBusinessDay -= 2;
+    $lbday = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    $wday  = date("N", strtotime("$year-$month-$lbday"));
+    if ($wday == 7) {
+        $lbday -= 2;
     }
-    if ($weekday == 6) {
-        $lastBusinessDay--;
+    if ($wday == 6) {
+        $lbday--;
     }
 
-    return date("Y-m-d", strtotime("$year-$month-$lastBusinessDay"));
+    $lbd = date("Y-m-d", strtotime("$year-$month-$lbday"));
+    return $lbd;
 }
-$rc->buildReport();
+$lm      = strtotime("-1 month");
+$lm2     = strtotime("-2 month");
+$lbd0    = last_business_day(date("Y", $lm2), date("n", $lm2));
+//$lbd1=last_business_day(date("Y",$lm),date("n",$lm));
+$lbd1    = date("Y-m-d", strtotime("-1 month -1 day"));
+//die ($lbd0." ".$lbd1);
+$adjust  = '';
+//last day sunday	
+//$adjust='-interval 2 day';
+//last day saturday	
+//$adjust='-interval 1 day';
+$querya  = "create temporary table rrotas
+select numero_de_cuenta,resumen.cliente,status_de_credito,status_aarsa,producto,subproducto,
+nombre_deudor,pagos.auto as pauto,monto,fecha,historia.auto as hauto,
+n_prom1,d_prom1,n_prom2,d_prom2,c_cvge,'pagos' as semaforo,resumen.id_cuenta 
+from pagos
+join resumen using (id_cuenta)
+left join historia on c_cont=pagos.id_cuenta 
+and fecha between d_fech and (d_prom+interval 2 day) and c_cvst like 'promesa de%'
+where fecha > :lbd0
+and fecha <= :lbd1
+and confirmado=0";
+$sta     = $pdo->prepare($querya);
+$sta->bindParam(':lbd0', $lbd0);
+$sta->bindParam(':lbd1', $lbd1);
+$sta->execute();
+$queryb  = "create temporary table rotad select pauto from rrotas
+group by pauto having count(1)>1";
+$pdo->query($queryb);
+$queryc  = "select pauto from rotad";
+$resultc = $pdo->query($queryc);
+$queryd  = "delete from rrotas where pauto = ;pauto order by fecha limit 1";
+$std     = $pdo->prepare($queryd);
+foreach ($resultc as $answerc) {
+    $pauto = $answerc['pauto'];
+    $std->bindParam(':pauto', $pauto);
+    $std->execute();
+}
+$queryp              = "create temporary table xrotas
+select * from rrotas where hauto>0";
+$pdo->query($queryp);
+$queryu              = "update rrotas r,xrotas as x
+set r.hauto=x.hauto,r.c_cvge=x.c_cvge,
+r.n_prom1=x.n_prom1,r.d_prom1=x.d_prom1,
+r.n_prom2=x.n_prom2,r.d_prom2=x.d_prom2
+where r.id_cuenta=x.id_cuenta and r.hauto is null";
+$pdo->query($queryu);
+$queryparcial        = "select hauto,numero_de_cuenta,rrotas.cliente,
+status_de_credito,producto,subproducto,q(status_aarsa),status_aarsa,
+nombre_deudor,n_prom1+n_prom2,n_prom1,d_prom1,n_prom2,d_prom2,
+max(folio),c_cvge,monto,rrotas.fecha from rrotas
+left join folios on rrotas.cliente like 'credito%' and cuenta=numero_de_cuenta
+group by hauto,rrotas.cliente,numero_de_cuenta,monto,rrotas.fecha
+order by rrotas.cliente,status_de_credito,numero_de_cuenta";
+$queryvencido        = "select h1.auto,concat(h1.CUENTA,' ') as 'numero_de_cuenta',resumen.cliente,
+status_de_credito as 'campa&ntilde;a',producto,subproducto,q(status_aarsa) as 'queue',status_aarsa,
+nombre_deudor,n_prom as 'Imp. Neg.',n_prom1 as 'pp1',d_prom1 as 'fpp1',n_prom2 as 'pp2',d_prom2 as 'fpp2',
+folio,c_cvge as 'gestor'
+from historia h1 join resumen on c_cont=id_cuenta 
+left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio<f2.folio)
+where n_prom>0 and d_fech>'".$lbd0."'
+and d_fech<='".$lbd1."' 
+and d_prom<'".$lbd1."' and c_cvst like 'PROMESA DE%'
+and not exists 
+(select auto from historia h2 
+where h1.c_cont=h2.c_cont and h1.auto<h2.auto and h2.n_prom>0) 
+and not exists 
+(select auto from pagos 
+where h1.c_cont=id_cuenta and fecha>'".$lbd0."') 
+;";
+$queryvigente        = "select h1.auto,concat(h1.CUENTA,' ') as 'numero_de_cuenta',resumen.cliente,
+status_de_credito as 'campa&ntilde;a',producto,subproducto,q(status_aarsa) as 'queue',status_aarsa,
+nombre_deudor,n_prom as 'Imp. Neg.',n_prom1 as 'pp1',d_prom1 as 'fpp1',n_prom2 as 'pp2',d_prom2 as 'fpp2',
+folio,c_cvge as 'gestor'
+from historia h1 join resumen on c_cont=id_cuenta 
+left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio<f2.folio)
+where n_prom>0 and d_fech>'".$lbd0."' 
+and d_fech<='".$lbd1."' 
+and d_prom>='".$lbd1."' and c_cvst like 'PROMESA DE%'
+and not exists 
+(select auto from historia h2 
+where h1.c_cont=h2.c_cont and h1.auto<h2.auto and h2.n_prom>0) 
+and not exists 
+(select auto from pagos 
+where h1.c_cont=id_cuenta and fecha>'".$lbd0."');";
+$querydrop           = "DROP TABLE IF EXISTS `gmbtemp`";
+$pdo->query($querydrop);
+$querymake           = "CREATE TABLE `gmbtemp` (
+  `gestor` varchar(50)  NOT NULL,
+  `cliente` varchar(50)  NOT NULL,
+  `sdc` varchar(50)  NOT NULL,
+  `producto` varchar(50)  NOT NULL,
+  `subproducto` varchar(50)  NOT NULL,
+  `vigente` decimal(10,2) DEFAULT 0,
+  `vencido` decimal(10,2) DEFAULT 0,
+  `pago` decimal(10,2) DEFAULT 0,
+  `meta` decimal(10,2)  DEFAULT '1',
+  `metap` decimal(10,2) ,
+  `negociado` decimal(10,2)  DEFAULT '0.01',
+  `cumplimentop` decimal(10,2) ,
+  `pronostico` decimal(10,2) ,
+  `pronosticop` decimal(10,2) 
+)
+CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+";
+$pdo->query($querymake);
+$querycalc           = "update gmbtemp g
+set g.meta=1,metap=(pago)/1,
+negociado=(vigente+vencido+pago),
+cumplimentop=(pago)/(vigente+vencido+pago),
+pronostico=((pago)+(vigente*(pago)/(vigente+vencido+pago))),
+pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
+";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,11 +144,12 @@ $rc->buildReport();
         <style type="text/css">
             body {font-family: verdana,arial, helvetica, sans-serif;
                   font-size: 10pt; background-color: white;color:black;}
+            .hidebox {display:none}
             div {clear:both}
             table {border: 1pt solid black;background-color: white;
                    border-collapse: collapse;}
             th,td {border: 1pt solid black;background-color: white;}
-            th {font-weight:bold;}
+            th,.heavy {font-weight:bold;}
             a:link {color:blue;}
             a:visited {color:green;}
             a:hover {color:red;}
@@ -46,26 +157,42 @@ $rc->buildReport();
             div {border: 1pt black solid;background-color:white;}
             td {border: 1pt solid black;background-color: white;}
             .visitable td {border:0; background-color: transparent;width:auto;}
+            .deudor {color: red;}
+            .visit {color: green;}
             #ahora td {font-size: 85%}
             ul.tabs
             { list-style-type: none; padding: 0; margin: 0;}
             ul.tabs li
-            { float: left; padding: 0;
-                background: url(tab_right.png) no-repeat right top;
-                margin: 0 1px 0 0;
-            }
+            { float: left; padding: 0; margin: 0; padding-top: 0;
+              background: url(tab_right.png) no-repeat right top; margin-right: 1px; }
             ul.tabs li a
-            { display: block; padding: 0 10px;
+            { display: block; padding: 0px 10px;
               color: white; text-decoration: none; background:
                   url(tab_left.png) no-repeat left top; }
             ul.tabs li a:hover
             { color: yellow;}
-            th {font-weight:bold;font-size:10pt;}
+            th,.heavy {font-weight:bold;font-size:10pt;}
+            .light {text-align:right;}
+            .rightnow {
+                background-color:orange;
+            }
+            .callcenter {
+                background-color:white;
+            }
+            .admin {
+                background-color:gray;
+            }
+            .late {
+                background-color:yellow; font-weight:bold;
+                text-decoration:blink;}
+            .verylate,.lazy {
+                background-color:red; font-weight:bold;
+                text-decoration:blink;}
             </style>
-            <script type="text/javascript" src="js/external/dom-drag.js"></script>
+            <script type="text/javascript" src="js/dom-drag.js"></script>
             <SCRIPT TYPE="text/JavaScript">
                 function paging(pageid) {
-                const pageida=pageid+"a";
+                pageida=pageid+"a";
                 document.getElementById("pagos").style.display="none";
                 document.getElementById("pagosa").style.fontWeight="normal";
                 document.getElementById("vigentes").style.display="none";
@@ -80,7 +207,7 @@ $rc->buildReport();
             </SCRIPT>
         </head>
         <body onLoad="paging('pagos');">
-            <div class="clearBox">
+            <div class="clearbox">
             <UL class='tabs'>
                 <LI><A id='pagosa' onClick="paging('pagos')">PAGOS</A></LI>
                 <LI><A id='vigentesa' onClick="paging('vigentes')">VIGENTES</A></LI>
@@ -88,13 +215,15 @@ $rc->buildReport();
                 <LI><A id='analyticaa' onClick="paging('analytica')">ANALYTICA</A></LI>
             </UL>
         </div>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
         <div id='pagos'>
             <?php
 // pagos
             $id                  = 0;
-            $resultParcial       = $pdo->query($queryparcial);
-            $numberfieldsParcial = $resultParcial->columnCount();
+            $stp       = $pdo->query($queryparcial);
+            $stp->execute();
+            $resultParcial = $stp->fetchAll(PDO::FETCH_ASSOC);
+            $numberfieldsParcial = count(array_keys($resultParcial));
             ?>
             <table>
                 <thead>
@@ -193,14 +322,11 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
 // vencidos
 
             $resultVencidos       = $pdo->query($queryvencido);
-            $resultVencidos->setFetchMode(PDO::FETCH_ASSOC);
-            $arrayNames = array_keys($resultVencidos[0]);
-            $numberfieldsVencidos = $resultVencidos->columnCount();
-            ?>
-            <table>
-            <tr>
-                    <?php
-            foreach ($arrayNames as $var) {
+            $rvecount = $resultVencidos->fetchAll(PDO::FETCH_ASSOC);
+            $numberfieldsVencidos = count(array_keys($rvecount));
+            echo "<table>";
+            echo "<tr>";
+            foreach (array_keys($rvecount[0]) as $var) {
                 echo "<th>".$var."</th>";
             }
             ?>
@@ -221,11 +347,9 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
                 for ($j = 0; $j < $numberfieldsVencidos; $j++) {
                     echo "<td>".$row[$j]."</td>";
                 }
-                $k = $j;
             } else {
                 echo "<td>".$row[$j - 2]."</td>";
                 echo "<td>".$row[$j - 1]."</td>";
-                $k = $k + 2;
             }
             ?>
             <td></td>
@@ -258,13 +382,11 @@ values ('".$row[15]."','".$row[2]."','".$row[3].
     <?php
 // vigentes
     $resultVigentes       = $pdo->query($queryvigente);
-    $resultVigentes->setFetchMode(PDO::FETCH_ASSOC);
-    $numberfieldsVigentes = $resultVigentes->columnCount();
-    ?>
-    <table>
-        <tr>
-            <?php
-    foreach ($resultVigentes as $var) {
+    $rvicount = $resultVigentes->fetchAll(PDO::FETCH_ASSOC);
+    $numberfieldsVigentes = count(array_keys($rvicount));
+    echo "<table>";
+    echo "<tr>";
+    foreach ($rvicount as $var) {
         echo "<th>".$var."</th>";
     }
     ?>
@@ -286,11 +408,9 @@ while ($row = $resultVigentes->fetch()) {
         for ($j = 0; $j < $numberfieldsVigentes; $j++) {
             echo "<td>".$row[$j]."</td>";
         }
-        $k = $j;
     } else {
         echo "<td>".$row[$j - 2]."</td>";
         echo "<td>".$row[$j - 1]."</td>";
-        $k = $k + 2;
     }
     ?>
     <td></td>

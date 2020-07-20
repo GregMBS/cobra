@@ -27,12 +27,10 @@ class ValidationClass {
      *
      * @var string
      */
-    /*
-    private $querydup = "SELECT count(1) as ct FROM historia 
-WHERE c_cont = :c_cont and d_fech = :d_fech 
-and c_hrin = :c_hrin and c_cvst = :c_cvst 
-and c_cvge = :c_cvge and c_obse1 = :c_obse1";
-*/
+//    private $querydup = "SELECT count(1) as ct FROM historia
+//WHERE c_cont = :c_cont and d_fech = :d_fech
+//and c_hrin = :c_hrin and c_cvst = :c_cvst
+//and c_cvge = :c_cvge and c_obse1 = :c_obse1";
 
     /**
      *
@@ -67,26 +65,26 @@ and c_cvge = :c_cvge and c_obse1 = :c_obse1";
      * @param string $message
      * @return array
      */
-/*    private function countDup($gestion, $message) {
-        $output = array();
-        $std = $this->pdo->prepare($this->querydup);
-        $std->bindParam(':c_cont', $gestion['C_CONT'], PDO::PARAM_INT);
-        $std->bindParam(':d_fech', $gestion['D_FECH']);
-        $std->bindParam(':c_hrin', $gestion['C_HRIN']);
-        $std->bindParam(':c_cvst', $gestion['C_CVST']);
-        $std->bindParam(':c_cvge', $gestion['C_CVGE']);
-        $std->bindParam(':c_obse1', $gestion['C:OBSE1']);
-        $std->execute();
-        $result = $std->fetch(PDO::FETCH_ASSOC);
-        $output['value'] = $result['ct'];
-        if ($result['ct'] == 0) {
-            $output['message'] = $message;
-        } else {
-            $output['message'] = '';
-        }
-        return $output;
-    }
-*/
+//    private function countDup($gestion, $message) {
+//        $output = array();
+//        $std = $this->pdo->prepare($this->querydup);
+//        $std->bindParam(':c_cont', $gestion['C_CONT'], \PDO::PARAM_INT);
+//        $std->bindParam(':d_fech', $gestion['D_FECH']);
+//        $std->bindParam(':c_hrin', $gestion['C_HRIN']);
+//        $std->bindParam(':c_cvst', $gestion['C_CVST']);
+//        $std->bindParam(':c_cvge', $gestion['C_CVGE']);
+//        $std->bindParam(':c_obse1', $gestion['C:OBSE1']);
+//        $std->execute();
+//        $result = $std->fetch(\PDO::FETCH_ASSOC);
+//        $output['value'] = $result['ct'];
+//        if ($result['ct'] == 0) {
+//            $output['message'] = $message;
+//        } else {
+//            $output['message'] = '';
+//        }
+//        return $output;
+//    }
+
     /**
      * 
      * @param boolean $fieldcond

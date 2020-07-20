@@ -5,8 +5,8 @@ use cobra_salsa\ChangestClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/ChangestClass.php';
-$pd = new PdoClass();
-$pdo = $pd->dbConnectAdmin();
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectAdmin();
 $cc = new ChangestClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');

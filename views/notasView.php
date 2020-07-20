@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>CobraMas Notas</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -49,13 +49,13 @@
 <?php } ?>
         <form action="/notas.php" method="get" name="notas">
             <label for='FECHA'>Fecha</label>
-            <input TYPE="text" NAME="FECHA" ID="FECHA" VALUE="" SIZE=15 /><br>
+            <input type="text" name="FECHA" id="FECHA" value="" SIZE=15 /><br>
             <label for='HORA'>Hora</label>
-            <input TYPE="text" NAME="HORA" ID="HORA" VALUE="" />
+            <input type="text" name="HORA" id="HORA" value="" />
             <label for='MIN'>Min</label>
-            <input TYPE="text" NAME="MIN" ID="MIN" VALUE="" /><br>
+            <input type="text" name="MIN" id="MIN" value="" /><br>
             <label for='CUENTA'>Cuenta</label>
-            <input type="text" name="CUENTA" readonly="readonly" value=<?php echo $CUENTA; ?> /><br>
+            <input type="text" name="CUENTA" id="CUENTA" readonly="readonly" value=<?php echo $CUENTA; ?> /><br>
             <label for='NOTA'>Nota</label>
             <textarea rows="2" cols="40" name="NOTA" id="NOTA"></textarea><br>
             <input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $C_CONT; ?> /><br>

@@ -5,8 +5,7 @@ require_once 'vendor/autoload.php';
 
 use cobra_salsa\PdoClass;
 use cobra_salsa\BestClass;
-use Box\Spout\Writer\WriterFactory;
-use Box\Spout\Common\Type;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 
 require_once 'classes/PdoClass.php';
 $pc = new PdoClass();
@@ -51,7 +50,7 @@ foreach ($resultpre as $rowpre) {
 }
 
 try {
-    $writer = WriterFactory::create(Type::XLSX);
+    $writer = WriterEntityFactory::createXLSXWriter();
     $writer->openToBrowser($filename); // stream data directly to the browser
     $writer->addRows($output); // add multiple rows at a time
     $writer->close();

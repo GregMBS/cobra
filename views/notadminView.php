@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>CobraMas Nota Admin</title>
         <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -26,13 +26,12 @@
                             $i++;
                             ?>
                             <tr>
-                                <td><?php echo $answer['c_cvge']; ?></td>
-                                <td><?php echo $answer['fecha']; ?></td>
-                                <td><?php echo $answer['hora']; ?></td>
+                                <td><?php echo $answer['c_cvge']; ?></th>
+                                <td><?php echo $answer['fecha']; ?></th>
+                                <td><?php echo $answer['hora']; ?></th>
                                 <td colspan=5><?php
                                     echo htmlentities($answer['nota'], null, 'utf-8');
-                                    ?>
-                                </td>
+                                    ?></th>
                                 <td>
                                     <form action="/notadmin.php"
                                           method="get" name="lista<?php echo $answer['auto']; ?>">
@@ -59,9 +58,9 @@
             <span class="formcap">Gestor</span><SELECT NAME="target">
                 <OPTION VALUE='todos'>todos</option>
 <?php
-foreach ($rowt as $answerT) {
+foreach ($rowt as $answert) {
     ?>
-                    <option value='<?php echo $answerT['iniciales']; ?>'><?php echo $answerT[0]; ?></option>
+                    <option value='<?php echo $answert['iniciales']; ?>'><?php echo $answert[0]; ?></option>
                 <?php } ?>
             </SELECT><br>
             <span class="formcap">Fecha</span><SELECT NAME="formDay">

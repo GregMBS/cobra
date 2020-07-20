@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>CobraMas - Cambio de Status</title>
         <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -27,7 +27,7 @@
                     $CLIENTE = $row['cliente'];
                     $ID_CUENTA = $row['id_cuenta'];
                     $STATUS = $row['status_de_credito'];
-                    $StatusC = $row['status_aarsa'];
+                    $STATUSC = $row['status_aarsa'];
                     if (preg_match('/-/', $STATUS)) {
                         $INACTIVO = 1;
                     } else {
@@ -54,7 +54,7 @@
                 <?php } ?>
             </tbody>
         </table>
-        <div id="searchBox">
+        <div id="searchbox">
             <h2>Buscar</h2>
             <form name="search" method="get" action=
                   "/changest.php" id="search">Buscar a: <input type=
@@ -66,10 +66,10 @@
                 Client = <select name="cliente">
                     <option value=" ">Todos</option>
                     <?php
-                    foreach ($clientes as $client) {
+                    foreach ($resultcl as $answercl) {
                         ?>
-                        <option value="<?php echo $client['cliente']; ?>">
-                            <?php echo $client['cliente']; ?>
+                        <option value="<?php echo $answercl['cliente']; ?>">
+                            <?php echo $answercl['cliente']; ?>
                         </option>
                     <?php } ?>
                 </select><br>

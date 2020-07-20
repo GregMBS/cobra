@@ -3,7 +3,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 /**
  * Description of segmentadminClass
@@ -88,8 +87,8 @@ class SegmentadminClass {
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listQueuedSegmentos() {
         $querytempr = "create temporary table csdcr
@@ -97,25 +96,27 @@ select cliente, status_de_credito, count(id_cuenta) as cnt from resumen
 where status_de_credito not regexp '-'
 group by cliente, status_de_credito";
         $this->pdo->query($querytempr);
-        $querymain = "SELECT q.cliente as 'cliente', sdc, cnt
+        $query = "SELECT q.cliente as 'cliente', sdc, cnt
     FROM queuelist q
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
     group by q.cliente,sdc
     ";
-        return $this->pdo->query($querymain);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listUnqueuedSegments() {
         $querytemp = "create temporary table csdc
 select distinct cliente,sdc from queuelist";
         $this->pdo->query($querytemp);
-        $querymain2 = "SELECT r.cliente as 'cliente',status_de_credito as 'sdc',
+        $query = "SELECT r.cliente as 'cliente',status_de_credito as 'sdc',
     count(1)
     FROM resumen r
     LEFT JOIN csdc q
@@ -125,7 +126,9 @@ select distinct cliente,sdc from queuelist";
     AND status_de_credito not regexp '-'
     group by r.cliente,status_de_credito
     ";
-        return $this->pdo->query($querymain2);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

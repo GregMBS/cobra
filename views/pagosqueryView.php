@@ -5,7 +5,7 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>Query de Pagos</title>
         <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />
@@ -13,7 +13,7 @@
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
         <form action="/pagosquery.php" method="get" name="queryparms">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <p>Cliente:

@@ -3,7 +3,7 @@
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
-$pd    = new PdoClass();
-$pdo     = $pd->dbConnectUser();
-$capt = $pd->capt;
+$pdoc    = new PdoClass();
+$pdo     = $pdoc->dbConnectUser();
+$capt = $pdoc->capt;
 require_once 'views/whiteView.php';

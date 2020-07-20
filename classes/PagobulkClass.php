@@ -28,10 +28,10 @@ class PagobulkClass extends BaseClass {
         $query = "INSERT IGNORE INTO pagos SELECT * FROM pagotemp";
         $this->pdo->query($query);
     }
-
+    
     /**
-     *
-     * @return bool|PDOStatement
+     * 
+     * @return PDOStatement
      */
     private function prepareCleanOld() {
         $query = "delete from pagos

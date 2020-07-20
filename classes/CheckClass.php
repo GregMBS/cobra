@@ -12,7 +12,6 @@ use DateTime;
 use DateInterval;
 use DatePeriod;
 use PDO;
-use PDOStatement;
 
 /**
  * Description of CheckClass
@@ -27,15 +26,15 @@ class CheckClass extends BaseClass {
      * @return int
      */
     public function getIdCuentafromCuenta($CUENTA) {
-        $query = "select id_cuenta from resumen
+        $querycc = "select id_cuenta from resumen
 where numero_de_cuenta=:cuenta
 and status_de_creditonot regexp '-' LIMIT 1";
-        $stc = $this->pdo->prepare($query);
-        $stc->bindParam(':cuenta', $CUENTA);
-        $stc->execute();
-        $result = $stc->fetch(PDO::FETCH_ASSOC);
-        if (isset($result['id_cuenta'])) {
-            $id_cuenta = $result['id_cuenta'];
+        $stcc = $this->pdo->prepare($querycc);
+        $stcc->bindParam(':cuenta', $CUENTA);
+        $stcc->execute();
+        $resultcc = $stcc->fetch(PDO::FETCH_ASSOC);
+        if (isset($resultcc['id_cuenta'])) {
+            $id_cuenta = $resultcc['id_cuenta'];
         } else {
             $id_cuenta = 0;
         }
@@ -101,12 +100,14 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
 
     /**
      *
-     * @return false|PDOStatement
+     * @return array
      */
     public function getVisitadores() {
         $query = "SELECT usuaria,completo FROM nombres where completo<>''
 and tipo IN ('visitador','admin')";
-        return $this->pdo->query($query);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -133,11 +134,11 @@ and tipo IN ('visitador','admin')";
      * @return array
      */
     public function countInOut($gestor) {
-        $query = "select sum(fechaout>curdate()) as countOut,
+        $querycount = "select sum(fechaout>curdate()) as countOut,
     sum(fechain>curdate()) as countIn
     from vasign
 where gestor=:gestor";
-        $stc = $this->pdo->prepare($query);
+        $stc = $this->pdo->prepare($querycount);
         $stc->bindParam(':gestor', $gestor);
         $stc->execute();
         return $stc->fetch();
@@ -150,19 +151,19 @@ where gestor=:gestor";
      */
     public function listVasign($gestor) {
         if (!empty($gestor)) {
-            $gString = "WHERE gestor = :gestor "
+            $gstring = "WHERE gestor = :gestor "
                     . "ORDER BY fechain DESC";
         } else {
-            $gString = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
+            $gstring = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
         }
 
-        $query = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
+        $querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
 queue, completo, fechaout, fechain, gestor
 from resumen
 join vasign on id_cuenta=c_cont
 join nombres on iniciales=gestor
-join dictamenes on dictamen = status_aarsa " . $gString;
-        $stm = $this->pdo->query($query);
+join dictamenes on dictamen = status_aarsa " . $gstring;
+        $stm = $this->pdo->query($querymain);
         if (!empty($gestor)) {
             $stm->bindParam(':gestor', $gestor);
         }
@@ -176,10 +177,10 @@ join dictamenes on dictamen = status_aarsa " . $gString;
      * @return array
      */
     public function getCompleto($vst) {
-        $query = "SELECT completo FROM nombres
+        $queryn = "SELECT completo FROM nombres
 where iniciales=:vst
 limit 1;";
-        $stn = $this->pdo->prepare($query);
+        $stn = $this->pdo->prepare($queryn);
         $stn->bindParam(':vst', $vst);
         $stn->execute();
         return $stn->fetch(PDO::FETCH_ASSOC);

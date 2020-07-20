@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>Promesas</title>
         <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -10,8 +10,10 @@
         <style>
             body { font-size: 10pt }
             #rotasTable th, #rotasTable td { padding: 0 }
+            #rotasTable tr.even { background-color: white }
             #rotasTable tr.odd { background-color: #dddddd }
             td { text-align: center }
+            .alert { background-color: red }
         </style>
     </head>
     <body>

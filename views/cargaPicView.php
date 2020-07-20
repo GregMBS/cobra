@@ -1,21 +1,20 @@
 <!DOCTYPE HTML>
 
-<html lang='es'>
+<html lang="es">
     <head>
         <title>COBRA Carga Foto</title>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
         <?php
-        /** @var bool $flag */
-        if ($flag) {
+        if ($result) {
             ?>
             <h1>Foto para <?php echo $cliente . ' ' . $cuenta; ?> cargado.</h1>
             <?php
         }
         ?>
         <?php
-        if ((isset($flag)) && (!$flag)) {
+        if ((isset($result)) && (!$result)) {
             ?>
             <h1><?php echo $cliente . ' ' . $cuenta; ?> no es correcto.</h1>
             <?php

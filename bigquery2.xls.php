@@ -2,16 +2,21 @@
 set_time_limit(300);
 require_once 'vendor/autoload.php';
 
-use Box\Spout\Writer\WriterFactory;
-use Box\Spout\Common\Type;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
-$pd = new PdoClass();
-$pdo  = $pd->dbConnectAdmin();
+$pc = new PdoClass();
+$pdo  = $pc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $get  = filter_input_array(INPUT_GET);
 
+function MesNom($n)
+{
+    $timestamp = mktime(0, 0, 0, $n, 1, 2005);
+
+    return date("M", $timestamp);
+}
 if (isset($get['fecha1'])) {
     $go     = $get['go'];
     $gestor = $get['gestor'];
@@ -90,7 +95,7 @@ ORDER BY d_fech,c_hrin
         $i++;
     }
     try {
-        $writer = WriterFactory::create(Type::XLSX);
+        $writer = WriterEntityFactory::createXLSXWriter();
         $writer->openToBrowser($filename); // stream data directly to the browser
         $writer->addRows($output); // add multiple rows at a time
         $writer->close();
@@ -100,25 +105,23 @@ ORDER BY d_fech,c_hrin
 } else {
     ?>
     <!DOCTYPE html>
-    <html lang="">
+    <html lang="es">
         <head>
             <title>Query de las Promesas/Propuestas</title>
-            <link rel="stylesheet"
-                  href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"
-                  type="text/css" media="all" />
-            <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-            <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+            <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css" />
+            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         </head>
         <body>
-            <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+            <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
             <form action="bigquery2.xls.php" method="get" name="queryparms">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                <p><label for="gestor">Gestor: <?php
+                <p>Gestor: <?php
                     if (isset($gestor)) {
                         echo $gestor;
                     }
-                    ?></label>
-                    <select id="gestor" name="gestor">
+                    ?>
+                    <select name="gestor">
                         <option value="todos" style="font-size:120%;">todos</option>
                         <?php
                         $queryg  = "SELECT distinct c_cvge FROM historia
@@ -136,7 +139,7 @@ ORDER BY d_fech,c_hrin
                         ?>
                     </select>
                 </p>
-                <h2><label for="cliente">Cliente:</label></h2>
+                <h2>Cliente:</h2>
                 <p><?php
                     if (isset($cliente)) {
                         echo $cliente;
@@ -151,18 +154,18 @@ ORDER BY d_fech,c_hrin
                     $resultc = $pdo->query($queryc);
                     foreach ($resultc as $answerc) {
                         ?>
-                        <input type="checkbox" name="cliente[]" id="cliente" value="<?php echo $answerc['c_cvba']; ?>" />
+                        <input type="checkbox" name="cliente[]" value="<?php echo $answerc['c_cvba']; ?>" />
                         <?php echo $answerc['c_cvba']; ?><br>
                     <?php }
                     ?>
                 </p>
-                <p><label for="fecha1">HECHO de:
+                <p>HECHO de:
                     <?php
                     if (isset($fecha1)) {
                         echo $fecha1;
                     }
-                    ?></label>
-                    <select id="fecha1" name="fecha1">
+                    ?>
+                    <select name="fecha1">
                         <?php
                         $queryf1  = "SELECT distinct d_fech FROM historia
         where d_fech>last_day(curdate()-interval 6 month)
@@ -174,13 +177,13 @@ ORDER BY d_fech,c_hrin
                                 <?php echo $answerf1[0]; ?></option>
                         <?php } ?>
                     </select>
-                    <label for="fecha2">a:
+                    a:
                     <?php
                     if (isset($fecha2)) {
                         echo $fecha2;
                     }
-                    ?></label>
-                    <select id="fecha2" name="fecha2">
+                    ?>
+                    <select name="fecha2">
                         <?php
                         $queryf2  = "SELECT distinct d_fech FROM historia
         where d_fech>last_day(curdate()-interval 6 month)
@@ -197,7 +200,7 @@ ORDER BY d_fech,c_hrin
                 <input type='radio' name='tipo' id='visits' value='visits' /><br>
                 <label for='telef'>Telefonica</label>
                 <input type='radio' name='tipo' id='telef' value='telef' /><br>
-                <label for='noadmin'>Visitas y Telefonica</label>
+                <label for='admin'>Visitas y Telefonica</label>
                 <input type='radio' name='tipo' id='noadmin' value='noadmin' /><br>
                 <label for='admin'>ROBOT/Carteo</label>
                 <input type='radio' name='tipo' id='admin' value='admin' /><br>

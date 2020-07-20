@@ -19,7 +19,7 @@ class GestorClass {
 
     /**
      *
-     * @var PDO 
+     * @var PDO
      */
     private $pdo;
 

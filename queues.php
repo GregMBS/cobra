@@ -5,8 +5,8 @@ use cobra_salsa\QueuesClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/QueuesClass.php';
-$pd = new PdoClass();
-$pdo = $pd->dbConnectUser();
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectUser();
 $qc = new QueuesClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_GET, 'go');

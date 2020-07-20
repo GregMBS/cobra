@@ -3,7 +3,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 /**
  * Description of InventarioClass
@@ -75,12 +74,14 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     public function listClients() {
         $query = "SELECT cliente FROM clientes";
-        return $this->pdo->query($query);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title><?php echo strtoupper($gestor); ?></title>
         <meta http-equiv="refresh" content="900"/>
@@ -56,12 +56,12 @@
                         <td><?php echo $D_PROM; ?></td>
                         <td><a href='/resumen.php?go=FROMPROM&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
                         <td><?php echo $CLIENTE; ?></td>
-                        <td style='text-align: right;'><?php echo number_format($N_PROM, 2); ?></td>
-                        <td style='text-align: right;'><?php echo number_format($MSGC, 2); ?></td>
-                        <td style='text-align: right;'><?php echo number_format($S_D, 2); ?></td>
+                        <td align="right"><?php echo number_format($N_PROM, 2); ?></td>
+                        <td align="right"><?php echo number_format($MSGC, 2); ?></td>
+                        <td align="right"><?php echo number_format($S_D, 2); ?></td>
                         <td><?php echo $C_CVGE; ?></td>
                         <td><?php echo $GESTOR; ?></td>
-                        <td style='text-align: right;'><?php echo number_format($MONTO, 2); ?></td>
+                        <td align="right"><?php echo number_format($MONTO, 2); ?></td>
                         <td><?php echo $FECHA; ?></td>
                         <td><?php echo $STATUS; ?></td>
                     </tr>
@@ -72,12 +72,12 @@
                     <td>SUM</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <th style='text-align: right;'><?php echo number_format($sumpr, 2); ?></th>
-                    <td style='text-align: right;'>&nbsp;</td>
-                    <td style='text-align: right;'>&nbsp;</td>
+                    <th align="right"><?php echo number_format($sumpr, 2); ?></th>
+                    <td align="right">&nbsp;</td>
+                    <td align="right">&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <th style='text-align: right;'><?php echo number_format($sump, 2); ?></th>
+                    <th align="right"><?php echo number_format($sump, 2); ?></th>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>

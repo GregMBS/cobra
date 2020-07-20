@@ -3,7 +3,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 require_once 'classes/BaseClass.php';
 
@@ -13,7 +12,7 @@ class ReporteDiarioClass extends BaseClass {
      *
      * @var string
      */
-    protected $queryCreateRotas = "create table rrotas
+    protected $queryrrotas = "create table rrotas
 select numero_de_cuenta,resumen.cliente,status_de_credito,status_aarsa,producto,subproducto,
 nombre_deudor,pagos.auto as pauto,monto,fecha,historia.auto as hauto,
 n_prom1,d_prom1,n_prom2,d_prom2,
@@ -82,19 +81,19 @@ where r.id_cuenta=x.id_cuenta and r.hauto is null";
      *
      * @var string
      */
-    protected $queryVencido = "select h1.auto,concat(h1.CUENTA,' ') as 'numero_de_cuenta',resumen.cliente,
+    protected $queryvencido = "select h1.auto,concat(h1.CUENTA,' ') as 'numero_de_cuenta',resumen.cliente,
 status_de_credito as 'campa&ntilde;a',producto,subproducto,q(status_aarsa) as 'queue',status_aarsa,
 nombre_deudor,n_prom as 'Imp. Neg.',
 n_prom1 as 'pp1',d_prom1 as 'fpp1',n_prom2 as 'pp2',d_prom2 as 'fpp2',
 n_prom3 as 'pp3',d_prom3 as 'fpp3',n_prom4 as 'pp4',d_prom4 as 'fpp4',
 folio,c_cvge as 'gestor'
 from historia h1 join resumen on c_cont=id_cuenta 
-left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio < f2.folio)
+left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio<f2.folio)
 where n_prom>0 and d_fech>:lbd and status_de_credito not like '%inactivo'
-and d_prom < curdate() and c_cvst like 'PROMESA DE%'
+and d_prom<curdate() and c_cvst like 'PROMESA DE%'
 and not exists 
 (select auto from historia h2 
-where h1.c_cont=h2.c_cont and h1.auto < h2.auto and h2.n_prom > 0) 
+where h1.c_cont=h2.c_cont and h1.auto<h2.auto and h2.n_prom>0) 
 and not exists 
 (select auto from pagos 
 where h1.c_cont=id_cuenta and fecha>:lbd)";
@@ -124,12 +123,12 @@ where h1.c_cont=id_cuenta and fecha>:lbd)";
         folio,
         c_cvge as 'gestor'
 from historia h1 join resumen on c_cont=id_cuenta 
-left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio < f2.folio)
+left join folios on c_cont=id and not exists (select folio from folios f2 where folios.id=f2.id and folios.folio<f2.folio)
 where n_prom>0 and d_fech>last_day(curdate()-interval 1 month) and status_de_credito not like '%inactivo'
 and d_prom>=curdate() and c_cvst like 'PROMESA DE%'
 and not exists 
 (select auto from historia h2 
-where h1.c_cont=h2.c_cont and h1.auto < h2.auto and h2.n_prom>0) 
+where h1.c_cont=h2.c_cont and h1.auto<h2.auto and h2.n_prom>0) 
 and not exists 
 (select auto from pagos 
 where h1.c_cont=id_cuenta and fecha>d_fech)";
@@ -210,29 +209,31 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
      */
     protected function createPromesasTable($last_business_day) {
         $this->pdo->query('DROP TABLE IF EXISTS rrotas');
-        $sta = $this->pdo->prepare($this->queryCreateRotas);
+        $sta = $this->pdo->prepare($this->queryrrotas);
         $sta->bindParam(':lbd0', $last_business_day);
         $sta->execute();
     }
 
     /**
-     *
-     * @return false|PDOStatement
+     * 
+     * @return array
      */
     protected function getDuplicates() {
         $this->pdo->query('DROP TABLE IF EXISTS rotad');
         $this->pdo->query($this->queryrotad);
         $query = "select pauto from rotad";
-        return $this->pdo->query($query);
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * 
-     * @param PDOStatement $result
+     * @param array $resultpauto
      */
-    protected function deleteDuplicates($result) {
-        foreach ($result as $answer) {
-            $pauto = $answer['pauto'];
+    protected function deleteDuplicates($resultpauto) {
+        foreach ($resultpauto as $answerpauto) {
+            $pauto = $answerpauto['pauto'];
             $std = $this->pdo->prepare($this->querydeldup);
             $std->bindParam(':pauto', $pauto);
             $std->execute();
@@ -246,8 +247,8 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
     }
 
     protected function createAnalysis() {
-        $queryDrop = "DROP TABLE IF EXISTS `gmbtemp`;";
-        $this->pdo->query($queryDrop);
+        $querydrop = "DROP TABLE IF EXISTS `gmbtemp`;";
+        $this->pdo->query($querydrop);
         $this->pdo->query($this->querymake);
         $this->pdo->query($this->querycalc);
     }
@@ -260,10 +261,10 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1";
         $this->updateMultiples();
         $this->createAnalysis();
 
-        //$stp = $this->pdo->query($this->queryparcial);
-        //$rawResultPagos = $stp->fetchAll(PDO::FETCH_ASSOC);
+//        $stp = $this->pdo->query($this->queryparcial);
+//        $rawResultPagos = $stp->fetchAll(PDO::FETCH_ASSOC);
 
-        $stv = $this->pdo->prepare($this->queryVencido);
+        $stv = $this->pdo->prepare($this->queryvencido);
         $stv->bindParam(':lbd', $lbd);
         $stv->execute();
         $this->resultVencidos = $stv->fetchAll(PDO::FETCH_ASSOC);

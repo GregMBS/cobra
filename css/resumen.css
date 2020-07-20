@@ -5,7 +5,7 @@ body {
     color: #000000;
 }
 
-.hideBox {
+.hidebox {
     display: none
 }
 
@@ -13,7 +13,7 @@ div {
     clear: both
 }
 
-label.formLabelBig {
+span.formcap {
     display: block;
     width: 20em;
     float: left;
@@ -21,7 +21,7 @@ label.formLabelBig {
     font-weight: bold;
 }
 
-label.formLabel {
+span.formcapa {
     display: block;
     width: 13em;
     float: left;
@@ -29,12 +29,20 @@ label.formLabel {
     font-weight: bold;
 }
 
-label.formLabelSmall {
+span.formcaps {
     display: block;
     width: 6em;
     float: left;
     font-size: 100%;
     font-weight: bold;
+}
+
+#deudor {
+    width: 7em;
+}
+
+#domicilio {
+    width: 7em;
 }
 
 select, input, button {
@@ -120,7 +128,7 @@ a:active {
     color: yellow;
 }
 
-#telBox label.formLabelBig {
+#telbox span.formcap {
     display: block;
     width: 14em;
     float: left;
@@ -136,7 +144,7 @@ div {
     background-color: #00ff00;
 }
 
-.clearBox {
+.clearbox {
     clear: both;
     text-align: center;
 }
@@ -153,10 +161,52 @@ th {
     width: 9em;
 }
 
+th.gestion {
+    width: 32em;
+}
+
+th.status {
+    width: 16em;
+}
+
+th.timestamp {
+    width: 8em;
+}
+
+th.telefono {
+    width: 8em;
+}
+
+th.chico {
+    width: 5em;
+}
+
 td {
     border: 1pt solid #000000;
     background-color: #ffffff;
     width: 10em;
+}
+
+td.gestion {
+    width: 32em;
+    height: 1em;
+    overflow: hidden;
+}
+
+td.status {
+    width: 16em;
+}
+
+td.timestamp {
+    width: 8em;
+}
+
+td.telefono {
+    width: 8em;
+}
+
+td.chico {
+    width: 5em;
 }
 
 #tableContainer {
@@ -164,12 +214,12 @@ td {
     overflow: scroll;
 }
 
-.noShow {
+.noshow {
     display: none;
     width: 0;
 }
 
-#searchBox {
+#searchbox {
     z-index: 98;
     display: none;
     position: absolute;
@@ -182,14 +232,39 @@ td {
     border: 2px black solid;
 }
 
-#searchBox input {
+#searchbox input {
     color: #000000;
     background-color: #ffffff;
 }
 
-#quickSearchBox input {
+#quicksearchbox {
+    z-index: 98;
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: 30%;
     color: #000000;
     background-color: #ffffff;
+    text-align: center;
+    padding: 1em;
+    border: 2px black solid;
+}
+
+#quicksearchbox input {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+#calm {
+    z-index: 98;
+    position: absolute;
+    left: 30%;
+    top: 30%;
+    color: #000000;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 1em;
+    border: 2px black solid;
 }
 
 #calm input {
@@ -211,7 +286,7 @@ td {
     width: auto;
 }
 
-#buttonBox form {
+#buttonbox form {
     float: left
 }
 
@@ -229,8 +304,20 @@ td {
     width: auto
 }
 
-#avalBox input {
+.deudor {
+    color: #ff0000;
+}
+
+.visit {
+    color: #00aa00;
+}
+
+#avalbox input {
     font-size: 85%
+}
+
+#avalbox .shortinp {
+    width: 5em;
 }
 
 ul.tabs {
@@ -242,7 +329,7 @@ ul.tabs {
 ul.tabs li {
     float: left;
     padding: 0;
-    background: url(/tab_right.png) no-repeat right top;
+    background: url(../tab_right.png) no-repeat right top;
     margin: 0 1px 0 0;
 }
 
@@ -251,7 +338,7 @@ ul.tabs li a {
     padding: 0 10px;
     color: #fff;
     text-decoration: none;
-    background: url(/tab_left.png) no-repeat left top;
+    background: url(../tab_left.png) no-repeat left top;
 }
 
 ul.tabs li a:hover {

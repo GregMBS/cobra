@@ -12,6 +12,9 @@ use Box\Spout\Common\Exception\InvalidArgumentException;
 use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\Exception\WriterNotOpenedException;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use PDO;
 use PDOException;
 
@@ -174,6 +177,19 @@ order by c_tele";
     public function getContactosReport() {
         $statement = $this->pdo->query($this->contactosReportQuery);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @return DatePeriod
+     */
+    function getDates(): DatePeriod
+    {
+        $begin = new DateTime('first day of last month');
+        $endDay = new DateTime('now');
+        $end = $endDay->modify('+1 day');
+
+        $interval = new DateInterval('P1D');
+        return new DatePeriod($begin, $interval, $end);
     }
 
 }

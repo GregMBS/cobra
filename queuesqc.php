@@ -1,13 +1,13 @@
 <?php
 
 use cobra_salsa\PdoClass;
-use cobra_salsa\QueuesQCClass;
+use cobra_salsa\QueuesqcClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/QueuesQCClass.php';
 $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
-$qc = new QueuesQCClass($pdo);
+$qc = new QueuesqcClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 
 $resultq = $qc->getQueues();

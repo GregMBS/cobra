@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>CobraMas Visitador Asignaciones y Recepciones</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,7 +14,7 @@
             <h1><?php echo $message; ?></h1>
             <form id='asigform' action='/checkout.php' method='get'>
                 <span class="formcap">Visitador:</span>
-                <select name="gestor" onmouseup="this.form.submit()">
+                <select name="gestor" onmouseup="this.form.submit">
                     <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
                     <?php
                     foreach ($result as $answer) {
@@ -90,6 +90,6 @@
                 </tbody>
             </table>
         </div>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
     </body>
 </html> 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>Administraci&oacute;n de las segmentos</title>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" />
@@ -10,8 +10,8 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
-        <table class="ui-widget">
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <table summary="Segmentos" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
                     <th>CLIENTE</th>
@@ -67,11 +67,12 @@
                 </tr>
             </tbody>
         </table>
-        <hr>
+        <p>
         <form class="gestoradd" name="gestoradd" method="get" action=
               "/segmentadmin.php" id="gestoradd">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <input type="submit" name="go" value="AGREGARALL">
         </form>
-    </body>
+    </p>
+</body>
 </html> 

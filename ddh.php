@@ -5,8 +5,8 @@ use cobra_salsa\DhClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/DhClass.php';
-$pd = new PdoClass();
-$pdo = $pd->dbConnectAdmin();
+$pdoc = new PdoClass();
+$pdo = $pdoc->dbConnectAdmin();
 $dc = new DhClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $gestor = filter_input(INPUT_GET, 'gestor');

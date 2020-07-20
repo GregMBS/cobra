@@ -10,9 +10,9 @@ $result = $mc->getMsglist();
 
 if ($result) {
     foreach ($result as $row) {
-        $call = $mc->getCalls($row);
-        foreach ($call as $item) {
-            $output[] = $mc->getMiltOutput($item);
+        $calls = $mc->getCalls($row);
+        foreach ($calls as $call) {
+            $output[] = $mc->getMiltOutput($call);
         }
     }
     echo json_encode($output);

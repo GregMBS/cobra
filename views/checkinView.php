@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>CobraMas Visitador Asignaciones y Recepciones</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -90,6 +90,6 @@
                 </tbody>
             </table>
         </div>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
     </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es'>
+<html lang="es">
     <head>
         <title>Database Status</title>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css" media="all" /> 
@@ -10,8 +10,8 @@
         </style>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
-        <table class="ui-widget">
+        <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
+        <table summary="Processlist" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
                     <th>ID</th>
@@ -62,7 +62,7 @@
                 <?php } ?>
             </tbody>
         </table>
-        <table class="ui-widget">
+        <table summary="Processlist" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
                     <th>Table</th>

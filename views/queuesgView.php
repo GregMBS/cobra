@@ -14,70 +14,65 @@
     <body>
         <script>
             $(function () {
-                const clienteId = $("#cliente");
-                const queueId = $("#queue");
-                const sdcId = $("#sdc");
-                const bodyId = $("body");
                 $("button").button();
                 $("#intro").button();
-                clienteId.empty();
-                sdcId.empty();
-                queueId.empty();
-                bodyId.css("font-size", "10pt");
-                bodyId.css("text-align", "center");
-                clienteId.css("text-align", "left");
+                $("#cliente").empty();
+                $("#sdc").empty();
+                $("#queue").empty();
+                $("body").css("font-size", "10pt");
+                $("body").css("text-align", "center");
+                $("#cliente").css("text-align", "left");
                 $("div").css("float", "left");
                 $(".introb").css("clear", "left");
                 $.each(<?php echo $arrayc; ?>, function (index, value) {
-                    const data = '<div class="column"><input class="columnc" '
+                    var data = '<div class="column"><input class="columnc" '
                             +'type="radio" name="cliente" value="' + value 
                             + '" />' + value + '</div>';
                     $('#cliente').append(data);
                 });
-                clienteId.change(function () {
-                    sdcId.empty();
-                    queueId.empty();
-                    const data2 = $('input[name=cliente]:checked').val();
+                $("#cliente").change(function () {
+                    $("#sdc").empty();
+                    $("#queue").empty();
+                    var data2 = $('input[name=cliente]:checked').val();
                     $.each(<?php echo $arrays; ?>, function (index, sdc) {
                         if (sdc[1] === data2) {
-                            let st = sdc[0];
+                            var st = sdc[0];
                             if (st === '') {
                                 st = 'TODOS';
                             }
-                            const data3 = '<div class="column"><input class="columns" '
+                            data3 = '<div class="column"><input class="columns" '
                                     +'type="radio" name="sdc" value="' 
                                     + sdc[0] + '" />' + st + '</div>';
-                            sdcId.append(data3);
+                            $('#sdc').append(data3);
                         }
                     });
-                    sdcId.css("text-align", "left");
+                    $("#sdc").css("text-align", "left");
                 });
-                sdcId.change(function () {
-                    queueId.empty();
-                    const data2 = $('input[name=cliente]:checked').val();
-                    const data4 = $('input[name=sdc]:checked').val();
+                $("#sdc").change(function () {
+                    $("#queue").empty();
+                    var data2 = $('input[name=cliente]:checked').val();
+                    var data4 = $('input[name=sdc]:checked').val();
                     $.each(<?php echo $arrayq; ?>, function (index, que) {
                         if ((que[1] + que[2]) === (data4 + data2)) {
-                            let qt = que[0];
+                            var qt = que[0];
                             if (qt === '') {
                                 qt = 'TODOS';
                             }
-                            const data5 = '<div class="column"><input class="columnq" '
+                            data5 = '<div class="column"><input class="columnq" '
                                     +'type="radio" name="queue" value="' 
                                     + que[0] + '" />' + qt + '</div>';
-                            queueId.append(data5);
+                            $('#queue').append(data5);
                         }
                     });
-                    queueId.css("text-align", "left");
+                    $("#queue").css("text-align", "left");
                 });
             });
         </script>
         <?php echo $msg; ?>
         <div>
-            <form method='get' action='#' name='queueForm'>
+            <form method='get' action='#' name='queueform'>
                 <div>
-                    <label for="gestor">Gestor:</label><br>
-                    <input name='gestor' id="gestor" type='text' readonly='readonly' value='<?php echo $capt; ?>'>
+                    <input name='gestor' type='text' readonly='readonly' value='<?php echo $capt; ?>'>
                 </div>
                 <div>
                     <br>
@@ -97,8 +92,8 @@
                         <input type="submit" name="go" id="intro" value="INTRO">
                     </div>
                     <input type="hidden" name="capt" value="<?php echo $capt ?>">
+                    </form>
                 </div>
-            </form>
         </div>
         <div class='introb'>
             <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Cuentas</button>

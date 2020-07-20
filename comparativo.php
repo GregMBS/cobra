@@ -5,8 +5,8 @@ use cobra_salsa\ComparativoClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/ComparativoClass.php';
-$pd      = new PdoClass();
-$pdo       = $pd->dbConnectAdmin();
+$pdoc      = new PdoClass();
+$pdo       = $pdoc->dbConnectAdmin();
 $cc = new ComparativoClass($pdo);
 $capt      = filter_input(INPUT_GET, 'capt');
 $result = $cc->getReport();
