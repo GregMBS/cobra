@@ -16,8 +16,8 @@ if (!empty($go)) {
 
     if ($go == 'cargar') {
         $data = preg_split("/[\s,]+/", $dataRaw, 0, PREG_SPLIT_NO_EMPTY);
-        $ac->inactivateCuentas($data);
-        $msg = '<p>Cuentas est&aacute;n inactivadas</p>';
+        $count = $ac->inactivateCuentas($data);
+        $msg = "<p>$count Cuentas est&aacute;n inactivadas</p>";
     }
 }
 require_once 'views/inactivarView.php';

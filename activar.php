@@ -16,8 +16,8 @@ if (!empty($go)) {
 
     if ($go == 'cargar') {
         $data = preg_split("/[\s,]+/", $dataRaw, 0, PREG_SPLIT_NO_EMPTY);
-        $ac->activateCuentas($data);
-        $msg = "<p>Cuentas est&aacute;n activadas</p>";
+        $count = $ac->activateCuentas($data);
+        $msg = "<p>$count Cuentas est&aacute;n activadas</p>";
     }
 }
 require_once 'views/activarView.php';

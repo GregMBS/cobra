@@ -12,13 +12,13 @@ $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
 require_once 'classes/BestClass.php';
 $bc = new BestClass($pdo);
-$resultpre = $bc->getResumenData();
+$summary = $bc->getResumenData();
 $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
-foreach ($resultpre as $rowpre) {
+foreach ($summary as $row) {
     $aData = array();
-    foreach ($rowpre as $key => $value) {
+    foreach ($row as $key => $value) {
         $aData[$key] = $value;
     }
     $aData['ultimo_status'] = '';
@@ -27,19 +27,19 @@ foreach ($resultpre as $rowpre) {
     $aData['mejor_status'] = '';
     $aData['mejor_tel'] = '';
     $aData['mejor_fecha'] = '';
-    $resultult = $bc->getLastHistoriaData($aData['id_cuenta']);
-    foreach ($resultult as $rowult) {
-        $aData['ultimo_status'] = $rowult['C_CVST'];
-        $aData['ultimo_tel'] = $rowult['C_TELE'];
-        $aData['ultimo_comentario'] = $rowult['C_OBSE1'];
-        $aData['ultimo_accion'] = $rowult['C_ACCION'];
+    $latest = $bc->getLastHistoriaData($aData['id_cuenta']);
+    foreach ($latest as $latestRow) {
+        $aData['ultimo_status'] = $latestRow['C_CVST'];
+        $aData['ultimo_tel'] = $latestRow['C_TELE'];
+        $aData['ultimo_comentario'] = $latestRow['C_OBSE1'];
+        $aData['ultimo_accion'] = $latestRow['C_ACCION'];
     }
-    $resultbest = $bc->getBestHistoriaData($aData['id_cuenta']);
-    foreach ($resultbest as $rowbest) {
-        $aData['mejor_status'] = $rowbest['c_cvst'];
-        $aData['mejor_tel'] = $rowbest['c_tele'];
-        $aData['mejor_fecha'] = $rowbest['d_fech'];
-        $aData['mejor_accion'] = $rowbest['c_accion'];
+    $best = $bc->getBestHistoriaData($aData['id_cuenta']);
+    foreach ($best as $bestRow) {
+        $aData['mejor_status'] = $bestRow['c_cvst'];
+        $aData['mejor_tel'] = $bestRow['c_tele'];
+        $aData['mejor_fecha'] = $bestRow['d_fech'];
+        $aData['mejor_accion'] = $bestRow['c_accion'];
     }
     $aData['gestiones'] = $bc->countGestiones($aData['id_cuenta']);
     if ($i == 1) {

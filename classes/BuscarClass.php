@@ -1,15 +1,12 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 use PDO;
 use PDOException;
+
+require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/../classes/ResumenObject.php';
 
 /**
  * Description of BuscarClass
@@ -27,14 +24,13 @@ class BuscarClass {
      *
      * @var string
      */
-    private $queryhead = "SELECT SQL_NO_CACHE numero_de_cuenta, nombre_deudor,
-cliente, id_cuenta, status_de_credito from resumen ";
+    private $queryHead = "SELECT SQL_NO_CACHE * from resumen ";
 
     /**
      *
      * @var string
      */
-    private $refstring = "WHERE
+    private $refString = "WHERE
 (nombre_deudor_alterno regexp :find or
 nombre_referencia_1 regexp :find or
 nombre_referencia_2 regexp :find or
@@ -45,7 +41,7 @@ nombre_referencia_4 regexp :find)";
      *
      * @var string
      */
-    private $telstring = "WHERE
+    private $telString = "WHERE
 (tel_1 regexp :find or
 tel_2 regexp :find or
 tel_3 regexp :find or
@@ -73,9 +69,8 @@ tel_4_verif regexp :find )";
      *
      * @var string
      */
-    private $robotstring = "SELECT SQL_NO_CACHE
-			distinct numero_de_cuenta,nombre_deudor, cliente,
-			id_cuenta, status_de_credito
+    private $robotString = "SELECT SQL_NO_CACHE
+			distinct resumen.*
 			FROM resumen, historia
 			WHERE c_tele REGEXP :find and c_cont=id_cuenta";
 
@@ -110,10 +105,10 @@ tel_4_verif regexp :find )";
                 $output = "where domicilio_deudor regexp :find ";
                 break;
             case 'REFS':
-                $output = $this->refstring;
+                $output = $this->refString;
                 break;
             case 'TELS':
-                $output = $this->telstring;
+                $output = $this->telString;
                 break;
             default:
                 $output = '';
@@ -131,9 +126,9 @@ tel_4_verif regexp :find )";
      */
     public function searchAccounts($field, $find, $CLIENTE) {
         if ($field == 'ROBOT') {
-            $querymain = $this->robotstring;
+            $querymain = $this->robotString;
         } else {
-            $querymain = $this->queryhead . $this->searchField($field);
+            $querymain = $this->queryHead . $this->searchField($field);
         }
         $cliFlag = 0;
         if ((isset($querymain)) && (strlen($CLIENTE) > 1)) {
@@ -147,7 +142,7 @@ tel_4_verif regexp :find )";
                 $stm->bindParam(':cliente', $CLIENTE);
             }
             $stm->execute();
-            $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stm->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
         } catch (PDOException $e) {
             $result = array();
         }

@@ -1,17 +1,17 @@
 {
-	"require" : {
-		"box/spout" : "*",
-		"ext-pdo": "*",
-        "ext-mysqli": "*",
-        "ext-json": "*",
-        "ext-calendar": "*"
-    },
-	"autoload" : {
-		"psr-4" : {
-			"cobra_salsa\\" : "classes"
+	"autoload": {
+		"psr-4": {
+			"cobra_salsa\\": "classes"
 		}
 	},
+	"require": {
+		"box/spout": "*",
+		"ext-pdo": "*",
+		"ext-mysqli": "*",
+		"ext-json": "*",
+		"ext-calendar": "*"
+	},
 	"require-dev": {
-		"sebastian/phpcpd": "^5.0"
+		"phpunit/phpunit": "9.2.6"
 	}
 }

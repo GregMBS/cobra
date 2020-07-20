@@ -11,7 +11,7 @@ namespace cobra_salsa;
 use ConfigClass;
 use PDO;
 
-require_once 'config.php';
+require_once __DIR__ . '/../config.php';
 
 /**
  * Description of ActivarClass

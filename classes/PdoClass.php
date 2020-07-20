@@ -31,7 +31,7 @@ class PdoClass {
      *
      * @var string
      */
-    protected $username = "root";
+    protected $username = "gmbs";
 
     /**
      *
