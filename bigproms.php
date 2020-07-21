@@ -3,17 +3,19 @@
 set_time_limit(300);
 require_once 'vendor/autoload.php';
 
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use cobra_salsa\BigClass;
 use cobra_salsa\BigInputObject;
+use cobra_salsa\OutputClass;
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BigClass.php';
 require_once 'classes/BigInputObject.php';
+require_once 'classes/OutputClass.php';
 $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
 $bc = new BigClass($pdo);
+$oc = new OutputClass();
 $capt = filter_input(INPUT_GET, 'capt');
 $fecha1 = filter_input(INPUT_GET, 'fecha1');
 $fecha2 = filter_input(INPUT_GET, 'fecha2');
@@ -33,11 +35,12 @@ if (!empty($fecha1)) {
 		foreach ($result as $row) {
 			$output[] = $row;
 		}
-		$writer = WriterEntityFactory::createXLSXWriter();
-		$writer->openToBrowser($filename); // stream data directly to the browser
-		$writer->addRows($output); // add multiple rows at a time
-		$writer->close();
-	}
+        try {
+            $oc->writeXLSXFile($filename, $output);
+        } catch (Exception $e) {
+		    die($e->getMessage());
+        }
+    }
 } else {
 	$resultg = $bc->getGestionGestores();
 	$resultc = $bc->getGestionClientes();

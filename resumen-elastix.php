@@ -404,7 +404,7 @@ and d_fech=curdate() and fecha>last_day(curdate()-interval 1 month);";
     }
     if ($error > 0) {
         $PAGOTXT = '';
-        if (($C_CVST == "PROMESA DE PAGO TOTAL") || ($C_CVST == "PROMESA DE PAGO TOTAL")) {
+        if ($C_CVST == "PROMESA DE PAGO TOTAL") {
             $PAGOTXT = " con toda promesa de " . $N_PROM . " y fecha primera " . $D_PROM1;
         }
         if (empty($C_CVGE)) {
@@ -673,41 +673,41 @@ and usado=0 and mercancia=0;";
     $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL 
 WHERE locker='" . $capt . "';";
     mysqli_query($con, $queryunlock) or die("ERROR EM28 - " . mysqli_error($con));
-    if (1 == 1) {
-        if (!(empty($locker)) && ($locker != $capt)) {
-            $lockflag = 1;
-        } else {
-            $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL
+
+    if (!(empty($locker)) && ($locker != $capt)) {
+        $lockflag = 1;
+    } else {
+        $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL
 WHERE locker='" . $capt . "';";
-            $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-            $queryunlock2 = "UPDATE rslice SET timelock=NULL, locker=NULL 
+        $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
+        $queryunlock2 = "UPDATE rslice SET timelock=NULL, locker=NULL 
 WHERE locker='" . $capt . "';";
-            $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-            mysqli_autocommit($con, FALSE);
-            mysqli_query($con, $queryunlock) or die("ERROR EM29 - " . mysqli_error($con));
-            mysqli_query($con, $querylock) or die("ERROR EM30 - " . mysqli_error($con));
-            mysqli_query($con, $queryunlock2) or die("ERROR RM51 - " . mysqli_error($con));
-            mysqli_query($con, $querylock2) or die("ERROR RM52 - " . mysqli_error($con));
-            mysqli_commit($con);
-            $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') FROM
+        $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
+        mysqli_autocommit($con, FALSE);
+        mysqli_query($con, $queryunlock) or die("ERROR EM29 - " . mysqli_error($con));
+        mysqli_query($con, $querylock) or die("ERROR EM30 - " . mysqli_error($con));
+        mysqli_query($con, $queryunlock2) or die("ERROR RM51 - " . mysqli_error($con));
+        mysqli_query($con, $querylock2) or die("ERROR RM52 - " . mysqli_error($con));
+        mysqli_commit($con);
+        $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') FROM
 resumen 
 WHERE id_cuenta='" . $id_cuenta . "';";
-            $resulttlock = mysqli_query($con, $querytlock) or die("ERROR EM31 - " . mysqli_error($con));
-            while ($answertlock = mysqli_fetch_row($resulttlock)) {
-                $tl = $answertlock[0];
-            }
-            $breakflag = 0;
-            $querybreak = "SELECT tipo,empieza,termina FROM breaks
+        $resulttlock = mysqli_query($con, $querytlock) or die("ERROR EM31 - " . mysqli_error($con));
+        while ($answertlock = mysqli_fetch_row($resulttlock)) {
+            $tl = $answertlock[0];
+        }
+        $breakflag = 0;
+        $querybreak = "SELECT tipo,empieza,termina FROM breaks
 WHERE time(now()) between empieza and termina and gestor='" . $capt . "';";
-            $resultbreak = mysqli_query($con, $querybreak) or die("ERROR EM32 - " . mysqli_error($con));
-            while ($answerbreak = mysqli_fetch_row($resultbreak)) {
-                $breakflag = 1;
-                $btipo = $answerbreak[0];
-                $bemp = $answerbreak[1];
-                $bterm = $answerbreak[2];
-            }
+        $resultbreak = mysqli_query($con, $querybreak) or die("ERROR EM32 - " . mysqli_error($con));
+        while ($answerbreak = mysqli_fetch_row($resultbreak)) {
+            $breakflag = 1;
+            $btipo = $answerbreak[0];
+            $bemp = $answerbreak[1];
+            $bterm = $answerbreak[2];
         }
     }
+
 }
 $queryd = "select curdate()-interval 1 day as yesterday,
 least(last_day(curdate()+interval 1 day),
@@ -817,10 +817,10 @@ while ($answerd = mysqli_fetch_row($resultd)) {
                 (thisform.elements['N_PROM3'].value * 1) +
                 (thisform.elements['N_PROM4'].value * 1);
             if (thisform.elements['C_CVST'].substr(0, 3) === "PAG") {
-                    document.getElementById("pagocapt").style.display = "table-row";
-                    document.getElementById("pagocapt2").style.display = "table-row";
-                }
+                document.getElementById("pagocapt").style.display = "table-row";
+                document.getElementById("pagocapt2").style.display = "table-row";
             }
+        }
         }
 
         function clock() {
@@ -1856,69 +1856,69 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                             <option value=''>Nuevo Tel. 1</option>
                             <option value=''>Nuevo Tel. 2</option>
                             <?php if (isset($tel_1)) { ?>
-                                <option value='<?php echo $tel_1 ?>'>TEL 1 - <?php echo $tel_1 ?></option><?php } ?>
+                            <option value='<?php echo $tel_1 ?>'>TEL 1 - <?php echo $tel_1 ?></option><?php } ?>
                             <?php if (isset($tel_1_alterno)) { ?>
-                                <option value='<?php echo $tel_1_alterno ?>'>TEL ALT 1
+                            <option value='<?php echo $tel_1_alterno ?>'>TEL ALT 1
                                 - <?php echo $nombre_deudor_alterno . ' - ' . $tel_1_alterno ?></option><?php } ?>
                             <?php if (isset($tel_1_laboral)) { ?>
-                                <option value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1
+                            <option value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1
                                 - <?php echo $empresa . ' - ' . $tel_1_laboral; ?></option><?php } ?>
                             <?php if (isset($tel_1_ref_1)) { ?>
-                                <option value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1
+                            <option value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1
                                 - <?php echo $nombre_referencia_1 . ' - ' . $tel_1_ref_1; ?></option><?php } ?>
                             <?php if (isset($tel_1_ref_2)) { ?>
-                                <option value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2
+                            <option value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2
                                 - <?php echo $nombre_referencia_2 . ' - ' . $tel_1_ref_2; ?></option><?php } ?>
                             <?php if (isset($tel_1_ref_3)) { ?>
-                                <option value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3
+                            <option value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3
                                 - <?php echo $nombre_referencia_3 . ' - ' . $tel_1_ref_3; ?></option><?php } ?>
                             <?php if (isset($tel_1_ref_4)) { ?>
-                                <option value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4
+                            <option value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4
                                 - <?php echo $nombre_referencia_4 . ' - ' . $tel_1_ref_4; ?></option><?php } ?>
                             <?php if (isset($tel_1_verif)) { ?>
-                                <option class='verif' value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF
+                            <option class='verif' value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF
                                 - <?php echo $tel_1_verif; ?></option><?php } ?>
                             <?php if (isset($tel_2)) { ?>
-                                <option value='<?php echo $tel_2; ?>'>CELULAR - <?php echo $tel_2; ?></option><?php } ?>
+                            <option value='<?php echo $tel_2; ?>'>CELULAR - <?php echo $tel_2; ?></option><?php } ?>
                             <?php if (isset($tel_2_alterno)) { ?>
-                                <option value='<?php echo $tel_2_alterno; ?>'>TEL ALT 1
+                            <option value='<?php echo $tel_2_alterno; ?>'>TEL ALT 1
                                 - <?php echo $nombre_deudor_alterno . ' - ' . $tel_2_alterno; ?></option><?php } ?>
                             <?php if (isset($tel_2_laboral)) { ?>
-                                <option value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2
+                            <option value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2
                                 - <?php echo $empresa . ' - ' . $tel_2_laboral; ?></option><?php } ?>
                             <?php if (isset($tel_2_ref_1)) { ?>
-                                <option value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1
+                            <option value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1
                                 - <?php echo $nombre_referencia_1 . ' - ' . $tel_2_ref_1; ?></option><?php } ?>
                             <?php if (isset($tel_2_ref_2)) { ?>
-                                <option value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2
+                            <option value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2
                                 - <?php echo $nombre_referencia_2 . ' - ' . $tel_2_ref_2; ?></option><?php } ?>
                             <?php if (isset($tel_2_ref_3)) { ?>
-                                <option value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3
+                            <option value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3
                                 - <?php echo $nombre_referencia_3 . ' - ' . $tel_2_ref_3; ?></option><?php } ?>
                             <?php if (isset($tel_2_ref_4)) { ?>
-                                <option value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4
+                            <option value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4
                                 - <?php echo $nombre_referencia_4 . ' - ' . $tel_2_ref_4; ?></option><?php } ?>
                             <?php if (isset($tel_2_verif)) { ?>
-                                <option class='verif' value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF
+                            <option class='verif' value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF
                                 - <?php echo $tel_2_verif; ?></option><?php } ?>
                             <?php if (isset($tel_3)) { ?>
-                                <option value='<?php echo $tel_3; ?>'>TEL 3 - <?php echo $tel_3; ?></option><?php } ?>
+                            <option value='<?php echo $tel_3; ?>'>TEL 3 - <?php echo $tel_3; ?></option><?php } ?>
                             <?php if (isset($tel_3_alterno)) { ?>
-                                <option value='<?php echo $tel_3_alterno; ?>'>TEL ALT 3
+                            <option value='<?php echo $tel_3_alterno; ?>'>TEL ALT 3
                                 - <?php echo $nombre_deudor_alterno . ' - ' . $tel_3_alterno; ?></option><?php } ?>
                             <?php if (isset($tel_3_verif)) { ?>
-                                <option class='verif' value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF
+                            <option class='verif' value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF
                                 - <?php echo $tel_3_verif; ?></option><?php } ?>
                             <?php if (isset($tel_4)) { ?>
-                                <option value='<?php echo $tel_4; ?>'>TEL 4 - <?php echo $tel_4; ?></option><?php } ?>
+                            <option value='<?php echo $tel_4; ?>'>TEL 4 - <?php echo $tel_4; ?></option><?php } ?>
                             <?php if (isset($tel_4_alterno)) { ?>
-                                <option value='<?php echo $tel_4_alterno; ?>'>TEL ALT 4
+                            <option value='<?php echo $tel_4_alterno; ?>'>TEL ALT 4
                                 - <?php echo $nombre_deudor_alterno . ' - ' . $tel_4_alterno; ?></option><?php } ?>
                             <?php if (isset($tel_4_verif)) { ?>
-                                <option class='verif' value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF
+                            <option class='verif' value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF
                                 - <?php echo $tel_4_verif; ?></option><?php } ?>
                             <?php if (isset($telefono_de_ultimo_contacto)) { ?>
-                                <option value='<?php echo $telefono_de_ultimo_contacto; ?>'>TEL DE ULT. CONT.
+                            <option value='<?php echo $telefono_de_ultimo_contacto; ?>'>TEL DE ULT. CONT.
                                 - <?php echo $telefono_de_ultimo_contacto; ?></option><?php } ?>
                             <option value='Creditor'>Desde Creditor</option>
                         </select> <a href="JavaScript: dial('<?php echo $capt ?>',<?php echo $numero_de_cuenta ?>)">CELULAR</a>
@@ -2118,7 +2118,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                 </tr>
                 <tr>
                     <td>Fecha promesa única o 1a
-                    <td><INPUT class="maxWhen" readonly="readonly" TYPE="text" readonly="readonly" NAME="D_PROM1"
+                    <td><INPUT class="maxWhen" TYPE="text" readonly="readonly" NAME="D_PROM1"
                                ID="D_PROM1" VALUE="" SIZE=15>
                         <BUTTON onClick="document.getElementById('D_PROM1').value = '';
                                                 return false;">BORRAR
@@ -2144,7 +2144,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                 <tr>
                     <td>Fecha 2a promesa
                     </td>
-                    <td><INPUT class="maxWhen2" readonly="readonly" TYPE="text" readonly="readonly" NAME="D_PROM2"
+                    <td><INPUT class="maxWhen2" TYPE="text" readonly="readonly" NAME="D_PROM2"
                                ID="D_PROM2" VALUE="" SIZE=15>
                         <BUTTON onClick="document.getElementById('D_PROM2').value = '';
                                                 return false;">BORRAR
@@ -2170,7 +2170,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                 <tr>
                     <td>Fecha 3a promesa
                     </td>
-                    <td><INPUT class="maxWhen2" readonly="readonly" TYPE="text" readonly="readonly" NAME="D_PROM3"
+                    <td><INPUT class="maxWhen2" TYPE="text" readonly="readonly" NAME="D_PROM3"
                                ID="D_PROM3" VALUE="" SIZE=15>
                         <BUTTON onClick="document.getElementById('D_PROM3').value = '';
                                                 return false;">BORRAR
@@ -2196,7 +2196,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
                 <tr>
                     <td>Fecha 4a promesa
                     </td>
-                    <td><INPUT class="maxWhen2" readonly="readonly" TYPE="text" readonly="readonly" NAME="D_PROM4"
+                    <td><INPUT class="maxWhen2" TYPE="text" readonly="readonly" NAME="D_PROM4"
                                ID="D_PROM4" VALUE="" SIZE=15>
                         <BUTTON onClick="document.getElementById('D_PROM4').value = '';
                                                 return false;">BORRAR

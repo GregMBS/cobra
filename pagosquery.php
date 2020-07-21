@@ -1,8 +1,6 @@
 <?php
 require_once 'vendor/autoload.php';
 
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use cobra_salsa\PdoClass;
 use cobra_salsa\PagosClass;
 use cobra_salsa\OutputClass;
@@ -27,9 +25,8 @@ if (filter_has_var(INPUT_GET, 'go')) {
         ];
         try {
             $oc->writeXLSXFile($filename, $result, $headers);
-        } catch (IOException $e) {
-        } catch (\Box\Spout\Common\Exception\InvalidArgumentException $e) {
-        } catch (WriterNotOpenedException $e) {
+        } catch (Exception $e) {
+            die($e->getMessage());
         }
     }
 } else {

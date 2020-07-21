@@ -25,7 +25,11 @@ if (!empty($go)) {
         if (is_array($result[0])) {
             $filename = "Query_de_inventario_" . date('ymd') . ".xlsx";
             $headers = array_keys($result[0]);
-            $oc->writeXLSXFile($filename, $result, $headers);
+            try {
+                $oc->writeXLSXFile($filename, $result, $headers);
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
         }
     }
 } else {

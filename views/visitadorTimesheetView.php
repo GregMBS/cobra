@@ -13,6 +13,7 @@
 <?php
     $to = $hc->visitPrep($dhoy);
     $resultnom = $hc->listVisitadores();
+    $zeros = array_fill(1, $dhoy, 0);
     foreach ($resultnom
 
     as $answernom) {
@@ -24,17 +25,17 @@
     <tr>
         <th><?php echo $visitador; ?></th>
         <?php
-        $lla = $zeros;
-        $tlla = $zeros;
-        $prom = $zeros;
-        $pag = $zeros;
+        $accounts = $zeros;
+        $calls = $zeros;
+        $promises = $zeros;
+        $payments = $zeros;
         for ($i = 1; $i <= $dhoy; $i++) {
 
-            $resultss = $hc->getVisitadorMain($c_visit, $i);
-            foreach ($resultss as $answerss) {
-                $lla[$i] = $answerss['cuentas'];
-                $tlla[$i] = $answerss['gestiones'];
-                $prom[$i] = $answerss['promesas'];
+            $main = $hc->getVisitadorMain($c_visit, $i);
+            foreach ($main as $mainRow) {
+                $accounts[$i] = $mainRow['cuentas'];
+                $calls[$i] = $mainRow['gestiones'];
+                $promises[$i] = $mainRow['promesas'];
                 $sumg = 0;
                 $sumgt = 0;
                 $sumgt1 = 0;
@@ -44,17 +45,17 @@
                 $sumpp = 0;
                 $sump = 0;
                 $sumw = 0;
-                $resultp = $hc->getVisitadorPagos($c_visit, $i);
-                foreach ($resultp as $answerp) {
-                    $pag[$i] = $answerp['ct'];
+                $pay = $hc->getVisitadorPagos($c_visit, $i);
+                foreach ($pay as $payRow) {
+                    $payments[$i] = $payRow['ct'];
                 }
             }
 
-            $resultco = $hc->countVisitsAssigned($c_visit, $i);
-            foreach ($resultco as $answerco) {
-                if (is_array($answerco)) {
-                    $co[$i] = $answerco['co'];
-                    $ci[$i] = $answerco['ci'];
+            $assignments = $hc->countVisitsAssigned($c_visit, $i);
+            foreach ($assignments as $assign) {
+                if (is_array($assign)) {
+                    $co[$i] = $assign['co'];
+                    $ci[$i] = $assign['ci'];
                 } else {
                     $co[$i] = 0;
                     $ci[$i] = 0;
@@ -114,21 +115,21 @@
         for ($i = 1; $i <= $dhoy; $i++) {
             ?>
             <td class="light<?php
-            if ($tlla[$i] == 0) {
+            if ($calls[$i] == 0) {
                 echo ' zeros';
             }
             ?>">
-                <?php echo $tlla[$i]; ?></td>
+                <?php echo $calls[$i]; ?></td>
             <?php
-            $sumgt = $sumgt + $tlla[$i];
-            $to->tsumgt[$i] = $to->tsumgt[$i] + $tlla[$i];
+            $sumgt = $sumgt + $calls[$i];
+            $to->tsumgt[$i] = $to->tsumgt[$i] + $calls[$i];
             if ($i < 16) {
-                $sumgt1 = $sumgt1 + $tlla[$i];
-                $to->tsumgt1[$i] = $to->tsumgt1[$i] + $tlla[$i];
+                $sumgt1 = $sumgt1 + $calls[$i];
+                $to->tsumgt1[$i] = $to->tsumgt1[$i] + $calls[$i];
             }
             if ($i > 15) {
-                $sumgt2 = $sumgt2 + $tlla[$i];
-                $to->tsumgt2[$i] = $to->tsumgt2[$i] + $tlla[$i];
+                $sumgt2 = $sumgt2 + $calls[$i];
+                $to->tsumgt2[$i] = $to->tsumgt2[$i] + $calls[$i];
             }
             ?>
         <?php }
@@ -144,14 +145,14 @@
         for ($i = 1; $i <= $dhoy; $i++) {
             ?>
             <td class="light<?php
-            if ($lla[$i] == 0) {
+            if ($accounts[$i] == 0) {
                 echo ' zeros';
             }
             ?>">
-                <?php echo $lla[$i]; ?></td>
+                <?php echo $accounts[$i]; ?></td>
             <?php
-            $sumg = $sumg + $lla[$i];
-            $to->tsumg[$i] = $to->tsumg[$i] + $lla[$i];
+            $sumg = $sumg + $accounts[$i];
+            $to->tsumg[$i] = $to->tsumg[$i] + $accounts[$i];
             ?>
         <?php }
         ?>
@@ -164,15 +165,15 @@
         for ($i = 1; $i <= $dhoy; $i++) {
             ?>
             <td class="light<?php
-            if ($prom[$i] == 0) {
+            if ($promises[$i] == 0) {
                 echo ' zeros';
             }
             ?>">
-                <a href='<?php echo strtolower('pdh.php?capt=' . $capt . '&i=' . $prom[$i] . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
-                    <?php echo $prom[$i]; ?></a></td>
+                <a href='<?php echo strtolower('pdh.php?capt=' . $capt . '&i=' . $promises[$i] . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
+                    <?php echo $promises[$i]; ?></a></td>
             <?php
-            $sumpp = $sumpp + $prom[$i];
-            $to->tsumpp[$i] = $to->tsumpp[$i] + $prom[$i];
+            $sumpp = $sumpp + $promises[$i];
+            $to->tsumpp[$i] = $to->tsumpp[$i] + $promises[$i];
             ?>
         <?php }
         ?>
@@ -185,13 +186,13 @@
         for ($i = 1; $i <= $dhoy; $i++) {
             ?>
             <td class="light<?php
-            if ($pag[$i] == 0) {
+            if ($payments[$i] == 0) {
                 echo ' zeros';
             }
-            ?>"><?php echo $pag[$i]; ?></td>
+            ?>"><?php echo $payments[$i]; ?></td>
             <?php
-            $sump = $sump + $pag[$i];
-            $to->tsump[$i] = $to->tsump[$i] + $pag[$i];
+            $sump = $sump + $payments[$i];
+            $to->tsump[$i] = $to->tsump[$i] + $payments[$i];
             ?>
         <?php }
         ?>
@@ -203,10 +204,10 @@
         $sumw = 0;
         for ($i = 1; $i <= $dhoy; $i++) {
             $work = 0;
-            if ($tlla[$i] > 5) {
+            if ($calls[$i] > 5) {
                 $work = 0.5;
             }
-            if ($tlla[$i] > 9) {
+            if ($calls[$i] > 9) {
                 $work = 1;
             }
             ?>

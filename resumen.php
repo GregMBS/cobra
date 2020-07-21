@@ -22,14 +22,13 @@ function highhist($stat, $visit) {
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenClass.php';
-$pdoc = new PdoClass();
-/* @var $pdo PDO */
-$pdo = $pdoc->dbConnectUser();
-$con = $pdoc->dbConnectUserMysqli();
+$pc = new PdoClass();
+$pdo = $pc->dbConnectUser();
+$con = $pc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
 $rc = new ResumenClass($pdo);
-$capt = $pdoc->capt;
-$mytipo = $pdoc->tipo;
+$capt = $pc->capt;
+$mytipo = $pc->tipo;
 $tcapt = $capt;
 $C_CVGE = $capt;
 $flag = 0;

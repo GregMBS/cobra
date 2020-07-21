@@ -8,10 +8,8 @@
 
 namespace cobra_salsa;
 
-use Box\Spout\Common\Exception\InvalidArgumentException;
-use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
-use Box\Spout\Writer\Exception\WriterNotOpenedException;
+use Exception;
 
 require_once 'vendor/autoload.php';
 
@@ -20,23 +18,27 @@ require_once 'vendor/autoload.php';
  *
  * @author gmbs
  */
-class OutputClass {
+class OutputClass
+{
 
     /**
      * @param string $filename
      * @param array $array
      * @param array $headers
-     * @throws IOException
-     * @throws InvalidArgumentException
-     * @throws WriterNotOpenedException
+     * @throws Exception
      */
-    public function writeCSVFile($filename, $array, $headers) {
-        $writer = WriterEntityFactory::createCSVWriter(); // for CSV files
-        $writer->openToBrowser($filename); // stream data directly to the browser
-        $row = WriterEntityFactory::createRowFromArray($headers);
-        $writer->addRow($row);
-        $writer->addRows($array); // add multiple rows at a time
-        $writer->close();
+    public function writeCSVFile($filename, $array, $headers)
+    {
+        try {
+            $writer = WriterEntityFactory::createCSVWriter(); // for CSV files
+            $writer->openToBrowser($filename); // stream data directly to the browser
+            $row = WriterEntityFactory::createRowFromArray($headers);
+            $writer->addRow($row);
+            $writer->addRows($array); // add multiple rows at a time
+            $writer->close();
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
     }
 
     /**
@@ -44,19 +46,22 @@ class OutputClass {
      * @param $filename
      * @param array $array
      * @param array $headers
-     * @throws IOException
-     * @throws InvalidArgumentException
-     * @throws WriterNotOpenedException
+     * @throws Exception
      */
-    public function writeXLSXFile($filename, $array, $headers = []) {
-        $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
-        $writer->openToBrowser($filename); // stream data directly to the browser
-        if (count($headers) > 0) {
-            $row = WriterEntityFactory::createRowFromArray($headers);
-            $writer->addRow($row);
+    public function writeXLSXFile($filename, $array, $headers = [])
+    {
+        try {
+            $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
+            $writer->openToBrowser($filename); // stream data directly to the browser
+            if (count($headers) > 0) {
+                $row = WriterEntityFactory::createRowFromArray($headers);
+                $writer->addRow($row);
+            }
+            $writer->addRows($array); // add multiple rows at a time
+            $writer->close();
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
-        $writer->addRows($array); // add multiple rows at a time
-        $writer->close();
     }
 
 }

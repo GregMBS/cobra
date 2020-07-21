@@ -42,6 +42,7 @@ where status_de_credito not regexp '-' and numero_de_cuenta=:cta";
     /**
      *
      * @param array $data
+     * @param string $query
      * @return int
      */
     private function runProcess($data, $query)

@@ -3,9 +3,8 @@ use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
 
-$pdoc = new PdoClass();
-/* @var $pdo PDO */
-$pdo = $pdoc->dbConnectNobody();
+$pc = new PdoClass();
+$pdo = $pc->dbConnectNobody();
 $ticket = filter_input(INPUT_COOKIE, 'auth');
 $querycheck="SELECT gestor,nombres.tipo FROM nombres,userlog 
 WHERE ticket = :ticket 

@@ -19,8 +19,7 @@ function last_business_day($year, $month)
         $lbday--;
     }
 
-    $lbd = date("Y-m-d", strtotime("$year-$month-$lbday"));
-    return $lbd;
+    return date("Y-m-d", strtotime("$year-$month-$lbday"));
 }
 
 $lm = strtotime("-1 month");

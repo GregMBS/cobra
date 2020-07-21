@@ -3,10 +3,9 @@
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
-$pdoc = new PdoClass();
-/* @var $pdo PDO */
-$pdo = $pdoc->dbConnectUser();
-$capt = $pdoc->capt;
+$pc = new PdoClass();
+$pdo = $pc->dbConnectUser();
+$capt = $pc->capt;
 $cuenta = filter_input(INPUT_POST, 'cuenta');
 $cliente = filter_input(INPUT_POST, 'cliente');
 $query = "SELECT id_cuenta FROM resumen 

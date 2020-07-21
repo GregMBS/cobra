@@ -10,7 +10,11 @@ $result = $mc->getMsglist();
 
 if ($result) {
     foreach ($result as $row) {
-        $calls = $mc->getCalls($row);
+        try {
+            $calls = $mc->getCalls($row);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
         foreach ($calls as $call) {
             $output[] = $mc->getMiltOutput($call);
         }
