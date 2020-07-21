@@ -5,8 +5,8 @@ use cobra_salsa\ActivarClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/ActivarClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pc = new PdoClass();
+$pdo = $pc->dbConnectAdmin();
 $ac = new ActivarClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go = filter_input(INPUT_POST, 'go');

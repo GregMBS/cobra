@@ -63,7 +63,7 @@ class BigInputObject extends DateClass {
      *
      * @var string
      */
-    public $maxDateGest = '2020-12-31';
+    public $maxDateGestion = '2020-12-31';
 
     /**
      *
@@ -84,9 +84,9 @@ class BigInputObject extends DateClass {
     public function __construct(
     $fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo = ""
     ) {
-        $this->maxDateGest = date("Y-m-d");
+        $this->maxDateGestion = date("Y-m-d");
         $this->fecha1 = $this->fixDate($fecha1, $this->minDate);
-        $this->fecha2 = $this->fixDate($fecha2, $this->maxDateGest);
+        $this->fecha2 = $this->fixDate($fecha2, $this->maxDateGestion);
         $this->fecha3 = $this->fixDate($fecha3, $this->minDate);
         $this->fecha4 = $this->fixDate($fecha4, $this->maxDateProm);
         $this->gestor = $gestor;
@@ -213,22 +213,16 @@ class BigInputObject extends DateClass {
     private function getTipoStr() {
         switch ($this->tipo) {
             case 'visits':
-                $tipostr = " and c_visit <> '' and c_msge is null ";
-                break;
+                return " and c_visit <> '' and c_msge is null ";
             case 'telef':
-                $tipostr = " and c_visit IS NULL and c_msge is null ";
-                break;
+                return " and c_visit IS NULL and c_msge is null ";
             case 'admin':
-                $tipostr = " and c_msge <> '' ";
-                break;
+                return " and c_msge <> '' ";
             case 'noadmin':
-                $tipostr = " and c_msge IS NULL ";
-                break;
+                return " and c_msge IS NULL ";
             default :
-                $tipostr = " ";
-                break;
+                return " ";
         }
-        return $tipostr;
     }
 
 }

@@ -150,10 +150,6 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
                 color: black;
             }
 
-            .hidebox {
-                display: none
-            }
-
             div {
                 clear: both
             }
@@ -169,7 +165,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
                 background-color: white;
             }
 
-            th, .heavy {
+            th {
                 font-weight: bold;
             }
 
@@ -205,14 +201,6 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
                 width: auto;
             }
 
-            .deudor {
-                color: red;
-            }
-
-            .visit {
-                color: green;
-            }
-
             #ahora td {
                 font-size: 85%
             }
@@ -226,15 +214,13 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
             ul.tabs li {
                 float: left;
                 padding: 0;
-                margin: 0;
-                padding-top: 0;
                 background: url(tab_right.png) no-repeat right top;
-                margin-right: 1px;
+                margin: 0 1px 0 0;
             }
 
             ul.tabs li a {
                 display: block;
-                padding: 0px 10px;
+                padding: 0 10px;
                 color: white;
                 text-decoration: none;
                 background: url(tab_left.png) no-repeat left top;
@@ -244,37 +230,9 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
                 color: yellow;
             }
 
-            th, .heavy {
+            th {
                 font-weight: bold;
                 font-size: 10pt;
-            }
-
-            .light {
-                text-align: right;
-            }
-
-            .rightnow {
-                background-color: orange;
-            }
-
-            .callcenter {
-                background-color: white;
-            }
-
-            .admin {
-                background-color: gray;
-            }
-
-            .late {
-                background-color: yellow;
-                font-weight: bold;
-                text-decoration: blink;
-            }
-
-            .verylate, .lazy {
-                background-color: red;
-                font-weight: bold;
-                text-decoration: blink;
             }
         </style>
         <script type="text/javascript" src="js/external/dom-drag.js"></script>

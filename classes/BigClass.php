@@ -122,7 +122,7 @@ join pagos on numero_de_cuenta=pagos.cuenta and c_cvba=pagos.cliente
 where (n_prom>0 or n_prom is null)
 and pagos.fecha between :fecha1 and :fecha2
 ";
-        $this->queryBack = "and status_de_credito not like '%tivo' and c_cniv is null
+        $this->queryBack = "and status_de_credito not regexp '-' and c_cniv is null
 group by resumen.id_cuenta ORDER BY d_fech,c_hrin";
         return $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
     }
@@ -171,7 +171,7 @@ join dictamenes on status_aarsa=dictamen
 where d_fech between :fecha1 and :fecha2
 ";
 
-        $this->queryBack = "and status_de_credito not like '%tivo'
+        $this->queryBack = "and status_de_credito not regexp '-'
 ORDER BY d_fech,c_hrin";
         return $this->getHistoria($fecha1, $fecha2, $gestor, $cliente);
     }

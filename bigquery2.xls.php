@@ -116,7 +116,7 @@ ORDER BY d_fech,c_hrin
             <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
             <form action="bigquery2.xls.php" method="get" name="queryparms">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                <p>Gestor: <?php
+                <label>Gestor: <?php
                     if (isset($gestor)) {
                         echo $gestor;
                     }
@@ -138,9 +138,9 @@ ORDER BY d_fech,c_hrin
                         <?php }
                         ?>
                     </select>
-                </p>
+                </label>
                 <h2>Cliente:</h2>
-                <p><?php
+                <label><?php
                     if (isset($cliente)) {
                         echo $cliente;
                     }
@@ -158,8 +158,8 @@ ORDER BY d_fech,c_hrin
                         <?php echo $answerc['c_cvba']; ?><br>
                     <?php }
                     ?>
-                </p>
-                <p>HECHO de:
+                </label>
+                <label>HECHO de:
                     <?php
                     if (isset($fecha1)) {
                         echo $fecha1;
@@ -195,7 +195,7 @@ ORDER BY d_fech,c_hrin
                                 <?php echo $answerf2[0]; ?></option>
                         <?php } ?>
                     </select>
-                </p>
+                </label>
                 <label for='visits'>Visitas</label>
                 <input type='radio' name='tipo' id='visits' value='visits' /><br>
                 <label for='telef'>Telefonica</label>
