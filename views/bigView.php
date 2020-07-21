@@ -1,7 +1,12 @@
+<?php
+/**
+ * @var string $title
+ */
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Query de las Promesas/Propuestas</title>
+        <title><?php echo $title; ?></title>
         <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" />
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
@@ -9,10 +14,10 @@
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php 
         echo $capt;
-        ?>'">Regressar a la plantilla administrativa</button><br>
+        ?>'">Regresar a la plantilla administrativa</button><br>
         <form action="/bigproms.php" method="get" name="queryparms">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
-            <p>Gestor: <?php
+            <label>Gestor: <?php
 if (isset($gestor)) {
     echo $gestor;
 }
@@ -28,8 +33,8 @@ foreach ($resultg as $answerg) {
 }
                     ?>
                 </select>
-            </p>
-            <p>Cliente:
+            </label>
+            <label>Cliente:
                 <select name="cliente">
                     <option value="todos" style="font-size:120%;">todos</option>
                     <?php
@@ -41,8 +46,8 @@ foreach ($resultc as $answerc) {
 }
                     ?>
                 </select>
-            </p>
-            <p>HECHO de:
+            </label>
+            <label>HECHO de:
                 <?php
 if (isset($fecha1)) {
     echo $fecha1;
@@ -51,19 +56,19 @@ if (isset($fecha1)) {
                 <input name="fecha1" id="fecha1" readonly="readonly" />
                 a:
                 <input name="fecha2" id="fecha2" readonly="readonly" />
-            </p>
-            <p>VENCIDO de:
+            </label>
+            <label>VENCIDO de:
                 <input name="fecha3" id="fecha3" readonly="readonly" />
                 a:
                 <input name="fecha4" id="fecha4" readonly="readonly" />
-            </p>
+            </label>
             <label for='visits'>Visitas</label>
             <input type='radio' name='tipo' id='visits' value='visits' /><br>
-            <label for='telef'>Telefonica</label>
+            <label for='telef'>Telefónica</label>
             <input type='radio' name='tipo' id='telef' value='telef' /><br>
             <label for='todos'>Todos</label>
             <input type='radio' name='tipo' id='todos' value='todos' /><br>
-            <input type='submit' name='go' value='Query Prom'>
+            <input type='submit' name='go' value='Query'>
         </form>
         <script src="/js/datepicker_mx.js" type="text/javascript"></script>
         <script>

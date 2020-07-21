@@ -24,7 +24,7 @@
                     #visitboxt,#visitbox {display:block;}
                 <?php } ?>
             </style>
-            <script type="text/javascript" src="../js/dom-drag.js"></script>
+            <script type="text/javascript" src="../js/external/dom-drag.js"></script>
             <script src="/js/resumen.js"></script>
             <SCRIPT TYPE="text/JavaScript">
                 <?php
@@ -38,7 +38,6 @@
             </SCRIPT>
             <script type="text/javascript" src="../js/depuracion.js"></script>
             <script type="text/javascript" src="../js/depuracionv.js"></script>
-            <SCRIPT TYPE="text/JavaScript" SRC="../js/CalendarPopup.js"></SCRIPT>
         </head>
         <body id="todos">
             <div id="buttonbox">
@@ -228,7 +227,7 @@
             <form action="../resumen.php" method="post" name="resumenform" id=
                   "resumenform">
                 <div id="GENERAL">
-                    <table summary="demograficas">
+                    <table>
                         <tr>
                             <td>
                                 <span class='formcapa' id='deudor'>Deudor</span><input type='text' size=80 style='width:12cm' name=nombre_deudor id="nombre_deudor" readonly='readonly' value='<?php
@@ -610,7 +609,7 @@
                 </div>
                 <br>
                 <div id="EXTRAS">
-                    <table summary="sdh extras">
+                    <table>
                         <tr>
                             <th>Cliente</th>
                             <th>Segmento</th>
@@ -637,7 +636,7 @@
                 </div>
 
                 <div id="CONTABLES">
-                    <table summary="contables">
+                    <table>
                         <tr>
                             <td>Numero de credito</td>
                             <td><input type='text' name=numero_de_credito readonly='readonly' value='<?php
@@ -926,7 +925,8 @@
                       } else {
                           echo 0;
                       }
-                      ?>, ' ');this.disabled = true;">
+                      ?>, ' ');
+                      ">
                     <div class="noshow">
                         <input type="text" name="error" readonly="readonly" value="1" ><br>
                         <input type="text" name="C_HRFI" readonly="readonly" value="<?php
@@ -1205,16 +1205,7 @@
                     </select>
                     <br>
                     <span class="formcap">Fecha:</span>
-                    <SCRIPT type="text/javascript">
-                        var cal6 = new CalendarPopup();
-                        cal6.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                        cal6.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                        cal6.setWeekStartDay(1);
-                        cal6.setTodayText("Hoy");
-                    </SCRIPT>
-                    <INPUT TYPE="text" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>" SIZE=15>
-                    <BUTTON onClick="cal6.select(document.getElementById('C_VD'), 'anchor6', 'yyyy-MM-dd');
-                            return false;" NAME="anchor6" ID="anchor6">eligir</BUTTON>
+                    <INPUT TYPE="date" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>" SIZE=15>
                     <br>
                     <span class="formcap" id="pcap">Parentesco/Cargo</span>
                     <select name="C_CARG">
@@ -1266,31 +1257,13 @@
                     <table>
                         <tr>
                             <td> <span class="formcap">Fecha promesa</span>
-                                <SCRIPT type="text/javascript">
-                                    var cal7 = new CalendarPopup();
-                                    cal7.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal7.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal7.setWeekStartDay(1);
-                                    cal7.setTodayText("Hoy");
-                                </SCRIPT>
-                                <INPUT TYPE="text" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15>
-                                <BUTTON onClick="cal7.select(document.getElementById('D_PROMv'), 'anchor7', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor7" ID="anchor7">eligir</BUTTON>
+                                <INPUT TYPE="date" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15>
                                 <br>
                                 <span class="formcap">Cantidad de pago prometido</span>
                                 $<input type="text" name="N_PROMv" value=""><br>
                             </td>
                             <td id='pagocaptv'> <span class="formcap">Fecha ya pag&oacute;</span>
-                                <SCRIPT type="text/javascript">
-                                    var cal8 = new CalendarPopup();
-                                    cal8.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal8.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal8.setWeekStartDay(1);
-                                    cal8.setTodayText("Hoy");
-                                </SCRIPT>
-                                <INPUT TYPE="text" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15>
-                                <BUTTON onClick="cal8.select(document.getElementById('D_PAGOv'), 'anchor8', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor8" ID="anchor8">eligir</BUTTON>
+                                <INPUT TYPE="date" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15>
                                 <br>
                                 <span class="formcap">Cantidad de ya pag&oacute;</span>
                                 $<input type="text" name="N_PAGOv" value=""><br>
@@ -1335,8 +1308,7 @@
             <!--</div>-->
 
             <div id="HISTORIA">
-                <table summary="historiahead" border='0' cellpadding='0' cellspacing=
-                       '0' width='100%' id="historyhead">
+                <table class="special" id="historyhead">
                     <tr>
                         <?php
                         $fieldnames = array("Status", "Fecha/Hora", "Gestor",
@@ -1358,8 +1330,7 @@
                 if (!empty($rowsub)) {
                     ?>
                     <div id='tableContainer' class='tableContainer'>
-                        <table summary="historia" border='0' cellpadding='0' cellspacing=
-                               '0' width='100%' id='historybody'>
+                        <table class="special" id='historybody'>
                             <tbody class="scrollContent">
                                 <?php
                                 $j = 0;
@@ -1630,22 +1601,10 @@
                                 ?>"></td>
                         </tr>
                         <tr>
-                            <td>Fecha promesa unico o 1o
-                                <SCRIPT type="text/javascript">
-                                    var cal4 = new CalendarPopup();
-                                    var yesterday = new Date();
-                                    var twoMonths = new Date();
-                                    yesterday.setDate(yesterday.getDate() - 1);
-                                    twoMonths.setDate(twoMonths.getDate() + 61);
-                                    cal4.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal4.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal4.setWeekStartDay(1);
-                                    cal4.setTodayText("Hoy");
-                                    cal4.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal4.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
-                                </SCRIPT></td>
-                            <td><INPUT TYPE="text" NAME="D_PROM1" ID="D_PROM1" VALUE="" SIZE=15> <BUTTON onClick="cal4.select(document.getElementById('D_PROM1'), 'anchor4', 'yyyy-MM-dd');
-                                    return false;" NAME="anchor4" ID="anchor4">eligir</BUTTON></td>
+                            <td>Fecha promesa unico o 1o</td>
+                            <td><INPUT TYPE="date" NAME="D_PROM1" ID="D_PROM1" VALUE="" SIZE=15
+                                       min="<?php echo date('Y-m-d'); ?>>"
+                                       max="<?php echo date('Y-m-d', strtotime("+2 weeks")); ?>"></td>
                             <td><input type="text" name="D_PROM1_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
                                 if (isset($D_PROM1_OLD)) {
                                     echo $D_PROM1_OLD;
@@ -1662,24 +1621,11 @@
                                 ?>"><br>
                         </tr>
                         <tr>
-                            <td>Fecha promesa 2o
-                                <SCRIPT type="text/javascript">
-                                    var cal5 = new CalendarPopup();
-                                    var yesterday = new Date();
-                                    var twoMonths = new Date();
-                                    yesterday.setDate(yesterday.getDate() - 1);
-                                    twoMonths.setDate(twoMonths.getDate() + 61);
-                                    cal5.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal5.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal5.setWeekStartDay(1);
-                                    cal5.setTodayText("Hoy");
-                                    cal5.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
-                                </SCRIPT>
+                            <td>Fecha promesa 2o</td>
+                            <td><INPUT TYPE="date" NAME="D_PROM2" ID="D_PROM2" VALUE="" SIZE=15
+                                       min="<?php echo date('Y-m-d'); ?>>"
+                                       max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
                             </td>
-                            <td><INPUT TYPE="text" NAME="D_PROM2" ID="D_PROM2" VALUE="" SIZE=15> 
-                                <BUTTON onClick="cal5.select(document.getElementById('D_PROM2'), 'anchor5', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5" ID="anchor5">eligir</BUTTON></td>
                             <td><input type="text" name="D_PROM2_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
                                 if (isset($D_PROM2_OLD)) {
                                     echo $D_PROM2_OLD;
@@ -1697,23 +1643,11 @@
                         </tr>
                         <tr>
                             <td>Fecha promesa 3o
-                                <SCRIPT type="text/javascript">
-                                    var cal5c = new CalendarPopup();
-                                    var yesterday = new Date();
-                                    var twoMonths = new Date();
-                                    yesterday.setDate(yesterday.getDate() - 1);
-                                    twoMonths.setDate(twoMonths.getDate() + 61);
-                                    cal5c.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal5c.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal5c.setWeekStartDay(1);
-                                    cal5c.setTodayText("Hoy");
-                                    cal5c.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5c.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
-                                </SCRIPT>
                             </td>
-                            <td><INPUT TYPE="text" NAME="D_PROM3" ID="D_PROM3" VALUE="" SIZE=15> 
-                                <BUTTON onClick="cal5c.select(document.getElementById('D_PROM3'), 'anchor5c', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5c" ID="anchor5c">eligir</BUTTON></td>
+                            <td><INPUT TYPE="date" NAME="D_PROM3" ID="D_PROM3" VALUE="" SIZE=15
+                                       min="<?php echo date('Y-m-d'); ?>>"
+                                       max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
+                            </td>
                             <td><input type="text" name="D_PROM3_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
                                 if (isset($D_PROM3_OLD)) {
                                     echo $D_PROM3_OLD;
@@ -1730,24 +1664,11 @@
                                 ?>"><br>
                         </tr>
                         <tr>
-                            <td>Fecha promesa 4o
-                                <SCRIPT type="text/javascript">
-                                    var cal5d = new CalendarPopup();
-                                    var yesterday = new Date();
-                                    var twoMonths = new Date();
-                                    yesterday.setDate(yesterday.getDate() - 1);
-                                    twoMonths.setDate(twoMonths.getDate() + 61);
-                                    cal5d.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal5d.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal5d.setWeekStartDay(1);
-                                    cal5d.setTodayText("Hoy");
-                                    cal5d.addDisabledDates(null, formatDate(yesterday, "yyyy-MM-dd"));
-                                    cal5d.addDisabledDates(formatDate(twoMonths, "yyyy-MM-dd"), null);
-                                </SCRIPT>
+                            <td>Fecha promesa 4o</td>
+                            <td><INPUT TYPE="date" NAME="D_PROM4" ID="D_PROM4" VALUE="" SIZE=15
+                                       min="<?php echo date('Y-m-d'); ?>>"
+                                       max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
                             </td>
-                            <td><INPUT TYPE="text" NAME="D_PROM4" ID="D_PROM4" VALUE="" SIZE=15> 
-                                <BUTTON onClick="cal5d.select(document.getElementById('D_PROM4'), 'anchor5d', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor5d" ID="anchor5d">eligir</BUTTON></td>
                             <td><input type="text" name="D_PROM4_OLD" style="background-color:#c0c0c0;" readonly="readonly" value="<?php
                                 if (isset($D_PROM4_OLD)) {
                                     echo $D_PROM4_OLD;
@@ -1781,20 +1702,10 @@
                             <td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
                         </tr>
                         <tr id="pagocapt2">
-                            <td>Fecha Pag&oacute;
-                                <SCRIPT type="text/javascript">
-                                    var cal9 = new CalendarPopup();
-                                    var tomorrow = new Date();
-                                    tomorrow.setDate(tomorrow.getDate() + 1);
-                                    cal9.setMonthNames('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
-                                    cal9.setDayHeaders('Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa');
-                                    cal9.setWeekStartDay(1);
-                                    cal9.setTodayText("Hoy");
-                                    cal9.addDisabledDates(formatDate(tomorrow, "yyyy-MM-dd"), null);
-                                </SCRIPT></td>
-                            <td><INPUT TYPE="text" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15> 
-                                <BUTTON onClick="cal9.select(document.getElementById('D_PAGOi'), 'anchor9', 'yyyy-MM-dd');
-                                        return false;" NAME="anchor9" ID="anchor9">eligir</BUTTON></td>
+                            <td>Fecha Pag&oacute;</td>
+                            <td><INPUT TYPE="date" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15
+                                       min="<?php echo date('Y-m-d'); ?>>">
+                            </td>
                         </tr>
                         <tr>
                             <td colspan=2>Actualizaci&oacute;n de Datos</td>

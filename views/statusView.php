@@ -11,7 +11,7 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-        <table summary="Processlist" class="ui-widget">
+        <table class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
                     <th>ID</th>
@@ -62,7 +62,7 @@
                 <?php } ?>
             </tbody>
         </table>
-        <table summary="Processlist" class="ui-widget">
+        <table class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
                     <th>Table</th>

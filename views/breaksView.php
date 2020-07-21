@@ -19,7 +19,7 @@
     </head>
     <body>
         <button onclick="window.location = 'index.php'">LOGIN</button><br>
-        <table summary="Breaks">
+        <table>
             <thead>
                 <tr>
                     <th>Gestor</th>

@@ -344,3 +344,10 @@ ul.tabs li a {
 ul.tabs li a:hover {
     color: #ff0;
 }
+
+table.special {
+    border: 0;
+    padding: 0;
+    border-collapse: collapse;
+    width: 100%
+}

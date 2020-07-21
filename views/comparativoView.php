@@ -27,7 +27,7 @@
         <button onClick="window.location = 'reports.php?capt=<?php 
         echo $capt;
         ?>'">Regresar al administraci&oacute;n</button>
-        <table summary="Cuentas" id='buscartab' class='ui-widget'>
+        <table id='buscartab' class='ui-widget'>
             <thead class='ui-widget-header'>
                 <tr>
                     <th>CLIENTE</th>

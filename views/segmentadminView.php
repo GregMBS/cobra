@@ -11,7 +11,7 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-        <table summary="Segmentos" class="ui-widget">
+        <table class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
                     <th>CLIENTE</th>
@@ -67,12 +67,11 @@
                 </tr>
             </tbody>
         </table>
-        <p>
+        <br>
         <form class="gestoradd" name="gestoradd" method="get" action=
               "/segmentadmin.php" id="gestoradd">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <input type="submit" name="go" value="AGREGARALL">
         </form>
-    </p>
 </body>
 </html> 

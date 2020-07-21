@@ -7,6 +7,18 @@ function trim(str)
 
     return str.replace(/^[\s]+/, '').replace(/[\s]+$/, '').replace(/[\s]{2,}/, ' ');
 }
+
+/**
+ *
+ * @param value
+ * @returns {boolean}
+ */
+function notJustNumbers(value)
+{
+    const test = (value.toString()).match(/[0-9.]/);
+    return !test;
+}
+
 function stopEvent(e) {
     if (e.stopPropagation) {
         e.stopPropagation();
@@ -39,36 +51,24 @@ function validate_date(f)
     }
 }
 
-function validate_form(tf, evt, minprom, authorized, at)
+function validate_form(tf, evt, minprom, authorized)
 {
 
 //initialize 
-    var alertstr = ' ';
-    var alerttxt = ' ';
-    var flag = 0;
-    var aflag = 0;
-    var npa = 0;
-    var n1 = 0;
-    var n2 = 0;
-    var n3 = 0;
-    var n4 = 0;
-    var np = 0;
-    var npo = 0;
-    var st = 1000000;
-    np = parseFloat(tf.N_PROM1.value) + parseFloat(tf.N_PROM2.value);
-    var cvt = "";
-    var ccn = " ";
-    var cnt = "";
-    var co2 = "";
-    var cargo = "";
-    var cuando = "";
-    var dp1 = "0000-00-00";
-    var dp2 = "0000-00-00";
-    var dp3 = "0000-00-00";
-    var dp4 = "0000-00-00";
-    var dpo = "0000-00-00";
-    var dpago = "0000-00-00";
-    var minprom2 = minprom * 0.95;
+    let flag = 0;
+    let npa = 0;
+    let n1 = 0;
+    let n2 = 0;
+    let n3 = 0;
+    let n4 = 0;
+    let st = 1000000;
+    let ccn = " ";
+    let cnt = "";
+    let co2 = "";
+    let cuando = "";
+    let dp1 = "0000-00-00";
+    let dp2 = "0000-00-00";
+    let dpago = "0000-00-00";
 
 //actual sum de promesa
     if (typeof (tf.saldo_total) !== "undefined")
@@ -96,10 +96,6 @@ function validate_form(tf, evt, minprom, authorized, at)
         n4 = parseFloat(tf.N_PROM4.value);
     }
     np = n1 + n2 + n3 + n4;
-    if (typeof (tf.N_PROM_OLD) !== "undefined")
-    {
-        npo = parseFloat(tf.N_PROM_OLD.value);
-    }
     if (typeof (tf.C_CVST) !== "undefined")
     {
         cvt = trim(tf.C_CVST.value);
@@ -122,10 +118,6 @@ function validate_form(tf, evt, minprom, authorized, at)
     {
         cuando = tf.CUANDO.value;
     }
-    if (typeof (tf.C_CARG.value) !== "undefined")
-    {
-        cargo = tf.C_CARG.value;
-    }
     if (typeof (tf.D_PROM1.value) !== "undefined")
     {
         dp1 = tf.D_PROM1.value;
@@ -133,18 +125,6 @@ function validate_form(tf, evt, minprom, authorized, at)
     if (typeof (tf.D_PROM2.value) !== "undefined")
     {
         dp2 = tf.D_PROM2.value;
-    }
-    if (typeof (tf.D_PROM3.value) !== "undefined")
-    {
-        dp3 = tf.D_PROM3.value;
-    }
-    if (typeof (tf.D_PROM4.value) !== "undefined")
-    {
-        dp4 = tf.D_PROM4.value;
-    }
-    if (typeof (tf.D_PROM1_OLD.value) !== "undefined")
-    {
-        dpo = tf.D_PROM1_OLD.value;
     }
     if (typeof (tf.D_PAGO.value) !== "undefined")
     {
@@ -161,7 +141,7 @@ function validate_form(tf, evt, minprom, authorized, at)
         }
         if ((n1 > 0)) {
 //wrong status for promise
-            var promStat = ["PROMESA DE PAGO PARCIAL", "PROMESA DE PAGO TOTAL", "CONFIRMA PROMESA"];
+            let promStat = ["PROMESA DE PAGO PARCIAL", "PROMESA DE PAGO TOTAL", "CONFIRMA PROMESA"];
             if (promStat.indexOf(cvt) === -1)
             {
                 tf.D_PROM1.style.backgroundColor = "yellow";
@@ -192,7 +172,7 @@ function validate_form(tf, evt, minprom, authorized, at)
         }
     }
     catch (err) {
-        var n1txt = "Error en nprom1";
+        let n1txt = "Error en nprom1";
         alert(n1txt);
         flag = 1;
     }
@@ -245,7 +225,7 @@ function validate_form(tf, evt, minprom, authorized, at)
         }
     }
     catch (err) {
-        var n2txt = "Error en nprom2";
+        let n2txt = "Error en nprom2";
         alert(n2txt);
         flag = 1;
     }
@@ -306,7 +286,7 @@ function validate_form(tf, evt, minprom, authorized, at)
         }
     }
     catch (err) {
-        var basictxt = "Error en basics";
+        let basictxt = "Error en basics";
         alert(basictxt);
         flag = 1;
     }
@@ -357,7 +337,7 @@ function validate_form(tf, evt, minprom, authorized, at)
         tf.C_OBSE1.style.backgroundColor = "yellow";
         flag = 1;
     }
-    if (cvt !== null) {
+    if (cvt !== 'null') {
 //CONFIRMA PROMESA requires PROMESA and cargo/parentesco
         if (cvt.substr(0, 8) === "CONFIRMA")
         {
@@ -608,14 +588,14 @@ function validate_form(tf, evt, minprom, authorized, at)
     }
     try {
 // If you have contact, need best time
-        var cuandoMatchListStr = "CONFIRMA PROMESA|" +
+        let cuandoMatchListStr = "CONFIRMA PROMESA|" +
                 'MENSAJE CON FAMILIAR|PAGANDO CONVENIO|MENSAJE CON TERCERO|CLIENTE NEGOCIANDO|' +
                 'PROMESA DE PAGO TOTAL|' +
                 'PROMESA DE PAGO PARCIAL|' +
                 'PROPUESTA DE PAGO|' +
                 'NEGATIVA DE PAGO|' +
                 'MENSAJE CON EMPLEADO';
-        var cargoMatchList = new RegExp(cuandoMatchListStr);
+        let cargoMatchList = new RegExp(cuandoMatchListStr);
         if (cvt.match(cargoMatchList)) {
             if (cuando.length === 0) {
                 alerttxt = alerttxt + 'Contacto requiere LOCALIZABLE';
@@ -629,37 +609,26 @@ function validate_form(tf, evt, minprom, authorized, at)
     }
 
 //monto de promesa can only have numbers and one decimal point.
-    if ((n1.toString()).match(/[0-9.]/)) {
-        flag = flag + 0;
-    } else
-    {
+    if (notJustNumbers(n1)) {
         alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n' + 'No puede dejar campo blanco. Usa 0.' + '\n';
         tf.N_PROM1.style.backgroundColor = "yellow";
         flag = 1;
     }
-    if ((n2.toString()).match(/[0-9.]/)) {
-        flag = flag + 0;
-    } else
-    {
+    if (notJustNumbers(n2)) {
         alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n' + 'No puede dejar campo blanco. Usa 0.' + '\n';
         tf.N_PROM2.style.backgroundColor = "yellow";
         flag = 1;
     }
 //monto de pago can only have numbers and one decimal point.
-    if ((npa.toString()).match(/[0-9.]/)) {
-        flag = flag + 0;
-    } else
-    {
+    if (notJustNumbers(npa)) {
         alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n';
         tf.N_PAGO.style.backgroundColor = "yellow";
         flag = 1;
     }
 //new telephones can only have numbers
-    if (cnt !== null) {
-        if ((cnt.toString()).match(/[0-9]/)) {
-            flag = flag + 0;
-        } else
-        {
+    if (cnt !== 'null') {
+        if (notJustNumbers(cnt))
+            {
             alerttxt = alerttxt + 'No puede usarse un separador o letras en telefonos' + '\n';
             tf.C_NTEL.style.backgroundColor = "yellow";
             flag = 1;
@@ -671,14 +640,7 @@ function validate_form(tf, evt, minprom, authorized, at)
             flag = 1;
         }
     }
-    if (co2 !== null) {
-        if ((co2.toString()).match(/[0-9]/)) {
-            flag = flag + 0;
-        }
-// else
-//  {alerttxt=alerttxt+'No puede usarse un separador o letras en telefonos'+'\n';
-//  tf.C_OBSE2.style.backgroundColor="yellow";
-//  flag=1;}
+    if (co2 !== 'null') {
         if ((co2.length !== 0) && (co2.length !== 8) && (co2.length !== 10) && (co2.length !== 13))
         {
             alerttxt = alerttxt + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
@@ -696,7 +658,6 @@ function validate_form(tf, evt, minprom, authorized, at)
             flag = 1;
         }
         if (authorized < 1) {
-            aflag = flag + 0;
             if (ccn === "PROMESA DE PAGO TOTAL")
             {
                 alerttxt = alerttxt + "Solamente un supervisor puede sobreescribido una promesa activa.";

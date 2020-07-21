@@ -13,9 +13,9 @@
     </head>
     <body>
         <form action="/cargatel.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
-            <p>Usa formato CUENTA,TELE</p>
-            <textarea name='data' rows='20' cols='50'></textarea>
-            <p>Mensaje <select name="msgtag">
+            <label>Usa formato CUENTA,TELE
+            <textarea name='data' rows='20' cols='50'></textarea></label>
+            <label>Mensaje <select name="msgtag">
                     <?php
                     foreach ($resultcl as $answercl) {
                         ?>
@@ -24,12 +24,12 @@
                         <?php }
                         ?>
                 </select>
-            </p>
+            </label>
             <input type="hidden" name="capt" value="<?php
             echo $capt
             ?>" />
             <button type="submit" name="go" value="cargar">Cargar</button>
-        </p>
+
     </form>
     <?php
     echo $msg;

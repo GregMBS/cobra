@@ -253,7 +253,7 @@ where fecha_de_ultimo_pago>last_day(curdate() - INTERVAL 31 day)
 AND monto_ultimo_pago>0 
 and not exists (select * from historia h2 
 where h2.d_fech>h1.d_fech and h2.c_cont=h1.c_cont and h2.n_prom>0) 
-and fecha_de_ultimo_pago<fecha_de_actualizacion 
+and fecha_de_ultimo_pago < fecha_de_actualizacion 
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
         $this->pdo->query($querypagoins);
@@ -435,7 +435,7 @@ where fecha_de_ultimo_pago>last_day(curdate() - INTERVAL 31 day)
 AND monto_ultimo_pago>0 
 and not exists (select * from historia h2 
 where h2.d_fech>h1.d_fech and h2.c_cont=h1.c_cont and h2.n_prom>0) 
-and fecha_de_ultimo_pago<fecha_de_actualizacion 
+and fecha_de_ultimo_pago < fecha_de_actualizacion 
 group by id_cuenta,c_cvge having fecha_de_ultimo_pago>min(d_fech)
 ";
         $con->query($querypagoins) or die($con->error);

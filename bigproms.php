@@ -45,5 +45,6 @@ if (!empty($fecha1)) {
 	$resultfd = $bc->getGestionDates('DESC');
 	$resultdp = $bc->getPromDates('ASC');
 	$resultpd = $bc->getPromDates('DESC');
-	require 'views/bigpromsView.php';
+	$title = 'Query de las Promesas/Propuestas';
+	require 'views/bigView.php';
 }

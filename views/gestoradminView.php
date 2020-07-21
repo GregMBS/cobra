@@ -12,11 +12,9 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla administrativa</button><br>
-        <table summary="Gestores" class="ui-widget">
+        <table class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
-            <form action="/gestoradmin.php" method="get" name="migoorden">
-                <input type="hidden" name="capt" value="<?php echo $capt ?>">
                 <th>Gestor</th>
                 <th>Completo</th>
                 <th>Contrase&ntilde;a</th>
@@ -37,18 +35,21 @@
                         $passw = $row['PASSW'];
                         ?>
                         <tr>
-                    <form class="gestorchange"
-                          name="gestorchange<?php echo $j; ?>"
-                          method="get"
-                          action="/gestoradmin.php"
-                          id="gestorchange<?php echo $j; ?>">
-                        <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                        <input type="hidden" name="j" value="<?php echo $j ?>">
-                        <td><input type="text" name="usuaria" readonly="readonly" value="<?php echo $usuaria; ?>" /></td>
-                        <td><input type="text" name="completo" value="<?php echo $completo; ?>" /></td>
-                        <td><input type="password" name="passw" value="<?php echo $passw; ?>" /></td>
+
+                        <td><form class="gestorchange"
+                                  name="gestorchange<?php echo $j; ?>"
+                                  method="get"
+                                  action="/gestoradmin.php"
+                                  id="gestorchange<?php echo $j; ?>">
+                                <input type="hidden" name="capt" value="<?php echo $capt ?>">
+                                <input type="hidden" name="j" value="<?php echo $j ?>">
+                                <input type="text" name="usuaria" readonly="readonly" value="<?php echo $usuaria; ?>" />
+                            </form>
+                        </td>
+                        <td><input form="gestorchange<?php echo $j; ?>" type="text" name="completo" value="<?php echo $completo; ?>" /></td>
+                        <td><input form="gestorchange<?php echo $j; ?>" type="password" name="passw" value="<?php echo $passw; ?>" /></td>
                         <td>
-                            <select name="tipo">
+                            <select form="gestorchange<?php echo $j; ?>" name="tipo">
                                 <option value=""></option>
                                 <?php
                                 foreach ($groups as $g) {
@@ -71,26 +72,26 @@
                                 <?php }
                                 ?>
                             </select></td>
-                        <td><input type="submit" name="go" value="GUARDAR">
+                        <td><input form="gestorchange<?php echo $j; ?>" type="submit" name="go" value="GUARDAR">
                         </td>
-                        <td><input type="submit" name="go" value="BORRAR">
+                        <td><input form="gestorchange<?php echo $j; ?>" type="submit" name="go" value="BORRAR">
                         </td>
-                    </form>
                     </tr>
                 <?php }
                 ?>
                 <tr>
-                <form class="gestoradd"
-                      name="gestoradd"
-                      method="get"
-                      action="/gestoradmin.php"
-                      id="gestoradd">
-                    <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                    <td><input type="text" name="usuaria"  value="" /></td>
-                    <td><input type="text" name="completo" value="" /></td>
-                    <td><input type="password" name="passw" value="" /></td>
+                <td><form class="gestoradd"
+                              name="gestoradd"
+                              method="get"
+                              action="/gestoradmin.php"
+                              id="gestoradd">
+                            <input type="hidden" name="capt" value="<?php echo $capt ?>">
+                            <input type="text" name="usuaria"  value="" />
+                    </form></td>
+                    <td><input form="gestoradd" type="text" name="completo" value="" /></td>
+                    <td><input form="gestoradd" type="password" name="passw" value="" /></td>
                     <td>
-                        <select name="tipo">
+                        <select form="gestoradd" name="tipo">
                             <option value=""></option>
                             <?php
                             foreach ($groups as $g) {
@@ -109,9 +110,8 @@
                             <?php }
                             ?>
                         </select></td>
-                    <td><input type="submit" name="go" value="AGREGAR">
+                    <td><input form="gestoradd" type="submit" name="go" value="AGREGAR">
                     </td>
-                </form>
                 </tr>
                 </tbody>
         </table>

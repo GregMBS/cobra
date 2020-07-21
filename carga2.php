@@ -78,9 +78,9 @@ if (!empty($post['go'])) {
                     echo $filename
                     ?>' />
                     <input type="hidden" name="capt" value="<?php echo $capt ?>" />
-                </p>
-                <p>
-                <table summary="Nuevo campos">
+                </form>
+
+                <table>
                     <?php
                     $querypdex = "select position from cargadex where cliente='" . $cliente . "';";
                     $resultpdex = $con->query($querypdex) or die($con->error);
@@ -100,7 +100,7 @@ if (!empty($post['go'])) {
                                         echo trim($data[$c])
                                         ?></td>
                                     <td>
-                                        <select name="pos<?php
+                                        <select form="assoc" name="pos<?php
                                         echo $c
                                         ?>">
                                             <option value='nousar<?php echo $c ?>'>no usar</option>
@@ -124,7 +124,7 @@ if (!empty($post['go'])) {
                                 <?php
                             } else {
                                 ?>
-                                <input type="hidden" value="nousar" name="pos<?php
+                                <input form="assoc" type="hidden" value="nousar" name="pos<?php
                                 echo $c
                                 ?>"/>
                                        <?php
@@ -143,11 +143,10 @@ if (!empty($post['go'])) {
                            fclose($handle);
                            ?>
                     <p>
-                        <input type="hidden" name="maxc" value="<?php echo $c ?>" />
-                        <input type="hidden" name="capt" value="<?php echo $capt ?>" />
-                        <input type="submit" name="go" value="asociar" />
+                        <input form="assoc" type="hidden" name="maxc" value="<?php echo $c ?>" />
+                        <input form="assoc" type="hidden" name="capt" value="<?php echo $capt ?>" />
+                        <input form="assoc" type="submit" name="go" value="asociar" />
                     </p>
-            </form>
             <?php
         }
 

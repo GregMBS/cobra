@@ -5,13 +5,12 @@
     </head>
     <body>
         <form action="/inactivar.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
-            <p>Usa numero de cuenta</p>
-            <textarea name='data' rows='20' cols='50'></textarea>
+            <label>Usa numero de cuenta
+            <textarea name='data' rows='20' cols='50'></textarea></label>
             <input type="hidden" name="capt" value="<?php
             echo $capt
             ?>" />
             <button type="submit" name="go" value="cargar">Cargar</button>
-        </p>
     </form>
     <?php echo $msg; ?>
     <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">

@@ -20,4 +20,3 @@
 .idea/php-test-framework.xml
 .phpunit.result.cache
 composer.lock
-views/bigqueryView.php

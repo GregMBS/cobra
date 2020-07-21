@@ -12,7 +12,7 @@
     <body>
         <div id="vtable">
             <p>Visitador: <?php echo $visitador; ?><br>
-                Autorizó por: <?php echo $capt; ?></p>
+                Autorizó por: <?php echo $capt; ?><br>
             Fecha: <?php echo date('d/m/Y'); ?></p>
         <table class="ui-widget">
             <thead class="ui-widget-header">
