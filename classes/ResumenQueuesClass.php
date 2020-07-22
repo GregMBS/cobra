@@ -129,11 +129,15 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
     public function getAccount(string $sql)
     {
         $stq = $this->pdo->prepare($sql);
-        $stq->execute();
-        $result = $stq->fetchObject(ResumenObject::class);
-        if ($result) {
-            return $result;
+        try {
+            $stq->execute();
+            $result = $stq->fetchObject(ResumenObject::class);
+            if ($result) {
+                return $result;
+            }
+            return new ResumenObject();
+        } catch (\PDOException $p) {
+            die($stq->queryString);
         }
-        return new ResumenObject();
     }
 }
