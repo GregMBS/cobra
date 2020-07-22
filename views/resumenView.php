@@ -25,14 +25,6 @@
             </style>
             <script type="text/javascript" src="../js/external/dom-drag.js"></script>
             <script src="/js/resumen.js"></script>
-            <SCRIPT TYPE="text/JavaScript">
-                openSearch('<?php echo $tl; ?>');
-                <?php
-                $pagingBase = "paging('HISTORIA', %u, '%s', '%s');";
-                $pagingString = sprintf($pagingBase, $flag, $flagmsg, $row->numero_de_cuenta);
-                echo $pagingString;
-                ?>
-            </SCRIPT>
             <script type="text/javascript" src="../js/depuracion.js"></script>
             <script type="text/javascript" src="../js/depuracionv.js"></script>
         </head>
@@ -1805,5 +1797,13 @@
                     </div>
                 </form>
             </div>
+            <SCRIPT TYPE="text/JavaScript">
+                openSearch('<?php echo $tl; ?>');
+                <?php
+                $pagingBase = "paging('HISTORIA', %u, '%s', '%s');";
+                $pagingString = sprintf($pagingBase, $flag, $flagmsg, $row->numero_de_cuenta);
+                echo $pagingString;
+                ?>
+            </SCRIPT>
         </body>
     </html> 
