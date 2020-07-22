@@ -1,5 +1,6 @@
 <?php
 
+use cobra_salsa\BuscarClass;
 use cobra_salsa\GestionClass;
 use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenClass;
@@ -13,12 +14,14 @@ require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenClass.php';
 require_once 'classes/ResumenQueuesClass.php';
+require_once 'classes/BuscarClass.php';
 $pc = new PdoClass();
 $pdo = $pc->dbConnectUser();
 $con = $pc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
 $rc = new ResumenClass($pdo);
 $qc = new ResumenQueuesClass($pdo);
+$bc = new BuscarClass($pdo);
 $capt = $pc->capt;
 $mytipo = $pc->tipo;
 $C_CVGE = $capt;
@@ -750,8 +753,7 @@ $ste->bindParam(':cliente', $cliente);
 $ste->execute();
 $resultextra = $ste->fetchAll();
 
-$querycl = "SELECT cliente FROM clientes;";
-$resultcl = $pdo->query($querycl);
+$clientes = $bc->listClients();
 
 $queryAccion = "SELECT accion FROM acciones where callcenter=1 order by accion";
 if ($mytipo == 'admin') {
