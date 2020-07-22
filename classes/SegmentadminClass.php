@@ -91,6 +91,8 @@ class SegmentadminClass {
      * @return array
      */
     public function listQueuedSegmentos() {
+        $queryDrop = "drop table if exists csdcr";
+        $this->pdo->query($queryDrop);
         $querytempr = "create temporary table csdcr
 select cliente, status_de_credito, count(id_cuenta) as cnt from resumen
 where status_de_credito not regexp '-'
@@ -103,7 +105,7 @@ group by cliente, status_de_credito";
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
     group by q.cliente,sdc
     ";
-        $stm = $this->pdo->query($query);
+        $stm = $this->pdo->prepare($query);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
