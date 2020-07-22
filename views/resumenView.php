@@ -1328,7 +1328,7 @@
                                     $timestamp = utf8_encode($answer['fecha']);
                                     $stat      = utf8_encode($answer['c_cvst']);
                                     ?>
-                                    <tr<?php echo highhist($stat, $visit); ?>><?php
+                                    <tr<?php echo $rc->highhist($stat, $visit); ?>><?php
                                         for ($k = 0; $k < 5; $k++) {
                                             $anku = utf8_encode($answer[$k]);
                                             if (is_null($anku)) {
