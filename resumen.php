@@ -541,7 +541,7 @@ $cr = $queue->status_aarsa;
 $sql = $qc->getQueryString($queue);
 $quickArray = ['FROMBUSCAR', 'FROMMIGO', 'FROMULTIMA', 'FROMPROM'];
 if (in_array($go, $quickArray)) {
-    $sql = $qc->getQuickString($id_cuenta);
+    $sql = $qc->getQuickString($find);
 }
 
 try {
