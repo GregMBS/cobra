@@ -544,7 +544,11 @@ if (in_array($go, $quickArray)) {
     $sql = $qc->getQuickString($id_cuenta);
 }
 
-$row = $qc->getAccount($sql);
+try {
+    $row = $qc->getAccount($sql);
+} catch (Exception $e) {
+    die($e->getMessage());
+}
 
 $nombre_deudor = $row->nombre_deudor;
 $domicilio_deudor = $row->domicilio_deudor;
@@ -900,6 +904,6 @@ $promesas = $rc->countPromesas($id_cuenta);
 $pagos = $rc->countPagos($id_cuenta);
 if (empty($row->nombre_deudor)) {
     var_dump($row);
-    die();
+    die($sql);
 }
 include __DIR__ . '/views/resumenView.php';
