@@ -127,7 +127,7 @@ select distinct cliente,sdc from queuelist";
     FROM resumen r
     LEFT JOIN csdc q
     ON q.cliente=r.cliente and sdc=status_de_credito
-    WHERE r.cliente <> ''
+    WHERE r.cliente <> '' and sdc is null
     AND status_de_credito not regexp '-'
     group by r.cliente,status_de_credito
     having count(1) > 0
