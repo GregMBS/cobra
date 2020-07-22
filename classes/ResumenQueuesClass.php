@@ -2,7 +2,9 @@
 
 namespace cobra_salsa;
 
+use Exception;
 use PDO;
+use PDOException;
 
 require_once __DIR__ . '/QueuelistObject.php';
 require_once __DIR__ . '/ResumenObject.php';
@@ -125,6 +127,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
      *
      * @param string $sql
      * @return ResumenObject
+     * @throws Exception
      */
     public function getAccount(string $sql)
     {
@@ -135,9 +138,10 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
             if ($result) {
                 return $result;
             }
-            return new ResumenObject();
-        } catch (\PDOException $p) {
             die($stq->queryString);
+            return new ResumenObject();
+        } catch (PDOException $p) {
+            throw new Exception($p);
         }
     }
 }
