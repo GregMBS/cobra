@@ -1,23 +1,19 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
-use Exception;
 use PDO;
-use PDOStatement;
+
+require_once __DIR__ . '/QueuelistObject.php';
+require_once __DIR__ . '/ResumenObject.php';
 
 /**
  * Description of ResumenQueuesClass
  *
  * @author gmbs
  */
-class ResumenQueuesClass {
+class ResumenQueuesClass
+{
 
     /**
      * @var PDO $pdo
@@ -25,177 +21,118 @@ class ResumenQueuesClass {
     protected $pdo;
 
     /**
-     * 
+     *
      * @param PDO $pdo
      */
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
     /**
-     * 
+     *
      * @param string $capt
      * @param int $camp
-     * @return array
+     * @return QueuelistObject
      */
-    public function getMyQueue($capt, $camp) {
-        $queryquery = "SELECT cliente, status_aarsa as cr, sdc 
+    public function getMyQueue($capt, $camp)
+    {
+        $query = "SELECT * 
         FROM queuelist 
         WHERE gestor = :capt 
         AND camp= :camp 
         LIMIT 1";
-        $stq = $this->pdo->prepare($queryquery);
+        $stq = $this->pdo->prepare($query);
         $stq->bindParam(':capt', $capt);
         $stq->bindParam(':camp', $camp, PDO::PARAM_INT);
         $stq->execute();
-        return $stq->fetch(PDO::FETCH_ASSOC);
+        $result = $stq->fetchObject(QueuelistObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new QueuelistObject();
     }
 
     /**
-     * 
-     * @param string $field
-     * @param string $find
-     * @return int
+     *
+     * @param int $id_cuenta
+     * @return string
      */
-    public function searchCount($field, $find) {
-        $querycount = "SELECT count(1) as ct 
-            FROM resumen 
-            WHERE " . $field . " = :find 
-            LIMIT 1";
-        $stc = $this->pdo->prepare($querycount);
-        $stc->bindParam(':find', $find);
-        $stc->execute();
-        $result = $stc->fetch(PDO::FETCH_ASSOC);
-        return $result['ct'];
+    public function getQuickString(int $id_cuenta)
+    {
+        $queryBase = "SELECT * FROM resumen WHERE id_cuenta = %u LIMIT 1";
+        return sprintf($queryBase, $id_cuenta);
     }
 
     /**
-     * 
-     * @param string $cliente
-     * @param string $sdc
-     * @param string $cr
-     * @return PDOStatement
+     *
+     * @param QueuelistObject $queue
+     * @return string
      */
-    public function prepareResumenMain($cliente, $sdc, $cr) {
-        if (empty($cliente)) {
-            $clientStr = '';
-        } else {
-            $clientStr = " AND cliente = :cliente ";
-        }
-        if (empty($sdc)) {
-            $sdcStr = " AND status_de_credito not regexp '-' ";
-        } else {
-            $sdcStr = " AND status_de_credito = :sdc ";
-        }
-        if (empty($cr)) {
-            $crStr = " AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION') ";
-        } else {
-            $crStr = " AND queue = :cr ";
-        }
+    public function getQueryString(QueuelistObject $queue)
+    {
+        $clientStr = $queue->getClientString();
+        $sdcStr = $queue->getSDCString();
+        $crStr = $queue->getCrString();
 
-        $querymain = "SELECT * FROM resumen 
-join dictamenes on dictamen=status_aarsa 
-WHERE locker is null
-$clientStr
-$sdcStr
-$crStr
-ORDER BY fecha_ultima_gestion LIMIT 1";
+        switch ($queue->status_aarsa) {
 
-        if ($cr == 'SIN GESTION') {
-            $querymain = "SELECT * FROM resumen " .
-                    "WHERE locker is null " .
-                    $clientStr . $sdcStr .
-                    " AND ((status_aarsa='') or (status_aarsa is null)) " .
-                    " ORDER BY saldo_total desc LIMIT 1";
-        }
+            case 'SIN GESTION':
+                $queryBase = "SELECT * FROM resumen 
+            WHERE locker is null %s %s 
+            AND ((status_aarsa='') or (status_aarsa is null)) 
+            ORDER BY saldo_total desc LIMIT 1";
+                return sprintf($queryBase, $clientStr, $sdcStr);
 
-        if (($cr == 'INICIAL')) {
-            $querymain = "SELECT * FROM resumen
+            case 'INICIAL':
+                return "SELECT * FROM resumen
 WHERE status_de_credito not regexp '-' 
 AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION')
 AND ejecutivo_asignado_call_center = :capt
 AND locker is null 
 and fecha_ultima_gestion < curdate()
 order by fecha_ultima_gestion  LIMIT 1";
-        }
-        if ($cr == 'ESPECIAL') {
-            $querymain = "SELECT * FROM resumen
-WHERE locker is null
- $clientStr
-     $sdcStr
+
+            case 'ESPECIAL':
+                $queryBase = "SELECT * FROM resumen
+WHERE locker is null %s %s
 AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
-order by fecha_ultima_gestion  LIMIT 1
-";
-        }
-    if ($cr == 'MANUAL') {
-        $querymain = "select * from resumen
-where locker is null
-$clientStr
-$sdcStr
+order by fecha_ultima_gestion  LIMIT 1";
+                return sprintf($queryBase, $clientStr, $sdcStr);
+
+            case 'MANUAL':
+                $queryBase = "select * from resumen
+where locker is null %s %s
 and status_aarsa not in (
 	select dictamen from dictamenes
 	where queue in ('PAGOS','PROMESAS','ACLARACION')
 	)
 and especial > 0
 order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_1 desc limit 1";
-    }
-        return $this->pdo->prepare($querymain);
+                return sprintf($queryBase, $clientStr, $sdcStr);
+
+            default:
+                $queryBase = "SELECT * FROM resumen 
+join dictamenes on dictamen=status_aarsa 
+WHERE locker is null %s %s %s
+ORDER BY fecha_ultima_gestion LIMIT 1";
+                return sprintf($queryBase, $clientStr, $sdcStr, $crStr);
+        }
     }
 
     /**
-     * 
-     * @param PDOStatement $stm
-     * @param string $capt
-     * @param string $cliente
-     * @param string $sdc
-     * @param string $cr
-     * @return PDOStatement
+     *
+     * @param string $sql
+     * @return ResumenObject
      */
-    public function bindResumenMain($stm, $capt, $cliente, $sdc, $cr) {
-        if (in_array($cr, array('MANUAL','INICIAL'))) {
-            $stm->bindParam(':capt', $capt);
-            return $stm;
+    public function getAccount(string $sql)
+    {
+        $stq = $this->pdo->prepare($sql);
+        $stq->execute();
+        $result = $stq->fetchObject(ResumenObject::class);
+        if ($result) {
+            return $result;
         }
-        if (!empty($cliente)) {
-            $stm->bindParam(':cliente', $cliente);
-        }
-        if (!empty($sdc)) {
-            $stm->bindParam(':sdc', $sdc);
-        }
-        if (in_array($cr, array('ESPECIAL', 'SIN GESTION'))) {
-            return $stm;
-        }
-        if (empty($cr)) {
-            return $stm;
-        }
-        $stm->bindParam(':cr', $cr);
-        return $stm;
+        return new ResumenObject();
     }
-
-    /**
-     * 
-     * @param int $id_cuenta
-     * @return PDOStatement
-     */
-    public function prepareQuicksearch($id_cuenta) {
-        $querymain = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta LIMIT 1";
-        $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':id_cuenta', $id_cuenta);
-        return $stm;
-    }
-
-    /**
-     * 
-     * @param PDOStatement $stm
-     * @return array
-     */
-    public function runResumenMain($stm) {
-        try {
-            $stm->execute();
-            return $stm->fetch(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
-            return array();
-        }
-    }
-
 }

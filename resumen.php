@@ -1,35 +1,26 @@
 <?php
 
-use cobra_salsa\PdoClass;
 use cobra_salsa\GestionClass;
+use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenClass;
+use cobra_salsa\ResumenQueuesClass;
 
 $get = filter_input_array(INPUT_GET);
 date_default_timezone_set('America/Monterrey');
 setlocale(LC_MONETARY, 'en_US');
 
-function highhist($stat, $visit) {
-    $highstr = '';
-    if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
-        $highstr = " class='deudor'";
-    }
-    if (!empty($visit)) {
-        $highstr = " class='visit'";
-    }
-    return $highstr;
-}
-
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenClass.php';
+require_once 'classes/ResumenQueuesClass.php';
 $pc = new PdoClass();
 $pdo = $pc->dbConnectUser();
 $con = $pc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
 $rc = new ResumenClass($pdo);
+$qc = new ResumenQueuesClass($pdo);
 $capt = $pc->capt;
 $mytipo = $pc->tipo;
-$tcapt = $capt;
 $C_CVGE = $capt;
 $flag = 0;
 $flagmsg = '';
@@ -40,7 +31,7 @@ if (!empty($mytipo)) {
     if ($go == 'ULTIMA') {
         $find = 0;
         $queryult = "SELECT c_cont FROM historia WHERE c_cvge = :capt "
-                . "and c_cont <> '0' ORDER BY d_fech desc, c_hrfi desc LIMIT 1";
+            . "and c_cont <> '0' ORDER BY d_fech desc, c_hrfi desc LIMIT 1";
         $stu = $pdo->prepare($queryult);
         $stu->bindParam(':capt', $capt);
         $stu->execute();
@@ -237,10 +228,10 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     }
     $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
     $N_PROM_OLD = mysqli_real_escape_string($con, $get['N_PROM_OLD']);
-    $N_PROM1 = (float) mysqli_real_escape_string($con, $get['N_PROM1']);
-    $N_PROM2 = (float) mysqli_real_escape_string($con, $get['N_PROM2']);
-    $N_PROM3 = (float) mysqli_real_escape_string($con, $get['N_PROM3']);
-    $N_PROM4 = (float) mysqli_real_escape_string($con, $get['N_PROM4']);
+    $N_PROM1 = (float)mysqli_real_escape_string($con, $get['N_PROM1']);
+    $N_PROM2 = (float)mysqli_real_escape_string($con, $get['N_PROM2']);
+    $N_PROM3 = (float)mysqli_real_escape_string($con, $get['N_PROM3']);
+    $N_PROM4 = (float)mysqli_real_escape_string($con, $get['N_PROM4']);
     $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
 //$C_FREQ=mysqli_real_escape_string($con,$get['C_FREQ']);
     $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
@@ -266,8 +257,8 @@ and c_hrin='" . $C_HRIN . "' and c_cvst='" . $C_CVST . "'
 and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
     $resultdup = mysqli_query($con, $querydup) or die("ERROR RM23 - " . mysqli_error($con));
     //while ($answerdup = mysqli_fetch_row($resultdup)) {
-        //$error = $error + $answerdup[0];
-        //$flagmsg = "DOBLE ENTRANTE";
+    //$error = $error + $answerdup[0];
+    //$flagmsg = "DOBLE ENTRANTE";
     //}
     if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO J')) {
         $error = $error + 1;
@@ -357,40 +348,40 @@ D_PROM1,N_PROM1,D_PROM2,N_PROM2,
 D_PROM3,N_PROM3,D_PROM4,N_PROM4,
 C_CONTAN,C_ACCION,C_CNP,C_MOTIV,C_CAMP,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE,AUTH) 
 VALUES ('" . $C_CVBA . "','" .
-            $C_CVGE . "','" .
-            $C_CONT . "','" .
-            $C_CVST . "',date('" .
-            $D_FECH . "'),'" .
-            $C_HRIN . "','" .
-            $C_HRFI . "','" .
-            $C_TELE . "','" .
-            $CUANDO . "','" .
-            $CUENTA . "','" .
-            $C_OBSE1 . "','" .
-            $C_ATTE . "','" .
-            $C_CARG . "','" .
-            $D_PROM . "','" .
-            $N_PROM . "','" .
-            $C_PROM . "','" .
-            $D_PROM1 . "','" .
-            $N_PROM1 . "','" .
-            $D_PROM2 . "','" .
-            $N_PROM2 . "','" .
-            $D_PROM3 . "','" .
-            $N_PROM3 . "','" .
-            $D_PROM4 . "','" .
-            $N_PROM4 . "','" .
-            $C_CONTAN . "','" .
-            $ACCION . "','" .
-            $C_CNP . "','" .
-            $C_MOTIV . "','" .
-            $C_CAMP . "','" .
-            $C_NTEL . "','" .
-            $C_NDIR . "','" .
-            $C_EMAIL . "','" .
-            $C_OBSE2 . "','" .
-            $C_EJE . "','" .
-            $AUTH . "')";
+        $C_CVGE . "','" .
+        $C_CONT . "','" .
+        $C_CVST . "',date('" .
+        $D_FECH . "'),'" .
+        $C_HRIN . "','" .
+        $C_HRFI . "','" .
+        $C_TELE . "','" .
+        $CUANDO . "','" .
+        $CUENTA . "','" .
+        $C_OBSE1 . "','" .
+        $C_ATTE . "','" .
+        $C_CARG . "','" .
+        $D_PROM . "','" .
+        $N_PROM . "','" .
+        $C_PROM . "','" .
+        $D_PROM1 . "','" .
+        $N_PROM1 . "','" .
+        $D_PROM2 . "','" .
+        $N_PROM2 . "','" .
+        $D_PROM3 . "','" .
+        $N_PROM3 . "','" .
+        $D_PROM4 . "','" .
+        $N_PROM4 . "','" .
+        $C_CONTAN . "','" .
+        $ACCION . "','" .
+        $C_CNP . "','" .
+        $C_MOTIV . "','" .
+        $C_CAMP . "','" .
+        $C_NTEL . "','" .
+        $C_NDIR . "','" .
+        $C_EMAIL . "','" .
+        $C_OBSE2 . "','" .
+        $C_EJE . "','" .
+        $AUTH . "')";
     if ($error == 0) {
         mysqli_autocommit($con, FALSE);
         $queryins = str_replace(';', ' ', $qins);
@@ -530,11 +521,6 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
         include 'resumenErrorView.php';
     }
 }
-if (substr($capt, 0, 8) == "practica") {
-    $tcapt = "practica";
-} else {
-    $tcapt = $capt;
-}
 $mynombre = '';
 $queryg = "SELECT usuaria,tipo,camp FROM nombres WHERE iniciales='" . $capt . "';";
 $resultg = mysqli_query($con, $queryg) or die("ERROR RM37 - " . mysqli_error($con));
@@ -545,404 +531,183 @@ while ($answerg = mysqli_fetch_row($resultg)) {
 }
 $id_cuenta = 0;
 $lockflag = 0;
-$sdc = '';
-$cr = '';
-$queryquery = "SELECT cliente, status_aarsa, camp, 
-orden1, updown1, orden2, updown2, orden3, updown3, sdc FROM queuelist 
-WHERE gestor='" . $capt . "' AND camp='" . $camp . "'";
-$resultquery = mysqli_query($con, $queryquery) or die("ERROR RM38 - " . mysqli_error($con));
-while ($answerquery = mysqli_fetch_row($resultquery)) {
-    $cliente = $answerquery[0];
-    $sdc = $answerquery[9];
-    $CR = $answerquery[1];
-    $cr = $answerquery[1];
-    $order1 = $answerquery[3];
-    $updown1 = '';
-    if ($answerquery[4] == 1) {
-        $updown1 = ' desc';
-    }
-    $order2 = $answerquery[5];
-    $updown2 = '';
-    if ($answerquery[6] == 1) {
-        $updown2 = ' desc';
-    }
-    $sep12 = '';
-    $lockflag = 0;
+$queue = $qc->getMyQueue($capt, $camp);
+$cliente = $queue->cliente;
+$sdc = $queue->sdc;
+$cr = $queue->status_aarsa;
+$sql = $qc->getQueryString($queue);
+$quickArray = ['FROMBUSCAR', 'FROMMIGO', 'FROMULTIMA', 'FROMPROM'];
+if (in_array($go, $quickArray)) {
+    $sql = $qc->getQuickString($id_cuenta);
+}
 
-    if ($order2 != '') {
-        $sep12 = ',';
-    }
-    $order3 = $answerquery[7];
-    $updown3 = '';
-    if ($answerquery[8] == 1) {
-        $updown3 = ' desc';
-    }
-    if (($order3 != '') && ($order1 . $order2 != '')) {
-        $sep23 = ',';
-    } else {
-        $sep23 = '';
-    }
-}
-if (isset($cr)) {
-    $codres = ' AND queue="' . $cr . '" ';
-} else {
-    $codres = '';
-    $cr = '';
-}
-if ($cr == '') {
-    $camp = 0;
-}
-if ($camp > 0) {
-    $querymain = "SELECT * FROM resumen 
-left join dictamenes on status_aarsa=dictamen
-WHERE status_de_credito = '" . $sdc . "'
- AND locker is null
- ORDER BY fecha_ultima_gestion, v_cc, saldo_total desc LIMIT 1";
-    if ($cr <> '') {
-        $querymain = "SELECT * FROM resumen 
-join dictamenes on dictamen=status_aarsa 
-WHERE status_de_credito  = '" . $sdc . "' 
- AND locker is null
- AND cliente='" . $cliente . "'" . $codres .
-                "
- ORDER BY " . $order1 . $updown1 . $sep12 . $order2 . $updown2 . $sep23 . $order3 . $updown3 . " LIMIT 1";
-    }
-    if ($cr == 'SIN GESTION') {
-        $querymain = "SELECT * FROM resumen 
-WHERE (status_de_credito  = '" . $sdc . "' 
- AND locker is null
- AND status_de_credito not regexp '-'
- AND cliente='" . $cliente . "' 
- AND ((status_aarsa='') or (status_aarsa is null)))
- ORDER BY saldo_total desc LIMIT 1";
-    }
-    if ($cr == 'MANUAL') {
-        $querymain = "select * from resumen 
-where cliente='".$cliente."' 
-and status_de_credito not regexp '-' 
-and status_aarsa not in (select dictamen from dictamenes where queue in ('PAGOS','PROMESAS','ACLARACION'))
-and especial = 1
-and locker is null
-and ejecutivo_asignado_call_center in ('".$capt."','sinasig')
-order by (ejecutivo_asignado_call_center='sinasig'),fecha_ultima_gestion limit 1";
-    }
+$row = $qc->getAccount($sql);
 
-    if (($cr == 'INICIAL')) {
-        $querymain = "SELECT * FROM resumen
-WHERE status_de_credito not regexp '[dv]o$' 
-AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO')
-AND ejecutivo_asignado_call_center='" . $capt . "'
-AND locker is null 
-and fecha_ultima_gestion < curdate()
-order by fecha_ultima_gestion  LIMIT 1
-";
-    }
-    if (($cr == 'ESPECIAL')) {
-        $querymain = "SELECT * FROM resumen
-WHERE status_de_credito = '" . $sdc . "' 
-AND cliente='" . $cliente . "'
- AND locker is null
-AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
-order by fecha_ultima_gestion  LIMIT 1
-";
-        if ($sdc == '') {
-            $querymain = "SELECT * FROM resumen
-WHERE cliente='" . $cliente . "'
- AND locker is null
-AND fecha_ultima_gestion<curdate()
-order by fecha_ultima_gestion  LIMIT 1
-";
-        }
-    }
-} else {
-    $clientestr = '';
-    if (!empty($get['clientefilt'])) {
-        $clientefilter = filter_input(INPUT_GET, 'clientefilt');
-        $clientefilt = mysqli_real_escape_string($con, $clientefilter);
-        if (strlen($clientefilt) > 1) {
-            $clientestr = "AND cliente='" . $clientefilt . "' ";
-        }
-    }
-    $gestorstr = "";
-//if (($mytipo=='supervisor'||$mytipo=='admin')&&(substr($CR,0,4)!='SELF')) {$gestorstr='';}
-    $querymain = "SELECT * FROM resumen 
-WHERE status_de_credito  = '" . $sdc . "' 
- AND locker is null
- " . $clientestr . " 
-ORDER BY fecha_ultima_gestion,saldo_total desc LIMIT 1";
-}
-if (($go == 'FROMBUSCAR') || ($go == 'FROMMIGO') || ($go == 'FROMULTIMA') || ($go == 'FROMPROM')) {
-    $querymain = "SELECT * FROM resumen WHERE id_cuenta = '" . $find . "' LIMIT 1";
-}
-$qcount = 0;
-if ($go == 'QUICKSEARCH' || $go == 'FROMALERT') {
-    $querycount = "SELECT count(1) FROM resumen 
-    WHERE " . $field . " = '" . $find . "';";
-//if ($capt=='moises') {die(htmlentities($querymain));} 
-    $resultcount = mysqli_query($con, $querycount) or die("ERROR RM39 - " . mysqli_error($con));
-    while ($answercount = mysqli_fetch_row($resultcount)) {
-        $qcount = $answercount[0];
-    }
-    $querymain = "SELECT * FROM resumen 
-    WHERE " . $field . " = '" . $find . "' order by " . $field . " 
-    LIMIT 1";
-}
-//if ($capt=='gmbs') {die(htmlentities($querymain));}
-$row = array_fill(0, 200, '');
-$result = mysqli_query($con, $querymain) or die("ERROR RM40 - " . mysqli_error($con) . htmlentities($querymain));
-if ($result) {
-    $row = mysqli_fetch_row($result);
-}
-$nombre_deudor = $row[0];
-$domicilio_deudor = $row[1];
-$colonia_deudor = $row[2];
-$ciudad_deudor = $row[3];
-$estado_deudor = $row[4];
-$cp_deudor = $row[5];
-$plano_guia_roji = $row[6];
-$cuadrante_guia_roji = $row[7];
-$tel_1 = $row[8];
-$tel_2 = $row[9];
-$tel_3 = $row[10];
-$tel_4 = $row[11];
-$nombre_deudor_alterno = $row[12];
+$nombre_deudor = $row->nombre_deudor;
+$domicilio_deudor = $row->domicilio_deudor;
+$colonia_deudor = $row->colonia_deudor;
+$ciudad_deudor = $row->ciudad_deudor;
+$estado_deudor = $row->estado_deudor;
+$cp_deudor = $row->cp_deudor;
+$plano_guia_roji = $row->plano_guia_roji;
+$cuadrante_guia_roji = $row->cuadrante_guia_roji;
+$tel_1 = $row->tel_1;
+$tel_2 = $row->tel_2;
+$tel_3 = $row->tel_3;
+$tel_4 = $row->tel_4;
+$nombre_deudor_alterno = $row->nombre_deudor_alterno;
+$domicilio_deudor_alterno = $row->domicilio_deudor_alterno;
+$colonia_deudor_alterno = $row->colonia_deudor_alterno;
+$ciudad_deudor_alterno = $row->ciudad_deudor_alterno;
+$estado_deudor_alterno = $row->estado_deudor_alterno;
+$cp_deudor_alterno = $row->cp_deudor_alterno;
+$tel_1_alterno = $row->tel_1_alterno;
+$tel_2_alterno = $row->tel_2_alterno;
+$tel_3_alterno = $row->tel_3_alterno;
+$tel_4_alterno = $row->tel_4_alterno;
+$plazo = $row->plano_guia_roji_alterno;
+$dia_corte = $row->cuadrante_guia_roji_alterno;
+$status_aarsa = $row->status_aarsa;
+$avapar = $row->avapar;
+$referencias_1 = $row->parentesco_ref_1;
+$nombre_referencia_1 = $row->nombre_referencia_1;
+$domicilio_referencia_1 = $row->domicilio_referencia_1;
+$colonia_referencia_1 = $row->colonia_referencia_1;
+$ciudad_referencia_1 = $row->ciudad_referencia_1;
+$estado_referencia_1 = $row->estado_referencia_1;
+$cp_referencia_1 = $row->cp_referencia_1;
+$tel_1_ref_1 = $row->tel_1_ref_1;
+$tel_2_ref_1 = $row->tel_2_ref_1;
+$referencias_2 = $row->parentesco_ref_2;
+$nombre_referencia_2 = $row->nombre_referencia_2;
+$domicilio_referencia_2 = $row->domicilio_referencia_2;
+$colonia_referencia_2 = $row->colonia_referencia_2;
+$ciudad_referencia_2 = $row->ciudad_referencia_2;
+$estado_referencia_2 = $row->estado_referencia_2;
+$cp_referencia_2 = $row->cp_referencia_2;
+$tel_1_ref_2 = $row->tel_1_ref_2;
+$tel_2_ref_2 = $row->tel_2_ref_2;
+$referencias_3 = $row->parentesco_ref_3;
+$nombre_referencia_3 = $row->nombre_referencia_3;
+$domicilio_referencia_3 = $row->domicilio_referencia_3;
+$colonia_referencia_3 = $row->colonia_referencia_3;
+$ciudad_referencia_3 = $row->ciudad_referencia_3;
+$estado_referencia_3 = $row->estado_referencia_3;
+$cp_referencia_3 = $row->cp_referencia_3;
+$tel_1_ref_3 = $row->tel_1_ref_3;
+$tel_2_ref_3 = $row->tel_2_ref_3;
+$referencias_4 = $row->parentesco_ref_4;
+$nombre_referencia_4 = $row->nombre_referencia_4;
+$domicilio_deudor_2 = $row->originacion;
+$frecuencia = $row->multiestrategia;
+$ciudad_referencia_4 = $row->ciudad_referencia_4;
+$estado_referencia_4 = $row->estado_referencia_4;
+$cp_referencia_4 = $row->cp_referencia_4;
+$tel_1_ref_4 = $row->tel_1_ref_4;
+$tel_2_ref_4 = $row->tel_2_ref_4;
+$domicilio_laboral = $row->domicilio_laboral;
+$colonia_laboral = $row->colonia_laboral;
+$ciudad_laboral = $row->ciudad_laboral;
+$estado_laboral = $row->estado_laboral;
+$cp_laboral = $row->cp_laboral;
+$tel_1_laboral = $row->tel_1_laboral;
+$tel_2_laboral = $row->tel_2_laboral;
+$gastos_de_cobranza = $row->saldo_corriente;
+$fecha_de_actualizacion = $row->fecha_de_actualizacion;
+$numero_de_cuenta = $row->numero_de_cuenta;
+$numero_de_credito = $row->numero_de_credito;
+$contrato = $row->contrato;
+$saldo_total = $row->saldo_total;
+$saldo_vencido = $row->saldo_vencido;
+$saldo_descuento_1 = $row->saldo_descuento_1;
+$saldo_descuento_2 = $row->saldo_descuento_2;
+$fecha_corte = $row->fecha_corte;
+$fecha_1er_pago = $row->fecha_limite;
+$fecha_de_ultimo_pago = $row->fecha_de_ultimo_pago;
+$monto_ultimo_pago = $row->monto_ultimo_pago;
+$producto = $row->producto;
+$subproducto = $row->subproducto;
+$cliente = $row->cliente;
+$status_de_credito = $row->status_de_credito;
+$pagos_vencidos = $row->pagos_vencidos;
+$monto_adeudado = $row->monto_adeudado;
+$fecha_de_asignacion = $row->fecha_de_asignacion;
+$fecha_de_deasignacion = $row->fecha_de_deasignacion;
+$cuenta_concentradora_1 = $row->cuenta_concentradora_1;
+$saldo_cuota = $row->saldo_cuota;
+$email_deudor = $row->email_deudor;
+$id_cuenta = $row->id_cuenta;
+$nss = $row->nss;
+$rfc_deudor = $row->rfc_deudor;
+$telefonos_marcados = $row->telefonos_marcados;
+$tel_1_verif = $row->tel_1_verif;
+$tel_2_verif = $row->tel_2_verif;
+$tel_3_verif = $row->tel_3_verif;
+$tel_4_verif = $row->tel_4_verif;
+$telefono_de_ultimo_contacto = $row->telefono_de_ultimo_contacto;
+$dias_vencidos = $row->dias_vencidos;
+$ejecutivo_asignado_call_center = $row->ejecutivo_asignado_call_center;
+$ejecutivo_asignado_domiciliario = $row->ejecutivo_asignado_domiciliario;
+$prioridad_de_gestion = $row->prioridad_de_gestion;
+$nrpp = $row->nrpp;
+$parentesco_aval = $row->parentesco_aval;
+$localizar = $row->localizar;
+$fecha_ultima_gestion = $row->fecha_ultima_gestion;
+$empresa = $row->empresa;
+$fecha_convenio = $row->fecha_convenio;
+$direccion_nueva = $row->direccion_nueva;
+$timelock = $row->timelock;
+$locker = $row->locker;
+$fecha_convenio = $row->fecha_convenio;
+$especial = $row->especial;
+$direccion_nueva = $row->direccion_nueva;
+$norobot = $row->norobot;
 
-$domicilio_deudor_alterno = $row[13];
-$colonia_deudor_alterno = $row[14];
-$ciudad_deudor_alterno = $row[15];
-$estado_deudor_alterno = $row[16];
-$cp_deudor_aterno = $row[17];
-$tel_1_alterno = $row[18];
-$tel_2_alterno = $row[19];
-$tel_3_alterno = $row[20];
-$tel_4_alterno = $row[21];
-$plazo = $row[22];
-$dia_corte = $row[23];
-$status_aarsa = $row[24];
-$avapar = $row[25];
-$referencias_1 = $row[26];
-$nombre_referencia_1 = $row[27];
-$domicilio_referencia_1 = $row[28];
-$colonia_referencia_1 = $row[29];
-$ciudad_referencia_1 = $row[30];
-$estado_referencia_1 = $row[31];
-$cp_referencia_1 = $row[32];
-$tel_1_ref_1 = $row[33];
-$tel_2_ref_1 = $row[34];
-$referencias_2 = $row[35];
-$nombre_referencia_2 = $row[36];
-$domicilio_referencia_2 = $row[37];
-$colonia_referencia_2 = $row[38];
-$ciudad_referencia_2 = $row[39];
-$estado_referencia_2 = $row[40];
-$cp_referencia_2 = $row[41];
-$tel_1_ref_2 = $row[42];
-$tel_2_ref_2 = $row[43];
-$referencias_3 = $row[44];
-$nombre_referencia_3 = $row[45];
-$domicilio_referencia_3 = $row[46];
-$colonia_referencia_3 = $row[47];
-$ciudad_referencia_3 = $row[48];
-$estado_referencia_3 = $row[49];
-$cp_referencia_3 = $row[50];
-$tel_1_ref_3 = $row[51];
-$tel_2_ref_3 = $row[52];
-$referencias_4 = $row[53];
-$nombre_referencia_4 = $row[54];
-$domicilio_deudor_2 = $row[55];
-$frecuencia = $row[56];
-$ciudad_referencia_4 = $row[57];
-$estado_referencia_4 = $row[58];
-$cp_referencia_4 = $row[59];
-$tel_1_ref_4 = $row[60];
-$tel_2_ref_4 = $row[61];
-$domicilio_laboral = $row[62];
-$colonia_laboral = $row[63];
-$ciudad_laboral = $row[64];
-$estado_laboral = $row[65];
-$cp_laboral = $row[66];
-$tel_1_laboral = $row[67];
-$tel_2_laboral = $row[68];
-$gastos_de_cobranza = $row[69];
-$fecha_de_actualizacion = $row[70];
-$numero_de_cuenta = $row[71];
-$numero_de_credito = $row[72];
-$contrato = $row[73];
-$saldo_total = $row[74];
-$saldo_vencido = $row[75];
-$saldo_descuento_1 = $row[76];
-$saldo_descuento_2 = $row[77];
-$fecha_corte = $row[78];
-$fecha_1er_pago = $row[79];
-$fecha_de_ultimo_pago = $row[80];
-$monto_ultimo_pago = $row[81];
-$producto = $row[82];
-$subproducto = $row[83];
-$cliente = $row[84];
-$status_de_credito = $row[85];
-if (empty($status_de_credito)) {
-    $status_de_credito = '';
-}
-$pagos_vencidos = $row[86];
-$monto_adeudado = $row[87];
-$fecha_de_asignacion = $row[88];
-$fecha_de_deasignacion = $row[89];
-$cuenta_concentradora_1 = $row[90];
-$saldo_cuota = $row[91];
-if (empty($saldo_cuota)) {
-    $saldo_cuota = 0;
-}
-$email_deudor = $row[92];
-if (isset($row[93])) {
-    $id_cuenta = $row[93];
-    $qsliced = "delete from rslice where user='" . $capt . "';";
-    mysqli_query($con, $qsliced) or die("ERROR RM55 - " . mysqli_error($con));
-    $qslice = "replace into rslice select *, '" . $capt . "', now() from resumen where id_cuenta=" . $id_cuenta;
-    mysqli_query($con, $qslice) or die("ERROR RM55 - " . mysqli_error($con));
-}
-$nss = $row[94];
-$rfc_deudor = $row[95];
-$telefonos_marcados = $row[96];
-$tel_1_verif = $row[97];
-$tel_2_verif = $row[98];
-$tel_3_verif = $row[99];
-$tel_4_verif = $row[100];
-$telefono_de_ultimo_contacto = $row[101];
-$dias_vencidos = $row[102];
-$ejecutivo_asignado_call_center = $row[103];
-$ejecutivo_asignado_domiciliario = $row[104];
-$prioridad_de_gestion = $row[105];
-$nrpp = $row[106];
-$parentesco_aval = $row[107];
-$localizar = $row[108];
-$campo_libre_9 = $row[109];
-$empresa = $row[110];
-$fecha_convenio = $row[113];
-$direccion_nueva = $row[115];
-$C_OBSE2 = '';
-$CUANDO = '';
-$querycom = "select c_obse2,c_cvst,cuando from historia where c_cont='" . $id_cuenta . "' order by d_fech desc, c_hrin desc limit 1";
-$resultcom = mysqli_query($con, $querycom) or die("ERROR RM41 - " . mysqli_error($con));
-while ($answercom = mysqli_fetch_row($resultcom)) {
-    $C_OBSE2 = $answercom[0];
-    $ultimo_status_de_la_gestion = $answercom[1];
-    $CUANDO = $answercom[2];
-}
+$latest = $rc->getLastStatus($id_cuenta);
+
+$C_OBSE2 = $latest->C_OBSE2;
+$ultimo_status_de_la_gestion = $latest->C_CVST;
+$CUANDO = $latest->CUANDO;
+
 if ($id_cuenta == 0) {
-    $newcamp = 3;
-    $querycamp = "SELECT queuelist.camp FROM nombres,queuelist 
-WHERE gestor=iniciales and status_aarsa<>'' and queuelist.camp>nombres.camp
-AND gestor='" . $capt . "' AND bloqueado=0
-ORDER BY queuelist.camp LIMIT 1";
-    $resultcamp = mysqli_query($con, $querycamp) or die("ERROR RM42 - " . mysqli_error($con));
-    while ($answercamp = mysqli_fetch_row($resultcamp)) {
-        $newcamp = $answercamp[0];
-    }
-    $queryccamp = "UPDATE nombres SET camp=" . $newcamp . " WHERE iniciales='" . $capt . "';";
-    mysqli_query($con, $queryccamp) or die("ERROR RM43 - " . mysqli_error($con));
+    $newcamp = $rc->leaveEmptyQueue($capt);
 }
 if ($id_cuenta > 0) {
-    $queryprom = "select n_prom,d_prom,
-        n_prom1,d_prom1,n_prom2,d_prom2,
-        n_prom3,d_prom3,n_prom4,d_prom4,
-        c_freq 
-    from historia 
-    where c_cont=" . $id_cuenta . " and n_prom>0 
-    and c_cvst like 'PROM%DE%'
-    order by d_fech desc, c_hrin desc limit 1";
-    $resultprom = mysqli_query($con, $queryprom) or die("ERROR RM45 - " . mysqli_error($con));
-    while ($answerprom = mysqli_fetch_row($resultprom)) {
-        $N_PROM_OLD = $answerprom[0];
-        $D_PROM_OLD = $answerprom[1];
-        $N_PROM1_OLD = $answerprom[2];
-        $D_PROM1_OLD = $answerprom[3];
-        $N_PROM2_OLD = $answerprom[4];
-        $D_PROM2_OLD = $answerprom[5];
-        $N_PROM3_OLD = $answerprom[6];
-        $D_PROM3_OLD = $answerprom[7];
-        $N_PROM4_OLD = $answerprom[8];
-        $D_PROM4_OLD = $answerprom[9];
-    }
-} else {
-    $N_PROM_OLD = '';
-    $D_PROM_OLD = '';
-    $N_PROM1_OLD = '';
-    $D_PROM1_OLD = '';
-    $N_PROM2_OLD = '';
-    $D_PROM2_OLD = '';
-    $N_PROM3_OLD = '';
-    $D_PROM3_OLD = '';
-    $N_PROM4_OLD = '';
-    $D_PROM4_OLD = '';
+    $lastProm = $rc->getPromData($id_cuenta);
+    $N_PROM_OLD = $lastProm->N_PROM;
+    $D_PROM_OLD = $lastProm->D_PROM;
+    $N_PROM1_OLD = $lastProm->N_PROM1;
+    $D_PROM1_OLD = $lastProm->D_PROM1;
+    $N_PROM2_OLD = $lastProm->N_PROM2;
+    $D_PROM2_OLD = $lastProm->D_PROM2;
+    $N_PROM3_OLD = $lastProm->N_PROM3;
+    $D_PROM3_OLD = $lastProm->D_PROM3;
+    $N_PROM4_OLD = $lastProm->N_PROM4;
+    $D_PROM4_OLD = $lastProm->D_PROM4;
 }
-$nmerc = 0;
-$querycheck = "SELECT timelock, locker,time_to_sec(timediff(now(),timelock))/60 from resumen  WHERE id_cuenta='" . $id_cuenta . "';";
-$resultcheck = mysqli_query($con, $querycheck) or die("ERROR RM50 - " . mysqli_error($con));
-while ($answercheck = mysqli_fetch_row($resultcheck)) {
-    $timelock = $answercheck[0];
-    $locker = $answercheck[1];
-    $sofar = $answercheck[2];
+try {
+    $lockDate = new DateTime($timelock);
+    $nowDate = new DateTime();
+    $sofar = $nowdate->diff($lockDate);
+} catch (Exception $e) {
+    die($e->getMessage());
 }
+
 $tl = date('r');
 if ($mytipo != 'admin') {
     if (!(empty($locker)) && ($locker != $capt)) {
         $lockflag = 1;
     } else {
-        $queryunlock = "UPDATE resumen SET timelock=NULL, locker=NULL 
-WHERE locker='" . $capt . "';";
-        $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-        if ($cliente == 'Surtidor del Hogar') {
-            $querylock = "UPDATE resumen SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
-        }
-        if ($mytipo == 'admin') {
-            $querylock = "SELECT 1;";
-        }
-        $queryunlock2 = "UPDATE rslice SET timelock=NULL, locker=NULL 
-WHERE locker='" . $capt . "';";
-        $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE id_cuenta='" . $id_cuenta . "';";
-        if ($cliente == 'Surtidor del Hogar') {
-            $querylock2 = "UPDATE rslice SET timelock=now(),locker='" . $capt . "' WHERE rfc_deudor='" . $rfc_deudor . "';";
-        }
-        mysqli_autocommit($con, FALSE);
-        mysqli_query($con, $queryunlock) or die("ERROR RM51 - " . mysqli_error($con));
-        mysqli_query($con, $querylock) or die("ERROR RM52 - " . mysqli_error($con));
-        mysqli_query($con, $queryunlock2) or die("ERROR RM51 - " . mysqli_error($con));
-        mysqli_query($con, $querylock2) or die("ERROR RM52 - " . mysqli_error($con));
-        mysqli_commit($con);
-        $querytlock = "SELECT date_format(timelock,'%a, %d %b %Y %T') FROM 
-resumen 
-WHERE id_cuenta='" . $id_cuenta . "';";
-        $resulttlock = mysqli_query($con, $querytlock) or die("ERROR RM53 - " . mysqli_error($con));
-        if ($resulttlock) {
-            while ($answertlock = mysqli_fetch_row($resulttlock)) {
-                $tl = $answertlock[0];
-            }
+        $rc->setLocks($capt, $id_cuenta, $mytipo);
+        if ($timelock) {
+            $tl = date('D M d Y H:i:s O',strtotime($timelock));
         }
     }
 }
-//$queryeom = "select last_day(curdate())+interval 1 month";
-//$resulteom = mysqli_query($con, $queryeom) or die("ERROR RMeom - " . mysqli_error($con));
-//while ($roweom = mysqli_fetch_row($resulteom)) {
-//    $dday = $roweom[0];
-//    $dday2 = $roweom[0];
-//}
-if ($mytipo == 'admin') {
-    $dday = date("Y-m-d", strtotime("+1 month")) ;
-    $dday2 = date("Y-m-d", strtotime("+1 month")) ;
-} else {
-    $dday = date("Y-m-d", strtotime("+1 week")) ;
-    $dday2 = date("Y-m-d", strtotime("+15 day")) ;
-}
+
 $CD = date("Y-m-d");
 $CT = date("H:i:s");
 $others = 0;
-$queryothers = "select count(1) FROM resumen 
-where nombre_deudor='$nombre_deudor'
-and '$cliente'='Surtidor del Hogar';";
-$resultothers = mysqli_query($con, $queryothers) or die("ERROR RMothers - " . mysqli_error($con));
-while ($rowothers = mysqli_fetch_row($resultothers)) {
-    $others = $rowothers[0];
-}
 
 $queryfilt = "SELECT cliente,sdc,queue FROM queuelist 
 WHERE gestor=':capt' 
@@ -998,14 +763,14 @@ $queryMotiv = "SELECT motiv FROM motivadores;";
 $resultMotiv = $pdo->query($queryMotiv);
 
 $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-        . "where callcenter=1 order by dictamen";
+    . "where callcenter=1 order by dictamen";
 if ($mytipo == 'visitador') {
     $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-            . "where visitas=1 order by dictamen";
+        . "where visitas=1 order by dictamen";
 }
 if ($mytipo == 'admin') {
     $queryDictamen = "SELECT dictamen,v_cc,judicial FROM dictamenes "
-            . "order by dictamen";
+        . "order by dictamen";
 }
 $resultDictamen = $pdo->query($queryDictamen);
 

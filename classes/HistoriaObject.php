@@ -18,7 +18,7 @@ class HistoriaObject
     var $C_MSGE;
     var $CUENTA;
     var $C_OBSE1;
-    var $C_OBSE2;
+    var $C_OBSE2 = '';
     var $C_CONTAN;
     var $C_NSE;
     var $C_VISIT;
@@ -30,10 +30,10 @@ class HistoriaObject
     var $C_RCON;
     var $AUTH;
     var $CARGADO;
-    var $CUANDO;
-    var $D_PROM;
+    var $CUANDO = '';
+    var $D_PROM = '';
     var $C_PROM;
-    var $N_PROM;
+    var $N_PROM = 0;
     var $C_CALLE1;
     var $C_CALLE2;
     var $C_CNP;
@@ -49,15 +49,15 @@ class HistoriaObject
     var $C_ACCION;
     var $C_MOTIV;
     var $C_CAMP;
-    var $D_PROM1;
-    var $N_PROM1;
-    var $D_PROM2;
-    var $N_PROM2;
+    var $D_PROM1 = '';
+    var $N_PROM1 = 0;
+    var $D_PROM2 = '';
+    var $N_PROM2 = 0;
     var $C_EJE;
     var $error;
-    var $D_PROM3;
-    var $N_PROM3;
-    var $D_PROM4;
-    var $N_PROM4;
+    var $D_PROM3 = '';
+    var $N_PROM3 = 0;
+    var $D_PROM4 = '';
+    var $N_PROM4 = 0;
 
 }

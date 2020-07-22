@@ -1,7 +1,6 @@
 <!DOCTYPE html>
     <html lang="es">
         <head>
-
             <title>Resumen</title>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <link rel="stylesheet" href="/css/resumen.css">
@@ -15,7 +14,7 @@
                     #pagos input {background-color: #ff0000;}
                     <?php
                 }
-                if ((preg_match('/-/', $status_de_credito)) && ($mytipo <> 'admin')) {
+                if ((preg_match('/-/', $row->status_de_credito)) && ($mytipo <> 'admin')) {
                     ?> 
                     #GUARDbutt {display:none;}
                 <?php } ?>
@@ -27,10 +26,8 @@
             <script type="text/javascript" src="../js/external/dom-drag.js"></script>
             <script src="/js/resumen.js"></script>
             <SCRIPT TYPE="text/JavaScript">
+                openSearch('<?php echo $tl; ?>');
                 <?php
-                $osBase = "openSearch(%u, %s, %s, %u);";
-                $osString = sprintf($osBase, $qcount, $capt, $status_de_credito, $lockflag);
-                echo $osString;
                 $pagingBase = "paging('HISTORIA', %u, '%s', '%s');";
                 $pagingString = sprintf($pagingBase, $flag, $flagmsg, $cuenta);
                 echo $pagingString;
@@ -52,13 +49,9 @@
                 <form class="buttons" name="ultima" method="get" action=
                       "../resumen.php" id="ultima">
                     <input type="hidden" name="capt" value="<?php echo $capt ?>">
-<!--                    <input type="hidden" name="find" value="<?php echo $id_cuenta ?>">
-                    <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
-                    -->
                     <input type="submit" name="go" value="ULTIMA"></form>
                 <form class="buttons" name="buscar" action="../resumen.php" id="buscar">
-                    <button type="button" value="buscar" onclick=
-                            "showsearch();">BUSCAR</button>
+                    <button type="button" value="buscar" onclick="showsearch();">BUSCAR</button>
                 </form>
                 <form class="buttons" name="migo" method="get" action=
                       "migo<?php
@@ -66,7 +59,7 @@
                           echo 'admin';
                       }
                       ?>.php" id="migo">
-                    <input type="hidden" name="find" value="<?php echo $tcapt ?>"> 
+                    <input type="hidden" name="find" value="<?php echo $capt ?>">
                     <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
                     <input type="submit" name="go" value="CUENTAS"></form>
@@ -74,7 +67,7 @@
                       "../realvisitlist.php" id="visitlist" target="_blank">
                     <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>"> 
-                    <input type="hidden" name="ejecutivo_asignado_call_center" value="<?php echo $ejecutivo_asignado_call_center ?>"> 
+                    <input type="hidden" name="ejecutivo_asignado_call_center" value="<?php echo $row->ejecutivo_asignado_call_center ?>">
                     <input type="submit" name="go" value="VISITAS"></form>
                 <form class="buttons" name="rotas" method="get" action=
                       "../rotas.php" id="rotas">
@@ -100,7 +93,7 @@
                     ?>">
                     <input type="submit" name="go" value="PAGOS"></form>
                 <?php } ?>
-                <?php $CTA = $numero_de_credito; ?>
+                <?php $CTA = $row->numero_de_credito; ?>
                 <form class="buttons" name="notasq" method="get" action="../notas.php" id="notas" target="_blank"><input type="hidden"
                                                                                                                          name="capt" value="<?php
                                                                                                                       if (isset($capt)) {

@@ -1,5 +1,13 @@
 /**
  *
+ * @param {string} timelock
+ */
+function openSearch(timelock) {
+    setInterval('clock(timelock)', 1000);
+}
+
+/**
+ *
  * @param {string} pageId
  * @param {number} flag
  * @param {string} flagMsg
@@ -42,24 +50,32 @@ function statusChange(thisform) {
     }
 }
 
-// function clock() {
-//     var d = new Date();
-//     var tn = d.getTime();
-//     var tll = new Date('<?php echo $tl; ?>');
-//     var tl = tll.getTime();
-//     document.getElementById("timer").value = tn - tl;
-//     document.getElementById("timers").value = parseInt(parseInt(document.getElementById("timer").value) / 1000) % 60;
-//     document.getElementById("timerm").value = parseInt(parseInt(document.getElementById("timer").value) / 1000 / 60);
-//     if (document.getElementById("timerm").value > 2) {
-//         document.getElementById("clock").style.backgroundColor = "yellow";
-//     }
-//     if (document.getElementById("timerm").value > 4) {
-//         document.getElementById("clock").style.backgroundColor = "red";
-//     }
-//     if (document.getElementById("timer").value % 2 === 0) {
-//         document.getElementById("clock").style.backgroundColor = "green";
-//     }
-// }
+/**
+ *
+ * @param {string} timelock
+ */
+function clock(timelock) {
+    const d = new Date();
+    const tn = d.getTime();
+    const tll = new Date(timelock);
+    const tl = tll.getTime();
+    const timer = document.getElementById("timer");
+    const timers = document.getElementById("timers");
+    const timerm = document.getElementById("timerm");
+    const clock = document.getElementById("clock");
+    timer.value = tn - tl;
+    timers.value = Math.floor((timer.value) / 1000) % 60;
+    timerm.value = Math.floor(timer.value / 1000 / 60);
+    if (timerm.value > 2) {
+        clock.style.backgroundColor = "yellow";
+    }
+    if (timerm.value > 4) {
+        clock.style.backgroundColor = "red";
+    }
+    if (timer.value % 2 === 0) {
+        clock.style.backgroundColor = "green";
+    }
+}
 
 const r = {
     'special': /[\W]/g,

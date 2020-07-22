@@ -107,11 +107,11 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $capt
      * @return int
      */
-    public function lastGestion($capt) {
-        $queryult = "SELECT c_cont FROM historia WHERE c_cvge = :capt"
-                . " AND c_cont <> 0"
-                . " ORDER BY d_fech DESC, c_hrfi DESC LIMIT 1";
-        $stu = $this->pdo->prepare($queryult);
+    public function lastMyGestion($capt) {
+        $query = "SELECT c_cont FROM historia WHERE c_cvge = :capt
+         AND c_cont <> 0
+         ORDER BY d_fech DESC, c_hrfi DESC LIMIT 1";
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':capt', $capt);
         $stu->execute();
         $result = $stu->fetch(PDO::FETCH_ASSOC);
@@ -454,39 +454,41 @@ ORDER BY cliente,sdc,queue";
     }
 
     /**
-     * 
+     *
      * @param int $id_cuenta
-     * @return array
+     * @return HistoriaObject
      */
-    public function getLastStatus($id_cuenta) {
-        $querycom = "select c_cvst,cuando from historia where c_cont = :id_cuenta "
-                . "order by d_fech desc, c_hrin desc limit 1";
-        $stl = $this->pdo->prepare($querycom);
+    public function getLastStatus($id_cuenta): HistoriaObject
+    {
+        $query = "select * from historia where c_cont = :id_cuenta 
+        order by d_fech desc, c_hrin desc limit 1";
+        $stl = $this->pdo->prepare($query);
         $stl->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stl->execute();
-        return $stl->fetch(PDO::FETCH_ASSOC);
+        $result = $stl->fetchObject(HistoriaObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new HistoriaObject();
     }
 
     /**
      * 
      * @param int $id_cuenta
-     * @return array
+     * @return HistoriaObject
      */
-    public function getPromData($id_cuenta) {
-        $queryprom = "select n_prom as N_PROM_OLD, d_prom as D_PROM_OLD,
-    n_prom1 as N_PROM1_OLD, d_prom1 as D_PROM1_OLD,
-    n_prom2 as N_PROM2_OLD, d_prom2 as D_PROM2_OLD,
-    n_prom3 as N_PROM3_OLD, d_prom1 as D_PROM1_OLD,
-    n_prom1 as N_PROM1_OLD, d_prom1 as D_PROM1_OLD
+    public function getPromData($id_cuenta): HistoriaObject
+    {
+        $query = "select *
 from historia 
 where c_cont = :id_cuenta 
-and n_prom>0 
+and n_prom > 0 
 and c_cvst like 'PROMESA DE%'
 order by d_fech desc, c_hrin desc limit 1";
-        $stp = $this->pdo->prepare($queryprom);
+        $stp = $this->pdo->prepare($query);
         $stp->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stp->execute();
-        return $stp->fetch(PDO::FETCH_ASSOC);
+        return $stp->fetchObject(HistoriaObject::class);
     }
 
     /**
@@ -508,35 +510,35 @@ order by d_fech desc, c_hrin desc limit 1";
      * 
      * @param string $capt
      * @param int $id_cuenta
-     * @param string $mytipo
+     * @param string $myTipo
      */
-    public function setLocks($capt, $id_cuenta, $mytipo) {
-        $queryunlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
+    public function setLocks($capt, $id_cuenta, $myTipo) {
+        $queryUnlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
-        $stu = $this->pdo->prepare($queryunlock);
+        $stu = $this->pdo->prepare($queryUnlock);
         $stu->bindParam(':capt', $capt);
-        $querylock = "UPDATE resumen SET timelock = now(), locker = :capt "
+        $queryLock = "UPDATE resumen SET timelock = now(), locker = :capt "
                 . "WHERE id_cuenta = :id_cuenta";
-        if ($mytipo == 'admin') {
-            $querylock = "SELECT :capt, :id_cuenta";
+        if ($myTipo == 'admin') {
+            $queryLock = "SELECT :capt, :id_cuenta";
         }
-        $stl = $this->pdo->prepare($querylock);
+        $stl = $this->pdo->prepare($queryLock);
         $stl->bindParam(':capt', $capt);
         $stl->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $queryunlockslice = "UPDATE rslice SET timelock = NULL, locker = NULL "
+        $queryUnlockSlice = "UPDATE rslice SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
-        $stus = $this->pdo->prepare($queryunlockslice);
-        $stus->bindParam(':capt', $capt);
-        $querylockslice = "UPDATE rslice SET timelock = now(), locker = :capt "
+        $sts = $this->pdo->prepare($queryUnlockSlice);
+        $sts->bindParam(':capt', $capt);
+        $queryLockSlice = "UPDATE rslice SET timelock = now(), locker = :capt "
                 . "WHERE id_cuenta= :id_cuenta";
-        $stls = $this->pdo->prepare($querylockslice);
-        $stls->bindParam(':capt', $capt);
-        $stls->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $str = $this->pdo->prepare($queryLockSlice);
+        $str->bindParam(':capt', $capt);
+        $str->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $this->pdo->beginTransaction();
         $stu->execute();
         $stl->execute();
-        $stus->execute();
-        $stls->execute();
+        $sts->execute();
+        $str->execute();
         $this->pdo->commit();
     }
 
@@ -615,6 +617,33 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
             $count = 0;
         }
         return $count;
+    }
+
+    /**
+     * @param string $capt
+     * @return int
+     */
+    function leaveEmptyQueue(string $capt): int
+    {
+        $newCamp = 3;
+        $query = "SELECT queuelist.camp as cp 
+        FROM nombres, queuelist 
+WHERE gestor = iniciales and status_aarsa <> '' and queuelist.camp > nombres.camp
+AND gestor = :capt AND bloqueado = 0
+ORDER BY queuelist.camp LIMIT 1";
+        $stc = $this->pdo->prepare($query);
+        $stc->bindValue(':capt', $capt);
+        $stc->execute();
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $newCamp = $result['camp'];
+        }
+        $querySet = "UPDATE nombres SET camp = :camp WHERE iniciales =:capt";
+        $stu = $this->pdo->prepare($querySet);
+        $stu->bindValue(':camp', $newCamp);
+        $stu->bindValue(':capt', $capt);
+        $stu->execute();
+        return $newCamp;
     }
 
 }
