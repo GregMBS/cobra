@@ -898,4 +898,8 @@ if (realpath($path)) {
 $gestiones = $rc->countGestiones($id_cuenta);
 $promesas = $rc->countPromesas($id_cuenta);
 $pagos = $rc->countPagos($id_cuenta);
+if (empty($row->nombre_deudor)) {
+    var_dump($row);
+    die();
+}
 include __DIR__ . '/views/resumenView.php';
