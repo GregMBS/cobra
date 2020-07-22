@@ -632,7 +632,7 @@ ORDER BY queuelist.camp LIMIT 1";
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-            $newCamp = $result['camp'];
+            $newCamp = $result['cp'];
         }
         $querySet = "UPDATE nombres SET camp = :camp WHERE iniciales =:capt";
         $stu = $this->pdo->prepare($querySet);
