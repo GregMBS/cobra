@@ -115,7 +115,7 @@ order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_
                 return sprintf($queryBase, $clientStr, $sdcStr);
 
             default:
-                $queryBase = "SELECT * FROM resumen 
+                $queryBase = "SELECT resumen.* FROM resumen 
 join dictamenes on dictamen=status_aarsa 
 WHERE locker is null %s %s %s
 ORDER BY fecha_ultima_gestion LIMIT 1";
@@ -138,7 +138,6 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
             if ($result) {
                 return $result;
             }
-            die($stq->queryString);
             return new ResumenObject();
         } catch (PDOException $p) {
             throw new Exception($p);
