@@ -58,23 +58,21 @@ ORDER BY saldo_total desc";
      * @param string $rato
      * @return string
      */
-    private function getRatostr($rato) {
+    private function getRatoString($rato) {
         switch ($rato) {
             case 'diario':
-                $ratostr = " AND fecha_ultima_gestion>curdate() ";
-                break;
+                return " AND fecha_ultima_gestion>curdate() ";
+
             case 'semanal':
-                $ratostr = "AND week(fecha_ultima_gestion)=week(curdate())
-        AND year(fecha_ultima_gestion)=year(curdate()) ";
-                break;
+                return "AND week(fecha_ultima_gestion) = week(curdate())
+        AND year(fecha_ultima_gestion) = year(curdate()) ";
+
             case 'mensual':
-                $ratostr = "AND fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day ";
-                break;
+                return "AND fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day ";
+
             default:
-                $ratostr = "";
-                break;
+                return "";
         }
-        return $ratostr;
     }
 
     /**
@@ -86,12 +84,12 @@ ORDER BY saldo_total desc";
      * @return array
      */
     public function getReport($rato, $cliente, $sdc, $queue) {
-        $ratostr = $this->getRatostr($rato);
-        $sdcstr = 'AND status_de_credito not regexp "-" ';
+        $ratoString = $this->getRatoString($rato);
+        $sdcString = 'AND status_de_credito not regexp "-" ';
         if (!(empty($sdc))) {
-            $sdcstr = "AND status_de_credito=:sdc ";
+            $sdcString = "AND status_de_credito=:sdc ";
         }
-        $querymain = $this->queryhead . $sdcstr . $ratostr . $this->querytail;
+        $querymain = $this->queryhead . $sdcString . $ratoString . $this->querytail;
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':cliente', $cliente);
         $stm->bindParam(':queue', $queue);
