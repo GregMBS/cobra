@@ -1,3 +1,6 @@
+<?php
+use cobra_salsa\ResumenObject;
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -32,14 +35,16 @@
             <tbody class="ui-widget-c">
                 <?php
                 $j = 0;
-
+                /**
+                 * @var ResumenObject $row
+                 */
                 foreach ($result as $row) {
                     $j = $j + 1;
-                    $CUENTA = $row['numero_de_cuenta'];
-                    $NOMBRE = $row['nombre_deudor'];
-                    $CLIENTE = $row['cliente'];
-                    $ID_CUENTA = $row['id_cuenta'];
-                    $STATUS = $row['status_de_credito'];
+                    $CUENTA = $row->numero_de_cuenta;
+                    $NOMBRE = $row->nombre_deudor;
+                    $CLIENTE = $row->cliente;
+                    $ID_CUENTA = $row->id_cuenta;
+                    $STATUS = $row->status_de_credito;
                     ?>
                     <tr>
                         <td><a<?php if (preg_match('/-/', $STATUS)) { ?> style="color:#c0c0c0;"<?php } ?> href='<?php echo $from; ?>?go=FROMBUSCAR&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>&highlight=<?php echo $field ?>&hfind=<?php echo $find ?>'><?php echo $CUENTA; ?></a></td>
@@ -69,9 +74,9 @@
                 Client = <select name="cliente">
                     <option value=" ">Todos</option>
                     <?php
-                    foreach ($resultcl as $answercl) {
+                    foreach ($clientes as $cliente) {
                         ?>
-                        <option value="<?php echo $answercl['cliente']; ?>"><?php echo $answercl[0]; ?>
+                        <option value="<?php echo $cliente['cliente']; ?>"><?php echo $cliente['cliente']; ?>
                         </option>
                     <?php } ?>
                 </select><br>
@@ -89,4 +94,4 @@
             </form>
         </div>
     </body>
-</html> 
+</html>

@@ -29,7 +29,7 @@
                 openSearch('<?php echo $tl; ?>');
                 <?php
                 $pagingBase = "paging('HISTORIA', %u, '%s', '%s');";
-                $pagingString = sprintf($pagingBase, $flag, $flagmsg, $cuenta);
+                $pagingString = sprintf($pagingBase, $flag, $flagmsg, $row->numero_de_cuenta);
                 echo $pagingString;
                 ?>
             </SCRIPT>
@@ -882,7 +882,7 @@
                     Client = <select name="cliente">
                         <option value=" ">Todos</option>
                         <?php
-                        foreach ($resultcl as $answercl) {
+                        foreach ($clientes as $answercl) {
                             ?>
                             <option value="<?php echo $answercl[0]; ?>"><?php echo $answercl[0]; ?>
                             </option>

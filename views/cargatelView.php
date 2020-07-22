@@ -17,7 +17,7 @@
             <textarea name='data' rows='20' cols='50'></textarea></label>
             <label>Mensaje <select name="msgtag">
                     <?php
-                    foreach ($resultcl as $answercl) {
+                    foreach ($clientes as $answercl) {
                         ?>
                         <option value="<?php echo $answercl['client'] . ',' . $answercl['tipo']; ?>" style="font-size:120%;">
                             <?php echo $answercl['client'] . ',' . $answercl['tipo']; ?></option>
