@@ -688,7 +688,7 @@ if ($id_cuenta > 0) {
 try {
     $lockDate = new DateTime($timelock);
     $nowDate = new DateTime();
-    $sofar = $nowdate->diff($lockDate);
+    $sofar = $nowDate->diff($lockDate);
 } catch (Exception $e) {
     die($e->getMessage());
 }
