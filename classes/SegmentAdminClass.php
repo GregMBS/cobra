@@ -137,7 +137,11 @@ select distinct cliente,sdc from queuelist";
             $this->pdo->query($queryTemp);
             $stm = $this->pdo->prepare($query);
             $stm->execute();
-            return $stm->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+            if ($result) {
+                return $result;
+            }
+            return [];
         } catch (PDOException $p) {
             die($p->getMessage());
         }
