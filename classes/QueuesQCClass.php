@@ -138,7 +138,7 @@ group by cliente,status_de_credito
             $stc->bindParam(':sdc', $SDC);
         }
         $stc->execute();
-        return $stc->fetch(PDO::FETCH_CLASS, QueuesReportObject::class);
+        return $stc->fetchObject( QueuesReportObject::class);
     }
 
 }
