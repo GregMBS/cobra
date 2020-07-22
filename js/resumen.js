@@ -3,7 +3,7 @@
  * @param {string} timelock
  */
 function openSearch(timelock) {
-    setInterval('clock(timelock)', 1000);
+    setInterval(function() { clock(timelock); }, 1000);
 }
 
 /**
