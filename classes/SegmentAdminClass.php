@@ -105,6 +105,7 @@ group by cliente, status_de_credito";
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE q.status_aarsa='sin gestion'
+    and sdc <> '' 
     group by q.cliente,sdc,cnt
     ";
         $stm = $this->pdo->prepare($query);
@@ -129,6 +130,7 @@ select distinct cliente,sdc from queuelist";
     WHERE r.cliente <> ''
     AND status_de_credito not regexp '-'
     group by r.cliente,status_de_credito
+    having count(1) > 0
     ";
         try {
             $this->pdo->query($queryDrop);
