@@ -25,7 +25,7 @@ function paging(pageId, flag = 0, flagMsg = '', cuenta = '') {
     document.getElementById("VISITA").style.display = "none";
     document.getElementById("HISTORIA").style.display = "none";
     document.getElementById("EXTRAS").style.display = "none";
-    document.getElementById(pageid).style.display = "block";
+    document.getElementById(pageId).style.display = "block";
     if (document.getElementById("GESTION")) {
         document.getElementById("GESTION").style.display = "block";
     }
@@ -112,7 +112,6 @@ function showsearch() {
 
 function cancelbox(boxname) {
     document.getElementById(boxname).style.display = "none";
-    searching = "";
 }
 
 function addToTels(pos, tel) {
