@@ -26,7 +26,7 @@ class SpeclistqcClass {
      *
      * @var string
      */
-    private $queryhead = "SELECT numero_de_cuenta, nombre_deudor, saldo_total,
+    private $queryHead = "SELECT numero_de_cuenta, nombre_deudor, saldo_total,
 	status_aarsa, ejecutivo_asignado_call_center, sum(monto) as sm,
 	status_de_credito, producto, estado_deudor, ciudad_deudor,
 	resumen.cliente as cli, resumen.id_cuenta as idc,
@@ -41,7 +41,7 @@ AND queue=:queue ";
      *
      * @var string
      */
-    private $querytail = " GROUP BY id_cuenta
+    private $queryTail = " GROUP BY id_cuenta
 ORDER BY saldo_total desc";
 
 
@@ -89,7 +89,7 @@ ORDER BY saldo_total desc";
         if (!(empty($sdc))) {
             $sdcString = "AND status_de_credito=:sdc ";
         }
-        $querymain = $this->queryhead . $sdcString . $ratoString . $this->querytail;
+        $querymain = $this->queryHead . $sdcString . $ratoString . $this->queryTail;
         $stm = $this->pdo->prepare($querymain);
         $stm->bindParam(':cliente', $cliente);
         $stm->bindParam(':queue', $queue);
@@ -97,6 +97,9 @@ ORDER BY saldo_total desc";
             $stm->bindParam(':sdc', $sdc);
         }
         $stm->execute();
+        if ($rato == 'semanal') {
+            die($stm->queryString);
+        }
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
