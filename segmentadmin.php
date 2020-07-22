@@ -1,13 +1,13 @@
 <?php
 
 use cobra_salsa\PdoClass;
-use cobra_salsa\SegmentadminClass;
+use cobra_salsa\SegmentAdminClass;
 
 require_once 'classes/PdoClass.php';
-require_once 'classes/SegmentadminClass.php';
+require_once 'classes/SegmentAdminClass.php';
 $pc   = new PdoClass();
 $pdo  = $pc->dbConnectAdmin();
-$sc   = new SegmentadminClass($pdo);
+$sc   = new SegmentAdminClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go   = filter_input(INPUT_GET, 'go');
 if (!empty($go)) {
@@ -32,4 +32,4 @@ if (!empty($go)) {
 }
 $result     = $sc->listQueuedSegmentos();
 $result2    = $sc->listUnqueuedSegments();
-require_once 'views/segmentadminView.php';
+require_once 'views/segmentAdminView.php';

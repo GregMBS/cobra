@@ -3,13 +3,10 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
-/**
- * Description of segmentadminClass
- *
- * @author gmbs
- */
-class SegmentadminClass {
+class SegmentAdminClass
+{
 
     /**
      *
@@ -18,19 +15,21 @@ class SegmentadminClass {
     private $pdo;
 
     /**
-     * 
+     *
      * @param PDO $pdo
      */
-    public function __construct(PDO $pdo) {
+    public function __construct(PDO $pdo)
+    {
         $this->pdo = $pdo;
     }
 
     /**
-     * 
+     *
      * @param string $cliente
      * @param string $segmento
      */
-    public function borrarSegmento($cliente, $segmento) {
+    public function borrarSegmento($cliente, $segmento)
+    {
         $queryborrar = "DELETE FROM queuelist
             WHERE cliente=:cliente
             AND sdc=:segmento;";
@@ -41,11 +40,12 @@ class SegmentadminClass {
     }
 
     /**
-     * 
+     *
      * @param string $cliente
      * @param string $segmento
      */
-    public function agregarSegmento($cliente, $segmento) {
+    public function agregarSegmento($cliente, $segmento)
+    {
         $querylistin = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
@@ -62,12 +62,13 @@ class SegmentadminClass {
     }
 
     /**
-     * 
+     *
      */
-    public function addAllSegmentos() {
+    public function addAllSegmentos()
+    {
         $querycliseg = "SELECT DISTINCT cliente, status_de_credito "
-                . "FROM resumen "
-                . "WHERE status_de_credito NOT REGEXP '-'";
+            . "FROM resumen "
+            . "WHERE status_de_credito NOT REGEXP '-'";
         $result = $this->pdo->query($querycliseg);
         $querylistin = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
@@ -87,23 +88,24 @@ class SegmentadminClass {
     }
 
     /**
-     * 
+     *
      * @return array
      */
-    public function listQueuedSegmentos() {
+    public function listQueuedSegmentos()
+    {
         $queryDrop = "drop table if exists csdcr";
         $this->pdo->query($queryDrop);
-        $querytempr = "create temporary table csdcr
+        $queryTemp = "create table csdcr
 select cliente, status_de_credito, count(id_cuenta) as cnt from resumen
 where status_de_credito not regexp '-'
 group by cliente, status_de_credito";
-        $this->pdo->query($querytempr);
+        $this->pdo->query($queryTemp);
         $query = "SELECT q.cliente as 'cliente', sdc, cnt
     FROM queuelist q
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
-    WHERE sdc<>'' and q.status_aarsa='sin gestion'
-    group by q.cliente,sdc
+    WHERE q.status_aarsa='sin gestion'
+    group by q.cliente,sdc,cnt
     ";
         $stm = $this->pdo->prepare($query);
         $stm->execute();
@@ -111,26 +113,32 @@ group by cliente, status_de_credito";
     }
 
     /**
-     * 
+     *
      * @return array
      */
-    public function listUnqueuedSegments() {
-        $querytemp = "create temporary table csdc
+    public function listUnqueuedSegments()
+    {
+        $queryDrop = "drop table if exists csdc";
+        $queryTemp = "create table csdc
 select distinct cliente,sdc from queuelist";
-        $this->pdo->query($querytemp);
         $query = "SELECT r.cliente as 'cliente',status_de_credito as 'sdc',
-    count(1)
+    count(1) as 'cnt'
     FROM resumen r
     LEFT JOIN csdc q
     ON q.cliente=r.cliente and sdc=status_de_credito
-    WHERE sdc is null
-    AND r.cliente <> ''
+    WHERE r.cliente <> ''
     AND status_de_credito not regexp '-'
     group by r.cliente,status_de_credito
     ";
-        $stm = $this->pdo->query($query);
-        $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            $this->pdo->query($queryDrop);
+            $this->pdo->query($queryTemp);
+            $stm = $this->pdo->prepare($query);
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $p) {
+            die($p->getMessage());
+        }
     }
 
 }
