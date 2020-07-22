@@ -479,12 +479,15 @@ ORDER BY cliente,sdc,queue";
 from historia 
 where c_cont = :id_cuenta 
 and n_prom > 0 
-and c_cvst like 'PROMESA DE%'
 order by d_fech desc, c_hrin desc limit 1";
         $stp = $this->pdo->prepare($query);
         $stp->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stp->execute();
-        return $stp->fetchObject(HistoriaObject::class);
+        $result = $stp->fetchObject(HistoriaObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new HistoriaObject();
     }
 
     /**
