@@ -14,7 +14,10 @@ function openSearch(timelock) {
  * @param {string} cuenta
  */
 function paging(pageId, flag = 0, flagMsg = '', cuenta = '') {
-    document.getElementById("TELEFONOS").style.display = "none";
+    const telefonos = document.getElementById("TELEFONOS");
+    if (telefonos) {
+        telefonos.style.display = "none";
+    }
     document.getElementById("REFERENCIAS").style.display = "none";
     document.getElementById("LABORAL").style.display = "none";
     document.getElementById("CONTABLES").style.display = "none";
