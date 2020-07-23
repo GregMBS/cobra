@@ -62,14 +62,14 @@
     </thead>
     <tbody class="ui-widget-content">
     <?php
-    foreach ($resultq as $answer) {
-        $CLIENTE = $answer['cliente'];
-        $QUEUE = $answer['status_aarsa'];
+    foreach ($queues as $answer) {
+        $CLIENTE = $answer->cliente;
+        $QUEUE = $answer->status_aarsa;
         $QUEUES = str_replace('+', '%2B', $QUEUE);
-        $SDC = $answer['sdc'];
+        $SDC = $answer->sdc;
         $SDCS = str_replace('+', '%2B', $SDC);
-        $resultc = $qc->getSegmentoCount($CLIENTE, $SDC);
-        foreach ($resultc as $answerc) {
+        $counts = $qc->getSegmentoCount($CLIENTE, $SDC);
+        foreach ($counts as $answerc) {
             $ASIGNADOS = $answerc['ct'];
             $DINERO = $answerc['sst'];
         }
@@ -183,7 +183,7 @@
     </thead>
     <tbody class="ui-widget-content">
     <?php
-    foreach ($result as $answer) {
+    foreach ($main as $answer) {
         $CLIENTE = $answer[0];
         $SDC = $answer[1];
         $COUNT = $answer[2];

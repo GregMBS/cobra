@@ -19,7 +19,7 @@
             </thead>
             <tbody class="ui-widget-content">
                 <?php
-                foreach ($result as $row) {
+                foreach ($main as $row) {
                     $auto = $row['auto'];
                     $gestor = $row['gestor'];
                     $tipo = $row['tipo'];

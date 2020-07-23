@@ -38,7 +38,7 @@ use cobra_salsa\ResumenObject;
                 /**
                  * @var ResumenObject $row
                  */
-                foreach ($result as $row) {
+                foreach ($main as $row) {
                     $j = $j + 1;
                     $CUENTA = $row->numero_de_cuenta;
                     $NOMBRE = $row->nombre_deudor;

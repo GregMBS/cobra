@@ -47,14 +47,12 @@
             </div>
             <div id="gen">
                 <h2>Reportes Generales</h2>
-                <!--<button onclick="window.location='queuesqcg.php?capt=<?php echo $capt; ?>'">Queues por Gestor</button>-->
                 <button onclick="window.location = 'queuesqc.php?capt=<?php echo $capt; ?>'">Queues por Cliente</button>
-                <!--<button onclick="window.location='queueReview.php?capt=<?php echo $capt; ?>'">Reporte de Queues</button><br>-->
                 <button onclick="window.location = 'latest_best.php?capt=<?php echo $capt; ?>'">Ultimo y Mejor Status</button>
-                <button onclick="window.location = 'rotas.php?capt=<?php echo $capt; ?>'">Promesas del Mes Actual</button>
+                <button onclick="window.location = 'rotas.php?capt=<?php echo $capt; ?>'">Promesas del Mes Actual</button><br>
                 <button onclick="window.location = 'pagosum.php?capt=<?php echo $capt; ?>'">Pagos por Cliente</button>
                 <button onclick="window.location = 'pagodet.xlsx.php?capt=<?php echo $capt; ?>'">Pagos este mes (XLSX)</button>
-                <button onclick="window.location = 'pagodetant.xlsx.php?capt=<?php echo $capt; ?>'">Pagos mes anterior (XLSX)</button>
+                <button onclick="window.location = 'pagodetant.xlsx.php?capt=<?php echo $capt; ?>'">Pagos mes anterior (XLSX)</button><br>
                 <button onclick="window.location = 'horarios_clean.php?capt=<?php echo $capt; ?>'">Productividad este Mes</button>
                 <button onclick="window.location = 'perfmes.php?capt=<?php echo $capt; ?>'">Productividad Mes Anterior</button>
                 <button onclick="window.location = 'horariosv.php?capt=<?php echo $capt; ?>'">Productividad Visit. este Mes</button>
@@ -62,12 +60,9 @@
                 <button onclick="window.location = 'horarios_clean2.php?capt=<?php echo $capt; ?>'">Nomina Confidential</button><br>
                 <button onclick="window.location = 'bigquery2.xls.php?capt=<?php echo $capt; ?>'">Query de las Gestiones XLS</button>
                 <button onclick="window.location = 'bigproms.php?capt=<?php echo $capt; ?>'">Query de las Promesas XLS</button>
-                <button onclick="window.location = 'pagosquery.php?capt=<?php echo $capt; ?>'">Query de Pagos XLS</button>
+                <button onclick="window.location = 'pagosquery.php?capt=<?php echo $capt; ?>'">Query de Pagos XLS</button><br>
                 <button onclick="window.location = 'inventario.xls.php?capt=<?php echo $capt; ?>'">Query del Inventario XLS</button>
-                <button onclick="window.location = 'inventario-rapid.php?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLS</button>
-<!--                <button onclick="window.location = 'Reporte_diario_special.php?capt=<?php echo $capt; ?>'">Promesas y Pagos autoconfigurado HTML</button>
-                <button onclick="window.location = 'Reporte_diario_hace_mes.php?capt=<?php echo $capt; ?>'">Promesas y Pagos hace un mes HTML</button>-->
-                <button onclick="window.location = 'comparativo.php?capt=<?php echo $capt; ?>'">Comparativo de 3 meses HTML</button><br>
+                <button onclick="window.location = 'inventario-rapid.php?capt=<?php echo $capt; ?>'">Query del Inventario Rapido XLS</button><br>
                 <button onclick="window.location = 'tels_contactados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Contactados XLS</button>
                 <button onclick="window.location = 'tels_marcados.php?capt=<?php echo $capt; ?>'">Reporte de Tel&eacute;fonos Marcados XLS</button>
             </div>

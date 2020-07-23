@@ -17,7 +17,7 @@
                 <select name="gestor" id="gestor" onChange="$('#asigform').submit();">
                     <option></option>
                     <?php
-                    foreach ($result as $answer) {
+                    foreach ($main as $answer) {
                         ?>
                         <option value="<?php echo $answer['usuaria']; ?>" <?php if ($gestor == $answer['usuaria']) {
                             ?> selected='selected'<?php } ?>><?php echo htmlentities($answer['usuaria'] . '-' . $answer['completo']); ?>

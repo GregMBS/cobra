@@ -36,7 +36,7 @@
             </thead>
             <tbody class="ui-widget-content">
                 <?php
-                foreach ($result as $row) {
+                foreach ($main as $row) {
                     ?>
                     <tr>
                         <td class="number"><?php echo $row['numero_de_cuenta']; ?></td>

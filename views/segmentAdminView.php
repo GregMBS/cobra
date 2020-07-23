@@ -29,7 +29,7 @@
     <?php
     $j = 0;
 
-    foreach ($result as $row) {
+    foreach ($main as $row) {
         $j = $j + 1;
         $cliente = $row['cliente'];
         $segmento = $row['sdc'];

@@ -25,7 +25,7 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($result as $row) {
+                foreach ($main as $row) {
                     $tel     = $row['tel'];
                     $nombre  = $row['nombre_deudor'];
                     $cp      = $row['cp_deudor'];

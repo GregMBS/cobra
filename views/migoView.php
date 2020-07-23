@@ -24,7 +24,7 @@
             </thead>
             <tbody class="ui-widget-content">
                 <?php
-                foreach ($result as $row) {
+                foreach ($main as $row) {
                     $CUENTA = $row['numero_de_cuenta'];
                     $NOMBRE = $row['nombre_deudor'];
                     $CLIENTE = $row['cliente'];

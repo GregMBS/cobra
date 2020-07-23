@@ -32,9 +32,12 @@ class SegmentAdminClassTest extends TestCase
         $unqueued = $this->cc->listUnqueuedSegments();
         $this->assertIsArray($unqueued);
         $first = array_pop($unqueued);
-        $this->assertArrayHasKey('cliente', $first);
-        $this->assertArrayHasKey('sdc', $first);
-        $this->assertArrayHasKey('cnt', $first);
+        if ($first) {
+            $this->assertArrayHasKey('cliente', $first);
+            $this->assertArrayHasKey('sdc', $first);
+            $this->assertArrayHasKey('cnt', $first);
+        }
+        $this->assertNull($first);
     }
 
     public function testListQueuedSegmentos()

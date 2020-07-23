@@ -22,19 +22,19 @@
                     <div style='float:left;width:40%'>
                         <select name='queue'>
                             <?php
-                            foreach ($resultq->fetchAll(PDO::FETCH_ASSOC) as $rowq) {
-                                $CR = $rowq['status_aarsa'];
+                            foreach ($queues as $rowQ) {
+                                $CR = $rowQ['status_aarsa'];
                                 if ($CR == '.') {
                                     $CR = 'todos';
                                 }
                                 ?>
                                 <option value='<?php
-                                echo $rowq['cliente'] . ',' . $rowq['sdc'] . ',' . $CR;
+                                echo $rowQ['cliente'] . ',' . $rowQ['sdc'] . ',' . $CR;
                                 ?>' <?php
-                                        if ($rowq['bloqueado'] == 1) {
+                                        if ($rowQ['bloqueado'] == 1) {
                                             echo "class='blocked'";
                                         }
-                                        ?>><?php echo $rowq['cliente'] . '-' . $rowq['sdc'] . '-' . $CR; ?></option>
+                                        ?>><?php echo $rowQ['cliente'] . '-' . $rowQ['sdc'] . '-' . $CR; ?></option>
                                     <?php } ?>
                         </select>
                     </div>
@@ -71,17 +71,17 @@
                             <select name='camp'>
                                 <?php
                                 $resultqa = $qc->getMyQueuelist($rowlist['gestor']);
-                                foreach ($resultqa as $rowq) {
-                                    $CR = $rowq['status_aarsa'];
+                                foreach ($resultqa as $rowQ) {
+                                    $CR = $rowQ['status_aarsa'];
                                     if ($CR == '.') {
                                         $CR = 'todos';
                                     }
                                     ?>
-                                    <option value='<?php echo $rowq['camp']; ?>' <?php
-                                    if ($rowq['bloqueado'] == 1) {
+                                    <option value='<?php echo $rowQ['camp']; ?>' <?php
+                                    if ($rowQ['bloqueado'] == 1) {
                                         echo "class='blocked'";
                                     }
-                                    ?>><?php echo $rowq['cliente'] . '-' . $rowq['sdc'] . '-' . $CR; ?></option>
+                                    ?>><?php echo $rowQ['cliente'] . '-' . $rowQ['sdc'] . '-' . $CR; ?></option>
                                         <?php } ?>
                             </select>
                         </div>

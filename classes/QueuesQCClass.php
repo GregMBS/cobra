@@ -3,9 +3,9 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 require_once __DIR__ . '/QueuesReportObject.php';
+require_once __DIR__ . '/QueuelistObject.php';
 
 /**
  * Description of QueuesQCClass
@@ -88,10 +88,10 @@ and queue = :queue ";
 
     /**
      * 
-     * @return array|PDOStatement
+     * @return QueuelistObject[]
      */
     function getQueues() {
-        $query = "select distinct cliente, status_aarsa, sdc
+        $query = "select distinct queuelist.*
 from queuelist
 where status_aarsa not like 'PLASTIC%'
 and cliente <> ''
@@ -103,23 +103,37 @@ where status_aarsa = dictamen
 )
 order by cliente, sdc, status_aarsa limit 1000
 ";
-        return $this->pdo->query($query);
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
+        $result = $stq->fetchAll(PDO::FETCH_CLASS, QueuelistObject::class);
+        if ($result) {
+            return $result;
+        }
+        return [
+            new QueuelistObject()
+            ];
     }
 
     /**
      *
-     * @return false|PDOStatement
+     * @return array
      */
     function getMain() {
         $query = "select cliente,
-status_de_credito,count(1),sum(saldo_total),
+status_de_credito,count(1) as cnt, sum(saldo_total) as mnt,
 sum(fecha_ultima_gestion<=last_day(curdate()-interval 1 month)+interval 1 day) as ecount,
 sum((fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day)*saldo_total) as emount
 from resumen
-where status_de_credito not regexp '[dv]o$'
+where status_de_credito not regexp '-'
 group by cliente,status_de_credito
 ";
-        return $this->pdo->query($query);
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result;
+        }
+        return [];
     }
 
     /**

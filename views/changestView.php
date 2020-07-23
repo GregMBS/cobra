@@ -20,7 +20,7 @@
             <tbody class="ui-widget-content">
                 <?php
                 $j = 0;
-                foreach ($result as $row) {
+                foreach ($main as $row) {
                     $j = $j + 1;
                     $CUENTA = $row['numero_de_cuenta'];
                     $NOMBRE = utf8_decode($row['nombre_deudor']);

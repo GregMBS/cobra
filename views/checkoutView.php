@@ -18,7 +18,7 @@
         <select name="gestor" onmouseup="this.form.submit()">
             <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
             <?php
-            foreach ($result as $answer) {
+            foreach ($main as $answer) {
                 ?>
                 <option value="<?php echo $answer['usuaria']; ?>" <?php if ($gestor == $answer['usuaria']) {
                     ?> selected='selected'<?php } ?>><?php echo htmlentities($answer['usuaria'] . '-' . $answer['completo']); ?>

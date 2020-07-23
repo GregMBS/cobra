@@ -32,8 +32,8 @@
                 <?php
 $sc = 0;
 $sm = 0;
-if ($result) {
-    foreach ($result as $answer) {
+if ($main) {
+    foreach ($main as $answer) {
         $GESTOR = $answer['gestor'];
         $ID_CUENTA = $answer['id_cuenta'];
         $CUENTA = $answer['numero_de_cuenta'];

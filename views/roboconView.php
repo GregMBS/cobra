@@ -82,7 +82,7 @@
                         <th>Lineas</th>
                     </tr>
                     <?php
-                    foreach ($result as $row) {
+                    foreach ($main as $row) {
                         $msg = $row['msg'];
                         $lineas = (int)$row['lineas'];
                         $auto = (int)$row['auto'];
