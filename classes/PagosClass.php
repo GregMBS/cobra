@@ -249,28 +249,31 @@ order by cliente,gestor,fecha";
      * @return string
      */
     private function assignCredit($cuenta, $cliente, $fechapago) {
-        $quertcc = "select id_cuenta from resumen 
+        $queryId = "select id_cuenta from resumen 
                 where numero_de_cuenta = :cuenta
                 and cliente = :cliente";
-        $stq = $this->pdo->prepare($quertcc);
+        $stq = $this->pdo->prepare($queryId);
         $stq->bindParam(':cuenta', $cuenta);
         $stq->bindParam(':cliente', $cliente);
         $stq->execute();
         $resultc = $stq->fetch(PDO::FETCH_ASSOC);
         $id_cuenta = $resultc['id_cuenta'];
 
-        $queryp = "SELECT * FROM historia 
+        $query = "SELECT * FROM historia 
             WHERE c_cont= :id_cuenta
                 AND d_fech <= :fechapago 
                 AND n_prom > 0
                 order by auto desc
                 limit 1";
-        $stp = $this->pdo->prepare($queryp);
+        $stp = $this->pdo->prepare($query);
         $stp->bindParam(':id_cuenta', $id_cuenta);
         $stp->bindParam(':fechapago', $fechapago);
         $stp->execute();
-        $result = $stp->fetch(PDO::FETCH_ASSOC);
-        return $result['C_CVGE'];
+        $result = $stp->fetchObject(HistoriaObject::class);
+        if ($result) {
+            return $result->C_CVGE;
+        }
+        return '';
     }
 
     /**
@@ -345,7 +348,8 @@ order by cliente,gestor,fecha";
      */
     private function buildSheet(string $queryDA, array $output): array
     {
-        $std = $this->pdo->query($queryDA) or var_dump($this->pdo->errorInfo());
+        $std = $this->pdo->prepare($queryDA);
+        $std->execute();
         if ($std) {
             $output = $this->sheetLoop($std, $output);
         } else {
