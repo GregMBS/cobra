@@ -91,6 +91,9 @@ AND queue=:queue ";
         if ($result) {
             return $result;
         }
+        if ($rato == 'semanal') {
+            die($stm->queryString);
+        }
         return [
             new ResumenObject()
             ];
