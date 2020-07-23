@@ -1,3 +1,6 @@
+<?php
+use cobra_salsa\PagosObject;
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -35,16 +38,12 @@
                 </thead>
                 <tbody class="ui-widget-content">
                     <?php
-                    foreach ($rowsub as $answer) {
-                        $CF = "NO";
-                        if ($answer['confirmado'] == 1) {
-                            $CF = "S&Iacute;";
-                        }
-                        ?>
+                    /** @var PagosObject $answer */
+                    foreach ($rowsub as $answer) { ?>
                         <tr>
-                            <td><?php echo $answer['fecha']; ?></td>
-                            <td><?php echo (float) $answer['monto']; ?></td>
-                            <td><?php echo $CF; ?></td>
+                            <td><?php echo $answer->fecha; ?></td>
+                            <td><?php echo (float) $answer->monto; ?></td>
+                            <td><?php echo $answer->confString(); ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -52,4 +51,4 @@
         </div>
         <button onClick='window.close()'>CIERRA</button>
     </body>
-</html> 
+</html>

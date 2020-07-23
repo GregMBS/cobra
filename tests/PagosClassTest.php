@@ -2,11 +2,15 @@
 
 
 use cobra_salsa\PagosClass;
+use cobra_salsa\PagosObject;
 use cobra_salsa\PdoClass;
+use cobra_salsa\ResumenObject;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../classes/PdoClass.php';
 require_once __DIR__ . '/../classes/PagosClass.php';
+require_once __DIR__ . '/../classes/PagosObject.php';
+require_once __DIR__ . '/../classes/ResumenObject.php';
 
 class PagosClassTest extends TestCase
 {
@@ -103,12 +107,31 @@ class PagosClassTest extends TestCase
 
     public function testListPagos()
     {
-
+        $pagos = $this->cc->listPagos(158877);
+        $this->assertIsArray($pagos);
+        $first = array_pop($pagos);
+        $this->assertInstanceOf(PagosObject::class, $first);
     }
 
     public function testQueryAll()
     {
-
+        $report = $this->cc->queryAll('2020-01-01', '2020-12-31', 'FAMSA');
+        $this->assertIsArray($report);
+        $first = array_pop($report);
+        $expected = [
+            'cuenta',
+            'fecha',
+            'fechacapt',
+            'monto',
+            'cliente',
+            'sdc',
+            'gestor',
+            'confirmado',
+            'id_cuenta',
+            'credit'
+        ];
+        $keys = array_keys((array) $first);
+        $this->assertEquals($expected, $keys);
     }
 
     public function testByGestorThisMonth()
@@ -149,16 +172,37 @@ class PagosClassTest extends TestCase
 
     public function testSummaryThisMonth()
     {
-
+        $report = $this->cc->summaryThisMonth();
+        $this->assertIsArray($report);
+        $first = array_pop($report);
+        $expected = [
+            'cli',
+            'sdc',
+            'sm',
+            'smc'
+        ];
+        $keys = array_keys($first);
+        $this->assertEquals($expected, $keys);
     }
 
     public function testSummaryLastMonth()
     {
-
+        $report = $this->cc->summaryLastMonth();
+        $this->assertIsArray($report);
+        $first = array_pop($report);
+        $expected = [
+            'cli',
+            'sdc',
+            'sm',
+            'smc'
+        ];
+        $keys = array_keys($first);
+        $this->assertEquals($expected, $keys);
     }
 
     public function testGetCuentaClienteFromID()
     {
-
+        $data = $this->cc->getCuentaClienteFromID(158877);
+        $this->assertInstanceOf(ResumenObject::class, $data);
     }
 }

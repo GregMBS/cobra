@@ -1,15 +1,12 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 use PDO;
 use PDOStatement;
+
+require_once __DIR__ . '/ResumenObject.php';
+require_once __DIR__ . '/PagosObject.php';
 
 /**
  * Description of PagosClass
@@ -126,16 +123,20 @@ order by cliente,gestor,fecha";
     /**
      * 
      * @param int $ID_CUENTA
-     * @return array
+     * @return ResumenObject
      */
     public function getCuentaClienteFromID($ID_CUENTA) {
-        $querycc = "SELECT numero_de_cuenta, cliente
+        $query = "SELECT *
 FROM resumen 
 WHERE id_cuenta=:id";
-        $stc = $this->pdo->prepare($querycc);
+        $stc = $this->pdo->prepare($query);
         $stc->bindParam(':id', $ID_CUENTA, PDO::PARAM_INT);
         $stc->execute();
-        return $stc->fetch(PDO::FETCH_ASSOC);
+        $result = $stc->fetchObject(ResumenObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new ResumenObject();
     }
 
     /**
@@ -144,14 +145,14 @@ WHERE id_cuenta=:id";
      * @return array
      */
     public function listPagos($ID_CUENTA) {
-        $querysub = "SELECT fecha,monto,confirmado
+        $query = "SELECT *
 FROM pagos
 WHERE id_cuenta=:id
 ORDER BY fecha";
-        $sts = $this->pdo->prepare($querysub);
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':id', $ID_CUENTA);
         $sts->execute();
-        return $sts->fetchAll(PDO::FETCH_ASSOC);
+        return $sts->fetchAll(PDO::FETCH_CLASS, PagosObject::class);
     }
 
     /**
