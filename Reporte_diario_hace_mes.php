@@ -260,7 +260,7 @@ pronosticop=((pago)+(vigente*(pago)/(vigente+vencido+pago)))/1
             <LI><A id='analyticaa' onClick="paging('analytica')">ANALYTICA</A></LI>
         </UL>
     </div>
-    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regressar a la plantilla
+    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la plantilla
         administrativa
     </button><br>
     <div id='pagos'>

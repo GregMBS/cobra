@@ -17,7 +17,7 @@
 <body>
 <button onclick="window.location = 'reports.php?capt=<?php
 echo $capt;
-?>'">Regressar a la plantilla administrativa
+?>'">Regresar a la plantilla administrativa
 </button>
 <br>
 <form action="/tels.php" method="get" name="queryparms">

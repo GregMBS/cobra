@@ -12,7 +12,7 @@
     </head>
     <body>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">
-            Regressar a la plantilla administrativa
+            Regresar a la plantilla administrativa
         </button><br>
         <div id="tabs"> 
             <ul> 

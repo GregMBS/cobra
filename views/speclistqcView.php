@@ -15,7 +15,7 @@
     <body>
         <button onclick="window.location = 'queuesqc.php?capt=<?php 
         echo $capt;
-        ?>'">Regressar al Reporte de Queues</button><br>
+        ?>'">Regresar al Reporte de Queues</button><br>
         <table id="cuentas" class="ui-widget">
             <thead class="ui-widget-header">
                 <tr>
