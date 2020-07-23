@@ -103,17 +103,6 @@ AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
 order by fecha_ultima_gestion  LIMIT 1";
                 return sprintf($queryBase, $clientStr, $sdcStr);
 
-            case 'MANUAL':
-                $queryBase = "select * from resumen
-where locker is null %s %s
-and status_aarsa not in (
-	select dictamen from dictamenes
-	where queue in ('PAGOS','PROMESAS','ACLARACION')
-	)
-and especial > 0
-order by (ejecutivo_asignado_call_center=:capt) desc, especial, saldo_descuento_1 desc limit 1";
-                return sprintf($queryBase, $clientStr, $sdcStr);
-
             default:
                 $queryBase = "SELECT resumen.* FROM resumen 
 join dictamenes on dictamen=status_aarsa 
