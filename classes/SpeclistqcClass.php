@@ -26,14 +26,9 @@ class SpeclistqcClass {
      *
      * @var string
      */
-    private $queryHead = "SELECT numero_de_cuenta, nombre_deudor, saldo_total,
-	status_aarsa, ejecutivo_asignado_call_center, sum(monto) as sm,
-	status_de_credito, producto, estado_deudor, ciudad_deudor,
-	resumen.cliente as cli, resumen.id_cuenta as idc,
-	fecha_ultima_gestion, saldo_vencido
+    private $queryHead = "SELECT distinct resumen.*
 FROM resumen
 JOIN dictamenes ON dictamen=status_aarsa
-LEFT JOIN pagos using (id_cuenta)
 WHERE resumen.cliente=:cliente
 AND queue=:queue ";
     
@@ -41,8 +36,7 @@ AND queue=:queue ";
      *
      * @var string
      */
-    private $queryTail = " GROUP BY id_cuenta
-ORDER BY saldo_total desc";
+    private $queryTail = " ORDER BY saldo_total desc";
 
 
     /**
@@ -81,7 +75,7 @@ ORDER BY saldo_total desc";
      * @param string $cliente
      * @param string $sdc
      * @param string $queue
-     * @return array
+     * @return ResumenObject[]
      */
     public function getReport($rato, $cliente, $sdc, $queue) {
         $ratoString = $this->getRatoString($rato);
@@ -97,10 +91,13 @@ ORDER BY saldo_total desc";
             $stm->bindParam(':sdc', $sdc);
         }
         $stm->execute();
-        if ($rato == 'semanal') {
-            die($stm->queryString);
+        $result = $stm->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
+        if ($result) {
+            return $result;
         }
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return [
+            new ResumenObject()
+            ];
     }
 
 }

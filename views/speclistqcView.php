@@ -23,7 +23,6 @@
                     <th>NOMBRE</th>
                     <th>CLIENTE</th>
                     <th>SEGMENTO</th>
-                    <th>MONTO PAGO</th>
                     <th>SALDO TOTAL</th>
                     <th>QUEUE</th>
                     <th>GESTOR</th>
@@ -35,18 +34,17 @@
 $j = 0;
 foreach ($result as $row) {
     $j = $j + 1;
-    $CUENTA = $row['numero_de_cuenta'];
-    $CLIENTE = $row['cli'];
-    $ID_CUENTA = $row['idc'];
-    $FUG = $row['fecha_ultima_gestion'];
-    $NOMBRE = $row['nombre_deudor'];
-    $GESTOR = $row['ejecutivo_asignado_call_center'];
-    $MONTO = $row['sm'];
-    $SEGMENTO = $row['status_de_credito'];
-    $STATUS = $row['status_aarsa'];
-    $PRODUCTO = $row['producto'];
-    $CIUDAD = $row['ciudad_deudor'];
-    $MONTOTOTAL = $row['saldo_total'];
+    $CUENTA = $row->numero_de_cuenta;
+    $CLIENTE = $row->cliente;
+    $ID_CUENTA = $row->id_cuenta;
+    $FUG = $row->fecha_ultima_gestion;
+    $NOMBRE = $row->nombre_deudor;
+    $GESTOR = $row->ejecutivo_asignado_call_center;
+    $SEGMENTO = $row->status_de_credito;
+    $STATUS = $row->status_aarsa;
+    $PRODUCTO = $row->producto;
+    $CIUDAD = $row->ciudad_deudor;
+    $MONTOTOTAL = $row->saldo_total;
     ?>
                     <tr>
                         <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php
@@ -59,7 +57,6 @@ foreach ($result as $row) {
                         <td><?php echo utf8_decode($NOMBRE); ?></td>
                         <td><?php echo $CLIENTE; ?></td>
                         <td><?php echo $SEGMENTO; ?></td>
-                        <td class='num'><?php echo number_format($MONTO, 2); ?></td>
                         <td class='num'><?php echo number_format($MONTOTOTAL, 2); ?></td>
                         <td><?php echo $STATUS; ?></td>
                         <td><?php echo $GESTOR; ?></td>
