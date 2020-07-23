@@ -18,16 +18,13 @@ $thismonth = strftime("%B %Y");
 $lastmonth = strftime("%B %Y", strtotime("last month"));
 $result = $pc->querySheet();
 $filename = "Pagos_" . trim(date('Y_m')) . ".xlsx";
-$output = array();
-$output[] = array_keys($result[0]);
+$header = array_keys($result[0]);
 foreach ($result as $row) {
     $row['monto'] = (float) $row['monto'];
     $output[] = $row;
 }
-var_dump($output);
-die();
 try {
-    $oc->writeXLSXFile($filename, $output);
+    $oc->writeXLSXFile($filename, $output, $header);
 } catch (Exception $e) {
     die($e->getMessage());
 }
