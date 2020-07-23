@@ -7,6 +7,7 @@ use PDOStatement;
 
 require_once __DIR__ . '/ResumenObject.php';
 require_once __DIR__ . '/PagosObject.php';
+require_once __DIR__ . '/HistoriaObject.php';
 
 /**
  * Description of PagosClass
