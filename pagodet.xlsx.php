@@ -19,12 +19,8 @@ $lastmonth = strftime("%B %Y", strtotime("last month"));
 $result = $pc->querySheet();
 $filename = "Pagos_" . trim(date('Y_m')) . ".xlsx";
 $header = array_keys($result[0]);
-foreach ($result as $row) {
-    $row['monto'] = (float) $row['monto'];
-    $output[] = array_values($row);
-}
 try {
-    $oc->writeXLSXFile($filename, $output, $header);
+    $oc->writeXLSXFile($filename, $result, $header);
 } catch (Exception $e) {
     die($e->getMessage());
 }
