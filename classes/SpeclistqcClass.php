@@ -51,11 +51,10 @@ AND queue=:queue ";
     private function getRatoString($rato) {
         switch ($rato) {
             case 'diario':
-                return " AND fecha_ultima_gestion>curdate() ";
+                return " AND fecha_ultima_gestion > curdate() ";
 
             case 'semanal':
-                return "AND week(fecha_ultima_gestion) = week(curdate())
-        AND year(fecha_ultima_gestion) = year(curdate()) ";
+                return "AND fecha_ultima_gestion > (curdate() - interval 6 day) ";
 
             case 'mensual':
                 return "AND fecha_ultima_gestion > last_day(curdate() - interval 1 month) + interval 1 day ";
@@ -90,9 +89,6 @@ AND queue=:queue ";
         $result = $stm->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
         if ($result) {
             return $result;
-        }
-        if ($rato == 'semanal') {
-            die($stm->queryString);
         }
         return [
             new ResumenObject()
