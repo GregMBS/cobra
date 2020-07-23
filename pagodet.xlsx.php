@@ -18,6 +18,8 @@ $thismonth = strftime("%B %Y");
 $lastmonth = strftime("%B %Y", strtotime("last month"));
 $result = $pc->querySheet();
 $filename = "Pagos_" . trim(date('Y_m')) . ".xlsx";
+var_dump($result);
+die();
 $output = array();
 $output[] = array_keys($result[0]);
 foreach ($result as $row) {
