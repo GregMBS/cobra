@@ -82,6 +82,8 @@ order by c_cvge, sum(monto)
         $stq = $pdo->prepare($query);
         $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $result = $stq->fetchObject(ResumenObject::class);
+        var_dump($result);
+        die();
         if ($result) {
             return $result;
         }
@@ -98,9 +100,6 @@ order by c_cvge, sum(monto)
         foreach ($array as $row) {
             $id_cuenta = $row['c_cont'];
             $account = (array) $this->getAccount($id_cuenta);
-            var_dump($row);
-            var_dump($account);
-            die();
             $result[] = array_merge($row, $account);
         }
         return $result;
