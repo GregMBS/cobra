@@ -50,16 +50,17 @@ class OutputClass
      */
     public function writeXLSXFile($filename, $array, $headers = [])
     {
-        var_dump($array);
-        die();
         try {
             $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
             $writer->openToBrowser($filename); // stream data directly to the browser
             if (count($headers) > 0) {
-                $row = WriterEntityFactory::createRowFromArray($headers);
+                $rowHead = WriterEntityFactory::createRowFromArray($headers);
+                $writer->addRow($rowHead);
+            }
+            foreach ($array as $rowData) {
+                $row = WriterEntityFactory::createRowFromArray($rowData);
                 $writer->addRow($row);
             }
-            $writer->addRows($array); // add multiple rows at a time
             $writer->close();
         } catch (Exception $e) {
             throw new Exception($e);
