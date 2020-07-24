@@ -23,6 +23,8 @@ $output = $header;
 foreach ($result as $row) {
     $output[] = (array) $row;
 }
+var_dump($output);
+die();
 try {
     $oc->writeXLSXFile($filename, $output);
 } catch (Exception $e) {
