@@ -79,7 +79,7 @@ order by c_cvge, sum(monto)
         $result = [];
         foreach ($array as $row) {
             $id_cuenta = $row['c_cont'];
-            $account = (array)$this->getAccount($id_cuenta);
+            $account = $this->getAccount($id_cuenta);
             $result[] = array_merge($row, $account);
         }
         return $result;
@@ -87,22 +87,16 @@ order by c_cvge, sum(monto)
 
     /**
      * @param int $id_cuenta
-     * @return ResumenObject
+     * @return array
      */
-    private function getAccount(int $id_cuenta): ResumenObject
+    private function getAccount(int $id_cuenta): array
     {
         $pd = new PdoClass();
         $pdo = $pd->dbConnectNobody();
         $query = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta";
         $stq = $pdo->prepare($query);
         $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $result = $stq->fetchObject(ResumenObject::class);
-        var_dump([$stq->queryString, $id_cuenta]);
-        die();
-        if ($result) {
-            return $result;
-        }
-        return new ResumenObject();
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
 }
