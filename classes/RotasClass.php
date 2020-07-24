@@ -78,10 +78,14 @@ order by c_cvge, sum(monto)
     {
         $pd = new PdoClass();
         $pdo = $pd->dbConnectNobody();
-        $query = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta";
-        $stq = $pdo->prepare($query);
-        $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $result = $stq->fetchObject(ResumenObject::class);
+        try {
+            $query = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta";
+            $stq = $pdo->prepare($query);
+            $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+            $result = $stq->fetchObject(ResumenObject::class);
+        } catch (\PDOException $p) {
+            die($p->getMessage());
+        }
         var_dump($result);
         die();
         if ($result) {
