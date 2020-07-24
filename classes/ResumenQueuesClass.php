@@ -90,7 +90,7 @@ class ResumenQueuesClass
                 $queryBase = "SELECT * FROM resumen
 WHERE status_de_credito not regexp '-' 
 AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION')
-AND ejecutivo_asignado_call_center = %u
+AND ejecutivo_asignado_call_center = '%s'
 AND locker is null 
 and fecha_ultima_gestion < curdate()
 order by fecha_ultima_gestion  LIMIT 1";

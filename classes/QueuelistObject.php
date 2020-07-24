@@ -79,7 +79,7 @@ class QueuelistObject
         if (empty($this->cliente)) {
             return '';
         }
-        return " AND cliente = $this->cliente ";
+        return " AND cliente = '$this->cliente' ";
     }
 
     /**
@@ -90,7 +90,7 @@ class QueuelistObject
         if (empty($this->sdc)) {
             return " AND status_de_credito not regexp '-' ";
         }
-        return " AND status_de_credito = $this->sdc ";
+        return " AND status_de_credito = '$this->sdc' ";
     }
 
     /**
@@ -101,6 +101,6 @@ class QueuelistObject
         if (empty($this->status_aarsa)) {
             return " AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION') ";
         }
-        return " AND queue = $this->status_aarsa ";
+        return " AND queue = '$this->status_aarsa' ";
     }
 }
