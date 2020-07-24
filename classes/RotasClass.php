@@ -97,7 +97,7 @@ order by c_cvge, sum(monto)
         $stq = $pdo->prepare($query);
         $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $result = $stq->fetchObject(ResumenObject::class);
-        var_dump($stq);
+        var_dump([$stq->queryString, $id_cuenta]);
         die();
         if ($result) {
             return $result;
