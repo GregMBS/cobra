@@ -96,6 +96,7 @@ order by c_cvge, sum(monto)
         $query = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta";
         $stq = $pdo->prepare($query);
         $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $stq->execute();
         return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
