@@ -24,6 +24,8 @@ $output = [];
 $output[] = array_keys($header);
 foreach ($result as $row) {
     $row->monto = (float) $row->monto;
+    $row->confirmado = (bool) $row->confirmado;
+    $row->id_cuenta = (double) $row->id_cuenta;
     $output[] = (array) $row;
 }
 try {
