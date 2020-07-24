@@ -14,7 +14,7 @@ require_once __DIR__ . '/ResumenObject.php';
 class RotasClass
 {
     protected $pdo;
-    protected $queryRotas = "select resumen.id_cuenta,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
+    protected $queryRotas = "select c_cont,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
     max(d_fech),sum(monto) as sum_monto
 from resumen
          join dictamenes on dictamen=status_aarsa
@@ -27,7 +27,7 @@ where n_prom>0 and queue in ('CLIENTE NEGOCIANDO','PROMESAS','PAGOS','PAGANDO CO
   and not exists (select * from historia h2 where h1.c_cont=h2.c_cont
                                               and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
 %s
-group by c_cvge, id_cuenta
+group by c_cvge, c_cont
 order by c_cvge, sum(monto)
 ";
 
@@ -99,7 +99,7 @@ order by c_cvge, sum(monto)
     {
         $result = [];
         foreach ($array as $row) {
-            $id_cuenta = $row['id_cuenta'];
+            $id_cuenta = $row['c_cont'];
             $account = (array)$this->getAccount($id_cuenta);
             $result[] = array_merge($row, $account);
         }
