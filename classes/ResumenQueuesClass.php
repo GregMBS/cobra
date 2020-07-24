@@ -42,11 +42,35 @@ class ResumenQueuesClass
         $query = "SELECT * 
         FROM queuelist 
         WHERE gestor = :capt 
-        AND camp= :camp 
+        AND camp = :camp 
         LIMIT 1";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':capt', $capt);
         $stq->bindParam(':camp', $camp, PDO::PARAM_INT);
+        $stq->execute();
+        $result = $stq->fetchObject(QueuelistObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new QueuelistObject();
+    }
+
+    /**
+     *
+     * @param QueuelistObject $queue
+     * @return QueuelistObject
+     */
+    public function getQueueWithAccounts(QueuelistObject $queue)
+    {
+        $query = "SELECT queuelist.*
+FROM queuelist, resumen, dictamenes
+WHERE resumen.status_aarsa = dictamen
+  AND queuelist.status_aarsa = queue
+  AND gestor = :capt
+ORDER BY v_cc desc, fecha_ultima_gestion
+LIMIT 1";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':capt', $queue->gestor);
         $stq->execute();
         $result = $stq->fetchObject(QueuelistObject::class);
         if ($result) {

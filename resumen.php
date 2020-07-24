@@ -540,12 +540,21 @@ $sdc = $queue->sdc;
 $cr = $queue->status_aarsa;
 $sql = $qc->getQueryString($queue);
 $quickArray = ['FROMBUSCAR', 'FROMMIGO', 'FROMULTIMA', 'FROMPROM'];
-if (in_array($go, $quickArray)) {
+$quick = in_array($go, $quickArray);
+if ($quick) {
     $sql = $qc->getQuickString($find);
 }
 
 try {
     $row = $qc->getAccount($sql);
+    if (($row->id_cuenta == 0) && (!$quick)) {
+        $queue = $qc->getQueueWithAccounts($queue);
+        $cliente = $queue->cliente;
+        $sdc = $queue->sdc;
+        $cr = $queue->status_aarsa;
+        $sql = $qc->getQueryString($queue);
+        $row = $qc->getAccount($sql);
+    }
 } catch (Exception $e) {
     die($e->getMessage());
 }
