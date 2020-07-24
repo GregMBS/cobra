@@ -19,11 +19,11 @@ $thismonth = strftime("%B %Y");
 $lastmonth = strftime("%B_%Y", strtotime("last month"));
 $result = $pc->queryOldSheet();
 $filename = "Pagos_".$lastmonth.".xlsx";
-$output   = array();
-$output[] = array_keys($result[0]);
+$header = get_object_vars($result[0]);
+$output = [];
+$output[] = array_keys($header);
 foreach ($result as $row) {
-    $row['monto'] = (float) $row['monto'];
-    $output[]     = $row;
+    $output[] = (array) $row;
 }
 try {
     $oc->writeXLSXFile($filename, $output);
