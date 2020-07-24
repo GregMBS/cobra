@@ -93,9 +93,9 @@ and queue = :queue ";
     function getQueues() {
         $query = "select distinct queuelist.*
 from queuelist
-where status_aarsa not like 'PLASTIC%'
-and cliente <> ''
+where cliente <> ''
 and sdc <> ''
+and gestor = 'gmbs'
 and (cliente, sdc, status_aarsa) IN (
 select cliente, status_de_credito, queue
 from resumen, dictamenes
