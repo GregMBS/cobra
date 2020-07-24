@@ -184,12 +184,12 @@
     <tbody class="ui-widget-content">
     <?php
     foreach ($main as $answer) {
-        $CLIENTE = $answer[0];
-        $SDC = $answer[1];
-        $COUNT = $answer[2];
-        $MOUNT = $answer[3];
-        $ECOUNT = $answer[4];
-        $EMOUNT = $answer[5];
+        $CLIENTE = $answer->cliente;
+        $SDC = $answer->status_de_credito;
+        $COUNT = $answer->cnt;
+        $MOUNT = $answer->mnt;
+        $ECOUNT = $answer->ecount;
+        $EMOUNT = $answer->emount;
         $PCOUNT = round($ECOUNT / $COUNT * 100);
         $PMOUNT = round($EMOUNT / ($MOUNT + 0.001) * 100);
         ?>

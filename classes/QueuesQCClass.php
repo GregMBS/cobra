@@ -6,6 +6,7 @@ use PDO;
 
 require_once __DIR__ . '/QueuesReportObject.php';
 require_once __DIR__ . '/QueuelistObject.php';
+require_once __DIR__ . '/EspecialObject.php';
 
 /**
  * Description of QueuesQCClass
@@ -129,7 +130,7 @@ group by cliente,status_de_credito
 ";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_CLASS, EspecialObject::class);
         if ($result) {
             return $result;
         }
