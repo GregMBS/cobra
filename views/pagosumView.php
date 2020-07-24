@@ -85,24 +85,16 @@
 	    <tbody class="ui-widget-content">
 		<?php
 		foreach ($resultActDet as $row) {
-			$CUENTA	 = $row['cuenta'];
-			$FECHA	 = $row['fecha'];
-			$FECHACAPT	 = $row['fechacapt'];
-			$MONTO	 = $row['monto'];
-			$CLIENTE = $row['cliente'];
-			$GESTOR	 = $row['credit'];
-			$CONF	 = $row['confirmado'];
-			$SDC	 = $row['sdc'];
 			?>
 			<tr>
-			    <td><?php echo $CUENTA; ?></td>
-			    <td><?php echo $FECHA; ?></td>
-			    <td class="num"><?php echo number_format($MONTO, 2); ?></td>
-			    <td><?php echo $CLIENTE; ?></td>
-			    <td><?php echo $SDC; ?></td>
-			    <td><?php echo $GESTOR; ?></td>
-			    <td><?php echo $CONF; ?></td>
-			    <td><?php echo $FECHACAPT; ?></td>
+			    <td><?php echo $row->cuenta; ?></td>
+			    <td><?php echo $row->fecha; ?></td>
+			    <td class="num"><?php echo number_format($row->monto, 2); ?></td>
+			    <td><?php echo $row->cliente; ?></td>
+			    <td><?php echo $row->sdc; ?></td>
+			    <td><?php echo $row->credit; ?></td>
+			    <td><?php echo $row->confirmado; ?></td>
+			    <td><?php echo $row->fechacapt; ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
@@ -179,24 +171,16 @@
 	    <tbody class="ui-widget-content">
 		<?php
 		foreach ($resultAntDet as $row) {
-			$CUENTA	 = $row['cuenta'];
-			$FECHA	 = $row['fecha'];
-			$FECHACAPT	 = $row['fechacapt'];
-			$MONTO	 = $row['monto'];
-			$CLIENTE = $row['cliente'];
-			$GESTOR	 = $row['credit'];
-			$CONF	 = $row['confirmado'];
-			$SDC	 = $row['sdc'];
 			?>
 			<tr>
-			    <td><?php echo $CUENTA; ?></td>
-			    <td><?php echo $FECHA; ?></td>
-			    <td class="num"><?php echo number_format($MONTO, 2); ?></td>
-			    <td><?php echo $CLIENTE; ?></td>
-			    <td><?php echo $SDC; ?></td>
-			    <td><?php echo $GESTOR; ?></td>
-			    <td><?php echo $CONF; ?></td>
-			    <td><?php echo $FECHACAPT; ?></td>
+                <td><?php echo $row->cuenta; ?></td>
+                <td><?php echo $row->fecha; ?></td>
+                <td class="num"><?php echo number_format($row->monto, 2); ?></td>
+                <td><?php echo $row->cliente; ?></td>
+                <td><?php echo $row->sdc; ?></td>
+                <td><?php echo $row->credit; ?></td>
+                <td><?php echo $row->confirmado; ?></td>
+                <td><?php echo $row->fechacapt; ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>
