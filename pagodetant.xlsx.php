@@ -23,6 +23,7 @@ $header = get_object_vars($result[0]);
 $output = [];
 $output[] = array_keys($header);
 foreach ($result as $row) {
+    $row->monto = (float) $row->monto;
     $output[] = (array) $row;
 }
 try {
