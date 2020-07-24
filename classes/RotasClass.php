@@ -67,6 +67,8 @@ order by c_cvge, sum(monto)
     public function getRotas($capt)
     {
         $promesas = $this->buildPromesas($capt);
+        var_dump($promesas);
+        die();
         return $this->addAccountData($promesas);
     }
 
