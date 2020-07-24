@@ -48,7 +48,7 @@ order by c_cvge, sum(monto)
         return $types['tipo'];
     }
 
-    public function getRotas($capt)
+    private function buildPromesas(string $capt): array
     {
         $gestorstr = " and (ejecutivo_asignado_call_center=:capt or c_cvge=:capt) ";
         $tipo = $this->getUserType($capt);
@@ -61,13 +61,13 @@ order by c_cvge, sum(monto)
             $stq->bindParam(':capt', $capt);
         }
         $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($result as &$row) {
-            $id_cuenta = $row['id_cuenta'];
-            $account = (array) $this->getAccount($id_cuenta);
-            $row = array_merge($row, $account);
-        }
-        return $result;
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRotas($capt)
+    {
+        $promesas = $this->buildPromesas($capt);
+        return $this->addAccountData($promesas);
     }
 
     /**
@@ -86,6 +86,21 @@ order by c_cvge, sum(monto)
             return $result;
         }
         return new ResumenObject();
+    }
+
+    /**
+     * @param array $array
+     * @return array
+     */
+    private function addAccountData(array $array): array
+    {
+        $result = [];
+        foreach ($array as $row) {
+            $id_cuenta = $row['id_cuenta'];
+            $account = (array)$this->getAccount($id_cuenta);
+            $result[] = array_merge($row, $account);
+        }
+        return $result;
     }
 
 }
