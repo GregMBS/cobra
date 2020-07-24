@@ -7,6 +7,7 @@ use PDOStatement;
 
 require_once __DIR__ . '/ResumenObject.php';
 require_once __DIR__ . '/PagosObject.php';
+require_once __DIR__ . '/PagosQueryObject.php';
 require_once __DIR__ . '/HistoriaObject.php';
 
 /**
@@ -58,7 +59,7 @@ group by cli, sdc with rollup";
 
     /**
      * 
-     * @return array
+     * @return PagosQueryObject[]
      */
     public function detailsThisMonth() {
         $output = array();
@@ -70,7 +71,7 @@ where fecha>last_day(curdate()-interval 1 month)
 and pagos.id_cuenta = resumen.id_cuenta
 order by cliente,gestor,fecha";
         $resultActDet = $this->pdo->query($queryActDet);
-        $array = $resultActDet->fetchAll(PDO::FETCH_ASSOC);
+        $array = $resultActDet->fetchAll(PDO::FETCH_CLASS, PagosQueryObject::class);
         return $this->buildDetails($array, $output);
     }
 
@@ -104,7 +105,7 @@ group by cli, sdc with rollup";
 
     /**
      * 
-     * @return array
+     * @return PagosQueryObject[]
      */
     public function detailsLastMonth() {
         $output = array();
@@ -117,8 +118,8 @@ where fecha<=last_day(curdate()-interval 1 month)
 and fecha>last_day(curdate()-interval 2 month)
 order by cliente,gestor,fecha";
         $resultAntDet = $this->pdo->query($queryAntDet);
-        $array = $resultAntDet->fetchAll(PDO::FETCH_ASSOC);
-        return $this->buildDetails($array, $output);
+        $data = $resultAntDet->fetchAll(PDO::FETCH_CLASS, PagosQueryObject::class);
+        return $this->buildDetails($data, $output);
     }
 
     /**
@@ -143,7 +144,7 @@ WHERE id_cuenta=:id";
     /**
      * 
      * @param int $ID_CUENTA
-     * @return array
+     * @return PagosObject[]
      */
     public function listPagos($ID_CUENTA) {
         $query = "SELECT *
@@ -158,7 +159,7 @@ ORDER BY fecha";
 
     /**
      * 
-     * @return array
+     * @return PagosQueryObject[]
      */
     public function querySheet() {
         $output = array();
@@ -227,7 +228,7 @@ order by cliente,gestor,fecha";
     
     /**
      * 
-     * @return array
+     * @return PagosQueryObject[]
      */
     public function queryOldSheet() {
         $output = array();
@@ -294,7 +295,7 @@ order by cliente,gestor,fecha";
     }
 
     /**
-     * @param array $result
+     * @param PagosQueryObject[] $result
      * @param array $temp
      * @param array $output
      * @return array
@@ -302,19 +303,19 @@ order by cliente,gestor,fecha";
     private function buildRows(array $result, array $temp, array $output): array
     {
         foreach ($result as $row) {
-            $gestor = strtolower($row['credit']);
-            $cliente = strtoupper($row['cliente']);
+            $gestor = strtolower($row->credit);
+            $cliente = strtoupper($row->cliente);
             $temp[$gestor][$cliente]['gestor'] = $gestor;
             $temp[$gestor][$cliente]['cliente'] = $cliente;
             if (isset($temp[$gestor][$cliente]['sm'])) {
-                $temp[$gestor][$cliente]['sm'] += $row['monto'];
+                $temp[$gestor][$cliente]['sm'] += $row->monto;
             } else {
-                $temp[$gestor][$cliente]['sm'] = $row['monto'];
+                $temp[$gestor][$cliente]['sm'] = $row->monto;
             }
             if (isset($temp[$gestor][$cliente]['smc'])) {
-                $temp[$gestor][$cliente]['smc'] += $row['monto'] * $row['confirmado'];
+                $temp[$gestor][$cliente]['smc'] += $row->monto * $row->confirmado;
             } else {
-                $temp[$gestor][$cliente]['smc'] = $row['monto'] * $row['confirmado'];
+                $temp[$gestor][$cliente]['smc'] = $row->monto * $row->confirmado;
             }
         }
         foreach ($temp as $group) {
@@ -326,17 +327,17 @@ order by cliente,gestor,fecha";
     }
 
     /**
-     * @param array $array
+     * @param PagosQueryObject[] $data
      * @param array $output
      * @return array
      */
-    private function buildDetails(array $array, array $output): array
+    private function buildDetails(array $data, array $output): array
     {
-        foreach ($array as $row) {
-            $cuenta = $row['cuenta'];
-            $cliente = $row['cliente'];
-            $fechapago = $row['fecha'];
-            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
+        foreach ($data as $row) {
+            $cuenta = $row->cuenta;
+            $cliente = $row->cliente;
+            $fechapago = $row->fecha;
+            $row->credit = $this->assignCredit($cuenta, $cliente, $fechapago);
             $output[] = $row;
         }
 
@@ -345,7 +346,7 @@ order by cliente,gestor,fecha";
 
     /**
      * @param string $queryDA
-     * @param array $output
+     * @param PagosQueryObject[] $output
      * @return array
      */
     private function buildSheet(string $queryDA, array $output): array
@@ -363,17 +364,18 @@ order by cliente,gestor,fecha";
 
     /**
      * @param PDOStatement $std
-     * @param array $output
+     * @param PagosQueryObject[] $output
      * @return array
      */
     private function sheetLoop(PDOStatement $std, array $output): array
     {
-        $result = $std->fetchAll(PDO::FETCH_ASSOC);
+        $result = $std->fetchAll(PDO::FETCH_CLASS, PagosQueryObject::class);
+        /** @var PagosQueryObject $row */
         foreach ($result as $row) {
-            $cuenta = $row['cuenta'];
-            $cliente = $row['cliente'];
-            $fechapago = $row['fecha'];
-            $row['credit'] = $this->assignCredit($cuenta, $cliente, $fechapago);
+            $cuenta = $row->cuenta;
+            $cliente = $row->cliente;
+            $fechapago = $row->fecha;
+            $row->credit = $this->assignCredit($cuenta, $cliente, $fechapago);
             $output[] = $row;
         }
         return $output;

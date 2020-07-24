@@ -18,10 +18,10 @@ $thismonth = strftime("%B %Y");
 $lastmonth = strftime("%B %Y", strtotime("last month"));
 $result = $pc->querySheet();
 $filename = "Pagos_" . trim(date('Y_m')) . ".xlsx";
-$header = array_keys($result[0]);
+$header = get_object_vars($result[0]);
 $output = [];
 foreach ($result as $row) {
-    $output[] = array_values($row);
+    $output[] = (array) $row;
 }
 try {
     $oc->writeXLSXFile($filename, $output, $header);

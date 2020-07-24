@@ -3,6 +3,7 @@
 
 use cobra_salsa\PagosClass;
 use cobra_salsa\PagosObject;
+use cobra_salsa\PagosQueryObject;
 use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenObject;
 use PHPUnit\Framework\TestCase;
@@ -10,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../classes/PdoClass.php';
 require_once __DIR__ . '/../classes/PagosClass.php';
 require_once __DIR__ . '/../classes/PagosObject.php';
+require_once __DIR__ . '/../classes/PagosQueryObject.php';
 require_once __DIR__ . '/../classes/ResumenObject.php';
 
 class PagosClassTest extends TestCase
@@ -44,20 +46,7 @@ class PagosClassTest extends TestCase
         $report = $this->cc->querySheet();
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $expected = [
-            'cuenta',
-            'fecha',
-            'fechacapt',
-            'monto',
-            'cliente',
-            'sdc',
-            'gestor',
-            'confirmado',
-            'id_cuenta',
-            'credit'
-        ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        $this->assertInstanceOf(PagosQueryObject::class, $first);
     }
 
     public function testByGestorLastMonth()
@@ -118,20 +107,7 @@ class PagosClassTest extends TestCase
         $report = $this->cc->queryAll('2020-01-01', '2020-12-31', 'FAMSA');
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $expected = [
-            'cuenta',
-            'fecha',
-            'fechacapt',
-            'monto',
-            'cliente',
-            'sdc',
-            'gestor',
-            'confirmado',
-            'id_cuenta',
-            'credit'
-        ];
-        $keys = array_keys((array) $first);
-        $this->assertEquals($expected, $keys);
+        $this->assertInstanceOf(PagosQueryObject::class, $first);
     }
 
     public function testByGestorThisMonth()
@@ -154,20 +130,7 @@ class PagosClassTest extends TestCase
         $report = $this->cc->queryOldSheet();
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $expected = [
-            'cuenta',
-            'fecha',
-            'fechacapt',
-            'monto',
-            'cliente',
-            'sdc',
-            'gestor',
-            'confirmado',
-            'id_cuenta',
-            'credit'
-        ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        $this->assertInstanceOf(PagosQueryObject::class, $first);
     }
 
     public function testSummaryThisMonth()
