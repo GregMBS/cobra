@@ -20,11 +20,11 @@ $result = $pc->querySheet();
 $filename = "Pagos_" . trim(date('Y_m')) . ".xlsx";
 $header = get_object_vars($result[0]);
 $output = $header;
+var_dump($output);
+die();
 foreach ($result as $row) {
     $output[] = (array) $row;
 }
-var_dump($output);
-die();
 try {
     $oc->writeXLSXFile($filename, $output);
 } catch (Exception $e) {
