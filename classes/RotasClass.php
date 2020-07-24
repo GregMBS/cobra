@@ -37,15 +37,10 @@ order by c_cvge, sum(monto)
         $this->pdo = $pdo;
     }
 
-    public function getUserType($capt)
+    public function getRotas($capt)
     {
-        $query = "SELECT tipo FROM nombres "
-            ."WHERE iniciales = :gestor;";
-        $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $capt);
-        $stq->execute();
-        $types = $stq->fetch();
-        return $types['tipo'];
+        $promesas = $this->buildPromesas($capt);
+        return $this->addAccountData($promesas);
     }
 
     private function buildPromesas(string $capt): array
@@ -56,7 +51,7 @@ order by c_cvge, sum(monto)
             $gestorstr = "";
         }
         $query = sprintf($this->queryRotas, $gestorstr);
-        $stq   = $this->pdo->prepare($query);
+        $stq = $this->pdo->prepare($query);
         if ($tipo != 'admin') {
             $stq->bindParam(':capt', $capt);
         }
@@ -64,34 +59,15 @@ order by c_cvge, sum(monto)
         return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getRotas($capt)
+    public function getUserType($capt)
     {
-        $promesas = $this->buildPromesas($capt);
-        return $this->addAccountData($promesas);
-    }
-
-    /**
-     * @param int $id_cuenta
-     * @return ResumenObject
-     */
-    private function getAccount(int $id_cuenta): ResumenObject
-    {
-        $pd = new PdoClass();
-        $pdo = $pd->dbConnectNobody();
-        try {
-            $query = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta";
-            $stq = $pdo->prepare($query);
-            $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-            $result = $stq->fetchObject(ResumenObject::class);
-        } catch (\PDOException $p) {
-            die($p->getMessage());
-        }
-        var_dump($result);
-        die();
-        if ($result) {
-            return $result;
-        }
-        return new ResumenObject();
+        $query = "SELECT tipo FROM nombres "
+            . "WHERE iniciales = :gestor;";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $capt);
+        $stq->execute();
+        $types = $stq->fetch();
+        return $types['tipo'];
     }
 
     /**
@@ -103,10 +79,30 @@ order by c_cvge, sum(monto)
         $result = [];
         foreach ($array as $row) {
             $id_cuenta = $row['c_cont'];
-            $account = (array) $this->getAccount($id_cuenta);
+            $account = (array)$this->getAccount($id_cuenta);
             $result[] = array_merge($row, $account);
         }
         return $result;
+    }
+
+    /**
+     * @param int $id_cuenta
+     * @return ResumenObject
+     */
+    private function getAccount(int $id_cuenta): ResumenObject
+    {
+        $pd = new PdoClass();
+        $pdo = $pd->dbConnectNobody();
+        $query = "SELECT * FROM resumen WHERE id_cuenta = :id_cuenta";
+        $stq = $pdo->prepare($query);
+        $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $result = $stq->fetchObject(ResumenObject::class);
+        var_dump($stq);
+        die();
+        if ($result) {
+            return $result;
+        }
+        return new ResumenObject();
     }
 
 }
