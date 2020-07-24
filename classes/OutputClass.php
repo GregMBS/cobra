@@ -50,8 +50,6 @@ class OutputClass
      */
     public function writeXLSXFile($filename, $array, $headers = [])
     {
-        var_dump($array);
-        die();
         try {
             $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
             $writer->openToBrowser($filename); // stream data directly to the browser

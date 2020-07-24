@@ -24,6 +24,8 @@ foreach ($result as $row) {
     $output[] = array_values($row);
 }
 try {
+    var_dump($output);
+    die();
     $oc->writeXLSXFile($filename, $output, $header);
 } catch (Exception $e) {
     die($e->getMessage());
