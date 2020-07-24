@@ -67,10 +67,7 @@ order by c_cvge, sum(monto)
     public function getRotas($capt)
     {
         $promesas = $this->buildPromesas($capt);
-        $result = $this->addAccountData($promesas);
-        var_dump($result);
-        die();
-        return $result;
+        return $this->addAccountData($promesas);
     }
 
     /**
@@ -100,7 +97,10 @@ order by c_cvge, sum(monto)
         $result = [];
         foreach ($array as $row) {
             $id_cuenta = $row['c_cont'];
-            $account = (array)$this->getAccount($id_cuenta);
+            $account = (array) $this->getAccount($id_cuenta);
+            var_dump($row);
+            var_dump($account);
+            die();
             $result[] = array_merge($row, $account);
         }
         return $result;
