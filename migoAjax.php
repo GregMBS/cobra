@@ -17,4 +17,9 @@ if ($tipo == 'admin') {
     while ($row = $main->fetchObject(ResumenObject::class)) {
         return json_encode($row);
     }
+} else {
+    $main = $mc->userReport($capt);
+    while ($row = $main->fetchObject(ResumenObject::class)) {
+        return json_encode($row);
+    }
 }
