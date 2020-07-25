@@ -113,7 +113,9 @@ and ejecutivo_asignado_call_center = :capt
     private function getFiltered($searchArray, $searchQuery, $columnName, $columnSortOrder, $row = 0, $rowPerPage = 10): array
     {
 
-## Fetch records
+        var_dump([$row, $rowPerPage]);
+        die();
+        ## Fetch records
         $query = "SELECT * FROM resumen WHERE 1 "
             . $searchQuery . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset";
         $stmt = $this->pdo->prepare($query);
@@ -126,8 +128,6 @@ and ejecutivo_asignado_call_center = :capt
         $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
         $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
         $stmt->execute();
-        var_dump([$stmt, $row, $rowPerPage]);
-        die();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
