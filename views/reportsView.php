@@ -21,6 +21,7 @@
         <li><a href="#bot">ROBOT y ELASTIX</a></li>
     </ul>
     <div id="admin">
+        <div>
         <h2>Cargas</h2>
         <?php
         foreach ($cargas as $row) { ?>
@@ -28,7 +29,8 @@
         <?php
         }
         ?>
-        <br>
+        </div>
+        <div>
         <h2>Visitas</h2>
         <?php
         foreach ($visitas as $row) { ?>
@@ -36,7 +38,8 @@
             <?php
         }
         ?>
-        <br>
+        </div>
+        <div>
         <h2>Administración</h2>
         <?php
         foreach ($admin as $row) { ?>
@@ -44,6 +47,7 @@
             <?php
         }
         ?>
+        </div>
     </div>
     <div id="gen">
         <h2>Reportes Generales</h2>
