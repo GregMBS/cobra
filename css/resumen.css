@@ -219,7 +219,7 @@ td.chico {
     width: 0;
 }
 
-#searchbox {
+#searchbox, #quicksearchbox {
     z-index: 98;
     display: none;
     position: absolute;
@@ -232,25 +232,7 @@ td.chico {
     border: 2px black solid;
 }
 
-#searchbox input {
-    color: #000000;
-    background-color: #ffffff;
-}
-
-#quicksearchbox {
-    z-index: 98;
-    display: none;
-    position: absolute;
-    left: 30%;
-    top: 30%;
-    color: #000000;
-    background-color: #ffffff;
-    text-align: center;
-    padding: 1em;
-    border: 2px black solid;
-}
-
-#quicksearchbox input {
+#searchbox input, #quicksearchbox input {
     color: #000000;
     background-color: #ffffff;
 }
