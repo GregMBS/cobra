@@ -65,7 +65,6 @@
         </div>
     </div>
     <div id="gen">
-        <h2>Reportes Generales</h2>
         <div>
             <h2>Queues</h2>
         <?php
@@ -104,11 +103,8 @@
         </div>
     </div>
     <div id="spec">
-        <h2>Reportes Especializados</h2>
     </div>
     <div id="bot">
-        <h2>Controlar ROBOT</h2>
-        <h3>ROBOT</h3>
     </div>
 </div>
 <p>
