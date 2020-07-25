@@ -15,13 +15,11 @@ $tipo = $pd->tipo;
 if ($tipo == 'admin') {
     $main = $mc->adminReport();
     while ($row = $main->fetchObject(ResumenObject::class)) {
-        var_dump($row);
-        die();
-        return json_encode($row);
+        echo json_encode($row);
     }
 } else {
     $main = $mc->userReport($capt);
     while ($row = $main->fetchObject(ResumenObject::class)) {
-        return json_encode($row);
+        echo json_encode($row);
     }
 }
