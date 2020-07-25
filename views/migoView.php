@@ -22,32 +22,6 @@
                     <th>ULT. GESTION</th>
                 </tr>
             </thead>
-            <tbody class="ui-widget-content">
-                <?php
-                /** @var ResumenObject $row */
-
-                use cobra_salsa\ResumenObject;
-
-                while ($row = $main->fetchObject(ResumenObject::class)) {
-                    ?>
-                    <tr>
-                        <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php
-                            echo $row->id_cuenta;
-                            ?>&capt=<?php
-                            echo $capt;
-                            ?>'><?php
-                                echo $row->numero_de_cuenta;
-                                ?></a></td>
-                        <td><?php echo htmlentities($row->nombre_deudor); ?></td>
-                        <td><?php echo $row->cliente; ?></td>
-                        <td><?php echo $row->status_de_credito; ?></td>
-                        <td><?php echo $row->saldo_total; ?></td>
-                        <td><?php echo $row->saldo_descuento_2; ?></td>
-                        <td><?php echo $row->status_aarsa; ?></td>
-                        <td><?php echo $row->fecha_ultima_gestion; ?></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
         </table>
         <script>
             $(document).ready(function () {
@@ -55,7 +29,30 @@
                     "bPaginate": false,
                     "oLanguage": {
                         "sUrl": "espanol.txt"
-                    }
+                    },
+                    serverSide: true,
+                    ordering: false,
+                    searching: false,
+                    ajax: function ( data, callback, settings ) {
+                        var out = [];
+
+                        for ( var i=data.start, ien=data.start+data.length ; i<ien ; i++ ) {
+                            out.push( [ i+'-1', i+'-2', i+'-3', i+'-4', i+'-5' ] );
+                        }
+
+                        setTimeout( function () {
+                            callback( {
+                                draw: data.draw,
+                                data: out,
+                                recordsTotal: 5000000,
+                                recordsFiltered: 5000000
+                            } );
+                        }, 50 );
+                    },
+                    scrollY: 200,
+                    scroller: {
+                        loadingIndicator: true
+                    },
                 });
             });
         </script>
