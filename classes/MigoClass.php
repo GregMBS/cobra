@@ -183,7 +183,8 @@ and ejecutivo_asignado_call_center = :capt
     private function countFilteredRecords(string $searchQuery, $searchArray): int
     {
 ## Total number of records with filtering
-        $stmt = $this->pdo->prepare("SELECT COUNT(*) AS allcount FROM resumen WHERE 1 " . $searchQuery);
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) AS allcount FROM resumen 
+        WHERE status_de_credito NOT REGEXP '-' " . $searchQuery);
         $stmt->execute($searchArray);
         $records = $stmt->fetch();
         return $records['allcount'];
