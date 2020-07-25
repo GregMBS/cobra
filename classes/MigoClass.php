@@ -103,15 +103,15 @@ and ejecutivo_asignado_call_center = :capt
     }
 
     /**
-     * @param $searchArray
-     * @param $searchQuery
-     * @param $columnName
-     * @param $columnSortOrder
+     * @param array $searchArray
+     * @param string $searchQuery
+     * @param string $columnName
+     * @param string $columnSortOrder
      * @param int $row
      * @param int $rowPerPage
      * @return array
      */
-    private function getFiltered($searchArray, $searchQuery, $columnName, $columnSortOrder, $row = 0, $rowPerPage = 10): array
+    private function getFiltered($searchArray, $searchQuery, $columnName = '', $columnSortOrder = 'ASC', $row = 0, $rowPerPage = 10): array
     {
 
         if (is_null($row)) {
@@ -119,6 +119,9 @@ and ejecutivo_asignado_call_center = :capt
         }
         if (is_null($rowPerPage)) {
             $rowPerPage = 10;
+        }
+        if (is_null($columnName)) {
+            $columnName = 'id_cuenta';
         }
         ## Fetch records
         $query = "SELECT * FROM resumen WHERE 1 "
