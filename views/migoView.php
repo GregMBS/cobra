@@ -34,7 +34,8 @@
                     'serverSide': true,
                     'serverMethod': 'post',
                     'ajax': {
-                        'url':'migoAjax.php'
+                        'url':'migoAjax.php',
+                        data: { capt: <?php echo $pd->capt; ?> }
                     },
                     'columns': [
                         <?php
