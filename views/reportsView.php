@@ -5,7 +5,9 @@
     <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"/>
     <style>
         #admin div {
-            float: left; width: 33.333%;
+            float: left;
+            width: 33.333%;
+            font-size: larger;
         }
         button {
             margin: 1em;
