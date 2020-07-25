@@ -30,7 +30,7 @@
         <h2>Cargas</h2>
         <?php
         foreach ($cargas as $row) { ?>
-            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button><br>
         <?php
         }
         ?>
@@ -39,7 +39,7 @@
         <h2>Visitas</h2>
         <?php
         foreach ($visitas as $row) { ?>
-            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button><br>
             <?php
         }
         ?>
@@ -48,7 +48,7 @@
         <h2>Administración</h2>
         <?php
         foreach ($admin as $row) { ?>
-            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button><br>
             <?php
         }
         ?>
