@@ -119,8 +119,6 @@ and ejecutivo_asignado_call_center = :capt
         if (is_null($rowPerPage)) {
             $rowPerPage = 10;
         }
-        var_dump([$row, $rowPerPage]);
-        die();
         ## Fetch records
         $query = "SELECT * FROM resumen WHERE 1 "
             . $searchQuery . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset";
@@ -134,6 +132,8 @@ and ejecutivo_asignado_call_center = :capt
         $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
         $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
         $stmt->execute();
+        var_dump([$row, $rowPerPage]);
+        die();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
