@@ -141,7 +141,7 @@ and ejecutivo_asignado_call_center = :capt
             $columnName = 'id_cuenta';
         }
         ## Fetch records
-        $query = "SELECT * FROM resumen WHERE 1 "
+        $query = "SELECT * FROM resumen WHERE status_de_credito NOT REGEXP '-' "
             . $searchQuery . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset";
 
         try {
