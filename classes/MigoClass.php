@@ -168,7 +168,8 @@ and ejecutivo_asignado_call_center = :capt
     private function countTotalRecords(): int
     {
 ## Total number of records without filtering
-        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS allcount FROM resumen ");
+        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS allcount FROM resumen 
+        WHERE status_de_credito NOT REGEXP '-'");
         $stmt->execute();
         $records = $stmt->fetch();
         return $records['allcount'];
