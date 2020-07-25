@@ -24,6 +24,8 @@ $keys = [
 if ($tipo == 'admin') {
     $main = $mc->adminReport();
     while ($row = $main->fetch(PDO::FETCH_ASSOC)) {
+        var_dump($row);
+        die();
         $data = array_values(array_intersect_key($row, $keys));
         echo json_encode($data);
     }
