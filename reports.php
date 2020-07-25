@@ -40,11 +40,13 @@ $admin = [
     ['page' => 'activar',
         'label' => 'Activar Cuentas']
 ];
-$general = [
+$queues = [
     ['page' => 'queuesqc',
         'label' => 'Queues por Cliente'],
     ['page' => 'latest_best',
-        'label' => 'Ultimo y Mejor Status'],
+        'label' => 'Ultimo y Mejor Status']
+];
+$promPago = [
     ['page' => 'rotas',
         'label' => 'Promesas del Mes Actual'],
     ['page' => 'pagosum',
@@ -52,7 +54,9 @@ $general = [
     ['page' => 'pagodet',
         'label' => 'Pagos este mes (XLSX)'],
     ['page' => 'pagodetant',
-        'label' => 'Pagos mes anterior (XLSX)'],
+        'label' => 'Pagos mes anterior (XLSX)']
+];
+$horarios = [
     ['page' => 'horarios_clean',
         'label' => 'Productividad este Mes'],
     ['page' => 'perfmes',
@@ -62,7 +66,9 @@ $general = [
     ['page' => 'perfmesv',
         'label' => 'Productividad Visit Mes Ant'],
     ['page' => 'horarios_clean2',
-        'label' => 'Nomina Confidential'],
+        'label' => 'Nomina Confidential']
+    ];
+$XLS = [
     ['page' => 'bigquery2',
         'label' => 'Query de las Gestiones XLS'],
     ['page' => 'bigproms',
@@ -77,5 +83,6 @@ $general = [
         'label' => 'Reporte de Tel&eacute;fonos Contactados XLS'],
     ['page' => 'tels_marcados',
         'label' => 'Reporte de Tel&eacute;fonos Marcados XLS']
-];
+    ];
+
 require_once 'views/reportsView.php';

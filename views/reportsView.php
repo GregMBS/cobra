@@ -9,6 +9,11 @@
             width: 33.333%;
             font-size: larger;
         }
+        #gen div {
+            float: left;
+            width: 24.9%;
+            font-size: larger;
+        }
         button {
             margin: 0.75em;
         }
@@ -61,12 +66,42 @@
     </div>
     <div id="gen">
         <h2>Reportes Generales</h2>
+        <div>
+            <h2>Queues</h2>
         <?php
-        foreach ($general as $row) { ?>
+        foreach ($queues as $row) { ?>
             <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
             <?php
         }
         ?>
+        </div>
+        <div>
+            <h2>Promesas y Pagos</h2>
+            <?php
+            foreach ($promPago as $row) { ?>
+                <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                <?php
+            }
+            ?>
+        </div>
+        <div>
+            <h2>Horarios</h2>
+            <?php
+            foreach ($horarios as $row) { ?>
+                <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                <?php
+            }
+            ?>
+        </div>
+        <div>
+            <h2>Hojas de calculo</h2>
+            <?php
+            foreach ($XLS as $row) { ?>
+                <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                <?php
+            }
+            ?>
+        </div>
     </div>
     <div id="spec">
         <h2>Reportes Especializados</h2>
