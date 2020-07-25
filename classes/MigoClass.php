@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOStatement;
 
 require_once __DIR__ . '/ResumenObject.php';
 
@@ -27,8 +28,8 @@ class MigoClass {
     }
 
     /**
-     * 
-     * @return array
+     *
+     * @return false|PDOStatement
      */
     public function adminReport() {
         $query = "SELECT *
@@ -36,13 +37,13 @@ FROM resumen
 where status_de_credito not regexp '-'";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
+        return $stm;
     }
 
     /**
-     * 
+     *
      * @param string $capt
-     * @return array
+     * @return bool|PDOStatement
      */
     public function userReport($capt) {
         $query = "SELECT *
@@ -53,7 +54,7 @@ and ejecutivo_asignado_call_center = :capt
         $stm = $this->pdo->prepare($query);
         $stm->bindParam(':capt', $capt);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
+        return $stm;
     }
 
 }

@@ -28,7 +28,7 @@
 
                 use cobra_salsa\ResumenObject;
 
-                foreach ($main as $row) {
+                while ($row = $main->fetchObject(ResumenObject::class)) {
                     ?>
                     <tr>
                         <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php
