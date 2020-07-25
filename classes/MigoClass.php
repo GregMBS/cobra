@@ -79,12 +79,12 @@ and ejecutivo_asignado_call_center = :capt
     public function getAjax(array $keys, $capt = '')
     {
         ## Read value
-        $draw = filter_input(INPUT_POST, 'draw', FILTER_VALIDATE_INT);
-        $row = filter_input(INPUT_POST, 'start', FILTER_VALIDATE_INT);
-        $rowPerPage = filter_input(INPUT_POST, 'length', FILTER_VALIDATE_INT);
-        $order = filter_input(INPUT_POST, 'order', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-        $columns = filter_input(INPUT_POST, 'columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-        $search = filter_input(INPUT_POST, 'search', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+        $draw = filter_input(INPUT_GET, 'draw', FILTER_VALIDATE_INT);
+        $row = filter_input(INPUT_GET, 'start', FILTER_VALIDATE_INT);
+        $rowPerPage = filter_input(INPUT_GET, 'length', FILTER_VALIDATE_INT);
+        $order = filter_input(INPUT_GET, 'order', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+        $columns = filter_input(INPUT_GET, 'columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+        $search = filter_input(INPUT_GET, 'search', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
         $columnIndex = $order[0]['column']; // Column index
         $columnName = $columns[$columnIndex]['data']; // Column name
         $columnSortOrder = $order[0]['dir']; // asc or desc

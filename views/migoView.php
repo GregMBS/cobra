@@ -32,7 +32,7 @@
                     },
                     'processing': true,
                     'serverSide': true,
-                    'serverMethod': 'post',
+                    'serverMethod': 'get',
                     'ajax': {
                         'url':'migoAjax.php',
                         data: { capt: '<?php echo $pd->capt; ?>' }
