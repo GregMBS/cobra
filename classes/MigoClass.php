@@ -79,8 +79,6 @@ and ejecutivo_asignado_call_center = :capt
         list($searchArray, $searchQuery) = $this->buildQuery($keys, $searchValue, $capt);
         $totalRecordsFiltered = $this->countFilteredRecords($searchQuery, $searchArray);
         $empRecords = $this->getFiltered($searchArray, $searchQuery, $columnName, $columnSortOrder, $row, $rowPerPage);
-        var_dump($empRecords);
-        die();
 
         $data = array();
 
@@ -128,6 +126,8 @@ and ejecutivo_asignado_call_center = :capt
         $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
         $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
         $stmt->execute();
+        var_dump($stmt);
+        die();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
