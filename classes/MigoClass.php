@@ -31,7 +31,7 @@ class MigoClass
         'status_de_credito',
         'saldo_total',
         'saldo_descuento_2',
-        'saldo_aarsa',
+        'status_aarsa',
         'fecha_ultima_gestion'
     ];
 
