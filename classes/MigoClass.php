@@ -90,6 +90,8 @@ and ejecutivo_asignado_call_center = :capt
             $data[] = $array;
         }
 
+        var_dump($data);
+        die();
 ## Response
         $response = array(
             "draw" => intval($draw),
