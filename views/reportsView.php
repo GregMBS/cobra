@@ -94,7 +94,7 @@
             ?>
         </div>
         <div>
-            <h2>Hojas de calculo</h2>
+            <h2>Hojas de Cálculo</h2>
             <?php
             foreach ($XLS as $row) { ?>
                 <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
