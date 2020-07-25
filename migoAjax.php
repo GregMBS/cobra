@@ -12,14 +12,14 @@ $mc = new MigoClass($pdo);
 $capt = $pd->capt;
 $tipo = $pd->tipo;
 $keys = [
-    'numero_de_cuenta',
-    'nombre_deudor',
-    'cliente',
-    'status_de_credito',
-    'saldo_total',
-    'saldo_descuento_2',
-    'saldo_aarsa',
-    'fecha_ultima_gestion'
+    'numero_de_cuenta' => '',
+    'nombre_deudor' => '',
+    'cliente' => '',
+    'status_de_credito' => '',
+    'saldo_total' => 0,
+    'saldo_descuento_2' => 0,
+    'saldo_aarsa' => '',
+    'fecha_ultima_gestion' => ''
 ];
 if ($tipo == 'admin') {
     $main = $mc->adminReport();
