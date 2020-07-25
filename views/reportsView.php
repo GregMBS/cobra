@@ -3,6 +3,11 @@
 <head>
     <title>Cobra Reports Menu</title>
     <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"/>
+    <style>
+        #admin div {
+            float: left; width: 33.333%;
+        }
+    </style>
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 </head>
