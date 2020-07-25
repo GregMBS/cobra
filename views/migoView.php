@@ -26,7 +26,6 @@
         <script>
             $(document).ready(function () {
                 $('#Cuentas').dataTable({
-                    "bPaginate": false,
                     "oLanguage": {
                         "sUrl": "espanol.txt"
                     },
