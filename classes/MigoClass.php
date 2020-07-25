@@ -134,6 +134,9 @@ and ejecutivo_asignado_call_center = :capt
         if (is_null($rowPerPage)) {
             $rowPerPage = 10;
         }
+        if ($rowPerPage < 10) {
+            $rowPerPage = 10;
+        }
         if (is_null($columnName)) {
             $columnName = 'id_cuenta';
         }
