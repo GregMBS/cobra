@@ -136,7 +136,7 @@ and ejecutivo_asignado_call_center = :capt
             $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($result);
+            var_dump([$stmt,$result]);
             die();
             return $result;
         } catch (PDOException $p) {
