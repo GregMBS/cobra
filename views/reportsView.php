@@ -10,7 +10,7 @@
             font-size: larger;
         }
         button {
-            margin: 1em;
+            margin: 0.75em;
         }
     </style>
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
