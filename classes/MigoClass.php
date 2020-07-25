@@ -106,11 +106,11 @@ and ejecutivo_asignado_call_center = :capt
      * @param $searchQuery
      * @param $columnName
      * @param $columnSortOrder
-     * @param $row
-     * @param $rowPerPage
+     * @param int $row
+     * @param int $rowPerPage
      * @return array
      */
-    private function getFiltered($searchArray, $searchQuery, $columnName, $columnSortOrder, $row, $rowPerPage): array
+    private function getFiltered($searchArray, $searchQuery, $columnName, $columnSortOrder, $row = 0, $rowPerPage = 10): array
     {
 
 ## Fetch records
