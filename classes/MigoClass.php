@@ -113,8 +113,12 @@ and ejecutivo_asignado_call_center = :capt
     private function getFiltered($searchArray, $searchQuery, $columnName, $columnSortOrder, $row = 0, $rowPerPage = 10): array
     {
 
-        var_dump([$row, $rowPerPage]);
-        die();
+        if (is_null($row)) {
+            $row = 0;
+        }
+        if (is_null($rowPerPage)) {
+            $rowPerPage = 10;
+        }
         ## Fetch records
         $query = "SELECT * FROM resumen WHERE 1 "
             . $searchQuery . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset";
