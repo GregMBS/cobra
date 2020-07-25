@@ -155,8 +155,6 @@ and ejecutivo_asignado_call_center = :capt
             $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
             $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
             $stmt->execute();
-            var_dump($row, $rowPerPage);
-            die();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $p) {
             var_dump($p);
