@@ -1,14 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 use PDO;
+
+require_once __DIR__ . '/ResumenObject.php';
 
 /**
  * Description of MigoClass
@@ -35,15 +31,12 @@ class MigoClass {
      * @return array
      */
     public function adminReport() {
-        $query = "SELECT numero_de_cuenta, nombre_deudor, saldo_total,
-status_de_credito, cliente, status_aarsa,
-saldo_descuento_2, id_cuenta,
-fecha_ultima_gestion
+        $query = "SELECT *
 FROM resumen
 where status_de_credito not regexp '-'";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
     }
 
     /**
@@ -52,18 +45,15 @@ where status_de_credito not regexp '-'";
      * @return array
      */
     public function userReport($capt) {
-        $querymain = "SELECT numero_de_cuenta, nombre_deudor, saldo_total,
-status_de_credito, cliente, status_aarsa,
-saldo_descuento_2, id_cuenta,
-fecha_ultima_gestion
+        $query = "SELECT *
 FROM resumen
 where status_de_credito not regexp '-'
 and ejecutivo_asignado_call_center = :capt
 ";
-        $stm = $this->pdo->prepare($querymain);
+        $stm = $this->pdo->prepare($query);
         $stm->bindParam(':capt', $capt);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
     }
 
 }

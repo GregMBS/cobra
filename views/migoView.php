@@ -24,26 +24,27 @@
             </thead>
             <tbody class="ui-widget-content">
                 <?php
+                /** @var ResumenObject $row */
+
+                use cobra_salsa\ResumenObject;
+
                 foreach ($main as $row) {
-                    $CUENTA = $row['numero_de_cuenta'];
-                    $NOMBRE = $row['nombre_deudor'];
-                    $CLIENTE = $row['cliente'];
-                    $SEGMENTO = $row['status_de_credito'];
-                    $SALDO_TOTAL = (float) $row['saldo_total'];
-                    $SALDO_DESC = (float) $row['saldo_descuento_2'];
-                    $STATUS_AARSA = $row['status_aarsa'];
-                    $FECHA_ULT_GESTION = $row['fecha_ultima_gestion'];
-                    $ID_CUENTA = $row['id_cuenta'];
                     ?>
                     <tr>
-                        <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
-                        <td><?php echo htmlentities($NOMBRE); ?></td>
-                        <td><?php echo $CLIENTE; ?></td>
-                        <td><?php echo $SEGMENTO; ?></td>
-                        <td><?php echo $SALDO_TOTAL; ?></td>
-                        <td><?php echo $SALDO_DESC; ?></td>
-                        <td><?php echo $STATUS_AARSA; ?></td>
-                        <td><?php echo $FECHA_ULT_GESTION; ?></td>
+                        <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php
+                            echo $row->id_cuenta;
+                            ?>&capt=<?php
+                            echo $capt;
+                            ?>'><?php
+                                echo $row->numero_de_cuenta;
+                                ?></a></td>
+                        <td><?php echo htmlentities($row->nombre_deudor); ?></td>
+                        <td><?php echo $row->cliente; ?></td>
+                        <td><?php echo $row->status_de_credito; ?></td>
+                        <td><?php echo $row->saldo_total; ?></td>
+                        <td><?php echo $row->saldo_descuento_2; ?></td>
+                        <td><?php echo $row->status_aarsa; ?></td>
+                        <td><?php echo $row->fecha_ultima_gestion; ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
