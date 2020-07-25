@@ -22,7 +22,7 @@ $keys = [
     'fecha_ultima_gestion'
 ];
 if ($tipo == 'admin') {
-    return $mc->getAjax($keys);
+    echo $mc->getAjax($keys);
 } else {
-    return $mc->getAjax($keys, $capt);
+    echo $mc->getAjax($keys, $capt);
 }
