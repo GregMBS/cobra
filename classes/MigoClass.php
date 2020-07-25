@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 use PDOStatement;
 
 require_once __DIR__ . '/ResumenObject.php';
@@ -122,20 +123,26 @@ and ejecutivo_asignado_call_center = :capt
         ## Fetch records
         $query = "SELECT * FROM resumen WHERE 1 "
             . $searchQuery . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset";
-        $stmt = $this->pdo->prepare($query);
+
+        try {
+            $stmt = $this->pdo->prepare($query);
 
 // Bind values
-        foreach ($searchArray as $key => $search) {
-            $stmt->bindValue(':' . $key, $search, PDO::PARAM_STR);
-        }
+            foreach ($searchArray as $key => $search) {
+                $stmt->bindValue(':' . $key, $search, PDO::PARAM_STR);
+            }
 
-        $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($result);
-        die();
-        return $result;
+            $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            var_dump($result);
+            die();
+            return $result;
+        } catch (PDOException $p) {
+            var_dump($p);
+            die();
+        }
     }
 
     /**
