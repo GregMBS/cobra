@@ -15,6 +15,8 @@ $tipo = $pd->tipo;
 if ($tipo == 'admin') {
     $main = $mc->adminReport();
     while ($row = $main->fetchObject(ResumenObject::class)) {
+        var_dump($row);
+        die();
         return json_encode($row);
     }
 } else {
