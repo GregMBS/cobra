@@ -40,7 +40,7 @@
                     },
                     'columns': [
                         <?php
-                        foreach ($keys as $key) {
+                        foreach ($mc->keys as $key) {
                         ?>
                         { data: '<?php echo $key; ?>' },
                         <?php

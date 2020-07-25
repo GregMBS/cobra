@@ -22,6 +22,20 @@ class MigoClass
     protected $pdo;
 
     /**
+     * @var string[]
+     */
+    public $keys = [
+        'numero_de_cuenta',
+        'nombre_deudor',
+        'cliente',
+        'status_de_credito',
+        'saldo_total',
+        'saldo_descuento_2',
+        'saldo_aarsa',
+        'fecha_ultima_gestion'
+    ];
+
+    /**
      *
      * @param PDO $pdo
      */

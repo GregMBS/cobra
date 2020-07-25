@@ -9,20 +9,9 @@ require_once 'classes/MigoClass.php';
 $pd = new PdoClass();
 $pdo = $pd->dbConnectUser();
 $mc = new MigoClass($pdo);
-$capt = $pd->capt;
-$tipo = $pd->tipo;
-$keys = [
-    'numero_de_cuenta',
-    'nombre_deudor',
-    'cliente',
-    'status_de_credito',
-    'saldo_total',
-    'saldo_descuento_2',
-    'saldo_aarsa',
-    'fecha_ultima_gestion'
-];
-if ($tipo == 'admin') {
-    echo $mc->getAjax($keys);
+
+if ($pd->tipo == 'admin') {
+    echo $mc->getAjax($mc->keys);
 } else {
-    echo $mc->getAjax($keys, $capt);
+    echo $mc->getAjax($mc->keys, $pd->capt);
 }
