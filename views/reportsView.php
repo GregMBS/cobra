@@ -7,6 +7,9 @@
         #admin div {
             float: left; width: 33.333%;
         }
+        button {
+            margin: 1em;
+        }
     </style>
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
