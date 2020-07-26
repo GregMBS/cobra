@@ -5,7 +5,7 @@ use cobra_salsa\RotasClass;
 
 require_once 'classes/PdoClass.php';
 $pd     = new PdoClass();
-$pdo    = $pc->dbConnectUser();
+$pdo    = $pd->dbConnectUser();
 require_once 'classes/RotasClass.php';
 $rc     = new RotasClass($pdo);
 $capt   = $pd->capt;
