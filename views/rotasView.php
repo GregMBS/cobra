@@ -40,7 +40,7 @@
             <tbody>
                 <?php
                 $oldc = 0;
-                foreach ($main as $row) {
+                foreach ($result as $row) {
                     $CUENTA = $row['numero_de_cuenta'];
                     $CLIENTE = $row['cliente'];
                     $GESTOR = $row['c_cvge'];
