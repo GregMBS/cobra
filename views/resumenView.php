@@ -45,12 +45,7 @@
                 <form class="buttons" name="buscar" action="../resumen.php" id="buscar">
                     <button type="button" value="buscar" onclick="showsearch();">BUSCAR</button>
                 </form>
-                <form class="buttons" name="migo" method="get" action=
-                      "migo<?php
-                      if (($mytipo == 'admin') && (substr($cr, 0, 4) != 'SELF')) {
-                          echo 'admin';
-                      }
-                      ?>.php" id="migo">
+                <form class="buttons" name="migo" method="get" action="/migo.php" id="migo">
                     <input type="hidden" name="find" value="<?php echo $capt ?>">
                     <input type="hidden" name="capt" value="<?php echo $capt ?>"> 
                     <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">

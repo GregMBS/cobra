@@ -15,7 +15,11 @@ class RotasClass
 {
     protected $pdo;
     protected $queryRotas = "select c_cont,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
-    max(d_fech),sum(monto) as sum_monto
+    max(d_fech) as max_fecha,sum(monto) as sum_monto, 
+    max(d_prom1) as dp1, max(n_prom1) as np1, 
+    max(d_prom2) as dp2, max(n_prom1) as np2, 
+    max(d_prom3) as dp3, max(n_prom1) as np3, 
+    max(d_prom4) as dp4, max(n_prom1) as np4 
 from resumen
          join dictamenes on dictamen=status_aarsa
          join historia h1 on id_cuenta=c_cont
