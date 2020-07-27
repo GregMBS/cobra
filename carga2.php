@@ -12,6 +12,16 @@ $capt = $pc->capt;
 $post = filter_input_array(INPUT_POST);
 $get = filter_input_array(INPUT_GET);
 $cc = new CargaClass($pdo);
+if (empty($capt)) {
+    $capt = $get['capt'];
+}
+if (empty($capt)) {
+    $capt = $post['capt'];
+}
+if (empty($capt)) {
+    var_dump([$get, $post]);
+    die();
+}
 ?>
 <!DOCTYPE HTML>
 
@@ -33,16 +43,6 @@ $cc = new CargaClass($pdo);
 <?php
 $go = $post['go'];
 
-if (empty($capt)) {
-    $capt = $get['capt'];
-}
-if (empty($capt)) {
-    $capt = $post['capt'];
-}
-if (empty($capt)) {
-    var_dump([$get, $post]);
-    die();
-}
 switch ($go) {
 
 case 'cargar':
