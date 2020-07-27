@@ -27,13 +27,15 @@ $cc = new CargaClass($pc->dbConnectAdmin());
             </p>
         </form>
         <?php
-        $post = filter_input_array(INPUT_POST);
         $get = filter_input_array(INPUT_GET);
-$go = $post['go'];
-$capt = $post['capt'];
-if (empty($capt)) {
-    $capt = $get['capt'];
-}
+        $go = $post['go'];
+
+        if (empty($capt)) {
+            $capt = $get['capt'];
+        }
+        if (empty($capt)) {
+            $capt = $post['capt'];
+        }
 switch ($go) {
 
     case 'cargar':
