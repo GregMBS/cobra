@@ -47,15 +47,17 @@ case 'cargar':
         echo "Stored in: " . $destination . "</p>";
         ?>
         <p>
-        <form action="/carga2.php" method="post" name="clientePick">
+        <form action="carga2.php" method="post" name="clientePick">
             <table>
                 <tr>
                     <td><label for="pickCliente">Client</label></td>
                     <td><input type="text" name="cliente" id="pickCliente"/>
                         <input type="hidden" name="filename" value="<?php
-                        echo $destination
+                        echo $destination;
                         ?>"/>
-                        <input type="hidden" name="capt" value="<?php echo $capt ?>"/>
+                        <input type="hidden" name="capt" value="<?php
+                        echo $capt;
+                        ?>"/>
                     </td>
                 </tr>
             </table>
@@ -76,78 +78,71 @@ case 'asociar':
 case 'clientePick':
 ?>
 <p>
-<form action="/carga2.php" method="post" name="assoc">
+<form action="carga2.php" method="post" name="assoc">
     <?php
     list($cliente, $post, $fecha_de_actualizacion, $filename, $handle, $data, $num) = $cc->clientePick($post);
     ?>
     <input name="cliente" type="hidden" value="<?php
-    echo $cliente
+    echo $cliente;
     ?>"/>
     <input name="fecha_de_actualizacion" type="hidden" value="<?php
-    echo $fecha_de_actualizacion
+    echo $fecha_de_actualizacion;
     ?>"/>
     <input type="hidden" name="filename" value='<?php
-    echo $filename
+    echo $filename;
     ?>'/>
-    <input type="hidden" name="capt" value="<?php echo $capt ?>"/>
+    <input type="hidden" name="capt" value="<?php
+    echo $capt;
+    ?>"/>
 </form>
 
 <table>
     <?php
     $cargadexCount = $cc->countCargadex($cliente);
 
-    if ($cargadexCount == 0) {
+    for ($c = 0; $c < $num; $c++) {
 
-        for ($c = 0; $c < $num; $c++) {
+        if (!empty($data[$c])) {
+            ?>
+            <tr>
+                <td><label for="pos<?php
+                    echo $c
+                    ?>"><?php
+                        echo trim($data[$c])
+                        ?></label></td>
+                <td>
+                    <select form="assoc" name="pos<?php
+                    echo $c
+                    ?>" id="pos<?php
+                    echo $c
+                    ?>">
+                        <option value='nousar<?php echo $c ?>'>no usar</option>
+                        <?php
+                        $columns = $cc->getDBColumnNames();
+                        $k = count($columns);
 
-            if (!empty($data[$c])) {
-                ?>
-                <tr>
-                    <td><label for="pos<?php
-                        echo $c
-                        ?>"><?php
-                            echo trim($data[$c])
-                            ?></label></td>
-                    <td>
-                        <select form="assoc" name="pos<?php
-                        echo $c
-                        ?>" id="pos<?php
-                        echo $c
-                        ?>">
-                            <option value='nousar<?php echo $c ?>'>no usar</option>
-                            <?php
-                            $columns = $cc->getDBColumnNames();
-                            $k = count($columns);
-
-                            foreach ($columns as $k => $column) {
-                                ?>
-                                <option value='<?php echo $k ?>'<?php
-                                if (trim($data[$c]) == $column) {
-                                    echo " selected='selected'";
-                                }
-                                ?>><?php echo $column; ?></option>
-                                <?php
-                            }
+                        foreach ($columns as $k => $column) {
                             ?>
-                        </select></td>
-                </tr>
-                <?php
-            } else {
-                ?>
-                <input form="assoc" type="hidden" value="nousar" name="pos<?php
-                echo $c
-                ?>"/>
-                <?php
-            }
-        }
-    } else {
-        $cargadex = $cc->getCargadex($cliente);
-
-        foreach ($cargadex as $dex) {
-            echo $data[$c] . " " . $dex->field . " " . $dex->type . " " . $dex->nullok . "<br>";
-            $c++;
+                            <option value='<?php echo $k ?>'<?php
+                            if (trim($data[$c]) == $column) {
+                                echo " selected='selected'";
+                            }
+                            ?>><?php echo $column; ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select></td>
+            </tr>
+            <?php
+        } else {
+            ?>
+            <input form="assoc" type="hidden" value="nousar" name="pos<?php
+            echo $c
+            ?>"/>
+            <?php
         }
     }
+
     fclose($handle);
     ?>
     <p>
