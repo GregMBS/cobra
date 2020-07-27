@@ -65,6 +65,14 @@ case 'cargar':
     }
     break;
 
+case 'asociar':
+    try {
+        $cc->asociar($post);
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+    break;
+
 case 'clientePick':
 ?>
 <p>
@@ -149,14 +157,6 @@ case 'clientePick':
     </p>
     <?php
     break;
-
-    case 'asociar':
-        try {
-            $cc->asociar($post);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-        break;
     }
 
     ?>
