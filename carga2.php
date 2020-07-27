@@ -12,16 +12,6 @@ $capt = $pc->capt;
 $post = filter_input_array(INPUT_POST);
 $get = filter_input_array(INPUT_GET);
 $cc = new CargaClass($pdo);
-if (empty($capt)) {
-    $capt = $get['capt'];
-}
-if (empty($capt)) {
-    $capt = $post['capt'];
-}
-if (empty($capt)) {
-    var_dump([$get, $post]);
-    die();
-}
 ?>
 <!DOCTYPE HTML>
 
@@ -35,7 +25,7 @@ if (empty($capt)) {
 <br>
 <form action="carga2.php" method="post" enctype="multipart/form-data" name="cargar">
     <p>Filename:
-        <input type="hidden" name="capt" id="capt" value="<?php echo $pd->capt ?>"/>
+        <input type="hidden" name="capt" id="capt" value="<?php echo $capt ?>"/>
         <input type="file" name="file" id="file"><br>
         <button type="submit" name="go" value="cargar">Elegir archivo</button>
     </p>
