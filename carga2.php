@@ -27,6 +27,7 @@ $cc = new CargaClass($pc->dbConnectAdmin());
             </p>
         </form>
         <?php
+        $post = filter_input_array(INPUT_POST);
 $go = $post['go'];
 
 switch ($go) {
