@@ -50,7 +50,7 @@ switch ($go) {
                             <input type="hidden" name="filename" value="<?php
                             echo $destination
                             ?>" />
-                            <input type="hidden" name="capt" value="<?php echo $capt ?>" />
+                            <input type="hidden" name="capt" value="<?php echo $pd->capt ?>" />
                         </td></tr>
                 </table>
                 <button type="submit" name="go" value="clientePick">Elegir cliente</button>
