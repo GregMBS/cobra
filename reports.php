@@ -67,7 +67,7 @@ $horarios = [
         'label' => 'Nomina Confidential']
     ];
 $XLS = [
-    ['page' => 'bigquery2',
+    ['page' => 'bigquery',
         'label' => 'Query de las Gestiones XLS'],
     ['page' => 'bigproms',
         'label' => 'Query de las Promesas XLS'],
