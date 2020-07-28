@@ -81,7 +81,9 @@ switch ($go) {
             <?php
             list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
             $json = json_encode($data);
-            var_dump($json);
+            if (!$json) {
+                die(json_last_error_msg());
+            }
             ?>
             <input name="cliente" type="hidden" value="<?php
             echo $cliente;
