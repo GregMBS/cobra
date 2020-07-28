@@ -113,9 +113,7 @@ switch ($go) {
                                     ?></label>
                             </dt>
                         <dd>
-                            <select name="pos<?php
-                            echo $c
-                            ?>" id="pos<?php
+                            <select name="pos[]" id="pos<?php
                             echo $c
                             ?>">
                                 <option value='nousar<?php echo $c ?>'>no usar</option>

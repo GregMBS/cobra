@@ -318,16 +318,13 @@ from resumen;
      */
     public function asociar(array $post): void
     {
-        var_dump($post);
-        die();
-        $maxc = filter_var($post['maxc'], FILTER_SANITIZE_STRING);
         $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
         $columns = $this->getDBColumns();
         $fields = [];
 
-        if (!empty($post['pos0'])) {
-            for ($f = 0; $f < $maxc; $f++) {
-                $fields[] = $this->insertIntoCargadex($post['pos' . $f], $columns, $cliente);
+        if (!empty($post['pos'])) {
+            foreach ($post['pos'] as $pos) {
+                $fields[] = $this->insertIntoCargadex($pos, $columns, $cliente);
             }
         }
 
