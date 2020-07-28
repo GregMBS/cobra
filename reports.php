@@ -10,9 +10,7 @@ $cargas = [
     ['page' => 'carga2',
         'label' => 'Cargar Cartera'],
     ['page' => 'pagobulk',
-        'label' => 'Cargar Pagos Confirmados'],
-    ['page' => 'cargaPic',
-        'label' => 'Cargar Foto']
+        'label' => 'Cargar Pagos Confirmados']
 ];
 $visitas = [
     ['page' => 'checkout',

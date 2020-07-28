@@ -11,12 +11,6 @@ $pdo  = $pc->dbConnectAdmin();
 $capt = filter_input(INPUT_GET, 'capt');
 $get  = filter_input_array(INPUT_GET);
 
-function MesNom($n)
-{
-    $timestamp = mktime(0, 0, 0, $n, 1, 2005);
-
-    return date("M", $timestamp);
-}
 if (isset($get['fecha1'])) {
     $go     = $get['go'];
     $gestor = $get['gestor'];

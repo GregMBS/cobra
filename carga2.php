@@ -79,7 +79,11 @@ switch ($go) {
         ?>
         <form action="carga2.php" method="post" name="assoc" id="aForm">
             <?php
-            list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
+            try {
+                list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
             ?>
             <input name="cliente" type="hidden" value="<?php
             echo $cliente;
