@@ -226,13 +226,12 @@ class CargaClass
     {
         $glue = ',';
         $list = implode($glue, $columnNames);
-        $queryLoad = "INSERT INTO temp (" . $list . ") VALUES ";
+        $queryLoad = "INSERT INTO temp (" . $list . ", fecha_de_actualizacion) VALUES ";
         foreach ($data as $row) {
                 $limpio = str_replace("'", "", $row);
-                $queryLoad .= "('" . implode("','", $limpio) . "'),";
+                $queryLoad .= "('" . implode("','", $limpio) . "', CURDATE()),";
         }
         $queryLoadTrim = rtrim($queryLoad, ",");
-        die($queryLoadTrim);
         try {
             $stl = $this->pdo->prepare($queryLoadTrim);
             $stl->execute();
