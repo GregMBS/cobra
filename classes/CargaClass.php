@@ -318,6 +318,8 @@ from resumen;
      */
     public function asociar(array $post): void
     {
+        var_dump($post);
+        die();
         $maxc = filter_var($post['maxc'], FILTER_SANITIZE_STRING);
         $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
         $columns = $this->getDBColumns();
