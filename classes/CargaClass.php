@@ -183,28 +183,6 @@ class CargaClass
 
     /**
      *
-     * @param string $filename
-     * @param boolean $header
-     * @return array
-     */
-    public function getCsvData($filename, $header)
-    {
-        $handle = fopen($filename, "r");
-        if ($header) {
-            $data = fgetcsv($handle, 0, ",");
-        } else {
-            $data = array();
-            while ($row = fgetcsv($handle)) {
-                $data[] = $row;
-            }
-        }
-
-        fclose($handle);
-        return $data;
-    }
-
-    /**
-     *
      * @param array $columnNames
      * @return array
      */
@@ -327,8 +305,6 @@ from resumen;
         $this->prepareTemp($columnNames);
 
         $jsonData = $post['jsonData'];
-        var_dump($post);
-        die();
         $data = json_decode($jsonData);
         $this->loadData($data, $columnNames);
 
@@ -391,7 +367,8 @@ from resumen;
             throw new Exception($e);
         }
         $num = 0;
-
+        var_dump($header);
+        var_dump($data);
         while ($num == 0) {
             $num = count($header);
         }
