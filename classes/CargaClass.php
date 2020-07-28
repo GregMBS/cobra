@@ -106,6 +106,7 @@ class CargaClass
 
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         list($data, $header, $num) = $this->getHeaderDataCSV($filename);
+        var_dump($data);
         $this->loadData($data, $columnNames);
 
         $fieldlist = $this->getNewFields();
