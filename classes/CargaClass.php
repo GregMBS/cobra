@@ -324,6 +324,8 @@ from resumen;
 
         if (!empty($post['pos'])) {
             foreach ($post['pos'] as $pos) {
+                var_dump($pos);
+                die();
                 $fields[] = $this->insertIntoCargadex($pos, $columns, $cliente);
             }
         }
@@ -401,14 +403,13 @@ from resumen;
     }
 
     /**
-     * @param array $post
+     * @param int $pos
      * @param array $columns
      * @param string $cliente
      * @return string
      */
-    private function insertIntoCargadex(array $post, array $columns, string $cliente): string
+    private function insertIntoCargadex(int $pos, array $columns, string $cliente): string
     {
-        $pos = filter_var($post, FILTER_SANITIZE_NUMBER_INT);
         $column = $columns[$pos];
         if (stripos($pos, 'nousar') === 0) {
             $nField = 'nousar';
