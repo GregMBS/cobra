@@ -96,7 +96,6 @@ switch ($go) {
             <input type="hidden" name="jsonData" value="<?php
             echo json_encode($data);
             ?>"/>
-            <input type="hidden" name="maxc" value="<?php echo $c ?>"/>
             <input type="hidden" name="capt" value="<?php echo $capt ?>"/>
             <input type="submit" name="go" id="aSubmit" value="asociar"/>
 
