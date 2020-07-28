@@ -313,7 +313,6 @@ from resumen;
      */
     public function asociar(array $post): void
     {
-        var_dump($post);
         $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
         $columns = $this->getDBColumns();
         $fields = [];

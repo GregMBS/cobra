@@ -80,6 +80,7 @@ switch ($go) {
         <form action="carga2.php" method="post" name="assoc" id="aForm">
             <?php
             list($cliente, $post, $fecha_de_actualizacion, $filename, $handle, $data, $num) = $cc->clientePick($post);
+            var_dump($data);
             ?>
             <input name="cliente" type="hidden" value="<?php
             echo $cliente;
