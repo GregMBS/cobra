@@ -105,7 +105,7 @@ class CargaClass
         $this->prepareTemp($columnNames);
 
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
-        list($data, $header, $num) = $this->getHeaderDataCSV($filename);
+        $data = $this->getDataCSV($filename);
         $count = $this->loadData($data, $columnNames);
         echo $count. " total records loaded. ";
 
@@ -235,9 +235,6 @@ class CargaClass
         try {
             $stl = $this->pdo->prepare($queryLoadTrim);
             $stl->execute();
-            if ($stl->errorInfo()) {
-                var_dump($stl->errorInfo());
-            }
             return $stl->rowCount();
         } catch (PDOException $Exception) {
             throw new Exception($Exception);
@@ -284,6 +281,9 @@ class CargaClass
         try {
             $stu = $this->pdo->prepare($query);
             $stu->execute();
+            if ($stu->errorCode()) {
+                var_dump($stu->errorInfo());
+            }
             return $stu->rowCount();
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
@@ -462,5 +462,26 @@ from resumen;
             $num = count($header);
         }
         return array($data, $header, $num);
+    }
+
+    /**
+     * @param $filename
+     * @return array
+     * @throws Exception
+     */
+    private function getDataCSV($filename): array
+    {
+        $data = [];
+        try {
+            $handle = fopen($filename, "r");
+            fgetcsv($handle, 0, ",");
+            while ($row = fgetcsv($handle, 0, ",")) {
+                $data[] = $row;
+            }
+            fclose($handle);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+        return $data;
     }
 }
