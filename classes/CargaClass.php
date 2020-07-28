@@ -53,27 +53,6 @@ class CargaClass
 
     /**
      *
-     * @param array $row
-     * @return array
-     */
-    public function getDataColumnNames($row)
-    {
-        $columnArray = array();
-        foreach ($row as $columnName) {
-            $cn = $columnName;
-            if ($columnName == '') {
-                $cn = 'vacio';
-            }
-            if (in_array($cn, $this->internal)) {
-                $cn = $columnName . '_solo_internal';
-            }
-            $columnArray[] = $cn;
-        }
-        return $columnArray;
-    }
-
-    /**
-     *
      * @return array
      */
     public function getDBColumnNames()
@@ -86,17 +65,6 @@ class CargaClass
             $columnArray[] = $row['Field'];
         }
         return $columnArray;
-    }
-
-    /**
-     *
-     * @return ColumnObject[]
-     */
-    public function getDBColumns()
-    {
-        $query = "SHOW COLUMNS FROM resumen";
-        $stc = $this->pdo->query($query);
-        return $stc->fetchAll(PDO::FETCH_CLASS, ColumnObject::class);
     }
 
     /**
@@ -115,6 +83,99 @@ class CargaClass
             }
         }
         return $oops;
+    }
+
+    /**
+     * @param array $post
+     * @throws Exception
+     */
+    public function asociar(array $post): void
+    {
+        $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
+        $columns = $this->getDBColumns();
+        $fields = [];
+
+        if (!empty($post['pos'])) {
+            foreach ($post['pos'] as $pos) {
+                $fields[] = $this->insertIntoCargadex($pos, $columns, $cliente);
+            }
+        }
+
+        $columnNames = $this->getDataColumnNames($fields);
+        $this->prepareTemp($columnNames);
+
+        $jsonData = $post['jsonData'];
+        $data = json_decode($jsonData);
+        $this->loadData($data, $columnNames);
+
+        $fieldlist = $this->getNewFields();
+        $updateList = $this->prepareUpdate($fieldlist);
+        $this->updateResumen($updateList);
+        echo "Old fields updated.";
+
+        $this->insertIntoResumen($fieldlist);
+        $this->updateClientes();
+        echo "New fields inserted.";
+
+        $this->updatePagos();
+        $this->createLookupTable();
+    }
+
+    /**
+     *
+     * @return ColumnObject[]
+     */
+    public function getDBColumns()
+    {
+        $query = "SHOW COLUMNS FROM resumen";
+        $stc = $this->pdo->query($query);
+        return $stc->fetchAll(PDO::FETCH_CLASS, ColumnObject::class);
+    }
+
+    /**
+     * @param int $pos
+     * @param array $columns
+     * @param string $cliente
+     * @return string
+     */
+    private function insertIntoCargadex(int $pos, array $columns, string $cliente): string
+    {
+        $column = $columns[$pos];
+        if (stripos($pos, 'nousar') === 0) {
+            $nField = 'nousar';
+            $nType = '';
+            $nNullOk = '';
+            $nPosition = '';
+        } else {
+            $nField = $column->Field;
+            $nType = $column->Type;
+            $nNullOk = $column->Null;
+            $nPosition = $pos;
+        }
+        $query = "insert into cargadex (field,type,nullOk,position,cliente) values ('$nField','$nType','$nNullOk','$nPosition','$cliente');";
+        $this->pdo->query($query);
+        return $nField;
+    }
+
+    /**
+     *
+     * @param array $row
+     * @return array
+     */
+    public function getDataColumnNames($row)
+    {
+        $columnArray = array();
+        foreach ($row as $columnName) {
+            $cn = $columnName;
+            if ($columnName == '') {
+                $cn = 'vacio';
+            }
+            if (in_array($cn, $this->internal)) {
+                $cn = $columnName . '_solo_internal';
+            }
+            $columnArray[] = $cn;
+        }
+        return $columnArray;
     }
 
     /**
@@ -179,6 +240,16 @@ class CargaClass
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function getNewFields(): array
+    {
+        $query = "show fields from temp where field not regexp 'nousar'";
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
     /**
@@ -286,42 +357,6 @@ from resumen;
     }
 
     /**
-     * @param array $post
-     * @throws Exception
-     */
-    public function asociar(array $post): void
-    {
-        $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
-        $columns = $this->getDBColumns();
-        $fields = [];
-
-        if (!empty($post['pos'])) {
-            foreach ($post['pos'] as $pos) {
-                $fields[] = $this->insertIntoCargadex($pos, $columns, $cliente);
-            }
-        }
-
-        $columnNames = $this->getDataColumnNames($fields);
-        $this->prepareTemp($columnNames);
-
-        $jsonData = $post['jsonData'];
-        $data = json_decode($jsonData);
-        $this->loadData($data, $columnNames);
-
-        $fieldlist = $this->getNewFields();
-        $updateList = $this->prepareUpdate($fieldlist);
-        $this->updateResumen($updateList);
-        echo "Old fields updated.";
-
-        $this->insertIntoResumen($fieldlist);
-        $this->updateClientes();
-        echo "New fields inserted.";
-
-        $this->updatePagos();
-        $this->createLookupTable();
-    }
-
-    /**
      * @param string $cliente
      * @return CargadexObject[]
      */
@@ -367,47 +402,10 @@ from resumen;
             throw new Exception($e);
         }
         $num = 0;
-        var_dump($header);
-        var_dump($data);
         while ($num == 0) {
             $num = count($header);
         }
         return array($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num);
-    }
-
-    /**
-     * @return array
-     */
-    private function getNewFields(): array
-    {
-        $query = "show fields from temp where field not regexp 'nousar'";
-        $result = $this->pdo->query($query);
-        return $result->fetchAll(PDO::FETCH_COLUMN, 0);
-    }
-
-    /**
-     * @param int $pos
-     * @param array $columns
-     * @param string $cliente
-     * @return string
-     */
-    private function insertIntoCargadex(int $pos, array $columns, string $cliente): string
-    {
-        $column = $columns[$pos];
-        if (stripos($pos, 'nousar') === 0) {
-            $nField = 'nousar';
-            $nType = '';
-            $nNullOk = '';
-            $nPosition = '';
-        } else {
-            $nField = $column->Field;
-            $nType = $column->Type;
-            $nNullOk = $column->Null;
-            $nPosition = $pos;
-        }
-        $query = "insert into cargadex (field,type,nullOk,position,cliente) values ('$nField','$nType','$nNullOk','$nPosition','$cliente');";
-        $this->pdo->query($query);
-        return $nField;
     }
 
     /**
@@ -432,6 +430,15 @@ from resumen;
         $stc->bindValue(':cliente', $cliente);
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
-        return (int) $result['cnt'];
+        return (int)$result['cnt'];
+    }
+
+    public function to_utf8(array $in)
+    {
+        $out = [];
+        foreach ($in as $key => $value) {
+            $out[utf8_encode($key)] = utf8_encode($value);
+        }
+        return $out;
     }
 }
