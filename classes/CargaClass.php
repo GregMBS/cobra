@@ -274,16 +274,13 @@ class CargaClass
     public function updateResumen($fieldlist)
     {
         $fields = implode(',', $fieldlist);
-        $query = "UPDATE temp, resumen
+        $query = "UPDATE IGNORE temp, resumen
             SET " . $fields . " 
             where temp.numero_de_cuenta=resumen.numero_de_cuenta
             and temp.cliente=resumen.cliente";
         try {
             $stu = $this->pdo->prepare($query);
             $stu->execute();
-            if ($stu->errorCode()) {
-                var_dump($stu->errorInfo());
-            }
             return $stu->rowCount();
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
@@ -303,9 +300,6 @@ class CargaClass
         try {
             $sti = $this->pdo->prepare($query);
             $sti->execute();
-            if ($sti->errorCode()) {
-                var_dump($sti->errorInfo());
-            }
             return $sti->rowCount();
 
         } catch (PDOException $Exception) {
