@@ -162,7 +162,6 @@ class CargaClass
      */
     public function loadData(array $data, $columnNames)
     {
-        var_dump($data);
         $count = 0;
         $glue = ',';
         $list = implode($glue, $columnNames);
@@ -314,6 +313,7 @@ from resumen;
      */
     public function asociar(array $post): void
     {
+        var_dump($post);
         $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
         $columns = $this->getDBColumns();
         $fields = [];
