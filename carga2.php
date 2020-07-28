@@ -151,12 +151,18 @@ case 'clientePick':
     <p>
         <input form="assoc" type="hidden" name="maxc" value="<?php echo $c ?>"/>
         <input form="assoc" type="hidden" name="capt" value="<?php echo $capt ?>"/>
-        <input form="assoc" type="submit" name="go" onclick="alert('click');" value="asociar"/>
+        <input form="assoc" type="submit" name="go" onclick="testMe(this);" value="asociar"/>
     </p>
     <?php
     break;
     }
 
     ?>
+    <script>
+        function testMe(here) {
+            const goVal = here.val();
+            alert(goVal);
+        }
+    </script>
 </body>
 </html>
