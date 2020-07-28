@@ -15,7 +15,7 @@ $capt = $pc->capt;
 set_time_limit(300);
 $field = filter_input(INPUT_GET, 'field');
 $find = filter_input(INPUT_GET, 'find');
-$from = filter_input(INPUT_GET, 'from');
+$source = filter_input(INPUT_GET, 'from');
 if (filter_has_var(INPUT_GET, 'C_CONT')) {
     $C_CONT = filter_input(INPUT_GET, 'C_CONT');
 } else {

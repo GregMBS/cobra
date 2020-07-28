@@ -63,13 +63,13 @@ class BigInputObject extends DateClass {
      *
      * @var string
      */
-    public $maxDateGestion = '2020-12-31';
+    public $maxDateGestion = '2030-12-31';
 
     /**
      *
      * @var string
      */
-    public $maxDateProm = '2020-12-31';
+    public $maxDateProm = '2030-12-31';
 
     /**
      * 
@@ -82,7 +82,7 @@ class BigInputObject extends DateClass {
      * @param string $tipo
      */
     public function __construct(
-    $fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo = ""
+    $fecha1, $fecha2, $gestor, $cliente, $fecha3 = '2007-10-17', $fecha4 = '2030-12-31', $tipo = ""
     ) {
         $this->maxDateGestion = date("Y-m-d");
         $this->fecha1 = $this->fixDate($fecha1, $this->minDate);
@@ -141,14 +141,6 @@ class BigInputObject extends DateClass {
      */
     public function getCliente() {
         return $this->cliente;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    public function getTipo() {
-        return $this->tipo;
     }
 
     /**

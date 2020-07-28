@@ -22,7 +22,7 @@ use cobra_salsa\ResumenObject;
     </head>
     <body>
         <h1>BUSCAR</h1>
-        <button onClick="window.location = '<?php echo $from; ?>?go=FROMBUSCAR&i=0&field=id_cuenta&find=<?php echo $C_CONT; ?>&capt=<?php echo $capt; ?>'">Regresar al resumen</button>
+        <button onClick="window.location = '<?php echo $source; ?>?go=FROMBUSCAR&i=0&field=id_cuenta&find=<?php echo $C_CONT; ?>&capt=<?php echo $capt; ?>'">Regresar al resumen</button>
         <table class="ui-widget" id="buscarTable">
             <thead class="ui-widget-header">
                 <tr>
@@ -47,7 +47,7 @@ use cobra_salsa\ResumenObject;
                     $STATUS = $row->status_de_credito;
                     ?>
                     <tr>
-                        <td><a<?php if (preg_match('/-/', $STATUS)) { ?> style="color:#c0c0c0;"<?php } ?> href='<?php echo $from; ?>?go=FROMBUSCAR&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>&highlight=<?php echo $field ?>&hfind=<?php echo $find ?>'><?php echo $CUENTA; ?></a></td>
+                        <td><a<?php if (preg_match('/-/', $STATUS)) { ?> style="color:#c0c0c0;"<?php } ?> href='<?php echo $source; ?>?go=FROMBUSCAR&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>&highlight=<?php echo $field ?>&hfind=<?php echo $find ?>'><?php echo $CUENTA; ?></a></td>
                         <td><?php echo htmlentities($NOMBRE); ?></td>
                         <td><?php echo $CLIENTE; ?></td>
                         <td><?php echo $STATUS; ?></td>

@@ -34,6 +34,7 @@ if (!empty($fecha1)) {
 		$output[] = array_keys($result[0]);
 		foreach ($result as $row) {
 			$output[] = $row;
+        $i++;
 		}
         try {
             $oc->writeXLSXFile($filename, $output);
