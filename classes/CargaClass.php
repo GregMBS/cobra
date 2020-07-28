@@ -124,7 +124,6 @@ class CargaClass
      */
     public function prepareTemp($columnNames)
     {
-        var_dump($columnNames);
         $queryDrop = "DROP TABLE IF EXISTS temp;";
         try {
             $std = $this->pdo->prepare($queryDrop);
@@ -132,7 +131,6 @@ class CargaClass
         } catch (PDOException $Exception) {
             throw new Exception($Exception);
         }
-        var_dump($std);
         $queryStart = "CREATE TABLE temp 
         ENGINE=INNODB AUTO_INCREMENT=10 
         DEFAULT CHARSET=utf8 
@@ -147,7 +145,6 @@ class CargaClass
         } catch (PDOException $Exception) {
             throw new Exception($Exception);
         }
-        var_dump($stc);
         $queryIndex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50))";
         try {
             $sta = $this->pdo->prepare($queryIndex);
@@ -155,7 +152,6 @@ class CargaClass
         } catch (PDOException $Exception) {
             throw new Exception($Exception);
         }
-        var_dump($sta);
     }
 
     /**
@@ -167,6 +163,7 @@ class CargaClass
     public function loadData($filename, $columnNames)
     {
         $data = $this->getCsvData($filename, false);
+        var_dump($data);
         $count = 0;
         $glue = ',';
         $list = implode($glue, $columnNames);
@@ -332,6 +329,8 @@ from resumen;
         $this->prepareTemp($columnNames);
 
         $filename2 = filter_var($post['filename'], FILTER_SANITIZE_STRING);
+        var_dump($columnNames);
+        die($filename2);
         $this->loadData($filename2, $columnNames);
 
         $fieldlist = $this->getNewFields();
