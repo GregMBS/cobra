@@ -148,6 +148,7 @@ case 'clientePick':
 
     fclose($handle);
     ?>
+</table>
     <p>
         <input form="assoc" type="hidden" name="maxc" value="<?php echo $c ?>"/>
         <input form="assoc" type="hidden" name="capt" value="<?php echo $capt ?>"/>
