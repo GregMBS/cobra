@@ -142,8 +142,6 @@ switch ($go) {
                         <?php
                     }
                 }
-
-                fclose($handle);
                 ?>
             </dl>
         </form>

@@ -369,6 +369,7 @@ from resumen;
     /**
      * @param $post
      * @return array
+     * @throws Exception
      */
     public function clientePick($post): array
     {
@@ -380,8 +381,13 @@ from resumen;
         }
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         $this->clearCargadex($cliente);
-        $handle = fopen($filename, "r");
-        $data = fgetcsv($handle, 0, ",");
+        try {
+            $handle = fopen($filename, "r");
+            $data = fgetcsv($handle, 0, ",");
+            fclose($handle);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
         $num = 0;
 
         while ($num == 0) {
@@ -409,7 +415,6 @@ from resumen;
     private function insertIntoCargadex(int $pos, array $columns, string $cliente): string
     {
         $column = $columns[$pos];
-        var_dump($column);
         if (stripos($pos, 'nousar') === 0) {
             $nField = 'nousar';
             $nType = '';
