@@ -82,6 +82,7 @@ switch ($go) {
             list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
             $html = $cc->to_utf8($data);
             $json = json_encode($html);
+            var_dump($json);
             if (!$json) {
                 die(json_last_error_msg());
             }

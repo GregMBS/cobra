@@ -105,7 +105,6 @@ class CargaClass
         $this->prepareTemp($columnNames);
 
         $jsonData = $post['jsonData'];
-        var_dump($jsonData);
         $data = json_decode($jsonData);
         $this->loadData($data, $columnNames);
 
