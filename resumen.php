@@ -515,10 +515,6 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
         }
 //}
         $redirector = "Location: resumen.php?capt=" . $capt;
-        $fromelastix = (!empty($get['elastix']));
-        if ($fromelastix) {
-            $redirector = "Location: resumen.php?shutup=yes&capt=" . $capt;
-        }
         header($redirector);
     } else {
         include 'resumenErrorView.php';
