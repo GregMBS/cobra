@@ -78,7 +78,7 @@ case 'asociar':
 case 'clientePick':
 ?>
 <p>
-<form action="carga2.php" method="post" name="assoc" id="aForm" onclick="alert(this);">
+<form action="carga2.php" method="post" name="assoc" id="aForm" onsubmit="alert('submit');">
     <?php
     list($cliente, $post, $fecha_de_actualizacion, $filename, $handle, $data, $num) = $cc->clientePick($post);
     ?>
@@ -148,7 +148,7 @@ case 'clientePick':
     <p>
         <input form="assoc" type="hidden" name="maxc" value="<?php echo $c ?>"/>
         <input form="assoc" type="hidden" name="capt" value="<?php echo $capt ?>"/>
-        <input form="assoc" type="submit" name="go" value="asociar"/>
+        <input form="assoc" type="submit" name="go" onclick="alert('click');" value="asociar"/>
     </p>
     <?php
     break;
