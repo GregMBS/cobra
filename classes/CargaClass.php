@@ -106,18 +106,17 @@ class CargaClass
 
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         list($data, $header, $num) = $this->getHeaderDataCSV($filename);
-        var_dump($data);
-        $this->loadData($data, $columnNames);
+        $count = $this->loadData($data, $columnNames);
+        echo $count. " total records loaded. ";
 
         $fieldlist = $this->getNewFields();
         $updateList = $this->prepareUpdate($fieldlist);
-        $this->updateResumen($updateList);
-        echo "Old fields updated.";
+        $countUpdate = $this->updateResumen($updateList);
+        echo $countUpdate . " old records updated. ";
 
-        $this->insertIntoResumen($fieldlist);
+        $countInsert = $this->insertIntoResumen($fieldlist);
+        echo $countInsert . " new records inserted.";
         $this->updateClientes();
-        echo "New fields inserted.";
-
         $this->updatePagos();
         $this->createLookupTable();
     }
@@ -220,6 +219,7 @@ class CargaClass
      *
      * @param array $data
      * @param array $columnNames
+     * @return int
      * @throws Exception
      */
     public function loadData(array $data, $columnNames)
@@ -237,10 +237,12 @@ class CargaClass
         }
         $queryLoadTrim = rtrim($queryLoad, ",");
         try {
-            $this->pdo->query($queryLoadTrim);
+            $stl = $this->pdo->prepare($queryLoadTrim);
+            $stl->execute();
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
+        return $count;
     }
 
     /**
@@ -270,6 +272,7 @@ class CargaClass
     /**
      *
      * @param array $fieldlist
+     * @return int
      * @throws Exception
      */
     public function updateResumen($fieldlist)
@@ -280,7 +283,9 @@ class CargaClass
             where temp.numero_de_cuenta=resumen.numero_de_cuenta
             and temp.cliente=resumen.cliente";
         try {
-            $this->pdo->query($query);
+            $stu = $this->pdo->prepare($query);
+            $stu->execute();
+            return $stu->rowCount();
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
@@ -289,15 +294,17 @@ class CargaClass
     /**
      *
      * @param array $fieldlist
+     * @return int
      * @throws Exception
      */
     public function insertIntoResumen($fieldlist)
     {
         $fields = implode(',', $fieldlist);
         $query = "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
-
         try {
-            $this->pdo->query($query);
+            $sti = $this->pdo->prepare($query);
+            $sti->execute();
+            return $sti->rowCount();
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
