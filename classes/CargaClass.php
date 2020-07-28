@@ -303,7 +303,11 @@ class CargaClass
         try {
             $sti = $this->pdo->prepare($query);
             $sti->execute();
+            if ($sti->errorCode()) {
+                var_dump($sti->errorInfo());
+            }
             return $sti->rowCount();
+
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
