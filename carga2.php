@@ -80,6 +80,8 @@ switch ($go) {
         <form action="carga2.php" method="post" name="assoc" id="aForm">
             <?php
             list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
+            $json = json_encode($data);
+            var_dump($json);
             ?>
             <input name="cliente" type="hidden" value="<?php
             echo $cliente;
@@ -94,7 +96,7 @@ switch ($go) {
             echo $capt;
             ?>"/>
             <input type="hidden" name="jsonData" value="<?php
-            echo json_encode($data);
+            echo $json;
             ?>"/>
             <input type="hidden" name="capt" value="<?php echo $capt ?>"/>
             <input type="submit" name="go" id="aSubmit" value="asociar"/>
