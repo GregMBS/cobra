@@ -236,7 +236,7 @@ class CargaClass
             $stl = $this->pdo->prepare($queryLoadTrim);
             $stl->execute();
             if ($stl->errorInfo()) {
-                die($stl->errorInfo());
+                var_dump($stl->errorInfo());
             }
             return $stl->rowCount();
         } catch (PDOException $Exception) {
