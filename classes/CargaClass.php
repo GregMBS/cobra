@@ -104,8 +104,8 @@ class CargaClass
         $columnNames = $this->getDataColumnNames($fields);
         $this->prepareTemp($columnNames);
 
-        $jsonData = $post['jsonData'];
-        $data = json_decode($jsonData);
+        $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
+        list($data, $header, $num) = $this->getHeaderDataCSV($filename);
         $this->loadData($data, $columnNames);
 
         $fieldlist = $this->getNewFields();
@@ -388,23 +388,9 @@ from resumen;
         } else {
             $fecha_de_actualizacion = date('Y-m-d');
         }
-        $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         $this->clearCargadex($cliente);
-        $data = [];
-        try {
-            $handle = fopen($filename, "r");
-            $header = fgetcsv($handle, 0, ",");
-            while ($row = fgetcsv($handle, 0, ",")) {
-                $data[] = $row;
-            }
-            fclose($handle);
-        } catch (Exception $e) {
-            throw new Exception($e);
-        }
-        $num = 0;
-        while ($num == 0) {
-            $num = count($header);
-        }
+        $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
+        list($data, $header, $num) = $this->getHeaderDataCSV($filename);
         return array($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num);
     }
 
@@ -444,5 +430,30 @@ from resumen;
             $out[] = $temp;
         }
         return $out;
+    }
+
+    /**
+     * @param $filename
+     * @return array
+     * @throws Exception
+     */
+    private function getHeaderDataCSV($filename): array
+    {
+        $data = [];
+        try {
+            $handle = fopen($filename, "r");
+            $header = fgetcsv($handle, 0, ",");
+            while ($row = fgetcsv($handle, 0, ",")) {
+                $data[] = $row;
+            }
+            fclose($handle);
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+        $num = 0;
+        while ($num == 0) {
+            $num = count($header);
+        }
+        return array($data, $header, $num);
     }
 }

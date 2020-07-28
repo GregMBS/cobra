@@ -69,7 +69,6 @@ switch ($go) {
 
     case 'asociar':
         try {
-            var_dump($post);
             $cc->asociar($post);
         } catch (Exception $e) {
             die($e->getMessage());
@@ -81,11 +80,6 @@ switch ($go) {
         <form action="carga2.php" method="post" name="assoc" id="aForm">
             <?php
             list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
-            $html = $cc->to_utf8($data);
-            $json = json_encode($html);
-            if (!$json) {
-                die(json_last_error_msg());
-            }
             ?>
             <input name="cliente" type="hidden" value="<?php
             echo $cliente;
@@ -98,9 +92,6 @@ switch ($go) {
             ?>'/>
             <input type="hidden" name="capt" value="<?php
             echo $capt;
-            ?>"/>
-            <input type="hidden" name="jsonData" value="<?php
-            echo $json;
             ?>"/>
             <input type="hidden" name="capt" value="<?php echo $capt ?>"/>
             <input type="submit" name="go" id="aSubmit" value="asociar"/>
