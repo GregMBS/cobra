@@ -436,8 +436,12 @@ from resumen;
     public function to_utf8(array $in)
     {
         $out = [];
-        foreach ($in as $key => $value) {
-            $out[utf8_encode($key)] = utf8_encode($value);
+        foreach ($in as $row) {
+            $temp = [];
+            foreach ($row as $item) {
+                $temp[] = utf8_encode($item);
+            }
+            $out[] = $temp;
         }
         return $out;
     }
