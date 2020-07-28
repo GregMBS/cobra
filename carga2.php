@@ -32,10 +32,7 @@ $cc = new CargaClass($pdo);
 </form>
 <?php
 $go = $post['go'];
-if (empty($go)) {
-    var_dump($post);
-    var_dump($get);
-}
+
 switch ($go) {
 
 case 'cargar':
@@ -81,7 +78,7 @@ case 'asociar':
 case 'clientePick':
 ?>
 <p>
-<form action="carga2.php" method="post" name="assoc" id="aForm" onsubmit="alert('submit');">
+<form action="carga2.php" method="post" name="assoc" id="aForm">
     <?php
     list($cliente, $post, $fecha_de_actualizacion, $filename, $handle, $data, $num) = $cc->clientePick($post);
     ?>
@@ -152,18 +149,12 @@ case 'clientePick':
     <p>
         <input form="assoc" type="hidden" name="maxc" value="<?php echo $c ?>"/>
         <input form="assoc" type="hidden" name="capt" value="<?php echo $capt ?>"/>
-        <input form="assoc" type="submit" name="go" onclick="testMe(this);" value="asociar"/>
+        <input form="assoc" type="submit" name="go" id="aSubmit" value="asociar"/>
     </p>
     <?php
     break;
     }
 
     ?>
-    <script>
-        function testMe(here) {
-            const goVal = here.val();
-            alert(goVal);
-        }
-    </script>
 </body>
 </html>
