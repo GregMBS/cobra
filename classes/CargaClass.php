@@ -327,7 +327,8 @@ from resumen;
         $this->prepareTemp($columnNames);
 
         $jsonData = $post['jsonData'];
-        die($jsonData);
+        var_dump($post);
+        die();
         $data = json_decode($jsonData);
         $this->loadData($data, $columnNames);
 
