@@ -77,7 +77,6 @@ switch ($go) {
 
     case 'clientePick':
         ?>
-        <p>
         <form action="carga2.php" method="post" name="assoc" id="aForm">
             <?php
             list($cliente, $post, $fecha_de_actualizacion, $filename, $handle, $data, $num) = $cc->clientePick($post);
@@ -97,24 +96,24 @@ switch ($go) {
             <input type="hidden" name="maxc" value="<?php echo $c ?>"/>
             <input type="hidden" name="capt" value="<?php echo $capt ?>"/>
             <input type="submit" name="go" id="aSubmit" value="asociar"/>
-        </form>
 
-        <table>
-            <?php
-            $cargadexCount = $cc->countCargadex($cliente);
+            <dl>
+                <?php
+                $cargadexCount = $cc->countCargadex($cliente);
 
-            for ($c = 0; $c < $num; $c++) {
+                for ($c = 0; $c < $num; $c++) {
 
-                if (!empty($data[$c])) {
-                    ?>
-                    <tr>
-                        <td><label for="pos<?php
-                            echo $c
-                            ?>"><?php
-                                echo trim($data[$c])
-                                ?></label></td>
-                        <td>
-                            <select form="assoc" name="pos<?php
+                    if (!empty($data[$c])) {
+                        ?>
+                            <dt>
+                                <label for="pos<?php
+                                echo $c
+                                ?>"><?php
+                                    echo trim($data[$c])
+                                    ?></label>
+                            </dt>
+                        <dd>
+                            <select name="pos<?php
                             echo $c
                             ?>" id="pos<?php
                             echo $c
@@ -134,21 +133,23 @@ switch ($go) {
                                     <?php
                                 }
                                 ?>
-                            </select></td>
-                    </tr>
-                    <?php
-                } else {
-                    ?>
-                    <input form="assoc" type="hidden" value="nousar" name="pos<?php
-                    echo $c
-                    ?>"/>
-                    <?php
+                            </select>
+                        </dd>
+                        <?php
+                    } else {
+                        ?>
+                        <input type="hidden" value="nousar" name="pos<?php
+                        echo $c
+                        ?>"/>
+                        <?php
+                    }
                 }
-            }
 
-            fclose($handle);
-            ?>
-        </table>
+                fclose($handle);
+                ?>
+            </dl>
+        </form>
+
         <?php
         break;
 }
