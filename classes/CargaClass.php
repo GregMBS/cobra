@@ -226,7 +226,7 @@ class CargaClass
     {
         $glue = ',';
         $list = implode($glue, $columnNames);
-        var_dump($list);
+        var_dump($data);
         $queryLoad = "INSERT INTO temp (" . $list . ") VALUES ";
         foreach ($data as $row) {
                 $limpio = str_replace("'", "", $row);
