@@ -156,13 +156,12 @@ class CargaClass
 
     /**
      *
-     * @param string $filename
+     * @param array $data
      * @param array $columnNames
      * @throws Exception
      */
-    public function loadData($filename, $columnNames)
+    public function loadData(array $data, $columnNames)
     {
-        $data = $this->getCsvData($filename, false);
         var_dump($data);
         $count = 0;
         $glue = ',';
@@ -328,10 +327,9 @@ from resumen;
         $columnNames = $this->getDataColumnNames($fields);
         $this->prepareTemp($columnNames);
 
-        $filename2 = filter_var($post['filename'], FILTER_SANITIZE_STRING);
-        var_dump($columnNames);
-        die($filename2);
-        $this->loadData($filename2, $columnNames);
+        $jsonData = $post['jsonData'];
+        $data = json_decode($jsonData);
+        $this->loadData($data, $columnNames);
 
         $fieldlist = $this->getNewFields();
         $updateList = $this->prepareUpdate($fieldlist);
