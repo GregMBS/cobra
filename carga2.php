@@ -32,7 +32,10 @@ $cc = new CargaClass($pdo);
 </form>
 <?php
 $go = $post['go'];
-
+if (empty($go)) {
+    var_dump($post);
+    var_dump($get);
+}
 switch ($go) {
 
 case 'cargar':
