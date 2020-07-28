@@ -324,8 +324,6 @@ from resumen;
 
         if (!empty($post['pos'])) {
             foreach ($post['pos'] as $pos) {
-                var_dump($pos);
-                die();
                 $fields[] = $this->insertIntoCargadex($pos, $columns, $cliente);
             }
         }
@@ -411,6 +409,7 @@ from resumen;
     private function insertIntoCargadex(int $pos, array $columns, string $cliente): string
     {
         $column = $columns[$pos];
+        var_dump($column);
         if (stripos($pos, 'nousar') === 0) {
             $nField = 'nousar';
             $nType = '';
