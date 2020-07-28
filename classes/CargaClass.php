@@ -232,12 +232,13 @@ class CargaClass
                 $queryLoad .= "('" . implode("','", $limpio) . "', CURDATE()),";
         }
         $queryLoadTrim = rtrim($queryLoad, ",");
+        die($queryLoadTrim);
         try {
             $stl = $this->pdo->prepare($queryLoadTrim);
             $stl->execute();
             return $stl->rowCount();
         } catch (PDOException $Exception) {
-            throw new Exception($Exception->getMessage(), $Exception->getCode());
+            throw new Exception($Exception);
         }
     }
 
