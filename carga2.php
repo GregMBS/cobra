@@ -78,7 +78,7 @@ case 'asociar':
 case 'clientePick':
 ?>
 <p>
-<form action="carga2.php" method="post" name="assoc">
+<form action="carga2.php" method="post" name="assoc" onclick="alert(this);">
     <?php
     list($cliente, $post, $fecha_de_actualizacion, $filename, $handle, $data, $num) = $cc->clientePick($post);
     ?>
