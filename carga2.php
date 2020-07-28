@@ -79,7 +79,7 @@ switch ($go) {
         ?>
         <form action="carga2.php" method="post" name="assoc" id="aForm">
             <?php
-            list($cliente, $post, $fecha_de_actualizacion, $filename, $handle, $data, $num) = $cc->clientePick($post);
+            list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
             var_dump($data);
             ?>
             <input name="cliente" type="hidden" value="<?php
@@ -107,13 +107,13 @@ switch ($go) {
 
                 for ($c = 0; $c < $num; $c++) {
 
-                    if (!empty($data[$c])) {
+                    if (!empty($header[$c])) {
                         ?>
                             <dt>
                                 <label for="pos<?php
                                 echo $c
                                 ?>"><?php
-                                    echo trim($data[$c])
+                                    echo trim($header[$c])
                                     ?></label>
                             </dt>
                         <dd>
@@ -128,7 +128,7 @@ switch ($go) {
                                 foreach ($columns as $k => $column) {
                                     ?>
                                     <option value='<?php echo $k ?>'<?php
-                                    if (trim($data[$c]) == $column) {
+                                    if (trim($header[$c]) == $column) {
                                         echo " selected='selected'";
                                     }
                                     ?>><?php echo $column; ?></option>

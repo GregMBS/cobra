@@ -377,9 +377,13 @@ from resumen;
         }
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         $this->clearCargadex($cliente);
+        $data = [];
         try {
             $handle = fopen($filename, "r");
-            $data = fgetcsv($handle, 0, ",");
+            $header = fgetcsv($handle, 0, ",");
+            while ($row = fgetcsv($handle, 0, ",")) {
+                $data[] = $row;
+            }
             fclose($handle);
         } catch (Exception $e) {
             throw new Exception($e);
@@ -387,9 +391,9 @@ from resumen;
         $num = 0;
 
         while ($num == 0) {
-            $num = count($data);
+            $num = count($header);
         }
-        return array($cliente, $post, $fecha_de_actualizacion, $filename, $handle, $data, $num);
+        return array($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num);
     }
 
     /**
