@@ -80,7 +80,8 @@ switch ($go) {
         <form action="carga2.php" method="post" name="assoc" id="aForm">
             <?php
             list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
-            $json = json_encode($data);
+            $html = htmlentities($data);
+            $json = json_encode($html);
             if (!$json) {
                 die(json_last_error_msg());
             }
