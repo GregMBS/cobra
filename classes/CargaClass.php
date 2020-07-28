@@ -224,7 +224,6 @@ class CargaClass
      */
     public function loadData(array $data, $columnNames)
     {
-        $count = 0;
         $glue = ',';
         $list = implode($glue, $columnNames);
         $queryLoad = "INSERT INTO temp (" . $list . ") VALUES ";
@@ -239,10 +238,10 @@ class CargaClass
         try {
             $stl = $this->pdo->prepare($queryLoadTrim);
             $stl->execute();
+            return $stl->rowCount();
         } catch (PDOException $Exception) {
             throw new Exception($Exception->getMessage(), $Exception->getCode());
         }
-        return $count;
     }
 
     /**
