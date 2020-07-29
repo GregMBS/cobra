@@ -26,29 +26,18 @@ $cliente = filter_input(INPUT_GET, 'cliente');
 $tipo = filter_input(INPUT_GET, 'tipo');
 $go = filter_input(INPUT_GET, 'go');
 if (!empty($fecha1)) {
-	$bio = new BigInputObject($fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo);
-        $result = $bc->getProms($bio);
-	if ($result) {
-		$filename = "Query_de_promesas.xlsx";
-		$output = array();
-		$output[] = array_keys($result[0]);
-		foreach ($result as $row) {
-			$output[] = $row;
-        $i++;
-		}
-        try {
-            $oc->writeXLSXFile($filename, $output);
-        } catch (Exception $e) {
-		    die($e->getMessage());
-        }
+    $bio = new BigInputObject($fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo);
+    $result = $bc->getProms($bio);
+    if ($result) {
+        $filename = "Query_de_promesas.xlsx";
+        $headers = array_keys($result[0]);
+        $oc = new OutputClass();
+        $oc->writeXLSXFile($filename, $result, $headers);
     }
 } else {
-	$resultg = $bc->getGestionGestores();
-	$resultc = $bc->getGestionClientes();
-	$resultdf = $bc->getGestionDates('ASC');
-	$resultfd = $bc->getGestionDates('DESC');
-	$resultdp = $bc->getPromDates('ASC');
-	$resultpd = $bc->getPromDates('DESC');
-	$title = 'Query de las Promesas/Propuestas';
-	require 'views/bigView.php';
+    $gestores = $bc->getGestionGestores();
+    $clientes = $bc->getGestionClientes();
+    $flag = 'prom';
+    $title = 'Query de las Promesas/Propuestas';
+    require_once __DIR__ . '/views/bigView.php';
 }

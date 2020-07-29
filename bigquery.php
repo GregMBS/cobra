@@ -29,23 +29,14 @@ if (!empty($fecha1)) {
     $result = $bc->getGestiones($bio);
     if ($result) {
         $filename = "Query_de_gestiones.xlsx";
-        $output = array();
-        $output[] = array_keys($result[0]);
-        foreach ($result as $row) {
-            $output[] = $row;
-            $i++;
-        }
-        try {
-            $oc->writeXLSXFile($filename, $output);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
+        $headers = array_keys($result[0]);
+        $oc = new OutputClass();
+        $oc->writeXLSXFile($filename, $result, $headers);
     }
 } else {
-    $resultg = $bc->getGestionGestores();
-    $resultc = $bc->getGestionClientes();
-    $resultdf = $bc->getGestionDates('ASC');
-    $resultfd = $bc->getGestionDates('DESC');
+    $gestores = $bc->getGestionGestores();
+    $clientes = $bc->getGestionClientes();
+    $flag = 'query';
     $title = 'Query de las Gestiones';
-    require 'views/bigView.php';
+    require_once __DIR__ . '/views/bigView.php';
 }
