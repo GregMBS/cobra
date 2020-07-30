@@ -27,4 +27,5 @@ $promesas_all = array_fill(1, $dhoy, 0);
 $pagos_all = array_fill(1, $dhoy, 0);
             $resultnom       = $hc->listGestores();
 $day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
+$gestores = $hc->listGestores();
 require_once 'views/timesheetView.php';
