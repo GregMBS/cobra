@@ -207,16 +207,16 @@
                 for ($i = 1; $i <= $dhoy; $i++) {
                     ?>
                     <td class="light<?php
-                    if ($tlla[$i] == 0) {
+                    if ($day->tlla == 0) {
                         echo ' zeros';
                     }
                     ?>">
-                        <a href='<?php echo strtolower('ddh.php?capt=' . $capt . '&i=' . $tlla[$i] . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
-                            <?php echo $tlla[$i]; ?></a></td>
+                        <a href='<?php echo strtolower('ddh.php?capt=' . $capt . '&i=' . $day->tlla . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
+                            <?php echo $day->tlla; ?></a></td>
                     <?php
-                    $sumgt += $tlla[$i];
-                    $to->tsumgt[$i] += $tlla[$i];
-                    $gestiones_all[$i] += $tlla[$i];
+                    $sumgt += $day->tlla;
+                    $to->tsumgt[$i] += $day->tlla;
+                    $gestiones_all[$i] += $day->tlla;
                     ?>
                 <?php }
                 ?>
