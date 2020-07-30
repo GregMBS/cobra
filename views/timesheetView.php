@@ -251,14 +251,14 @@
                 for ($i = 1; $i <= $dhoy; $i++) {
                     ?>
                     <td class="light<?php
-                    if ($td->ct == 0) {
+                    if ($day->ct == 0) {
                         echo ' zeros';
                     }
-                    ?>"><?php echo $td->ct; ?></td>
+                    ?>"><?php echo $day->ct; ?></td>
                     <?php
-                    $sumct += $td->ct;
-                    $to->tsumct[$i] += $td->ct;
-                    $contactos_all[$i] += $td->ct;
+                    $sumct += $day->ct;
+                    $to->tsumct[$i] += $day->ct;
+                    $contactos_all[$i] += $day->ct;
                     ?>
                 <?php }
                 ?>
