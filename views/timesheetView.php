@@ -126,18 +126,18 @@
                 for ($i = 1; $i <= $dhoy; $i++) {
                     ?>
                     <td class="light<?php
-                    if ($diff[$i] == 0) {
+                    if ($day->diff == 0) {
                         echo ' zeros';
                     }
                     ?>"><?php
-                        $hrs = floor($diff[$i] / 3600);
-                        $mins = round(($diff[$i] - $hrs * 3600) / 60);
+                        $hrs = floor($day->diff / 3600);
+                        $mins = round(($day->diff - $hrs * 3600) / 60);
                         echo $hrs . ':' . sprintf("%02s", $mins);
                         ?></td>
                     <?php
-                    $sumt += $diff[$i];
-                    $to->tsumt[$i] += $diff[$i];
-                    $hours_all[$i] += $diff[$i];
+                    $sumt += $day->diff;
+                    $to->tsumt[$i] += $day->diff;
+                    $hours_all[$i] += $day->diff;
                 }
                 ?>
                 <td class="heavy"><?php
