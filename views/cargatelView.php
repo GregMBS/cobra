@@ -12,15 +12,18 @@
         </style>
     </head>
     <body>
-        <form action="/cargatel.php?capt=<?php echo $capt; ?>" method="post" name="cargar">
+        <form action="/cargatel.php?capt=<?php if (isset($capt)) {
+            echo $capt;
+        } ?>" method="post" name="cargar">
             <label>Usa formato CUENTA,TELE
             <textarea name='data' rows='20' cols='50'></textarea></label>
             <label>Mensaje <select name="msgtag">
                     <?php
-                    foreach ($clientes as $answercl) {
+                    /** @var $msgList */
+                    foreach ($msgList as $msg) {
                         ?>
-                        <option value="<?php echo $answercl['client'] . ',' . $answercl['tipo']; ?>" style="font-size:120%;">
-                            <?php echo $answercl['client'] . ',' . $answercl['tipo']; ?></option>
+                        <option value="<?php echo $msg['client'] . ',' . $msg['tipo']; ?>" style="font-size:120%;">
+                            <?php echo $msg['client'] . ',' . $msg['tipo']; ?></option>
                         <?php }
                         ?>
                 </select>
@@ -32,8 +35,10 @@
 
     </form>
     <?php
-    echo $msg;
+    if (isset($msg)) {
+        echo $msg;
+    }
     ?>
-    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la plantilla administrativa</button><br>
+    <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
 </body>
 </html>

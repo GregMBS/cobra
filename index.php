@@ -10,23 +10,14 @@ $pw = filter_input(INPUT_POST, 'pwd');
 if (!empty($go)) {
     require_once 'classes/PdoClass.php';
     require_once 'classes/LoginClass.php';
-    $pdoc = new PdoClass();
-    $pdo = $pdoc->dbConnectNobody();
+    $pd = new PdoClass();
+    $pdo = $pd->dbConnectNobody();
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
+    $field = "ejecutivo_asignado_call_center";
     if (isset($userData['tipo'])) {
-        switch ($userData['tipo']) {
-            case "admin":
-            case "callcenter":
-            $field = "ejecutivo_asignado_call_center";
-                break;
-
-            case "visitador":
+        if ($userData['tipo'] == 'visitador') {
             $field = "ejecutivo_asignado_domiciliario";
-                break;
-
-            default:
-                break;
         }
         $cpw = $capt . sha1($pw) . date('U');
         if ($capt == "gmbs") {

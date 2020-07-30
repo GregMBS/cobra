@@ -1,5 +1,14 @@
 <?php
 use cobra_salsa\ResumenObject;
+
+/**
+ * @var string $source
+ * @var string $C_CONT
+ * @var string $capt
+ * @var string $find
+ * @var string $field
+ * @var string[] $clientes
+ */
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,7 +45,7 @@ use cobra_salsa\ResumenObject;
                 <?php
                 $j = 0;
                 /**
-                 * @var ResumenObject $row
+                 * @var ResumenObject[] $main
                  */
                 foreach ($main as $row) {
                     $j = $j + 1;
@@ -76,7 +85,7 @@ use cobra_salsa\ResumenObject;
                     <?php
                     foreach ($clientes as $cliente) {
                         ?>
-                        <option value="<?php echo $cliente['cliente']; ?>"><?php echo $cliente['cliente']; ?>
+                        <option value="<?php echo $cliente; ?>"><?php echo $cliente; ?>
                         </option>
                     <?php } ?>
                 </select><br>

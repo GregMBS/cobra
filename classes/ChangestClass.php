@@ -113,7 +113,7 @@ WHERE id_cuenta=:C_CONT";
         $query = "SELECT DISTINCT cliente FROM resumen ORDER BY cliente LIMIT 1000";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
 }

@@ -33,8 +33,9 @@ class BuscarClassTest extends TestCase
     public function testListClients()
     {
         $clients = $this->cc->listClients();
+        $this->assertIsArray($clients);
         $first = array_pop($clients);
-        $this->assertArrayHasKey('cliente', $first);
+        $this->assertIsString($first);
     }
 
     public function testSearchAccounts()

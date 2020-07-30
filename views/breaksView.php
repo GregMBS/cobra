@@ -31,32 +31,38 @@
             </thead>
             <tbody>
                 <?php
-foreach ($resultp as $answerp) {
-    $AUTO = $answerp['auto'];
-    $GESTOR = $answerp['c_cvge'];
-    $TIPO = $answerp['c_cvst'];
-    $TIEMPO = $answerp['c_hrin'];
-    $DIFF = $answerp['diff'];
-    $formatstr = ' class="late"';
-    $NTP = date('H:i:s');
-    $resultq = $bc->getTimes($TIEMPO, $GESTOR);
-    foreach ($resultq as $answerq) {
-        if (!empty($answerq['diff'])) {
-            $DIFF = $answerq['diff'];
-            $NTP = $answerq['minhr'];
-            $formatstr = '';
-        }
-    }
-                    ?>
-                    <tr<?php echo $formatstr; ?>>
-                        <td><?php echo $GESTOR; ?></td>
-                        <td><?php echo $TIPO; ?></td>
-                        <td><?php echo $TIEMPO; ?></td>
-                        <td><?php echo $NTP; ?></td>
-                        <td><?php echo round($DIFF / 60); ?></td>
-                    </tr>
-                    <?php
-}
+
+                use cobra_salsa\BreaksClass;
+
+                if (!empty($resultp)) {
+                    foreach ($resultp as $answerp) {
+                        $AUTO = $answerp['auto'];
+                        $GESTOR = $answerp['c_cvge'];
+                        $TIPO = $answerp['c_cvst'];
+                        $TIEMPO = $answerp['c_hrin'];
+                        $DIFF = $answerp['diff'];
+                        $formatstr = ' class="late"';
+                        $NTP = date('H:i:s');
+                        /** @var BreaksClass $bc */
+                        $resultq = $bc->getTimes($TIEMPO, $GESTOR);
+                        foreach ($resultq as $answerq) {
+                            if (!empty($answerq['diff'])) {
+                                $DIFF = $answerq['diff'];
+                                $NTP = $answerq['minhr'];
+                                $formatstr = '';
+                            }
+                        }
+                                        ?>
+                                        <tr<?php echo $formatstr; ?>>
+                                            <td><?php echo $GESTOR; ?></td>
+                                            <td><?php echo $TIPO; ?></td>
+                                            <td><?php echo $TIEMPO; ?></td>
+                                            <td><?php echo $NTP; ?></td>
+                                            <td><?php echo round($DIFF / 60); ?></td>
+                                        </tr>
+                                        <?php
+                    }
+                }
                 ?>
             </tbody>
         </table>

@@ -1,5 +1,6 @@
 <?php
 
+use cobra_salsa\EspecialObject;
 use cobra_salsa\PdoClass;
 use cobra_salsa\QueuelistObject;
 use cobra_salsa\QueuesQCClass;
@@ -11,6 +12,7 @@ require_once __DIR__ . '/../classes/QueuesQCClass.php';
 require_once __DIR__ . '/../classes/ResumenObject.php';
 require_once __DIR__ . '/../classes/QueuesReportObject.php';
 require_once __DIR__ . '/../classes/QueuelistObject.php';
+require_once __DIR__ . '/../classes/EspecialObject.php';
 
 class QueuesQCClassTest extends TestCase
 {
@@ -43,12 +45,7 @@ class QueuesQCClassTest extends TestCase
         $report = $this->cc->getMain();
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertArrayHasKey('cliente', $first);
-        $this->assertArrayHasKey('status_de_credito', $first);
-        $this->assertArrayHasKey('cnt', $first);
-        $this->assertArrayHasKey('mnt', $first);
-        $this->assertArrayHasKey('ecount', $first);
-        $this->assertArrayHasKey('emount', $first);
+        $this->assertInstanceOf(EspecialObject::class, $first);
     }
 
     public function testGetSegmentoCount()

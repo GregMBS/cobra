@@ -2,13 +2,10 @@
 
 namespace cobra_salsa;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 use PDO;
+use PDOStatement;
+
+require_once __DIR__ . '/DhObject.php';
 
 /**
  * Database Class for ddh/pdh
@@ -23,28 +20,55 @@ class DhClass {
      */
     protected $pdo;
 
+    /**
+     * @var string
+     */
+    private $queryWithPromesas = "select n_prom, d_prom, c_hrin 
+        from historia
+        where c_cont = :id_cuenta
+        and n_prom > 0
+        order by c_hrin desc";
+
+    /**
+     * @var string
+     */
+    private $queryPromesas = "select n_prom, d_prom, c_hrin 
+        from historia
+        where c_cont = :id_cuenta
+        order by c_hrin desc";
+
+    /**
+     * @var string
+     */
+    private $queryVcc = "select v_cc 
+        from dictamenes
+        where dictamen = :status_aarsa";
+
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
-    public function getPromesas($gestor, $fecha) {
-        $query = "select numero_de_cuenta,nombre_deudor,saldo_total,
-status_de_credito,ejecutivo_asignado_call_center,
-pagos_vencidos,status_aarsa,
-saldo_descuento_1,producto,estado_deudor,ciudad_deudor,cliente,id_cuenta,
-max(n_prom) as monto_promesa,max(d_prom) as fecha_promesa,v_cc as vcc
+    /**
+     * @param string $gestor
+     * @param string $fecha
+     * @return array
+     */
+    public function getPromesas(string $gestor, string $fecha) {
+        $query = "select resumen.*
 from resumen
 join historia on id_cuenta=c_cont
 left join dictamenes on dictamen = status_aarsa
-where c_cvge=:gestor and d_fech=:fecha and n_prom>0
-group by id_cuenta
-ORDER BY
-saldo_total desc, pagos_vencidos";
+where c_cvge=:gestor and d_fech=:fecha and n_prom > 0";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
         $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
+        $report = $stq->fetchAll(PDO::FETCH_CLASS, DhObject::class);
+        $stp = $this->pdo->prepare($this->queryWithPromesas);
+        $stv = $this->pdo->prepare($this->queryVcc);
+        /** @var DhObject $resumen */
+        $this->addPromAndRank($report, $stp, $stv);
+        return $report;
     }
 
     /**
@@ -54,23 +78,42 @@ saldo_total desc, pagos_vencidos";
      * @return array
      */
     public function getDhMain($gestor, $fecha) {
-        $querymain = "select numero_de_cuenta, nombre_deudor,
-    saldo_total, status_de_credito, status_aarsa,
-    ejecutivo_asignado_call_center,
-    dias_vencidos, c_cvst, c_hrin,
-    saldo_descuento_2, producto, estado_deudor,
-    ciudad_deudor, cliente, id_cuenta,
-    n_prom, d_prom, v_cc as 'vcc'
+        $query = "select resumen.*
     from resumen
     join historia on id_cuenta=c_cont
     join dictamenes on dictamen=status_aarsa
-    where c_cvge=:gestor and d_fech=:fecha
-    ORDER BY d_fech, c_hrin;";
-        $stm = $this->pdo->prepare($querymain);
-        $stm->bindParam(':gestor', $gestor);
-        $stm->bindParam(':fecha', $fecha);
-        $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    where c_cvge=:gestor and d_fech=:fecha";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $gestor);
+        $stq->bindParam(':fecha', $fecha);
+        $stq->execute();
+        $report = $stq->fetchAll(PDO::FETCH_CLASS, DhObject::class);
+        $stp = $this->pdo->prepare($this->queryPromesas);
+        $stv = $this->pdo->prepare($this->queryVcc);
+        $this->addPromAndRank($report, $stp, $stv);
+        return $report;
+    }
+
+    /**
+     * @param array $report
+     * @param PDOStatement $stp
+     * @param PDOStatement $stv
+     */
+    private function addPromAndRank(array $report, PDOStatement $stp, PDOStatement $stv): void
+    {
+        /** @var DhObject $resumen */
+        foreach ($report as $resumen) {
+            $stp->bindParam(':id_cuenta', $resumen->id_cuenta);
+            $stp->execute();
+            $promesa = $stp->fetch(PDO::FETCH_ASSOC);
+            $resumen->d_prom = $promesa['d_prom'];
+            $resumen->n_prom = $promesa['n_prom'];
+            $resumen->c_hrin = $promesa['c_hrin'];
+            $stv->bindParam(':status_aarsa', $resumen->status_aarsa);
+            $stp->execute();
+            $ranking = $stv->fetch(PDO::FETCH_ASSOC);
+            $resumen->v_cc = $ranking['v_cc'];
+        }
     }
 
 }

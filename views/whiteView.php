@@ -10,7 +10,9 @@
     <body>
         <div>
             <form action='/whitesearch.php' method='get'>
-                <input type="hidden" name="capt" value="<?php echo $capt; ?>">
+                <input type="hidden" name="capt" value="<?php if (isset($capt)) {
+                    echo $capt;
+                } ?>">
                 <input type="hidden" name="go" value="BUSCAR">
                 <label for="nombre">Nombre</label>
                 <input type='text' name='nombre' id="nombre" value=''><br>

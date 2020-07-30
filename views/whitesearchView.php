@@ -25,6 +25,7 @@
             </thead>
             <tbody>
                 <?php
+                /** @var $main */
                 foreach ($main as $row) {
                     $tel     = $row['tel'];
                     $nombre  = $row['nombre_deudor'];
@@ -47,7 +48,9 @@
             </tbody>
         </table>
         <button type="button" value="white" onclick=
-                "window.location = 'white.php?capt=<?php echo $capt ?>';"></button>
+                "window.location = 'white.php?capt=<?php if (isset($capt)) {
+                    echo $capt;
+                } ?>';"></button>
         <script>
             $(function() {
                 $('#dirtable').dataTable({"bJQueryUI": true});

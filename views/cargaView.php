@@ -5,9 +5,10 @@
         <title>CobraMas Carga</title>
     </head>
     <body>
-        <button onclick="window.location = 'reports.php?capt=<?php 
+        <button onclick="window.location = 'reports.php?capt=<?php
+        /** @var string $capt */
         echo $capt;
-        ?>'">Regresar a la plantilla administrativa</button><br>
+        ?>'">Regresar a la pagina administrativa</button><br>
         <form action="/carga2.php" method="post" enctype="multipart/form-data" name="cargar">
             <p>Filename:
                 <input type="hidden" name="capt" id="capt" value="<?php echo $capt ?>" />

@@ -31,5 +31,5 @@ if ($go == 'CAMBIAR') {
     $cc->updateRlook($TAGS, $C_CONT);
 }
 $result = $cc->getReport($field, $find, $cliente);
-$resultcl = $cc->listClientes();
+$clientList = $cc->listClientes();
 require_once 'views/changestView.php';

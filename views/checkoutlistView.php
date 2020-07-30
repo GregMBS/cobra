@@ -71,6 +71,6 @@ if ($main) {
     </div>
     <button onclick="window.location = 'reports.php?capt=<?php 
     echo $capt;
-    ?>'">Regresar a la plantilla administrativa</button><br>
+    ?>'">Regresar a la pagina administrativa</button><br>
 </body>
 </html> 

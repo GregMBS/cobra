@@ -152,13 +152,13 @@ tel_4_verif regexp :find )";
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function listClients() {
         $query = "SELECT cliente FROM clientes";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
 }

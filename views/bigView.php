@@ -15,12 +15,16 @@
 </head>
 <body>
 <button onclick="window.location = 'reports.php?capt=<?php
-echo $capt;
+if (isset($capt)) {
+    echo $capt;
+}
 ?>'">Regresar a la pagina administrativa
 </button>
 <br>
 <form action="/bigproms.php" method="get" name="queryparms">
-    <input type="hidden" name="capt" value="<?php echo $capt ?>">
+    <input type="hidden" name="capt" value="<?php if (isset($capt)) {
+        echo $capt;
+    } ?>">
     <p>
         <label>Gestor: <?php
             if (isset($gestor)) {
@@ -64,14 +68,16 @@ echo $capt;
     </p>
     <p>
         <?php
-        if ($flag == 'prom') {
-            ?>
-            <label>VENCIDO de:
-                <input name="fecha3" id="fecha3" readonly="readonly"/>
-                a:
-                <input name="fecha4" id="fecha4" readonly="readonly"/>
-            </label>
-            <?php
+        if (!empty($flag)) {
+            if ($flag == 'prom') {
+                ?>
+                <label>VENCIDO de:
+                    <input name="fecha3" id="fecha3" readonly="readonly"/>
+                    a:
+                    <input name="fecha4" id="fecha4" readonly="readonly"/>
+                </label>
+                <?php
+            }
         }
         ?>
     </p>

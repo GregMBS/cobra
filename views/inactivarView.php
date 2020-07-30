@@ -14,7 +14,7 @@
     </form>
     <?php echo $msg; ?>
     <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">
-        Regresar a la plantilla administrativa
+        Regresar a la pagina administrativa
     </button><br>
 </body>
 </html>
