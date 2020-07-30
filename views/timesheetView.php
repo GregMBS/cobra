@@ -229,12 +229,12 @@
                 for ($i = 1; $i <= $dhoy; $i++) {
                     ?>
                     <td class="light<?php
-                    if ($lla[$i] == 0) {
+                    if ($day->lla == 0) {
                         echo ' zeros';
                     }
                     ?>">
-                        <a href='<?php echo strtolower('ddh.php?capt=' . $capt . '&i=' . $lla[$i] . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
-                            <?php echo $lla[$i]; ?></a></td>
+                        <a href='<?php echo strtolower('ddh.php?capt=' . $capt . '&i=' . $day->lla . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
+                            <?php echo $day->lla; ?></a></td>
                     <?php
                 }
                 $resultsumg = $hc->countAccounts($gestor);
