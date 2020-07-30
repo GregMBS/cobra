@@ -153,18 +153,18 @@
                 for ($i = 1; $i <= $dhoy; $i++) {
                     ?>
                     <td class="light<?php
-                    if ($break[$i] == 0) {
+                    if ($day->break == 0) {
                         echo ' zeros';
                     }
                     ?>"><?php
-                        $hrs = floor($break[$i] / 3600);
-                        $mins = round(($break[$i] - $hrs * 3600)
+                        $hrs = floor($day->break / 3600);
+                        $mins = round(($day->break - $hrs * 3600)
                             / 60);
                         echo $hrs . ':' . sprintf("%02s", $mins);
                         ?></td>
                     <?php
-                    $sumb = $sumb + $break[$i];
-                    $to->tsumb[$i] = $to->tsumb[$i] + $break[$i];
+                    $sumb = $sumb + $day->break;
+                    $to->tsumb[$i] = $to->tsumb[$i] + $day->break;
                 }
                 ?>
                 <td class="heavy"><?php
@@ -180,18 +180,18 @@
                 for ($i = 1; $i <= $dhoy; $i++) {
                     ?>
                     <td class="light<?php
-                    if ($bano[$i] == 0) {
+                    if ($day->bano == 0) {
                         echo ' zeros';
                     }
                     ?>"><?php
-                        $hrs = floor($bano[$i] / 3600);
-                        $mins = round(($bano[$i] - $hrs * 3600)
+                        $hrs = floor($day->bano / 3600);
+                        $mins = round(($day->bano - $hrs * 3600)
                             / 60);
                         echo $hrs . ':' . sprintf("%02s", $mins);
                         ?></td>
                     <?php
-                    $sumbn = $sumbn + $bano[$i];
-                    $to->tsumbn[$i] = $to->tsumbn[$i] + $bano[$i];
+                    $sumbn = $sumbn + $day->bano;
+                    $to->tsumbn[$i] = $to->tsumbn[$i] + $day->bano;
                 }
                 ?>
                 <td class="heavy"><?php
