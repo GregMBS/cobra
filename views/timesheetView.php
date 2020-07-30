@@ -56,10 +56,16 @@
                     $day = new TimesheetDayObject();
                     $startStopDiff = $hc->getStartStopDiff($gestor, $i);
                     foreach ($startStopDiff as $ssd) {
-                        $day->start = substr($ssd['start'], 0,
-                            5);
-                        $day->stop = substr($ssd['stop'], 0, 5);
-                        $day->diff = $ssd['diff'];
+                        if (isset($ssd['start'])) {
+                            $day->start = substr($ssd['start'], 0,
+                                5);
+                        }
+                        if (isset($ssd['stop'])) {
+                            $day->stop = substr($ssd['stop'], 0, 5);
+                        }
+                        if (isset($ssd['diff'])) {
+                            $day->diff = $ssd['diff'];
+                        }
                     }
                     $startStop = $hc->getCurrentMain($gestor, $i);
                     foreach ($startStop as $ss) {
