@@ -74,7 +74,7 @@ if ($go == 'gestor') { ?>
             }
             $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
             $month = $hc->prepareSheet($hc, $gestor, $dhoy);
-            for ($i = 1; $i <= $dhoy; $i++) {
+            for ($i = 1; $i < $dhoy; $i++) {
                 $day = $month[$i];
                 $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
                 ?>
