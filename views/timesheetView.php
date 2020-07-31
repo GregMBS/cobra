@@ -36,7 +36,7 @@
     <?php
     $day_esp = ['DOM'.'LUN','MAR','MIE','JUE','VIE','SAB'];
     foreach ($gestores as $answernom) {
-        $gestor = $answernom['iniciales'];
+        $gestor = $answernom['c_cvge'];
         $month = $sheet[$gestor];
         $monthSum = $sum[$gestor];
         ?>
