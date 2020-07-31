@@ -56,8 +56,8 @@ class DhClass {
     public function getPromesas(string $gestor, string $fecha) {
         $query = "select distinct resumen.*
 from resumen
-join historia on id_cuenta=c_cont
-where c_cvge=:gestor and d_fech=:fecha and n_prom > 0";
+join historia on c_cont=id_cuenta
+where c_cvge = :gestor and d_fech = :fecha and n_prom > 0";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
