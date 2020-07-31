@@ -35,12 +35,10 @@
 <div>
     <?php
 
-    use cobra_salsa\TimesheetDayObject;
-
-    require_once __DIR__ . '/../classes/TimesheetDayObject.php';
-
     foreach ($gestores as $answernom) {
-        $gestor = $answernom['c_cvge'];
+        $gestor = $answernom['iniciales'];
+        $month = $sheet[$gestor];
+        $monthSum = $sum[$gestor];
         ?>
         <table class="ui-widget">
             <thead class="ui-widget-header">
@@ -50,60 +48,7 @@
                 </th>
                 <?php
                 for ($i = 1; $i <= $dhoy; $i++) {
-                    $day = new TimesheetDayObject();
-                    $startStopDiff = $hc->getStartStopDiff($gestor, $i);
-                    foreach ($startStopDiff as $ssd) {
-                        if (isset($ssd['start'])) {
-                            $day->start = substr($ssd['start'], 0,
-                                5);
-                        }
-                        if (isset($ssd['stop'])) {
-                            $day->stop = substr($ssd['stop'], 0, 5);
-                        }
-                        if (isset($ssd['diff'])) {
-                            $day->diff = $ssd['diff'];
-                        }
-                    }
-                    $startStop = $hc->getCurrentMain($gestor, $i);
-                    foreach ($startStop as $ss) {
-                        $resultBreak = $hc->getTiempoDiff($gestor, $i, 'break');
-                        foreach ($resultBreak as $breaks) {
-                            $TIEMPO = $breaks['tiempo'];
-                            $DIFF = $breaks['diff'];
-                            $ntp = $hc->getNTPDiff($gestor, $i, $TIEMPO);
-                            if ($ntp) {
-                                foreach ($ntp as $ntpDiff) {
-                                    $DIFF = $ntpDiff['diff'];
-                                    $NTP = $ntpDiff['ntp'];
-                                    $day->break += $DIFF;
-                                }
-                            }
-                        }
-                        $resultBano = $hc->getTiempoDiff($gestor, $i, 'bano');
-                        foreach ($resultBano as $banos) {
-                            $TIEMPO = $banos['tiempo'];
-                            $DIFF = $banos['diff'];
-                            $ntp = $hc->getNTPDiff($gestor, $i,
-                                $TIEMPO);
-                            if ($ntp) {
-                                foreach ($ntp as $ntpDiff) {
-                                    $DIFF = $ntpDiff['diff'];
-                                    $NTP = $ntpDiff['ntp'];
-                                    $day->bano += $DIFF;
-                                }
-                            }
-                        }
-                        $day->lla = $ss['cuentas'];
-                        $day->tlla = $ss['gestiones'];
-                        $day->ct = $ss['nocontactos'];
-                        $day->nct = $ss['contactos'];
-                        $day->prom = $ss['promesas'];
-                        $day->lph = $day->lla / ($day->diff + 1 / 3600);
-                        $resultPagos = $hc->getPagos($gestor, $i);
-                        foreach ($resultPagos as $pagos) {
-                            $day->pag = $pagos['ct'];
-                        }
-                    }
+                    $day = $month[$i];
                     $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
                     ?>
                     <th><?php echo $day_esp[$dow] . " " . $i; ?></th>
@@ -113,219 +58,18 @@
             </thead>
             <tbody class="ui-widget-content">
             <?php
-            echo $tv->timeRow('LOGIN', $day->start);
-            echo $tv->timeRow('LOGOUT', $day->stop);
+            echo $tv->timeRow('LOGIN', $month, $monthSum, 'start');
+            echo $tv->timeRow('LOGOUT', $month, $monthSum, 'stop');
+            echo $tv->timeRow('HORAS', $month, $monthSum, 'diff');
+            echo $tv->timeRow('BREAK', $month, $monthSum, 'break');
+            echo $tv->timeRow('BAÑO', $month, $monthSum, 'bano');
+            echo $tv->countRow('GESTIONES', $month, $monthSum, 'tlla', $capt, $gestor, 'ddh');
+            echo $tv->countRow('CUENTAS', $month, $monthSum, 'lla', $capt, $gestor, 'ddh');
+            echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $capt, $gestor, '');
+            echo $tv->countRow('NO CONTACTOS', $month, $monthSum, 'nct', $capt, $gestor, '');
+            echo $tv->countRow('PROMESAS', $month, $monthSum, 'prom', $capt, $gestor, 'pdh');
+            echo $tv->countRow('PAGOS', $month, $monthSum, 'pag', $capt, $gestor, '');
             ?>
-            <tr>
-                <td class="heavy">HORAS</td>
-                <?php
-                $sumt = 0;
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($day->diff == 0) {
-                        echo ' zeros';
-                    }
-                    ?>"><?php
-                        $hrs = floor($day->diff / 3600);
-                        $mins = round(($day->diff - $hrs * 3600) / 60);
-                        echo $hrs . ':' . sprintf("%02s", $mins);
-                        ?></td>
-                    <?php
-                    $sumt += $day->diff;
-                    $to->tsumt[$i] += $day->diff;
-                    $hours_all[$i] += $day->diff;
-                }
-                ?>
-                <td class="heavy"><?php
-                    $hrst = floor($sumt / 3600);
-                    $minst = round(($sumt - $hrs * 3600) / 60);
-                    echo $hrst . ':' . sprintf("%02s", $minst);
-                    ?></td>
-            </tr>
-            <tr>
-                <td class="heavy">TIEMPO BREAK</td>
-                <?php
-                $sumb = 0;
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($day->break == 0) {
-                        echo ' zeros';
-                    }
-                    ?>"><?php
-                        $hrs = floor($day->break / 3600);
-                        $mins = round(($day->break - $hrs * 3600)
-                            / 60);
-                        echo $hrs . ':' . sprintf("%02s", $mins);
-                        ?></td>
-                    <?php
-                    $sumb = $sumb + $day->break;
-                    $to->tsumb[$i] = $to->tsumb[$i] + $day->break;
-                }
-                ?>
-                <td class="heavy"><?php
-                    $hrsb = floor($sumb / 3600);
-                    $minsb = round(($sumb - $hrs * 3600) / 60);
-                    echo $hrsb . ':' . sprintf("%02s", $minsb);
-                    ?></td>
-            </tr>
-            <tr>
-                <td class="heavy">TIEMPO BAÑO</td>
-                <?php
-                $sumbn = 0;
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($day->bano == 0) {
-                        echo ' zeros';
-                    }
-                    ?>"><?php
-                        $hrs = floor($day->bano / 3600);
-                        $mins = round(($day->bano - $hrs * 3600)
-                            / 60);
-                        echo $hrs . ':' . sprintf("%02s", $mins);
-                        ?></td>
-                    <?php
-                    $sumbn = $sumbn + $day->bano;
-                    $to->tsumbn[$i] = $to->tsumbn[$i] + $day->bano;
-                }
-                ?>
-                <td class="heavy"><?php
-                    $hrs = floor($sumbn / 3600);
-                    $mins = round(($sumbn - $hrs * 3600) / 60);
-                    echo $hrs . ':' . sprintf("%02s", $mins);
-                    ?></td>
-            </tr>
-            <tr>
-                <td class="heavy">GESTIONES</td>
-                <?php
-                $sumgt = 0;
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($day->tlla == 0) {
-                        echo ' zeros';
-                    }
-                    ?>">
-                        <a href='<?php echo strtolower('ddh.php?capt=' . $capt . '&i=' . $day->tlla . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
-                            <?php echo $day->tlla; ?></a></td>
-                    <?php
-                    $sumgt += $day->tlla;
-                    $to->tsumgt[$i] += $day->tlla;
-                    $gestiones_all[$i] += $day->tlla;
-                    ?>
-                <?php }
-                ?>
-                <td class="heavy"><?php echo $sumgt; ?></td>
-            </tr>
-            <tr>
-                <td class="heavy">CUENTAS</td>
-                <?php
-                $sumg = 0;
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($day->lla == 0) {
-                        echo ' zeros';
-                    }
-                    ?>">
-                        <a href='<?php echo strtolower('ddh.php?capt=' . $capt . '&i=' . $day->lla . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
-                            <?php echo $day->lla; ?></a></td>
-                    <?php
-                }
-                $resultsumg = $hc->countAccounts($gestor);
-                foreach ($resultsumg as $answersumg) {
-                    $sumg = $answersumg['ct'];
-                }
-                ?>
-                <td class="heavy"><?php echo $sumg; ?></td>
-            </tr>
-            <tr>
-                <td class="heavy">CONTACTOS</td>
-                <?php
-                $sumct = 0;
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($day->ct == 0) {
-                        echo ' zeros';
-                    }
-                    ?>"><?php echo $day->ct; ?></td>
-                    <?php
-                    $sumct += $day->ct;
-                    $to->tsumct[$i] += $day->ct;
-                    $contactos_all[$i] += $day->ct;
-                    ?>
-                <?php }
-                ?>
-                <td class="heavy"><?php echo $sumct; ?></td>
-            </tr>
-            <tr>
-                <td class="heavy">NO CONTACTOS</td>
-                <?php
-                $sumnct = 0;
-                $nct = array_fill(1, $dhoy, 0);
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($nct[$i] == 0) {
-                        echo ' zeros';
-                    }
-                    ?>"><?php echo $nct[$i]; ?></td>
-                    <?php
-                    $sumnct += $nct[$i];
-                    $to->tsumnct[$i] += $nct[$i];
-                    $nocontactos_all[$i] += $nct[$i];
-                    ?>
-                <?php }
-                ?>
-                <td class="heavy"><?php echo $sumnct; ?></td>
-            </tr>
-            <tr>
-                <td class="heavy">PROMESAS</td>
-                <?php
-                $sumpp = 0;
-                $prom = array_fill(1, $dhoy, 0);
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($prom[$i] == 0) {
-                        echo ' zeros';
-                    }
-                    ?>">
-                        <a href='<?php echo strtolower('pdh.php?capt=' . $capt . '&i=' . $prom[$i] . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
-                            <?php echo $prom[$i]; ?></a></td>
-                    <?php
-                    $sumpp += $prom[$i];
-                    $to->tsumpp[$i] += $prom[$i];
-                    $promesas_all[$i] += $prom[$i];
-                    ?>
-                <?php }
-                ?>
-                <td class="heavy"><?php echo $sumpp; ?></td>
-            </tr>
-            <tr>
-                <td class="heavy">PAGOS</td>
-                <?php
-                $sump = 0;
-                $pag = array_fill(1, $dhoy, 0);
-                for ($i = 1; $i <= $dhoy; $i++) {
-                    ?>
-                    <td class="light<?php
-                    if ($pag[$i] == 0) {
-                        echo ' zeros';
-                    }
-                    ?>"><?php echo $pag[$i]; ?></td>
-                    <?php
-                    $sump = $sump + $pag[$i];
-                    $to->tsump[$i] = $to->tsump[$i] + $pag[$i];
-                    $pagos_all[$i] += $pag[$i];
-                    ?>
-                <?php }
-                ?>
-                <td class="heavy"><?php echo $sump; ?></td>
-            </tr>
             <tr style="height:2em"></tr>
             </tbody>
         </table>

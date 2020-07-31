@@ -30,55 +30,61 @@ class TimesheetViewClass
 
     /**
      * @param string $label
-     * @param string $value
+     * @param array $month
+     * @param TimesheetDayObject $sum
+     * @param string $field
      * @return string
      */
-    public function timeRow(string $label, string $value)
+    public function timeRow(string $label, array $month, TimesheetDayObject $sum, string $field)
     {
+        $value = $month->$field;
+        $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
         for ($i = 1; $i <= $this->dia; $i++) {
-            $template .= " <td class='light";
+            $red = '';
             if ($value == '00:00') {
-                $template .= ' zeros';
+                $red = ' zeros';
             }
-            $template .= "'> $value</td>";
+            $template .= "<td class='light$red'>$value</td>";
         }
+        $template .= "<td class='heavy'>$total</td>";
         $template .= "</tr>";
         return $template;
     }
 
     /**
      * @param string $label
-     * @param int $value
+     * @param array $month
+     * @param TimesheetDayObject $sum
+     * @param string $field
      * @param string $capt
      * @param string $gestor
      * @param int[] $total
      * @param string $link
      * @return string
      */
-    public function countRow(string $label, int $value, string $capt, string $gestor, array &$total, string $link)
+    public function countRow(string $label, array $month, TimesheetDayObject $sum, string $field, string $capt, string $gestor, string $link = '')
     {
+        $value = $month->$field;
+        $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
-        $sum = 0;
         for ($i = 1; $i <= $this->dia; $i++) {
-            $template .= "<td class='light";
-            if ($value == 0) {
-                $template .= ' zeros';
+            $red = '';
+            if ($value == '0') {
+                $red = ' zeros';
             }
-            $template .= "'><a href='";
-            $template .= strtolower($link . '.php?capt=' . $capt
-                . '&i=' . $value
-                . '&gestor=' . $gestor
-                . '&fecha=' . $this->yr . '-' . $this->mes . '-' . $i);
-            $template .= "'>";
-            $template .= $value;
-            $template .= "</a></td>";
-            $sum += $value;
-            $total[$i] += $value;
+            $linkText = "<td class='light$red'>$value</td>";
+            if (!empty($link)) {
+                $aLink = strtolower($link . '.php?capt=' . $capt
+                    . '&i=' . $value
+                    . '&gestor=' . $gestor
+                    . '&fecha=' . $this->yr . '-' . $this->mes . '-' . $i);
+                $linkText = "<td class='light$red'><a href='$aLink'>$value</a></td>";
+            }
+            $template .= $linkText;
         }
-        $template .= "<td class='heavy'>";
-        $template .= $sum;
-        $template .= "</td></tr>";
+        $template .= "<td class='heavy'>$total</td>";
+        $template .= "</tr>";
         return $template;
     }
 }

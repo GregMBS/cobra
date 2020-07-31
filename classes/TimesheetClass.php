@@ -30,6 +30,17 @@ abstract class TimesheetClass
     }
 
     /**
+     * @param int $diff
+     * @return string
+     */
+    public function showTime(int $diff): string
+    {
+        $hrs = floor($diff / 3600);
+        $min = round(($diff - $hrs * 3600) / 60);
+        return $hrs . ':' . sprintf("%02s", $min);
+    }
+
+    /**
      *
      * @return array
      */
@@ -211,5 +222,24 @@ abstract class TimesheetClass
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param TimesheetDayObject[] $month
+     * @return TimesheetDayObject
+     */
+    public function prepareMonthSum(array $month)
+    {
+        $sum = new TimesheetDayObject();
+        $sum->diff = array_sum(array_column($month, 'diff'));
+        $sum->bano = array_sum(array_column($month, 'bano'));
+        $sum->break = array_sum(array_column($month, 'break'));
+        $sum->lla = array_sum(array_column($month, 'lla'));
+        $sum->tlla = array_sum(array_column($month, 'tlla'));
+        $sum->prom = array_sum(array_column($month, 'prom'));
+        $sum->pag = array_sum(array_column($month, 'pag'));
+        $sum->ct = array_sum(array_column($month, 'ct'));
+        $sum->nct = array_sum(array_column($month, 'nct'));
+        $sum->lph = $sum->lla / ($sum->diff + 1 / 3600);
+        return $sum;
+    }
 
 }

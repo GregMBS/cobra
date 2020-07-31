@@ -6,8 +6,8 @@ use cobra_salsa\HorariosAllClass;
 use cobra_salsa\TimesheetViewClass;
 
 require_once 'classes/PdoClass.php';
-$pc              = new PdoClass();
-$pdo             = $pc->dbConnectAdmin();
+$pd              = new PdoClass();
+$pdo             = $pd->dbConnectAdmin();
 require_once 'classes/HorariosClass.php';
 $hc              = new HorariosClass($pdo);
 require_once 'classes/HorariosAllClass.php';
@@ -18,17 +18,13 @@ $yr              = date('Y');
 $mes             = date('m');
 $dhoy            = date('d');
 $hoy             = date('Y-m-d');
-$capt            = filter_input(INPUT_GET, 'capt');
-$dst             = '';
-$hours_all = array_fill(1, $dhoy, 0);
-$breaks_all = array_fill(1, $dhoy, 0);
-$bano_all = array_fill(1, $dhoy, 0);
-$gestiones_all = array_fill(1, $dhoy, 0);
-$contactos_all = array_fill(1, $dhoy, 0);
-$nocontactos_all = array_fill(1, $dhoy, 0);
-$promesas_all = array_fill(1, $dhoy, 0);
-$pagos_all = array_fill(1, $dhoy, 0);
-            $resultnom       = $hc->listGestores();
-$day_esp = array("DOM","LUN","MAR","MIE","JUE","VIE","SAB");
+$capt            = $pd->capt;
 $gestores = $hc->listGestores();
-require_once 'views/timesheetView.php';
+$sheet = [];
+$sum = [];
+foreach ($gestores as $gestor) {
+    $nombre = $gestor['iniciales'];
+    $sheet[$nombre] = $hc->prepareSheet($hc, $nombre, $dhoy);
+    $sum[$nombre] = $hc->prepareMonthSum($sheet[$nombre]);
+}
+require_once __DIR__ . '/views/timesheetView.php';

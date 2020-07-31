@@ -114,8 +114,18 @@ and d_fech<=last_day(curdate())) as tmp";
             }
             $resultss = $hc->getCurrentMain($gestor, $i);
             foreach ($resultss as $answerss) {
-                $resultpo = $hc->getTiempoDiff($gestor, $i, 'bano');
-                foreach ($resultpo as $answerpo) {
+                $resultBreak = $this->getTiempoDiff($gestor, $i, 'break');
+                foreach ($resultBreak as $breaks) {
+                    $TIEMPO = $breaks['tiempo'];
+                    $ntp = $this->getNTPDiff($gestor, $i, $TIEMPO);
+                    if ($ntp) {
+                        foreach ($ntp as $ntpDiff) {
+                            $day->break += $ntpDiff['diff'];
+                        }
+                    }
+                }
+                $resultBano = $this->getTiempoDiff($gestor, $i, 'bano');
+                foreach ($resultBano as $answerpo) {
                     $TIEMPO = $answerpo['tiempo'];
                     $resultNTP = $hc->getNTPDiff($gestor, $i, $TIEMPO);
                     if ($resultNTP) {

@@ -32,5 +32,4 @@ if ($gestor == 'total') {
     header($redirect);
 }
 $gestores = $hc->listGestores();
-
 require_once 'views/horarios2View.php';
