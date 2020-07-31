@@ -33,7 +33,7 @@
 <body>
 <h2>HORARIOS</h2>
 <div>
-    <form action='/horarios_clean2.php' method='get'>
+    <form action='/horarios_all.php' method='get'>
         <label for="selectGestor">Gestor: </label>
         <select name='gestor' id="selectGestor">
             <?php

@@ -22,7 +22,7 @@ $capt            = $pd->capt;
 $gestores = [];
 $string = filter_input(INPUT_GET, 'gestor');
 if ($string) {
-    $gestores['c_cvge'] = $nombre;
+    $gestores[] = ['c_cvge' => $nombre];
 }
 $sheet = [];
 $sum = [];
