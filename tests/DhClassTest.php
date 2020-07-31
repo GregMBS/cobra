@@ -2,6 +2,7 @@
 
 
 use cobra_salsa\DhClass;
+use cobra_salsa\DhObject;
 use cobra_salsa\PdoClass;
 use PHPUnit\Framework\TestCase;
 
@@ -30,12 +31,13 @@ class DhClassTest extends TestCase
 
     public function testGetPromesas()
     {
-        $report = $this->cc->getPromesas('ivonne', '2020-07-14');
-        var_dump($report);
+        $report = $this->cc->getPromesas('cristina', '2020-07-01');
+        $this->assertInstanceOf(DhObject::class, $report);
     }
 
     public function testGetDhMain()
     {
-
+        $report = $this->cc->getDhMain('cristina', '2020-07-01');
+        $this->assertInstanceOf(DhObject::class, $report);
     }
 }

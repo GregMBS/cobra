@@ -17,4 +17,11 @@ $dhoy            = date('d', strtotime('last day of previous month'));
 $hoy             = date('Y-m-d', strtotime('last day of previous month'));
 $capt            = $pd->capt;
 $gestores = $hc->listGestores();
+$sheet = [];
+$sum = [];
+foreach ($gestores as $gestor) {
+    $nombre = $gestor['c_cvge'];
+    $sheet[$nombre] = $hc->prepareSheet($hc, $nombre, $dhoy);
+    $sum[$nombre] = $hc->prepareMonthSum($sheet[$nombre]);
+}
 require_once __DIR__ . '/views/timesheetView.php';

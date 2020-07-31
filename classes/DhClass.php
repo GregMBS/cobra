@@ -108,7 +108,7 @@ where c_cvge = :gestor and d_fech = :fecha and n_prom > 0";
             $resumen->n_prom = $promesa['n_prom'];
             $resumen->c_hrin = $promesa['c_hrin'];
             $stv->bindParam(':status_aarsa', $resumen->status_aarsa);
-            $stp->execute();
+            $stv->execute();
             $ranking = $stv->fetch(PDO::FETCH_ASSOC);
             $resumen->v_cc = $ranking['v_cc'];
         }

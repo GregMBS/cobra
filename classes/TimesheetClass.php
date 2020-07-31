@@ -242,4 +242,60 @@ abstract class TimesheetClass
         return $sum;
     }
 
+    /**
+     * @param $hc
+     * @param $gestor
+     * @param int $hoy
+     * @return TimesheetDayObject[]
+     */
+    public function prepareSheet($hc, $gestor, $hoy): array
+    {
+        $month = [];
+        for ($i = 1; $i <= $hoy; $i++) {
+            $day = new TimesheetDayObject();
+            $resultssd = $hc->getStartStopDiff($gestor, $i);
+            foreach ($resultssd as $answerssd) {
+                $day->start = substr($answerssd['start'], 0, 5);
+                $day->stop = substr($answerssd['stop'], 0, 5);
+                $day->diff = $answerssd['diff'];
+            }
+            $resultss = $hc->getCurrentMain($gestor, $i);
+            foreach ($resultss as $answerss) {
+                $resultBreak = $this->getTiempoDiff($gestor, $i, 'break');
+                foreach ($resultBreak as $breaks) {
+                    $TIEMPO = $breaks['tiempo'];
+                    $ntp = $this->getNTPDiff($gestor, $i, $TIEMPO);
+                    if ($ntp) {
+                        foreach ($ntp as $ntpDiff) {
+                            $day->break += $ntpDiff['diff'];
+                        }
+                    }
+                }
+                $resultBano = $this->getTiempoDiff($gestor, $i, 'bano');
+                foreach ($resultBano as $answerpo) {
+                    $TIEMPO = $answerpo['tiempo'];
+                    $resultNTP = $hc->getNTPDiff($gestor, $i, $TIEMPO);
+                    if ($resultNTP) {
+                        foreach ($resultNTP as $NTP) {
+                            $DIFF = $NTP['diff'];
+                            $day->bano += $DIFF;
+                        }
+                    }
+                }
+                $day->lla = $answerss['cuentas'];
+                $day->tlla = $answerss['gestiones'];
+                $day->ct = $answerss['nocontactos'];
+                $day->nct = $answerss['contactos'];
+                $day->prom = $answerss['promesas'];
+                $day->lph = $day->lla / ($day->diff + 1 / 3600);
+                $result = $hc->getPagos($gestor, $i);
+                foreach ($result as $answer) {
+                    $day->pag = $answer['ct'];
+                }
+            }
+            $month[$i] = $day;
+        }
+        return $month;
+    }
+
 }
