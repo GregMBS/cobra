@@ -84,17 +84,17 @@ if ($go == 'gestor') { ?>
         </thead>
         <tbody class="ui-widget-content">
         <?php
-        echo $tv->timeRow('LOGIN', $month, $monthSum, 'start');
-        echo $tv->timeRow('LOGOUT', $month, $monthSum, 'stop');
-        echo $tv->timeRow('HORAS', $month, $monthSum, 'diff');
-        echo $tv->timeRow('BREAK', $month, $monthSum, 'break');
-        echo $tv->timeRow('BAÑO', $month, $monthSum, 'bano');
-        echo $tv->countRow('GESTIONES', $month, $monthSum, 'tlla', $capt, $gestor, 'ddh');
-        echo $tv->countRow('CUENTAS', $month, $monthSum, 'lla', $capt, $gestor, 'ddh');
-        echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $capt, $gestor, '');
-        echo $tv->countRow('NO CONTACTOS', $month, $monthSum, 'nct', $capt, $gestor, '');
-        echo $tv->countRow('PROMESAS', $month, $monthSum, 'prom', $capt, $gestor, 'pdh');
-        echo $tv->countRow('PAGOS', $month, $monthSum, 'pag', $capt, $gestor, '');
+        echo $tv->timeRow('LOGIN', $month, $monthSum, 'start', $gestor);
+        echo $tv->timeRow('LOGOUT', $month, $monthSum, 'stop', $gestor);
+        echo $tv->timeRow('HORAS', $month, $monthSum, 'diff', $gestor);
+        echo $tv->timeRow('BREAK', $month, $monthSum, 'break', $gestor);
+        echo $tv->timeRow('BAÑO', $month, $monthSum, 'bano', $gestor);
+        echo $tv->countRow('GESTIONES', $month, $monthSum, 'tlla', $gestor, $capt, 'ddh');
+        echo $tv->countRow('CUENTAS', $month, $monthSum, 'lla', $gestor, $capt, 'ddh');
+        echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $gestor, $capt, '');
+        echo $tv->countRow('NO CONTACTOS', $month, $monthSum, 'nct', $gestor, $capt, '');
+        echo $tv->countRow('PROMESAS', $month, $monthSum, 'prom', $gestor, $capt, 'pdh');
+        echo $tv->countRow('PAGOS', $month, $monthSum, 'pag', $gestor, $capt, '');
         ?>
         </tbody>
     </table>

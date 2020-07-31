@@ -33,11 +33,12 @@ class TimesheetViewClass
      * @param array $month
      * @param TimesheetDayObject $sum
      * @param string $field
+     * @param string $gestor
      * @return string
      */
-    public function timeRow(string $label, array $month, TimesheetDayObject $sum, string $field)
+    public function timeRow(string $label, array $month, TimesheetDayObject $sum, string $field, string $gestor)
     {
-        $value = $month->$field;
+        $value = $month[$gestor]->$field;
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
         for ($i = 1; $i <= $this->dia; $i++) {
@@ -57,14 +58,14 @@ class TimesheetViewClass
      * @param array $month
      * @param TimesheetDayObject $sum
      * @param string $field
-     * @param string $capt
      * @param string $gestor
+     * @param string $capt
      * @param string $link
      * @return string
      */
-    public function countRow(string $label, array $month, TimesheetDayObject $sum, string $field, string $capt, string $gestor, string $link = '')
+    public function countRow(string $label, array $month, TimesheetDayObject $sum, string $field, string $gestor, string $capt, string $link = '')
     {
-        $value = $month->$field;
+        $value = $month[$gestor]->$field;
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
         for ($i = 1; $i <= $this->dia; $i++) {
