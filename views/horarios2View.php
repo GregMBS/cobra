@@ -38,8 +38,8 @@
         <select name='gestor' id="selectGestor">
             <?php
             if (!empty($gestores)) {
-                foreach ($gestores as $nombres) {
-                    $nombre = $nombres['c_cvge'];
+                foreach ($gestores as $answernom) {
+                    $nombre = $answernom['c_cvge'];
                     $month = $sheet[$gestor];
                     $monthSum = $sum[$gestor];
                     ?>
