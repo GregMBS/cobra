@@ -298,4 +298,33 @@ abstract class TimesheetClass
         return $month;
     }
 
+    /**
+     * @param $hc
+     * @param string $visitador
+     * @param int $hoy
+     * @return TimesheetDayObject[]
+     */
+    public function prepareVisitSheet($hc, string $visitador, $hoy): array
+    {
+        $month = [];
+        for ($i = 1; $i <= $hoy; $i++) {
+            $day = new TimesheetDayObject();
+            $resultss = $hc->getVisitadorMain($visitador, $i);
+            foreach ($resultss as $answerss) {
+                $day->lla = $answerss['cuentas'];
+                $day->tlla = $answerss['gestiones'];
+                $day->ct = $answerss['nocontactos'];
+                $day->nct = $answerss['contactos'];
+                $day->prom = $answerss['promesas'];
+                $day->lph = $day->lla / ($day->diff + 1 / 3600);
+                $result = $hc->getPagos($visitador, $i);
+                foreach ($result as $answer) {
+                    $day->pag = $answer['ct'];
+                }
+            }
+            $month[$i] = $day;
+        }
+        return $month;
+    }
+
 }
