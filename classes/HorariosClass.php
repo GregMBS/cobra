@@ -12,11 +12,11 @@ class HorariosClass extends TimesheetClass
             where d_fech>last_day(curdate() - interval 1 month)
             order by c_cvge limit 1000';
 
-    protected $queryVisitadores = 'select distinct completo,iniciales
-from nombres join historia on iniciales=c_visit
+    protected $queryVisitadores = 'select distinct c_visit
+    from historia
 where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())
-order by iniciales';
+order by c_visit';
 
     protected $queryStartStopDiff = "select min(C_HRIN) as start, max(C_HRFI) as stop,
             time_to_sec(timediff(max(C_HRFI),min(C_HRIN))) as diff
