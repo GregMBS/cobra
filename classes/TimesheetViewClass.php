@@ -9,17 +9,17 @@ class TimesheetViewClass
     /**
      * @var string
      */
-    private $yr = '';
+    private $yr;
 
     /**
      * @var string
      */
-    private $mes = '';
+    private $mes;
 
     /**
      * @var int
      */
-    private $dia = 0;
+    private $dia;
 
     public function __construct()
     {
@@ -33,16 +33,15 @@ class TimesheetViewClass
      * @param array $month
      * @param TimesheetDayObject $sum
      * @param string $field
-     * @param string $gestor
      * @return string
      */
-    public function timeRow(string $label, array $month, TimesheetDayObject $sum, string $field, string $gestor)
+    public function timeRow(string $label, array $month, TimesheetDayObject $sum, string $field)
     {
-        $value = $month[$gestor]->$field;
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
         for ($i = 1; $i <= $this->dia; $i++) {
             $red = '';
+            $value = $month[$i]->$field;
             if ($value == '00:00') {
                 $red = ' zeros';
             }
@@ -65,11 +64,11 @@ class TimesheetViewClass
      */
     public function countRow(string $label, array $month, TimesheetDayObject $sum, string $field, string $gestor, string $capt, string $link = '')
     {
-        $value = $month[$gestor]->$field;
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
         for ($i = 1; $i <= $this->dia; $i++) {
             $red = '';
+            $value = $month[$i]->$field;
             if ($value == '0') {
                 $red = ' zeros';
             }
