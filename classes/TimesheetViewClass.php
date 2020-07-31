@@ -59,7 +59,6 @@ class TimesheetViewClass
      * @param string $field
      * @param string $capt
      * @param string $gestor
-     * @param int[] $total
      * @param string $link
      * @return string
      */
