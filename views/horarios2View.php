@@ -37,7 +37,6 @@
         <label for="selectGestor">Gestor: </label>
         <select name='gestor' id="selectGestor">
             <?php
-
             if (!empty($gestores)) {
                 foreach ($gestores as $nombres) {
                     $nombre = $nombres['c_cvge'];

@@ -20,14 +20,16 @@ $dhoy            = date('d');
 $hoy             = date('Y-m-d');
 $capt            = $pd->capt;
 $gestores = [];
-$string = filter_input(INPUT_GET, 'gestor');
-if ($string) {
-    $gestores[] = ['c_cvge' => $nombre];
+$gestor = filter_input(INPUT_GET, 'gestor');
+if (!empty($gestor)) {
+    $gestores[] = ['c_cvge' => $gestor];
+} else {
+    $gestores = $hc->listGestores();
 }
 $sheet = [];
 $sum = [];
-foreach ($gestores as $gestor) {
-    $nombre = $gestor['c_cvge'];
+foreach ($gestores as $name) {
+    $nombre = $name['c_cvge'];
     $sheet[$nombre] = $hc->prepareSheet($hc, $nombre, $dhoy);
     $sum[$nombre] = $hc->prepareMonthSum($sheet[$nombre]);
 }
