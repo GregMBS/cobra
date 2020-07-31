@@ -31,4 +31,4 @@ foreach ($gestores as $gestor) {
     $sheet[$nombre] = $hc->prepareSheet($hc, $nombre, $dhoy);
     $sum[$nombre] = $hc->prepareMonthSum($sheet[$nombre]);
 }
-require_once __DIR__ . '/views/timesheetView.php';
+require_once __DIR__ . '/views/horarios2View.php';
