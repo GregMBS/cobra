@@ -55,7 +55,7 @@ $promPago = [
         'label' => 'Pagos mes anterior (XLSX)']
 ];
 $horarios = [
-    ['page' => 'horarios_clean',
+    ['page' => 'horarios_clean2',
         'label' => 'Productividad este Mes'],
     ['page' => 'perfmes',
         'label' => 'Productividad Mes Anterior'],
@@ -63,7 +63,7 @@ $horarios = [
         'label' => 'Productividad Visit este Mes'],
     ['page' => 'perfmesv',
         'label' => 'Productividad Visit Mes Ant'],
-    ['page' => 'horarios_clean2',
+    ['page' => 'horarios_clean',
         'label' => 'Nomina Confidential']
     ];
 $XLS = [
