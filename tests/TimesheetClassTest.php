@@ -101,7 +101,7 @@ class TimesheetClassTest extends TestCase
         $report = $this->hc->listVisitadores();
         $first = array_pop($report);
         $this->assertIsArray($first);
-        //$this->assertArrayHasKey('c_visit', $first);
+        $this->assertArrayHasKey('c_visit', $first);
         $report = $this->pc->listVisitadores();
         $first = array_pop($report);
         $this->assertArrayHasKey('c_visit', $first);
