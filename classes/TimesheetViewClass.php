@@ -57,6 +57,31 @@ class TimesheetViewClass
      * @param array $month
      * @param TimesheetDayObject $sum
      * @param string $field
+     * @return string
+     */
+    public function diffRow(string $label, array $month, TimesheetDayObject $sum, string $field)
+    {
+        $total = $sum->$field;
+        $template = "<tr><td class='heavy'>$label</td>";
+        for ($i = 1; $i <= $this->dia; $i++) {
+            $red = '';
+            $value = $month[$i]->$field;
+            if ($value == '0') {
+                $red = ' zeros';
+            }
+            $string = $this->convertTime($value);
+            $template .= "<td class='light$red'>$string</td>";
+        }
+        $template .= "<td class='heavy'>$total</td>";
+        $template .= "</tr>";
+        return $template;
+    }
+
+    /**
+     * @param string $label
+     * @param array $month
+     * @param TimesheetDayObject $sum
+     * @param string $field
      * @param string $gestor
      * @param string $capt
      * @param string $link
@@ -86,4 +111,17 @@ class TimesheetViewClass
         $template .= "</tr>";
         return $template;
     }
+
+    /**
+     *
+     * @param float $dec
+     * @return string
+     */
+    private function convertTime($dec)
+    {
+        $hour = floor($dec / 3600);
+        $min = floor($dec / 60) - ($hour * 60);
+        return $hour . ':' . str_pad($min, 2, '0', STR_PAD_LEFT);
+    }
+
 }
