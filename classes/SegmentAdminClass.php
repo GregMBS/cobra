@@ -105,6 +105,7 @@ group by cliente, status_de_credito";
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
+    and cnt is null
     group by q.cliente,sdc,cnt
     ";
         $stm = $this->pdo->prepare($query);

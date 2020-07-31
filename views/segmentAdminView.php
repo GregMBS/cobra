@@ -29,7 +29,7 @@
     <?php
     $j = 0;
 
-    foreach ($main as $row) {
+    foreach ($queued as $row) {
         $j = $j + 1;
         $cliente = $row['cliente'];
         $segmento = $row['sdc'];
@@ -58,8 +58,8 @@
         <td colspan=3>
             <select name="cliseg" form="gestoradd">
                 <?php
-                if ($result2) {
-                    foreach ($result2 as $row2) {
+                if ($unqueued) {
+                    foreach ($unqueued as $row2) {
                         $cliente2 = $row2['cliente'];
                         $segmento2 = $row2['sdc'];
                         ?>

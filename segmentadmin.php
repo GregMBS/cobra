@@ -30,6 +30,6 @@ if (!empty($go)) {
         header("Location: segmentadmin.php?capt=".$capt);
     }
 }
-$result     = $sc->listQueuedSegmentos();
-$result2    = $sc->listUnqueuedSegments();
+$queued     = $sc->listQueuedSegmentos();
+$unqueued    = $sc->listUnqueuedSegments();
 require_once 'views/segmentAdminView.php';
