@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($main as $row) {
+                foreach ($result as $row) {
                     $CUENTA = $row['numero_de_cuenta'];
                     $CLIENTE = $row['cliente'];
                     $GESTOR = $row['ejecutivo_asignado_call_center'];
