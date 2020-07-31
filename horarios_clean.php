@@ -19,7 +19,11 @@ $mes             = date('m');
 $dhoy            = date('d');
 $hoy             = date('Y-m-d');
 $capt            = $pd->capt;
-$gestores = $hc->listGestores();
+$gestores = [];
+$string = filter_input(INPUT_GET, 'gestor');
+if ($string) {
+    $gestores['c_cvge'] = $nombre;
+}
 $sheet = [];
 $sum = [];
 foreach ($gestores as $gestor) {
