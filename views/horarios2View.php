@@ -49,10 +49,12 @@
             } ?>
             <option value='total'>total</option>
         </select>
-        <input type='hidden' name='capt' value='<?php if (isset($capt)) {
+        <input type='hidden' name='capt' value='<?php
+        if (isset($capt)) {
             echo $capt;
-        } ?>'>'
-        <input type='submit' name='go' value='gestor'>'
+        }
+        ?>'>
+        <input type='submit' name='go' value='gestor'>
     </form>
 </div>
 <?php
