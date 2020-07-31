@@ -39,7 +39,7 @@ class TimesheetViewClass
     {
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
-        for ($i = 1; $i <= $this->dia; $i++) {
+        for ($i = 1; $i < $this->dia; $i++) {
             $red = '';
             $value = $month[$i]->$field;
             if ($value == '00:00') {
@@ -63,7 +63,7 @@ class TimesheetViewClass
     {
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
-        for ($i = 1; $i <= $this->dia; $i++) {
+        for ($i = 1; $i < $this->dia; $i++) {
             $red = '';
             $value = $month[$i]->$field;
             if ($value == '0') {
@@ -91,7 +91,7 @@ class TimesheetViewClass
     {
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
-        for ($i = 1; $i <= $this->dia; $i++) {
+        for ($i = 1; $i < $this->dia; $i++) {
             $red = '';
             $value = $month[$i]->$field;
             if ($value == '0') {
