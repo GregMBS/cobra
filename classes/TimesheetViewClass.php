@@ -72,7 +72,8 @@ class TimesheetViewClass
             $string = $this->convertTime($value);
             $template .= "<td class='light$red'>$string</td>";
         }
-        $template .= "<td class='heavy'>$total</td>";
+        $string = $this->convertTime($total);
+        $template .= "<td class='heavy'>$string</td>";
         $template .= "</tr>";
         return $template;
     }
