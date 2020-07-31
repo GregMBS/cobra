@@ -61,7 +61,13 @@ abstract class TimesheetClass
         $query = $this->queryVisitadores;
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result;
+        }
+        return [
+            ['c_visit' => 'gmbs']
+        ];
     }
 
     /**
