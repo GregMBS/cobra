@@ -78,7 +78,7 @@ where c_cvge=:gestor and d_fech=:fecha and n_prom > 0";
      * @return array
      */
     public function getDhMain($gestor, $fecha) {
-        $query = "select resumen.*
+        $query = "select distinct resumen.*
     from resumen
     join historia on id_cuenta=c_cont
     join dictamenes on dictamen=status_aarsa
