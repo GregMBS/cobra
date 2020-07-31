@@ -65,7 +65,7 @@ where c_cvge = :gestor and d_fech = :fecha and n_prom > 0";
         $report = $stq->fetchAll(PDO::FETCH_CLASS, DhObject::class);
         $stp = $this->pdo->prepare($this->queryWithPromesas);
         $stv = $this->pdo->prepare($this->queryVcc);
-        /** @var DhObject $resumen */
+        /** @var DhObject[] $resumen */
         $this->addPromAndRank($report, $stp, $stv);
         return $report;
     }
@@ -94,14 +94,13 @@ where c_cvge = :gestor and d_fech = :fecha and n_prom > 0";
     }
 
     /**
-     * @param array $report
+     * @param DhObject[] $report
      * @param PDOStatement $stp
      * @param PDOStatement $stv
      */
     private function addPromAndRank(array $report, PDOStatement $stp, PDOStatement $stv): void
     {
-        /** @var DhObject $resumen */
-        foreach ($report as $resumen) {
+       foreach ($report as $resumen) {
             $stp->bindParam(':id_cuenta', $resumen->id_cuenta);
             $stp->execute();
             $promesa = $stp->fetch(PDO::FETCH_ASSOC);

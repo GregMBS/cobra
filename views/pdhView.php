@@ -22,47 +22,37 @@
                     <th>CUENTA</th>
                     <th>NOMBRE</th>
                     <th>CLIENTE</th>
-                    <th>GESTOR</th>
-                    <th>PAGOS VENCIDOS</th>
+                    <th>CAMPAÑA</th>
+                    <th>DIAS VENCIDOS</th>
                     <th>SALDO TOTAL</th>
                     <th>RESULTADOS</th>
                     <th>FECHA PROMESA</th>
                     <th>MONTO PROMESA</th>
+                    <th>HORA DE GESTION</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                foreach ($result as $row) {
-                    $CUENTA = $row['numero_de_cuenta'];
-                    $CLIENTE = $row['cliente'];
-                    $GESTOR = $row['ejecutivo_asignado_call_center'];
-                    $ID_CUENTA = $row['id_cuenta'];
-
-                    $STATUS_AARSA = $row['status_aarsa'];
-                    $VALOR = $row['vcc'];
-                    if (empty($VALOR)) {
-                        $VALOR = 99;
-                    }
-                    $FECHA_PROMESA = $row['fecha_promesa'];
-                    $MONTO_PROMESA = $row['monto_promesa'];
-                    $NOMBRE = $row['nombre_deudor'];
-                    $PV = $row['pagos_vencidos'];
-                    $STATUS_DE_CREDITO = $row['status_de_credito'];
-                    $MONTODESC = $row['saldo_descuento_1'];
-                    $PRODUCTO = $row['producto'];
-                    $CIUDAD = $row['ciudad_deudor'];
-                    $MONTOTOTAL = $row['saldo_total'];
-                    ?>
+                foreach ($result as $row) { ?>
                     <tr>
-                        <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
-                        <td><?php echo htmlentities($NOMBRE); ?></td>
-                        <td><?php echo $CLIENTE; ?></td>
-                        <td><?php echo $GESTOR; ?></td>
-                        <td><?php echo $PV; ?></td>
-                        <td class='num'><?php echo number_format($MONTOTOTAL, 0); ?></td>
-                        <td><?php echo $STATUS_AARSA; ?></td>
-                        <td><?php echo $FECHA_PROMESA; ?></td>
-                        <td><?php echo number_format($MONTO_PROMESA, 0); ?></td>
+                        <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php
+                            echo $row->id_cuenta;
+                            ?>&capt=<?php
+                            if (isset($capt)) {
+                                echo $capt;
+                            }
+                            ?>'><?php
+                                echo $row->numero_de_cuenta;
+                                ?></a></td>
+                        <td><?php echo htmlentities($row->nombre_deudor); ?></td>
+                        <td><?php echo $row->cliente; ?></td>
+                        <td><?php echo $row->status_de_credito; ?></td>
+                        <td><?php echo $row->dias_vencidos; ?></td>
+                        <td><?php echo number_format($row->saldo_total, 0); ?></td>
+                        <td><?php echo $row->status_aarsa; ?></td>
+                        <td><?php echo $row->d_prom; ?></td>
+                        <td><?php echo number_format($row->n_prom, 0); ?></td>
+                        <td><?php echo $row->c_hrin; ?></td>
                     </tr>
                     <?php
                 }
