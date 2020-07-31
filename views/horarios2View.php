@@ -55,67 +55,7 @@
         <input type='submit' name='go' value='gestor'>'
     </form>
 </div>
-<?php /**
- * @param $hc
- * @param $gestor
- * @param int $i
- * @param array $start
- * @param array $stop
- * @param array $diff
- * @param array $break
- * @param array $bano
- * @param array $lla
- * @param array $tlla
- * @param array $ct
- * @param array $nct
- * @param array $prom
- * @param array $lph
- * @param array $pag
- * @param string $yr
- * @param string $mes
- * @return array
- */
-function prepareSheet($hc, $gestor, int $i, array $start, array $stop, array $diff, array $break, array $bano, array $lla, array $tlla, array $ct, array $nct, array $prom, array $lph, array $pag, string $yr, string $mes): array
-{
-    $resultssd = $hc->getStartStopDiff($gestor, $i);
-    foreach ($resultssd as $answerssd) {
-        $start[$i] = substr($answerssd['start'], 0, 5);
-        $stop[$i] = substr($answerssd['stop'], 0, 5);
-        $diff[$i] = $answerssd['diff'];
-    }
-    $resultss = $hc->getCurrentMain($gestor, $i);
-    foreach ($resultss as $answerss) {
-        $resultpo = $hc->getTiempoDiff($gestor, $i, 'bano');
-        foreach ($resultpo as $answerpo) {
-            $TIEMPO = $answerpo['tiempo'];
-            $resultNTP = $hc->getNTPDiff($gestor, $i, $TIEMPO);
-            if ($resultNTP) {
-                foreach ($resultNTP as $NTP) {
-                    $DIFF = $NTP['diff'];
-                    $bano[$i] += $DIFF;
-                }
-            }
-        }
-        $lla[$i] = $answerss['cuentas'];
-        $tlla[$i] = $answerss['gestiones'];
-        $ct[$i] = $answerss['nocontactos'];
-        $nct[$i] = $answerss['contactos'];
-        $prom[$i] = $answerss['promesas'];
-        $lph[$i] = $lla[$i] / ($diff[$i] + 1 / 3600);
-        $sumg = 0;
-        $sumt = 0;
-        $sumb = 0;
-        $sumbn = 0;
-        $sumpp = 0;
-        $sump = 0;
-        $resultp = $hc->getPagos($gestor, $i);
-        foreach ($resultp as $answerp) {
-            $pag[$i] = $answerp['ct'];
-        }
-    }
-    $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
-    return array($start, $stop, $diff, $break, $bano, $lla, $tlla, $ct, $nct, $prom, $sumg, $sumt, $sumb, $sumbn, $sumpp, $sump, $pag, $dow);
-}
+<?php
 
 $go = filter_input(INPUT_GET, 'go');
 if ($go == 'gestor') { ?>
@@ -125,27 +65,17 @@ if ($go == 'gestor') { ?>
         <tr>
             <?php
             if (isset($gestor)) {
-            ?>
-            <th>
-                <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a>
-            </th>
-            <?php
+                ?>
+                <th>
+                    <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a>
+                </th>
+                <?php
             }
             $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
-            $start = array_fill(1, $dhoy, ' ');
-            $stop = array_fill(1, $dhoy, ' ');
-            $diff = array_fill(1, $dhoy, 0);
-            $break = array_fill(1, $dhoy, 0);
-            $bano = array_fill(1, $dhoy, 0);
-            $lla = array_fill(1, $dhoy, 0);
-            $tlla = array_fill(1, $dhoy, 0);
-            $prom = array_fill(1, $dhoy, 0);
-            $pag = array_fill(1, $dhoy, 0);
-            $lph = array_fill(1, $dhoy, 0);
-            $ct = array_fill(1, $dhoy, 0);
-            $nct = array_fill(1, $dhoy, 0);
+            $month = $hc->prepareSheet($hc, $gestor, $dhoy);
             for ($i = 1; $i <= $dhoy; $i++) {
-                list($start, $stop, $diff, $break, $bano, $lla, $tlla, $ct, $nct, $prom, $sumg, $sumt, $sumb, $sumbn, $sumpp, $sump, $pag, $dow) = prepareSheet($hc, $gestor, $i, $start, $stop, $diff, $break, $bano, $lla, $tlla, $ct, $nct, $prom, $lph, $pag, $yr, $mes);
+                $day = $month[$i];
+                $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
                 ?>
                 <th><?php echo $day_esp[$dow] . " " . $i; ?></th>
             <?php } ?>
@@ -154,8 +84,8 @@ if ($go == 'gestor') { ?>
         </thead>
         <tbody class="ui-widget-content">
         <?php
-        echo $tv->timeRow('LOGIN', $start);
-        echo $tv->timeRow('LOGOUT', $stop);
+        echo $tv->timeRow('LOGIN', $day->start);
+        echo $tv->timeRow('LOGOUT', $day->stop);
         ?>
 
         <tr>
@@ -165,17 +95,17 @@ if ($go == 'gestor') { ?>
             for ($i = 1; $i <= $dhoy; $i++) {
                 ?>
                 <td class="light<?php
-                if ($diff[$i] == 0) {
+                if ($day->diff == 0) {
                     echo ' zeros';
                 }
                 ?>"><?php
-                    $hrs = floor($diff[$i] / 3600);
-                    $mins = round(($diff[$i] - $hrs * 3600) / 60);
+                    $hrs = floor($day->diff / 3600);
+                    $mins = round(($day->diff - $hrs * 3600) / 60);
                     echo $hrs . ':' . sprintf("%02s", $mins);
                     ?></td>
                 <?php
-                $sumt = $sumt + $diff[$i];
-                $hours_all[$i] = $hours_all[$i] + $diff[$i];
+                $sumt = $sumt + $day->diff;
+                $hours_all[$i] = $hours_all[$i] + $day->diff;
             }
             ?>
             <td class="heavy"><?php
@@ -191,17 +121,17 @@ if ($go == 'gestor') { ?>
             for ($i = 1; $i <= $dhoy; $i++) {
                 ?>
                 <td class="light<?php
-                if ($break[$i] == 0) {
+                if ($day->break == 0) {
                     echo ' zeros';
                 }
                 ?>"><?php
-                    $hrs = floor($break[$i] / 3600);
-                    $mins = round(($break[$i] - $hrs * 3600) / 60);
+                    $hrs = floor($day->break / 3600);
+                    $mins = round(($day->break - $hrs * 3600) / 60);
                     echo $hrs . ':' . sprintf("%02s", $mins);
                     ?></td>
                 <?php
-                $sumb = $sumb + $break[$i];
-                $breaks_all[$i] += $break[$i];
+                $sumb = $sumb + $day->break;
+                $breaks_all[$i] += $day->break;
             }
             ?>
             <td class="heavy"><?php
@@ -217,17 +147,17 @@ if ($go == 'gestor') { ?>
             for ($i = 1; $i <= $dhoy; $i++) {
                 ?>
                 <td class="light<?php
-                if ($bano[$i] == 0) {
+                if ($day->bano == 0) {
                     echo ' zeros';
                 }
                 ?>"><?php
-                    $hrs = floor($bano[$i] / 3600);
-                    $mins = round(($bano[$i] - $hrs * 3600) / 60);
+                    $hrs = floor($day->bano / 3600);
+                    $mins = round(($day->bano - $hrs * 3600) / 60);
                     echo $hrs . ':' . sprintf("%02s", $mins);
                     ?></td>
                 <?php
-                $sumbn = $sumbn + $bano[$i];
-                $bano_all[$i] += $bano[$i];
+                $sumbn = $sumbn + $day->bano;
+                $bano_all[$i] += $day->bano;
             }
             ?>
             <td class="heavy"><?php
@@ -237,7 +167,7 @@ if ($go == 'gestor') { ?>
                 ?></td>
         </tr>
         <?php
-        echo $tv->countRow('TOTAL GESTIONES', $tlla, $capt, $gestor, $gestiones_all, 'ddh');
+        echo $tv->countRow('TOTAL GESTIONES', $day->tlla, $capt, $gestor, $gestiones_all, 'ddh');
         ?>
         <tr>
             <td class="heavy">TOTAL CUENTAS</td>
@@ -246,12 +176,12 @@ if ($go == 'gestor') { ?>
             for ($i = 1; $i <= $dhoy; $i++) {
                 ?>
                 <td class="light<?php
-                if ($lla[$i] == 0) {
+                if ($day->lla == 0) {
                     echo ' zeros';
                 }
                 ?>">
-                    <a href='<?php echo strtolower('ddh.php?capt=' . $capt . '&i=' . $lla[$i] . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
-                        <?php echo $lla[$i]; ?></a></td>
+                    <a href='<?php echo strtolower('ddh.php?capt=' . $capt . '&i=' . $day->lla . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
+                        <?php echo $day->lla; ?></a></td>
                 <?php
             }
             $resultsumg = $hc->countAccounts($gestor);
@@ -262,8 +192,8 @@ if ($go == 'gestor') { ?>
             <td class="heavy"><?php echo $sumg; ?></td>
         </tr>
         <?php
-        echo $tv->countRow('CONTACTOS', $ct, $capt, $gestor, $contactos_all, 'ddh');
-        echo $tv->countRow('NO CONTACTOS', $nct, $capt, $gestor, $nocontactos_all, 'ddh');
+        echo $tv->countRow('CONTACTOS', $day->ct, $capt, $gestor, $contactos_all, 'ddh');
+        echo $tv->countRow('NO CONTACTOS', $day->nct, $capt, $gestor, $nocontactos_all, 'ddh');
         ?>
         <tr>
             <td class="heavy">PROMESAS</td>
@@ -272,15 +202,15 @@ if ($go == 'gestor') { ?>
             for ($i = 1; $i <= $dhoy; $i++) {
                 ?>
                 <td class="light<?php
-                if ($prom[$i] == 0) {
+                if ($day->prom == 0) {
                     echo ' zeros';
                 }
                 ?>">
-                    <a href='<?php echo strtolower('pdh.php?capt=' . $capt . '&i=' . $prom[$i] . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
-                        <?php echo $prom[$i]; ?></a></td>
+                    <a href='<?php echo strtolower('pdh.php?capt=' . $capt . '&i=' . $day->prom . '&gestor=' . $gestor . '&fecha=' . $yr . '-' . $mes . '-' . $i); ?>'>
+                        <?php echo $day->prom; ?></a></td>
                 <?php
-                $sumpp = $sumpp + $prom[$i];
-                $promesas_all[$i] += $prom[$i];
+                $sumpp = $sumpp + $day->prom;
+                $promesas_all[$i] += $day->prom;
                 ?>
             <?php }
             ?>
@@ -293,13 +223,13 @@ if ($go == 'gestor') { ?>
             for ($i = 1; $i <= $dhoy; $i++) {
                 ?>
                 <td class="light<?php
-                if ($pag[$i] == 0) {
+                if ($day->pag == 0) {
                     echo ' zeros';
                 }
-                ?>"><?php echo $pag[$i]; ?></td>
+                ?>"><?php echo $day->pag; ?></td>
                 <?php
-                $sump = $sump + $pag[$i];
-                $pagos_all[$i] += $pag[$i];
+                $sump = $sump + $day->pag;
+                $pagos_all[$i] += $day->pag;
                 ?>
             <?php }
             ?>
@@ -310,6 +240,8 @@ if ($go == 'gestor') { ?>
     </table>
     <?php } ?>
 </div>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
 </body>
 </html>
 

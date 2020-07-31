@@ -16,7 +16,7 @@ class PerfmesClass extends TimesheetClass
 			from nombres join historia on iniciales=c_visit
             where d_fech>last_day(curdate() - interval 2 month)
             and d_fech<=last_day(curdate() - interval 1 month)
-	    order by usuaria';
+	    order by iniciales';
 
     protected $queryCountVisitadorDays = "select sum(fs) as sfs,sum(ss) as sss from
 (select distinct d_fech,dayofweek(d_fech)>1 and day(d_fech)<16 as fs,

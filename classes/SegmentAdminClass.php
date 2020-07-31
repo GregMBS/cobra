@@ -104,8 +104,7 @@ group by cliente, status_de_credito";
     FROM queuelist q
     LEFT JOIN csdcr r
     ON q.cliente=r.cliente and sdc=status_de_credito
-    WHERE q.status_aarsa='sin gestion'
-    and sdc <> '' 
+    WHERE sdc<>'' and q.status_aarsa='sin gestion'
     group by q.cliente,sdc,cnt
     ";
         $stm = $this->pdo->prepare($query);

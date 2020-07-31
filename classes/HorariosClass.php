@@ -15,7 +15,7 @@ class HorariosClass extends TimesheetClass
 from nombres join historia on iniciales=c_visit
 where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())
-order by usuaria;';
+order by iniciales';
 
     protected $queryStartStopDiff = "select min(C_HRIN) as start, max(C_HRFI) as stop,
             time_to_sec(timediff(max(C_HRFI),min(C_HRIN))) as diff
@@ -27,9 +27,9 @@ order by usuaria;';
             group by D_FECH";
 
     protected $queryCurrentMain = "select count(distinct c_cont) as cuentas,
-            sum(c_cvst like 'PROMESA DE%') as promesas,
+            sum(n_prom > 0) as promesas,
             count(1) as gestiones,
-            count(1)-sum(queue='SIN CONTACTOS') as nocontactos,
+            count(1) - sum(queue='SIN CONTACTOS') as nocontactos,
             sum(queue='SIN CONTACTOS') as contactos
             from historia
             left join dictamenes on c_cvst=dictamen
@@ -94,5 +94,51 @@ order by usuaria;';
 dayofweek(d_fech)>1 and day(d_fech)>15 as ss from historia
 where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())) as tmp";
+
+    /**
+     * @param $hc
+     * @param $gestor
+     * @param int $hoy
+     * @return TimesheetDayObject[]
+     */
+    public function prepareSheet($hc, $gestor, $hoy): array
+    {
+        $month = [];
+        for ($i = 1; $i <= $hoy; $i++) {
+            $day = new TimesheetDayObject();
+            $resultssd = $hc->getStartStopDiff($gestor, $i);
+            foreach ($resultssd as $answerssd) {
+                $day->start = substr($answerssd['start'], 0, 5);
+                $day->stop = substr($answerssd['stop'], 0, 5);
+                $day->diff = $answerssd['diff'];
+            }
+            $resultss = $hc->getCurrentMain($gestor, $i);
+            foreach ($resultss as $answerss) {
+                $resultpo = $hc->getTiempoDiff($gestor, $i, 'bano');
+                foreach ($resultpo as $answerpo) {
+                    $TIEMPO = $answerpo['tiempo'];
+                    $resultNTP = $hc->getNTPDiff($gestor, $i, $TIEMPO);
+                    if ($resultNTP) {
+                        foreach ($resultNTP as $NTP) {
+                            $DIFF = $NTP['diff'];
+                            $day->bano += $DIFF;
+                        }
+                    }
+                }
+                $day->lla = $answerss['cuentas'];
+                $day->tlla = $answerss['gestiones'];
+                $day->ct = $answerss['nocontactos'];
+                $day->nct = $answerss['contactos'];
+                $day->prom = $answerss['promesas'];
+                $day->lph = $day->lla / ($day->diff + 1 / 3600);
+                $result = $hc->getPagos($gestor, $i);
+                foreach ($result as $answer) {
+                    $day->pag = $answer['ct'];
+                }
+            }
+            $month[$i] = $day;
+        }
+        return $month;
+    }
 
 }

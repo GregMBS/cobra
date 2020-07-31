@@ -4,7 +4,6 @@ namespace cobra_salsa;
 
 use PDO;
 
-require_once __DIR__ . '/TimesheetObject.php';
 
 abstract class TimesheetClass
 {
@@ -212,13 +211,5 @@ abstract class TimesheetClass
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * @param int $dhoy
-     * @return TimesheetObject
-     */
-    function visitPrep(int $dhoy): TimesheetObject
-    {
-        return new TimesheetObject($dhoy);
-    }
 
 }

@@ -5,8 +5,6 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css"
           media="all"/>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
     <style type="text/css">
         tr:hover {
             background-color: #ffff00;
@@ -41,7 +39,6 @@
 
     require_once __DIR__ . '/../classes/TimesheetDayObject.php';
 
-    $to = $hc->visitPrep($dhoy);
     foreach ($gestores as $answernom) {
         $gestor = $answernom['c_cvge'];
         ?>
@@ -442,7 +439,8 @@
         </tr>
         </tbody>
     </table>
-
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
 </div>
 </body>
 </html>
