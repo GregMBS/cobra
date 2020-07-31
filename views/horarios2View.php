@@ -87,9 +87,9 @@ if ($go == 'gestor') { ?>
         <?php
         echo $tv->timeRow('LOGIN', $month, $monthSum, 'start');
         echo $tv->timeRow('LOGOUT', $month, $monthSum, 'stop');
-        echo $tv->timeRow('HORAS', $month, $monthSum, 'diff');
-        echo $tv->timeRow('BREAK', $month, $monthSum, 'break');
-        echo $tv->timeRow('BAÑO', $month, $monthSum, 'bano');
+        echo $tv->diffRow('HORAS', $month, $monthSum, 'diff');
+        echo $tv->diffRow('BREAK', $month, $monthSum, 'break');
+        echo $tv->diffRow('BAÑO', $month, $monthSum, 'bano');
         echo $tv->countRow('GESTIONES', $month, $monthSum, 'tlla', $gestor, $capt, 'ddh');
         echo $tv->countRow('CUENTAS', $month, $monthSum, 'lla', $gestor, $capt, 'ddh');
         echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $gestor, $capt, '');
