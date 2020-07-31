@@ -34,7 +34,7 @@
 <h2>HORARIOS</h2>
 <div>
     <?php
-
+    $day_esp = ['DOM'.'LUN','MAR','MIE','JUE','VIE','SAB'];
     foreach ($gestores as $answernom) {
         $gestor = $answernom['iniciales'];
         $month = $sheet[$gestor];
