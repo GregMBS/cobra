@@ -113,9 +113,9 @@ where status_de_credito not regexp '-'";
      * @param string $fecha2
      */
     public function createMarcados($fecha1, $fecha2) {
-        $querydrop = 'DROP TABLE IF EXISTS marcados';
-        $this->pdo->query($querydrop);
-        $querycreate = "CREATE TABLE marcados
+        $queryDrop = 'DROP TABLE IF EXISTS marcados';
+        $this->pdo->query($queryDrop);
+        $queryCreate = "CREATE TABLE marcados
 SELECT distinct c_tele
 from historia,resumen,dictamenes
 where c_cont=id_cuenta and dictamen=c_cvst
@@ -124,7 +124,7 @@ and c_msge is null
 and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
-        $stf = $this->pdo->prepare($querycreate);
+        $stf = $this->pdo->prepare($queryCreate);
         $stf->bindParam(':fecha1', $fecha1);
         $stf->bindParam(':fecha2', $fecha2);
         $stf->execute();
@@ -136,12 +136,12 @@ order by c_tele";
      * @param string $fecha2
      */
     public function createContactos($fecha1, $fecha2) {
-        $querydrop = 'DROP TABLE IF EXISTS contactados';
-        $this->pdo->query($querydrop);
-        $querycreate = "CREATE TABLE contactados
+        $queryDrop = 'DROP TABLE IF EXISTS contactados';
+        $this->pdo->query($queryDrop);
+        $queryCreate = "CREATE TABLE contactados
 SELECT c_tele FROM historia LIMIT 0";
-        $this->pdo->query($querycreate);
-        $queryfill = "insert into contactados select distinct c_tele
+        $this->pdo->query($queryCreate);
+        $queryFill = "insert into contactados select distinct c_tele
 from historia,resumen,dictamenes
 where c_cont=id_cuenta and dictamen=c_cvst
 and status_de_credito not like '%ivo'
@@ -150,7 +150,7 @@ and queue not in ('sin gestion','sin contactos','ilocalizables')
 and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
-        $stf = $this->pdo->prepare($queryfill);
+        $stf = $this->pdo->prepare($queryFill);
         $stf->bindParam(':fecha1', $fecha1);
         $stf->bindParam(':fecha2', $fecha2);
         $stf->execute();

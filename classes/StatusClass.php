@@ -34,8 +34,8 @@ class StatusClass
     public function killProc($id)
     {
         $idi = (int)$id;
-        $queryu = "KILL $idi";
-        $this->pdo->query($queryu);
+        $query = "KILL $idi";
+        $this->pdo->query($query);
     }
 
     /**

@@ -44,9 +44,11 @@ class SegmentAdminClassTest extends TestCase
     {
         $queued = $this->cc->listQueuedSegmentos();
         $this->assertIsArray($queued);
-        $first = array_pop($queued);
-        $this->assertArrayHasKey('cliente', $first);
-        $this->assertArrayHasKey('sdc', $first);
-        $this->assertArrayHasKey('cnt', $first);
+        if (count($queued) > 0) {
+            $first = array_pop($queued);
+            $this->assertArrayHasKey('cliente', $first);
+            $this->assertArrayHasKey('sdc', $first);
+            $this->assertArrayHasKey('cnt', $first);
+        }
     }
 }

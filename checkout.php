@@ -25,7 +25,7 @@ if ($go == 'ASIGNAR') {
         $CTA = $cc->getCuentafromIdCuenta($CUENTA);
     } else {
         $CTA = $CUENTA;
-        $C_CONT = $cc->getIdCuentafromCuenta($CUENTA);
+        $C_CONT = $cc->getIdCuentaFromCuenta($CUENTA);
     }
     if (!empty($CUENTA)) {
         if ($C_CONT > 0) {

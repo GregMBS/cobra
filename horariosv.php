@@ -17,7 +17,6 @@ $dhoy		 = date('d');
 $hoy		 = date('Y-m-d');
 $capt            = $pd->capt;
 $visitadores = $hc->listVisitadores();
-var_dump($visitadores);
 $sheet = [];
 $sum = [];
 foreach ($visitadores as $gestor) {

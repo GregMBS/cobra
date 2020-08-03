@@ -68,15 +68,17 @@ class PagosClassTest extends TestCase
     {
         $report = $this->cc->byGestorThisMonth();
         $this->assertIsArray($report);
-        $first = array_pop($report);
-        $expected = [
-            'gestor',
-            'cliente',
-            'sm',
-            'smc'
-        ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $expected = [
+                'gestor',
+                'cliente',
+                'sm',
+                'smc'
+            ];
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        }
     }
 
     public function testDetailsLastMonth()
@@ -114,15 +116,17 @@ class PagosClassTest extends TestCase
     {
         $report = $this->cc->byGestorThisMonth();
         $this->assertIsArray($report);
-        $first = array_pop($report);
-        $expected = [
-            'gestor',
-            'cliente',
-            'sm',
-            'smc'
-        ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $expected = [
+                'gestor',
+                'cliente',
+                'sm',
+                'smc'
+            ];
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        }
     }
 
     public function testQueryOldSheet()
@@ -137,15 +141,17 @@ class PagosClassTest extends TestCase
     {
         $report = $this->cc->summaryThisMonth();
         $this->assertIsArray($report);
-        $first = array_pop($report);
-        $expected = [
-            'cli',
-            'sdc',
-            'sm',
-            'smc'
-        ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $expected = [
+                'cli',
+                'sdc',
+                'sm',
+                'smc'
+            ];
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        }
     }
 
     public function testSummaryLastMonth()

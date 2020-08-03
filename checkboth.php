@@ -17,7 +17,7 @@ $fechaout = filter_input(INPUT_GET, 'fechaout');
 $message = '';
 if ($go == 'RECIBIR') {
     if (!empty($CUENTA)) {
-        $ID_CUENTA = $cc->getIdCuentafromCuenta($CUENTA);
+        $ID_CUENTA = $cc->getIdCuentaFromCuenta($CUENTA);
         if ($ID_CUENTA > 0) {
             $cc->insertVasignBoth($CUENTA, $gestor, $fechaout, $ID_CUENTA);
         } else {

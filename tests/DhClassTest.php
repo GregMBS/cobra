@@ -32,12 +32,15 @@ class DhClassTest extends TestCase
     public function testGetPromesas()
     {
         $report = $this->cc->getPromesas('cristina', '2020-07-01');
-        $this->assertInstanceOf(DhObject::class, $report);
+        $first = array_pop($report);
+        $this->assertInstanceOf(DhObject::class, $first);
     }
 
     public function testGetDhMain()
     {
         $report = $this->cc->getDhMain('cristina', '2020-07-01');
-        $this->assertInstanceOf(DhObject::class, $report);
+        $this->assertIsArray($report);
+        $first = array_pop($report);
+        $this->assertInstanceOf(DhObject::class, $first);
     }
 }

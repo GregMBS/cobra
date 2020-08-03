@@ -43,7 +43,7 @@ class QuickHoyClass
     protected $updateHoyBreaktemp    = "update hoy,breaktemp
         set Break_min=sdiff
         where hoy.gestor=breaktemp.gestor;";
-    protected $queryHoy           = "SELECT * FROM hoy;";
+    protected $queryHoy           = "SELECT * FROM hoy";
 
     public function __construct($pdo)
     {

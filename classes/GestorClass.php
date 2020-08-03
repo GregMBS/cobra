@@ -38,10 +38,10 @@ class GestorClass {
      * @return array
      */
     function getPagos($CUENTA, $CLIENTE) {
-        $querypag = "select sum(monto) as sm, max(fecha) as mf "
+        $query = "select sum(monto) as sm, max(fecha) as mf "
                 . "from pagos "
                 . "where CUENTA=:cuenta and CLIENTE=':cliente;";
-        $stp = $this->pdo->prepare($querypag);
+        $stp = $this->pdo->prepare($query);
         $stp->bindParam(':cuenta', $CUENTA);
         $stp->bindParam(':cliente', $CLIENTE);
         $stp->execute();

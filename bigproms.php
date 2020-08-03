@@ -32,7 +32,11 @@ if (!empty($fecha1)) {
         $filename = "Query_de_promesas.xlsx";
         $headers = array_keys($result[0]);
         $oc = new OutputClass();
-        $oc->writeXLSXFile($filename, $result, $headers);
+        try {
+            $oc->writeXLSXFile($filename, $result, $headers);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 } else {
     $gestores = $bc->getGestionGestores();

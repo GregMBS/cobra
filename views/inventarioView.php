@@ -21,7 +21,7 @@
         <button onclick="window.location = 'reports.php?capt=<?php
         echo $capt;
         ?>'">Regresar a la pagina administrativa</button><br>
-        <form action="<?php echo $here; ?>" method="get" name="queryparms">
+        <form action="<?php echo $here; ?>" method="get" name="queryParams">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <p>Cliente: 
                 <select name="cliente">

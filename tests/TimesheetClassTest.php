@@ -89,11 +89,17 @@ class TimesheetClassTest extends TestCase
     public function testListGestores()
     {
         $report = $this->hc->listGestores();
-        $first = array_pop($report);
-        $this->assertArrayHasKey('c_cvge', $first);
+        $this->assertIsArray($report);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $this->assertArrayHasKey('c_cvge', $first);
+        }
         $report = $this->pc->listGestores();
-        $first = array_pop($report);
-        $this->assertArrayHasKey('c_cvge', $first);
+        $this->assertIsArray($report);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $this->assertArrayHasKey('c_cvge', $first);
+        }
     }
 
     public function testListVisitadores()
@@ -110,35 +116,45 @@ class TimesheetClassTest extends TestCase
     public function testGetStartStopDiff()
     {
         $report = $this->hc->getStartStopDiff('cristina', 7);
-        $first = array_pop($report);
-        $this->assertArrayHasKey('start', $first);
-        $this->assertArrayHasKey('stop', $first);
-        $this->assertArrayHasKey('diff', $first);
+        $this->assertIsArray($report);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $this->assertArrayHasKey('start', $first);
+            $this->assertArrayHasKey('stop', $first);
+            $this->assertArrayHasKey('diff', $first);
+        }
         $report = $this->pc->getStartStopDiff('cristina', 1);
-        $first = array_pop($report);
-        $this->assertArrayHasKey('start', $first);
-        $this->assertArrayHasKey('stop', $first);
-        $this->assertArrayHasKey('diff', $first);
+        $this->assertIsArray($report);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $this->assertArrayHasKey('start', $first);
+            $this->assertArrayHasKey('stop', $first);
+            $this->assertArrayHasKey('diff', $first);
+        }
     }
 
     public function testGetCurrentMain()
     {
         $report = $this->hc->getCurrentMain('cristina', 7);
         $this->assertIsArray($report);
-        $first = array_pop($report);
-        $this->assertArrayHasKey('cuentas', $first);
-        $this->assertArrayHasKey('promesas', $first);
-        $this->assertArrayHasKey('gestiones', $first);
-        $this->assertArrayHasKey('nocontactos', $first);
-        $this->assertArrayHasKey('contactos', $first);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $this->assertArrayHasKey('cuentas', $first);
+            $this->assertArrayHasKey('promesas', $first);
+            $this->assertArrayHasKey('gestiones', $first);
+            $this->assertArrayHasKey('nocontactos', $first);
+            $this->assertArrayHasKey('contactos', $first);
+        }
         $report = $this->pc->getCurrentMain('cristina', 1);
-        $this->assertIsArray($report);
-        $first = array_pop($report);
-        $this->assertArrayHasKey('cuentas', $first);
-        $this->assertArrayHasKey('promesas', $first);
-        $this->assertArrayHasKey('gestiones', $first);
-        $this->assertArrayHasKey('nocontactos', $first);
-        $this->assertArrayHasKey('contactos', $first);
+        if (count($report) > 0) {
+            $this->assertIsArray($report);
+            $first = array_pop($report);
+            $this->assertArrayHasKey('cuentas', $first);
+            $this->assertArrayHasKey('promesas', $first);
+            $this->assertArrayHasKey('gestiones', $first);
+            $this->assertArrayHasKey('nocontactos', $first);
+            $this->assertArrayHasKey('contactos', $first);
+        }
     }
 
     public function testConvertTime()

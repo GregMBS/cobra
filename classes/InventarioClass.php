@@ -21,7 +21,7 @@ class InventarioClass {
      *
      * @var string 
      */
-    private $querymainstart = "SELECT id_cuenta,numero_de_cuenta,nombre_deudor,resumen.cliente,
+    private $queryStart = "SELECT id_cuenta,numero_de_cuenta,nombre_deudor,resumen.cliente,
     substring_index(status_de_credito,'-',1) as segmento,
     if (status_de_credito regexp '-',substring_index(status_de_credito,'-',-1),'') as disposicion,
     producto,subproducto,
@@ -42,7 +42,7 @@ where status_de_credito not regexp '-'
      *
      * @var string 
      */
-    private $querymainend = " 
+    private $queryEnd = " 
 group by id_cuenta
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
 
@@ -64,7 +64,7 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
         if ($cliente != 'todos') {
             $clientestr = " and cliente=:cliente ";
         }
-        $querymain = $this->querymainstart . $clientestr . $this->querymainend;
+        $querymain = $this->queryStart . $clientestr . $this->queryEnd;
         $stm = $this->pdo->prepare($querymain);
         if ($cliente != 'todos') {
             $stm->bindParam(':cliente', $cliente);

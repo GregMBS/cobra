@@ -25,16 +25,16 @@ class CheckClass extends BaseClass {
      * @param string $CUENTA
      * @return int
      */
-    public function getIdCuentafromCuenta($CUENTA) {
-        $querycc = "select id_cuenta from resumen
+    public function getIdCuentaFromCuenta($CUENTA) {
+        $query = "select id_cuenta from resumen
 where numero_de_cuenta=:cuenta
-and status_de_creditonot regexp '-' LIMIT 1";
-        $stcc = $this->pdo->prepare($querycc);
-        $stcc->bindParam(':cuenta', $CUENTA);
-        $stcc->execute();
-        $resultcc = $stcc->fetch(PDO::FETCH_ASSOC);
-        if (isset($resultcc['id_cuenta'])) {
-            $id_cuenta = $resultcc['id_cuenta'];
+and status_de_credito not regexp '-' LIMIT 1";
+        $stc = $this->pdo->prepare($query);
+        $stc->bindParam(':cuenta', $CUENTA);
+        $stc->execute();
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
+        if (isset($result['id_cuenta'])) {
+            $id_cuenta = $result['id_cuenta'];
         } else {
             $id_cuenta = 0;
         }

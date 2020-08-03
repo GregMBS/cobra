@@ -20,7 +20,7 @@ echo $capt;
 ?>'">Regresar a la pagina administrativa
 </button>
 <br>
-<form action="/tels.php" method="get" name="queryparms">
+<form action="/tels.php" method="get" name="queryParams">
     <input type="hidden" name="tipo" value="<?php echo $tipo ?>">
     <input type="hidden" name="capt" value="<?php echo $capt ?>">
     <p><label>HECHO de:

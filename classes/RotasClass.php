@@ -24,12 +24,12 @@ from resumen
          join dictamenes on dictamen=status_aarsa
          join historia h1 on id_cuenta=c_cont
          left join pagos on pagos.id_cuenta=c_cont and fecha>=d_fech
-where n_prom>0 and queue in ('CLIENTE NEGOCIANDO','PROMESAS','PAGOS','PAGANDO CONVENIO', 'PROMESAS INCUMPLIDAS')
+where n_prom > 0 and queue in ('CLIENTE NEGOCIANDO','PROMESAS','PAGOS','PAGANDO CONVENIO', 'PROMESAS INCUMPLIDAS')
   and status_de_credito not regexp '-'
-  and GREATEST(d_prom1,d_prom2,d_prom3,d_prom4)>last_day(curdate()-interval 1 month - interval 15 day)
-  and d_fech>last_day(curdate()-interval 2 month)
-  and not exists (select * from historia h2 where h1.c_cont=h2.c_cont
-                                              and n_prom>0 and concat(h2.d_fech,h2.c_hrfi)>concat(h1.d_fech,h1.c_hrfi))
+  and GREATEST(d_prom1,d_prom2,d_prom3,d_prom4) > last_day(curdate()-interval 1 month - interval 15 day)
+  and d_fech > last_day(curdate()-interval 2 month)
+  and not exists (select * from historia h2 where h1.c_cont = h2.c_cont
+  and n_prom > 0 and concat(h2.d_fech,h2.c_hrfi) > concat(h1.d_fech,h1.c_hrfi))
 %s
 group by c_cvge, c_cont
 order by c_cvge, sum(monto)
