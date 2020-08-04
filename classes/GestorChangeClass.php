@@ -25,7 +25,7 @@ class GestorChangeClass extends BaseClass {
      */
     public function listGestores($gestor = '') {
         $query = "SELECT iniciales FROM nombres 
-        ORDER BY (iniciales = :gestor), iniciales";
+        ORDER BY iniciales";
         $stu = $this->pdo->prepare($query);
         $stu->bindValue(':gestor', $gestor);
         $stu->execute();
