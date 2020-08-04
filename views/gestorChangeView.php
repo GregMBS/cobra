@@ -20,7 +20,7 @@ if (isset($report)) {
         <?php
         foreach ($report as $row) {
             ?>
-            <form method="post" action="/gestorChange.php">
+            <form method="post" action="/gestorChange.php" id="change">
                 <input type="hidden" name="capt" value="<?php echo $capt; ?>">
                 <dl>
                     <dt>
@@ -54,6 +54,5 @@ if (isset($report)) {
 <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">
     Regresar a la pagina administrativa
 </button>
-<br>
 </body>
 </html>
