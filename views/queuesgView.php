@@ -14,9 +14,9 @@
 <body>
 <script src="/js/queuesg.js"></script>
 <script>
-    const arrayC = '<?php echo $arrayc; ?>';
-    const arrayS = '<?php echo $arrays; ?>';
-    const arrayQ = '<?php echo $arrayq; ?>';
+    const arrayC = JSON.parse('<?php echo $arrayc; ?>');
+    const arrayS = JSON.parse('<?php echo $arrays; ?>');
+    const arrayQ = JSON.parse('<?php echo $arrayq; ?>');
 </script>
 <?php echo $msg; ?>
 <div>
