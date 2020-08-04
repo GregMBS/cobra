@@ -12,12 +12,12 @@
             type="text/javascript"></script>
 </head>
 <body>
-<script src="/js/queuesg.js"></script>
 <script>
     const arrayC = JSON.parse('<?php echo $arrayc; ?>');
     const arrayS = JSON.parse('<?php echo $arrays; ?>');
     const arrayQ = JSON.parse('<?php echo $arrayq; ?>');
 </script>
+<script src="/js/queuesg.js"></script>
 <?php echo $msg; ?>
 <div>
     <form method='get' action='#' name='queueform'>
