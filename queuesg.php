@@ -34,7 +34,7 @@ $resultc = $qc->getClients();
 foreach ($resultc as $rowc) {
     $arrayc .= '"'.$rowc['cliente'].'",';
 }
-$arrayc  = $arrayc.']';
+$arrayc  = rtrim($arrayc, ',').']';
 $results = $qc->getSdcClients($capt);
 foreach ($results as $rows) {
     $arrays .= '["'.$rows['sdc'].'","'.$rows['cliente'].'"],';
