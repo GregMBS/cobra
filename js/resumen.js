@@ -24,7 +24,6 @@ function paging(pageId, flag = 0, flagMsg = '', cuenta = '') {
     document.getElementById("MISCELANEA").style.display = "none";
     document.getElementById("VISITA").style.display = "none";
     document.getElementById("HISTORIA").style.display = "none";
-    document.getElementById("EXTRAS").style.display = "none";
     document.getElementById(pageId).style.display = "block";
     if (document.getElementById("GESTION")) {
         document.getElementById("GESTION").style.display = "block";
