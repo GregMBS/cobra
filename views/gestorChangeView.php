@@ -30,7 +30,14 @@ if (isset($report)) {
                     </dt>
                     <dd>
                         <label><?php echo $row->ejecutivo_asignado_call_center; ?>
-                            <select name="ejecutivo_asignado_call_center"></select></label>
+                            <select name="ejecutivo_asignado_call_center">
+                                <?php
+                                foreach ($gestores as $gestor) { ?>
+                                <option><?php echo $gestor; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select></label>
                         <label><?php echo $row->status_de_credito; ?>
                             <input type="text" id="sdc" name="status_de_credito" value="<?php echo $row->status_de_credito; ?>"></label>
                         <input type="submit" name="go" value="cambiar">
