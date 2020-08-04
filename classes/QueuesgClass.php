@@ -90,10 +90,10 @@ class QueuesgClass {
      * @return array
      */
     public function getSdcClients($capt) {
-        $querys  = "SELECT distinct sdc,cliente
+        $query  = "SELECT distinct sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado=0 and cliente<>''
-        ORDER BY cliente,sdc,status_aarsa";
-        $sts = $this->pdo->prepare($querys);
+        ORDER BY cliente,sdc";
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':capt', $capt);
         $sts->execute();
         return $sts->fetchAll(PDO::FETCH_ASSOC);
