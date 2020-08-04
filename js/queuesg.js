@@ -23,15 +23,15 @@ $(function () {
         sdc.empty();
         queue.empty();
         let data2 = $('input[name=cliente]:checked').val();
-        $.each(arrayS, function (index, sdc) {
-            if (sdc[1] === data2) {
-                let st = sdc[0];
+        $.each(arrayS, function (index, value) {
+            if (value[1] === data2) {
+                let st = value[0];
                 if (st === '') {
                     st = 'TODOS';
                 }
                 let data3 = '<div class="column"><input class="columns" '
                     + 'type="radio" name="sdc" value="'
-                    + sdc[0] + '" />' + st + '</div>';
+                    + value[0] + '" />' + st + '</div>';
                 sdc.append(data3);
             }
         });
