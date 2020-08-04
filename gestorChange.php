@@ -21,7 +21,7 @@ if (!empty($go)) {
         $report = $gc->listCuentas($data);
     }
     if ($go == 'cambiar') {
-        $ok = $gc->changeGestor($post['cliente'], $post['numero_de_cuenta'], $post['ejecutivo_asignado-call-center'], $post['status_de_credito']);
+        $ok = $gc->changeGestor($post['cliente'], $post['numero_de_cuenta'], $post['ejecutivo_asignado_call_center'], $post['status_de_credito']);
     }
 }
 require_once __DIR__. '/views/gestorChangeView.php';
