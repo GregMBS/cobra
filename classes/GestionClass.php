@@ -176,12 +176,12 @@ and id_cuenta = :c_cont";
      */
     public function addNewTel($C_CONT, $tele) {
         $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
-        $query = "UPDATE resumen "
-                . "SET tel_4_verif = tel_3_verif,"
-                . "tel_3_verif = tel_2_verif,"
-                . "tel_2_verif = tel_1_verif,"
-                . "tel_1_verif = :tel "
-                . "WHERE id_cuenta = :C_CONT";
+        $query = "UPDATE resumen 
+        SET tel_4_verif = tel_3_verif, 
+        tel_3_verif = tel_2_verif, 
+        tel_2_verif = tel_1_verif, 
+        tel_1_verif = :tel 
+        WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':tel', $tel);
         $stn->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);

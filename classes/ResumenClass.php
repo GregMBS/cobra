@@ -111,7 +111,10 @@ where id_cuenta=:id_cuenta LIMIT 1";
         $stu->bindParam(':capt', $capt);
         $stu->execute();
         $result = $stu->fetch(PDO::FETCH_ASSOC);
-        return $result['c_cont'];
+        if ($result) {
+            return $result['c_cont'];
+        }
+        return 0;
     }
 
     /**
@@ -193,20 +196,20 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @return array
      */
     public function getDict($mytipo) {
-        $query = "SELECT dictamen,v_cc,judicial "
-                . "FROM dictamenes "
-                . "where callcenter=1 "
-                . "order by dictamen";
+        $query = "SELECT dictamen,v_cc,judicial 
+        FROM dictamenes 
+        where callcenter=1 
+        order by dictamen";
         if ($mytipo == 'visitador') {
-            $query = "SELECT dictamen,v_cc,judicial "
-                    . "FROM dictamenes "
-                    . "where visitas=1 "
-                    . "order by dictamen";
+            $query = "SELECT dictamen,v_cc,judicial 
+            FROM dictamenes 
+            where visitas=1 
+            order by dictamen";
         }
         if ($mytipo == 'admin') {
-            $query = "SELECT dictamen,v_cc,judicial "
-                    . "FROM dictamenes "
-                    . "order by dictamen";
+            $query = "SELECT dictamen,v_cc,judicial 
+            FROM dictamenes 
+            order by dictamen";
         }
         $stm = $this->pdo->query($query);
         $stm->execute();
@@ -218,8 +221,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @return array
      */
     public function getDictV() {
-        $mytipo = 'visitador';
-        return $this->getDict($mytipo);
+        return $this->getDict('visitador');
     }
 
     /**
@@ -283,10 +285,10 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @return array
      */
     public function getBadNo($id_cuenta) {
-        $stbn = $this->pdo->prepare($this->badNoQuery);
-        $stbn->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $stbn->execute();
-        return $stbn->fetch();
+        $stb = $this->pdo->prepare($this->badNoQuery);
+        $stb->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $stb->execute();
+        return $stb->fetch();
     }
 
     /**
@@ -295,13 +297,13 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @return array
      */
     public function getHistory($id_cuenta) {
-        $querysub = "SELECT c_cvst,concat(d_fech,' ',c_hrin) as fecha,
+        $query = "SELECT c_cvst,concat(d_fech,' ',c_hrin) as fecha,
                     c_cvge,c_tele,left(c_obse1,50) as short,c_obse1,
                     auto,c_cniv 
                     FROM historia 
                     WHERE historia.C_CONT=:id_cuenta   
                     ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
-        $sts = $this->pdo->prepare($querysub);
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
         return $sts->fetchAll();
@@ -344,13 +346,31 @@ and tipo IN ('visitador','admin')";
     }
 
     /**
-     * 
+     *
      * @param string $capt
      * @return array
      */
     public function getNumGests($capt) {
         $queryng = "SELECT count(1) as cng FROM historia 
 WHERE c_cvge=:capt 
+AND d_fech=curdate()
+AND c_cont <> 0
+";
+        $stn = $this->pdo->prepare($queryng);
+        $stn->bindParam(':capt', $capt);
+        $stn->execute();
+        return $stn->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     *
+     * @param string $capt
+     * @return array
+     */
+    public function getNumProm($capt) {
+        $queryng = "SELECT count(1) as cnp FROM historia 
+WHERE c_cvge=:capt 
+AND n_prom > 0 
 AND d_fech=curdate()
 AND c_cont <> 0
 ";
@@ -423,8 +443,8 @@ ORDER BY cliente,sdc,queue";
      * @return array
      */
     public function getUserData($capt) {
-        $queryg = "SELECT usuaria,tipo,camp FROM nombres WHERE iniciales = :capt LIMIT 1";
-        $stg = $this->pdo->prepare($queryg);
+        $query = "SELECT * FROM nombres WHERE iniciales = :capt LIMIT 1";
+        $stg = $this->pdo->prepare($query);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
         return $stg->fetch(PDO::FETCH_ASSOC);

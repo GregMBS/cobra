@@ -222,14 +222,6 @@ if ($notalert > 0) { ?>
         <LI><A onClick="paging('LABORAL')">LABORAL</A></LI>
         <LI><A onClick="paging('CONTABLES')">CONTABLES</A></LI>
         <LI><A onClick="paging('MISCELANEA')">MISCELANEA</A></LI>
-        <?php
-        if ($others > 1) {
-            ?>
-            <LI><A onClick="paging('EXTRAS');">OTRAS CUENTAS</A></LI>
-        <?php } ?>
-        <?php if ($cliente == 'Surtidor del Hogar') { ?>
-            <LI><A onClick="paging('EXTRAS');">PRODUCTOS</A></LI>
-        <?php } ?>
         <LI><A onClick="paging('VISITA')">CAPTURA VISITA</A></LI>
         <LI><A onClick="paging('HISTORIA')">HISTORIA</A></LI>
     </UL>
@@ -240,9 +232,10 @@ if ($notalert > 0) { ?>
         <table>
             <tr>
                 <td>
-                    <span class='formcapa' id='deudor'>Deudor</span><input type='text' size=80 style='width:12cm'
-                                                                           name=nombre_deudor id="nombre_deudor"
-                                                                           readonly='readonly' value='<?php
+                    <label for="nombre_deudor">Deudor</label>
+                    <input type='text' size=80 style='width:12cm'
+                           name=nombre_deudor id="nombre_deudor"
+                           readonly='readonly' value='<?php
                     if (isset($nombre_deudor)) {
                         echo htmlentities($nombre_deudor);
                     }
@@ -604,32 +597,6 @@ if ($notalert > 0) { ?>
                                                  ?>'><br>
     </div>
     <br>
-    <div id="EXTRAS">
-        <table>
-            <tr>
-                <th>Cliente</th>
-                <th>Segmento</th>
-                <th>Status</th>
-                <th>Cuenta</th>
-                <th>Producto</th>
-                <th>Saldo capital</th>
-                <th>Saldo descuento</th>
-            </tr>
-            <?php
-            foreach ($resultextra as $answerextra) {
-                ?>
-                <tr>
-                    <td><?php echo $answerextra['cliente']; ?></td>
-                    <td><?php echo $answerextra['status_de_credito']; ?></td>
-                    <td><?php echo $answerextra['status_aarsa']; ?></td>
-                    <td><?php echo $answerextra['numero_de_cuenta']; ?></td>
-                    <td><?php echo $answerextra['productos']; ?></td>
-                    <td><?php echo number_format($answerextra['sd'], 2); ?></td>
-                    <td><?php echo number_format($answerextra['sdd'], 2); ?></td>
-                </tr>
-            <?php } ?>
-        </table>
-    </div>
 
     <div id="CONTABLES">
         <table>
