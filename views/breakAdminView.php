@@ -74,6 +74,7 @@ use cobra_salsa\BreaksObject;
                 <td>
                     <form method="get" action="/breakAdmin.php" name="cambiar<?php echo $row->auto; ?>">
                         <input type="submit" name="go" value="CAMBIAR"/>
+                        <input type="hidden" name="auto" value="<?php echo $row->auto; ?>"/>
                         <input type="hidden" name="capt" value="<?php echo $capt; ?>"/>
                     </form>
                 </td>
@@ -81,6 +82,7 @@ use cobra_salsa\BreaksObject;
                     <form method="get" action="/breakAdmin.php" name="borrar">
                         <input type="submit" name="go" value="BORRAR"/>
                         <input type="hidden" name="auto" value="<?php echo $row->auto; ?>"/>
+                        <input type="hidden" name="capt" value="<?php echo $capt; ?>"/>
                     </form>
                 </td>
             </tr>
