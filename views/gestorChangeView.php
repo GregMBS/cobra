@@ -84,7 +84,9 @@ if (isset($report)) {
         const url = $form.attr( "action" );
 
         // Send the data using post
-        const posting = $.post( url, { id_cuenta: id, ejecutivo_asignado_call_center: gestor, status_de_credito: sdc } );
+        const posting = $.post( url, { id_cuenta: id, ejecutivo_asignado_call_center: gestor, status_de_credito: sdc, capt: '<?php
+            echo $capt;
+            ?>' } );
 
         // Put the results in a div
         posting.done(function( data ) {
