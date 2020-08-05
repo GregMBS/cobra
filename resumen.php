@@ -212,15 +212,6 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     }
     $D_PROM = $D_PROM1;
     $flagmsg = "";
-    $querydup = "SELECT count(1) FROM historia 
-WHERE c_cont=" . $C_CONT . " and d_fech='" . $D_FECH . "' 
-and c_hrin='" . $C_HRIN . "' and c_cvst='" . $C_CVST . "' 
-and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
-    $resultdup = mysqli_query($con, $querydup) or die("ERROR RM23 - " . mysqli_error($con));
-    //while ($answerdup = mysqli_fetch_row($resultdup)) {
-    //$error = $error + $answerdup[0];
-    //$flagmsg = "DOBLE ENTRANTE";
-    //}
     if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO J')) {
         $error = $error + 1;
         $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
@@ -302,146 +293,7 @@ and c_cvge='" . $C_CVGE . "' and c_obse1='" . $C_OBSE1 . "';";
         $flagmsg = $flagmsg . '<BR>' . "GESTION NECESITA TELEFONO";
     }
 
-
-    $qins = "INSERT INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
-C_TELE,CUANDO,CUENTA,C_OBSE1,C_ATTE,C_CARG,D_PROM,N_PROM,C_PROM,
-D_PROM1,N_PROM1,D_PROM2,N_PROM2,
-D_PROM3,N_PROM3,D_PROM4,N_PROM4,
-C_CONTAN,C_ACCION,C_CNP,C_MOTIV,C_CAMP,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE,AUTH) 
-VALUES ('" . $C_CVBA . "','" .
-        $C_CVGE . "','" .
-        $C_CONT . "','" .
-        $C_CVST . "',date('" .
-        $D_FECH . "'),'" .
-        $C_HRIN . "','" .
-        $C_HRFI . "','" .
-        $C_TELE . "','" .
-        $CUANDO . "','" .
-        $CUENTA . "','" .
-        $C_OBSE1 . "','" .
-        $C_ATTE . "','" .
-        $C_CARG . "','" .
-        $D_PROM . "','" .
-        $N_PROM . "','" .
-        $C_PROM . "','" .
-        $D_PROM1 . "','" .
-        $N_PROM1 . "','" .
-        $D_PROM2 . "','" .
-        $N_PROM2 . "','" .
-        $D_PROM3 . "','" .
-        $N_PROM3 . "','" .
-        $D_PROM4 . "','" .
-        $N_PROM4 . "','" .
-        $C_CONTAN . "','" .
-        $ACCION . "','" .
-        $C_CNP . "','" .
-        $C_MOTIV . "','" .
-        $C_CAMP . "','" .
-        $C_NTEL . "','" .
-        $C_NDIR . "','" .
-        $C_EMAIL . "','" .
-        $C_OBSE2 . "','" .
-        $C_EJE . "','" .
-        $AUTH . "')";
-    if ($error == 0) {
-        mysqli_autocommit($con, FALSE);
-        $queryins = str_replace(';', ' ', $qins);
-        mysqli_query($con, $queryins) or die("ERROR RM24 - " . mysqli_error($con));
-        $querygest = "INSERT ignore INTO histgest (auto,c_cvge) SELECT auto,'" . $C_CVGE . "' 
-FROM historia 
-WHERE c_cont=" . $C_CONT . " AND d_fech='" . $D_FECH . "'
-AND c_hrin='" . $C_HRIN . "' AND c_hrfi='" . $C_HRFI . "'
-;";
-        mysqli_query($con, $querygest) or die("ERROR RM24a - " . mysqli_error($con));
-        if ($N_PAGO > 0) {
-            $who = $capt;
-            $queryd = "select c_cvge from historia where n_prom>0 and c_cvge like 'PRO%'
-    and c_cont=" . $C_CONT . " order by d_fech desc, c_hrin desc limit 1;";
-            $resultd = mysqli_query($con, $queryd) or die("ERROR RM30 - " . mysqli_error($con));
-            while ($rowd = mysqli_fetch_row($resultd)) {
-                $who = $rowd[0];
-            }
-            $queryins = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
-    SELECT numero_de_cuenta,'$D_PAGO','$N_PAGO',cliente,'$who',numero_de_credito,id_cuenta 
-    FROM resumen WHERE id_cuenta=$C_CONT and (numero_de_cuenta,'$D_PAGO','$N_PAGO') not in (select cuenta,fecha,monto from pagos)";
-            mysqli_query($con, $queryins) or die("ERROR RM31 - " . mysqli_error($con));
-
-            $querylast = "select fecha,monto from pagos where (cuenta,cliente,fecha) in (select cuenta,cliente,max(fecha) from pagos where id_cuenta=" . $C_CONT . " group by id_cuenta);";
-            $resultlast = mysqli_query($con, $querylast) or die("ERROR RM32 - " . mysqli_error($con));
-            while ($answerlast = mysqli_fetch_row($resultlast)) {
-                $mfecha = $answerlast[0];
-                $mmonto = $answerlast[1];
-            }
-        }
-        $querypupa = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
-where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
-        mysqli_query($con, $querypupa) or die("ERROR RM32a - " . mysqli_error($con));
-        $best = $C_CVST;
-        $querybest = "select c_cvst,v_cc from historia,dictamenes 
-where v_cc=
-(select min(v_cc) from historia,dictamenes where c_cont=" . $C_CONT . " 
-and c_cvst=dictamen and left(c_cvba,2)=left('" . $C_CVBA . "',2)) 
-and c_cont=" . $C_CONT . " and left(c_cvba,2)=left('" . $C_CVBA . "',2)
-and (d_prom1>=curdate() or d_prom2>=curdate() or n_prom=0)
-and c_cvst=dictamen;";
-        $resultbest = mysqli_query($con, $querybest) or die("ERROR RM25 - " . mysqli_error($con));
-        while ($answerbest = mysqli_fetch_row($resultbest)) {
-            $best = $answerbest[0];
-        }
-//$querysa = "update resumen set status_aarsa='".$best."', especial=1,fecha_ultima_gestion=now() where id_cuenta='".$C_CONT."';";;
-        $querysa = "update resumen set status_aarsa='" . $best . "',fecha_ultima_gestion=now() where id_cuenta='" . $C_CONT . "';";
-        mysqli_query($con, $querysa) or die("ERROR RM26 - " . mysqli_error($con));
-        $queryhot = "select c_cvst,v_cc from historia,dictamenes 
-where c_cvst=dictamen and c_cont=" . $C_CONT . " and left(c_cvba,2)=left('" . $C_CVBA . "',2) 
-and d_fech>last_day(curdate()-interval 1 month - interval 2 day)
-order by v_cc LIMIT 1;";
-        $resulthot = mysqli_query($con, $queryhot) or die("ERROR RM14a - " . mysqli_error($con));
-        while ($answerhot = mysqli_fetch_row($resulthot)) {
-            $hot = $answerhot[0];
-        }
-        $querysa = "update resumen set status_aarsa='" . $best . "' where id_cuenta=" . $C_CONT . ";";
-        mysqli_query($con, $querysa) or die("ERROR RM15 - " . mysqli_error($con));
-        $querysa3 = "update resumen set status_aarsa='" . $hot . "' 
-where id_cuenta=" . $C_CONT . "
-and cliente not like 'J%' and cliente not like '%JUR';";
-        mysqli_query($con, $querysa3) or die("ERROR RM15c - " . mysqli_error($con));
-        $querysa1 = "update resumen set status_aarsa='PROMESA INCUMPLIDA' 
-where id_cuenta not in (select c_cont from historia where n_prom>0 
-and d_prom>=curdate()) and cliente not like 'J%' and cliente not like '%JUR'
-and id_cuenta in (select c_cont from historia where n_prom>0 
-and d_prom<curdate()) 
-and numero_de_cuenta not in 
-(select cuenta from pagos where fecha>last_day(curdate()-interval 1 month)) 
-and status_aarsa not regexp 'rota' and status_aarsa not regexp 'propuesta'
-and (status_aarsa like 'PROMESA DE P%' or status_aarsa like 'CONFIRMA P%')
-and id_cuenta=" . $C_CONT . ";";
-        mysqli_query($con, $querysa1) or die("ERROR RM15a - " . mysqli_error($con));
-        $querysa2 = "update resumen,dictamenes
-set status_aarsa='PAGO DEL MES ANTERIOR' 
-where status_aarsa=dictamen and cliente not like 'J%' and cliente not like '%JUR'
-and queue='pagos'
-and id_cuenta not in (
-select c_cont from historia,dictamenes where c_cvst=dictamen
-and queue='PAGOS'
-and d_fech>last_day(curdate()-interval 1 month))
-and id_cuenta not in (
-select id_cuenta from pagos where fecha>last_day(curdate()-interval 1 month))
-and id_cuenta=" . $C_CONT . ";";
-        mysqli_query($con, $querysa2) or die("ERROR RM15b - " . mysqli_error($con));
-        if (!empty($C_NTEL)) {
-            $queryntel = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_NTEL . " WHERE id_cuenta='" . $C_CONT . "'";
-            mysqli_query($con, $queryntel) or die("ERROR RM27 - " . mysqli_error($con));
-        }
-        if (!empty($C_EMAIL)) {
-            $queryndir = "UPDATE resumen SET email_deudor='" . $C_EMAIL . "' WHERE id_cuenta='" . $C_CONT . "'";
-            mysqli_query($con, $queryndir) or die("ERROR RM28 - " . mysqli_error($con));
-        }
-        if (!empty($C_OBSE2) && $C_OBSE2 == filter_var($C_OBSE2, FILTER_SANITIZE_NUMBER_FLOAT)) {
-            $querymemo = "UPDATE resumen SET tel_4_verif=tel_3_verif,tel_3_verif=tel_2_verif,tel_2_verif=tel_1_verif,tel_1_verif=" . $C_OBSE2 . " WHERE id_cuenta='" . $C_CONT . "'";
-            mysqli_query($con, $querymemo) or die("ERROR RM29 - " . mysqli_error($con));
-        }
-        mysqli_commit($con);
-        mysqli_autocommit($con, TRUE);
+    $gc->doGestion($get);
         if ($N_PAGO > 0) {
             $who = $capt;
             $queryd = "select c_cvge from historia where n_prom>0 and c_cvge like 'PRO%'
@@ -474,10 +326,8 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
 //}
         $redirector = "Location: resumen.php?capt=" . $capt;
         header($redirector);
-    } else {
-        include 'resumenErrorView.php';
     }
-}
+
 $userData = $rc->getUserData($capt);
 $mynombre = $userData['iniciales'];
 $mytipo = $userData['tipo'];

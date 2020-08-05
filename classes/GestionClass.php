@@ -259,7 +259,7 @@ and id_cuenta = :c_cont";
     /**
      * 
      */
-    private function updateAllUltimoPagos() {
+    public function updateAllUltimoPagos() {
         $query = "update resumen,pagos 
                 set fecha_de_ultimo_pago = fecha, monto_ultimo_pago = monto 
                 where fecha_de_ultimo_pago < fecha and pagos.id_cuenta = resumen.id_cuenta";
@@ -271,7 +271,7 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $best
      */
-    private function resumenStatusUpdate($C_CONT, $best = '') {
+    public function resumenStatusUpdate($C_CONT, $best = '') {
         $query = "update resumen set status_aarsa = :best where id_cuenta = :C_CONT";
         $stb = $this->pdo->prepare($query);
         $stb->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
@@ -398,12 +398,12 @@ and id_cuenta = :c_cont";
      * @return string
      */
     public function getBest($c_cvst, $c_cont) {
-        $query = "SELECT c_cvst FROM historia, dictamenes "
-                . "WHERE d_fech > CURDATE() - INTERVAL 30 DAY "
-                . "AND c_cvst = dictamen "
-                . "AND c_cont = :c_cont "
-                . "ORDER BY v_cc "
-                . "LIMIT 1";
+        $query = "SELECT c_cvst FROM historia, dictamenes 
+        WHERE d_fech > CURDATE() - INTERVAL 30 DAY 
+        AND c_cvst = dictamen 
+        AND c_cont = :c_cont 
+        ORDER BY v_cc 
+        LIMIT 1";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':c_cont', $c_cont, PDO::PARAM_INT);
         $stq->execute();
