@@ -6,6 +6,7 @@ use DateTime;
 use PDO;
 
 require_once __DIR__ . '/HistoriaObject.php';
+require_once __DIR__ . '/UserDataObject.php';
 
 /**
  * Description of ResumenClass
@@ -440,14 +441,15 @@ ORDER BY cliente,sdc,queue";
     /**
      * 
      * @param string $capt
-     * @return array
+     * @return UserDataObject
      */
-    public function getUserData($capt) {
+    public function getUserData($capt): UserDataObject
+    {
         $query = "SELECT * FROM nombres WHERE iniciales = :capt LIMIT 1";
         $stg = $this->pdo->prepare($query);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
-        return $stg->fetch(PDO::FETCH_ASSOC);
+        return $stg->fetch(PDO::FETCH_CLASS, UserDataObject::class);
     }
 
     /**

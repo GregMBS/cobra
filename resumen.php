@@ -307,9 +307,9 @@ where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
     }
 
 $userData = $rc->getUserData($capt);
-$mynombre = $userData['iniciales'];
-$mytipo = $userData['tipo'];
-$camp = $userData['camp'];
+$mynombre = $userData->INICIALES;
+$mytipo = $userData->TIPO;
+$camp = $userData->camp;
 
 $id_cuenta = 0;
 $lockflag = 0;
