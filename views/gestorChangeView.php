@@ -38,7 +38,7 @@ if (isset($report)) {
                     </dt>
                     <dd>
                         <label class="numero_de_cuenta"><?php echo $row->ejecutivo_asignado_call_center; ?>
-                            <select name="ejecutivo_asignado_call_center">
+                            <select name="agent">
                                 <?php
                                 foreach ($gestores as $gestor) { ?>
                                 <option value="<?php echo $gestor; ?>"><?php echo $gestor; ?></option>
@@ -76,7 +76,7 @@ if (isset($report)) {
         const $form = $( this );
         const id_cuenta = $form.find( "input[name='id_cuenta']" );
         const id = id_cuenta.val();
-        const agent = $form.find( "input[name='ejecutivo_asignado_call_center']" );
+        const agent = $form.find( "input[name='agent']" );
         const gestor = agent.val();
         const status_de_credito = $form.find( "input[name='status_de_credito']" );
         const sdc = status_de_credito.val();
