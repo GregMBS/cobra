@@ -449,7 +449,7 @@ ORDER BY cliente,sdc,queue";
         $stg = $this->pdo->prepare($query);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
-        return $stg->fetch(PDO::FETCH_CLASS, UserDataObject::class);
+        return $stg->fetchObject(UserDataObject::class);
     }
 
     /**
