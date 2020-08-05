@@ -37,16 +37,15 @@ if (isset($report)) {
                         <input type="hidden" name="id_cuenta" value="<?php echo $row->id_cuenta; ?>">
                     </dt>
                     <dd>
-                        <label class="agent"
-                               for="agent<?php echo $row->id_cuenta; ?>"><?php echo $row->ejecutivo_asignado_call_center; ?></label>
-                        <select name="agent" id="agent<?php echo $row->id_cuenta; ?>">
+                        <label class="agent">
+                        <select name="agent">
                             <?php
                             foreach ($gestores as $gestor) { ?>
                                 <option value="<?php echo $gestor; ?>"><?php echo $gestor; ?></option>
                                 <?php
                             }
                             ?>
-                        </select>
+                        </select></label>
                         <label class="sdc"><?php echo $row->status_de_credito; ?>
                             <input type="text" name="status_de_credito" value="<?php echo $row->status_de_credito; ?>"></label>
                         <label class="fda"><?php echo $row->fecha_de_actualizacion; ?>
