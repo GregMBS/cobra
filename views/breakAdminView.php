@@ -37,7 +37,7 @@ use cobra_salsa\BreaksObject;
                 </td>
                 <td>
                     <label><?php echo $row->tipo; ?>
-                    <select name="tipo" form="cambiar">
+                    <select form="cambiar<?php echo $row->auto; ?>" name="tipo">
                         <option value=""></option>
                         <option value="break"<?php
                         if ($row->tipo == 'hora') {
@@ -66,13 +66,13 @@ use cobra_salsa\BreaksObject;
                     </select></label>
                 </td>
                 <td>
-                    <input type="time" name="empieza" value="<?php echo $row->empieza; ?>">
+                    <input form="cambiar<?php echo $row->auto; ?>" type="time" name="empieza" value="<?php echo $row->empieza; ?>">
                 </td>
                 <td>
-                    <input type="time" name="termina" value="<?php echo $row->termina; ?>">
+                    <input form="cambiar<?php echo $row->auto; ?>" type="time" name="termina" value="<?php echo $row->termina; ?>">
                 </td>
                 <td>
-                    <form method="get" action="/breakAdmin.php" name="cambiar">
+                    <form method="get" action="/breakAdmin.php" name="cambiar<?php echo $row->auto; ?>">
                         <input type="submit" name="go" value="CAMBIAR"/>
                         <input type="hidden" name="capt" value="<?php echo $capt; ?>"/>
                     </form>
