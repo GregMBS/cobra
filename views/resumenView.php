@@ -1171,10 +1171,10 @@ if ($notalert > 0) { ?>
             <OPTION VALUE=59>59</option>
         </select>
         <br>
-        <span class="formcap">Fecha:</span>
-        <INPUT TYPE="date" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>" SIZE=15>
+        <label class="formcap">Fecha:
+        <INPUT TYPE="date" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>" SIZE=15></label>
         <br>
-        <span class="formcap" id="pcap">Parentesco/Cargo</span>
+        <label class="formcap" id="pcap">Parentesco/Cargo
         <select name="C_CARG">
             <option value="">&nbsp;</option>
             <option value="Aval">Aval/Recadero</option>
@@ -1187,10 +1187,11 @@ if ($notalert > 0) { ?>
             <option value="Otro">Otro</option>
             <option value="Padre">Padre</option>
             <option value="Vecino/a">Vecino/a</option>
-        </select><br>
-        <span class="formcap">Gestion</span><textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12'
-                                                      onkeypress="tooLong('C_OBSE12')"></textarea><br>
-        <span class="formcap">Acci&oacute;n:</span>
+        </select></label><br>
+        <label class="formcap">Gestion
+            <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12' onkeypress="tooLong('C_OBSE12')"></textarea>
+        </label><br>
+        <label class="formcap">Acci&oacute;n:
         <select name="ACCION" style="width: 8cm;">
             <?php
             foreach ($resultAccionV as $answerAccionV) {
@@ -1200,8 +1201,8 @@ if ($notalert > 0) { ?>
                 <?php
             }
             ?>
-        </select><br>
-        <span class="formcap">Status:</span>
+        </select></label><br>
+        <label class="formcap">Status:
         <select name="C_CVST" style="width: 8cm;" onblur="statusChange(this.form);">
             <option value="" selected="selected"></option>
             <?php
@@ -1212,8 +1213,8 @@ if ($notalert > 0) { ?>
                 <?php
             }
             ?>
-        </select><br>
-        <span class="formcap">Motivadores:</span>
+        </select></label><br>
+        <label class="formcap">Motivadores:
         <select name="MOTIV" style="width: 8cm;">
             <option style='width: 12cm;' value=" ">
                 <?php
@@ -1222,24 +1223,24 @@ if ($notalert > 0) { ?>
                 as $answerMotivV) {
                 ?>
             <option style='width: 12cm;'
-                    value="<?php echo $answerMotivV[0]; ?>"><?php echo $answerMotivV[0]; ?></option>
+                    value="<?php echo $answerMotivV['motiv']; ?>"><?php echo $answerMotivV['motiv']; ?></option>
             <?php
             }
             ?>
-        </select><br>
+        </select></label><br>
         <table>
             <tr>
-                <td><span class="formcap">Fecha promesa</span>
-                    <INPUT TYPE="date" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15>
+                <td><label for="D_PROMv" class="formcap">Fecha promesa
+                    <INPUT TYPE="date" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15></label>
                     <br>
-                    <span class="formcap">Cantidad de pago prometido</span>
-                    $<input type="text" name="N_PROMv" value=""><br>
+                    <label class="formcap">Cantidad de pago prometido
+                    $<input type="text" name="N_PROMv" id="N_PROMv" value=""></label><br>
                 </td>
-                <td id='pagocaptv'><span class="formcap">Fecha ya pag&oacute;</span>
-                    <INPUT TYPE="date" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15>
+                <td id='pagocaptv'><label for="D_PAGOv" class="formcap">Fecha ya pag&oacute;
+                    <INPUT TYPE="date" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15></label>
                     <br>
-                    <span class="formcap">Cantidad de ya pag&oacute;</span>
-                    $<input type="text" name="N_PAGOv" value=""><br>
+                    <label class="formcap">Cantidad de ya pag&oacute;
+                    $<input type="text" name="N_PAGOv" id="N_PAGOv" value=""></label><br>
                 </td>
             </tr>
         </table>
@@ -1255,13 +1256,13 @@ if ($notalert > 0) { ?>
             <option value="otro">Otro (en Gestion comentas)</option>
         </select>
         <br>
-        <span class="formcap">Visitador:</span>
+        <label for="C_VISIT" class="formcap">Visitador:</label>
         <select name="C_VISIT" id="C_VISIT">
             <option value=''></option>
             <?php
             foreach ($resultGestorV as $answerGestorV) {
                 ?>
-                <option value="<?php echo $answerGestorV[0]; ?>"><?php echo htmlentities($answerGestorV[1]); ?></option>
+                <option value="<?php echo $answerGestorV['usuaria']; ?>"><?php echo htmlentities($answerGestorV['completo']); ?></option>
             <?php }
             ?>
         </select>
