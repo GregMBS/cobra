@@ -72,7 +72,7 @@ use cobra_salsa\BreaksObject;
                     <input form="cambiar<?php echo $row->auto; ?>" type="time" name="termina" value="<?php echo $row->termina; ?>">
                 </td>
                 <td>
-                    <form method="post" action="/breakAdmin.php" name="cambiar<?php echo $row->auto; ?>">
+                    <form method="post" action="/breakAdmin.php" id="cambiar<?php echo $row->auto; ?>">
                         <input type="submit" name="go" value="CAMBIAR"/>
                         <input type="hidden" name="auto" value="<?php echo $row->auto; ?>"/>
                         <input type="hidden" name="capt" value="<?php echo $capt; ?>"/>
@@ -130,7 +130,7 @@ use cobra_salsa\BreaksObject;
             <input form="agregar" type="time" name="empieza" value="<?php echo $row->termina; ?>">
         </td>
         <td>
-            <form name="agregar" method="post" action="/breakAdmin.php">
+            <form id="agregar" method="post" action="/breakAdmin.php">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                 <input type="submit" name="go" value="AGREGAR">
             </form>
