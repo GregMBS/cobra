@@ -41,7 +41,7 @@ if (isset($report)) {
                             <select name="ejecutivo_asignado_call_center">
                                 <?php
                                 foreach ($gestores as $gestor) { ?>
-                                <option><?php echo $gestor; ?></option>
+                                <option value="<?php echo $gestor; ?>"><?php echo $gestor; ?></option>
                                 <?php
                                 }
                                 ?>
