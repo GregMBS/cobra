@@ -1514,26 +1514,26 @@ if ($notalert > 0) { ?>
                         ?>
                     </select>
                     <br>
-                    Status
+                    <label>Status
                     <select name="C_CVST" id="C_CVST" onblur="statusChange(this.form);">
                         <option value=''></option>
                         <?php
                         foreach ($resultDictamen as $answerDictamen) {
                             ?>
                             <option value="<?php
-                            if (isset($answerDictamen[0])) {
-                                echo htmlentities($answerDictamen[0]);
+                            if (isset($answerDictamen['dictamen'])) {
+                                echo htmlentities($answerDictamen['dictamen']);
                             }
                             ?>"
                                     style="font-size:120%;">
                                 <?php
-                                if (isset($answerDictamen[0])) {
-                                    echo htmlentities($answerDictamen[0]);
+                                if (isset($answerDictamen['dictamen'])) {
+                                    echo htmlentities($answerDictamen['dictamen']);
                                 }
                                 ?>
                             </option>
                         <?php } ?>
-                    </select><br>
+                    </select></label><br>
                     <label>Causa no pago
                     <select name="C_CNP" id="C_CNP">
                         <?php
