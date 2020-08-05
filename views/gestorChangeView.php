@@ -46,9 +46,9 @@ if (isset($report)) {
                                 }
                                 ?>
                             </select></label>
-                        <label class="status_de_credito"><?php echo $row->status_de_credito; ?>
+                        <label class="sdc"><?php echo $row->status_de_credito; ?>
                             <input type="text" name="status_de_credito" value="<?php echo $row->status_de_credito; ?>"></label>
-                        <label class="fecha_de_actualizacion"><?php echo $row->fecha_de_actualizacion; ?>
+                        <label class="fda"><?php echo $row->fecha_de_actualizacion; ?>
                         <input type="submit" name="go" value="cambiar"></label>
                     </dd>
                 </dl>
@@ -80,8 +80,10 @@ if (isset($report)) {
         const gestor = agent.val();
         const status_de_credito = $form.find( "input[name='status_de_credito']" );
         const sdc = status_de_credito.val();
-        const fecha_de_actualizacion = $form.find( ".fecha_de_actualizacion" );
         const url = $form.attr( "action" );
+        const agentLabel = $form.find( ".agent" );
+        const sdcLabel = $form.find( ".sdc" );
+        const fdaLabel = $form.find( ".fda" );
 
         // Send the data using post
         const posting = $.post( url, { id_cuenta: id, agent: gestor, status_de_credito: sdc, capt: '<?php
@@ -90,9 +92,9 @@ if (isset($report)) {
 
         // Put the results in a div
         posting.done(function( data ) {
-            agent.text(data.ejecutivo_asignado_call_center);
-            status_de_credito.text(data.status_de_credito);
-            fecha_de_actualizacion.text(data.fecha_de_actualizacion);
+            agentLabel.text(data.ejecutivo_asignado_call_center);
+            sdcLabel.text(data.status_de_credito);
+            fdaLabel.text(data.fecha_de_actualizacion);
         });
     });
 </script>
