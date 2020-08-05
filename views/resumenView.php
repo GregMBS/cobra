@@ -1197,7 +1197,7 @@ if ($notalert > 0) { ?>
             foreach ($resultAccionV as $answerAccionV) {
                 ?>
                 <option style='width: 12cm;'
-                        value="<?php echo $answerAccionV[0]; ?>"><?php echo $answerAccionV[0]; ?></option>
+                        value="<?php echo $answerAccionV['accion']; ?>"><?php echo $answerAccionV['accion']; ?></option>
                 <?php
             }
             ?>
@@ -1209,7 +1209,7 @@ if ($notalert > 0) { ?>
             foreach ($resultDictamenV as $answerDictamenV) {
                 ?>
                 <option style='width: 12cm;'
-                        value="<?php echo $answerDictamenV[0]; ?>"><?php echo $answerDictamenV[0]; ?></option>
+                        value="<?php echo $answerDictamenV['dictamen']; ?>"><?php echo $answerDictamenV['dictamen']; ?></option>
                 <?php
             }
             ?>
@@ -1390,7 +1390,7 @@ if ($notalert > 0) { ?>
                             <?php
                             foreach ($resultGestor as $answerGestor) {
                                 ?>
-                                <option value="<?php echo $answerGestor[0]; ?>"><?php echo $answerGestor[0]; ?></option>
+                                <option value="<?php echo $answerGestor['usuaria']; ?>"><?php echo $answerGestor['usuaria']; ?></option>
                             <?php }
                             ?>
                         </select></td>
