@@ -17,11 +17,6 @@ $gestor = filter_input(INPUT_POST, 'gestor');
 $empieza = filter_input(INPUT_POST, 'empieza');
 $termina = filter_input(INPUT_POST, 'termina');
 
-if (!empty($go)) {
-    var_dump($get);
-    die();
-}
-
 if ($go == "CAMBIAR") {
     $bc->updateBreak($auto, $tipo, $empieza, $termina);
 }
