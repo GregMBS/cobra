@@ -12,5 +12,7 @@ $gc = new GestorChangeClass($pdo);
 $capt = $pd->capt;
 $go = filter_input(INPUT_POST, 'go');
 $post = filter_input_array(INPUT_POST);
+var_dump($post);
+die();
 $result = $gc->changeGestor($post['id_cuenta'], $post['agent'], $post['status_de_credito']);
 echo json_encode($result);
