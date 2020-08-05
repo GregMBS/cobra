@@ -29,34 +29,27 @@
             <tbody>
                 <?php
 
-                use cobra_salsa\BreaksClass;
-                use cobra_salsa\BreaksTableObject;
-
-                if (!empty($result)) {
-                    /** @var BreaksTableObject $row */
-                    foreach ($result as $row) {
-                        $DIFF = $row->diff;
-                        $NTP = date('H:i:s');
-                        $formatLate = ' class="late"';
-                        /** @var BreaksClass $bc */
-                        $resultTimes = $bc->getTimes($row->c_hrin, $row->c_cvge);
-                        foreach ($resultTimes as $times) {
-                            if (!empty($times['diff'])) {
-                                $DIFF = $times['diff'];
-                                $NTP = $times['minHr'];
-                                $formatLate = '';
-                            }
-                        }
-                                        ?>
+                if (!empty($output)) {
+                    foreach ($output as $row) {
+                        /**
+                         * @var string $formatLate
+                         * @var string $c_cvge
+                         * @var string $c_cvst
+                         * @var string $c_hrin
+                         * @var string $NTP
+                         * @var int $DIFF
+                         */
+                        extract($row);
+                    ?>
                                         <tr<?php echo $formatLate; ?>>
-                                            <td><?php echo $row->c_cvge; ?></td>
-                                            <td><?php echo $row->c_cvst; ?></td>
-                                            <td><?php echo $row->c_hrin; ?></td>
+                                            <td><?php echo $c_cvge; ?></td>
+                                            <td><?php echo $c_cvst; ?></td>
+                                            <td><?php echo $c_hrin; ?></td>
                                             <td><?php echo $NTP; ?></td>
                                             <td><?php echo round($DIFF / 60); ?></td>
                                         </tr>
                                         <?php
-                    }
+                                        }
                 }
                 ?>
             </tbody>
