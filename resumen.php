@@ -17,7 +17,6 @@ require_once 'classes/ResumenQueuesClass.php';
 require_once 'classes/BuscarClass.php';
 $pc = new PdoClass();
 $pdo = $pc->dbConnectUser();
-$con = $pc->dbConnectUserMysqli();
 $gc = new GestionClass($pdo);
 $rc = new ResumenClass($pdo);
 $qc = new ResumenQueuesClass($pdo);
@@ -259,28 +258,7 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     }
 
     $gc->doGestion($get);
-    if ($N_PAGO > 0) {
-        $who = $capt;
-        $queryd = "select c_cvge from historia where n_prom>0 and c_cvge like 'PRO%'
-    and c_cont=" . $C_CONT . " order by d_fech desc, c_hrin desc limit 1;";
-        $resultd = mysqli_query($con, $queryd) or die("ERROR RM30 - " . mysqli_error($con));
-        while ($rowd = mysqli_fetch_row($resultd)) {
-            $who = $rowd[0];
-        }
-        $queryins = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,ID_CUENTA) 
-    VALUES ('$CUENTA','$D_PAGO',$N_PAGO,'$C_CVBA','$who',$C_CONT)";
-        mysqli_query($con, $queryins) or die("ERROR RM31 - " . mysqli_error($con));
-
-        $querylast = "select fecha,monto from pagos where (cuenta,cliente,fecha) in (select cuenta,cliente,max(fecha) from pagos where id_cuenta=" . $C_CONT . " group by id_cuenta);";
-        $resultlast = mysqli_query($con, $querylast) or die("ERROR RM32 - " . mysqli_error($con));
-        while ($answerlast = mysqli_fetch_row($resultlast)) {
-            $mfecha = $answerlast[0];
-            $mmonto = $answerlast[1];
-        }
-    }
-    $querypup = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
-where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
-    mysqli_query($con, $querypup) or die("ERROR RM32a - " . mysqli_error($con));
+    $gc->updateAllUltimoPagos();
 
     if ($find == "/") {
         $find = NULL;
