@@ -148,6 +148,6 @@ order by c_cvge,c_cvst,c_hrin";
         WHERE tipo <> ''";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchColumn(0);
+        return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 }
