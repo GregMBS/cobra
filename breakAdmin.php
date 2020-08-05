@@ -5,20 +5,22 @@ use cobra_salsa\BreaksClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BreaksClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectAdmin();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectAdmin();
 $bc = new BreaksClass($pdo);
-$capt = filter_input(INPUT_GET, 'capt');
+$capt = $pd->capt;
+$get = filter_input_array(INPUT_GET);
 $go = filter_input(INPUT_GET, 'go');
 $tipo = filter_input(INPUT_GET, 'tipo');
 $auto = filter_input(INPUT_GET, 'auto');
 $gestor = filter_input(INPUT_GET, 'gestor');
-$ehora = filter_input(INPUT_GET, 'ehora');
-$emin = filter_input(INPUT_GET, 'emin');
-$empieza = $ehora . ':' . $emin . ':00';
-$thora = filter_input(INPUT_GET, 'thora');
-$tmin = filter_input(INPUT_GET, 'tmin');
-$termina = $thora . ':' . $tmin . ':00';
+$empieza = filter_input(INPUT_GET, 'empieza');
+$termina = filter_input(INPUT_GET, 'termina');
+
+if (!empty($go)) {
+    var_dump($get);
+    die();
+}
 
 if ($go == "CAMBIAR") {
     $bc->updateBreak($auto, $tipo, $empieza, $termina);
@@ -33,5 +35,5 @@ if ($go == "AGREGAR") {
 }
 
 $result = $bc->listBreaks();
-$resultti = $bc->listUsuarias();
-require_once 'views/breakadminView.php';
+$gestores = $bc->listUsuarias();
+require_once 'views/breakAdminView.php';

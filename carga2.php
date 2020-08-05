@@ -109,16 +109,12 @@ switch ($go) {
                     if (!empty($header[$c])) {
                         ?>
                             <dt>
-                                <label for="pos<?php
-                                echo $c
-                                ?>"><?php
+                                <label for="pos<?php echo $c; ?>"><?php
                                     echo trim($header[$c])
                                     ?></label>
                             </dt>
                         <dd>
-                            <select name="pos[]" id="pos<?php
-                            echo $c
-                            ?>">
+                            <select name="pos[]" id="pos<?php echo $c; ?>">
                                 <option value='nousar<?php echo $c ?>'>no usar</option>
                                 <?php
                                 $columns = $cc->getDBColumnNames();

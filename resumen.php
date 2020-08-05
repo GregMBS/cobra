@@ -28,7 +28,7 @@ $C_CVGE = $capt;
 $flag = 0;
 $flagmsg = '';
 if (!empty($mytipo)) {
-    $oldgo = '';
+    $oldGo = '';
 
     $go = filter_input(INPUT_GET, 'go');
     if ($go == 'ULTIMA') {
@@ -36,27 +36,10 @@ if (!empty($mytipo)) {
         $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FROMULTIMA";
         header($redirector);
     }
-    $getupdate = isset($get['find']);
-    $isoldid = isset($get['id_cuenta']);
-    if ($getupdate) {
+    $getUpdate = isset($get['find']);
+    $isOldId = isset($get['id_cuenta']);
+    if ($getUpdate) {
         $find = $rc->cleanFind(filter_input(INPUT_GET, 'find'));
-    }
-
-    $pagalert = 0;
-    $querypagos = "select (c_cvst like 'PAG%'),c_cont from historia 
-where c_cvge='" . $capt . "' and d_fech=curdate() and c_cvst like 'PAG%'
-and (cuenta,c_cvba) not in (select cuenta,cliente from pagos)
-order by d_fech desc,c_hrin desc limit 1";
-    $resultpagos = mysqli_query($con, $querypagos) or die("ERROR RM1 - " . mysqli_error($con));
-    while ($answerpagos = mysqli_fetch_row($resultpagos)) {
-        $pagalert = $answerpagos[0];
-        $pagid = $answerpagos[1];
-        if (empty($pagalert)) {
-            $pagalert = 0;
-        }
-        if ($mytipo == 'visitador') {
-            $pagalert = 0;
-        }
     }
 
     $notas = $rc->notAlert($capt);
@@ -143,7 +126,7 @@ if ($go == 'NUEVOS') {
     header($redirector);
 }
 if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
-    $oldgo = mysqli_real_escape_string($con, $get['oldgo']);
+    $oldGo = mysqli_real_escape_string($con, $get['oldGo']);
     $error = 0;
     $flag = mysqli_real_escape_string($con, $get['error']);
     $C_CVGE = mysqli_real_escape_string($con, urldecode($get['C_CVGE']));
@@ -182,11 +165,6 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $D_PROM4 = mysqli_real_escape_string($con, $get['D_PROM4']);
     $D_PAGO = mysqli_real_escape_string($con, $get['D_PAGO']);
     $N_PAGO = mysqli_real_escape_string($con, $get['N_PAGO']);
-    if (isset($get['D_MERC'])) {
-        $D_MERC = mysqli_real_escape_string($con, $get['D_MERC']);
-    } else {
-        $D_MERC = '';
-    }
     $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
     $N_PROM_OLD = mysqli_real_escape_string($con, $get['N_PROM_OLD']);
     $N_PROM1 = (float)mysqli_real_escape_string($con, $get['N_PROM1']);

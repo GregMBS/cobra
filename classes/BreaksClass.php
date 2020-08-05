@@ -1,14 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 use PDO;
+
+require_once __DIR__ . '/BreaksObject.php';
 
 /**
  * Description of BreaksClass
@@ -38,12 +34,12 @@ class BreaksClass {
      * @return array
      */
     function getTimes($TIEMPO, $GESTOR) {
-        $queryq = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
+        $query = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
 min(c_hrin) as 'minhr'
 from historia 
 where c_cvge=:gestor and d_fech=curdate()
 and c_hrin>:tiempo;";
-        $sdq = $this->pdo->prepare($queryq);
+        $sdq = $this->pdo->prepare($query);
         $sdq->bindParam(':tiempo', $TIEMPO);
         $sdq->bindParam(':gestor', $GESTOR);
         $sdq->execute();
@@ -67,7 +63,7 @@ and c_hrin>:tiempo;";
      * @return array
      */
     function getBreaksTable($capt) {
-        $queryp = "select auto,c_cvge,c_cvst,c_hrin,
+        $query = "select auto,c_cvge,c_cvst,c_hrin,
 time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff'
 from historia 
 where c_cont=0 
@@ -76,7 +72,7 @@ and c_cvst<>'login'
 and c_cvst<>'salir' 
 and c_cvge=:capt 
 order by c_cvge,c_cvst,c_hrin";
-        $sdp = $this->pdo->prepare($queryp);
+        $sdp = $this->pdo->prepare($query);
         $sdp->bindParam(':capt', $capt);
         $sdp->execute();
         return $sdp->fetchAll();
@@ -90,12 +86,12 @@ order by c_cvge,c_cvst,c_hrin";
      * @param string $termina
      */
     public function updateBreak($auto, $tipo, $empieza, $termina) {
-        $queryu = "UPDATE breaks
+        $query = "UPDATE breaks
             SET tipo=:tipo,
             empieza=:empieza,
             termina=:termina
             WHERE auto=:auto";
-        $stu = $this->pdo->prepare($queryu);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stu->bindParam(':tipo', $tipo);
         $stu->bindParam(':empieza', $empieza);
@@ -108,8 +104,8 @@ order by c_cvge,c_cvst,c_hrin";
      * @param int $auto
      */
     public function deleteBreak($auto) {
-        $queryb = "DELETE FROM breaks WHERE auto=:auto";
-        $stb = $this->pdo->prepare($queryb);
+        $query = "DELETE FROM breaks WHERE auto=:auto";
+        $stb = $this->pdo->prepare($query);
         $stb->bindParam(':auto', $auto, PDO::PARAM_INT);
         $stb->execute();
     }
@@ -122,9 +118,9 @@ order by c_cvge,c_cvst,c_hrin";
      * @param string $termina
      */
     public function insertBreak($gestor, $tipo, $empieza, $termina) {
-        $queryin = "INSERT INTO breaks (gestor, tipo, empieza, termina)
+        $query = "INSERT INTO breaks (gestor, tipo, empieza, termina)
 	VALUES (:gestor,:tipo,:empieza,:termina)";
-        $sta = $this->pdo->prepare($queryin);
+        $sta = $this->pdo->prepare($query);
         $sta->bindParam(':gestor', $gestor);
         $sta->bindParam(':tipo', $tipo);
         $sta->bindParam(':empieza', $empieza);
@@ -137,11 +133,10 @@ order by c_cvge,c_cvst,c_hrin";
      * @return array
      */
     public function listBreaks() {
-        $querymain = "SELECT auto, gestor, tipo, empieza, termina FROM breaks 
-    order by gestor,empieza";
-        $stm = $this->pdo->query($querymain);
+        $query = "SELECT * FROM breaks ORDER BY gestor,empieza";
+        $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_CLASS, BreaksObject::class);
     }
 
     /**
@@ -149,10 +144,10 @@ order by c_cvge,c_cvst,c_hrin";
      * @return array
      */
     public function listUsuarias() {
-        $query = "SELECT iniciales FROM nombres "
-                . "WHERE tipo <> ''";
+        $query = "SELECT iniciales FROM nombres 
+        WHERE tipo <> ''";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchColumn(0);
     }
 }

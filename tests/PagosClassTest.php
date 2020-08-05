@@ -45,8 +45,10 @@ class PagosClassTest extends TestCase
     {
         $report = $this->cc->querySheet();
         $this->assertIsArray($report);
-        $first = array_pop($report);
-        $this->assertInstanceOf(PagosQueryObject::class, $first);
+        if (count($report) > 0) {
+            $first = array_pop($report);
+            $this->assertInstanceOf(PagosQueryObject::class, $first);
+        }
     }
 
     public function testByGestorLastMonth()

@@ -19,16 +19,6 @@ if ($notalert > 0) { ?>
         <?php
         }
         }
-            if(isset($pagalert)){
-        if ($pagalert > 0) {
-            ?>
-        #pagos input {
-            background-color: #ff0000;
-        }
-
-        <?php
-    }
-    }
         if ((preg_match('/-/', $row->status_de_credito)) && ($mytipo <> 'admin')) {
             ?>
         #GUARDbutt {
@@ -964,7 +954,7 @@ if ($notalert > 0) { ?>
                 echo $ejecutivo_asignado_call_center;
             }
             ?>"><br>
-            <input type="text" name="oldgo" readonly="readonly" value="<?php echo $go; ?>"><br>
+            <input type="text" name="oldGo" readonly="readonly" value="<?php echo $go; ?>"><br>
         </div>
         <p>DICTAMEN DOMICILIO PARTICULAR</p>
         <table class='visitable'>
@@ -1850,7 +1840,7 @@ if ($notalert > 0) { ?>
                 echo $ejecutivo_asignado_call_center;
             }
             ?>"><br>
-            <input type="text" name="oldgo" readonly="readonly" value="<?php echo $go; ?>"><br>
+            <input type="text" name="oldGo" readonly="readonly" value="<?php echo $go; ?>"><br>
             <input type="text" name="error" readonly="readonly" value="1"><br>
             <input type="text" name="go" readonly="readonly" value="GUARDAR"><br>
         </div>

@@ -74,7 +74,7 @@
             </thead>
             <tbody class="ui-widget-content">
                 <?php
-                foreach ($resulttab as $row) {
+                foreach ($resultTable as $row) {
                     $Table = $row[2];
                     $Rows = $row[7];
                     $Data = $row[9];

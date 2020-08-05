@@ -1,14 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 use PDO;
+
+require_once __DIR__ . '/QueuelistObject.php';
 
 /**
  * Description of QueuesgClass
@@ -40,21 +36,21 @@ class QueuesgClass {
      * @return int
      */
     public function getCamp($cliente, $queue, $sdc, $capt) {
-        $queryqueue  = "select camp from queuelist
+        $query  = "select camp from queuelist
     where cliente=:cliente
     and status_aarsa=:queue
     and sdc=:sdc
     and gestor=:capt
     and bloqueado=0 limit 1
     ";
-        $stq         = $this->pdo->prepare($queryqueue);
+        $stq         = $this->pdo->prepare($query);
         $stq->bindParam(':cliente', $cliente);
         $stq->bindParam(':queue', $queue);
         $stq->bindParam(':sdc', $sdc);
         $stq->bindParam(':capt', $capt);
         $stq->execute();
-        $resultqueue = $stq->fetch(PDO::FETCH_ASSOC);
-        return $resultqueue['camp'];
+        $result = $stq->fetch(PDO::FETCH_ASSOC);
+        return (int) $result['camp'];
     }
     
     /**
@@ -63,9 +59,9 @@ class QueuesgClass {
      * @param string $capt
      */
     public function setCamp($camp, $capt) {
-        $queryupd = "UPDATE nombres SET camp=:camp "
-            . "where iniciales=:capt;";
-        $stu = $this->pdo->prepare($queryupd);
+        $query = "UPDATE nombres SET camp=:camp 
+        where iniciales=:capt;";
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':camp', $camp);
         $stu->bindParam(':capt', $capt);
         $stu->execute();
@@ -105,12 +101,27 @@ class QueuesgClass {
      * @return array
      */
     public function getQueueSdcClients($capt) {
-        $querysa  = "SELECT distinct status_aarsa,sdc,cliente
+        $query  = "SELECT distinct status_aarsa,sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado = 0
         ORDER BY cliente,sdc,status_aarsa";
-        $stsa = $this->pdo->prepare($querysa);
-        $stsa->bindParam(':capt', $capt);
-        $stsa->execute();
-        return $stsa->fetchAll(PDO::FETCH_ASSOC);
+        $sts = $this->pdo->prepare($query);
+        $sts->bindParam(':capt', $capt);
+        $sts->execute();
+        return $sts->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param string $capt
+     * @return QueuelistObject
+     */
+    public function getMyQueue(string $capt)
+    {
+        $query = "SELECT queuelist.* FROM queuelist, nombres 
+        WHERE iniciales = :capt 
+        AND nombres.camp = queuelist.camp";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':capt', $capt);
+        $stq->execute();
+        return $stq->fetchObject(QueuelistObject::class);
     }
 }
