@@ -37,7 +37,7 @@ if (isset($report)) {
                         <input type="hidden" name="id_cuenta" value="<?php echo $row->id_cuenta; ?>">
                     </dt>
                     <dd>
-                        <label class="numero_de_cuenta"><?php echo $row->ejecutivo_asignado_call_center; ?>
+                        <label class="agent"><?php echo $row->ejecutivo_asignado_call_center; ?>
                             <select name="agent">
                                 <?php
                                 foreach ($gestores as $gestor) { ?>
