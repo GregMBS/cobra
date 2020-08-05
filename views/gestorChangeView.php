@@ -94,11 +94,11 @@ if (isset($report)) {
         });
 
         // Put the results in a div
-        posting.done(function (result) {
-            const data = JSON.parse(result);
-            agentLabel.text(data.ejecutivo_asignado_call_center);
-            sdcLabel.text(data.status_de_credito);
-            fdaLabel.text(data.fecha_de_actualizacion);
+        posting.done(function (json) {
+            const result = JSON.parse(json);
+            agentLabel.text(result.ejecutivo_asignado_call_center);
+            sdcLabel.text(result.status_de_credito);
+            fdaLabel.text(result.fecha_de_actualizacion);
         });
     });
 </script>
