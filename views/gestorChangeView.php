@@ -76,21 +76,21 @@ if (isset($report)) {
         const $form = $( this );
         const id_cuenta = $form.find( "input[name='id_cuenta']" );
         const id = id_cuenta.val();
-        const ejecutivo_asignado_call_center = $form.find( "input[name='ejecutivo_asignado_call_center']" );
-        const gestor = ejecutivo_asignado_call_center.val();
+        const agent = $form.find( "input[name='ejecutivo_asignado_call_center']" );
+        const gestor = agent.val();
         const status_de_credito = $form.find( "input[name='status_de_credito']" );
         const sdc = status_de_credito.val();
         const fecha_de_actualizacion = $form.find( ".fecha_de_actualizacion" );
         const url = $form.attr( "action" );
 
         // Send the data using post
-        const posting = $.post( url, { id_cuenta: id, ejecutivo_asignado_call_center: gestor, status_de_credito: sdc, capt: '<?php
+        const posting = $.post( url, { id_cuenta: id, agent: gestor, status_de_credito: sdc, capt: '<?php
             echo $capt;
             ?>' } );
 
         // Put the results in a div
         posting.done(function( data ) {
-            ejecutivo_asignado_call_center.text(data.ejecutivo_asignado_call_center);
+            agent.text(data.ejecutivo_asignado_call_center);
             status_de_credito.text(data.status_de_credito);
             fecha_de_actualizacion.text(data.fecha_de_actualizacion);
         });
