@@ -5,6 +5,7 @@ namespace cobra_salsa;
 use PDO;
 
 require_once __DIR__ . '/BreaksObject.php';
+require_once __DIR__ . '/BreaksTableObject.php';
 
 /**
  * Description of BreaksClass
@@ -35,10 +36,10 @@ class BreaksClass {
      */
     function getTimes($TIEMPO, $GESTOR) {
         $query = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
-min(c_hrin) as 'minhr'
+min(c_hrin) as 'minHr'
 from historia 
 where c_cvge=:gestor and d_fech=curdate()
-and c_hrin>:tiempo;";
+and c_hrin>:tiempo";
         $sdq = $this->pdo->prepare($query);
         $sdq->bindParam(':tiempo', $TIEMPO);
         $sdq->bindParam(':gestor', $GESTOR);
@@ -75,7 +76,7 @@ order by c_cvge,c_cvst,c_hrin";
         $sdp = $this->pdo->prepare($query);
         $sdp->bindParam(':capt', $capt);
         $sdp->execute();
-        return $sdp->fetchAll();
+        return $sdp->fetchAll(PDO::FETCH_CLASS, BreaksTableObject::class);
     }
 
     /**

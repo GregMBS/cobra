@@ -5,10 +5,10 @@ use cobra_salsa\BreaksClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BreaksClass.php';
-$pdoc = new PdoClass();
-$pdo = $pdoc->dbConnectNobody();
+$pd = new PdoClass();
+$pdo = $pd->dbConnectNobody();
 $bc = new BreaksClass($pdo);
-$capt = filter_input(INPUT_GET, 'capt');
+$capt = $pd->capt;
 
 /**
  * 
@@ -21,5 +21,5 @@ $capt = filter_input(INPUT_GET, 'capt');
 $bc->clearUserlog($capt);
 $ot = '';
 $og = '';
-$resultp = $bc->getBreaksTable($capt);
+$result = $bc->getBreaksTable($capt);
 require_once 'views/breaksView.php';
