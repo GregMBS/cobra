@@ -126,11 +126,45 @@ if ($go == 'NUEVOS') {
     header($redirector);
 }
 if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
-    $oldGo = mysqli_real_escape_string($con, $get['oldGo']);
-    $error = 0;
-    $flag = mysqli_real_escape_string($con, $get['error']);
-    $C_CVGE = mysqli_real_escape_string($con, urldecode($get['C_CVGE']));
-    $AUTH = mysqli_real_escape_string($con, $get['AUTH']);
+    $oldGo = filter_var($get, 'oldGo');
+    $flag = filter_var($get, 'error');
+    $C_CVGE = filter_var($get, 'C_CVGE');
+    $C_CONT = filter_var($get, 'C_CONT');
+    $C_CVST = filter_var($get, 'C_CVST');
+    $C_CVBA = filter_var($get, 'C_CVBA');
+    $ACCION = filter_var($get, 'ACCION');
+    $C_MOTIV = filter_var($get, 'C_MOTIV');
+    $D_FECH = filter_var($get, 'D_FECH');
+    $C_HRIN = filter_var($get, 'C_HRIN');
+    $C_TELE = filter_var($get, 'C_TELE');
+    $CUANDO = filter_var($get, 'CUANDO');
+    $CUENTA = filter_var($get, 'CUENTA');
+    $C_OBSE1 = filter_var($get, 'C_OBSE1');
+    $C_ATTE = filter_var($get, 'C_ATTE');
+    $C_CNP = filter_var($get, 'C_CNP');
+    $C_CONTAN = filter_var($get, 'C_CONTAN');
+    $C_CARG = filter_var($get, 'C_CARG');
+    $C_CAMP = filter_var($get, 'camp');
+    $D_PROM1 = filter_var($get, 'D_PROM1');
+    $D_PROM2 = filter_var($get, 'D_PROM2');
+    $D_PROM3 = filter_var($get, 'D_PROM3');
+    $D_PROM4 = filter_var($get, 'D_PROM4');
+    $D_PAGO = filter_var($get, 'D_PAGO');
+    $N_PAGO = filter_var($get, 'N_PAGO');
+    $C_PROM = filter_var($get, 'C_PROM');
+    $N_PROM_OLD = filter_var($get, 'N_PROM_OLD');
+    $N_PROM1 = filter_var($get, 'N_PROM1');
+    $N_PROM2 = filter_var($get, 'N_PROM2');
+    $N_PROM3 = filter_var($get, 'N_PROM3');
+    $N_PROM4 = filter_var($get, 'N_PROM4');
+    $C_NTEL = filter_var($get, 'C_NTEL');
+    $C_NDIR = filter_var($get, 'C_NDIR');
+    $C_EMAIL = filter_var($get, 'C_EMAIL');
+    $C_OBSE2 = filter_var($get, 'C_OBSE2');
+    $C_EJE = filter_var($get, 'C_EJE');
+    $C_HRFI = date('H:i:s');
+    $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
+    $AUTH = filter_var($get, 'AUTH');
     if ($C_CVGE != $capt) {
         $AUTH = $capt;
     }
@@ -140,44 +174,7 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     if (empty($AUTH)) {
         $AUTH = '';
     }
-    $C_CONT = mysqli_real_escape_string($con, $get['C_CONT']);
-    $C_CVST = mysqli_real_escape_string($con, urldecode($get['C_CVST']));
-    $C_CVBA = mysqli_real_escape_string($con, urldecode($get['C_CVBA']));
-    $ACCION = mysqli_real_escape_string($con, urldecode($get['ACCION']));
-    $C_MOTIV = mysqli_real_escape_string($con, urldecode($get['C_MOTIV']));
-    $D_FECH = mysqli_real_escape_string($con, $get['D_FECH']);
-    $C_HRIN = mysqli_real_escape_string($con, $get['C_HRIN']);
-    $C_HRFI = date('H:i:s');
-    $C_TELE = mysqli_real_escape_string($con, $get['C_TELE']);
-    $CUANDO = mysqli_real_escape_string($con, $get['CUANDO']);
-    $CUENTA = mysqli_real_escape_string($con, $get['CUENTA']);
-    $C_OBSE1 = utf8_decode(strtoupper(mysqli_real_escape_string($con, $get['C_OBSE1'])));
-    $C_ATTE = mysqli_real_escape_string($con, $get['C_ATTE']);
-    $C_CNP = mysqli_real_escape_string($con, $get['C_CNP']);
-//$C_CREJ=mysqli_real_escape_string($con,$get['C_CREJ']);
-//$C_CPAT=mysqli_real_escape_string($con,$get['C_CPAT']);
-    $C_CONTAN = mysqli_real_escape_string($con, urldecode($get['C_CONTAN']));
-    $C_CARG = utf8_encode(mysqli_real_escape_string($con, urldecode($get['C_CARG'])));
-    $C_CAMP = mysqli_real_escape_string($con, $get['camp']);
-    $D_PROM1 = mysqli_real_escape_string($con, $get['D_PROM1']);
-    $D_PROM2 = mysqli_real_escape_string($con, $get['D_PROM2']);
-    $D_PROM3 = mysqli_real_escape_string($con, $get['D_PROM3']);
-    $D_PROM4 = mysqli_real_escape_string($con, $get['D_PROM4']);
-    $D_PAGO = mysqli_real_escape_string($con, $get['D_PAGO']);
-    $N_PAGO = mysqli_real_escape_string($con, $get['N_PAGO']);
-    $C_PROM = mysqli_real_escape_string($con, $get['C_PROM']);
-    $N_PROM_OLD = mysqli_real_escape_string($con, $get['N_PROM_OLD']);
-    $N_PROM1 = (float)mysqli_real_escape_string($con, $get['N_PROM1']);
-    $N_PROM2 = (float)mysqli_real_escape_string($con, $get['N_PROM2']);
-    $N_PROM3 = (float)mysqli_real_escape_string($con, $get['N_PROM3']);
-    $N_PROM4 = (float)mysqli_real_escape_string($con, $get['N_PROM4']);
-    $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
-//$C_FREQ=mysqli_real_escape_string($con,$get['C_FREQ']);
-    $C_NTEL = mysqli_real_escape_string($con, $get['C_NTEL']);
-    $C_NDIR = mysqli_real_escape_string($con, $get['C_NDIR']);
-    $C_EMAIL = trim(mysqli_real_escape_string($con, $get['C_EMAIL']));
-    $C_OBSE2 = mysqli_real_escape_string($con, $get['C_OBSE2']);
-    $C_EJE = mysqli_real_escape_string($con, $get['C_EJE']);
+    $error = 0;
     $montomax = 0;
     $fechamin = '2020-12-31';
     $fechamax = '2007-01-01';
@@ -272,39 +269,39 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     }
 
     $gc->doGestion($get);
-        if ($N_PAGO > 0) {
-            $who = $capt;
-            $queryd = "select c_cvge from historia where n_prom>0 and c_cvge like 'PRO%'
+    if ($N_PAGO > 0) {
+        $who = $capt;
+        $queryd = "select c_cvge from historia where n_prom>0 and c_cvge like 'PRO%'
     and c_cont=" . $C_CONT . " order by d_fech desc, c_hrin desc limit 1;";
-            $resultd = mysqli_query($con, $queryd) or die("ERROR RM30 - " . mysqli_error($con));
-            while ($rowd = mysqli_fetch_row($resultd)) {
-                $who = $rowd[0];
-            }
-            $queryins = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,ID_CUENTA) 
+        $resultd = mysqli_query($con, $queryd) or die("ERROR RM30 - " . mysqli_error($con));
+        while ($rowd = mysqli_fetch_row($resultd)) {
+            $who = $rowd[0];
+        }
+        $queryins = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,ID_CUENTA) 
     VALUES ('$CUENTA','$D_PAGO',$N_PAGO,'$C_CVBA','$who',$C_CONT)";
-            mysqli_query($con, $queryins) or die("ERROR RM31 - " . mysqli_error($con));
+        mysqli_query($con, $queryins) or die("ERROR RM31 - " . mysqli_error($con));
 
-            $querylast = "select fecha,monto from pagos where (cuenta,cliente,fecha) in (select cuenta,cliente,max(fecha) from pagos where id_cuenta=" . $C_CONT . " group by id_cuenta);";
-            $resultlast = mysqli_query($con, $querylast) or die("ERROR RM32 - " . mysqli_error($con));
-            while ($answerlast = mysqli_fetch_row($resultlast)) {
-                $mfecha = $answerlast[0];
-                $mmonto = $answerlast[1];
-            }
+        $querylast = "select fecha,monto from pagos where (cuenta,cliente,fecha) in (select cuenta,cliente,max(fecha) from pagos where id_cuenta=" . $C_CONT . " group by id_cuenta);";
+        $resultlast = mysqli_query($con, $querylast) or die("ERROR RM32 - " . mysqli_error($con));
+        while ($answerlast = mysqli_fetch_row($resultlast)) {
+            $mfecha = $answerlast[0];
+            $mmonto = $answerlast[1];
         }
-        $querypup = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
-where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
-        mysqli_query($con, $querypup) or die("ERROR RM32a - " . mysqli_error($con));
-
-        if ($find == "/") {
-            $find = NULL;
-        }
-        if ($capt == "/") {
-            $capt = NULL;
-        }
-//}
-        $redirector = "Location: resumen.php?capt=" . $capt;
-        header($redirector);
     }
+    $querypup = "update resumen,pagos set fecha_de_ultimo_pago=fecha,monto_ultimo_pago=monto 
+where fecha_de_ultimo_pago<fecha and pagos.id_cuenta=resumen.id_cuenta;";
+    mysqli_query($con, $querypup) or die("ERROR RM32a - " . mysqli_error($con));
+
+    if ($find == "/") {
+        $find = NULL;
+    }
+    if ($capt == "/") {
+        $capt = NULL;
+    }
+//}
+    $redirector = "Location: resumen.php?capt=" . $capt;
+    header($redirector);
+}
 
 $userData = $rc->getUserData($capt);
 $mynombre = $userData->INICIALES;
