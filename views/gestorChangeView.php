@@ -37,19 +37,20 @@ if (isset($report)) {
                         <input type="hidden" name="id_cuenta" value="<?php echo $row->id_cuenta; ?>">
                     </dt>
                     <dd>
-                        <label class="agent"><?php echo $row->ejecutivo_asignado_call_center; ?>
-                            <select name="agent">
-                                <?php
-                                foreach ($gestores as $gestor) { ?>
+                        <label class="agent"
+                               for="agent<?php echo $row->id_cuenta; ?>"><?php echo $row->ejecutivo_asignado_call_center; ?></label>
+                        <select name="agent" id="agent<?php echo $row->id_cuenta; ?>">
+                            <?php
+                            foreach ($gestores as $gestor) { ?>
                                 <option value="<?php echo $gestor; ?>"><?php echo $gestor; ?></option>
                                 <?php
-                                }
-                                ?>
-                            </select></label>
+                            }
+                            ?>
+                        </select>
                         <label class="sdc"><?php echo $row->status_de_credito; ?>
                             <input type="text" name="status_de_credito" value="<?php echo $row->status_de_credito; ?>"></label>
                         <label class="fda"><?php echo $row->fecha_de_actualizacion; ?>
-                        <input type="submit" name="go" value="cambiar"></label>
+                            <input type="submit" name="go" value="cambiar"></label>
                     </dd>
                 </dl>
             </form>
@@ -67,31 +68,33 @@ if (isset($report)) {
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
 <script>
     // Attach a submit handler to the form
-    $( ".change" ).submit(function( event ) {
+    $(".change").submit(function (event) {
 
         // Stop form from submitting normally
         event.preventDefault();
 
         // Get some values from elements on the page:
-        const $form = $( this );
-        const id_cuenta = $form.find( "input[name='id_cuenta']" );
+        const $form = $(this);
+        const id_cuenta = $form.find("input[name='id_cuenta']");
         const id = id_cuenta.val();
-        const agent = $form.find( "input[name='agent']" );
+        const agent = $form.find("input[name='agent']");
         const gestor = agent.val();
-        const status_de_credito = $form.find( "input[name='status_de_credito']" );
+        const status_de_credito = $form.find("input[name='status_de_credito']");
         const sdc = status_de_credito.val();
-        const url = $form.attr( "action" );
-        const agentLabel = $form.find( ".agent" );
-        const sdcLabel = $form.find( ".sdc" );
-        const fdaLabel = $form.find( ".fda" );
+        const url = $form.attr("action");
+        const agentLabel = $form.find(".agent");
+        const sdcLabel = $form.find(".sdc");
+        const fdaLabel = $form.find(".fda");
 
         // Send the data using post
-        const posting = $.post( url, { id_cuenta: id, agent: gestor, status_de_credito: sdc, capt: '<?php
-            echo $capt;
-            ?>' } );
+        const posting = $.post(url, {
+            id_cuenta: id, agent: gestor, status_de_credito: sdc, capt: '<?php
+                echo $capt;
+                ?>'
+        });
 
         // Put the results in a div
-        posting.done(function( data ) {
+        posting.done(function (data) {
             agentLabel.text(data.ejecutivo_asignado_call_center);
             sdcLabel.text(data.status_de_credito);
             fdaLabel.text(data.fecha_de_actualizacion);
