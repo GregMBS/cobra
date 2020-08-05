@@ -77,7 +77,7 @@ if (isset($report)) {
         const $form = $(this);
         const id_cuenta = $form.find("input[name='id_cuenta']");
         const id = id_cuenta.val();
-        const agent = $form.find("input[name='agent'] :selected");
+        const agent = $form.find("[name='agent']");
         const gestor = agent.val();
         const status_de_credito = $form.find("input[name='status_de_credito']");
         const sdc = status_de_credito.val();
