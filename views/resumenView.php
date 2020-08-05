@@ -1477,8 +1477,8 @@ if ($notalert > 0) { ?>
                 </td>
             </tr>
             <tr>
-                <td id="pcap2">Parentesco/Cargo</td>
-                <td><select name="C_CARG">
+                <td id="pcap2"><label for="C_CARG">Parentesco/Cargo</label></td>
+                <td><select name="C_CARG" id="C_CARG">
                         <option value="">&nbsp;</option>
                         <option value="Aval">Aval/Recadero</option>
                         <option value="Conyuge">C&oacute;nyuge</option>
@@ -1494,25 +1494,25 @@ if ($notalert > 0) { ?>
                     </select></td>
             </tr>
             <tr>
-                <td>Gestion</td>
+                <td><label for="C_OBSE1">Gestion</label></td>
                 <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1'
                               onkeypress="tooLong('C_OBSE1')" onkeyup="valid(this, 'special')"
                               onmouseover='this.focus();'
                               onblur="valid(this, 'special')" onmousedown='this.focus();'></textarea></td>
-                <td colspan=2>Acci&oacute;n
+                <td colspan=2><label>Accion
                     <select name="ACCION" id="ACCION">
                         <?php
                         foreach ($resultAccion as $answerAccion) {
                             ?>
-                            <option value="<?php echo $answerAccion[0]; ?>" style="font-size:120%;"><?php
-                                if (isset($answerAccion[0])) {
-                                    echo $answerAccion[0];
+                            <option value="<?php echo $answerAccion['accion']; ?>" style="font-size:120%;"><?php
+                                if (isset($answerAccion['accion'])) {
+                                    echo $answerAccion['accion'];
                                 }
                                 ?></option>
                             <?php
                         }
                         ?>
-                    </select>
+                    </select></label>
                     <br>
                     <label>Status
                     <select name="C_CVST" id="C_CVST" onblur="statusChange(this.form);">
