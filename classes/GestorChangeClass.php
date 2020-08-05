@@ -34,22 +34,30 @@ class GestorChangeClass extends BaseClass {
 
     /**
      *
-     * @param string $cliente
-     * @param string $cuenta
+     * @param int $id_cuenta
      * @param string $gestor
      * @param string $sdc
-     * @return bool
+     * @return ResumenObject
      */
-    public function changeGestor(string $cliente, string $cuenta, string $gestor, string $sdc) {
+    public function changeGestor(int $id_cuenta, string $gestor, string $sdc) {
         $query = "UPDATE resumen
 SET ejecutivo_asignado_call_center = :gestor, status_de_credito = :sdc, fecha_de_actualizacion = CURDATE()
-WHERE cliente = :cliente AND numero_de_cuenta = :cuenta";
+WHERE id_cuenta = :id_cuenta";
         $stu = $this->pdo->prepare($query);
         $stu->bindValue(':gestor', $gestor);
         $stu->bindValue(':sdc', $sdc);
-        $stu->bindValue(':cliente', $cliente);
-        $stu->bindValue(':cuenta', $cuenta);
-        return $stu->execute();
+        $stu->bindValue(':id_cuenta', $id_cuenta);
+        $stu->execute();
+        $queryId = "SELECT * FROM resumen 
+        WHERE id_cuenta = :id_cuenta";
+        $sti = $this->pdo->prepare($queryId);
+        $sti->bindValue(':id_cuenta', $id_cuenta);
+        $sti->execute();
+        $result = $sti->fetchObject(ResumenObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new ResumenObject();
     }
 
     /**
