@@ -23,7 +23,7 @@
                     <th>Tipo</th>
                     <th>de</th>
                     <th>a</th>
-                    <th>Minutes</th>
+                    <th>Minutos</th>
                 </tr>
             </thead>
             <tbody>

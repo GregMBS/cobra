@@ -1552,15 +1552,13 @@ if ($notalert > 0) { ?>
                 </td>
             </tr>
             <tr>
-                <td>Motivadores</td>
+                <td><label for="C_MOTIV">Motivadores</label></td>
                 <td><select id="C_MOTIV" name="C_MOTIV">
                         <option value=" ">
                             <?php
-                            foreach ($resultMotiv
-
-                            as $answerMotiv) {
+                            foreach ($resultMotiv as $answerMotiv) {
                             ?>
-                        <option value="<?php echo $answerMotiv[0]; ?>"><?php echo $answerMotiv[0]; ?></option>
+                        <option value="<?php echo $answerMotiv['motiv']; ?>"><?php echo $answerMotiv['motiv']; ?></option>
                         <?php
                         }
                         ?>

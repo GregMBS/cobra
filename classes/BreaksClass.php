@@ -61,7 +61,7 @@ and c_hrin>:tiempo";
     /**
      * 
      * @param string $capt
-     * @return array
+     * @return BreaksTableObject[]
      */
     function getBreaksTable($capt) {
         $query = "select auto,c_cvge,c_cvst,c_hrin,
