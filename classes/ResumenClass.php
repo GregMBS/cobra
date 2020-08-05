@@ -288,7 +288,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
         $stb = $this->pdo->prepare($this->badNoQuery);
         $stb->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stb->execute();
-        return $stb->fetch();
+        return $stb->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

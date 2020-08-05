@@ -534,31 +534,7 @@ if ($id_cuenta > 0) {
 
 $resultBN = $rc->getBadNo($id_cuenta);
 if ($resultBN) {
-    foreach ($resultBN as $badNo) {
-        $t1 = $badNo[0];
-        $t2 = $badNo[1];
-        $t3 = $badNo[2];
-        $t4 = $badNo[3];
-        $t1r = $badNo[4];
-        $t2r = $badNo[5];
-        $t3r = $badNo[6];
-        $t4r = $badNo[7];
-        $t1r1 = $badNo[8];
-        $t2r1 = $badNo[9];
-        $t1r2 = $badNo[10];
-        $t2r2 = $badNo[11];
-        $t1r3 = $badNo[12];
-        $t2r3 = $badNo[13];
-        $t1r4 = $badNo[14];
-        $t2r4 = $badNo[15];
-        $t1l = $badNo[16];
-        $t2l = $badNo[17];
-        $t1v = $badNo[18];
-        $t2v = $badNo[19];
-        $t3v = $badNo[20];
-        $t4v = $badNo[21];
-        $tuc = $badNo[22];
-    }
+    extract($resultBN);
 }
 $resultCnp = $rc->getCnp();
 
