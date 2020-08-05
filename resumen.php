@@ -175,16 +175,6 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
         $AUTH = '';
     }
     $error = 0;
-    $montomax = 0;
-    $fechamin = '2020-12-31';
-    $fechamax = '2007-01-01';
-    $queryult = "select max(n_prom),min(d_prom),max(d_prom) from historia where c_cont='" . $C_CONT . "' and n_prom > 0";
-    $resultult = mysqli_query($con, $queryult) or die("ERROR RM21 - " . mysqli_error($con));
-    while ($answerult = mysqli_fetch_row($resultult)) {
-        $montomax = max($answerult[0], 0);
-        $fechamin = $answerult[1];
-        $fechamax = $answerult[2];
-    }
     $D_PROM = $D_PROM1;
     $flagmsg = "";
     if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO J')) {
