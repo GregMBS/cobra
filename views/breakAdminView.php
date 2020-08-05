@@ -124,10 +124,10 @@ use cobra_salsa\BreaksObject;
             </select>
         </td>
         <td>
-            <input type="time" name="empieza" value="<?php echo $row->empieza; ?>">
+            <input form="agregar" type="time" name="empieza" value="<?php echo $row->empieza; ?>">
         </td>
         <td>
-            <input type="time" name="empieza" value="<?php echo $row->termina; ?>">
+            <input form="agregar" type="time" name="empieza" value="<?php echo $row->termina; ?>">
         </td>
         <td>
             <form name="agregar" method="post" action="/breakAdmin.php">
