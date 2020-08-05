@@ -1534,20 +1534,20 @@ if ($notalert > 0) { ?>
                             </option>
                         <?php } ?>
                     </select><br>
-                    Causa no pago
+                    <label>Causa no pago
                     <select name="C_CNP" id="C_CNP">
                         <?php
                         foreach ($resultCnp as $answerCnp) {
                             ?>
-                            <option value="<?php echo $answerCnp[0]; ?>" style="font-size:120%;"><?php
-                                if (isset($answerCnp[0])) {
-                                    echo htmlentities($answerCnp[0]);
+                            <option value="<?php echo $answerCnp['status']; ?>" style="font-size:120%;"><?php
+                                if (isset($answerCnp['status'])) {
+                                    echo htmlentities($answerCnp['status']);
                                 }
                                 ?></option>
                             <?php
                         }
                         ?>
-                    </select>
+                    </select></label>
 
                 </td>
             </tr>
