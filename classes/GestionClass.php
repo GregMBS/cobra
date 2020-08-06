@@ -332,7 +332,11 @@ and id_cuenta = :c_cont";
             $sti->bindParam(':C_EJE', $gestion['C_EJE']);
             $sti->bindParam(':AUTH', $gestion['AUTH']);
             $sti->execute();
-            return $this->pdo->lastInsertId();
+            $auto = $this->pdo->lastInsertId();
+            if ($auto > 0) {
+                return $auto;
+            }
+            throw new Exception($sti->errorInfo());
         } catch (PDOException $exc) {
             throw new Exception($exc);
         }
