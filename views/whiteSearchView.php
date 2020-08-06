@@ -11,7 +11,7 @@
     </head>
     <body>
         <h1>BUSCAR</h1>
-        <table id="dirtable">
+        <table id="dirTable">
             <thead>
                 <tr>
                     <th>TELÉFONO</th>
@@ -53,7 +53,7 @@
                 } ?>';"></button>
         <script>
             $(function() {
-                $('#dirtable').dataTable({"bJQueryUI": true});
+                $('#dirTable').dataTable({"bJQueryUI": true});
             });
         </script>
     </body>

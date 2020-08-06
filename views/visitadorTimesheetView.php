@@ -15,12 +15,6 @@
             font-size: 10pt;
         }
 
-        .heavytot {
-            font-weight: bold;
-            font-size: 10pt;
-            text-align: right;
-        }
-
         .light {
             text-align: right;
         }
@@ -35,8 +29,8 @@
 <table>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
-    foreach ($visitadores as $answernom) {
-    $visitador = $answernom['c_visit'];
+    foreach ($visitadores as $answerNombre) {
+    $visitador = $answerNombre['c_visit'];
     $month = $sheet[$gestor];
     $monthSum = $sum[$gestor];
     ?>

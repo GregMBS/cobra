@@ -26,9 +26,9 @@ class WhiteClass {
     /**
      * @var string[]
      */
-    private $datamatch = array(
+    private $dataMatch = array(
         'tel' => 'tel',
-        'nombre' => 'nomnre_deudor',
+        'nombre' => 'nombre_deudor',
         'calle' => 'domicilio_deudor',
         'colonia' => 'colonia_deudor',
         'ciudad' => 'ciudad_deudor',
@@ -50,14 +50,14 @@ class WhiteClass {
      * @return string
      */
     public function buildQuery(array $data) {
-        $searchstr = '';
+        $searchString = '';
         foreach ($data as $key => $value) {
-            if (!empty($value) && isset($this->datamatch[$key])) {
-                $column = $this->datamatch[$key];
-                $searchstr .= " AND $column regexp :$key ";
+            if (!empty($value) && isset($this->dataMatch[$key])) {
+                $column = $this->dataMatch[$key];
+                $searchString .= " AND $column regexp :$key ";
             }
         }
-        return "SELECT SQL_NO_CACHE * FROM rlook WHERE tel IS NOT NULL" . $searchstr;
+        return "SELECT SQL_NO_CACHE * FROM rlook WHERE tel IS NOT NULL" . $searchString;
     }
 
     /**
@@ -73,7 +73,7 @@ class WhiteClass {
             die($e->getMessage());
         }
         foreach ($data as $key => $value) {
-            if (!empty($value) && isset($this->datamatch[$key])) {
+            if (!empty($value) && isset($this->dataMatch[$key])) {
                 $stm->bindParam(":$key", $value);
             }
         }

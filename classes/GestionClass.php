@@ -273,7 +273,8 @@ and id_cuenta = :c_cont";
      * @param string $best
      */
     public function resumenStatusUpdate($C_CONT, $best = '') {
-        $query = "update resumen set status_aarsa = :best where id_cuenta = :C_CONT";
+        $query = "UPDATE resumen SET status_aarsa = :best, fecha_ultima_gestion = NOW() 
+        WHERE id_cuenta = :C_CONT";
         $stb = $this->pdo->prepare($query);
         $stb->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $stb->bindParam(':best', $best);
