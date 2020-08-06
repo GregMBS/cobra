@@ -336,7 +336,7 @@ and id_cuenta = :c_cont";
             if ($auto > 0) {
                 return $auto;
             }
-            throw new Exception($sti->errorInfo());
+            throw new Exception(json_encode($sti->errorInfo()));
         } catch (PDOException $exc) {
             throw new Exception($exc);
         }
