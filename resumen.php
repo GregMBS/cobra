@@ -32,7 +32,7 @@ if (!empty($mytipo)) {
     $go = filter_input(INPUT_GET, 'go');
     if ($go == 'ULTIMA') {
         $find = $rc->lastMyGestion($capt);
-        $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FROMULTIMA";
+        $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FromUltima";
         header($redirector);
     }
     $getUpdate = isset($get['find']);
@@ -44,9 +44,6 @@ if (!empty($mytipo)) {
     $notas = $rc->notAlert($capt);
     $notalert = $notas['notalert'];
     $notalertt = $notas['notalertt'];
-    $alertcuenta = $notas['cuenta'];
-    $alertnota = $notas['nota'];
-    $alertfuente = $notas['fuente'];
 
 
     if ($go == 'LOGOUT') {
@@ -176,57 +173,19 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $error = 0;
     $D_PROM = $D_PROM1;
     $flagmsg = "";
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO J')) {
+    $pagosArray = ['PAGANDO CONVENIO', 'PAGO DE CONVENIO', 'PAGO TOTAL', 'PAGO PARCIAL'];
+    $promsArray = ['PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO PARCIAL'];
+    if (($N_PAGO == 0) && (in_array($C_CVST, $pagosArray))) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGANDO CONVENIO')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO DE CONVENIO J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO DE CONVENIO')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO TOTAL J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO TOTAL')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO PARCIAL')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
-    }
-    if (($N_PAGO == 0) && ($C_CVST == 'PAGO PARCIAL J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . 'pago necesita monto';
+        $flagmsg = $flagmsg . '<br>' . $C_CVST . ' necesita monto';
     }
     if ((substr($C_CVST, 0, 11) == 'MENSAJE CON') && ($C_CARG == '')) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "MENSAJE NECESITA PARENTESCO/CARGO";
+        $flagmsg = $flagmsg . '<BR>' . $C_CVST . " NECESITA PARENTESCO/CARGO";
     }
-    if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO TOTAL')) {
+    if (($N_PROM == 0) && (in_array($C_CVST, $promsArray))) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
-    }
-    if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO TOTAL J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
-    }
-    if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO PARCIAL')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
-    }
-    if (($N_PROM == 0) && ($C_CVST == 'PROMESA DE PAGO PARCIAL J')) {
-        $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
+        $flagmsg = $flagmsg . '<BR>' . $C_CVST . "PROMESA NECESITA MONTO";
     }
     if (($N_PROM > 0) && ($D_PROM == '0000-00-00')) {
         $error = $error + 1;
@@ -272,27 +231,21 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
         $capt = NULL;
     }
 
-    if ($error > 0) {
-        die($error . ":" . $flagmsg);
-    }
-
     $redirector = "Location: resumen.php?capt=" . $capt;
     header($redirector);
 }
 
 $userData = $rc->getUserData($capt);
-$mynombre = $userData->INICIALES;
 $mytipo = $userData->TIPO;
 $camp = $userData->camp;
 
 $id_cuenta = 0;
-$lockflag = 0;
 $queue = $qc->getMyQueue($capt, $camp);
 $cliente = $queue->cliente;
 $sdc = $queue->sdc;
 $cr = $queue->status_aarsa;
 $sql = $qc->getQueryString($queue);
-$quickArray = ['FROMBUSCAR', 'FROMMIGO', 'FROMULTIMA', 'FROMPROM'];
+$quickArray = ['FromBuscar', 'FromMigo', 'FromUltima', 'FromProm'];
 $quick = in_array($go, $quickArray);
 if ($quick) {
     $sql = $qc->getQuickString($find);
@@ -439,7 +392,7 @@ $ultimo_status_de_la_gestion = $latest->C_CVST;
 $CUANDO = $latest->CUANDO;
 
 if ($id_cuenta == 0) {
-    $newcamp = $rc->leaveEmptyQueue($capt);
+    $newCamp = $rc->leaveEmptyQueue($capt);
 }
 if ($id_cuenta > 0) {
     $lastProm = $rc->getPromData($id_cuenta);
@@ -464,13 +417,9 @@ try {
 
 $tl = date('r');
 if ($mytipo != 'admin') {
-    if (!(empty($locker)) && ($locker != $capt)) {
-        $lockflag = 1;
-    } else {
-        $rc->setLocks($capt, $id_cuenta, $mytipo);
-        if ($timelock) {
-            $tl = date('D M d Y H:i:s O', strtotime($timelock));
-        }
+    $rc->setLocks($capt, $id_cuenta, $mytipo);
+    if ($timelock) {
+        $tl = date('D M d Y H:i:s O', strtotime($timelock));
     }
 }
 
@@ -478,11 +427,11 @@ $CD = date("Y-m-d");
 $CT = date("H:i:s");
 $others = 0;
 
-$resultfilt = $rc->getQueueList($capt);
+$resultFilter = $rc->getQueueList($capt);
 
-$resultng = $rc->getNumGests($capt);
+$resultNumGests = $rc->getNumGests($capt);
 
-$resultnp = $rc->getNumProm($capt);
+$resultNumProm = $rc->getNumProm($capt);
 
 $clientes = $bc->listClients();
 
@@ -503,7 +452,7 @@ $resultGestorV = $rc->getVisitadorList();
 $resultGestor = $rc->getGestorList();
 
 if ($id_cuenta > 0) {
-    $rowsub = $rc->getHistory($id_cuenta);
+    $rowSub = $rc->getHistory($id_cuenta);
 }
 
 $resultBN = $rc->getBadNo($id_cuenta);

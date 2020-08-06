@@ -30,6 +30,6 @@ if (!empty($go)) {
         header($redirector);
     }
 }
-$rowsub = $nc->listAllNotas();
+$rowSub = $nc->listAllNotas();
 $rowt = $nc->listUsers();
 require_once 'views/notadminView.php';

@@ -41,7 +41,7 @@
                     <tbody class="ui-widget-content"><?php
                         $j = 0;
                         $c = 0;
-                        foreach ($rowsub as $answer) {
+                        foreach ($rowSub as $answer) {
                             $auto = $answer['auto'];
                             $gestor = utf8_encode($answer['gestor']);
                             $gestion = utf8_encode($answer['c_obse1']);

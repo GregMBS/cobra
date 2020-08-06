@@ -57,7 +57,7 @@
                     ?>
                     <tr>
                         <td><?php echo $D_PROM; ?></td>
-                        <td><a href='/resumen.php?go=FROMPROM&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
+                        <td><a href='/resumen.php?go=FromProm&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
                         <td><?php echo $CLIENTE; ?></td>
                         <td class="right"><?php echo number_format($N_PROM, 2); ?></td>
                         <td class="right"><?php echo number_format($MSGC, 2); ?></td>

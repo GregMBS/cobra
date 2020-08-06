@@ -15,5 +15,5 @@ if ($result) {
     $CUENTA = $result->numero_de_cuenta;
     $CLIENTE = $result->cliente;
 }
-$rowsub = $pc->listPagos($ID_CUENTA);
+$rowSub = $pc->listPagos($ID_CUENTA);
 require_once 'views/pagosView.php';

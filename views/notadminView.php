@@ -20,9 +20,9 @@
                 </thead>
                 <tbody class="ui-widget-content">
                     <?php
-                    if ($rowsub) {
+                    if ($rowSub) {
                         $i = 0;
-                        foreach ($rowsub as $answer) {
+                        foreach ($rowSub as $answer) {
                             $i++;
                             ?>
                             <tr>

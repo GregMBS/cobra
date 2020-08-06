@@ -17,5 +17,5 @@ if (!empty($go)) {
         $tc->updateTrouble($capt, $reparacion, $auto);
     }
 }
-$rowsub = $tc->listTrouble();
+$rowSub = $tc->listTrouble();
 require_once 'views/troubleadminView.php';

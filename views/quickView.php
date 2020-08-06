@@ -55,7 +55,7 @@
                             }
                             ?>>
                                 <td><?php echo $rowAhora['gestor']; ?></td>
-                                <td><a href="/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php echo $rowAhora['id_cuenta']; ?>&capt=<?php echo $capt; ?>"><?php echo $rowAhora['cuenta']; ?></a></td>
+                                <td><a href="/resumen.php?go=FromMigo&i=0&field=id_cuenta&find=<?php echo $rowAhora['id_cuenta']; ?>&capt=<?php echo $capt; ?>"><?php echo $rowAhora['cuenta']; ?></a></td>
                                 <td><?php echo $rowAhora['nombre']; ?></td>
                                 <td><?php echo $rowAhora['cliente']; ?></td>
                                 <td><?php echo $rowAhora['camp']; ?></td>

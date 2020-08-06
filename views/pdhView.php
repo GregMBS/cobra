@@ -35,7 +35,7 @@
                 <?php
                 foreach ($result as $row) { ?>
                     <tr>
-                        <td><a href='/resumen.php?go=FROMMIGO&i=0&field=id_cuenta&find=<?php
+                        <td><a href='/resumen.php?go=FromMigo&i=0&field=id_cuenta&find=<?php
                             echo $row->id_cuenta;
                             ?>&capt=<?php
                             if (isset($capt)) {

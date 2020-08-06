@@ -39,7 +39,7 @@ use cobra_salsa\PagosObject;
                 <tbody class="ui-widget-content">
                     <?php
                     /** @var PagosObject $answer */
-                    foreach ($rowsub as $answer) { ?>
+                    foreach ($rowSub as $answer) { ?>
                         <tr>
                             <td><?php echo $answer->fecha; ?></td>
                             <td><?php echo (float) $answer->monto; ?></td>

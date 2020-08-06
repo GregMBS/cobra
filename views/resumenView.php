@@ -44,7 +44,7 @@ if ($notalert > 0) { ?>
 </head>
 <body id="todos">
 <div id="buttonbox">
-    <?php if (($go == 'FROMULTIMA') || ($go == 'FROMBUSCAR')) { ?>
+    <?php if (($go == 'FromUltima') || ($go == 'FromBuscar')) { ?>
         <form class="buttons" name="seg" method="get" action=
         "../resumen.php" id="segid">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
@@ -150,7 +150,7 @@ if ($notalert > 0) { ?>
                     <?php } ?>>todos
                     </option>
                     <?php
-                    foreach ($resultfilt as $answerfilt) {
+                    foreach ($resultFilter as $answerfilt) {
                         ?>
                         <option value="<?php echo $answerfilt['cliente']; ?>" <?php
                         if (($cliente == $answerfilt['cliente']) && ($sdc
@@ -298,8 +298,8 @@ if ($notalert > 0) { ?>
                         <input type="text" name="timers" id="timers" readonly="readonly" value="0" size="3"><br>
                         <?php
                         $campoc = " style='background-color:red; color:white;'";
-                        $numgest = $resultng['cng'] or 0;
-                        $numprom = $resultnp['cnp'] or 0;
+                        $numgest = $resultNumGests['cng'] or 0;
+                        $numprom = $resultNumProm['cnp'] or 0;
 
                         if ($numgest > 20) {
                             $campoc = " style='background-color:yellow; color:black;'";
@@ -1302,7 +1302,7 @@ if ($notalert > 0) { ?>
             ?></tr>
     </table>
     <?php
-    if (!empty($rowsub)) {
+    if (!empty($rowSub)) {
         ?>
         <div id='tableContainer' class='tableContainer'>
             <table class="special" id='historybody'>
@@ -1310,7 +1310,7 @@ if ($notalert > 0) { ?>
                 <?php
                 $j = 0;
                 $c = 0;
-                foreach ($rowsub as $answer) {
+                foreach ($rowSub as $answer) {
                     $auto = $answer['auto'];
                     $visit = $answer['c_cniv'];
                     $gestor = utf8_encode($answer['c_cvge']);

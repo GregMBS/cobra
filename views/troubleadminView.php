@@ -23,10 +23,10 @@
                     </tr>
                 </thead>
                 <?php
-                if ($rowsub) {
+                if ($rowSub) {
                     ?>
                     <tbody class="ui-widget-content">
-                        <?php foreach ($rowsub as $answer) { ?>
+                        <?php foreach ($rowSub as $answer) { ?>
                             <tr>
                                 <td><?php echo $answer['fechahora']; ?></td>
                                 <td><?php echo $answer['sistema']; ?></td>

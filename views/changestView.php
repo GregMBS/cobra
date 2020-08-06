@@ -38,7 +38,7 @@
                         }
                         ?>
                         <tr>
-                            <td><a href='/resumen.php?go=FROMBUSCAR&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>&highlight=<?php echo $field ?>&hfind=<?php echo $find ?>'><?php echo $CUENTA; ?></a></td>
+                            <td><a href='/resumen.php?go=FromBuscar&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>&highlight=<?php echo $field ?>&hfind=<?php echo $find ?>'><?php echo $CUENTA; ?></a></td>
                             <td><?php echo utf8_decode($NOMBRE); ?></td>
                             <td><?php echo $CLIENTE; ?></td>
                             <td><?php echo $STATUS; ?><br>
