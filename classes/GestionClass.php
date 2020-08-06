@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use Exception;
 use PDO;
 use PDOException;
 
@@ -287,9 +288,10 @@ and id_cuenta = :c_cont";
     }
 
     /**
-     * 
+     *
      * @param array $gestion
      * @return int
+     * @throws Exception
      */
     private function insertGestion($gestion) {
         try {
@@ -332,8 +334,7 @@ and id_cuenta = :c_cont";
             $sti->execute();
             return $this->pdo->lastInsertId();
         } catch (PDOException $exc) {
-            var_dump($exc);
-            die();
+            throw new Exception($exc);
         }
     }
 
@@ -380,6 +381,10 @@ and id_cuenta = :c_cont";
         $this->doCommon($auto, $gestion);
     }
 
+    /**
+     * @param $gestion
+     * @throws Exception
+     */
     public function doGestion($gestion) {
         $this->beginTransaction();
         $auto = $this->insertGestion($gestion);

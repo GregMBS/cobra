@@ -257,7 +257,12 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
         $flagmsg = $flagmsg . '<BR>' . "GESTION NECESITA TELEFONO";
     }
 
-    $gc->doGestion($get);
+    try {
+        $gc->doGestion($get);
+    } catch (Exception $e) {
+        $error = 1000;
+        $flagmsg = $e->getMessage();
+    }
     $gc->updateAllUltimoPagos();
 
     if ($find == "/") {
@@ -266,7 +271,11 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     if ($capt == "/") {
         $capt = NULL;
     }
-//}
+
+    if ($error > 0) {
+        die($error . ":" . $flagmsg);
+    }
+
     $redirector = "Location: resumen.php?capt=" . $capt;
     header($redirector);
 }
