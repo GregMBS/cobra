@@ -40,7 +40,7 @@ class BuscarClassTest extends TestCase
 
     public function testSearchAccounts()
     {
-        $accounts = $this->cc->searchAccounts('','','');
+        $accounts = $this->cc->searchAccounts('nombre_deudor','MARIA','FAMSA');
         $first = array_pop($accounts);
         $this->assertInstanceOf(ResumenObject::class, $first);
     }

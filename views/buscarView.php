@@ -17,17 +17,6 @@ use cobra_salsa\ResumenObject;
         <meta charset="utf-8">
         <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-        <script>
-            $(function () {
-                $('#buscarTable').dataTable({
-                    "bPaginate": false,
-                    "bJQueryUI": true
-                });
-            });
-        </script>
     </head>
     <body>
         <h1>BUSCAR</h1>
@@ -45,9 +34,9 @@ use cobra_salsa\ResumenObject;
                 <?php
                 $j = 0;
                 /**
-                 * @var ResumenObject[] $main
+                 * @var ResumenObject[] $result
                  */
-                foreach ($main as $row) {
+                foreach ($result as $row) {
                     $j = $j + 1;
                     $CUENTA = $row->numero_de_cuenta;
                     $NOMBRE = $row->nombre_deudor;
@@ -102,5 +91,16 @@ use cobra_salsa\ResumenObject;
                        value="Cancel">
             </form>
         </div>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+        <script>
+            $(function () {
+                $('#buscarTable').dataTable({
+                    "bPaginate": false,
+                    "bJQueryUI": true
+                });
+            });
+        </script>
     </body>
 </html>
