@@ -24,7 +24,7 @@ class GestionClass {
      * @var PDO
      */
     private $pdo;
-    private $gestionInsertQuery = "INSERT INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
+    private $gestionInsertQuery = "INSERT IGNORE INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
 C_TELE,CUANDO,CUENTA,C_OBSE1,C_ATTE,C_CARG,D_PROM,N_PROM,C_PROM,
 D_PROM1,N_PROM1,D_PROM2,N_PROM2,
 D_PROM3,N_PROM3,D_PROM4,N_PROM4,
