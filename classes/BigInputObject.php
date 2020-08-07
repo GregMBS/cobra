@@ -206,11 +206,11 @@ class BigInputObject extends DateClass {
         switch ($this->tipo) {
             case 'visits':
                 return " and c_visit <> '' and c_msge is null ";
-            case 'telef':
+            case 'telefono':
                 return " and c_visit IS NULL and c_msge is null ";
             case 'admin':
                 return " and c_msge <> '' ";
-            case 'noadmin':
+            case 'noAdmin':
                 return " and c_msge IS NULL ";
             default :
                 return " ";

@@ -88,15 +88,14 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $visit
      * @return string
      */
-    public function highhist($stat, $visit) {
-        $highstr = '';
-        if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
-            $highstr = " class='deudor'";
-        }
+    public function highlight($stat, $visit) {
         if (!empty($visit)) {
-            $highstr = " class='visit'";
+            return " class='visit'";
         }
-        return $highstr;
+        if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
+            return " class='deudor'";
+        }
+        return '';
     }
 
     /**
@@ -352,12 +351,12 @@ and tipo IN ('visitador','admin')";
      * @return array
      */
     public function getNumGests($capt) {
-        $queryng = "SELECT count(1) as cng FROM historia 
+        $query = "SELECT count(1) as cng FROM historia 
 WHERE c_cvge=:capt 
 AND d_fech=curdate()
 AND c_cont <> 0
 ";
-        $stn = $this->pdo->prepare($queryng);
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':capt', $capt);
         $stn->execute();
         return $stn->fetch(PDO::FETCH_ASSOC);
@@ -369,13 +368,13 @@ AND c_cont <> 0
      * @return array
      */
     public function getNumProm($capt) {
-        $queryng = "SELECT count(1) as cnp FROM historia 
+        $query = "SELECT count(1) as cnp FROM historia 
 WHERE c_cvge=:capt 
 AND n_prom > 0 
 AND d_fech=curdate()
 AND c_cont <> 0
 ";
-        $stn = $this->pdo->prepare($queryng);
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':capt', $capt);
         $stn->execute();
         return $stn->fetch(PDO::FETCH_ASSOC);
@@ -387,10 +386,10 @@ AND c_cont <> 0
      * @return array
      */
     public function getQueueList($capt) {
-        $queryfilt = "SELECT cliente,sdc,queue FROM queuelist 
+        $query = "SELECT cliente,sdc,queue FROM queuelist 
 WHERE gestor = :capt 
 ORDER BY cliente,sdc,queue";
-        $stf = $this->pdo->prepare($queryfilt);
+        $stf = $this->pdo->prepare($query);
         $stf->bindParam(':capt', $capt);
         $stf->execute();
         return $stf->fetchAll();
@@ -425,11 +424,11 @@ ORDER BY cliente,sdc,queue";
      */
     public function getBest($C_CVST, $C_CONT) {
         $best = $C_CVST;
-        $querybest = "select c_cvst,v_cc from historia,dictamenes"
+        $query = "select c_cvst,v_cc from historia,dictamenes"
                 . " where c_cvst=dictamen and c_cont = :C_CONT"
                 . " and d_fech>last_day(curdate()-interval 90 day)"
                 . " order by v_cc LIMIT 1";
-        $stb = $this->pdo->prepare($querybest);
+        $stb = $this->pdo->prepare($query);
         $stb->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
         $result = $stb->fetch(PDO::FETCH_ASSOC);
         if (isset($result['c_cvst'])) {
@@ -458,14 +457,14 @@ ORDER BY cliente,sdc,queue";
      * @param int $id_cuenta
      */
     public function setSlice($capt, $id_cuenta) {
-        $qsliced = "delete from rslice where user = :capt";
-        $std = $this->pdo->prepare($qsliced);
+        $qSliced = "delete from rslice where user = :capt";
+        $std = $this->pdo->prepare($qSliced);
         $std->bindParam(':capt', $capt);
         $std->execute();
 
-        $qslice = "replace into rslice select *, :capt, now() from resumen "
+        $qSlice = "replace into rslice select *, :capt, now() from resumen "
                 . "where id_cuenta = :id_cuenta";
-        $sts = $this->pdo->prepare($qslice);
+        $sts = $this->pdo->prepare($qSlice);
         $sts->bindParam(':capt', $capt);
         $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $sts->execute();
@@ -518,10 +517,10 @@ order by d_fech desc, c_hrin desc limit 1";
      * @return array
      */
     public function getTimeCheck($id_cuenta) {
-        $querycheck = "SELECT timelock, locker, time_to_sec(timediff(now(),timelock))/60 as sofar "
+        $query = "SELECT timelock, locker, time_to_sec(timediff(now(),timelock))/60 as sofar "
                 . "FROM resumen "
                 . "WHERE id_cuenta = :id_cuenta";
-        $stc = $this->pdo->prepare($querycheck);
+        $stc = $this->pdo->prepare($query);
         $stc->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stc->execute();
         return $stc->fetch(PDO::FETCH_ASSOC);
@@ -569,13 +568,13 @@ order by d_fech desc, c_hrin desc limit 1";
      * @return array
      */
     public function listVisits($ID_CUENTA) {
-        $querysub = "SELECT c_cvst, concat(d_fech,' ',c_hrin) as fh,
+        $query = "SELECT c_cvst, concat(d_fech,' ',c_hrin) as fh,
 	if(c_visit is null,c_cvge,c_visit) as gestor,
 	left(c_obse1,50) as short, c_obse1, auto
 	FROM historia
 WHERE (historia.C_CONT=:id_cuenta) AND (c_visit <> '')
 ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
-        $sts = $this->pdo->prepare($querysub);
+        $sts = $this->pdo->prepare($query);
         $sts->bindParam(':id_cuenta', $ID_CUENTA, PDO::PARAM_INT);
         $sts->execute();
         return $sts->fetchAll(PDO::FETCH_ASSOC);
@@ -587,14 +586,14 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      * @return int
      */
     public function countGestiones($id_cuenta) {
-        $query = "SELECT COUNT(1) as gest FROM historia 
+        $query = "SELECT COUNT(1) as gestiones FROM historia 
                 WHERE c_cont = :id_cuenta
                 AND c_cont > 0";
         $stg = $this->pdo->prepare($query);
         $stg->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stg->execute();
         $result = $stg->fetch(PDO::FETCH_ASSOC);
-        $count = $result['gest'];
+        $count = $result['gestiones'];
         if (empty($count)) {
             $count = 0;
         }

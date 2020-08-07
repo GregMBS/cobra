@@ -83,8 +83,8 @@ if (isset($capt)) {
     </p>
     <label for='visits'>Visitas</label>
     <input type='radio' name='tipo' id='visits' value='visits'/><br>
-    <label for='telef'>Telefónica</label>
-    <input type='radio' name='tipo' id='telef' value='telef'/><br>
+    <label for='telefono'>Telefónica</label>
+    <input type='radio' name='tipo' id='telefono' value='telefono'/><br>
     <label for='todos'>Todos</label>
     <input type='radio' name='tipo' id='todos' value='todos'/><br>
     <input type='submit' name='go' value='Query'>

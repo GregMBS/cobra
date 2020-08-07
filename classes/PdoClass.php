@@ -53,14 +53,14 @@ class PdoClass {
      *
      * @var string
      */
-    protected $queryadmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+    protected $queryAdmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt AND tipo='admin'";
 
     /**
      *
      * @var string
      */
-    protected $queryuser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+    protected $queryUser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt";
 
     /**
@@ -79,7 +79,7 @@ class PdoClass {
      *
      * @var string
      */
-    protected $querytipo = 'SELECT tipo FROM nombres WHERE ticket=:ticket
+    protected $queryTipo = 'SELECT tipo FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt limit 1';
 
     public function __construct() {
@@ -113,7 +113,7 @@ class PdoClass {
             $redirector = 'Location: index.php';
             header($redirector);
         }
-        $stt = $this->pdo->prepare($this->querytipo);
+        $stt = $this->pdo->prepare($this->queryTipo);
         $stt->bindParam(':ticket', $ticket);
         $stt->bindParam(':capt', $capt);
         $stt->execute();
@@ -126,8 +126,8 @@ class PdoClass {
      * @returns PDO
      */
     public function dbConnectAdmin() {
-        $querycheck = $this->queryadmin;
-        return $this->dbConnect($querycheck);
+        $query = $this->queryAdmin;
+        return $this->dbConnect($query);
     }
 
     /**
@@ -144,24 +144,11 @@ class PdoClass {
     }
 
     /**
-     * @returns mysqli
-     */
-    public function dbConnectUserMysqli() {
-
-        if ($this->dbConnectUser()) {
-            $this->con = new mysqli('localhost', $this->username, $this->passwd, $this->db);
-        } else {
-            $this->con = false;
-        }
-        return $this->con;
-    }
-
-    /**
      * @returns PDO
      */
     public function dbConnectUser() {
-        $querycheck = $this->queryuser;
-        return $this->dbConnect($querycheck);
+        $query = $this->queryUser;
+        return $this->dbConnect($query);
     }
 
     /**

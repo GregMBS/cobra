@@ -58,24 +58,6 @@ where status_de_credito not regexp '-'";
         return $stm;
     }
 
-    /**
-     *
-     * @param string $capt
-     * @return bool|PDOStatement
-     */
-    public function userReport($capt)
-    {
-        $query = "SELECT *
-FROM resumen
-where status_de_credito not regexp '-'
-and ejecutivo_asignado_call_center = :capt
-";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindParam(':capt', $capt);
-        $stm->execute();
-        return $stm;
-    }
-
     public function getAjax(array $keys, $capt = '')
     {
         ## Read value
@@ -168,11 +150,11 @@ and ejecutivo_asignado_call_center = :capt
     private function countTotalRecords(): int
     {
 ## Total number of records without filtering
-        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS allcount FROM resumen 
+        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS all_count FROM resumen 
         WHERE status_de_credito NOT REGEXP '-'");
         $stmt->execute();
         $records = $stmt->fetch();
-        return $records['allcount'];
+        return $records['all_count'];
     }
 
     /**
@@ -183,11 +165,11 @@ and ejecutivo_asignado_call_center = :capt
     private function countFilteredRecords(string $searchQuery, $searchArray): int
     {
 ## Total number of records with filtering
-        $stmt = $this->pdo->prepare("SELECT COUNT(*) AS allcount FROM resumen 
+        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS all_count FROM resumen 
         WHERE status_de_credito NOT REGEXP '-' " . $searchQuery);
         $stmt->execute($searchArray);
         $records = $stmt->fetch();
-        return $records['allcount'];
+        return $records['all_count'];
     }
 
     /**

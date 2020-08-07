@@ -23,11 +23,11 @@ if (!empty($go)) {
         $cliente         = $clientesegmento[0];
         $segmento        = $clientesegmento[1];
         $sc->agregarSegmento($cliente, $segmento);
-        header("Location: segmentadmin.php?capt=".$capt);
+        header("Location: segmentAdmin.php?capt=".$capt);
     }
     if ($go == "AGREGARALL") {
         $sc->addAllSegmentos();
-        header("Location: segmentadmin.php?capt=".$capt);
+        header("Location: segmentAdmin.php?capt=".$capt);
     }
 }
 $queued     = $sc->listQueuedSegmentos();

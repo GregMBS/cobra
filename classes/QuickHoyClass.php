@@ -12,7 +12,7 @@ use PDO;
 class QuickHoyClass
 {
     protected $pdo;
-    protected $createHoy          = "CREATE TEMPORARY TABLE  `hoy` (
+    protected $createHoy = "CREATE TEMPORARY TABLE  `hoy` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `Gestiones` int(11),
@@ -26,7 +26,7 @@ class QuickHoyClass
   `Gestiones_por_hora` decimal(5,1),
   PRIMARY KEY (`auto`)
 )";
-    protected $insertHoy          = "insert into hoy
+    protected $insertHoy = "insert into hoy
         (gestor,Horas,Gestiones,Promesas_Hoy,Negociaciones,
         Gestiones_por_hora,Monto_Promesas_Hoy)
         select c_cvge,time_to_sec(subtime(max(c_hrin),min(c_hrin)))/3600 as horas,
@@ -40,10 +40,10 @@ class QuickHoyClass
         and c_msge is null
         and c_cniv is null
         group by C_CVGE order by c_cvge;";
-    protected $updateHoyBreaktemp    = "update hoy,breaktemp
-        set Break_min=sdiff
-        where hoy.gestor=breaktemp.gestor;";
-    protected $queryHoy           = "SELECT * FROM hoy";
+    protected $updateHoyBreaktemp = "update hoy, breaktemp
+        set Break_min = sum_diff
+        where hoy.gestor = breaktemp.gestor;";
+    protected $queryHoy = "SELECT * FROM hoy";
 
     public function __construct($pdo)
     {
@@ -58,7 +58,7 @@ class QuickHoyClass
         $this->pdo->query($this->createHoy);
         $this->pdo->query($this->insertHoy);
         $this->pdo->query($this->updateHoyBreaktemp);
-        $sta    = $this->pdo->query($this->queryHoy);
+        $sta = $this->pdo->query($this->queryHoy);
         return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -46,16 +46,16 @@ and status_de_credito not regexp '-' LIMIT 1";
      * @param int $id_cuenta
      * @return string
      */
-    public function getCuentafromIdCuenta($id_cuenta) {
-        $querycc = "select numero_de_cuenta from resumen
+    public function getCuentaFromIdCuenta($id_cuenta) {
+        $query = "select numero_de_cuenta from resumen
 where id_cuenta=:id_cuenta
-and status_de_creditonot regexp '-' LIMIT 1";
-        $stcc = $this->pdo->prepare($querycc);
-        $stcc->bindParam(':id_cuenta', $id_cuenta);
-        $stcc->execute();
-        $resultcc = $stcc->fetch(PDO::FETCH_ASSOC);
-        if (isset($resultcc['numero_de_cuenta'])) {
-            $numero_de_cuenta = $resultcc['numero_de__cuenta'];
+and status_de_credito not regexp '-' LIMIT 1";
+        $stc = $this->pdo->prepare($query);
+        $stc->bindParam(':id_cuenta', $id_cuenta);
+        $stc->execute();
+        $result = $stc->fetch(PDO::FETCH_ASSOC);
+        if (isset($result['numero_de_cuenta'])) {
+            $numero_de_cuenta = $result['numero_de__cuenta'];
         } else {
             $numero_de_cuenta = '';
         }
@@ -70,9 +70,9 @@ and status_de_creditonot regexp '-' LIMIT 1";
      * @param int $ID_CUENTA
      */
     public function insertVasignBoth($CUENTA, $gestor, $fechaout, $ID_CUENTA) {
-        $queryins = "INSERT INTO vasign (cuenta, gestor, fechaout, fechain,c_cont)
+        $query = "INSERT INTO vasign (cuenta, gestor, fechaout, fechain, c_cont)
 VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
-        $sti = $this->pdo->prepare($queryins);
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':cuenta', $CUENTA);
         $sti->bindParam(':gestor', $gestor);
         $sti->bindParam(':fechaout', $fechaout);
@@ -87,11 +87,11 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
      * @param int $ID_CUENTA
      */
     public function insertVasign($CUENTA, $gestor, $ID_CUENTA) {
-        $queryins = "INSERT INTO vasign
+        $query = "INSERT INTO vasign
 			(cuenta, gestor, fechaout,c_cont)
 			VALUES
 			(:cuenta, :gestor, now(), :id_cuenta)";
-        $sti = $this->pdo->prepare($queryins);
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':cuenta', $CUENTA);
         $sti->bindParam(':gestor', $gestor);
         $sti->bindParam(':id_cuenta', $ID_CUENTA);
@@ -120,9 +120,9 @@ and tipo IN ('visitador','admin')";
         $begin = $end->modify('-1 month');
 
         $interval = new DateInterval('P1D');
-        $daterange = new DatePeriod($begin, $interval, $end);
+        $dateRange = new DatePeriod($begin, $interval, $end);
 
-        foreach ($daterange as $date) {
+        foreach ($dateRange as $date) {
             $output[] = $date->format("Y-m-d");
         }
         return $output;
@@ -134,11 +134,11 @@ and tipo IN ('visitador','admin')";
      * @return array
      */
     public function countInOut($gestor) {
-        $querycount = "select sum(fechaout>curdate()) as countOut,
+        $query = "select sum(fechaout>curdate()) as countOut,
     sum(fechain>curdate()) as countIn
     from vasign
 where gestor=:gestor";
-        $stc = $this->pdo->prepare($querycount);
+        $stc = $this->pdo->prepare($query);
         $stc->bindParam(':gestor', $gestor);
         $stc->execute();
         return $stc->fetch();
@@ -151,10 +151,10 @@ where gestor=:gestor";
      */
     public function listVasign($gestor) {
         if (!empty($gestor)) {
-            $gstring = "WHERE gestor = :gestor "
+            $gString = "WHERE gestor = :gestor "
                     . "ORDER BY fechain DESC";
         } else {
-            $gstring = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
+            $gString = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
         }
 
         $querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
@@ -162,7 +162,7 @@ queue, completo, fechaout, fechain, gestor
 from resumen
 join vasign on id_cuenta=c_cont
 join nombres on iniciales=gestor
-join dictamenes on dictamen = status_aarsa " . $gstring;
+join dictamenes on dictamen = status_aarsa " . $gString;
         $stm = $this->pdo->query($querymain);
         if (!empty($gestor)) {
             $stm->bindParam(':gestor', $gestor);
@@ -177,10 +177,10 @@ join dictamenes on dictamen = status_aarsa " . $gstring;
      * @return array
      */
     public function getCompleto($vst) {
-        $queryn = "SELECT completo FROM nombres
+        $query = "SELECT completo FROM nombres
 where iniciales=:vst
 limit 1;";
-        $stn = $this->pdo->prepare($queryn);
+        $stn = $this->pdo->prepare($query);
         $stn->bindParam(':vst', $vst);
         $stn->execute();
         return $stn->fetch(PDO::FETCH_ASSOC);
@@ -193,22 +193,22 @@ limit 1;";
      */
     public function updateVasign($tipo, $CUENTA) {
         if ($tipo == 'id_cuenta') {
-            $querycta = "select id_cuenta from resumen where id_cuenta = :cuenta";
+            $queryCuenta = "select id_cuenta from resumen where id_cuenta = :cuenta";
         } else {
-            $querycta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
+            $queryCuenta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
         }
-        $stc = $this->pdo->prepare($querycta);
+        $stc = $this->pdo->prepare($queryCuenta);
         $stc->bindParam(':cuenta', $CUENTA);
         $stc->execute();
-        $resultcc = $stc->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($resultcc as $answercc) {
-            $C_CONT = $answercc['id_cuenta'];
+        $resultCuenta = $stc->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($resultCuenta as $answerCuenta) {
+            $C_CONT = $answerCuenta['id_cuenta'];
         }
-        $queryins = "update vasign set fechain=now()
+        $query = "update vasign set fechain=now()
 	where c_cont = :id_cuenta
 	and fechain is null
 	limit 1";
-        $sti = $this->pdo->prepare($queryins);
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':id_cuenta', $C_CONT);
         $sti->execute();
     }

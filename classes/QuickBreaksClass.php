@@ -35,7 +35,7 @@ diff=(time_to_sec(mntp)-time_to_sec(ntpdiff.tiempo))/60
 where ntpdiff.gestor=breaktab.gestor and ntpdiff.tiempo=breaktab.tiempo;";
     protected $dropBreaktemp        = "drop table if exists breaktemp;";
     protected $createBreaktemp   = "create table breaktemp
-select gestor,sum(diff) as sdiff from breaktab
+select gestor,sum(diff) as sum_diff from breaktab
 where tipo<>'junta' group by gestor;";
     protected $queryBreaktab           = "SELECT * FROM breaktab;";
 

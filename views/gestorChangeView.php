@@ -94,6 +94,13 @@ if (isset($report)) {
 
         // Put the results in a div
         posting.done(function (json) {
+            /**
+             * An account
+             * @typedef {Object} result
+             * @property {string} ejecutivo_asignado_call_center
+             * @property {string} status_de_credito
+             * @property {string} fecha_de_actualizacion
+             */
             const result = JSON.parse(json);
             agentLabel.text(result.ejecutivo_asignado_call_center);
             sdcLabel.text(result.status_de_credito);

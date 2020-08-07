@@ -11,11 +11,11 @@ namespace cobra_salsa;
 use PDO;
 
 /**
- * Description of GestoradminClass
+ * Description of GestorAdminClass
  *
  * @author gmbs
  */
-class GestoradminClass {
+class GestorAdminClass {
 
     /**
      *
@@ -38,11 +38,11 @@ class GestoradminClass {
      * @param string $usuaria
      */
     public function updateOpenParams($completo, $tipo, $usuaria) {
-        $queryu = "UPDATE nombres
+        $query = "UPDATE nombres
             SET completo = :completo,
             tipo = :tipo
             WHERE usuaria = :usuaria";
-        $stu = $this->pdo->prepare($queryu);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':completo', $completo);
         $stu->bindParam(':tipo', $tipo);
         $stu->bindParam(':usuaria', $usuaria);
@@ -56,11 +56,11 @@ class GestoradminClass {
      */
     public function updatePassword($passw, $usuaria) {
         $bpw = password_hash($passw, PASSWORD_DEFAULT);
-        $queryp = "UPDATE nombres
+        $query = "UPDATE nombres
             SET passw = :bpw
             WHERE usuaria = :usuaria
 	    AND passw <> :passw";
-        $stp = $this->pdo->prepare($queryp);
+        $stp = $this->pdo->prepare($query);
         $stp->bindParam(':bpw', $bpw);
         $stp->bindParam(':usuaria', $usuaria);
         $stp->bindParam(':passw', $passw);
@@ -72,8 +72,8 @@ class GestoradminClass {
      * @param string $usuaria
      */
     public function deleteFromNombres($usuaria) {
-        $queryb = "DELETE FROM nombres WHERE usuaria = :usuaria";
-        $stb = $this->pdo->prepare($queryb);
+        $query = "DELETE FROM nombres WHERE usuaria = :usuaria";
+        $stb = $this->pdo->prepare($query);
         $stb->bindParam(':usuaria', $usuaria);
         $stb->execute();
     }
@@ -83,8 +83,8 @@ class GestoradminClass {
      * @param string $usuaria
      */
     public function deleteFromQueuelist($usuaria) {
-        $queryb = "DELETE FROM queuelist WHERE gestor = :usuaria";
-        $stb = $this->pdo->prepare($queryb);
+        $query = "DELETE FROM queuelist WHERE gestor = :usuaria";
+        $stb = $this->pdo->prepare($query);
         $stb->bindParam(':usuaria', $usuaria);
         $stb->execute();
     }
@@ -94,9 +94,9 @@ class GestoradminClass {
      * @param string $usuaria
      */
     public function deleteFromResumen($usuaria) {
-        $queryb = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
+        $query = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
             WHERE ejecutivo_asignado_call_center = :usuaria";
-        $stb = $this->pdo->prepare($queryb);
+        $stb = $this->pdo->prepare($query);
         $stb->bindParam(':usuaria', $usuaria);
         $stb->execute();
     }
@@ -111,10 +111,10 @@ class GestoradminClass {
      */
     public function addToNombres($completo, $tipo, $usuaria, $iniciales, $passw) {
         $bpw = password_hash($passw, PASSWORD_DEFAULT);
-        $queryin = "INSERT INTO nombres (USUARIA, INICIALES, COMPLETO, PASSW,
+        $query = "INSERT INTO nombres (USUARIA, INICIALES, COMPLETO, PASSW,
             TIPO, CAMP) 
 	VALUES (:usuaria, :iniciales, :completo, :bpw, :tipo, 999999)";
-        $sti = $this->pdo->prepare($queryin);
+        $sti = $this->pdo->prepare($query);
         $sti->bindParam(':completo', $completo);
         $sti->bindParam(':tipo', $tipo);
         $sti->bindParam(':usuaria', $usuaria);
@@ -128,17 +128,17 @@ class GestoradminClass {
      * @param string $iniciales
      */
     public function addToQueuelists($iniciales) {
-        $querylistin = "insert ignore into queuelist
+        $queryListIn = "insert ignore into queuelist
 		SELECT distinct null, :iniciales, cliente, status_aarsa, 999999,
 		orden1, updown1, orden2, updown2, orden3, updown3,
 		sdc, bloqueado
-		FROM queuelist;";
-        $stl = $this->pdo->prepare($querylistin);
+		FROM queuelist";
+        $stl = $this->pdo->prepare($queryListIn);
         $stl->bindParam(':iniciales', $iniciales);
         $stl->execute();
-        $querylistcamp = "update queuelist
-            set camp=auto where camp=999999;";
-        $this->pdo->query($querylistcamp);
+        $queryListCamp = "update queuelist
+            set camp=auto where camp=999999";
+        $this->pdo->query($queryListCamp);
     }
 
     /**

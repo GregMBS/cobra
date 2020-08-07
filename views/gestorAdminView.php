@@ -36,20 +36,20 @@
                         ?>
                         <tr>
 
-                        <td><form class="gestorchange"
-                                  name="gestorchange<?php echo $j; ?>"
+                        <td><form class="gestorChange"
+                                  name="gestorChange<?php echo $j; ?>"
                                   method="get"
-                                  action="/gestoradmin.php"
-                                  id="gestorchange<?php echo $j; ?>">
+                                  action="/gestorAdmin.php"
+                                  id="gestorChange<?php echo $j; ?>">
                                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                                 <input type="hidden" name="j" value="<?php echo $j ?>">
                                 <input type="text" name="usuaria" readonly="readonly" value="<?php echo $usuaria; ?>" />
                             </form>
                         </td>
-                        <td><input form="gestorchange<?php echo $j; ?>" type="text" name="completo" value="<?php echo $completo; ?>" /></td>
-                        <td><input form="gestorchange<?php echo $j; ?>" type="password" name="passw" value="<?php echo $passw; ?>" /></td>
+                        <td><input form="gestorChange<?php echo $j; ?>" type="text" name="completo" value="<?php echo $completo; ?>" /></td>
+                        <td><input form="gestorChange<?php echo $j; ?>" type="password" name="passw" value="<?php echo $passw; ?>" /></td>
                         <td>
-                            <select form="gestorchange<?php echo $j; ?>" name="tipo">
+                            <select form="gestorChange<?php echo $j; ?>" name="tipo">
                                 <option value=""></option>
                                 <?php
                                 foreach ($groups as $g) {
@@ -72,26 +72,26 @@
                                 <?php }
                                 ?>
                             </select></td>
-                        <td><input form="gestorchange<?php echo $j; ?>" type="submit" name="go" value="GUARDAR">
+                        <td><input form="gestorChange<?php echo $j; ?>" type="submit" name="go" value="GUARDAR">
                         </td>
-                        <td><input form="gestorchange<?php echo $j; ?>" type="submit" name="go" value="BORRAR">
+                        <td><input form="gestorChange<?php echo $j; ?>" type="submit" name="go" value="BORRAR">
                         </td>
                     </tr>
                 <?php }
                 ?>
                 <tr>
-                <td><form class="gestoradd"
-                              name="gestoradd"
+                <td><form class="gestorAdd"
+                              name="gestorAdd"
                               method="get"
-                              action="/gestoradmin.php"
-                              id="gestoradd">
+                              action="/gestorAdmin.php"
+                              id="gestorAdd">
                             <input type="hidden" name="capt" value="<?php echo $capt ?>">
                             <input type="text" name="usuaria"  value="" />
                     </form></td>
-                    <td><input form="gestoradd" type="text" name="completo" value="" /></td>
-                    <td><input form="gestoradd" type="password" name="passw" value="" /></td>
+                    <td><input form="gestorAdd" type="text" name="completo" value="" /></td>
+                    <td><input form="gestorAdd" type="password" name="passw" value="" /></td>
                     <td>
-                        <select form="gestoradd" name="tipo">
+                        <select form="gestorAdd" name="tipo">
                             <option value=""></option>
                             <?php
                             foreach ($groups as $g) {
@@ -110,7 +110,7 @@
                             <?php }
                             ?>
                         </select></td>
-                    <td><input form="gestoradd" type="submit" name="go" value="AGREGAR">
+                    <td><input form="gestorAdd" type="submit" name="go" value="AGREGAR">
                     </td>
                 </tr>
                 </tbody>

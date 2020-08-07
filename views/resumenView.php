@@ -21,18 +21,14 @@ if ($notalert > 0) { ?>
         }
         if ((preg_match('/-/', $row->status_de_credito)) && ($mytipo <> 'admin')) {
             ?>
-        #GUARDbutt {
+        #GuardButt {
             display: none;
         }
 
         <?php } ?>
         <?php if ($mytipo == 'visitador') { ?>
-        #databox, #prombox, #nuevoboxt, #combox, #guardbox, #dtelboxt, #clock {
+        #dataBox, #clock {
             display: none;
-        }
-
-        #visitboxt, #visitbox {
-            display: block;
         }
 
         <?php } ?>
@@ -143,28 +139,30 @@ if ($notalert > 0) { ?>
             <form action="../resumen.php" method="get">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                 <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
-                <select name="clientefilt" onChange="this.form.submit()">
-                    <option value="" <?php if (!empty($clientefilt)) {
-                        ?>
-                        selected="selected"
-                    <?php } ?>>todos
-                    </option>
-                    <?php
-                    foreach ($resultFilter as $answerfilt) {
-                        ?>
-                        <option value="<?php echo $answerfilt['cliente']; ?>" <?php
-                        if (($cliente == $answerfilt['cliente']) && ($sdc
-                                == $answerfilt['sdc']) && ($cr == $answerfilt['queue'])) {
+                <label>
+                    <select name="clientefilt" onChange="this.form.submit()">
+                        <option value="" <?php if (!empty($clientefilt)) {
                             ?>
-                            selected='selected'
-                            <?php
-                        }
-                        ?>><?php echo $answerfilt['cliente'] . ' ' . $answerfilt['sdc'] . ' ' . $answerfilt['queue']; ?>
+                            selected="selected"
+                        <?php } ?>>todos
                         </option>
                         <?php
-                    }
-                    ?>
-                </select>
+                        foreach ($resultFilter as $filter) {
+                            ?>
+                            <option value="<?php echo $filter['cliente']; ?>" <?php
+                            if (($cliente == $filter['cliente']) && ($sdc
+                                    == $filter['sdc']) && ($cr == $filter['queue'])) {
+                                ?>
+                                selected='selected'
+                                <?php
+                            }
+                            ?>><?php echo $filter['cliente'] . ' ' . $filter['sdc'] . ' ' . $filter['queue']; ?>
+                            </option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </label>
             </form>
             <?php
         } else {
@@ -232,8 +230,8 @@ if ($notalert > 0) { ?>
                     ?>'><br>
                 </td>
                 <td>
-                    <span class='formcapa' id='domicilio'>Domicilio</span>
-                    <textarea name=domicilio_deudor id=domicilio_deudor readonly='readonly' rows=4 cols=20>
+                    <label for="domicilio_deudor" class='formcapa' id='domicilio'>Domicilio</label>
+                    <textarea name='domicilio_deudor' id='domicilio_deudor' readonly='readonly' rows=4 cols=20>
                                     <?php echo $domicilio_deudor . "\n" . $colonia_deudor . "\n" . $ciudad_deudor . ", " . $estado_deudor . '  ' . $cp_deudor; ?>
                                     <?php
                                     if (isset($domicilio_deudor_2)) {
@@ -242,51 +240,46 @@ if ($notalert > 0) { ?>
                                     ?>
                                 </textarea><br>
                     <?php if (!empty($direccion_nueva)) { ?>
-                        <span class='formcapa'>Direcci&oacute;n nueva</span><input type='text' name=direccion_nueva
-                                                                                   readonly='readonly'
-                                                                                   value='<?php echo $direccion_nueva; ?>'>
+                        <label class='formcapa'>Direcci&oacute;n nueva</label>
+                        <span class="fakeInput"><?php echo $direccion_nueva; ?></span>
                         <br>
                         <?php
                     }
                     if (substr($cliente, 0, 9) == "INFONAVIT") {
                         ?>
-                        <span class='formcapa'>NSS</span><input type='text' name=nss readonly='readonly' value='<?php
-                        if (isset($nss)) {
-                            echo $nss;
-                        }
-                        ?>'><br>
+                        <label class='formcapa'>NSS</label>
+                        <span class="fakeInput"><?php echo $nss; ?></span>
+                        <br>
                         <?php
                     }
                     if (!empty($avapar)) {
                         ?>
-                        <span class='formcapa'>Referencia OXXO</span>
-                        <input type='text' name=nss readonly='readonly' value='<?php
+                        <label class='formcapa'>Referencia OXXO
+                        <input type='text' name='nss' readonly='readonly' value='<?php
                         echo $avapar;
-                        ?>'><br>
+                        ?>'></label><br>
                     <?php } ?>
                 </td>
             <tr>
                 <td>
-                    <span class='formcapa'>Gestor - call center</span><input type='text'
-                                                                             name=ejecutivo_asignado_call_center
-                                                                             readonly='readonly' value='<?php
+                    <label class='formcapa'>Gestor - call center
+                    <input type='text' name='ejecutivo_asignado_call_center' readonly='readonly' value='<?php
                     if (isset($ejecutivo_asignado_call_center)) {
                         echo $ejecutivo_asignado_call_center;
                     }
-                    ?>'><br>
-                    <span class='formcapa'>Numero de cuenta</span><input type='text' name=numero_de_cuenta
-                                                                         id="numero_de_cuenta" readonly='readonly'
-                                                                         value='<?php
-                                                                         if (isset($numero_de_cuenta)) {
-                                                                             echo $numero_de_cuenta;
-                                                                         }
-                                                                         ?>'><br>
-                    <span class='formcapa'>Status de cuenta</span><input type='text' name=status_aarsa
-                                                                         readonly='readonly' value='<?php
-                    if (isset($status_aarsa)) {
-                        echo $status_aarsa;
-                    }
-                    ?>'><br>
+                    ?>'></label><br>
+                    <span class='formcapa'>Numero de cuenta</span>
+                    <span class="fakeInput"><?php
+                        if (isset($numero_de_cuenta)) {
+                            echo $numero_de_cuenta;
+                        }
+                        ?></span><br>
+                    <span class='formcapa'>Status de cuenta</span>
+                    <span class="fakeInput"><?php
+                        if (isset($status_aarsa)) {
+                            echo $status_aarsa;
+                        }
+                        ?></span><br>
                     <?php echo $gestiones; ?> gestiones<br>
                     <?php echo $promesas; ?> promesas<br>
                     <?php echo $pagos; ?> pagos<br>
@@ -297,21 +290,21 @@ if ($notalert > 0) { ?>
                         <input type="text" name="timerm" id="timerm" readonly="readonly" value="0" size="3">:
                         <input type="text" name="timers" id="timers" readonly="readonly" value="0" size="3"><br>
                         <?php
-                        $campoc = " style='background-color:red; color:white;'";
-                        $numgest = $resultNumGests['cng'] or 0;
-                        $numprom = $resultNumProm['cnp'] or 0;
+                        $campoColor = " style='background-color:red; color:white;'";
+                        $numGests = $resultNumGests['cng'] or 0;
+                        $numProms = $resultNumProm['cnp'] or 0;
 
-                        if ($numgest > 20) {
-                            $campoc = " style='background-color:yellow; color:black;'";
+                        if ($numGests > 20) {
+                            $campoColor = " style='background-color:yellow; color:black;'";
                         }
-                        if ($numgest > 40) {
-                            $campoc = " style='background-color:green; color:white;'";
+                        if ($numGests > 40) {
+                            $campoColor = " style='background-color:green; color:white;'";
                         }
                         ?>
-                        <input type="text"<?php echo $campoc; ?> name="numgest" id="numgest" readonly="readonly"
-                               value="<?php echo $numgest . ' gestiones'; ?>">
+                        <input type="text"<?php echo $campoColor; ?> name="numgest" id="numgest" readonly="readonly"
+                               value="<?php echo $numGests . ' gestiones'; ?>">
                         <input type="text" name="numprom" id="numprom" readonly="readonly"
-                               value="<?php echo $numprom . ' promesas'; ?>">
+                               value="<?php echo $numProms . ' promesas'; ?>">
                     </div>
                 </td>
             </tr>
@@ -876,20 +869,7 @@ if ($notalert > 0) { ?>
     </form>
 </div>
 <div class="togglebox" id="VISITA">
-    <form action="../resumen.php" method="get" id="capturaform"
-          onSubmit="return validate_form2(this, event,<?php
-          echo $saldo_descuento_2 + 0;
-          ?>,<?php
-          if (empty($AUTH)) {
-              $AUTH = '';
-          }
-          if (($mytipo == 'admin') || ($AUTH != '')) {
-              echo 1;
-          } else {
-              echo 0;
-          }
-          ?>, ' ');
-                  ">
+    <form action="../resumen.php" method="get" id="capturaForm">
         <div class="noshow">
             <input type="text" name="error" readonly="readonly" value="1"><br>
             <input type="text" name="C_HRFI" readonly="readonly" value="<?php
@@ -1172,75 +1152,75 @@ if ($notalert > 0) { ?>
         </select>
         <br>
         <label class="formcap">Fecha:
-        <INPUT TYPE="date" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>" SIZE=15></label>
+            <INPUT TYPE="date" NAME="C_VD" ID="C_VD" VALUE="<?php echo $CD ?>" SIZE=15></label>
         <br>
         <label class="formcap" id="pcap">Parentesco/Cargo
-        <select name="C_CARG">
-            <option value="">&nbsp;</option>
-            <option value="Aval">Aval/Recadero</option>
-            <option value="Conyuge">C&oacute;nyuge</option>
-            <option value="Deudor">Deudor</option>
-            <option value="Familiar">Familiar</option>
-            <option value="Hermano/a">Hermano/a</option>
-            <option value="Hijo/a">Hijo/a</option>
-            <option value="Madre">Madre</option>
-            <option value="Otro">Otro</option>
-            <option value="Padre">Padre</option>
-            <option value="Vecino/a">Vecino/a</option>
-        </select></label><br>
+            <select name="C_CARG">
+                <option value="">&nbsp;</option>
+                <option value="Aval">Aval/Recadero</option>
+                <option value="Conyuge">C&oacute;nyuge</option>
+                <option value="Deudor">Deudor</option>
+                <option value="Familiar">Familiar</option>
+                <option value="Hermano/a">Hermano/a</option>
+                <option value="Hijo/a">Hijo/a</option>
+                <option value="Madre">Madre</option>
+                <option value="Otro">Otro</option>
+                <option value="Padre">Padre</option>
+                <option value="Vecino/a">Vecino/a</option>
+            </select></label><br>
         <label class="formcap">Gestion
             <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12' onkeypress="tooLong('C_OBSE12')"></textarea>
         </label><br>
         <label class="formcap">Acci&oacute;n:
-        <select name="ACCION" style="width: 8cm;">
-            <?php
-            foreach ($resultAccionV as $answerAccionV) {
-                ?>
-                <option style='width: 12cm;'
-                        value="<?php echo $answerAccionV['accion']; ?>"><?php echo $answerAccionV['accion']; ?></option>
+            <select name="ACCION" style="width: 8cm;">
                 <?php
-            }
-            ?>
-        </select></label><br>
+                foreach ($resultAccionV as $answerAccionV) {
+                    ?>
+                    <option style='width: 12cm;'
+                            value="<?php echo $answerAccionV['accion']; ?>"><?php echo $answerAccionV['accion']; ?></option>
+                    <?php
+                }
+                ?>
+            </select></label><br>
         <label class="formcap">Status:
-        <select name="C_CVST" style="width: 8cm;" onblur="statusChange(this.form);">
-            <option value="" selected="selected"></option>
-            <?php
-            foreach ($resultDictamenV as $answerDictamenV) {
-                ?>
-                <option style='width: 12cm;'
-                        value="<?php echo $answerDictamenV['dictamen']; ?>"><?php echo $answerDictamenV['dictamen']; ?></option>
+            <select name="C_CVST" style="width: 8cm;" onblur="statusChange(this.form);">
+                <option value="" selected="selected"></option>
                 <?php
-            }
-            ?>
-        </select></label><br>
+                foreach ($resultDictamenV as $answerDictamenV) {
+                    ?>
+                    <option style='width: 12cm;'
+                            value="<?php echo $answerDictamenV['dictamen']; ?>"><?php echo $answerDictamenV['dictamen']; ?></option>
+                    <?php
+                }
+                ?>
+            </select></label><br>
         <label class="formcap">Motivadores:
-        <select name="MOTIV" style="width: 8cm;">
-            <option style='width: 12cm;' value=" ">
-                <?php
-                foreach ($resultMotivV
+            <select name="MOTIV" style="width: 8cm;">
+                <option style='width: 12cm;' value=" ">
+                    <?php
+                    foreach ($resultMotivV
 
-                as $answerMotivV) {
+                    as $answerMotivV) {
+                    ?>
+                <option style='width: 12cm;'
+                        value="<?php echo $answerMotivV['motiv']; ?>"><?php echo $answerMotivV['motiv']; ?></option>
+                <?php
+                }
                 ?>
-            <option style='width: 12cm;'
-                    value="<?php echo $answerMotivV['motiv']; ?>"><?php echo $answerMotivV['motiv']; ?></option>
-            <?php
-            }
-            ?>
-        </select></label><br>
+            </select></label><br>
         <table>
             <tr>
                 <td><label for="D_PROMv" class="formcap">Fecha promesa
-                    <INPUT TYPE="date" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15></label>
+                        <INPUT TYPE="date" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15></label>
                     <br>
                     <label class="formcap">Cantidad de pago prometido
-                    $<input type="text" name="N_PROMv" id="N_PROMv" value=""></label><br>
+                        $<input type="text" name="N_PROMv" id="N_PROMv" value=""></label><br>
                 </td>
                 <td id='pagocaptv'><label for="D_PAGOv" class="formcap">Fecha ya pag&oacute;
-                    <INPUT TYPE="date" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15></label>
+                        <INPUT TYPE="date" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15></label>
                     <br>
                     <label class="formcap">Cantidad de ya pag&oacute;
-                    $<input type="text" name="N_PAGOv" id="N_PAGOv" value=""></label><br>
+                        $<input type="text" name="N_PAGOv" id="N_PAGOv" value=""></label><br>
                 </td>
             </tr>
         </table>
@@ -1318,7 +1298,7 @@ if ($notalert > 0) { ?>
                     $timestamp = utf8_encode($answer['fecha']);
                     $stat = utf8_encode($answer['c_cvst']);
                     ?>
-                    <tr<?php echo $rc->highhist($stat, $visit); ?>><?php
+                    <tr<?php echo $rc->highlight($stat, $visit); ?>><?php
                         for ($k = 0; $k < 5; $k++) {
                             $anku = utf8_encode($answer[$k]);
                             if (is_null($anku)) {
@@ -1366,20 +1346,8 @@ if ($notalert > 0) { ?>
     <?php } ?>
 </div>
 <div id="GESTION">
-    <form action="../resumen.php" method="get" id="gestionform"
-          onSubmit="return validate_form(this, event,<?php
-          echo $saldo_descuento_2 + 0;
-          ?>,<?php
-          if (empty($AUTH)) {
-              $AUTH = '';
-          }
-          if (($mytipo == 'admin') || ($AUTH != '')) {
-              echo 1;
-          } else {
-              echo 0;
-          }
-          ?>, ' ');">
-        <table id="databox">
+    <form action="../resumen.php" method="get" id="gestionForm">
+        <table id="dataBox">
             <?php
             if ($mytipo == 'admin' || $mytipo == 'supervisor') {
                 ?>
@@ -1501,54 +1469,54 @@ if ($notalert > 0) { ?>
                               onmouseover='this.focus();'
                               onblur="valid(this, 'special')" onmousedown='this.focus();'></textarea></td>
                 <td colspan=2><label>Accion
-                    <select name="ACCION" id="ACCION">
-                        <?php
-                        foreach ($resultAccion as $answerAccion) {
-                            ?>
-                            <option value="<?php echo $answerAccion['accion']; ?>" style="font-size:120%;"><?php
-                                if (isset($answerAccion['accion'])) {
-                                    echo $answerAccion['accion'];
-                                }
-                                ?></option>
+                        <select name="ACCION" id="ACCION">
                             <?php
-                        }
-                        ?>
-                    </select></label>
+                            foreach ($resultAccion as $answerAccion) {
+                                ?>
+                                <option value="<?php echo $answerAccion['accion']; ?>" style="font-size:120%;"><?php
+                                    if (isset($answerAccion['accion'])) {
+                                        echo $answerAccion['accion'];
+                                    }
+                                    ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select></label>
                     <br>
                     <label>Status
-                    <select name="C_CVST" id="C_CVST" onblur="statusChange(this.form);">
-                        <option value=''></option>
-                        <?php
-                        foreach ($resultDictamen as $answerDictamen) {
-                            ?>
-                            <option value="<?php
-                            if (isset($answerDictamen['dictamen'])) {
-                                echo htmlentities($answerDictamen['dictamen']);
-                            }
-                            ?>"
-                                    style="font-size:120%;">
-                                <?php
+                        <select name="C_CVST" id="C_CVST" onblur="statusChange(this.form);">
+                            <option value=''></option>
+                            <?php
+                            foreach ($resultDictamen as $answerDictamen) {
+                                ?>
+                                <option value="<?php
                                 if (isset($answerDictamen['dictamen'])) {
                                     echo htmlentities($answerDictamen['dictamen']);
                                 }
-                                ?>
-                            </option>
-                        <?php } ?>
-                    </select></label><br>
+                                ?>"
+                                        style="font-size:120%;">
+                                    <?php
+                                    if (isset($answerDictamen['dictamen'])) {
+                                        echo htmlentities($answerDictamen['dictamen']);
+                                    }
+                                    ?>
+                                </option>
+                            <?php } ?>
+                        </select></label><br>
                     <label>Causa no pago
-                    <select name="C_CNP" id="C_CNP">
-                        <?php
-                        foreach ($resultCnp as $answerCnp) {
-                            ?>
-                            <option value="<?php echo $answerCnp['status']; ?>" style="font-size:120%;"><?php
-                                if (isset($answerCnp['status'])) {
-                                    echo htmlentities($answerCnp['status']);
-                                }
-                                ?></option>
+                        <select name="C_CNP" id="C_CNP">
                             <?php
-                        }
-                        ?>
-                    </select></label>
+                            foreach ($resultCnp as $answerCnp) {
+                                ?>
+                                <option value="<?php echo $answerCnp['status']; ?>" style="font-size:120%;"><?php
+                                    if (isset($answerCnp['status'])) {
+                                        echo htmlentities($answerCnp['status']);
+                                    }
+                                    ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select></label>
 
                 </td>
             </tr>
@@ -1557,7 +1525,9 @@ if ($notalert > 0) { ?>
                 <td><select id="C_MOTIV" name="C_MOTIV">
                         <option value=" ">
                             <?php
-                            foreach ($resultMotiv as $answerMotiv) {
+                            foreach ($resultMotiv
+
+                            as $answerMotiv) {
                             ?>
                         <option value="<?php echo $answerMotiv['motiv']; ?>"><?php echo $answerMotiv['motiv']; ?></option>
                         <?php
@@ -1762,86 +1732,86 @@ if ($notalert > 0) { ?>
                 <td><input type="text" name="C_EMAIL" value="" onmouseover='this.focus();'></td>
             </tr>
         </table>
-        <input type="submit" name="GUARDAR" id="GUARDbutt" value="GUARDAR" ondblclick="return false;">
+        <input type="submit" name="GUARDAR" id="GuardButt" value="GUARDAR" ondblclick="return false;">
         <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false">RESET</button>
         <br>
         <div class="noshow">
-            <input type="text" name="from" readonly="readonly" value="resumen.php"><br>
-            <input type="text" name="D_FECH" readonly="readonly" value="<?php
+            <input type="hidden" name="from" readonly="readonly" value="resumen.php">
+            <input type="hidden" name="D_FECH" readonly="readonly" value="<?php
             if (isset($CD)) {
                 echo $CD;
             }
-            ?>"><br>
-            <input type="text" name="D_PROM" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="D_PROM" readonly="readonly" value="<?php
             if (isset($CD)) {
                 echo $CD;
             }
-            ?>"><br>
-            <input type="text" name="C_HRIN" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_HRIN" readonly="readonly" value="<?php
             if (isset($CT)) {
                 echo $CT;
             }
-            ?>"><br>
-            <input type="text" name="C_HRFI" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_HRFI" readonly="readonly" value="<?php
             if (isset($CT)) {
                 echo $CT;
             }
-            ?>"><br>
-            <input type="text" name="AUTO" readonly="readonly" value=""><br>
-            <input type="text" name="find" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="AUTO" readonly="readonly" value="">
+            <input type="hidden" name="find" readonly="readonly" value="<?php
             if (isset($find)) {
                 echo $find;
             }
-            ?>"><br>
-            <input type="text" name="field" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="field" readonly="readonly" value="<?php
             if (isset($field)) {
                 echo $field;
             }
-            ?>"><br>
-            <input type="text" name="capt" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="capt" readonly="readonly" value="<?php
             if (isset($capt)) {
                 echo $capt;
             }
-            ?>"><br>
-            <input type="text" name="camp" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="camp" readonly="readonly" value="<?php
             if (isset($camp)) {
                 echo $camp;
             }
-            ?>"><br>
-            <input type="text" name="neworder" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="neworder" readonly="readonly" value="<?php
             if (isset($neworder)) {
                 echo $neworder;
             }
-            ?>"><br>
-            <input type="text" name="C_CVBA" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_CVBA" readonly="readonly" value="<?php
             if (isset($cliente)) {
                 echo $cliente;
             }
-            ?>"><br>
-            <input type="text" name="C_ATTE" readonly="readonly" value=""><br>
-            <input type="text" name="C_CONT" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_ATTE" readonly="readonly" value="">
+            <input type="hidden" name="C_CONT" readonly="readonly" value="<?php
             if (isset($id_cuenta)) {
                 echo $id_cuenta;
             }
-            ?>"><br>
-            <input type="text" name="C_CONTAN" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_CONTAN" readonly="readonly" value="<?php
             if (isset($status_aarsa)) {
                 echo $status_aarsa;
             }
-            ?>"><br>
-            <input type="text" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
             if (isset($numero_de_cuenta)) {
                 echo $numero_de_cuenta;
             }
-            ?>"><br>
-            <input type="text" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
+            ?>">
+            <input type="hidden" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
             if (isset($ejecutivo_asignado_call_center)) {
                 echo $ejecutivo_asignado_call_center;
             }
-            ?>"><br>
-            <input type="text" name="oldGo" readonly="readonly" value="<?php echo $go; ?>"><br>
-            <input type="text" name="error" readonly="readonly" value="1"><br>
-            <input type="text" name="go" readonly="readonly" value="GUARDAR"><br>
+            ?>">
+            <input type="hidden" name="oldGo" readonly="readonly" value="<?php echo $go; ?>">
+            <input type="hidden" name="error" readonly="readonly" value="1">
+            <input type="hidden" name="go" readonly="readonly" value="GUARDAR">
         </div>
     </form>
 </div>
@@ -1852,6 +1822,34 @@ if ($notalert > 0) { ?>
     $pagingString = sprintf($pagingBase, $flag, $flagmsg, $row->numero_de_cuenta);
     echo $pagingString;
     ?>
+    document.getElementById("capturaForm").addEventListener("submit", function(event) {
+        return validate_form2(this, event,<?php
+            echo $saldo_descuento_2 + 0;
+            ?>,<?php
+            if (empty($AUTH)) {
+                $AUTH = '';
+            }
+            if (($mytipo == 'admin') || ($AUTH != '')) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+            ?>, ' ');
+    });
+    document.getElementById("gestionForm").addEventListener("submit", function(event) {
+        return validate_form(this, event,<?php
+            echo $saldo_descuento_2 + 0;
+            ?>,<?php
+            if (empty($AUTH)) {
+                $AUTH = '';
+            }
+            if (($mytipo == 'admin') || ($AUTH != '')) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+            ?>, ' ');
+    });
 </SCRIPT>
 </body>
 </html>

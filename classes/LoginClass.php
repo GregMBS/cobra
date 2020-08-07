@@ -55,11 +55,11 @@ class LoginClass {
      * @param string $tipo
      */
     public function setTicket($cpw, $capt, $tipo) {
-        $queryc = "update nombres "
+        $query = "update nombres "
                 . "set ticket = :cpw "
                 . "where iniciales = :capt "
                 . "and tipo = :tipo";
-        $stc = $this->pdo->prepare($queryc);
+        $stc = $this->pdo->prepare($query);
         $stc->bindParam(':cpw', $cpw);
         $stc->bindParam(':capt', $capt);
         $stc->bindParam(':tipo', $tipo);
@@ -71,13 +71,13 @@ class LoginClass {
      * @param string $capt
      */
     public function setInitialQueue($capt) {
-        $queryq = "update nombres n, queuelist qu
+        $query = "update nombres n, queuelist qu
 			set n.camp = qu.camp
 			where iniciales = gestor
 			and status_aarsa = 'Inicial'
 			and tipo = 'callcenter'
 			and gestor = :capt";
-        $stq = $this->pdo->prepare($queryq);
+        $stq = $this->pdo->prepare($query);
         $stq->bindParam(':capt', $capt);
         $stq->execute();
     }
@@ -88,17 +88,17 @@ class LoginClass {
      * @param string $local
      */
     public function setUserlog($capt, $local) {
-        $queryu = "delete from userlog "
+        $query1 = "delete from userlog "
                 . "where gestor = :capt ";
-        $stdu = $this->pdo->prepare($queryu);
-        $stdu->bindParam(':capt', $capt);
-        $stdu->execute();
-        $queryl = "insert into userlog (usuario,tipo,fechahora,gestor) "
+        $std = $this->pdo->prepare($query1);
+        $std->bindParam(':capt', $capt);
+        $std->execute();
+        $query2 = "insert into userlog (usuario,tipo,fechahora,gestor) "
                 . "values (:local, 'login', now(), :capt)";
-        $stlu = $this->pdo->prepare($queryl);
-        $stlu->bindParam(':capt', $capt);
-        $stlu->bindParam(':local', $local);
-        $stlu->execute();
+        $stl = $this->pdo->prepare($query2);
+        $stl->bindParam(':capt', $capt);
+        $stl->bindParam(':local', $local);
+        $stl->execute();
     }
     
     /**
@@ -107,13 +107,13 @@ class LoginClass {
      * @param string $local
      */
     public function insertPermalog($capt, $local) {
-        $querypl = "insert into permalog "
+        $query = "insert into permalog "
                 . "(usuario,tipo,fechahora,gestor) "
                 . "values (:local, 'login', now(), :capt)";
-        $stlp = $this->pdo->prepare($querypl);
-        $stlp->bindParam(':capt', $capt);
-        $stlp->bindParam(':local', $local);
-        $stlp->execute();
+        $stl = $this->pdo->prepare($query);
+        $stl->bindParam(':capt', $capt);
+        $stl->bindParam(':local', $local);
+        $stl->execute();
     }
     
     /**
@@ -121,11 +121,11 @@ class LoginClass {
      * @param string $capt
      */
     public function insertHistoria($capt) {
-        $queryins = "INSERT INTO historia
+        $query = "INSERT INTO historia
 			(C_CVGE,C_CVBA,C_CONT,CUENTA,C_CVST,D_FECH,C_HRIN,C_HRFI)
 			VALUES (:capt, '', 0, 0, 'login', curdate(), curtime(), curtime())";
-        $stih = $this->pdo->prepare($queryins);
-        $stih->bindParam(':capt', $capt);
-        $stih->execute();
+        $sti = $this->pdo->prepare($query);
+        $sti->bindParam(':capt', $capt);
+        $sti->execute();
     }
 }

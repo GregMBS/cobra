@@ -66,25 +66,27 @@ class SegmentAdminClass
      */
     public function addAllSegmentos()
     {
-        $querycliseg = "SELECT DISTINCT cliente, status_de_credito "
-            . "FROM resumen "
-            . "WHERE status_de_credito NOT REGEXP '-'";
-        $result = $this->pdo->query($querycliseg);
-        $querylistin = "INSERT IGNORE INTO queuelist
+        $query = "SELECT DISTINCT cliente, status_de_credito 
+        FROM resumen 
+        WHERE status_de_credito NOT REGEXP '-'";
+        $stq = $this->pdo->query($query);
+        $stq->execute();
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
+        $queryListIn = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
             bloqueado)
             SELECT distinct gestor, :cliente, status_aarsa, updown1,
             orden1, 9999999, :segmento, 0
             FROM queuelist";
-        $stl = $this->pdo->prepare($querylistin);
+        $stl = $this->pdo->prepare($queryListIn);
         foreach ($result as $row) {
             $stl->bindParam(':cliente', $row['cliente']);
             $stl->bindParam(':segmento', $row['status_de_credito']);
             $stl->execute();
         }
-        $querylistcamp = "update queuelist
+        $queryListCamp = "update queuelist
             set camp=auto where camp=9999999;";
-        $this->pdo->query($querylistcamp);
+        $this->pdo->query($queryListCamp);
     }
 
     /**
@@ -93,16 +95,16 @@ class SegmentAdminClass
      */
     public function listQueuedSegmentos()
     {
-        $queryDrop = "drop table if exists csdcr";
+        $queryDrop = "drop table if exists queued";
         $this->pdo->query($queryDrop);
-        $queryTemp = "create table csdcr
+        $queryTemp = "create table queued
 select cliente, status_de_credito, count(id_cuenta) as cnt from resumen
 where status_de_credito not regexp '-'
 group by cliente, status_de_credito";
         $this->pdo->query($queryTemp);
         $query = "SELECT q.cliente as 'cliente', sdc, cnt
     FROM queuelist q
-    LEFT JOIN csdcr r
+    LEFT JOIN queued r
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE sdc<>'' and q.status_aarsa='sin gestion'
     and cnt is null
@@ -119,13 +121,13 @@ group by cliente, status_de_credito";
      */
     public function listUnqueuedSegments()
     {
-        $queryDrop = "drop table if exists csdc";
-        $queryTemp = "create table csdc
+        $queryDrop = "drop table if exists unqueued";
+        $queryTemp = "create table unqueued
 select distinct cliente,sdc from queuelist";
         $query = "SELECT r.cliente as 'cliente',status_de_credito as 'sdc',
     count(1) as 'cnt'
     FROM resumen r
-    LEFT JOIN csdc q
+    LEFT JOIN unqueued q
     ON q.cliente=r.cliente and sdc=status_de_credito
     WHERE r.cliente <> '' and sdc is null
     AND status_de_credito not regexp '-'

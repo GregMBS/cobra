@@ -23,9 +23,9 @@ class QueuesClass extends BaseClass {
      * @param string $GESTOR
      */
     public function updateQueue($CAMP, $GESTOR) {
-        $queryupd = "UPDATE nombres SET camp=:camp "
+        $query = "UPDATE nombres SET camp=:camp "
                 . "where iniciales=:gestor";
-        $stu = $this->pdo->prepare($queryupd);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindParam(':gestor', $GESTOR);
         $stu->execute();
@@ -37,10 +37,10 @@ class QueuesClass extends BaseClass {
      * @param string $GESTOR
      */
     public function blockQueue($CAMP, $GESTOR) {
-        $queryupd = "UPDATE queuelist SET bloqueado = 1 "
+        $query = "UPDATE queuelist SET bloqueado = 1 "
                 . "WHERE gestor = :gestor "
                 . "AND camp = :camp";
-        $stu = $this->pdo->prepare($queryupd);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindParam(':gestor', $GESTOR);
         $stu->execute();
@@ -52,10 +52,10 @@ class QueuesClass extends BaseClass {
      * @param string $GESTOR
      */
     public function unblockQueue($CAMP, $GESTOR) {
-        $queryupd = "UPDATE queuelist SET bloqueado = 0 "
+        $query = "UPDATE queuelist SET bloqueado = 0 "
                 . "WHERE gestor = :gestor "
                 . "AND camp = :camp";
-        $stu = $this->pdo->prepare($queryupd);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':camp', $CAMP, PDO::PARAM_INT);
         $stu->bindParam(':gestor', $GESTOR);
         $stu->execute();
@@ -69,15 +69,15 @@ class QueuesClass extends BaseClass {
      */
     public function updateQueueAll($cliente, $sdc, $status) {
         if (empty($sdc)) {
-            $queryqueue = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
+            $query = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
 where iniciales=gestor and cliente=:cliente
 and status_aarsa=:status";
-            $stq = $this->pdo->prepare($queryqueue);
+            $stq = $this->pdo->prepare($query);
         } else {
-            $queryqueue = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
+            $query = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
 where iniciales=gestor and cliente=:cliente
 and sdc=:sdc and status_aarsa=:status";
-            $stq = $this->pdo->prepare($queryqueue);
+            $stq = $this->pdo->prepare($query);
             $stq->bindParam(':sdc', $sdc);
         }
         $stq->bindParam(':cliente', $cliente);
@@ -92,11 +92,11 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $status
      */
     public function blockQueueAll($cliente, $sdc, $status) {
-        $queryupd = "UPDATE queuelist SET bloqueado = 1 "
+        $query = "UPDATE queuelist SET bloqueado = 1 "
                 . "where cliente=:cliente "
                 . "and sdc=:sdc "
                 . "and status_aarsa=:status";
-        $stu = $this->pdo->prepare($queryupd);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':cliente', $cliente);
         $stu->bindParam(':sdc', $sdc);
         $stu->bindParam(':status', $status);
@@ -110,11 +110,11 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $status
      */
     public function unblockQueueAll($cliente, $sdc, $status) {
-        $queryupd = "UPDATE queuelist SET bloqueado = 0 "
+        $query = "UPDATE queuelist SET bloqueado = 0 "
                 . "where cliente=:cliente "
                 . "and sdc=:sdc "
                 . "and status_aarsa=:status";
-        $stu = $this->pdo->prepare($queryupd);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':cliente', $cliente);
         $stu->bindParam(':sdc', $sdc);
         $stu->bindParam(':status', $status);
@@ -126,12 +126,12 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getGestores() {
-        $querylist = "SELECT distinct gestor,tipo,nombres.camp as campnow
+        $query = "SELECT distinct gestor,tipo,nombres.camp as campnow
             FROM queuelist
         JOIN nombres ON gestor=iniciales 
         WHERE tipo <> ''
         ORDER BY gestor";
-        $stl = $this->pdo->prepare($querylist);
+        $stl = $this->pdo->prepare($query);
         $stl->execute();
         return $stl->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -156,7 +156,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getMyQueue($GESTOR) {
-        $queryqc = "SELECT cliente, sdc, status_aarsa, 
+        $query = "SELECT cliente, sdc, status_aarsa, 
                                 nombres.camp as campnow
                                 FROM queuelist, nombres 
                                 WHERE gestor = :gestor and gestor=iniciales 
@@ -164,10 +164,10 @@ and sdc=:sdc and status_aarsa=:status";
                                 and cliente<>''
                                 ORDER BY cliente,sdc,status_aarsa
                                 LIMIT 1";
-        $stqc = $this->pdo->prepare($queryqc);
-        $stqc->bindParam(':gestor', $GESTOR);
-        $stqc->execute();
-        return $stqc->fetch(PDO::FETCH_ASSOC);
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $GESTOR);
+        $stq->execute();
+        return $stq->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -176,16 +176,16 @@ and sdc=:sdc and status_aarsa=:status";
      * @return array
      */
     public function getMyQueuelist($GESTOR) {
-        $queryqa = "SELECT cliente, sdc, status_aarsa,
+        $query = "SELECT cliente, sdc, status_aarsa,
                                     camp, bloqueado
                                     FROM queuelist
                                     WHERE gestor = :gestor
                                     and cliente<>''
                                     ORDER BY cliente,sdc,camp;";
-        $stqa = $this->pdo->prepare($queryqa);
-        $stqa->bindParam(':gestor', $GESTOR);
-        $stqa->execute();
-        return $stqa->fetchAll(PDO::FETCH_ASSOC);
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $GESTOR);
+        $stq->execute();
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

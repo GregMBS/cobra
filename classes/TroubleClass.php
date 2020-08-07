@@ -37,12 +37,12 @@ class TroubleClass {
      * @param int $auto
      */
     public function updateTrouble($capt, $reparacion, $auto) {
-        $queryup = "UPDATE trouble
+        $query = "UPDATE trouble
             set fechacomp=now(),
             it_guy=:capt,
             reparacion=:reparacion
             where auto=:auto";
-        $stu = $this->pdo->prepare($queryup);
+        $stu = $this->pdo->prepare($query);
         $stu->bindParam(':capt', $capt);
         $stu->bindParam(':reparacion', $reparacion);
         $stu->bindParam(':auto', $auto, PDO::PARAM_INT);

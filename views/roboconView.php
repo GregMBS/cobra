@@ -33,8 +33,8 @@
         <?php
         foreach ($resulta as $rowa) {
             $client = $rowa['msg'];
-            $ctas = $rowa['countid'];
-            $tels = $rowa['counttel'];
+            $ctas = $rowa['count_id'];
+            $tels = $rowa['count_tel'];
             $lins = $rowa['lineas'];
             $regs = $rowa['total'];
             $pc = $rowa['percent'] . "%";

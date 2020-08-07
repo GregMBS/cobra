@@ -1,13 +1,13 @@
 <?php
 
 use cobra_salsa\PdoClass;
-use cobra_salsa\GestoradminClass;
+use cobra_salsa\GestorAdminClass;
 
 require_once 'classes/PdoClass.php';
-require_once 'classes/GestoradminClass.php';
+require_once 'classes/GestorAdminClass.php';
 $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
-$gc = new GestoradminClass($pdo);
+$gc = new GestorAdminClass($pdo);
 
 $go = filter_input(INPUT_GET, 'go');
 $completo = filter_input(INPUT_GET, 'completo');
@@ -20,24 +20,24 @@ if (!empty($go)) {
     if ($go == "GUARDAR") {
         $gc->updateOpenParams($completo, $tipo, $usuaria);
         $gc->updatePassword($passw, $usuaria);
-        header("Location: gestoradmin.php?capt=" . $capt);
+        header("Location: gestorAdmin.php?capt=" . $capt);
     }
 
     if ($go == "BORRAR") {
         $gc->deleteFromNombres($usuaria);
         $gc->deleteFromQueuelist($usuaria);
         $gc->deleteFromResumen($usuaria);
-        header("Location: gestoradmin.php?capt=" . $capt);
+        header("Location: gestorAdmin.php?capt=" . $capt);
     }
 
     if ($go == "AGREGAR") {
         $iniciales = strtolower($usuaria);
         $gc->addToNombres($completo, $tipo, $usuaria, $iniciales, $passw);
         $gc->addToQueuelists($iniciales);
-        header("Location: gestoradmin.php?capt=" . $capt);
+        header("Location: gestorAdmin.php?capt=" . $capt);
     }
 }
 $result = $gc->getNombres();
 
 $groups = $gc->getGroups();
-require_once 'views/gestoradminView.php';
+require_once 'views/gestorAdminView.php';

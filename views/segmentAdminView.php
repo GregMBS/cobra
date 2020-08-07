@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Administraci&oacute;n de las segmentos</title>
+    <title>Administración de las segmentos</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css"
           media="all"/>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
@@ -41,8 +41,8 @@
             <td><?php echo $count; ?></td>
             <?php if ($count == 0) { ?>
                 <td>
-                    <form class="gestorchange" name="gestorchange<?php echo $j ?>" method="get" action=
-                    "/segmentadmin.php" id="gestorchange<?php echo $j ?>">
+                    <form class="gestorChange" name="gestorChange<?php echo $j ?>" method="get"
+                          action="/segmentAdmin.php" id="gestorChange<?php echo $j ?>">
                         <input type="hidden" name="capt" value="<?php echo $capt ?>">
                         <input type="hidden" name="j" value="<?php echo $j ?>">
                         <input type="hidden" name="cliente" readonly="readonly" value="<?php echo $cliente; ?>"/>
@@ -56,7 +56,8 @@
     ?>
     <tr>
         <td colspan=3>
-            <select name="cliseg" form="gestoradd">
+            <label>
+            <select name="cliseg" form="gestorAdd">
                 <?php
                 if ($unqueued) {
                     foreach ($unqueued as $row2) {
@@ -68,10 +69,9 @@
                     }
                 }
                 ?>
-            </select></td>
+            </select></label></td>
         <td>
-            <form class="gestoradd" name="gestoradd" method="get" action=
-            "/segmentadmin.php" id="gestoradd">
+            <form class="gestorAdd" name="gestorAdd" method="get" action="/segmentAdmin.php" id="gestorAdd">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                 <input type="submit" name="go" value="AGREGAR">
             </form>
@@ -81,8 +81,7 @@
     </tbody>
 </table>
 <br>
-<form class="gestoradd" name="gestoradd" method="get" action=
-"/segmentadmin.php" id="gestoradd">
+<form class="gestorAdd" name="gestorAdd" method="get" action="/segmentAdmin.php" id="gestorAdd">
     <input type="hidden" name="capt" value="<?php echo $capt ?>">
     <input type="submit" name="go" value="AGREGARALL">
 </form>

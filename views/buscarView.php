@@ -55,21 +55,21 @@ use cobra_salsa\ResumenObject;
                 ?>
             </tbody>
         </table>
-        <div id="searchbox">
+        <div id="searchBox">
             <h2>Buscar</h2>
-            <form name="search" method="get" action=
-                  "/buscar.php" id="search">Buscar a: <input type=
-                                                      "text" name="find"> en <select name="field">
+            <form name="search" method="get" action="/buscar.php" id="search">
+                <label>Buscar a: <input type="text" name="find"></label>
+                <label> en <select name="field">
                     <option value="numero_de_cuenta">Cuenta</option>
                     <option value="numero_de_credito"># del Grupo</option>
                     <option value="nombre_deudor">Nombre</option>
-                    <option value="domicilio_deudor">Direcci&oacute;n</option>
+                    <option value="domicilio_deudor">Dirección</option>
                     <option value="TELS">Telefonos</option>
                     <option value="ROBOT">Telefonos marcados</option>
                     <option value="REFS">Aval/Referencias</option>
                     <option value="id_cuenta">Expediente</option>
-                </select><br>
-                Client = <select name="cliente">
+                </select></label><br>
+                <label>Client = <select name="cliente">
                     <option value=" ">Todos</option>
                     <?php
                     foreach ($clientes as $cliente) {
@@ -77,7 +77,7 @@ use cobra_salsa\ResumenObject;
                         <option value="<?php echo $cliente; ?>"><?php echo $cliente; ?>
                         </option>
                     <?php } ?>
-                </select><br>
+                </select></label><br>
                 <input type="hidden" name="i" value="0">
                 <input type="hidden" name="capt" value="<?php
                     if (isset($capt)) {
@@ -87,8 +87,7 @@ use cobra_salsa\ResumenObject;
                 <input type="hidden" name="go" value="BUSCAR">
                 <input type="hidden" name="from" value="resumen.php">
                 <input type="submit" name="go1" value="BUSCAR">
-                <input type="button" name="cancel" onclick="cancelbox('searchbox')"
-                       value="Cancel">
+                <input type="button" name="cancel" onclick="cancelbox('searchBox')" value="Cancel">
             </form>
         </div>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>

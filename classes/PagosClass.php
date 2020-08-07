@@ -184,19 +184,19 @@ order by cliente,gestor,fecha";
     public function queryAll($start, $end, $cliente) {
         $output = array();
         if (!empty($start)) {
-            $startquery = " and fecha >= :start ";
+            $startQuery = " and fecha >= :start ";
         } else {
-            $startquery = " ";
+            $startQuery = " ";
         }
         if (!empty($end)) {
-            $endquery = " and fecha <= :end ";
+            $endQuery = " and fecha <= :end ";
         } else {
-            $endquery = " ";
+            $endQuery = " ";
         }
         if ($cliente != "todos") {
-            $clientequery = " and pagos.cliente = :cliente ";
+            $clienteQuery = " and pagos.cliente = :cliente ";
         } else {
-            $clientequery = " ";
+            $clienteQuery = " ";
         }
         $query = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
@@ -204,9 +204,9 @@ order by cliente,gestor,fecha";
                     gestor, confirmado, pagos.id_cuenta
 from pagos, resumen
 where pagos.id_cuenta=resumen.id_cuenta 
-$startquery
-$endquery
-$clientequery
+$startQuery
+$endQuery
+$clienteQuery
 order by cliente,gestor,fecha";
         $std = $this->pdo->prepare($query);
         if (!empty($start)) {

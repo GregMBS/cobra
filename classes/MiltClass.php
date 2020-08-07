@@ -26,13 +26,13 @@ class MiltClass {
      *
      * @var string
      */
-    private $dbuser = "root";
+    private $dbUser = "root";
 
     /**
      *
      * @var string
      */
-    private $dbpass = "DeathSta1";
+    private $dbPass = "DeathSta1";
 
     /**
      *
@@ -64,7 +64,7 @@ class MiltClass {
      */
     private function getDb() {
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=' . $this->dbname, $this->dbuser, $this->dbpass);
+            $dbh = new PDO('mysql:host=localhost;dbname=' . $this->dbname, $this->dbUser, $this->dbPass);
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
             die(json_encode(''));

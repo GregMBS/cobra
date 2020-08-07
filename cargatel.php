@@ -10,7 +10,7 @@ $pdo = $pd->dbConnectAdmin();
 $rc = new RobotClass($pdo);
 $capt = $pd->capt;
 $go = filter_input(INPUT_POST, 'go');
-$datastring = filter_input(INPUT_POST, 'data');
+$dataString = filter_input(INPUT_POST, 'data');
 $msgtag = filter_input(INPUT_POST, 'msgtag');
 $msg = "";
 $msgList = $rc->getMessageList();
@@ -18,7 +18,7 @@ $msgList = $rc->getMessageList();
 if (!empty($go)) {
 
     if ($go == 'cargar') {
-        $rc->loadRobot($datastring, $msgtag);
+        $rc->loadRobot($dataString, $msgtag);
         $msg = "<p>Llamadas est&aacute;n cargadas</p>";
     }
 }

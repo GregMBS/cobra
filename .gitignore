@@ -2,7 +2,8 @@
 /bower_components/
 /nbproject/private/
 /nbproject/
-!/.buildpath
+.buildpath
+.project
 .idea/cobra_ribemi.iml
 .idea/codeStyles/
 .idea/dataSources.local.xml

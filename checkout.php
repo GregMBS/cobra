@@ -22,7 +22,7 @@ $go = filter_input(INPUT_GET, 'go');
 if ($go == 'ASIGNAR') {
     if ($tipo == 'id_cuenta') {
         $C_CONT = $CUENTA;
-        $CTA = $cc->getCuentafromIdCuenta($CUENTA);
+        $CTA = $cc->getCuentaFromIdCuenta($CUENTA);
     } else {
         $CTA = $CUENTA;
         $C_CONT = $cc->getIdCuentaFromCuenta($CUENTA);
