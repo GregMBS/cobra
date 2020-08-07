@@ -11,7 +11,6 @@ $msg = 'CobraMas';
         <style type="text/css">
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
-            div.logo {text-align:center; font-weight: bold;}
             fieldset {width: 21em; background-color: #c0c0c0;}
         </style>
     </head>
@@ -22,13 +21,14 @@ $msg = 'CobraMas';
             <form action="/index.php" method="post" autocomplete="off">
                 <fieldset>
                     <div class="username">
-                        <span class="formCap">Usuario:</span>
-                        <input type="password" name="capt" value="" 
+                        <label for="capt" class="formCap">Usuario:</label>
+                        <input type="password" name="capt" id="capt" value=""
                                onchange="this.value = this.value.replace(/ /g, '');" />
                         <br>
                     </div>
                     <div class="contrasena">
-                        <span class="formCap">Contrase&ntilde;a:</span><input type="password" name="pwd" value=""/><br>
+                        <label for="pwd" class="formCap">Contrase&ntilde;a:</label>
+                        <input type="password" name="pwd" id="pwd" value=""/><br>
                     </div>
                     <input type="submit" name="go" value="Empezar" />
                 </fieldset>

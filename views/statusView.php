@@ -40,7 +40,7 @@
                     $Info = $row[7];
                     ?>
                     <tr>
-                        <td><input type="text" readonly="readonly" name="ID" value="<?php echo $ID; ?>" /></td> 
+                        <td><label><input type="text" readonly="readonly" name="ID" value="<?php echo $ID; ?>" /></label></td>
                         <td><?php echo $User; ?></td> 
                         <td><?php echo $Host; ?></td> 
                         <td><?php echo $db; ?></td> 

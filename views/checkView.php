@@ -15,10 +15,12 @@ if (!empty($gestor)) {
 <?php } ?>">
 <div id="vtable">
     <h1><?php echo $message; ?></h1>
-    <form id='asigform' action='/checkboth.php' method='get'>
+    <form id='asigform' action='<?php
+    echo $file;
+    ?>' method='get'>
         <label for="gestor" class="formCap">Visitador:</label>
-        <select name="gestor" id="gestor" onChange="document.getElementById('asigform').submit()">
-            <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
+        <select name="gestor" id="gestor" onChange="$('#asigform').submit();">
+            <option></option>
             <?php
             foreach ($result as $answer) {
                 ?>
@@ -28,20 +30,14 @@ if (!empty($gestor)) {
             <?php }
             ?>
         </select>
-        <label>
-            <select name="fechaout">
-                <option value='' <?php if ($fechaout == '') { ?> selected='selected'<?php } ?>></option>
-                <?php
-                foreach ($resultd as $answerd) {
-                    ?>
-                    <option value="<?php echo $answerd; ?>" <?php
-                    if ($fechaout == $answerd) {
-                        ?> selected='selected'<?php } ?>><?php echo $answerd; ?>
-                    </option>
-                <?php }
-                ?>
-            </select></label>
-        <label><input type="text" id="CUENTA" name="CUENTA" value=""></label>
+        <label><input type="text" id="CUENTA" name="CUENTA" value=""></label><br>
+        <label for="id_cuenta">c&oacute;digo de barras</label>
+        <input type="radio" id="id_cuenta" name="tipo" <?php
+        if ($tipo == 'id_cuenta') {
+        ?>checked="checked"<?php } ?> value="id_cuenta">
+        <label for="numero_de_cuenta">numero de cuenta</label>
+        <input type="radio" id="numero_de_cuenta" name="tipo" <?php if ($tipo == 'numero_de_cuenta') {
+        ?>checked="checked"<?php } ?> value="numero_de_cuenta">
         <input type="hidden" name="capt" value="<?php echo $capt; ?>">
         <input type="hidden" name="go" value="<?php
         echo $label;
@@ -50,8 +46,17 @@ if (!empty($gestor)) {
         echo $label;
         ?>">
     </form>
-    <p>Asignado: <?php echo $resultcount['countOut']; ?><br>
-        Recibido: <?php echo $resultcount['countIn']; ?></p>
+    <button onclick="window.location = 'checkoutlist.php?capt=<?php echo $capt; ?>&visitador=<?php echo $gestor; ?>'">
+        CHECKLIST
+    </button>
+    <?php
+    if ($resultcount) {
+        $ASIG = $resultcount['countOut'];
+        $RECIB = $resultcount['countIn'];
+    }
+    ?>
+    <p>Asignado: <?php echo $ASIG; ?><br>
+        Recibido: <?php echo $RECIB; ?></p>
     <table class="ui-widget">
         <thead class="ui-widget-header">
         <tr>

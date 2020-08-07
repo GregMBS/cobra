@@ -1,17 +1,13 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 use DateTime;
 use DateInterval;
 use DatePeriod;
 use PDO;
+
+require_once __DIR__ . '/VisitSheetObject.php';
 
 /**
  * Description of CheckClass
@@ -100,14 +96,14 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
 
     /**
      *
-     * @return array
+     * @return UserDataObject[]
      */
     public function getVisitadores() {
-        $query = "SELECT usuaria,completo FROM nombres where completo<>''
+        $query = "SELECT * FROM nombres where completo<>''
 and tipo IN ('visitador','admin')";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_CLASS, UserDataObject::class);
     }
 
     /**
@@ -141,13 +137,13 @@ where gestor=:gestor";
         $stc = $this->pdo->prepare($query);
         $stc->bindParam(':gestor', $gestor);
         $stc->execute();
-        return $stc->fetch();
+        return $stc->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
      *
      * @param string $gestor
-     * @return array
+     * @return VisitSheetObject[]
      */
     public function listVasign($gestor) {
         if (!empty($gestor)) {
@@ -168,7 +164,7 @@ join dictamenes on dictamen = status_aarsa " . $gString;
             $stm->bindParam(':gestor', $gestor);
         }
         $stm->execute();
-        return $stm->fetchAll();
+        return $stm->fetchAll(PDO::FETCH_CLASS, VisitSheetObject::class);
     }
 
     /**

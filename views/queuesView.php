@@ -17,9 +17,9 @@
             <div style='clear:both;border:1pt black solid'>
                 <form method='get' action='/queues.php' name='todos'>
                     <div style='float:left;width:25%'>
-                        <input name='gestor' type='text' readonly='readonly' value='todos'>
+                        <label><input name='gestor' type='text' readonly='readonly' value='todos'></label>
                     </div>
-                    <div style='float:left;width:40%'>
+                    <div style='float:left;width:40%'><label>
                         <select name='queue'>
                             <?php
                             foreach ($queues as $rowQ) {
@@ -36,7 +36,7 @@
                                         }
                                         ?>><?php echo $rowQ['cliente'] . '-' . $rowQ['sdc'] . '-' . $CR; ?></option>
                                     <?php } ?>
-                        </select>
+                        </select></label>
                     </div>
                     <div style='float:left;width:30%'>
                         <input type="submit" name="go" value="INTRO TODOS"><br>
@@ -54,7 +54,7 @@
                 <div style='clear:both;border:1pt black solid'>
                     <form method='get' action='/queues.php' name='<?php echo $rowlist['gestor']; ?>'>
                         <div style='float:left;width:25%'>
-                            <input name='gestor' type='text' readonly='readonly' value='<?php echo $rowlist['gestor']; ?>'>
+                            <label><input name='gestor' type='text' readonly='readonly' value='<?php echo $rowlist['gestor']; ?>'></label>
                         </div>
                         <div style='float:left;width:40%'>
                             <?php
@@ -67,7 +67,7 @@
                                 echo $rowqc['cliente'] . '-' . $rowqc['sdc'] . '-' . $CRc;
                             }
                             ?>
-                            <br>
+                            <br><label>
                             <select name='camp'>
                                 <?php
                                 $resultqa = $qc->getMyQueuelist($rowlist['gestor']);
@@ -83,7 +83,7 @@
                                     }
                                     ?>><?php echo $rowQ['cliente'] . '-' . $rowQ['sdc'] . '-' . $CR; ?></option>
                                         <?php } ?>
-                            </select>
+                            </select></label>
                         </div>
                         <div style='float:left;width:30%'>
                             <input type="submit" name="go" value="INTRO">

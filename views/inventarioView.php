@@ -23,7 +23,7 @@
         ?>'">Regresar a la pagina administrativa</button><br>
         <form action="<?php echo $here; ?>" method="get" name="queryParams">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
-            <p>Cliente: 
+            <p><label>Cliente:
                 <select name="cliente">
                     <option value="todos" style="font-size:120%;">todos</option>
                     <?php
@@ -34,7 +34,7 @@ foreach ($resultc as $row) {
                         <?php
 }
                         ?>
-                </select>
+                </select></label>
             </p>
             <input type='submit' name='go' value='Query Inventario'>
         </form>

@@ -19,7 +19,7 @@ if ($go == 'ENVIAR') { ?>
     </head>
     <body>
         <form action="/trouble.php" method="get" name="trouble">
-            <span class="formCap">Fuente de problema</span><select name='fuente'>
+            <label class="formCap">Fuente de problema<select name='fuente'>
                 <option value='CobraMas'>CobraMas</option>
                 <option value='SIPCLIENT'>SFLPHONE</option>
                 <option value='PBX'>CONMUTADOR</option>
@@ -29,17 +29,17 @@ if ($go == 'ENVIAR') { ?>
                 <option value='TECLADO'>TECLADO</option>
                 <option value='RATON'>RATON</option>
                 <option value='otro'>otro</option>
-            </select>
+            </select></label>
             <br>
-            <span class="formCap">Descripción</span><textarea rows="6" cols="60" name="descripcion">Cuando yo:
+            <label class="formCap">Descripción<textarea rows="6" cols="60" name="descripcion">Cuando yo:
 
 Veo:
 
 Sin embargo, espero:
 
-            </textarea><br>
-            <span class="formCap">Error mensajes (texto <em>EXACTO</em>)</span>
-            <textarea rows="2" cols="40" name="error_msg"></textarea><br>
+            </textarea></label><br>
+            <label class="formCap">Error mensajes (texto <em>EXACTO</em>)
+            <textarea rows="2" cols="40" name="error_msg"></textarea></label><br>
             <input type="hidden" name="C_CONT" readonly="readonly" value=<?php echo $C_CONT; ?> /><br>
             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> /><br>
             <input type="submit" name="go" value="ENVIAR">

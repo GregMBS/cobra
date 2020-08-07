@@ -66,10 +66,10 @@ use cobra_salsa\BreaksObject;
                     </select></label>
                 </td>
                 <td>
-                    <input form="cambiar<?php echo $row->auto; ?>" type="time" name="empieza" value="<?php echo $row->empieza; ?>">
+                    <label><input form="cambiar<?php echo $row->auto; ?>" type="time" name="empieza" value="<?php echo $row->empieza; ?>"></label>
                 </td>
                 <td>
-                    <input form="cambiar<?php echo $row->auto; ?>" type="time" name="termina" value="<?php echo $row->termina; ?>">
+                    <label><input form="cambiar<?php echo $row->auto; ?>" type="time" name="termina" value="<?php echo $row->termina; ?>"></label>
                 </td>
                 <td>
                     <form method="post" action="/breakAdmin.php" id="cambiar<?php echo $row->auto; ?>">
@@ -91,7 +91,7 @@ use cobra_salsa\BreaksObject;
     ?>
     <tr>
 
-        <td>
+        <td><label>
             <select name="gestor" form="agregar">
                 <option value=""></option>
                 <?php
@@ -112,22 +112,24 @@ use cobra_salsa\BreaksObject;
                 }
                 ?>
             </select>
-
+            </label>
         </td>
-        <td>
+        <td><label>
             <select name="tipo" form="agregar">
                 <option value=""></option>
                 <option value="hora">hora (60 min)</option>
                 <option value="break">break (30 min)</option>
                 <option value="fumo">fumo (15 min)</option>
                 <option value="bano">baño (10 min)</option>
-            </select>
+            </select></label>
         </td>
-        <td>
+        <td><label>
             <input form="agregar" type="time" name="empieza" value="<?php echo $row->empieza; ?>">
+            </label>
         </td>
-        <td>
+        <td><label>
             <input form="agregar" type="time" name="termina" value="<?php echo $row->termina; ?>">
+            </label>
         </td>
         <td>
             <form id="agregar" method="post" action="/breakAdmin.php">

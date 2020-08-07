@@ -22,7 +22,7 @@
 <div>
     <form method='get' action='#' name='queueform'>
         <div>
-            <input name='gestor' type='text' readonly='readonly' value='<?php echo $capt; ?>'>
+            <label><input name='gestor' type='text' readonly='readonly' value='<?php echo $capt; ?>'></label>
         </div>
         <div>
             <br>

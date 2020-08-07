@@ -68,8 +68,37 @@ function validate_form(tf, evt, minprom, authorized)
     let cuando = "";
     let dp1 = "0000-00-00";
     let dp2 = "0000-00-00";
-    let dpago = "0000-00-00";
-
+    let dPago = "0000-00-00";
+    let alertText = '';
+    /**
+     * @var {object} tf
+     * @property {string} saldo_total
+     * @property {string} N_PAGO
+     * @property {string} N_PROM1
+     * @property {string} N_PROM2
+     * @property {string} N_PROM3
+     * @property {string} N_PROM4
+     * @property {string} D_FECH
+     * @property {string} D_PAGO
+     * @property {string} D_PROM1
+     * @property {string} D_PROM2
+     * @property {string} D_PROM3
+     * @property {string} D_PROM4
+     * @property {string} C_CVGE
+     * @property {string} C_CVST
+     * @property {string} C_CONTAN
+     * @property {string} C_TELE
+     * @property {string} C_NTEL
+     * @property {string} C_OBSE1
+     * @property {string} C_OBSE2
+     * @property {string} C_PROM
+     * @property {string} CUANDO
+     * @property {string} CUENTA
+     * @property {string} ACCION
+     * @property {string} C_MOTIV
+     * @property {string} C_CNP
+     * @property {string} C_CARG
+     */
 //actual sum de promesa
     if (typeof (tf.saldo_total) !== "undefined")
     {
@@ -95,12 +124,11 @@ function validate_form(tf, evt, minprom, authorized)
     {
         n4 = parseFloat(tf.N_PROM4.value);
     }
-    np = n1 + n2 + n3 + n4;
+    const np = n1 + n2 + n3 + n4;
+    let cvt = '';
     if (typeof (tf.C_CVST) !== "undefined")
     {
         cvt = trim(tf.C_CVST.value);
-    } else {
-        cvt = '';
     }
     if (typeof (tf.C_CONTAN) !== "undefined")
     {
@@ -128,7 +156,7 @@ function validate_form(tf, evt, minprom, authorized)
     }
     if (typeof (tf.D_PAGO.value) !== "undefined")
     {
-        dpago = tf.D_PAGO.value;
+        dPago = tf.D_PAGO.value;
     }
     alert('Checando validad de gestion:\nCUENTA - ' + tf.CUENTA.value + '\nStatus - ' + cvt);
 
@@ -137,7 +165,7 @@ function validate_form(tf, evt, minprom, authorized)
         if (cvt === '') {
             tf.C_CVST.style.backgroundColor = "yellow";
             flag = 1;
-            alerttxt = alerttxt + 'Tiene que elegir el estatus de la gestion.';
+            alertText = alertText + 'Tiene que elegir el estatus de la gestion.';
         }
         if ((n1 > 0)) {
 //wrong status for promise
@@ -146,7 +174,7 @@ function validate_form(tf, evt, minprom, authorized)
             {
                 tf.D_PROM1.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'Este status no permite promesa';
+                alertText = alertText + 'Este status no permite promesa';
             }
 
 //amount but no date	
@@ -154,20 +182,20 @@ function validate_form(tf, evt, minprom, authorized)
             {
                 tf.D_PROM1.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'No hay fecha de promesa 1.' + dp1;
+                alertText = alertText + 'No hay fecha de promesa 1.' + dp1;
             }
             if (dp1 === '0000-00-00')
             {
                 tf.D_PROM1.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'No hay fecha de promesa 1.' + dp1;
+                alertText = alertText + 'No hay fecha de promesa 1.' + dp1;
             }
 // promise in past
             if (dp1 < tf.D_FECH.value)
             {
                 tf.D_PROM1.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'Fecha de promesa es en pasada.';
+                alertText = alertText + 'Fecha de promesa es en pasada.';
             }
         }
     }
@@ -184,20 +212,20 @@ function validate_form(tf, evt, minprom, authorized)
             {
                 tf.D_PROM2.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'No hay fecha de promesa 2.';
+                alertText = alertText + 'No hay fecha de promesa 2.';
             }
             if (dp2 === '0000-00-00')
             {
                 tf.D_PROM2.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'No hay fecha de promesa 2.' + dp1;
+                alertText = alertText + 'No hay fecha de promesa 2.' + dp1;
             }
 // promise in past
             if (dp2 < tf.D_FECH.value)
             {
                 tf.D_PROM2.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'Fecha de promesa es en pasada.';
+                alertText = alertText + 'Fecha de promesa es en pasada.';
             }
 // 2 promises same date			
             if (dp2 === dp1)
@@ -205,7 +233,7 @@ function validate_form(tf, evt, minprom, authorized)
                 tf.D_PROM1.style.backgroundColor = "yellow";
                 tf.D_PROM2.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'Hay dos pagos en mismo dia.';
+                alertText = alertText + 'Hay dos pagos en mismo dia.';
             }
         }
 // promise in wrong box
@@ -214,14 +242,14 @@ function validate_form(tf, evt, minprom, authorized)
             tf.N_PROM1.style.backgroundColor = "yellow";
             tf.N_PROM2.style.backgroundColor = "yellow";
             flag = 1;
-            alerttxt = alerttxt + 'Si hay solo un pago, va al primero campo.';
+            alertText = alertText + 'Si hay solo un pago, va al primero campo.';
         }
         if ((dp1 > dp2) && (dp2 > tf.D_FECH.value))
         {
             tf.D_PROM1.style.backgroundColor = "yellow";
             tf.D_PROM2.style.backgroundColor = "yellow";
             flag = 1;
-            alerttxt = alerttxt + 'Si hay solo un pago, va al primero campo.';
+            alertText = alertText + 'Si hay solo un pago, va al primero campo.';
         }
     }
     catch (err) {
@@ -231,56 +259,55 @@ function validate_form(tf, evt, minprom, authorized)
     }
     try {
 //GESTIONES necesitan a lo menos 2 palabras
-        if (tf.C_OBSE1.value.indexOf(" ") === -1)
-        {
-            alerttxt = alerttxt + 'GESTION no está completada' + '\n' + tf.C_OBSE1.value;
+        if (tf.C_OBSE1.value.indexOf(" ") === -1) {
+            alertText = alertText + 'GESTION no está completada' + '\n' + tf.C_OBSE1.value;
             tf.C_OBSE1.style.backgroundColor = "yellow";
             flag = 1;
         }
 //Picky gringo language rules
         if (tf.C_OBSE1.value.indexOf(" K ") !== -1)
         {
-            alerttxt = alerttxt + 'Usa QUE en lugar de K' + '\n';
+            alertText = alertText + 'Usa QUE en lugar de K' + '\n';
             tf.C_OBSE1.style.backgroundColor = "yellow";
             flag = 1;
         }
         if (tf.C_OBSE1.value.indexOf("CHING") !== -1)
         {
-            alerttxt = alerttxt + 'Moderar su lenguaje' + '\n';
+            alertText = alertText + 'Moderar su lenguaje' + '\n';
             tf.C_OBSE1.style.backgroundColor = "yellow";
             flag = 1;
         }
         if (tf.C_OBSE1.value.indexOf(" CTA") !== -1)
         {
-            alerttxt = alerttxt + '¿Significa CTA CUENTA o CONTESTA?' + '\n';
+            alertText = alertText + '¿Significa CTA CUENTA o CONTESTA?' + '\n';
             tf.C_OBSE1.style.backgroundColor = "yellow";
             flag = 1;
         }
 //Must have gestor
         if (validate_required(tf.C_CVGE) === false)
         {
-            alerttxt = alerttxt + 'GESTOR es necesario\n';
+            alertText = alertText + 'GESTOR es necesario\n';
             tf.C_CVGE.style.backgroundColor = "yellow";
             flag = 1;
         }
 //Must have telephone
         if (validate_required(tf.C_TELE) === false)
         {
-            alerttxt = alerttxt + 'TELEFONO es necesario\n';
+            alertText = alertText + 'TELEFONO es necesario\n';
             tf.C_TELE.style.backgroundColor = "yellow";
             flag = 1;
         }
 //Must Have status
         if (validate_required(tf.C_CVST) === false)
         {
-            alerttxt = alerttxt + 'STATUS es necesario\n';
+            alertText = alertText + 'STATUS es necesario\n';
             tf.C_CVST.style.backgroundColor = "yellow";
             flag = 1;
         }
 //Must have accion
         if (validate_required(tf.ACCION) === false)
         {
-            alerttxt = alerttxt + 'ACCION es necesario\n';
+            alertText = alertText + 'ACCION es necesario\n';
             tf.ACCION.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -294,13 +321,13 @@ function validate_form(tf, evt, minprom, authorized)
     if (tf.C_TELE.value === 'Entrante') {
         if (validate_required(tf.C_MOTIV) === false)
         {
-            alerttxt = alerttxt + 'MOTIVACION es necesario\n';
+            alertText = alertText + 'MOTIVACION es necesario\n';
             tf.C_MOTIV.style.backgroundColor = "yellow";
             flag = 1;
         }
         if (validate_required(tf.C_CNP) === false)
         {
-            alerttxt = alerttxt + 'CAUSA NO PAGO es necesario\n';
+            alertText = alertText + 'CAUSA NO PAGO es necesario\n';
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -309,7 +336,7 @@ function validate_form(tf, evt, minprom, authorized)
     if (n1 > 0) {
         if (validate_required(tf.C_CNP) === false)
         {
-            alerttxt = alerttxt + 'CAUSA NO PAGO es necesario\n';
+            alertText = alertText + 'CAUSA NO PAGO es necesario\n';
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -317,7 +344,7 @@ function validate_form(tf, evt, minprom, authorized)
     if (n2 > 0) {
         if (validate_required(tf.C_CNP) === false)
         {
-            alerttxt = alerttxt + 'CAUSA NO PAGO es necesario\n';
+            alertText = alertText + 'CAUSA NO PAGO es necesario\n';
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -326,14 +353,14 @@ function validate_form(tf, evt, minprom, authorized)
     if (tf.C_CARG.value === 'Deudor') {
         if (validate_required(tf.C_CNP) === false)
         {
-            alerttxt = alerttxt + 'CAUSA NO PAGO es necesario\n';
+            alertText = alertText + 'CAUSA NO PAGO es necesario\n';
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
     }
 //GESTION too long
     if (tf.C_OBSE1.length > 250) {
-        alerttxt = alerttxt + 'GESTION demasiado largo\n';
+        alertText = alertText + 'GESTION demasiado largo\n';
         tf.C_OBSE1.style.backgroundColor = "yellow";
         flag = 1;
     }
@@ -341,15 +368,9 @@ function validate_form(tf, evt, minprom, authorized)
 //CONFIRMA PROMESA requires PROMESA and cargo/parentesco
         if (cvt.substr(0, 8) === "CONFIRMA")
         {
-            if (validate_required(tf.N_PROM_OLD) === false)
-            {
-                alerttxt = alerttxt + 'Promesa primera, confirma despues\n';
-                tf.C_CVST.style.backgroundColor = "yellow";
-                flag = 1;
-            }
             if (validate_required(tf.C_CARG) === false)
             {
-                alerttxt = alerttxt + 'Carga/Parentesco es necesario\n';
+                alertText = alertText + 'Carga/Parentesco es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
@@ -359,19 +380,19 @@ function validate_form(tf, evt, minprom, authorized)
         {
             if (validate_required(tf.C_CARG) === false)
             {
-                alerttxt = alerttxt + 'Carga/Parentesco es necesario\n';
+                alertText = alertText + 'Carga/Parentesco es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
             if (validate_required(tf.C_CNP) === false)
             {
-                alerttxt = alerttxt + 'CAUSA NO PAGO es necesario\n';
+                alertText = alertText + 'CAUSA NO PAGO es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
             if (tf.C_CARG.value === 'Deudor')
             {
-                alerttxt = alerttxt + 'El deudor no es un familiar\n';
+                alertText = alertText + 'El deudor no es un familiar\n';
                 tf.C_CARG.style.backgroundColor = "yellow";
                 flag = 1;
             }
@@ -381,19 +402,19 @@ function validate_form(tf, evt, minprom, authorized)
         {
             if (validate_required(tf.C_CARG) === false)
             {
-                alerttxt = alerttxt + 'Carga/Parentesco es necesario\n';
+                alertText = alertText + 'Carga/Parentesco es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
             if (validate_required(tf.C_CNP) === false)
             {
-                alerttxt = alerttxt + 'CAUSA NO PAGO es necesario\n';
+                alertText = alertText + 'CAUSA NO PAGO es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
             if (validate_required(tf.C_CARG) === false)
             {
-                alerttxt = alerttxt + 'Carga/Parentesco es necesario\n';
+                alertText = alertText + 'Carga/Parentesco es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
@@ -403,13 +424,13 @@ function validate_form(tf, evt, minprom, authorized)
         {
             if (validate_required(tf.C_CARG) === false)
             {
-                alerttxt = alerttxt + 'Carga/Parentesco es necesario\n';
+                alertText = alertText + 'Carga/Parentesco es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
             if (tf.C_CARG.value === 'Deudor')
             {
-                alerttxt = alerttxt + 'El deudor no es un tercero\n';
+                alertText = alertText + 'El deudor no es un tercero\n';
                 tf.C_CARG.style.backgroundColor = "yellow";
                 flag = 1;
             }
@@ -419,13 +440,13 @@ function validate_form(tf, evt, minprom, authorized)
         {
             if (validate_required(tf.C_CARG) === false)
             {
-                alerttxt = alerttxt + 'Carga/Parentesco es necesario\n';
+                alertText = alertText + 'Carga/Parentesco es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
             if (tf.C_CARG.value === 'Deudor')
             {
-                alerttxt = alerttxt + 'El deudor no es un empleado\n';
+                alertText = alertText + 'El deudor no es un empleado\n';
                 tf.C_CARG.style.backgroundColor = "yellow";
                 flag = 1;
             }
@@ -435,7 +456,7 @@ function validate_form(tf, evt, minprom, authorized)
         {
             if (validate_required(tf.C_CARG) === false)
             {
-                alerttxt = alerttxt + 'Carga/Parentesco es necesario\n';
+                alertText = alertText + 'Carga/Parentesco es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
@@ -446,7 +467,7 @@ function validate_form(tf, evt, minprom, authorized)
         {
             if (validate_required(tf.C_CARG) === false)
             {
-                alerttxt = alerttxt + 'Carga/Parentesco es necesario\n';
+                alertText = alertText + 'Carga/Parentesco es necesario\n';
                 tf.C_CNP.style.backgroundColor = "yellow";
                 flag = 1;
             }
@@ -454,14 +475,14 @@ function validate_form(tf, evt, minprom, authorized)
             {
                 tf.C_CVST.style.backgroundColor = "yellow";
                 flag = 1;
-                alerttxt = alerttxt + 'Monto de promesa ' + np + ' está menor que monto minimo ' + minprom;
+                alertText = alertText + 'Monto de promesa ' + np + ' está menor que monto minimo ' + minprom;
             }
         }
         if (np > (st * 1.25))
         {
             tf.C_CVST.style.backgroundColor = "yellow";
             flag = 1;
-            alerttxt = alerttxt + 'Monto de promesa ' + np + ' está más que saldo total ' + st;
+            alertText = alertText + 'Monto de promesa ' + np + ' está más que saldo total ' + st;
         }
     }
 
@@ -471,13 +492,13 @@ function validate_form(tf, evt, minprom, authorized)
     {
         if (validate_required(tf.C_CARG) === false)
         {
-            alerttxt = alerttxt + "Carga/Parentesco es necesario" + '\n';
+            alertText = alertText + "Carga/Parentesco es necesario" + '\n';
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
         if (n1 < 10)
         {
-            alerttxt = alerttxt + "MONTO DE PROMESA es necesario" + '\n';
+            alertText = alertText + "MONTO DE PROMESA es necesario" + '\n';
             tf.C_CVST.style.backgroundColor = "yellow";
             tf.N_PROM1.style.backgroundColor = "yellow";
             flag = 1;
@@ -488,23 +509,23 @@ function validate_form(tf, evt, minprom, authorized)
     {
         if (n1 < 10)
         {
-            alerttxt = alerttxt + "MONTO DE PROMESA es necesario" + '\n';
+            alertText = alertText + "MONTO DE PROMESA es necesario" + '\n';
             tf.N_PROM1.style.backgroundColor = "yellow";
             tf.N_PROM2.style.backgroundColor = "yellow";
             flag = 1;
         }
         if (validate_required(tf.C_CARG) === false)
         {
-            alerttxt = alerttxt + "Carga/Parentesco es necesario" + '\n';
+            alertText = alertText + "Carga/Parentesco es necesario" + '\n';
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
     }
 //PAGO TOTAL and PAGO PARCIAL and PAGANDO CONVENIO and REGULARIZADA and REESTRUCTURADA 
 //require monto de pago y fecha hoy o en pasado 
-    if (dpago > tf.D_FECH.value)
+    if (dPago > tf.D_FECH.value)
     {
-        alerttxt = alerttxt + 'Fecha de pago en el porvenir\nPAGO=' + tf.D_PAGO.value + '\nHOY=' + tf.D_FECH.value + '\n';
+        alertText = alertText + 'Fecha de pago en el porvenir\nPAGO=' + tf.D_PAGO.value + '\nHOY=' + tf.D_FECH.value + '\n';
         tf.D_PAGO.style.backgroundColor = "orange";
         flag = 1;
     }
@@ -514,38 +535,38 @@ function validate_form(tf, evt, minprom, authorized)
         document.getElementById("pagocapt2").style.display = "table-row";
         if (validate_required(tf.N_PAGO) === false)
         {
-            alerttxt = alerttxt + 'Monto de pago es necesario\n';
+            alertText = alertText + 'Monto de pago es necesario\n';
             tf.N_PAGO.style.backgroundColor = "yellow";
             flag = 1;
         }
         if (npa < 10)
         {
-            alerttxt = alerttxt + 'Monto de pago es necesario\n';
+            alertText = alertText + 'Monto de pago es necesario\n';
             tf.N_PAGO.style.backgroundColor = "yellow";
             flag = 1;
         }
         if (validate_date(tf.D_PAGO) === false)
         {
-            alerttxt = alerttxt + 'Fecha de pago es necesario\n';
+            alertText = alertText + 'Fecha de pago es necesario\n';
             tf.D_PAGO.style.backgroundColor = "yellow";
             flag = 1;
         }
-        if (dpago === '0000-00-00')
+        if (dPago === '0000-00-00')
         {
-            alerttxt = alerttxt + 'Fecha de pago es necesario\n';
+            alertText = alertText + 'Fecha de pago es necesario\n';
             tf.D_PAGO.style.backgroundColor = "yellow";
             flag = 1;
         }
-        if (dpago > tf.D_FECH.value)
+        if (dPago > tf.D_FECH.value)
         {
-            alerttxt = alerttxt + 'Fecha de pago en el porvenir\nPAGO=' + tf.D_PAGO.value + '\nHOY=' + tf.D_FECH.value + '\n';
+            alertText = alertText + 'Fecha de pago en el porvenir\nPAGO=' + tf.D_PAGO.value + '\nHOY=' + tf.D_FECH.value + '\n';
             tf.D_PAGO.style.backgroundColor = "orange";
             flag = 1;
         }
     }
     if ((cvt === "PAGO TOTAL") && (npa < minprom) && (authorized < 1))
     {
-        alerttxt = alerttxt + 'Monto de pago no es sufficiente para PAGO TOTAL\n';
+        alertText = alertText + 'Monto de pago no es sufficiente para PAGO TOTAL\n';
         tf.N_PAGO.style.backgroundColor = "yellow";
         flag = 1;
     }
@@ -554,7 +575,7 @@ function validate_form(tf, evt, minprom, authorized)
     {
         if (validate_required(tf.C_CARG) === false)
         {
-            alerttxt = alerttxt + "Carga/Parentesco es necesario" + '\n';
+            alertText = alertText + "Carga/Parentesco es necesario" + '\n';
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -564,7 +585,7 @@ function validate_form(tf, evt, minprom, authorized)
     {
         if (validate_required(tf.C_CARG) === false)
         {
-            alerttxt = alerttxt + "Carga/Parentesco es necesario" + '\n';
+            alertText = alertText + "Carga/Parentesco es necesario" + '\n';
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -574,18 +595,19 @@ function validate_form(tf, evt, minprom, authorized)
     {
         if (tf.C_CARG.value.length !== 0)
         {
-            alerttxt = alerttxt + 'Cargo del contacto no es necesario cuando STATUS es ' + cvt;
+            alertText = alertText + 'Cargo del contacto no es necesario cuando STATUS es ' + cvt;
             tf.C_CARG.style.backgroundColor = "yellow";
             flag = 1;
         }
     }
     if (cvt.substr(0, 11) === "MENSAJE EN ") {
         if (tf.C_CARG.value.length !== 0) {
-            alerttxt = alerttxt + 'Cargo del contacto no es necesario cuando STATUS es ' + cvt;
+            alertText = alertText + 'Cargo del contacto no es necesario cuando STATUS es ' + cvt;
             tf.C_CARG.style.backgroundColor = "yellow";
             flag = 1;
         }
     }
+    let cargoMatchList = '';
     try {
 // If you have contact, need best time
         let cuandoMatchListStr = "CONFIRMA PROMESA|" +
@@ -595,10 +617,10 @@ function validate_form(tf, evt, minprom, authorized)
                 'PROPUESTA DE PAGO|' +
                 'NEGATIVA DE PAGO|' +
                 'MENSAJE CON EMPLEADO';
-        let cargoMatchList = new RegExp(cuandoMatchListStr);
+        cargoMatchList = new RegExp(cuandoMatchListStr);
         if (cvt.match(cargoMatchList)) {
             if (cuando.length === 0) {
-                alerttxt = alerttxt + 'Contacto requiere LOCALIZABLE';
+                alertText = alertText + 'Contacto requiere LOCALIZABLE';
                 tf.CUANDO.style.backgroundColor = "yellow";
                 flag = 1;
             }
@@ -610,18 +632,18 @@ function validate_form(tf, evt, minprom, authorized)
 
 //monto de promesa can only have numbers and one decimal point.
     if (notJustNumbers(n1)) {
-        alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n' + 'No puede dejar campo blanco. Usa 0.' + '\n';
+        alertText = alertText + 'No puede usarse un separador de miles' + '\n' + 'No puede dejar campo blanco. Usa 0.' + '\n';
         tf.N_PROM1.style.backgroundColor = "yellow";
         flag = 1;
     }
     if (notJustNumbers(n2)) {
-        alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n' + 'No puede dejar campo blanco. Usa 0.' + '\n';
+        alertText = alertText + 'No puede usarse un separador de miles' + '\n' + 'No puede dejar campo blanco. Usa 0.' + '\n';
         tf.N_PROM2.style.backgroundColor = "yellow";
         flag = 1;
     }
 //monto de pago can only have numbers and one decimal point.
     if (notJustNumbers(npa)) {
-        alerttxt = alerttxt + 'No puede usarse un separador de miles' + '\n';
+        alertText = alertText + 'No puede usarse un separador de miles' + '\n';
         tf.N_PAGO.style.backgroundColor = "yellow";
         flag = 1;
     }
@@ -629,13 +651,13 @@ function validate_form(tf, evt, minprom, authorized)
     if (cnt !== 'null') {
         if (notJustNumbers(cnt))
             {
-            alerttxt = alerttxt + 'No puede usarse un separador o letras en telefonos' + '\n';
+            alertText = alertText + 'No puede usarse un separador o letras en telefonos' + '\n';
             tf.C_NTEL.style.backgroundColor = "yellow";
             flag = 1;
         }
         if ((cnt.length !== 0) && (cnt.length !== 8) && (cnt.length !== 10) && (cnt.length !== 13))
         {
-            alerttxt = alerttxt + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
+            alertText = alertText + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
             tf.C_NTEL.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -643,7 +665,7 @@ function validate_form(tf, evt, minprom, authorized)
     if (co2 !== 'null') {
         if ((co2.length !== 0) && (co2.length !== 8) && (co2.length !== 10) && (co2.length !== 13))
         {
-            alerttxt = alerttxt + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
+            alertText = alertText + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
             tf.C_OBSE2.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -653,14 +675,14 @@ function validate_form(tf, evt, minprom, authorized)
 //date must be today or in future
         if (dp1 < tf.D_FECH.value)
         {
-            alerttxt = alerttxt + 'Fecha de promesa en pasado' + '\nPROM=' + dp1 + '\nHOY=' + tf.D_FECH.value + '\n';
+            alertText = alertText + 'Fecha de promesa en pasado' + '\nPROM=' + dp1 + '\nHOY=' + tf.D_FECH.value + '\n';
             tf.D_PROM1.style.backgroundColor = "yellow";
             flag = 1;
         }
         if (authorized < 1) {
             if (ccn === "PROMESA DE PAGO TOTAL")
             {
-                alerttxt = alerttxt + "Solamente un supervisor puede sobreescribido una promesa activa.";
+                alertText = alertText + "Solamente un supervisor puede sobreescribido una promesa activa.";
                 flag = 1;
             }
         }
@@ -669,7 +691,7 @@ function validate_form(tf, evt, minprom, authorized)
 //date must be today or in future
         if (dp2 < tf.D_FECH.value)
         {
-            alerttxt = alerttxt + 'Fecha de promesa en pasado' + '\nPROM=' + dp2 + '\nHOY=' + tf.D_FECH.value + '\n';
+            alertText = alertText + 'Fecha de promesa en pasado' + '\nPROM=' + dp2 + '\nHOY=' + tf.D_FECH.value + '\n';
             tf.D_PROM1.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -683,7 +705,7 @@ function validate_form(tf, evt, minprom, authorized)
 //date needs amount
         if (validate_required(tf.D_PROM2) === false)
         {
-            alerttxt = alerttxt + "Fecha de promesa es necesario\n";
+            alertText = alertText + "Fecha de promesa es necesario\n";
             tf.D_PROM2.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -693,7 +715,7 @@ function validate_form(tf, evt, minprom, authorized)
     {
         if (validate_date(tf.D_PAGO) === false)
         {
-            alerttxt = alerttxt + 'Fecha de pago es necesario\n';
+            alertText = alertText + 'Fecha de pago es necesario\n';
             tf.D_PAGO.style.backgroundColor = "yellow";
             flag = 1;
         }
@@ -703,39 +725,39 @@ function validate_form(tf, evt, minprom, authorized)
     {
         if (validate_required(tf.C_PROM) === false)
         {
-            alerttxt = alerttxt + "Frecuencia de pago es necesario\n";
+            alertText = alertText + "Frecuencia de pago es necesario\n";
             tf.C_PROM.style.backgroundColor = "yellow";
             flag = 1;
         }
     }
-    alertstr = 'Gestion de cuenta ' + tf.CUENTA.value + ' guardado con status ' + cvt + ".\n";
+    let alertString = 'Gestion de cuenta ' + tf.CUENTA.value + ' guardado con status ' + cvt + ".\n";
     if (n1 > 0) {
-        alertstr = alertstr + " Fecha de promisa 1: " + dp1 + " ";
+        alertString = alertString + " Fecha de promisa 1: " + dp1 + " ";
     }
     if (n1 > 0) {
-        alertstr = alertstr + " Monto de promisa 1: $" + n1 + "\n";
+        alertString = alertString + " Monto de promisa 1: $" + n1 + "\n";
     }
     if (n2 > 0) {
-        alertstr = alertstr + " Fecha de promisa 2: " + dp2 + " ";
+        alertString = alertString + " Fecha de promisa 2: " + dp2 + " ";
     }
     if (n2 > 0) {
-        alertstr = alertstr + " Monto de promisa 2: $" + n2 + "\n";
+        alertString = alertString + " Monto de promisa 2: $" + n2 + "\n";
     }
     if (npa > 0) {
-        alertstr = alertstr + " Fecha de promisa total: " + dpago;
+        alertString = alertString + " Fecha de promisa total: " + dPago;
     }
     if (npa > 0) {
-        alertstr = alertstr + " Monto de promisa total: $" + npa;
+        alertString = alertString + " Monto de promisa total: $" + npa;
     }
 
     if (flag === 0) {
-        alert(alertstr);
+        alert(alertString);
         tf.error.value = 0;
         return true;
     }
     else {
 //  stopEvent(evt); // DOM style
-        alert('ERROR EA2 - ' + alerttxt + '\nGestion no se guardó.');
+        alert('ERROR EA2 - ' + alertText + '\nGestion no se guardó.');
 //  stopEvent(evt); // DOM style
         return false; // IE style
     }

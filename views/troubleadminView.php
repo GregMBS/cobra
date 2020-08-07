@@ -39,7 +39,7 @@
                                         <form action="/troubleadmin.php" method="get" name="lista<?php echo $answer['auto'];?>" >
                                             <input type="hidden" name="which" readonly="readonly" value=<?php echo $answer['auto']; ?> />
                                             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> />
-                                            <input type="text" name="reparacion" />
+                                            <label><input type="text" name="reparacion" /></label>
                                         </form>
                                 </td>
                                         <?php

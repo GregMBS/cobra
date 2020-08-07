@@ -55,15 +55,15 @@
         }
         ?>
         <form action="/notadmin.php" method="get" name="notas">
-            <span class="formCap">Gestor</span><SELECT NAME="target">
+            <label class="formCap">Gestor<SELECT NAME="target">
                 <OPTION VALUE='todos'>todos</option>
 <?php
 foreach ($rowt as $answert) {
     ?>
                     <option value='<?php echo $answert['iniciales']; ?>'><?php echo $answert[0]; ?></option>
                 <?php } ?>
-            </SELECT><br>
-            <span class="formCap">Fecha</span><SELECT NAME="formDay">
+            </SELECT></label><br>
+            <label>Fecha<SELECT NAME="formDay">
                 <OPTION VALUE='01'>1</option>
                 <OPTION VALUE='02'>2</option>
                 <OPTION VALUE='03'>3</option>
@@ -95,7 +95,8 @@ foreach ($rowt as $answert) {
                 <OPTION VALUE='29'>29</option>
                 <OPTION VALUE='30'>30</option>
                 <OPTION VALUE='31'>31</option>
-            </SELECT>
+            </SELECT></label>
+            <label>
             <SELECT NAME="formMonth">
                 <OPTION VALUE='01'>enero</option>
                 <OPTION VALUE='02'>febrero</option>
@@ -109,12 +110,13 @@ foreach ($rowt as $answert) {
                 <OPTION VALUE='10'>octubre</option>
                 <OPTION VALUE='11'>noviembre</option>
                 <OPTION VALUE='12'>diciembre</option>
-            </SELECT>
+            </SELECT></label>
+            <label>
             <SELECT NAME="formYear">
-                <OPTION VALUE='2014'>2014</option>
-                <OPTION VALUE='2015'>2015</option>
-            </SELECT><br>
-            <span class="formCap">Hora</span><select name='HORA'>
+                <OPTION VALUE='2020'>2020</option>
+                <OPTION VALUE='2021'>2021</option>
+            </SELECT></label><br>
+            <label class="formCap">Hora<select name='HORA'>
                 <option value=''>&nbsp;</option>
                 <option value='06:00:00'>6 AM</option>
                 <option value='07:00:00'>7 AM</option>
@@ -132,9 +134,9 @@ foreach ($rowt as $answert) {
                 <option value='19:00:00'>7 PM</option>
                 <option value='20:00:00'>8 PM</option>
                 <option value='21:00:00'>9 PM</option>
-            </select><br>
-            <span class="formCap">Nota</span>
-            <textarea rows="2" cols="40" name="NOTA"></textarea><br>
+            </select></label><br>
+            <label class="formCap">Nota
+            <textarea rows="2" cols="40" name="NOTA"></textarea></label><br>
             <input type="hidden" name="D_FECH" readonly="readonly" value=<?php echo date('Y-m-d'); ?> /><br>
             <input type="hidden" name="C_HORA" readonly="readonly" value=<?php echo date('H:i:s'); ?> /><br>
             <input type="hidden" name="C_CVGE" readonly="readonly" value=<?php echo $capt; ?> /><br>

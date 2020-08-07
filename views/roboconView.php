@@ -94,7 +94,7 @@
                                 <form action='#' method='get' name='<?php echo $msg; ?>'>
                                     <input type='hidden' name='capt' value='<?php echo $capt; ?>'>
                                     <input type='hidden' name='auto' value='<?php echo $auto; ?>'>
-                                    <select name="lineas">
+                                    <label><select name="lineas">
                                         <?php
                                         for ($i = 0;
                                         $i < 15;
@@ -109,7 +109,7 @@
                                             echo $i;
                                             }
                                             ?></option>
-                                    </select>
+                                    </select></label>
                                 </form>
                             </td>
                             <td><input form="<?php echo $msg; ?>" type='submit' name='go' value='CAMBIAR'></td>

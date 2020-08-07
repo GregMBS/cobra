@@ -16,7 +16,7 @@
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
         <form action="/pagosquery.php" method="get" name="queryParams">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
-            <p>Cliente:
+            <p><label>Cliente:
                 <select name="cliente">
                     <option value="todos" style="font-size:120%;">todos</option>
                     <?php
@@ -27,12 +27,12 @@
                         <?php
                     }
                     ?>
-                </select>
+                </select></label>
             </p>
-            <p>HECHO de:
-                <input name="fecha1" id="fecha1" readonly="readonly" />
-                a:
-                <input name="fecha2" id="fecha2" readonly="readonly" />
+            <p><label>HECHO de:
+                    <input name="fecha1" id="fecha1" readonly="readonly" /></label>
+                <label>a:
+                <input name="fecha2" id="fecha2" readonly="readonly" /></label>
             </p>
             <input type='submit' name='go' value='Query_Pagos'>
         </form>

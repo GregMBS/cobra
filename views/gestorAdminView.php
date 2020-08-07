@@ -43,12 +43,12 @@
                                   id="gestorChange<?php echo $j; ?>">
                                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                                 <input type="hidden" name="j" value="<?php echo $j ?>">
-                                <input type="text" name="usuaria" readonly="readonly" value="<?php echo $usuaria; ?>" />
+                                <label><input type="text" name="usuaria" readonly="readonly" value="<?php echo $usuaria; ?>" /></label>
                             </form>
                         </td>
-                        <td><input form="gestorChange<?php echo $j; ?>" type="text" name="completo" value="<?php echo $completo; ?>" /></td>
-                        <td><input form="gestorChange<?php echo $j; ?>" type="password" name="passw" value="<?php echo $passw; ?>" /></td>
-                        <td>
+                        <td><label><input form="gestorChange<?php echo $j; ?>" type="text" name="completo" value="<?php echo $completo; ?>" /></label></td>
+                        <td><label><input form="gestorChange<?php echo $j; ?>" type="password" name="passw" value="<?php echo $passw; ?>" /></label></td>
+                        <td><label>
                             <select form="gestorChange<?php echo $j; ?>" name="tipo">
                                 <option value=""></option>
                                 <?php
@@ -71,7 +71,7 @@
                                                 ?></option>
                                 <?php }
                                 ?>
-                            </select></td>
+                            </select></label></td>
                         <td><input form="gestorChange<?php echo $j; ?>" type="submit" name="go" value="GUARDAR">
                         </td>
                         <td><input form="gestorChange<?php echo $j; ?>" type="submit" name="go" value="BORRAR">
@@ -86,11 +86,11 @@
                               action="/gestorAdmin.php"
                               id="gestorAdd">
                             <input type="hidden" name="capt" value="<?php echo $capt ?>">
-                            <input type="text" name="usuaria"  value="" />
+                            <label><input type="text" name="usuaria"  value="" /></label>
                     </form></td>
-                    <td><input form="gestorAdd" type="text" name="completo" value="" /></td>
-                    <td><input form="gestorAdd" type="password" name="passw" value="" /></td>
-                    <td>
+                    <td><label><input form="gestorAdd" type="text" name="completo" value="" /></label></td>
+                    <td><label><input form="gestorAdd" type="password" name="passw" value="" /></label></td>
+                    <td><label>
                         <select form="gestorAdd" name="tipo">
                             <option value=""></option>
                             <?php
@@ -109,7 +109,7 @@
                                     ?></option>
                             <?php }
                             ?>
-                        </select></td>
+                        </select></label></td>
                     <td><input form="gestorAdd" type="submit" name="go" value="AGREGAR">
                     </td>
                 </tr>
