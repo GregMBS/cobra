@@ -55,7 +55,7 @@ use cobra_salsa\ResumenObject;
                 ?>
             </tbody>
         </table>
-        <div id="searchBox">
+        <div id="SearchBox">
             <h2>Buscar</h2>
             <form name="search" method="get" action="/buscar.php" id="search">
                 <label>Buscar a: <input type="text" name="find"></label>
@@ -87,7 +87,7 @@ use cobra_salsa\ResumenObject;
                 <input type="hidden" name="go" value="BUSCAR">
                 <input type="hidden" name="from" value="resumen.php">
                 <input type="submit" name="go1" value="BUSCAR">
-                <input type="button" name="cancel" onclick="cancelbox('searchBox')" value="Cancel">
+                <input type="button" name="cancel" onclick="cancelbox('SearchBox')" value="Cancel">
             </form>
         </div>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>

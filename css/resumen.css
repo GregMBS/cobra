@@ -5,7 +5,7 @@ body {
     color: #000000;
 }
 
-.hidebox {
+.hideBox {
     display: none
 }
 
@@ -219,7 +219,7 @@ td.chico {
     width: 0;
 }
 
-#searchbox, #quicksearchbox {
+#SearchBox, #quickSearchBox {
     z-index: 98;
     display: none;
     position: absolute;
@@ -232,7 +232,7 @@ td.chico {
     border: 2px black solid;
 }
 
-#searchbox input, #quicksearchbox input {
+#SearchBox input, #quickSearchBox input {
     color: #000000;
     background-color: #ffffff;
 }

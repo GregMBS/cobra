@@ -52,15 +52,15 @@ if ($notalert > 0) { ?>
         <input type="hidden" name="capt" value="<?php echo $capt ?>">
         <input type="submit" name="go" value="ULTIMA"></form>
     <form class="buttons" name="buscar" action="../resumen.php" id="buscar">
-        <button type="button" value="buscar" onclick="showsearch();">BUSCAR</button>
+        <button type="button" value="buscar" onclick="showSearch();">BUSCAR</button>
     </form>
     <form class="buttons" name="migo" method="get" action="/migo.php" id="migo">
         <input type="hidden" name="find" value="<?php echo $capt ?>">
         <input type="hidden" name="capt" value="<?php echo $capt ?>">
         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
         <input type="submit" name="go" value="CUENTAS"></form>
-    <form class="buttons" name="visitlist" method="get" action=
-    "../realvisitlist.php" id="visitlist" target="_blank">
+    <form class="buttons" name="visitList" method="get" action=
+    "../realVisitList.php" id="visitList" target="_blank">
         <input type="hidden" name="capt" value="<?php echo $capt ?>">
         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
         <input type="hidden" name="ejecutivo_asignado_call_center"
@@ -208,7 +208,7 @@ if ($notalert > 0) { ?>
         <LI><A onClick="paging('REFERENCIAS')">REFERENCIAS</A></LI>
         <LI><A onClick="paging('LABORAL')">LABORAL</A></LI>
         <LI><A onClick="paging('CONTABLES')">CONTABLES</A></LI>
-        <LI><A onClick="paging('MISCELANEA')">MISCELANEA</A></LI>
+        <LI><A onClick="paging('MISCELÁNEA')">MISCELÁNEA</A></LI>
         <LI><A onClick="paging('VISITA')">CAPTURA VISITA</A></LI>
         <LI><A onClick="paging('HISTORIA')">HISTORIA</A></LI>
     </UL>
@@ -327,12 +327,12 @@ if ($notalert > 0) { ?>
             if (isset($tel_3)) {
                 echo $tel_3;
             }
-            ?></span>><br>
+            ?></span><br>
         <span class='formCap'>Tel 4</span><span class='fakeInput'><?php
             if (isset($tel_4)) {
                 echo $tel_4;
             }
-            ?></span>><br>
+            ?></span><br>
         <span class='formCap'>E-mail</span><span class='fakeInput'><?php
             if (isset($email_deudor)) {
                 echo $email_deudor;
@@ -824,7 +824,7 @@ if ($notalert > 0) { ?>
     </div>
 
 </form>
-<div id="searchbox">
+<div id="SearchBox">
     <h2>Buscar</h2>
     <form name="search" method="get" action="../buscar.php" id="search">
         <label>Buscar a: <input type=
@@ -861,7 +861,7 @@ if ($notalert > 0) { ?>
         <input type="hidden" name="go" value="BUSCAR">
         <input type="hidden" name="from" value="resumen.php">
         <input type="submit" name="go1" value="BUSCAR">
-        <input type="button" name="cancel" onclick="cancelbox('searchbox')"
+        <input type="button" name="cancel" onclick="cancelbox('SearchBox')"
                value="Cancel">
     </form>
 </div>
@@ -937,11 +937,11 @@ if ($notalert > 0) { ?>
         <table class='visitable'>
             <tr>
                 <th>Tipo:</th>
-                <td><label><input type="checkbox" name="domtipo" value="casa" id="casa"> Casa</label></td>
-                <td><label><input type="checkbox" name="domtipo" value="departamento" id="departamento">
+                <td><label><input type="checkbox" name="domTipo" value="casa" id="casa"> Casa</label></td>
+                <td><label><input type="checkbox" name="domTipo" value="departamento" id="departamento">
                         Departamento</label></td>
-                <td><label><input type="checkbox" name="domtipo" value="terreno" id="terreno"> Terreno</label></td>
-                <td><label><input type="checkbox" name="domtipo" value="trabajo" id="trabajo"> Trabajo/Oficina</label>
+                <td><label><input type="checkbox" name="domTipo" value="terreno" id="terreno"> Terreno</label></td>
+                <td><label><input type="checkbox" name="domTipo" value="trabajo" id="trabajo"> Trabajo/Oficina</label>
                 </td>
             </tr>
             <tr>
@@ -1266,7 +1266,7 @@ if ($notalert > 0) { ?>
             $fieldnames = array("Status", "Fecha/Hora", "Gestor",
                 "Telefono", "Gestion", "Gestion");
             $fieldsize = array("status", "timestamp", "chico", "telefono",
-                "gestion", "hidebox");
+                "gestion", "hideBox");
             for ($j = 0; $j < 5; $j++) {
                 $fieldname = $fieldnames[$j];
                 ?>
@@ -1367,7 +1367,7 @@ if ($notalert > 0) { ?>
                 }
                 ?>">
             <?php } ?>
-            <tr id='authbox' class="hidebox">
+            <tr id='authbox' class="hideBox">
                 <td><label for="AUTH">Autorizaci&oacute;n </label></td>
                 <td><input type="password" name="AUTH" id="AUTH" value=""></td>
             </tr>
@@ -1593,7 +1593,7 @@ if ($notalert > 0) { ?>
                         ?></span></td>
             </tr>
             <tr>
-                <td><label for="D_PROM1">Fecha promesa unico o 1o</label></td>
+                <td><label for="D_PROM1">Fecha promesa único o 1o</label></td>
                 <td><input type="date" name="D_PROM1" id="D_PROM1" value="" size=15
                            min="<?php echo date('Y-m-d'); ?>>"
                            max="<?php echo date('Y-m-d', strtotime("+2 weeks")); ?>"></td>
@@ -1604,8 +1604,8 @@ if ($notalert > 0) { ?>
                         ?></span></td>
             </tr>
             <tr>
-                <td>Cant. de promesa 2o</td>
-                <td>$<input type="text" name="N_PROM2" value="0" onchange="npromChange(this.form);"
+                <td><label for="N_PROM2">Cant. de promesa 2o</label></td>
+                <td>$<input type="text" name="N_PROM2" id="N_PROM2" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td><span class="fakeInput">$<?php
                     if (isset($N_PROM2_OLD)) {
@@ -1614,7 +1614,7 @@ if ($notalert > 0) { ?>
                     ?></span><br>
             </tr>
             <tr>
-                <td>Fecha promesa 2o</td>
+                <td><label for="D_PROM2">Fecha promesa 2o</label></td>
                 <td><INPUT TYPE="date" NAME="D_PROM2" ID="D_PROM2" VALUE="" SIZE=15
                            min="<?php echo date('Y-m-d'); ?>>"
                            max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
@@ -1626,8 +1626,8 @@ if ($notalert > 0) { ?>
                         ?></span></td>
             </tr>
             <tr>
-                <td>Cant. de promesa 3o</td>
-                <td>$<input type="text" name="N_PROM3" value="0" onchange="npromChange(this.form);"
+                <td><label for="N_PROM3">Cant. de promesa 3o</label></td>
+                <td>$<input type="text" name="N_PROM3" id="N_PROM3" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td><span class="fakeInput">$<?php
                     if (isset($N_PROM3_OLD)) {
@@ -1636,8 +1636,7 @@ if ($notalert > 0) { ?>
                     ?></span><br>
             </tr>
             <tr>
-                <td>Fecha promesa 3o
-                </td>
+                <td><label for="D_PROM3">Fecha promesa 3o</label></td>
                 <td><INPUT TYPE="date" NAME="D_PROM3" ID="D_PROM3" VALUE="" SIZE=15
                            min="<?php echo date('Y-m-d'); ?>>"
                            max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
@@ -1649,8 +1648,8 @@ if ($notalert > 0) { ?>
                         ?></span></td>
             </tr>
             <tr>
-                <td>Cant. de promesa 4o</td>
-                <td>$<input type="text" name="N_PROM4" value="0" onchange="npromChange(this.form);"
+                <td><label for="N_PROM4">Cant. de promesa 4o</label></td>
+                <td>$<input type="text" name="N_PROM4" id="N_PROM4" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td><span class="fakeInput">$<?php
                     if (isset($N_PROM4_OLD)) {
@@ -1659,20 +1658,19 @@ if ($notalert > 0) { ?>
                         ?></span><br>
             </tr>
             <tr>
-                <td>Fecha promesa 4o</td>
+                <td><label for="D_PROM4">Fecha promesa 4o</label></td>
                 <td><INPUT TYPE="date" NAME="D_PROM4" ID="D_PROM4" VALUE="" SIZE=15
                            min="<?php echo date('Y-m-d'); ?>>"
                            max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
                 </td>
-                <td><input type="text" name="D_PROM4_OLD" style="background-color:#c0c0c0;" readonly="readonly"
-                           value="<?php
+                <td><span class="fakeInput"><?php
                            if (isset($D_PROM4_OLD)) {
                                echo $D_PROM4_OLD;
                            }
-                           ?>"></td>
+                        ?></span></td>
             </tr>
             <tr>
-                <td>Frecuencia de promesa</td>
+                <td><label for="C_PROM">Frecuencia de promesa</label></td>
                 <td><select name="C_PROM" id="C_PROM">
                         <option selected="selected" value="">&nbsp;</option>
                         <option value="único">Único</option>
@@ -1684,42 +1682,41 @@ if ($notalert > 0) { ?>
                     </select></td>
             </tr>
             <tr>
-                <td>Cant. de promesa total</td>
+                <td><label for="N_PROM">Cant. de promesa total</label></td>
                 <td><input type="text" name="N_PROM" id="N_PROM" readonly="readonly" style="background-color:#c0c0c0;"
                            value=""></td>
                 <td>Cant. prometido anterior</td>
-                <td><input type="text" name="N_PROM_OLD" id="N_PROM_OLD" readonly="readonly"
-                           style="background-color:#c0c0c0;" value="<?php
+                <td><span class="fakeInput"><?php
                     if (isset($N_PROM_OLD)) {
                         echo floor($N_PROM_OLD);
                     }
-                    ?>"></td>
+                        ?></span></td>
             </tr>
             <tr id="pagocapt">
-                <td>Monto Pag&oacute;</td>
+                <td><label for="N_PAGO">Monto Pag&oacute;</label></td>
                 <td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
             </tr>
             <tr id="pagocapt2">
-                <td>Fecha Pag&oacute;</td>
+                <td><label for="D_PAGOi">Fecha Pag&oacute;</label></td>
                 <td><INPUT TYPE="date" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15
                            min="<?php echo date('Y-m-d'); ?>>">
                 </td>
             </tr>
             <tr>
-                <td colspan=2>Actualizaci&oacute;n de Datos</td>
+                <td colspan=2>Actualización de Datos</td>
             </tr>
             <tr>
-                <td>Tel.</td>
-                <td><input type="text" name="C_NTEL" value="" onmouseover='this.focus();'
+                <td><label for="C_NTEL">Tel.</label></td>
+                <td><input type="text" name="C_NTEL" id="C_NTEL" value="" onmouseover='this.focus();'
                            onChange="addToTels(4, this)"></td>
             </tr>
             <tr>
-                <td>Tel 2.</td>
-                <td><input type="text" size=50 name="C_OBSE2" value="" onmouseover='this.focus();'
+                <td><label for="C_OBSE2">Tel 2.</label></td>
+                <td><input type="text" size=50 name="C_OBSE2" id="C_OBSE2" value="" onmouseover='this.focus();'
                            onChange="addToTels(5, this)"></td>
             </tr>
             <tr>
-                <td><label for="C_NDIR">Dirección</label></td>
+                <td><label for="C_NDIR">Dirección</label></td>
                 <td><input type="text" size=50 name="C_NDIR" id="C_NDIR" value="" onmouseover='this.focus();'></td>
             </tr>
             <tr>

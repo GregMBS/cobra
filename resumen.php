@@ -58,7 +58,7 @@ if (!empty($mytipo)) {
         $C_CVBA = filter_input(INPUT_GET, 'C_CVBA');
         $C_CONT = filter_input(INPUT_GET, 'C_CONT');
         $C_CONTAN = filter_input(INPUT_GET, 'C_CONTAN');
-        $C_CTIPO = filter_input(INPUT_GET, 'C_CTIPO');
+        $C_CTIPO = filter_input(INPUT_GET, 'domTipo');
         $C_COWN = filter_input(INPUT_GET, 'C_COWN');
         $C_CSTAT = filter_input(INPUT_GET, 'C_CSTAT');
         $CUENTA = filter_input(INPUT_GET, 'CUENTA');

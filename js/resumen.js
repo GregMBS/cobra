@@ -104,8 +104,8 @@ function tooLong(campo) {
     }
 }
 
-function showsearch() {
-    document.getElementById('searchbox').style.display = "block";
+function showSearch() {
+    document.getElementById('SearchBox').style.display = "block";
     document.getElementById('find').focus();
 }
 
