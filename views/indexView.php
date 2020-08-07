@@ -22,13 +22,13 @@ $msg = 'CobraMas';
             <form action="/index.php" method="post" autocomplete="off">
                 <fieldset>
                     <div class="username">
-                        <span class="formcap">Usuario:</span>
+                        <span class="formCap">Usuario:</span>
                         <input type="password" name="capt" value="" 
                                onchange="this.value = this.value.replace(/ /g, '');" />
                         <br>
                     </div>
                     <div class="contrasena">
-                        <span class="formcap">Contrase&ntilde;a:</span><input type="password" name="pwd" value=""/><br>
+                        <span class="formCap">Contrase&ntilde;a:</span><input type="password" name="pwd" value=""/><br>
                     </div>
                     <input type="submit" name="go" value="Empezar" />
                 </fieldset>

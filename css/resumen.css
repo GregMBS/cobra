@@ -13,7 +13,7 @@ div {
     clear: both
 }
 
-span.formcap {
+span.formCap {
     display: block;
     width: 20em;
     float: left;
@@ -21,7 +21,7 @@ span.formcap {
     font-weight: bold;
 }
 
-span.formcapa {
+span.formCapa {
     display: block;
     width: 13em;
     float: left;
@@ -29,7 +29,7 @@ span.formcapa {
     font-weight: bold;
 }
 
-span.formcaps {
+span.formCaps {
     display: block;
     width: 6em;
     float: left;
@@ -128,7 +128,7 @@ a:active {
     color: yellow;
 }
 
-#telbox span.formcap {
+#telbox span.formCap {
     display: block;
     width: 14em;
     float: left;
@@ -268,7 +268,7 @@ td.chico {
     width: auto;
 }
 
-#buttonbox form {
+#buttonBox form {
     float: left
 }
 

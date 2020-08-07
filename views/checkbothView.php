@@ -16,7 +16,7 @@
         <div id="vtable">
             <h1><?php echo $message; ?></h1>
             <form id='asigform' action='/checkboth.php' method='get'>
-                <span class="formcap">Visitador:</span>
+                <span class="formCap">Visitador:</span>
                 <select name="gestor" onChange="document.getElementById('asigform').submit()">
                     <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
                     <?php

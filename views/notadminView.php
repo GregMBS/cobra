@@ -55,7 +55,7 @@
         }
         ?>
         <form action="/notadmin.php" method="get" name="notas">
-            <span class="formcap">Gestor</span><SELECT NAME="target">
+            <span class="formCap">Gestor</span><SELECT NAME="target">
                 <OPTION VALUE='todos'>todos</option>
 <?php
 foreach ($rowt as $answert) {
@@ -63,7 +63,7 @@ foreach ($rowt as $answert) {
                     <option value='<?php echo $answert['iniciales']; ?>'><?php echo $answert[0]; ?></option>
                 <?php } ?>
             </SELECT><br>
-            <span class="formcap">Fecha</span><SELECT NAME="formDay">
+            <span class="formCap">Fecha</span><SELECT NAME="formDay">
                 <OPTION VALUE='01'>1</option>
                 <OPTION VALUE='02'>2</option>
                 <OPTION VALUE='03'>3</option>
@@ -114,7 +114,7 @@ foreach ($rowt as $answert) {
                 <OPTION VALUE='2014'>2014</option>
                 <OPTION VALUE='2015'>2015</option>
             </SELECT><br>
-            <span class="formcap">Hora</span><select name='HORA'>
+            <span class="formCap">Hora</span><select name='HORA'>
                 <option value=''>&nbsp;</option>
                 <option value='06:00:00'>6 AM</option>
                 <option value='07:00:00'>7 AM</option>
@@ -133,7 +133,7 @@ foreach ($rowt as $answert) {
                 <option value='20:00:00'>8 PM</option>
                 <option value='21:00:00'>9 PM</option>
             </select><br>
-            <span class="formcap">Nota</span>
+            <span class="formCap">Nota</span>
             <textarea rows="2" cols="40" name="NOTA"></textarea><br>
             <input type="hidden" name="D_FECH" readonly="readonly" value=<?php echo date('Y-m-d'); ?> /><br>
             <input type="hidden" name="C_HORA" readonly="readonly" value=<?php echo date('H:i:s'); ?> /><br>

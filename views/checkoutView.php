@@ -14,7 +14,7 @@
 <div id="vtable">
     <h1><?php echo $message; ?></h1>
     <form id='asigform' action='/checkout.php' method='get'>
-        <span class="formcap">Visitador:</span>
+        <span class="formCap">Visitador:</span>
         <select name="gestor" onmouseup="this.form.submit()">
             <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
             <?php
