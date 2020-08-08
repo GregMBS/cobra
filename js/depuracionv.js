@@ -62,44 +62,14 @@ function validate_form2(tf, evt, minprom) {
         }
     }
 
-//GESTIONES necesitan a lo menos 2 palbras
-    if (tf.C_OBSE1.value.indexOf(" ") === -1) {
-        alertText = alertText + 'GESTION no está completada' + '\n' + tf.C_OBSE1.value;
-        tf.C_OBSE1.style.backgroundColor = "yellow";
-        flag = 1;
-    }
-//Picky gringo language rules
-    if (tf.C_OBSE1.value.indexOf(" K ") !== -1) {
-        alertText = alertText + 'Usa QUE en lugar de K' + '\n';
-        tf.C_OBSE1.style.backgroundColor = "yellow";
-        flag = 1;
-    }
-    if (tf.C_OBSE1.value.indexOf("CHING") !== -1) {
-        alertText = alertText + 'Moderar su lenguaje' + '\n';
-        tf.C_OBSE1.style.backgroundColor = "yellow";
-        flag = 1;
-    }
-    if (tf.C_OBSE1.value.indexOf(" CTA") !== -1) {
-        alertText = alertText + '¿Significa CTA CUENTA o CONTESTA?' + '\n';
-        tf.C_OBSE1.style.backgroundColor = "yellow";
-        flag = 1;
-    }
-//Must have visitador
+    const __ret = picky(tf, alertText, flag);
+    alertText = __ret.alertText;
+    flag = __ret.flag;
+
+    //Must have visitador
     if (validate_required(tf.C_VISIT) === false) {
         alertText = alertText + 'VISITADOR es necesario\n';
         tf.C_VISIT.style.backgroundColor = "yellow";
-        flag = 1;
-    }
-//Must Have status
-    if (validate_required(tf.C_CVST) === false) {
-        alertText = alertText + 'STATUS es necesario\n';
-        tf.C_CVST.style.backgroundColor = "yellow";
-        flag = 1;
-    }
-//Must have accion
-    if (validate_required(tf.ACCION) === false) {
-        alertText = alertText + 'ACCION es necesario\n';
-        tf.ACCION.style.backgroundColor = "yellow";
         flag = 1;
     }
 //Amount of promise requires cargo/parentesco
@@ -109,20 +79,6 @@ function validate_form2(tf, evt, minprom) {
             tf.C_CNP.style.backgroundColor = "yellow";
             flag = 1;
         }
-    }
-//Debtor must give causa no pago
-    if (tf.C_CARG.value === 'Deudor') {
-        if (validate_required(tf.C_CNP) === false) {
-            alertText = alertText + 'CAUSA NO PAGO es necesario\n';
-            tf.C_CNP.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-    }
-//GESTION too long
-    if (tf.C_OBSE1.length > 250) {
-        alertText = alertText + 'GESTION demasiado largo\n';
-        tf.C_OBSE1.style.backgroundColor = "yellow";
-        flag = 1;
     }
     if (cvt !== 'null') {
 //CLIENTE NEGOCIANDO requires cargo/parentesco        
@@ -209,22 +165,6 @@ function validate_form2(tf, evt, minprom) {
             tf.N_PAGOv.style.backgroundColor = "yellow";
             flag = 1;
         }
-        //ACLARACIONS need cargo/parentesco
-        if (cvt === "ACLARACION") {
-            if (validate_required(tf.C_CARG) === false) {
-                alertText = alertText + "Carga/Parentesco es necesario" + '\n';
-                tf.C_CNP.style.backgroundColor = "yellow";
-                flag = 1;
-            }
-        }
-//NEGATIVAS DE PAGO need cargo/parentesco
-        if (cvt === "NEGATIVA DE PAGO") {
-            if (validate_required(tf.C_CARG) === false) {
-                alertText = alertText + "Carga/Parentesco es necesario" + '\n';
-                tf.C_CNP.style.backgroundColor = "yellow";
-                flag = 1;
-            }
-        }
     }
 //monto de promesa can only have numbers and one decimal point.
     const testMontoPromesa = (n1.toString()).match(/[0-9.]/);
@@ -240,27 +180,9 @@ function validate_form2(tf, evt, minprom) {
         tf.N_PAGOv.style.backgroundColor = "yellow";
         flag = 1;
     }
-//new telephones can only have numbers
-    if (cnt !== 'null') {
-        const justNumbers = (cnt.toString()).match(/[0-9]/);
-        if (!justNumbers) {
-            alertText = alertText + 'No puede usarse un separador o letras en telefonos' + '\n';
-            tf.C_NTEL.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-        if ((cnt.length !== 0) && (cnt.length !== 8) && (cnt.length !== 10) && (cnt.length !== 13)) {
-            alertText = alertText + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
-            tf.C_NTEL.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-    }
-    if (co2 !== 'null') {
-        if ((co2.length !== 0) && (co2.length !== 8) && (co2.length !== 10) && (co2.length !== 13)) {
-            alertText = alertText + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
-            tf.C_OBSE2.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-    }
+    const __retTel = telCheck(cnt, alertText, tf, flag, co2);
+    alertText = __retTel.alertText;
+    flag = __retTel.flag;
 //date checks on promises
 
 //monto de pago needs fecha de pago
