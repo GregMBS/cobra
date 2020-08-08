@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Cuentas gestionado por <?php use cobra_salsa\DhObject;
-
-        if (isset($gestor)) {
+        <title>Cuentas gestionado por <?php
             echo $gestor;
-        } ?> en <?php
-        if (!empty($fecha)) {
+        ?> en <?php
             echo $fecha;
-        }
         ?></title>
     <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css"
@@ -32,7 +28,7 @@
         <th>CUENTA</th>
         <th>NOMBRE</th>
         <th>CLIENTE</th>
-        <th>STATUS DE LA CUENTA</th>
+                    <th>CAMPAÑA</th>
         <th>DIAS VENCIDOS</th>
         <th>SALDO TOTAL</th>
         <th>RESULTADOS</th>
@@ -43,8 +39,7 @@
     </thead>
     <tbody class="ui-widget-content">
     <?php
-    /** @var DhObject[] $main */
-    foreach ($main as $row) { ?>
+                foreach ($result as $row) { ?>
         <tr>
             <td><a href='/resumen.php?go=FromMigo&i=0&field=id_cuenta&find=<?php
                 echo $row->id_cuenta;

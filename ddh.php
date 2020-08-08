@@ -11,5 +11,5 @@ $dc = new DhClass($pdo);
 $capt = $pd->capt;
 $gestor = filter_input(INPUT_GET, 'gestor');
 $fecha = filter_input(INPUT_GET, 'fecha');
-$main = $dc->getDhMain($gestor, $fecha);
-require_once 'views/ddhView.php';
+$result = $dc->getDhMain($gestor, $fecha);
+require_once 'views/dhView.php';

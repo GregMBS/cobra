@@ -13,4 +13,4 @@ $gestor = filter_input(INPUT_GET, 'gestor');
 $fecha  = filter_input(INPUT_GET, 'fecha');
 set_time_limit(300);
 $result = $dc->getPromesas($gestor, $fecha);
-require_once 'views/pdhView.php';
+require_once 'views/dhView.php';
