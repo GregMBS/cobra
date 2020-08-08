@@ -12,5 +12,9 @@ $capt = $pd->capt;
 
 $search = filter_input_array(INPUT_GET);
 $querymain = $wc->buildQuery($search);
-$result = $wc->runQuery($querymain, $search);
+try {
+    $result = $wc->runQuery($querymain, $search);
+} catch (Exception $e) {
+    die($e->getMessage());
+}
 require_once 'views/whiteSearchView.php';

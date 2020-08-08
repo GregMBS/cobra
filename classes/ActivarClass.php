@@ -47,13 +47,13 @@ where status_de_credito not regexp '-' and numero_de_cuenta=:cta";
      */
     private function runProcess($data, $query)
     {
-        $n = 0;
+        $count = 0;
         $std = $this->pdo->prepare($query);
         foreach ($data as $d) {
             $std->bindParam(':cta', $d);
             $std->execute();
-            $n += $std->rowCount();
+            $count += $std->rowCount();
         }
-        return $n;
+        return $count;
     }
 }

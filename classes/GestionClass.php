@@ -395,7 +395,7 @@ and id_cuenta = :c_cont";
         $auto = $this->insertGestion($gestion);
         if ($auto == 0) {
             var_dump($gestion);
-            die('Insert gestion fail');
+            throw new Exception('INPUT GESTION FAILS');
         }
         $this->doCommon($auto, $gestion);
         $this->commitTransaction();

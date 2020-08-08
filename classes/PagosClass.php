@@ -34,22 +34,6 @@ class PagosClass {
      * 
      * @return array
      */
-    public function summaryThisMonth() {
-        $query = "select pagos.cliente as cli, status_de_credito as sdc,
-	sum(monto) as sm, sum(monto*confirmado) as smc
-from pagos join resumen using (id_cuenta)
-where fecha>last_day(curdate()-interval 1 month)
-and status_de_credito not like '%vo'
-group by cli, sdc with rollup";
-        $stm = $this->pdo->query($query);
-        $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * 
-     * @return array
-     */
     public function byGestorThisMonth() {
         $temp = array();
         $output = array();
@@ -76,35 +60,7 @@ order by cliente,gestor,fecha";
     }
 
     /**
-     * 
-     * @return array
-     */
-    public function summaryLastMonth() {
-        $query = "select pagos.cliente as cli, status_de_credito as sdc,
-	sum(monto) as sm, sum(monto*confirmado) as smc
-from pagos join resumen using (id_cuenta)
-where fecha<=last_day(curdate()-interval 1 month)
-and fecha>last_day(curdate()-interval 2 month)
-and status_de_credito not like '%vo'
-group by cli, sdc with rollup";
-        $stm = $this->pdo->query($query);
-        $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    public function byGestorLastMonth() {
-        $temp = array();
-        $output = array();
-        $result = $this->detailsLastMonth();
-        return $this->buildRows($result, $temp, $output);
-    }
-
-    /**
-     * 
+     *
      * @return PagosQueryObject[]
      */
     public function detailsLastMonth() {
@@ -120,6 +76,50 @@ order by cliente,gestor,fecha";
         $resultAntDet = $this->pdo->query($queryAntDet);
         $data = $resultAntDet->fetchAll(PDO::FETCH_CLASS, PagosQueryObject::class);
         return $this->buildDetails($data, $output);
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function summaryThisMonth() {
+        $query = "select pagos.cliente as cli, status_de_credito as sdc,
+	sum(monto) as sm, sum(monto*confirmado) as smc
+from pagos join resumen using (id_cuenta)
+where fecha>last_day(curdate()-interval 1 month)
+and status_de_credito not regexp '-'
+group by cli, sdc with rollup";
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function summaryLastMonth() {
+        $query = "select pagos.cliente as cli, status_de_credito as sdc,
+	sum(monto) as sm, sum(monto*confirmado) as smc
+from pagos join resumen using (id_cuenta)
+where fecha<=last_day(curdate()-interval 1 month)
+and fecha>last_day(curdate()-interval 2 month)
+and status_de_credito not regexp '-'
+group by cli, sdc with rollup";
+        $stm = $this->pdo->query($query);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function byGestorLastMonth() {
+        $temp = array();
+        $output = array();
+        $result = $this->detailsLastMonth();
+        return $this->buildRows($result, $temp, $output);
     }
 
     /**
@@ -183,20 +183,17 @@ order by cliente,gestor,fecha";
      */
     public function queryAll($start, $end, $cliente) {
         $output = array();
+        $startQuery = " ";
+        $endQuery = " ";
+        $clienteQuery = " ";
         if (!empty($start)) {
             $startQuery = " and fecha >= :start ";
-        } else {
-            $startQuery = " ";
         }
         if (!empty($end)) {
             $endQuery = " and fecha <= :end ";
-        } else {
-            $endQuery = " ";
         }
         if ($cliente != "todos") {
             $clienteQuery = " and pagos.cliente = :cliente ";
-        } else {
-            $clienteQuery = " ";
         }
         $query = "select cuenta, fecha, fechacapt, monto,
                     pagos.cliente as 'cliente',
@@ -355,10 +352,7 @@ order by cliente,gestor,fecha";
         $std->execute();
         if ($std) {
             $output = $this->sheetLoop($std, $output);
-        } else {
-            die();
         }
-
         return $output;
     }
 

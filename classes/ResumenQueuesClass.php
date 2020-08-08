@@ -190,6 +190,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
      * @param $go
      * @param int|null $find
      * @return ResumenObject
+     * @throws Exception
      */
     public function getNextAccount(string $capt, int $camp, $go, ?int $find): ResumenObject
     {
@@ -209,7 +210,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
                 $row = $this->getAccount($sql);
             }
         } catch (Exception $e) {
-            die($e->getMessage());
+            throw new Exception($e);
         }
         return $row;
     }

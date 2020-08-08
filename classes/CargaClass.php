@@ -68,38 +68,12 @@ class CargaClass
     }
 
     /**
-     *
-     * @param array $dataNames
-     * @param array $dbNames
-     * @return array
-     */
-    public function nameCheck($dataNames, $dbNames)
-    {
-        $oops = array();
-        foreach ($dataNames as $name) {
-            $match = in_array($name, $dbNames);
-            if (!$match) {
-                $oops[] = $name;
-            }
-        }
-        return $oops;
-    }
-
-    /**
      * @param array $post
      * @throws Exception
      */
     public function asociar(array $post): void
     {
-        $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
-        $columns = $this->getDBColumns();
-        $fields = [];
-
-        if (!empty($post['pos'])) {
-            foreach ($post['pos'] as $pos) {
-                $fields[] = $this->insertIntoCargadex($pos, $columns, $cliente);
-            }
-        }
+        $fields = $this->loadCargadex($post);
 
         $columnNames = $this->getDataColumnNames($fields);
         $this->prepareTemp($columnNames);
@@ -141,16 +115,15 @@ class CargaClass
     private function insertIntoCargadex(int $pos, array $columns, string $cliente): string
     {
         $column = $columns[$pos];
+        $nField = $column->Field;
+        $nType = $column->Type;
+        $nNullOk = $column->Null;
+        $nPosition = $pos;
         if (stripos($pos, 'nousar') === 0) {
             $nField = 'nousar';
             $nType = '';
             $nNullOk = '';
             $nPosition = '';
-        } else {
-            $nField = $column->Field;
-            $nType = $column->Type;
-            $nNullOk = $column->Null;
-            $nPosition = $pos;
         }
         $query = "insert into cargadex (field,type,nullOk,position,cliente) values ('$nField','$nType','$nNullOk','$nPosition','$cliente');";
         $this->pdo->query($query);
@@ -362,25 +335,6 @@ from resumen;
     }
 
     /**
-     * @param string $cliente
-     * @return CargadexObject[]
-     */
-    public function getCargadex(string $cliente): array
-    {
-        $query = "SELECT * from cargadex WHERE cliente = :cliente";
-        $stc = $this->pdo->prepare($query);
-        $stc->bindValue(':cliente', $cliente);
-        $stc->execute();
-        $cargadex = $stc->fetchAll(PDO::FETCH_CLASS, CargadexObject::class);
-        if ($cargadex) {
-            return $cargadex;
-        }
-        return [
-            new CargadexObject()
-        ];
-    }
-
-    /**
      * @param $post
      * @return array
      * @throws Exception
@@ -388,10 +342,9 @@ from resumen;
     public function clientePick($post): array
     {
         $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
+        $fecha_de_actualizacion = date('Y-m-d');
         if (isset($post['fecha_de_actualizacion'])) {
             $fecha_de_actualizacion = filter_var($post['fecha_de_actualizacion'], FILTER_SANITIZE_STRING);
-        } else {
-            $fecha_de_actualizacion = date('Y-m-d');
         }
         $this->clearCargadex($cliente);
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
@@ -422,19 +375,6 @@ from resumen;
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
         return (int)$result['cnt'];
-    }
-
-    public function to_utf8(array $in)
-    {
-        $out = [];
-        foreach ($in as $row) {
-            $temp = [];
-            foreach ($row as $item) {
-                $temp[] = utf8_encode($item);
-            }
-            $out[] = $temp;
-        }
-        return $out;
     }
 
     /**
@@ -481,5 +421,23 @@ from resumen;
             throw new Exception($e);
         }
         return $data;
+    }
+
+    /**
+     * @param array $post
+     * @return array
+     */
+    private function loadCargadex(array $post): array
+    {
+        $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
+        $columns = $this->getDBColumns();
+        $fields = [];
+
+        if (!empty($post['pos'])) {
+            foreach ($post['pos'] as $pos) {
+                $fields[] = $this->insertIntoCargadex($pos, $columns, $cliente);
+            }
+        }
+        return $fields;
     }
 }

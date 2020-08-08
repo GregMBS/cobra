@@ -3,7 +3,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOException;
 
 class SegmentAdminClass
 {
@@ -134,19 +133,15 @@ select distinct cliente,sdc from queuelist";
     group by r.cliente,status_de_credito
     having count(1) > 0
     ";
-        try {
-            $this->pdo->query($queryDrop);
-            $this->pdo->query($queryTemp);
-            $stm = $this->pdo->prepare($query);
-            $stm->execute();
-            $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-            if ($result) {
-                return $result;
-            }
-            return [];
-        } catch (PDOException $p) {
-            die($p->getMessage());
+        $this->pdo->query($queryDrop);
+        $this->pdo->query($queryTemp);
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result;
         }
+        return [];
     }
 
 }

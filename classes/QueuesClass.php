@@ -68,12 +68,11 @@ class QueuesClass extends BaseClass {
      * @param string $status
      */
     public function updateQueueAll($cliente, $sdc, $status) {
-        if (empty($sdc)) {
-            $query = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
+        $query = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
 where iniciales=gestor and cliente=:cliente
 and status_aarsa=:status";
-            $stq = $this->pdo->prepare($query);
-        } else {
+        $stq = $this->pdo->prepare($query);
+        if (!empty($sdc)) {
             $query = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
 where iniciales=gestor and cliente=:cliente
 and sdc=:sdc and status_aarsa=:status";

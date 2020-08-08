@@ -66,10 +66,10 @@ class RobotClass extends BaseClass {
         $query = 'INSERT INTO temp_calls (id,tel) VALUES (:id, :tel)';
         $stl = $this->pdo->prepare($query);
         for ($i = 0; $i < $max; $i++) {
-            $a = $i * 2;
-            $b = $i * 2 + 1;
-            $stl->bindParam(':id', $data[$a]);
-            $stl->bindParam(':tel', $data[$b]);
+            $first = $i * 2;
+            $second = $i * 2 + 1;
+            $stl->bindParam(':id', $data[$first]);
+            $stl->bindParam(':tel', $data[$second]);
             $stl->execute();
         }
     }
@@ -167,13 +167,12 @@ group by rc.msg";
         if (is_array($array)) {
             foreach ($array as $row) {
                 $temp = $row;
+                $temp['tiempo'] = 'N/A';
                 if ($row['lineas'] > 0) {
                     $rest = (100 - $row['percent']) / 100 * $row['total'] / 60 / $row['lineas'];
                     $restHour = floor($rest);
                     $restMin = sprintf('%02d', round(($rest - $restHour) * 60));
                     $temp['tiempo'] = $restHour . ":" . $restMin;
-                } else {
-                    $temp['tiempo'] = 'N/A';
                 }
                 $output[] = $temp;
             }

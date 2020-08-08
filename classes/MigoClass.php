@@ -3,7 +3,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOException;
 use PDOStatement;
 
 require_once __DIR__ . '/ResumenObject.php';
@@ -15,11 +14,6 @@ require_once __DIR__ . '/ResumenObject.php';
  */
 class MigoClass
 {
-
-    /**
-     * @var PDO $pdo
-     */
-    protected $pdo;
 
     /**
      * @var string[]
@@ -34,6 +28,10 @@ class MigoClass
         'status_aarsa',
         'fecha_ultima_gestion'
     ];
+    /**
+     * @var PDO $pdo
+     */
+    protected $pdo;
 
     /**
      *
@@ -99,52 +97,6 @@ where status_de_credito not regexp '-'";
     }
 
     /**
-     * @param array $searchArray
-     * @param string $searchQuery
-     * @param string $columnName
-     * @param string $columnSortOrder
-     * @param int $row
-     * @param int $rowPerPage
-     * @return array
-     */
-    private function getFiltered($searchArray, $searchQuery, $columnName = '', $columnSortOrder = 'ASC', $row = 0, $rowPerPage = 10): array
-    {
-
-        if (is_null($row)) {
-            $row = 0;
-        }
-        if (is_null($rowPerPage)) {
-            $rowPerPage = 10;
-        }
-        if ($rowPerPage < 10) {
-            $rowPerPage = 10;
-        }
-        if (is_null($columnName)) {
-            $columnName = 'id_cuenta';
-        }
-        ## Fetch records
-        $query = "SELECT * FROM resumen WHERE status_de_credito NOT REGEXP '-' "
-            . $searchQuery . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset";
-
-        try {
-            $stmt = $this->pdo->prepare($query);
-
-// Bind values
-            foreach ($searchArray as $key => $search) {
-                $stmt->bindValue(':' . $key, $search, PDO::PARAM_STR);
-            }
-
-            $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $p) {
-            var_dump($p);
-            die();
-        }
-    }
-
-    /**
      * @return int
      */
     private function countTotalRecords(): int
@@ -153,21 +105,6 @@ where status_de_credito not regexp '-'";
         $stmt = $this->pdo->prepare("SELECT COUNT(1) AS all_count FROM resumen 
         WHERE status_de_credito NOT REGEXP '-'");
         $stmt->execute();
-        $records = $stmt->fetch();
-        return $records['all_count'];
-    }
-
-    /**
-     * @param string $searchQuery
-     * @param $searchArray
-     * @return int
-     */
-    private function countFilteredRecords(string $searchQuery, $searchArray): int
-    {
-## Total number of records with filtering
-        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS all_count FROM resumen 
-        WHERE status_de_credito NOT REGEXP '-' " . $searchQuery);
-        $stmt->execute($searchArray);
         $records = $stmt->fetch();
         return $records['all_count'];
     }
@@ -199,6 +136,63 @@ where status_de_credito not regexp '-'";
             $searchArray['capt'] = $capt;
         }
         return array($searchArray, $searchQuery);
+    }
+
+    /**
+     * @param string $searchQuery
+     * @param $searchArray
+     * @return int
+     */
+    private function countFilteredRecords(string $searchQuery, $searchArray): int
+    {
+## Total number of records with filtering
+        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS all_count FROM resumen 
+        WHERE status_de_credito NOT REGEXP '-' " . $searchQuery);
+        $stmt->execute($searchArray);
+        $records = $stmt->fetch();
+        return $records['all_count'];
+    }
+
+    /**
+     * @param array $searchArray
+     * @param string $searchQuery
+     * @param string $columnName
+     * @param string $columnSortOrder
+     * @param int $row
+     * @param int $rowPerPage
+     * @return array
+     */
+    private function getFiltered($searchArray, $searchQuery, $columnName = '', $columnSortOrder = 'ASC', $row = 0, $rowPerPage = 10): array
+    {
+
+        if (is_null($row)) {
+            $row = 0;
+        }
+        if (is_null($rowPerPage)) {
+            $rowPerPage = 10;
+        }
+        if ($rowPerPage < 10) {
+            $rowPerPage = 10;
+        }
+        if (is_null($columnName)) {
+            $columnName = 'id_cuenta';
+        }
+        ## Fetch records
+        $query = "SELECT * FROM resumen WHERE status_de_credito NOT REGEXP '-' "
+            . $searchQuery . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset";
+
+
+        $stmt = $this->pdo->prepare($query);
+
+// Bind values
+        foreach ($searchArray as $key => $search) {
+            $stmt->bindValue(':' . $key, $search, PDO::PARAM_STR);
+        }
+
+        $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

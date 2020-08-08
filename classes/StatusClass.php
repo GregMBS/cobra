@@ -4,19 +4,15 @@ namespace cobra_salsa;
 
 use PDO;
 
-class StatusClass
+require_once __DIR__ . '/ConfigClass.php';
+
+class StatusClass extends ConfigClass
 {
     /**
      *
      * @var PDO
      */
     protected $pdo;
-
-    /**
-     *
-     * @var string
-     */
-    private $dbName = 'cobraribemi';
 
     /**
      *

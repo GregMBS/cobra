@@ -239,7 +239,11 @@ $userData = $rc->getUserData($capt);
 $mytipo = $userData->TIPO;
 $camp = $userData->camp;
 
-$row = $qc->getNextAccount($capt, $camp, $go, $find);
+try {
+    $row = $qc->getNextAccount($capt, $camp, $go, $find);
+} catch (Exception $e) {
+    die($e->getMessage());
+}
 
 $id_cuenta = $row->id_cuenta;
 $nombre_deudor = $row->nombre_deudor;

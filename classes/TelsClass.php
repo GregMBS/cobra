@@ -1,24 +1,14 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
-use Box\Spout\Common\Exception\InvalidArgumentException;
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
-use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Exception;
 use PDO;
-use PDOException;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/OutputClass.php';
 
 /**
  * Description of TelsClass
@@ -88,22 +78,18 @@ where status_de_credito not regexp '-'";
     /**
      *
      * @param array $result
-     * @throws IOException
-     * @throws InvalidArgumentException
-     * @throws WriterNotOpenedException
+     * @throws Exception
      */
     public function outputDocument($result) {
         if (!empty($result)) {
             $filename = "Query_de_telefonos_" . date('ymd') . ".xlsx";
             $output = array();
-            $output[] = array_keys($result[0]);
+            $headers = array_keys($result[0]);
             foreach ($result as $row) {
                 $output[] = $row;
             }
-            $writer = WriterEntityFactory::createXLSXWriter();
-            $writer->openToBrowser($filename); // stream data directly to the browser
-            $writer->addRows($output); // add multiple rows at a time
-            $writer->close();
+            $oc = new OutputClass();
+            $oc->writeXLSXFile($filename, $output, $headers);
         }
     }
 
@@ -161,12 +147,8 @@ order by c_tele";
      * @return array
      */
     public function getMercadosReport() {
-        try {
-            $statement = $this->pdo->prepare($this->mercadosReportQuery);
-            $statement->execute();
-        } catch (PDOException $exc) {
-            die($exc->getTraceAsString());
-        }
+        $statement = $this->pdo->prepare($this->mercadosReportQuery);
+        $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -175,7 +157,8 @@ order by c_tele";
      * @return array
      */
     public function getContactosReport() {
-        $statement = $this->pdo->query($this->contactosReportQuery);
+        $statement = $this->pdo->prepare($this->contactosReportQuery);
+        $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -187,7 +170,6 @@ order by c_tele";
         $begin = new DateTime('first day of last month');
         $endDay = new DateTime('now');
         $end = $endDay->modify('+1 day');
-
         $interval = new DateInterval('P1D');
         return new DatePeriod($begin, $interval, $end);
     }

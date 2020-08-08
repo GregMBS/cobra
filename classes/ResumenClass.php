@@ -129,23 +129,6 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      * 
-     * @param string $field
-     * @return boolean
-     */
-    public function fieldCheck($field) {
-        $valid = false;
-        $q = $this->pdo->query("SHOW FIELDS FROM resumen");
-        foreach ($q as $row) {
-            if ($row['Field'] == $field) {
-                $valid = true;
-                break;
-            }
-        }
-        return $valid;
-    }
-
-    /**
-     * 
      * @param string $capt
      * @param string $fechahora
      * @return array
@@ -168,6 +151,13 @@ where id_cuenta=:id_cuenta LIMIT 1";
         $stn->bindParam(':capt', $capt);
         $stn->execute();
         $result = $stn->fetch(PDO::FETCH_ASSOC);
+        $output = array(
+            'notalert' => '',
+            'notalertt' => '',
+            'cuenta' => '',
+            'nota' => '',
+            'fuente' => ''
+        );
         if (isset($result['alert'])) {
             $notaData = $this->notaData($capt, $result['fechahora']);
             $output = array(
@@ -176,14 +166,6 @@ where id_cuenta=:id_cuenta LIMIT 1";
                 'cuenta' => $notaData['cuenta'],
                 'nota' => $notaData['nota'],
                 'fuente' => $notaData['fuente']
-            );
-        } else {
-            $output = array(
-                'notalert' => '',
-                'notalertt' => '',
-                'cuenta' => '',
-                'nota' => '',
-                'fuente' => ''
             );
         }
         return $output;

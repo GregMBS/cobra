@@ -125,10 +125,13 @@ tel_4_verif regexp :find )";
      * @return array
      */
     public function searchAccounts($field, $find, $CLIENTE) {
-        if ($field == 'ROBOT') {
-            $querymain = $this->robotString;
-        } else {
-            $querymain = $this->queryHead . $this->searchField($field);
+        switch ($field) {
+            case 'ROBOT':
+                $querymain = $this->robotString;
+                break;
+
+            default:
+                $querymain = $this->queryHead . $this->searchField($field);
         }
         $cliFlag = 0;
         if ((isset($querymain)) && (strlen($CLIENTE) > 1)) {

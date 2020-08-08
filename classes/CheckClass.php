@@ -50,11 +50,9 @@ and status_de_credito not regexp '-' LIMIT 1";
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
         if (isset($result['numero_de_cuenta'])) {
-            $numero_de_cuenta = $result['numero_de_cuenta'];
-        } else {
-            $numero_de_cuenta = '';
+            return $result['numero_de_cuenta'];
         }
-        return $numero_de_cuenta;
+        return '';
     }
 
     /**
@@ -145,11 +143,10 @@ where gestor=:gestor";
      * @return VisitSheetObject[]
      */
     public function listVasign($gestor = '') {
+        $gString = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
         if (!empty($gestor)) {
             $gString = "WHERE gestor = :gestor 
             ORDER BY fechain DESC";
-        } else {
-            $gString = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
         }
 
         $querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
@@ -191,10 +188,9 @@ limit 1";
      * @param string $CUENTA
      */
     public function updateVasign($tipo, $CUENTA) {
+        $queryCuenta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
         if ($tipo == 'id_cuenta') {
             $queryCuenta = "select id_cuenta from resumen where id_cuenta = :cuenta";
-        } else {
-            $queryCuenta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
         }
         $stc = $this->pdo->prepare($queryCuenta);
         $stc->bindParam(':cuenta', $CUENTA);

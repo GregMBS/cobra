@@ -30,17 +30,6 @@ abstract class TimesheetClass
     }
 
     /**
-     * @param int $diff
-     * @return string
-     */
-    public function showTime(int $diff): string
-    {
-        $hrs = floor($diff / 3600);
-        $min = round(($diff - $hrs * 3600) / 60);
-        return $hrs . ':' . sprintf("%02s", $min);
-    }
-
-    /**
      *
      * @return array
      */
@@ -97,22 +86,6 @@ abstract class TimesheetClass
         $query = $this->queryCurrentMain;
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     *
-     * @param string $visitador
-     * @param int $dom
-     * @return array
-     */
-    public function getVisitadorMain($visitador, $dom)
-    {
-        $query = $this->queryVisitadorMain;
-        $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':visitador', $visitador);
         $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
         $stq->execute();
         return $stq->fetchAll(PDO::FETCH_ASSOC);
@@ -188,22 +161,6 @@ abstract class TimesheetClass
 
     /**
      *
-     * @param string $visitador
-     * @param int $dom
-     * @return array
-     */
-    public function countVisitsAssigned($visitador, $dom)
-    {
-        $query = $this->queryCountVisitsAssigned;
-        $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':visitador', $visitador);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetch(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     *
      * @param string $gestor
      * @return array
      */
@@ -267,27 +224,8 @@ abstract class TimesheetClass
             }
             $resultStartStop = $hc->getCurrentMain($gestor, $i);
             foreach ($resultStartStop as $answerStartStop) {
-                $resultBreak = $this->getTiempoDiff($gestor, $i, 'break');
-                foreach ($resultBreak as $breaks) {
-                    $TIEMPO = $breaks['tiempo'];
-                    $ntp = $this->getNTPDiff($gestor, $i, $TIEMPO);
-                    if ($ntp) {
-                        foreach ($ntp as $ntpDiff) {
-                            $day->break += $ntpDiff['diff'];
-                        }
-                    }
-                }
-                $resultBano = $this->getTiempoDiff($gestor, $i, 'bano');
-                foreach ($resultBano as $answerBano) {
-                    $TIEMPO = $answerBano['tiempo'];
-                    $resultNTP = $hc->getNTPDiff($gestor, $i, $TIEMPO);
-                    if ($resultNTP) {
-                        foreach ($resultNTP as $NTP) {
-                            $DIFF = $NTP['diff'];
-                            $day->bano += $DIFF;
-                        }
-                    }
-                }
+                $this->breakLoop($gestor, $i, $day, 'break');
+                $this->breakLoop($gestor, $i, $day, 'bano');
                 $this->loadDay($hc, $gestor, $i, $answerStartStop, $day);
             }
             $month[$i] = $day;
@@ -318,13 +256,13 @@ abstract class TimesheetClass
     /**
      * @param $hc
      * @param $gestor
-     * @param int $i
+     * @param int $dayNumber
      * @param $answerStartStop
      * @param TimesheetDayObject $day
      */
-    private function loadDay($hc, $gestor, int $i, $answerStartStop, TimesheetDayObject $day): void
+    private function loadDay($hc, $gestor, int $dayNumber, $answerStartStop, TimesheetDayObject $day): void
     {
-        $result = $hc->getPagos($gestor, $i);
+        $result = $hc->getPagos($gestor, $dayNumber);
         $day->lla = $answerStartStop['cuentas'];
         $day->tlla = $answerStartStop['gestiones'];
         $day->ct = $answerStartStop['nocontactos'];
@@ -333,6 +271,26 @@ abstract class TimesheetClass
         $day->lph = $day->lla / ($day->diff + 1 / 3600);
         foreach ($result as $answer) {
             $day->pag = $answer['ct'];
+        }
+    }
+
+    /**
+     * @param $gestor
+     * @param int $dayNumber
+     * @param TimesheetDayObject $day
+     * @param string $tipo
+     */
+    private function breakLoop($gestor, int $dayNumber, TimesheetDayObject $day, string $tipo): void
+    {
+        $result = $this->getTiempoDiff($gestor, $dayNumber, $tipo);
+        foreach ($result as $answer) {
+            $TIEMPO = $answer['tiempo'];
+            $ntp = $this->getNTPDiff($gestor, $dayNumber, $TIEMPO);
+            if ($ntp) {
+                foreach ($ntp as $ntpDiff) {
+                    $day->bano += $ntpDiff['diff'];
+                }
+            }
         }
     }
 

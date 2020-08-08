@@ -21,9 +21,8 @@ class DateClass
         $day = date('d',$time);
         if (checkdate($month, $day, $year)) {
             return TRUE;
-        } else {
-            return FALSE;
         }
+        return FALSE;
     }
 
     /**
@@ -35,9 +34,8 @@ class DateClass
     public function fixDate($date, $default) {
         if ($this->validDate($date)) {
             return $date;
-        } else {
-            return $default;
         }
+        return $default;
     }
 
 }

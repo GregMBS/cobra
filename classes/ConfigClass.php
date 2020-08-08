@@ -1,5 +1,7 @@
 <?php
 
+namespace cobra_salsa;
+
 class ConfigClass 
 {
     /**

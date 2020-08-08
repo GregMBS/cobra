@@ -125,10 +125,9 @@ LIMIT 1";
             $monto = $i * 3 + 2;
             $this->runCleanOld($stc, $data[$cuenta], $data[$fecha]);
             $result = $this->runFindGestor($stf, $data[$cuenta], $data[$fecha]);
+            $c_cvge = '';
             if ($result) {
                 $c_cvge = $result['c_cvge'];
-            } else {
-                $c_cvge = '';
             }
             $this->runAddTemp($sta, $data[$cuenta], $data[$fecha], $data[$monto], $c_cvge);
         }

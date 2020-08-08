@@ -176,10 +176,9 @@ class BigInputObject extends DateClass {
      * @return string
      */
     public function getGestorStr() {
+        $str = "";
         if ($this->hasGestor()) {
             $str = " and c_cvge=:gestor ";
-        } else {
-            $str = "";
         }
         $tipoStr = $this->getTipoStr();
         return $str . $tipoStr;
@@ -190,10 +189,9 @@ class BigInputObject extends DateClass {
      * @return string
      */
     public function getClienteStr() {
+        $str = "";
         if ($this->hasCliente()) {
             $str = " and c_cvba=:cliente ";
-        } else {
-            $str = "";
         }
         return $str;
     }

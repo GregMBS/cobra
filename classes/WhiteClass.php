@@ -8,6 +8,7 @@
 
 namespace cobra_salsa;
 
+use Exception;
 use PDO;
 use PDOException;
 
@@ -61,16 +62,17 @@ class WhiteClass {
     }
 
     /**
-     * 
+     *
      * @param string $query
      * @param array $data
      * @return array
+     * @throws Exception
      */
     public function runQuery($query, $data) {
         try {
             $stm = $this->pdo->prepare($query);
         } catch (PDOException $e) {
-            die($e->getMessage());
+            throw new Exception($e);
         }
         foreach ($data as $key => $value) {
             if (!empty($value) && isset($this->dataMatch[$key])) {
@@ -80,7 +82,7 @@ class WhiteClass {
         try {
             $stm->execute();
         } catch (PDOException $e) {
-            die($e->getMessage());
+            throw new Exception($e);
         }
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
