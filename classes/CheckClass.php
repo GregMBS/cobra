@@ -22,17 +22,16 @@ class CheckClass extends BaseClass {
      * @return int
      */
     public function getIdCuentaFromCuenta($CUENTA) {
+        $id_cuenta = 0;
         $query = "select id_cuenta from resumen
 where numero_de_cuenta=:cuenta
 and status_de_credito not regexp '-' LIMIT 1";
         $stc = $this->pdo->prepare($query);
         $stc->bindParam(':cuenta', $CUENTA);
         $stc->execute();
-        $result = $stc->fetch(PDO::FETCH_ASSOC);
-        if (isset($result['id_cuenta'])) {
-            $id_cuenta = $result['id_cuenta'];
-        } else {
-            $id_cuenta = 0;
+        $result = $stc->fetch(PDO::FETCH_NUM);
+        if ($result) {
+            $id_cuenta = (int) $result[0];
         }
         return $id_cuenta;
     }
@@ -51,7 +50,7 @@ and status_de_credito not regexp '-' LIMIT 1";
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
         if (isset($result['numero_de_cuenta'])) {
-            $numero_de_cuenta = $result['numero_de__cuenta'];
+            $numero_de_cuenta = $result['numero_de_cuenta'];
         } else {
             $numero_de_cuenta = '';
         }
@@ -113,11 +112,11 @@ and tipo IN ('visitador','admin')";
     public function getOneMonth() {
         $output = array();
         $end = new DateTime();
-        $begin = $end->modify('-1 month');
-
+        $begin = new DateTime();
+        $oneMonth = new DateInterval('P1M');
+        $begin->sub($oneMonth);
         $interval = new DateInterval('P1D');
         $dateRange = new DatePeriod($begin, $interval, $end);
-
         foreach ($dateRange as $date) {
             $output[] = $date->format("Y-m-d");
         }
@@ -145,10 +144,10 @@ where gestor=:gestor";
      * @param string $gestor
      * @return VisitSheetObject[]
      */
-    public function listVasign($gestor) {
+    public function listVasign($gestor = '') {
         if (!empty($gestor)) {
-            $gString = "WHERE gestor = :gestor "
-                    . "ORDER BY fechain DESC";
+            $gString = "WHERE gestor = :gestor 
+            ORDER BY fechain DESC";
         } else {
             $gString = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
         }
@@ -159,9 +158,9 @@ from resumen
 join vasign on id_cuenta=c_cont
 join nombres on iniciales=gestor
 join dictamenes on dictamen = status_aarsa " . $gString;
-        $stm = $this->pdo->query($querymain);
+        $stm = $this->pdo->prepare($querymain);
         if (!empty($gestor)) {
-            $stm->bindParam(':gestor', $gestor);
+            $stm->bindValue(':gestor', $gestor);
         }
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_CLASS, VisitSheetObject::class);
@@ -170,16 +169,20 @@ join dictamenes on dictamen = status_aarsa " . $gString;
     /**
      *
      * @param string $vst
-     * @return array
+     * @return string
      */
     public function getCompleto($vst) {
         $query = "SELECT completo FROM nombres
 where iniciales=:vst
-limit 1;";
+limit 1";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':vst', $vst);
         $stn->execute();
-        return $stn->fetch(PDO::FETCH_ASSOC);
+        $result = $stn->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result['completo'];
+        }
+        return '';
     }
 
     /**

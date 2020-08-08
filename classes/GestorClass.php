@@ -38,9 +38,9 @@ class GestorClass {
      * @return array
      */
     function getPagos($CUENTA, $CLIENTE) {
-        $query = "select sum(monto) as sm, max(fecha) as mf "
-                . "from pagos "
-                . "where CUENTA=:cuenta and CLIENTE=':cliente;";
+        $query = "select sum(monto) as sm, max(fecha) as mf 
+        from pagos 
+        where CUENTA = :cuenta and CLIENTE = :cliente";
         $stp = $this->pdo->prepare($query);
         $stp->bindParam(':cuenta', $CUENTA);
         $stp->bindParam(':cliente', $CLIENTE);
@@ -53,13 +53,13 @@ class GestorClass {
      * @param string $gestor
      * @return array
      */
-    function getPagosReport($gestor) {
-        $query = "SELECT d_prom, cuenta, n_prom, c_cvge, "
-                . "ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, "
-                . "cliente,id_cuenta,saldo_descuento_1 "
-                . "FROM historia JOIN resumen on c_cont=id_cuenta "
-                . "WHERE n_prom>0 AND c_cvge =:gestor "
-                . "GROUP BY cuenta ORDER BY c_cvge,d_prom,cliente,cuenta";
+    function getPromsReport($gestor) {
+        $query = "SELECT d_prom, cuenta, n_prom, c_cvge, 
+        ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, 
+        cliente,id_cuenta,saldo_descuento_1 
+        FROM historia JOIN resumen on c_cont=id_cuenta
+        WHERE n_prom>0 AND c_cvge =:gestor 
+        ORDER BY d_prom,cliente,cuenta";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->execute();

@@ -239,32 +239,9 @@ $userData = $rc->getUserData($capt);
 $mytipo = $userData->TIPO;
 $camp = $userData->camp;
 
-$id_cuenta = 0;
-$queue = $qc->getMyQueue($capt, $camp);
-$cliente = $queue->cliente;
-$sdc = $queue->sdc;
-$cr = $queue->status_aarsa;
-$sql = $qc->getQueryString($queue);
-$quickArray = ['FromBuscar', 'FromMigo', 'FromUltima', 'FromProm'];
-$quick = in_array($go, $quickArray);
-if ($quick) {
-    $sql = $qc->getQuickString($find);
-}
+$row = $qc->getNextAccount($capt, $camp, $go, $find);
 
-try {
-    $row = $qc->getAccount($sql);
-    if (($row->id_cuenta == 0) && (!$quick)) {
-        $queue = $qc->getQueueWithAccounts($queue);
-        $cliente = $queue->cliente;
-        $sdc = $queue->sdc;
-        $cr = $queue->status_aarsa;
-        $sql = $qc->getQueryString($queue);
-        $row = $qc->getAccount($sql);
-    }
-} catch (Exception $e) {
-    die($e->getMessage());
-}
-
+$id_cuenta = $row->id_cuenta;
 $nombre_deudor = $row->nombre_deudor;
 $domicilio_deudor = $row->domicilio_deudor;
 $colonia_deudor = $row->colonia_deudor;
@@ -394,6 +371,7 @@ $CUANDO = $latest->CUANDO;
 if ($id_cuenta == 0) {
     $newCamp = $rc->leaveEmptyQueue($capt);
 }
+$currentQueue = $qc->getStatusQueue($row->status_aarsa);
 if ($id_cuenta > 0) {
     $lastProm = $rc->getPromData($id_cuenta);
     $N_PROM_OLD = $lastProm->N_PROM;

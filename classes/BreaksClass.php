@@ -21,6 +21,16 @@ class BreaksClass {
     private $pdo;
 
     /**
+     * @var string
+     */
+    private $queryBreaks = "select auto,c_cvge,c_cvst,c_hrin,
+time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff' 
+from historia 
+where c_cont=0 and d_fech=curdate() and c_cvst<>'login' 
+and c_cvst<>'salir' and c_cvge=:capt 
+order by c_cvge,c_cvst,c_hrin";
+
+    /**
      * 
      * @param PDO $pdo
      */
@@ -44,7 +54,7 @@ and c_hrin>:tiempo";
         $sdq->bindParam(':tiempo', $TIEMPO);
         $sdq->bindParam(':gestor', $GESTOR);
         $sdq->execute();
-        return $sdq->fetchAll();
+        return $sdq->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -64,16 +74,7 @@ and c_hrin>:tiempo";
      * @return BreaksTableObject[]
      */
     function getBreaksTable($capt) {
-        $query = "select auto,c_cvge,c_cvst,c_hrin,
-time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff'
-from historia 
-where c_cont=0 
-and d_fech=curdate() 
-and c_cvst<>'login' 
-and c_cvst<>'salir' 
-and c_cvge=:capt 
-order by c_cvge,c_cvst,c_hrin";
-        $sdp = $this->pdo->prepare($query);
+        $sdp = $this->pdo->prepare($this->queryBreaks);
         $sdp->bindParam(':capt', $capt);
         $sdp->execute();
         return $sdp->fetchAll(PDO::FETCH_CLASS, BreaksTableObject::class);
@@ -131,7 +132,7 @@ order by c_cvge,c_cvst,c_hrin";
 
     /**
      * 
-     * @return array
+     * @return BreaksObject[]
      */
     public function listBreaks() {
         $query = "SELECT * FROM breaks ORDER BY gestor,empieza";
@@ -145,8 +146,7 @@ order by c_cvge,c_cvst,c_hrin";
      * @return array
      */
     public function listUsuarias() {
-        $query = "SELECT iniciales FROM nombres 
-        WHERE tipo <> ''";
+        $query = "SELECT iniciales FROM nombres WHERE tipo <> ''";
         $stm = $this->pdo->query($query);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_COLUMN, 0);

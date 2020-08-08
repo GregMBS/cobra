@@ -37,7 +37,7 @@ class ResumenQueuesClass
      * @param int $camp
      * @return QueuelistObject
      */
-    public function getMyQueue($capt, $camp)
+    private function getMyQueue($capt, $camp)
     {
         $query = "SELECT * 
         FROM queuelist 
@@ -57,10 +57,31 @@ class ResumenQueuesClass
 
     /**
      *
+     * @param $dictamen
+     * @return string
+     */
+    public function getStatusQueue($dictamen)
+    {
+        $query = "SELECT queue 
+        FROM dictamenes 
+        WHERE dictamen = :dictamen
+        LIMIT 1";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':dictamen', $dictamen);
+        $stq->execute();
+        $result = $stq->fetchColumn(0);
+        if ($result) {
+            return $result;
+        }
+        return '';
+    }
+
+    /**
+     *
      * @param QueuelistObject $queue
      * @return QueuelistObject
      */
-    public function getQueueWithAccounts(QueuelistObject $queue)
+    private function getQueueWithAccounts(QueuelistObject $queue)
     {
         $query = "SELECT queuelist.*
 FROM queuelist, dictamenes
@@ -90,7 +111,7 @@ LIMIT 1";
      * @param int $id_cuenta
      * @return string
      */
-    public function getQuickString(int $id_cuenta)
+    private function getQuickString(int $id_cuenta)
     {
         $queryBase = "SELECT * FROM resumen WHERE id_cuenta = %u LIMIT 1";
         return sprintf($queryBase, $id_cuenta);
@@ -101,7 +122,7 @@ LIMIT 1";
      * @param QueuelistObject $queue
      * @return string
      */
-    public function getQueryString(QueuelistObject $queue)
+    private function getQueryString(QueuelistObject $queue)
     {
         $clientStr = $queue->getClientString();
         $sdcStr = $queue->getSDCString();
@@ -148,7 +169,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
      * @return ResumenObject
      * @throws Exception
      */
-    public function getAccount(string $sql)
+    private function getAccount(string $sql)
     {
         $stq = $this->pdo->prepare($sql);
         try {
@@ -162,4 +183,35 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
             throw new Exception($p);
         }
     }
+
+    /**
+     * @param string $capt
+     * @param int $camp
+     * @param $go
+     * @param int|null $find
+     * @return ResumenObject
+     */
+    public function getNextAccount(string $capt, int $camp, $go, ?int $find): ResumenObject
+    {
+        $queue = $this->getMyQueue($capt, $camp);
+        $sql = $this->getQueryString($queue);
+        $quickArray = ['FromBuscar', 'FromMigo', 'FromUltima', 'FromProm'];
+        $quick = in_array($go, $quickArray);
+        if ($quick) {
+            $sql = $this->getQuickString($find);
+        }
+
+        try {
+            $row = $this->getAccount($sql);
+            if (($row->id_cuenta == 0) && (!$quick)) {
+                $queue = $this->getQueueWithAccounts($queue);
+                $sql = $this->getQueryString($queue);
+                $row = $this->getAccount($sql);
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+        return $row;
+    }
+
 }

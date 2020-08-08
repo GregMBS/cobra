@@ -2,7 +2,6 @@
 
 namespace cobra_salsa;
 
-use DateTime;
 use PDO;
 
 require_once __DIR__ . '/HistoriaObject.php';
@@ -90,10 +89,10 @@ where id_cuenta=:id_cuenta LIMIT 1";
      */
     public function highlight($stat, $visit) {
         if (!empty($visit)) {
-            return " class='visit'";
+            return 'visit';
         }
         if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
-            return " class='deudor'";
+            return 'deudor';
         }
         return '';
     }
@@ -335,17 +334,6 @@ and tipo IN ('visitador','admin')";
     }
 
     /**
-     * 
-     * @return array
-     */
-    public function getClientList() {
-        $query = "SELECT cliente FROM clientes;";
-        $stm = $this->pdo->query($query);
-        $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      *
      * @param string $capt
      * @return array
@@ -397,48 +385,6 @@ ORDER BY cliente,sdc,queue";
 
     /**
      * 
-     * @param int $id_cuenta
-     * @return string
-     */
-    public function getTimelock($id_cuenta) {
-        $query = "SELECT date_format(timelock,'%a, %d %b %Y %T') as tl
-            FROM resumen 
-            WHERE id_cuenta = :id_cuenta";
-        $sts = $this->pdo->prepare($query);
-        $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $sts->execute();
-        $result = $sts->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            return $result['tl'];
-        }
-        $date = new DateTime();
-        return $date->format('%a, %d %b %Y %T');
-    }
-
-    /**
-     * 90 days
-     * 
-     * @param string $C_CVST
-     * @param int $C_CONT
-     * @return string
-     */
-    public function getBest($C_CVST, $C_CONT) {
-        $best = $C_CVST;
-        $query = "select c_cvst,v_cc from historia,dictamenes"
-                . " where c_cvst=dictamen and c_cont = :C_CONT"
-                . " and d_fech>last_day(curdate()-interval 90 day)"
-                . " order by v_cc LIMIT 1";
-        $stb = $this->pdo->prepare($query);
-        $stb->bindParam(':C_CONT', $C_CONT, PDO::PARAM_INT);
-        $result = $stb->fetch(PDO::FETCH_ASSOC);
-        if (isset($result['c_cvst'])) {
-            $best = $result['c_cvst'];
-        }
-        return $best;
-    }
-
-    /**
-     * 
      * @param string $capt
      * @return UserDataObject
      */
@@ -462,8 +408,9 @@ ORDER BY cliente,sdc,queue";
         $std->bindParam(':capt', $capt);
         $std->execute();
 
-        $qSlice = "replace into rslice select *, :capt, now() from resumen "
-                . "where id_cuenta = :id_cuenta";
+        $qSlice = "replace into rslice select *, :capt, now() 
+        from resumen 
+        where id_cuenta = :id_cuenta";
         $sts = $this->pdo->prepare($qSlice);
         $sts->bindParam(':capt', $capt);
         $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
@@ -509,21 +456,6 @@ order by d_fech desc, c_hrin desc limit 1";
             return $result;
         }
         return new HistoriaObject();
-    }
-
-    /**
-     * 
-     * @param int $id_cuenta
-     * @return array
-     */
-    public function getTimeCheck($id_cuenta) {
-        $query = "SELECT timelock, locker, time_to_sec(timediff(now(),timelock))/60 as sofar "
-                . "FROM resumen "
-                . "WHERE id_cuenta = :id_cuenta";
-        $stc = $this->pdo->prepare($query);
-        $stc->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $stc->execute();
-        return $stc->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

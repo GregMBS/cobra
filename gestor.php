@@ -11,5 +11,5 @@ $gc = new GestorClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $gestor = filter_input(INPUT_GET, 'gestor');
 
-$result = $gc->getPagosReport($gestor);
+$result = $gc->getPromsReport($gestor);
 require_once 'views/gestorView.php';

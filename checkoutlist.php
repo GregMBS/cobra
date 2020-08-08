@@ -13,9 +13,9 @@ $vst = filter_input(INPUT_GET, 'visitador');
 $visitstr = '';
 $visitador = 'TODOS';
 if (!empty($vst)) {
-    $resultn = $cc->getCompleto($vst);
-    if (!empty($resultn['completo'])) {
-        $visitador = $resultn['completo'];
+    $completo = $cc->getCompleto($vst);
+    if (!empty($completo)) {
+        $visitador = $completo;
         $visitstr = " and gestor=:vst ";
     }
 }

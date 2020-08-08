@@ -219,7 +219,7 @@ td.chico {
     width: 0;
 }
 
-#SearchBox, #quickSearchBox {
+#SearchBox {
     z-index: 98;
     display: none;
     position: absolute;
@@ -232,11 +232,12 @@ td.chico {
     border: 2px black solid;
 }
 
-#SearchBox input, #quickSearchBox input {
+#SearchBox input {
     color: #000000;
     background-color: #ffffff;
 }
 
+/*
 #calm {
     z-index: 98;
     position: absolute;
@@ -253,6 +254,7 @@ td.chico {
     color: #000000;
     background-color: #ffffff;
 }
+*/
 
 #pagocapt td {
     background-color: #ffffff;
@@ -296,10 +298,6 @@ td.chico {
 
 #avalbox input {
     font-size: 85%
-}
-
-#avalbox .shortinp {
-    width: 5em;
 }
 
 ul.tabs {

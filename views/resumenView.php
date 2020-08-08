@@ -149,8 +149,7 @@ if ($notalert > 0) { ?>
                         foreach ($resultFilter as $filter) {
                             ?>
                             <option value="<?php echo $filter['cliente']; ?>" <?php
-                            if (($cliente == $filter['cliente']) && ($sdc
-                                    == $filter['sdc']) && ($cr == $filter['queue'])) {
+                            if (($cliente == $filter['cliente']) && ($sdc == $filter['sdc']) && ($currentQueue == $filter['queue'])) {
                                 ?>
                                 selected='selected'
                                 <?php
@@ -169,7 +168,7 @@ if ($notalert > 0) { ?>
                 $cliente = '';
             }
             ?>
-            <button><?php echo $cliente . ' ' . $sdc . ' ' . $cr ?></BUTTON>
+            <button><?php echo $cliente . ' ' . $sdc . ' ' . $currentQueue; ?></BUTTON>
             <?php
         }
     }
@@ -867,72 +866,9 @@ if ($notalert > 0) { ?>
 </div>
 <div class="togglebox" id="VISITA">
     <form action="../resumen.php" method="get" id="capturaForm">
-        <div class="noshow">
-            <input type="hidden" name="error" readonly="readonly" value="1">
-            <input type="hidden" name="C_HRFI" readonly="readonly" value="<?php
-            if (isset($CT)) {
-                echo $CT;
-            }
-            ?>">
-            <input type="hidden" name="AUTO" readonly="readonly" value="">
-            <input type="hidden" name="find" readonly="readonly" value="<?php
-            if (isset($find)) {
-                echo $find;
-            }
-            ?>">
-            <input type="hidden" name="field" readonly="readonly" value="<?php
-            if (isset($field)) {
-                echo $field;
-            }
-            ?>">
-            <input type="hidden" name="capt" readonly="readonly" value="<?php
-            if (isset($capt)) {
-                echo $capt;
-            }
-            ?>">
-            <input type="hidden" name="camp" readonly="readonly" value="<?php
-            if (isset($camp)) {
-                echo $camp;
-            }
-            ?>">
-            <input type="hidden" name="neworder" readonly="readonly" value="<?php
-            if (isset($neworder)) {
-                echo $neworder;
-            }
-            ?>">
-            <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
-            if (isset($C_CVGE)) {
-                echo $C_CVGE;
-            }
-            ?>">
-            <input type="hidden" name="C_CVBA" readonly="readonly" value="<?php
-            if (isset($cliente)) {
-                echo $cliente;
-            }
-            ?>">
-            <input type="hidden" name="C_ATTE" readonly="readonly" value="">
-            <input type="hidden" name="C_CONT" readonly="readonly" value="<?php
-            if (isset($id_cuenta)) {
-                echo $id_cuenta;
-            }
-            ?>">
-            <input type="hidden" name="C_CONTAN" readonly="readonly" value="<?php
-            if (isset($status_aarsa)) {
-                echo $status_aarsa;
-            }
-            ?>">
-            <input type="hidden" name="CUENTA" id="CUENTA2" readonly="readonly" value="<?php
-            if (isset($numero_de_cuenta)) {
-                echo $numero_de_cuenta;
-            }
-            ?>">
-            <input type="hidden" name="C_EJE" readonly="readonly" value="<?php
-            if (isset($ejecutivo_asignado_call_center)) {
-                echo $ejecutivo_asignado_call_center;
-            }
-            ?>">
-            <input type="hidden" name="oldGo" readonly="readonly" value="<?php echo $go; ?>">
-        </div>
+        <?php
+        require __DIR__ . '/resumenHiddenFields.php';
+        ?>
         <p>DICTAMEN DOMICILIO PARTICULAR</p>
         <table class='visitable'>
             <tr>
@@ -1263,10 +1199,8 @@ if ($notalert > 0) { ?>
     <table class="special" id="historyhead">
         <tr>
             <?php
-            $fieldnames = array("Status", "Fecha/Hora", "Gestor",
-                "Telefono", "Gestion", "Gestion");
-            $fieldsize = array("status", "timestamp", "chico", "telefono",
-                "gestion", "hideBox");
+            $fieldnames = array("Status", "Fecha/Hora", "Gestor", "Telefono", "Gestion", "Gestion");
+            $fieldsize = array("status", "timestamp", "chico", "telefono", "gestion", "hideBox");
             for ($j = 0; $j < 5; $j++) {
                 $fieldname = $fieldnames[$j];
                 ?>
@@ -1295,7 +1229,7 @@ if ($notalert > 0) { ?>
                     $timestamp = utf8_encode($answer['fecha']);
                     $stat = utf8_encode($answer['c_cvst']);
                     ?>
-                    <tr<?php echo $rc->highlight($stat, $visit); ?>><?php
+                    <tr class="<?php echo $rc->highlight($stat, $visit); ?>"><?php
                         for ($k = 0; $k < 5; $k++) {
                             $anku = utf8_encode($answer[$k]);
                             if (is_null($anku)) {
@@ -1744,67 +1678,10 @@ if ($notalert > 0) { ?>
                 echo $CT;
             }
             ?>">
-            <input type="hidden" name="C_HRFI" readonly="readonly" value="<?php
-            if (isset($CT)) {
-                echo $CT;
-            }
-            ?>">
-            <input type="hidden" name="AUTO" readonly="readonly" value="">
-            <input type="hidden" name="find" readonly="readonly" value="<?php
-            if (isset($find)) {
-                echo $find;
-            }
-            ?>">
-            <input type="hidden" name="field" readonly="readonly" value="<?php
-            if (isset($field)) {
-                echo $field;
-            }
-            ?>">
-            <input type="hidden" name="capt" readonly="readonly" value="<?php
-            if (isset($capt)) {
-                echo $capt;
-            }
-            ?>">
-            <input type="hidden" name="camp" readonly="readonly" value="<?php
-            if (isset($camp)) {
-                echo $camp;
-            }
-            ?>">
-            <input type="hidden" name="neworder" readonly="readonly" value="<?php
-            if (isset($neworder)) {
-                echo $neworder;
-            }
-            ?>">
-            <input type="hidden" name="C_CVBA" readonly="readonly" value="<?php
-            if (isset($cliente)) {
-                echo $cliente;
-            }
-            ?>">
-            <input type="hidden" name="C_ATTE" readonly="readonly" value="">
-            <input type="hidden" name="C_CONT" readonly="readonly" value="<?php
-            if (isset($id_cuenta)) {
-                echo $id_cuenta;
-            }
-            ?>">
-            <input type="hidden" name="C_CONTAN" readonly="readonly" value="<?php
-            if (isset($status_aarsa)) {
-                echo $status_aarsa;
-            }
-            ?>">
-            <input type="hidden" name="CUENTA" id="CUENTA" readonly="readonly" value="<?php
-            if (isset($numero_de_cuenta)) {
-                echo $numero_de_cuenta;
-            }
-            ?>">
-            <input type="hidden" name="C_EJE" id="C_EJE" readonly="readonly" value="<?php
-            if (isset($ejecutivo_asignado_call_center)) {
-                echo $ejecutivo_asignado_call_center;
-            }
-            ?>">
-            <input type="hidden" name="oldGo" readonly="readonly" value="<?php echo $go; ?>">
-            <input type="hidden" name="error" readonly="readonly" value="1">
-            <input type="hidden" name="go" readonly="readonly" value="GUARDAR">
         </div>
+        <?php
+        require __DIR__ . '/resumenHiddenFields.php';
+        ?>
     </form>
 </div>
 <SCRIPT TYPE="text/JavaScript">
