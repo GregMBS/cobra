@@ -27,7 +27,7 @@ if (!empty($go)) {
         die($e->getMessage());
     }
 } else {
-    $resultc = $ic->listClients();
+    $clientes = $ic->listClients();
     $here = 'inventario-rapid.php';
     require_once 'views/inventarioView.php';
 } 

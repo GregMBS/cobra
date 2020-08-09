@@ -33,7 +33,7 @@ if (!empty($go)) {
         }
     }
 } else {
-    $resultc = $ic->listClients();
+    $clientes = $ic->listClients();
     $here = 'inventario.xls.php';
     require_once 'views/inventarioView.php';
 }

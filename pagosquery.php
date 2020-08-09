@@ -12,7 +12,7 @@ $capt = filter_input(INPUT_GET, 'capt');
 $fecha1 = filter_input(INPUT_GET, 'fecha1');
 $fecha2 = filter_input(INPUT_GET, 'fecha2');
 $cliente = filter_input(INPUT_GET, 'cliente');
-$resultc = $pc->listClientes();
+$clientes = $pc->listClientes();
 if (filter_has_var(INPUT_GET, 'go')) {
     $result = $pc->queryAll($fecha1, $fecha2, $cliente);
     if (empty($result)) {

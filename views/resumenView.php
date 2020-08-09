@@ -187,16 +187,7 @@ if ($notalert > 0) { ?>
             echo
             $cliente;
             ?>.jpg'></span>
-    <?php } ?>
-    <form class="buttons" name="trouble" method="get" action="../trouble.php" id="trouble" target="_blank">
-        <input type="hidden" name="capt" value="<?php
-        if (isset($capt)) {
-            echo $capt;
-        }
-        ?>">
-        <input type="submit" name="go" value="ERROR">
-    </form>
-    <?php
+    <?php }
     include 'privacidadInclude.php';
     ?>
 

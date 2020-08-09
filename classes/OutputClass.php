@@ -11,7 +11,7 @@ namespace cobra_salsa;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Exception;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Description of OutputClass

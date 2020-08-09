@@ -27,10 +27,10 @@
                 <select name="cliente">
                     <option value="todos" style="font-size:120%;">todos</option>
                     <?php
-foreach ($resultc as $row) {
+foreach ($clientes as $cliente) {
                         ?>
-                        <option value="<?php echo $row['cliente']; ?>" style="font-size:120%;">
-                            <?php echo $row['cliente']; ?></option>
+                        <option value="<?php echo $cliente; ?>" style="font-size:120%;">
+                            <?php echo $cliente; ?></option>
                         <?php
 }
                         ?>

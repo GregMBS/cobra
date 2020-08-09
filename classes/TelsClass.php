@@ -98,7 +98,7 @@ where status_de_credito not regexp '-'";
      * @param string $fecha1
      * @param string $fecha2
      */
-    public function createMarcados($fecha1, $fecha2) {
+    private function createMarcados($fecha1, $fecha2) {
         $queryDrop = 'DROP TABLE IF EXISTS marcados';
         $this->pdo->query($queryDrop);
         $queryCreate = "CREATE TABLE marcados
@@ -121,7 +121,7 @@ order by c_tele";
      * @param string $fecha1
      * @param string $fecha2
      */
-    public function createContactos($fecha1, $fecha2) {
+    private function createContactos($fecha1, $fecha2) {
         $queryDrop = 'DROP TABLE IF EXISTS contactados';
         $this->pdo->query($queryDrop);
         $queryCreate = "CREATE TABLE contactados
@@ -143,20 +143,26 @@ order by c_tele";
     }
 
     /**
-     * 
+     *
+     * @param string $fecha1
+     * @param string $fecha2
      * @return array
      */
-    public function getMercadosReport() {
+    public function getMercadosReport(string $fecha1, string $fecha2) {
+        $this->createMarcados($fecha1, $fecha2);
         $statement = $this->pdo->prepare($this->mercadosReportQuery);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     * 
+     *
+     * @param string $fecha1
+     * @param string $fecha2
      * @return array
      */
-    public function getContactosReport() {
+    public function getContactosReport(string $fecha1, string $fecha2) {
+        $this->createContactos($fecha1, $fecha2);
         $statement = $this->pdo->prepare($this->contactosReportQuery);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);

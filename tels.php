@@ -3,8 +3,6 @@ set_time_limit(300);
 require_once 'vendor/autoload.php';
 
 
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use cobra_salsa\PdoClass;
 use cobra_salsa\TelsClass;
 
@@ -20,13 +18,11 @@ $capt = $pc->capt;
 if (!empty($fecha1)) {
     switch ($tipo) {
         case 'marcados':
-            $tc->createMarcados($fecha1, $fecha2);
-            $result = $tc->getMercadosReport();
+            $result = $tc->getMercadosReport($fecha1, $fecha2);
             break;
 
         case 'contactados':
-            $tc->createContactos($fecha1, $fecha2);
-            $result = $tc->getContactosReport();
+            $result = $tc->getContactosReport($fecha1, $fecha2);
             break;
     }
 }
@@ -34,9 +30,8 @@ if (!empty($fecha1)) {
 if (isset($result)) {
     try {
         $tc->outputDocument($result);
-    } catch (IOException $e) {
-    } catch (\Box\Spout\Common\Exception\InvalidArgumentException $e) {
-    } catch (WriterNotOpenedException $e) {
+    } catch (Exception $e) {
+        die($e->getMessage());
     }
 } else {
     $dateRange = $tc->getDates();

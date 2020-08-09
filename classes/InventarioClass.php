@@ -25,7 +25,7 @@ class InventarioClass {
     substring_index(status_de_credito,'-',1) as segmento,
     if (status_de_credito regexp '-',substring_index(status_de_credito,'-',-1),'') as disposicion,
     producto,subproducto,
-    saldo_total,d1.queue,saldo_descuento_1,saldo_descuento_2,
+    saldo_total,max(d1.queue) as 'queue',saldo_descuento_1,saldo_descuento_2,
     domicilio_deudor,colonia_deudor,ciudad_deudor, estado_deudor,cp_deudor,
     tel_1 as 'tel_casa', tel_2 as 'tel_cel',
     ejecutivo_asignado_call_center, ejecutivo_asignado_domiciliario,
@@ -75,13 +75,13 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
 
     /**
      * 
-     * @return array
+     * @return string[]
      */
     public function listClients() {
         $query = "SELECT cliente FROM clientes";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
 }
