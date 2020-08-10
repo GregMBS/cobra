@@ -5,6 +5,7 @@ namespace cobra_salsa;
 use PDO;
 
 require_once __DIR__ . '/QueuelistObject.php';
+require_once __DIR__ . '/QueueObject.php';
 require_once __DIR__ . '/UserDataObject.php';
 
 /**
@@ -142,7 +143,7 @@ and sdc=:sdc and status_aarsa=:status";
 
     /**
      *
-     * @return array
+     * @return QueueObject[]
      */
     public function getAllQueues()
     {
@@ -152,7 +153,7 @@ and sdc=:sdc and status_aarsa=:status";
         ORDER BY cliente,sdc,status_aarsa";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_CLASS, QueueObject::class);
     }
 
     /**
