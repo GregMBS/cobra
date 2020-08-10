@@ -39,11 +39,12 @@ class LoginClass {
         $stg = $this->pdo->prepare($query);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
+        /** @var UserDataObject $result */
         $result = $stg->fetchObject(UserDataObject::class);
-        if (password_verify($pw, $result['passw'])) {
+        if (password_verify($pw, $result->passw)) {
             return $result;
         }
-        if (sha1($pw) == $result['passw']) {
+        if (sha1($pw) == $result->passw) {
             return $result;
         }
         return new UserDataObject();
