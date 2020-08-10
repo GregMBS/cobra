@@ -13,7 +13,7 @@ class GestorChangeClass extends BaseClass {
      * @param array $data
      * @return ResumenObject[]
      */
-    public function listCuentas($data) {
+    public function listCuentas(array $data) {
         $query = "SELECT * FROM resumen 
         WHERE numero_de_cuenta IN (:cta)";
         return $this->runProcess($data, $query);
@@ -21,7 +21,7 @@ class GestorChangeClass extends BaseClass {
 
     /**
      * @param string|null $gestor
-     * @return array
+     * @return string[]
      */
     public function listGestores($gestor = '') {
         $query = "SELECT iniciales FROM nombres 

@@ -222,7 +222,6 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
         $error = 1000;
         $flagmsg = $e->getMessage();
     }
-    $gc->updateAllUltimoPagos();
 
     if ($find == "/") {
         $find = NULL;

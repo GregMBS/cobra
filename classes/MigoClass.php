@@ -3,7 +3,6 @@
 namespace cobra_salsa;
 
 use PDO;
-use PDOStatement;
 
 require_once __DIR__ . '/ResumenObject.php';
 
@@ -28,6 +27,7 @@ class MigoClass
         'status_aarsa',
         'fecha_ultima_gestion'
     ];
+
     /**
      * @var PDO $pdo
      */
@@ -40,20 +40,6 @@ class MigoClass
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
-    }
-
-    /**
-     *
-     * @return false|PDOStatement
-     */
-    public function adminReport()
-    {
-        $query = "SELECT *
-FROM resumen
-where status_de_credito not regexp '-'";
-        $stm = $this->pdo->query($query);
-        $stm->execute();
-        return $stm;
     }
 
     public function getAjax(array $keys, $capt = '')
@@ -80,7 +66,7 @@ where status_de_credito not regexp '-'";
         foreach ($empRecords as $row) {
             $array = [];
             foreach ($keys as $key) {
-                $array[$key] = $row[$key];
+                $array[$key] = $row->$key;
             }
             $data[] = $array;
         }
@@ -160,7 +146,7 @@ where status_de_credito not regexp '-'";
      * @param string $columnSortOrder
      * @param int $row
      * @param int $rowPerPage
-     * @return array
+     * @return ResumenObject[]
      */
     private function getFiltered($searchArray, $searchQuery, $columnName = '', $columnSortOrder = 'ASC', $row = 0, $rowPerPage = 10): array
     {
@@ -192,7 +178,7 @@ where status_de_credito not regexp '-'";
         $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
         $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
     }
 
 }

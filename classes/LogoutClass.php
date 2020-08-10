@@ -68,9 +68,8 @@ class LogoutClass
      *
      * @param string $capt
      * @param string $go
-     * @return LogoutClass
      */
-    public function getLogoutDatetime($capt, $go)
+    private function getLogoutDatetime($capt, $go)
     {
         $this->date = date('Y-m-d');
         $this->time = date('H:i:s');
@@ -84,17 +83,14 @@ class LogoutClass
                 $this->time = $result['c_hrin'];
             }
         }
-        return $this;
     }
 
     /**
      *
      * @param string $capt
      * @param string $go
-     * @param string $date
-     * @param string $time
      */
-    public function insertHistoria($capt, $go, $date, $time)
+    private function insertHistoria($capt, $go)
     {
         $query = "INSERT INTO historia
 		(C_CVGE, C_CVBA, C_CONT, CUENTA, C_CVST, D_FECH, C_HRIN, C_HRFI)
@@ -103,9 +99,9 @@ class LogoutClass
         $sti = $this->pdo->prepare($query);
         $sti->bindParam(':capt', $capt);
         $sti->bindParam(':go', $go);
-        $sti->bindParam(':date', $date);
-        $sti->bindParam(':time_in', $time);
-        $sti->bindParam(':timeout', $time);
+        $sti->bindParam(':date', $this->date);
+        $sti->bindParam(':time_in', $this->time);
+        $sti->bindParam(':timeout', $this->time);
         $sti->execute();
     }
 
@@ -113,7 +109,7 @@ class LogoutClass
      *
      * @param string $capt
      */
-    public function clearResumenLocks($capt)
+    private function clearResumenLocks($capt)
     {
         $query = "UPDATE resumen SET locker=NULL, timelock=NULL 
         WHERE locker = :capt";
@@ -126,7 +122,7 @@ class LogoutClass
      *
      * @param string $capt
      */
-    public function clearRslice($capt)
+    private function clearRslice($capt)
     {
         $query = "DELETE from rslice 
         WHERE user = :capt";
@@ -139,12 +135,25 @@ class LogoutClass
      *
      * @param string $capt
      */
-    public function expireTicket($capt)
+    private function expireTicket($capt)
     {
         $query = "update nombres set ticket = NULL 
         where iniciales = :capt";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':capt', $capt);
         $stn->execute();
+    }
+
+    /**
+     * @param string $capt
+     * @param string $go
+     */
+    public function runLogout(string $capt, string $go)
+    {
+        $this->getLogoutDatetime($capt, $go);
+        $this->insertHistoria($capt, $go);
+        $this->clearResumenLocks($capt);
+        $this->clearRslice($capt);
+        $this->expireTicket($capt);
     }
 }

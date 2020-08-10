@@ -162,7 +162,7 @@ and id_cuenta = :c_cont";
      * @param int $auto
      * @param string $c_cvge
      */
-    public function addHistgest($auto, $c_cvge) {
+    private function addHistgest($auto, $c_cvge) {
         $query = "INSERT IGNORE INTO histgest VALUES (:auto, :c_cvge)";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
@@ -245,7 +245,7 @@ and id_cuenta = :c_cont";
      * @param float $N_PAGO
      * @param string $who
      */
-    public function addPago($C_CONT, $D_PAGO, $N_PAGO, $who) {
+    private function addPago($C_CONT, $D_PAGO, $N_PAGO, $who) {
         $query = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
     SELECT numero_de_cuenta, :D_PAGO, :N_PAGO, cliente, :who, numero_de_credito, id_cuenta 
     FROM resumen WHERE id_cuenta = :C_CONT";
@@ -260,7 +260,7 @@ and id_cuenta = :c_cont";
     /**
      * 
      */
-    public function updateAllUltimoPagos() {
+    private function updateAllUltimoPagos() {
         $query = "update resumen,pagos 
                 set fecha_de_ultimo_pago = fecha, monto_ultimo_pago = monto 
                 where fecha_de_ultimo_pago < fecha and pagos.id_cuenta = resumen.id_cuenta";
@@ -272,7 +272,7 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $best
      */
-    public function resumenStatusUpdate($C_CONT, $best = '') {
+    private function resumenStatusUpdate($C_CONT, $best = '') {
         $query = "UPDATE resumen SET status_aarsa = :best, fecha_ultima_gestion = NOW() 
         WHERE id_cuenta = :C_CONT";
         $stb = $this->pdo->prepare($query);
@@ -407,7 +407,7 @@ and id_cuenta = :c_cont";
      * @param int $c_cont
      * @return string
      */
-    public function getBest($c_cvst, $c_cont) {
+    private function getBest($c_cvst, $c_cont) {
         $query = "SELECT c_cvst FROM historia, dictamenes 
         WHERE d_fech > CURDATE() - INTERVAL 30 DAY 
         AND c_cvst = dictamen 

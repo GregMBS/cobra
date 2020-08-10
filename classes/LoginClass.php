@@ -1,14 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
 use PDO;
+
+require_once __DIR__ . '/UserDataObject.php';
 
 /**
  * Description of LoginClass
@@ -30,22 +26,46 @@ class LoginClass {
         $this->pdo = $pdo;
     }
 
+    /**
+     * @param $capt
+     * @param $pw
+     * @return UserDataObject
+     */
     public function getUserData($capt, $pw) {
-        $query = "SELECT iniciales, enlace, tipo, passw "
-                . "FROM nombres JOIN grupos ON grupo=tipo "
-                . "WHERE LOWER(iniciales) = LOWER(:capt) "
-                . "LIMIT 1";
+        $query = "SELECT nombres.* 
+        FROM nombres JOIN grupos ON grupo=tipo 
+        WHERE LOWER(iniciales) = LOWER(:capt) 
+        LIMIT 1";
         $stg = $this->pdo->prepare($query);
         $stg->bindParam(':capt', $capt);
         $stg->execute();
-        $result = $stg->fetch(PDO::FETCH_ASSOC);
+        $result = $stg->fetch(PDO::FETCH_CLASS, UserDataObject::class);
         if (password_verify($pw, $result['passw'])) {
             return $result;
         }
         if (sha1($pw) == $result['passw']) {
             return $result;
         }
-        return FALSE;
+        return new UserDataObject();
+    }
+
+    /**
+     * @param string $tipo
+     * @return string
+     */
+    public function getLink(string $tipo) {
+        $query = "SELECT enlace 
+        FROM grupos 
+        WHERE grupo = :tipo 
+        LIMIT 1";
+        $stg = $this->pdo->prepare($query);
+        $stg->bindParam(':tipo', $tipo);
+        $stg->execute();
+        $result = $stg->fetchColumn(0);
+        if ($result) {
+            return $result;
+        }
+        return '';
     }
 
     /**
@@ -54,11 +74,11 @@ class LoginClass {
      * @param string $capt
      * @param string $tipo
      */
-    public function setTicket($cpw, $capt, $tipo) {
-        $query = "update nombres "
-                . "set ticket = :cpw "
-                . "where iniciales = :capt "
-                . "and tipo = :tipo";
+    private function setTicket($cpw, $capt, $tipo) {
+        $query = "update nombres 
+        set ticket = :cpw 
+        where iniciales = :capt
+        and tipo = :tipo";
         $stc = $this->pdo->prepare($query);
         $stc->bindParam(':cpw', $cpw);
         $stc->bindParam(':capt', $capt);
@@ -70,7 +90,7 @@ class LoginClass {
      * 
      * @param string $capt
      */
-    public function setInitialQueue($capt) {
+    private function setInitialQueue($capt) {
         $query = "update nombres n, queuelist qu
 			set n.camp = qu.camp
 			where iniciales = gestor
@@ -87,14 +107,13 @@ class LoginClass {
      * @param string $capt
      * @param string $local
      */
-    public function setUserlog($capt, $local) {
-        $query1 = "delete from userlog "
-                . "where gestor = :capt ";
+    private function setUserlog($capt, $local) {
+        $query1 = "delete from userlog where gestor = :capt ";
         $std = $this->pdo->prepare($query1);
         $std->bindParam(':capt', $capt);
         $std->execute();
-        $query2 = "insert into userlog (usuario,tipo,fechahora,gestor) "
-                . "values (:local, 'login', now(), :capt)";
+        $query2 = "insert into userlog (usuario,tipo,fechahora,gestor) 
+        values (:local, 'login', now(), :capt)";
         $stl = $this->pdo->prepare($query2);
         $stl->bindParam(':capt', $capt);
         $stl->bindParam(':local', $local);
@@ -106,7 +125,7 @@ class LoginClass {
      * @param string $capt
      * @param string $local
      */
-    public function insertPermalog($capt, $local) {
+    private function insertPermalog($capt, $local) {
         $query = "insert into permalog "
                 . "(usuario,tipo,fechahora,gestor) "
                 . "values (:local, 'login', now(), :capt)";
@@ -120,7 +139,7 @@ class LoginClass {
      * 
      * @param string $capt
      */
-    public function insertHistoria($capt) {
+    private function insertHistoria($capt) {
         $query = "INSERT INTO historia
 			(C_CVGE,C_CVBA,C_CONT,CUENTA,C_CVST,D_FECH,C_HRIN,C_HRFI)
 			VALUES (:capt, '', 0, 0, 'login', curdate(), curtime(), curtime())";
@@ -128,4 +147,22 @@ class LoginClass {
         $sti->bindParam(':capt', $capt);
         $sti->execute();
     }
+
+    /**
+     * @param string $cpw
+     * @param $capt
+     * @param UserDataObject $userData
+     * @param $local
+     * @return string
+     */
+    function runLogin(string $cpw, $capt, UserDataObject $userData, $local): string
+    {
+        $this->setTicket($cpw, $capt, $userData->TIPO);
+        $this->setInitialQueue($capt);
+        $this->setUserlog($capt, $local);
+        $this->insertPermalog($capt, $local);
+        $this->insertHistoria($capt);
+        return $this->getLink($userData->TIPO);
+    }
+
 }
