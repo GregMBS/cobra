@@ -39,6 +39,6 @@ if ($go == 'DESBLOQUEAR TODOS') {
     $qc->unblockQueueAll($cliente, $sdc, $status);
 }
 
-$resultlist = $qc->getGestores();
-$resultq = $qc->getQueues();
+$resultList = $qc->getGestores();
+$queues = $qc->getAllQueues();
 require_once 'views/queuesView.php';

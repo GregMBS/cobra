@@ -26,7 +26,7 @@ class BaseClass {
     protected $pdo;
     
     /**
-     * @var ConfigClass $config
+     * @var ConfigObject $config
      */
     public $config;
     

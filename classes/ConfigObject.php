@@ -2,7 +2,7 @@
 
 namespace cobra_salsa;
 
-class ConfigClass 
+class ConfigObject
 {
     /**
      *

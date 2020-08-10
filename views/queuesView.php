@@ -22,19 +22,19 @@
                     <div style='float:left;width:40%'><label>
                         <select name='queue'>
                             <?php
-                            foreach ($queues as $rowQ) {
-                                $CR = $rowQ['status_aarsa'];
+                            foreach ($queues as $queue) {
+                                $CR = $queue['status_aarsa'];
                                 if ($CR == '.') {
                                     $CR = 'todos';
                                 }
                                 ?>
                                 <option value='<?php
-                                echo $rowQ['cliente'] . ',' . $rowQ['sdc'] . ',' . $CR;
+                                echo $queue['cliente'] . ',' . $queue['sdc'] . ',' . $CR;
                                 ?>' <?php
-                                        if ($rowQ['bloqueado'] == 1) {
+                                        if ($queue['bloqueado'] == 1) {
                                             echo "class='blocked'";
                                         }
-                                        ?>><?php echo $rowQ['cliente'] . '-' . $rowQ['sdc'] . '-' . $CR; ?></option>
+                                        ?>><?php echo $queue['cliente'] . '-' . $queue['sdc'] . '-' . $CR; ?></option>
                                     <?php } ?>
                         </select></label>
                     </div>
@@ -49,39 +49,39 @@
         </div>
         <div>
             <?php
-            foreach ($resultlist as $rowlist) {
+            foreach ($resultList as $rowList) {
                 ?>
                 <div style='clear:both;border:1pt black solid'>
-                    <form method='get' action='/queues.php' name='<?php echo $rowlist['gestor']; ?>'>
+                    <form method='get' action='/queues.php' name='<?php echo $rowList->INICIALES; ?>'>
                         <div style='float:left;width:25%'>
-                            <label><input name='gestor' type='text' readonly='readonly' value='<?php echo $rowlist['gestor']; ?>'></label>
+                            <label><input name='gestor' type='text' readonly='readonly' value='<?php echo $rowList->INICIALES; ?>'></label>
                         </div>
                         <div style='float:left;width:40%'>
                             <?php
-                            $rowqc = $qc->getMyQueue($rowlist['gestor']);
-                            if (is_array($rowqc)) {
-                                $CRc = $rowqc['status_aarsa'];
+                            $myQueue = $qc->getMyQueue($rowList->INICIALES);
+                            if (is_array($myQueue)) {
+                                $CRc = $myQueue->status_aarsa;
                                 if ($CRc == '.') {
                                     $CRc = 'todos';
                                 }
-                                echo $rowqc['cliente'] . '-' . $rowqc['sdc'] . '-' . $CRc;
+                                echo $myQueue->cliente . '-' . $myQueue->sdc . '-' . $CRc;
                             }
                             ?>
                             <br><label>
                             <select name='camp'>
                                 <?php
-                                $resultqa = $qc->getMyQueuelist($rowlist['gestor']);
-                                foreach ($resultqa as $rowQ) {
-                                    $CR = $rowQ['status_aarsa'];
+                                $queueList = $qc->getMyQueuelist($rowList->INICIALES);
+                                foreach ($queueList as $queue) {
+                                    $CR = $queue->status_aarsa;
                                     if ($CR == '.') {
                                         $CR = 'todos';
                                     }
                                     ?>
-                                    <option value='<?php echo $rowQ['camp']; ?>' <?php
-                                    if ($rowQ['bloqueado'] == 1) {
+                                    <option value='<?php echo $queue->camp; ?>' <?php
+                                    if ($queue['bloqueado'] == 1) {
                                         echo "class='blocked'";
                                     }
-                                    ?>><?php echo $rowQ['cliente'] . '-' . $rowQ['sdc'] . '-' . $CR; ?></option>
+                                    ?>><?php echo $queue->cliente . '-' . $queue->sdc . '-' . $CR; ?></option>
                                         <?php } ?>
                             </select></label>
                         </div>

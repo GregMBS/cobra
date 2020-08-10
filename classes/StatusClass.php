@@ -4,9 +4,9 @@ namespace cobra_salsa;
 
 use PDO;
 
-require_once __DIR__ . '/ConfigClass.php';
+require_once __DIR__ . '/ConfigObject.php';
 
-class StatusClass extends ConfigClass
+class StatusClass extends ConfigObject
 {
     /**
      *
