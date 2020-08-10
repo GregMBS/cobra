@@ -141,6 +141,6 @@ class BigClassTest extends TestCase
         $pc = new PdoClass();
         $this->pdo = $pc->dbConnectNobody();
         $this->cc = new BigClass($this->pdo);
-        $this->bio = new BigInputObject('2020-01-01', '2020-08-01', 'todos', 'todos');
+        $this->bio = new BigInputObject('2020-01-01', '2020-01-31', 'todos', 'todos');
     }
 }

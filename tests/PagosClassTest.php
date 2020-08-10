@@ -108,7 +108,7 @@ class PagosClassTest extends TestCase
 
     public function testQueryAll()
     {
-        $report = $this->cc->queryAll('2020-01-01', '2020-12-31', 'FAMSA');
+        $report = $this->cc->queryAll('2020-01-01', '2020-01-31', 'FAMSA');
         $this->assertIsArray($report);
         $first = array_pop($report);
         $this->assertInstanceOf(PagosQueryObject::class, $first);
