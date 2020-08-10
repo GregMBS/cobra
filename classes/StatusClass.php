@@ -55,7 +55,7 @@ class StatusClass extends ConfigClass
         $query = "SELECT * FROM information_schema.`TABLES` T 
 where table_schema = $this->dbName
 order by data_length desc";
-        $stm = $this->pdo->query($query);
+        $stm = $this->pdo->prepare($query);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
