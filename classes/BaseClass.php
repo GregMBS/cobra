@@ -1,17 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace cobra_salsa;
 
-use ConfigClass;
 use PDO;
 
-require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/ConfigObject.php';
 
 /**
  * Description of ActivarClass
@@ -35,7 +28,7 @@ class BaseClass {
      * @param PDO $pdo
      */
     public function __construct($pdo) {
-        $this->config = new ConfigClass();
+        $this->config = new ConfigObject();
         $this->pdo = $pdo;
     }
 }

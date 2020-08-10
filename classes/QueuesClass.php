@@ -132,10 +132,10 @@ and sdc=:sdc and status_aarsa=:status";
     public function getGestores()
     {
         $query = "SELECT distinct nombres.*
-            FROM queuelist
-        JOIN nombres ON gestor=iniciales 
+            FROM nombres
+        JOIN queuelist ON gestor=iniciales
         WHERE tipo <> ''
-        ORDER BY gestor";
+        ORDER BY iniciales";
         $stl = $this->pdo->prepare($query);
         $stl->execute();
         return $stl->fetchAll(PDO::FETCH_CLASS, UserDataObject::class);

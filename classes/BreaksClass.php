@@ -23,12 +23,12 @@ class BreaksClass {
     /**
      * @var string
      */
-    private $queryBreaks = "select auto,c_cvge,c_cvst,c_hrin,
+    private $queryBreaks = "select auto,c_cvge,c_hrin,
 time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff' 
 from historia 
 where c_cont=0 and d_fech=curdate() and c_cvst<>'login' 
 and c_cvst<>'salir' and c_cvge=:capt 
-order by c_cvge,c_cvst,c_hrin";
+order by c_cvge,c_hrin";
 
     /**
      * 

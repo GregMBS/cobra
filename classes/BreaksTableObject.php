@@ -17,11 +17,6 @@ class BreaksTableObject
     /**
      * @var string
      */
-    public $c_cvst = '';
-
-    /**
-     * @var string
-     */
     public $c_hrin = '';
 
     /**
