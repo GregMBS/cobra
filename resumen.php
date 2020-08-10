@@ -37,6 +37,7 @@ if (!empty($mytipo)) {
     }
     $getUpdate = isset($get['find']);
     $isOldId = isset($get['id_cuenta']);
+    $find = '';
     if ($getUpdate) {
         $find = $rc->cleanFind(filter_input(INPUT_GET, 'find'));
     }

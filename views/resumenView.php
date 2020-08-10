@@ -167,6 +167,9 @@ if ($notalert > 0) { ?>
             if (empty($cliente)) {
                 $cliente = '';
             }
+            if (empty($sdc)) {
+                $sdc = '';
+            }
             ?>
             <button><?php echo $cliente . ' ' . $sdc . ' ' . $currentQueue; ?></BUTTON>
             <?php
