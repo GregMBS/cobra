@@ -12,25 +12,21 @@ require_once __DIR__ . '/timesheetHead.php';
         $gestor = $answerNombre['c_cvge'];
         $month = $sheet[$gestor];
         $monthSum = $sum[$gestor];
-        var_dump([$gestor, $month, $monthSum]); die();
         ?>
         <table class="ui-widget">
-        <thead class="ui-widget-header">
-    <tr>
-        <?php
-        if (isset($gestor)) {
-            ?>
-            <th>
-                <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a>
-            </th>
-            <?php
-            for ($i = 1; $i <= $dhoy; $i++) {
-                $day = $month[$i];
-                $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
-                ?>
-                <th><?php echo $day_esp[$dow] . " " . $i; ?></th>
-            <?php } ?>
-            <th>TOTAL</th>
+            <thead class="ui-widget-header">
+            <tr>
+                <th>
+                    <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a>
+                </th>
+                <?php
+                for ($i = 1; $i <= $dhoy; $i++) {
+                    $day = $month[$i];
+                    $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
+                    ?>
+                    <th><?php echo $day_esp[$dow] . " " . $i; ?></th>
+                <?php } ?>
+                <th>TOTAL</th>
             </tr>
             </thead>
             <tbody class="ui-widget-content">
@@ -38,9 +34,8 @@ require_once __DIR__ . '/timesheetHead.php';
             require_once __DIR__ . '/timesheetTable.php';
             ?>
             </tbody>
-            </table>
-            <?php
-        }
+        </table>
+        <?php
     }
     ?>
 </div>
