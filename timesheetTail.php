@@ -1,7 +1,6 @@
 <?php
 
 $gestores = $hc->listGestores();
-var_dump($gestores);die();
 $sheet = [];
 $sum = [];
 foreach ($gestores as $gestor) {
@@ -9,4 +8,5 @@ foreach ($gestores as $gestor) {
     $sheet[$nombre] = $hc->prepareSheet($nombre, $dhoy);
     $sum[$nombre] = $hc->prepareMonthSum($sheet[$nombre]);
 }
+var_dump($sheet);die();
 require_once __DIR__ . '/views/timesheetView.php';
