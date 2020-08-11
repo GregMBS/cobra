@@ -1,35 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <title>Horarios</title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" type="text/css"
-          media="all"/>
-    <style type="text/css">
-        tr:hover {
-            background-color: #ffff00;
-        }
-
-        .heavy {
-            font-weight: bold;
-            font-size: 10pt;
-        }
-
-        .heavytot {
-            font-weight: bold;
-            font-size: 10pt;
-            text-align: right;
-        }
-
-        .light {
-            text-align: right;
-        }
-
-        .zeros {
-            color: red;
-        }
-    </style>
-</head>
 <body>
 <h2>HORARIOS</h2>
 <div>
@@ -37,14 +7,14 @@
         <label for="selectGestor">Gestor: </label>
         <select name='gestor' id="selectGestor">
             <?php
-            if (!empty($gestores)) {
-                foreach ($gestores as $answernom) {
-                    $nombre = $answernom['c_cvge'];
+    $day_esp = ['DOM','LUN','MAR','MIE','JUE','VIE','SAB'];
+    foreach ($gestores as $answerNombre) {
+        $gestor = $answerNombre['c_cvge'];
                     $month = $sheet[$gestor];
                     $monthSum = $sum[$gestor];
                     ?>
-                    <option value='<?php echo $nombre; ?>'><?php echo $nombre; ?></option>
-                <?php }
+                    <option value='<?php echo $gestor; ?>'><?php echo $gestor; ?></option>
+                <?php
             } ?>
             <option value='total'>total</option>
         </select>
@@ -72,7 +42,6 @@ if ($go == 'gestor') { ?>
                 </th>
                 <?php
             }
-            $day_esp = array("DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB");
             $month = $hc->prepareSheet($hc, $gestor, $dhoy);
             for ($i = 1; $i < $dhoy; $i++) {
                 $day = $month[$i];
@@ -85,17 +54,7 @@ if ($go == 'gestor') { ?>
         </thead>
         <tbody class="ui-widget-content">
         <?php
-        echo $tv->timeRow('LOGIN', $month, $monthSum, 'start');
-        echo $tv->timeRow('LOGOUT', $month, $monthSum, 'stop');
-        echo $tv->diffRow('HORAS', $month, $monthSum, 'diff');
-        echo $tv->diffRow('BREAK', $month, $monthSum, 'break');
-        echo $tv->diffRow('BAÑO', $month, $monthSum, 'bano');
-        echo $tv->countRow('GESTIONES', $month, $monthSum, 'tlla', $gestor, $capt, 'ddh');
-        echo $tv->countRow('CUENTAS', $month, $monthSum, 'lla', $gestor, $capt, 'ddh');
-        echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $gestor, $capt, '');
-        echo $tv->countRow('NO CONTACTOS', $month, $monthSum, 'nct', $gestor, $capt, '');
-        echo $tv->countRow('PROMESAS', $month, $monthSum, 'prom', $gestor, $capt, 'pdh');
-        echo $tv->countRow('PAGOS', $month, $monthSum, 'pag', $gestor, $capt, '');
+        require_once __DIR__ . '/timesheetTable.php';
         ?>
         </tbody>
     </table>
@@ -105,4 +64,3 @@ if ($go == 'gestor') { ?>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
 </body>
 </html>
-

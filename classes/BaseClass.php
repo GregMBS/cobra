@@ -7,7 +7,7 @@ use PDO;
 require_once __DIR__ . '/ConfigObject.php';
 
 /**
- * Description of ActivarClass
+ * Description of BaseClass
  *
  * @author gmbs
  */

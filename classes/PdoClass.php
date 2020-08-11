@@ -2,11 +2,10 @@
 
 namespace cobra_salsa;
 
-use ConfigClass;
-use mysqli;
 use PDO;
 
 require_once __DIR__ . '/BaseClass.php';
+require_once __DIR__ . '/ConfigObject.php';
 
 /**
  * Description of PdoClass
@@ -45,11 +44,6 @@ class PdoClass {
     protected $pdo;
 
     /**
-     * @var mysqli
-     */
-    protected $con;
-
-    /**
      *
      * @var string
      */
@@ -83,7 +77,7 @@ class PdoClass {
             AND iniciales=:capt limit 1';
 
     public function __construct() {
-        $config = new ConfigClass();
+        $config = new ConfigObject();
         $this->db = $config->dbName;
         $this->dsn = 'mysql:dbname=' . $this->db . ';host=localhost';
         $this->pdo = new PDO($this->dsn, $this->username, $this->passwd);
