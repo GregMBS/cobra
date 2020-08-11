@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php
+require_once __DIR__ . '/timesheetHead.php';
+?>
 <body>
 <h2>HORARIOS</h2>
 <div>
