@@ -8,6 +8,7 @@ require_once __DIR__ . '/timesheetHead.php';
 <div>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
+    var_dump($month);die();
     foreach ($gestores as $answerNombre) {
         $gestor = $answerNombre['c_cvge'];
         $month = $sheet[$gestor];
