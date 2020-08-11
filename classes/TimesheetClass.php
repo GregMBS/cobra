@@ -267,7 +267,7 @@ abstract class TimesheetClass
         $day->tlla = $answerStartStop['gestiones'];
         $day->ct = $answerStartStop['nocontactos'];
         $day->nct = $answerStartStop['contactos'];
-        $day->prom = $answerStartStop;
+        $day->prom = $answerStartStop['promesas'];
         $day->lph = $day->lla / ($day->diff + 1 / 3600);
         foreach ($result as $answer) {
             $day->pag = $answer['ct'];
