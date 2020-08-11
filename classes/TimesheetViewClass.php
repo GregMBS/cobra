@@ -98,6 +98,9 @@ class TimesheetViewClass
             if ($value == '0') {
                 $red = ' zeros';
             }
+            if (is_array($value)) {
+                var_dump($value);
+            }
             $linkText = "<td class='light$red'>$value</td>";
             if (!empty($link)) {
                 $aLink = strtolower($link . '.php?capt=' . $capt
