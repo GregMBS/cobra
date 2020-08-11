@@ -10,13 +10,13 @@ require_once __DIR__ . '/timesheetHead.php';
         <label for="selectGestor">Gestor: </label>
         <select name='gestor' id="selectGestor">
             <?php
-    $day_esp = ['DOM','LUN','MAR','MIE','JUE','VIE','SAB'];
-    foreach ($gestores as $answerNombre) {
-        $gestor = $answerNombre['c_cvge'];
-                    $month = $sheet[$gestor];
-                    $monthSum = $sum[$gestor];
-                    ?>
-                    <option value='<?php echo $gestor; ?>'><?php echo $gestor; ?></option>
+            $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
+            foreach ($gestores as $answerNombre) {
+                $gestor = $answerNombre['c_cvge'];
+                $month = $sheet[$gestor];
+                $monthSum = $sum[$gestor];
+                ?>
+                <option value='<?php echo $gestor; ?>'><?php echo $gestor; ?></option>
                 <?php
             } ?>
             <option value='total'>total</option>

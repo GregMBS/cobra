@@ -22,9 +22,9 @@ $capt = $pd->capt;
 $gestores = [];
 $gestor = filter_input(INPUT_GET, 'gestor');
 $gestores = $hc->listGestores();
+$sheet = [];
+$sum = [];
 if (!empty($gestor)) {
-    $sheet = [];
-    $sum = [];
     $sheet[$gestor] = $hc->prepareSheet($gestor, $dhoy);
     $sum[$gestor] = $hc->prepareMonthSum($sheet[$gestor]);
 }
