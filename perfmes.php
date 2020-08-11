@@ -19,5 +19,4 @@ $mes = date('m', strtotime('last day of previous month'));
 $dhoy = date('d', strtotime('last day of previous month'));
 $hoy = date('Y-m-d', strtotime('last day of previous month'));
 $capt = $pd->capt;
-var_dump($hc);die();
 require_once __DIR__ . '/timesheetTail.php';

@@ -1,6 +1,7 @@
 <?php
 
 $gestores = $hc->listGestores();
+var_dump($gestores);die();
 $sheet = [];
 $sum = [];
 foreach ($gestores as $gestor) {
