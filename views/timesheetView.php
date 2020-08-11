@@ -8,11 +8,11 @@ require_once __DIR__ . '/timesheetHead.php';
 <div>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
-    var_dump($gestores);die();
     foreach ($gestores as $answerNombre) {
         $gestor = $answerNombre['c_cvge'];
         $month = $sheet[$gestor];
         $monthSum = $sum[$gestor];
+        var_dump([$gestor, $month, $monthSum]); die();
         ?>
         <table class="ui-widget">
         <thead class="ui-widget-header">
