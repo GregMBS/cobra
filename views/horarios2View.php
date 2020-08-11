@@ -45,7 +45,7 @@ if ($go == 'gestor') { ?>
                 </th>
                 <?php
             }
-            $month = $hc->prepareSheet($hc, $gestor, $dhoy);
+            $month = $hc->prepareSheet($gestor, $dhoy);
             for ($i = 1; $i < $dhoy; $i++) {
                 $day = $month[$i];
                 $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));

@@ -178,4 +178,5 @@ class TimesheetClassTest extends TestCase
         $this->assertArrayHasKey('ct', $first);
         return $report;
     }
+
 }

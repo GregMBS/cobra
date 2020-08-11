@@ -206,63 +206,61 @@ abstract class TimesheetClass
     }
 
     /**
-     * @param $hc
      * @param $gestor
      * @param int $hoy
      * @return TimesheetDayObject[]
      */
-    public function prepareSheet($hc, $gestor, $hoy): array
+    public function prepareSheet($gestor, $hoy): array
     {
         $month = [];
         for ($i = 1; $i <= $hoy; $i++) {
             $day = new TimesheetDayObject();
-            $resultStartStopDiff = $hc->getStartStopDiff($gestor, $i);
+            $resultStartStopDiff = $this->getStartStopDiff($gestor, $i);
             foreach ($resultStartStopDiff as $answerStartStopDiff) {
                 $day->start = substr($answerStartStopDiff['start'], 0, 5);
                 $day->stop = substr($answerStartStopDiff['stop'], 0, 5);
                 $day->diff = $answerStartStopDiff['diff'];
             }
-            $resultStartStop = $hc->getCurrentMain($gestor, $i);
+            $resultStartStop = $this->getCurrentMain($gestor, $i);
             foreach ($resultStartStop as $answerStartStop) {
                 $this->breakLoop($gestor, $i, $day, 'break');
                 $this->breakLoop($gestor, $i, $day, 'bano');
-                $this->loadDay($hc, $gestor, $i, $answerStartStop, $day);
+                $this->loadDay($gestor, $i, $answerStartStop, $day);
             }
             $month[$i] = $day;
         }
         return $month;
     }
 
-    /**
-     * @param $hc
-     * @param string $visitador
-     * @param int $hoy
-     * @return TimesheetDayObject[]
-     */
-    public function prepareVisitSheet($hc, string $visitador, $hoy): array
-    {
-        $month = [];
-        for ($i = 1; $i <= $hoy; $i++) {
-            $day = new TimesheetDayObject();
-            $resultStartStop = $hc->getVisitadorMain($visitador, $i);
-            foreach ($resultStartStop as $answerStartStop) {
-                $this->loadDay($hc, $visitador, $i, $answerStartStop, $day);
-            }
-            $month[$i] = $day;
-        }
-        return $month;
-    }
+//    /**
+//     * @param $hc
+//     * @param string $visitador
+//     * @param int $hoy
+//     * @return TimesheetDayObject[]
+//     */
+//    public function prepareVisitSheet($hc, string $visitador, $hoy): array
+//    {
+//        $month = [];
+//        for ($i = 1; $i <= $hoy; $i++) {
+//            $day = new TimesheetDayObject();
+//            $resultStartStop = $hc->getVisitadorMain($visitador, $i);
+//            foreach ($resultStartStop as $answerStartStop) {
+//                $this->loadDay($visitador, $i, $answerStartStop, $day);
+//            }
+//            $month[$i] = $day;
+//        }
+//        return $month;
+//    }
 
     /**
-     * @param $hc
      * @param $gestor
      * @param int $dayNumber
      * @param $answerStartStop
      * @param TimesheetDayObject $day
      */
-    private function loadDay($hc, $gestor, int $dayNumber, $answerStartStop, TimesheetDayObject $day): void
+    private function loadDay($gestor, int $dayNumber, $answerStartStop, TimesheetDayObject $day): void
     {
-        $result = $hc->getPagos($gestor, $dayNumber);
+        $result = $this->getPagos($gestor, $dayNumber);
         $day->lla = $answerStartStop['cuentas'];
         $day->tlla = $answerStartStop['gestiones'];
         $day->ct = $answerStartStop['nocontactos'];
