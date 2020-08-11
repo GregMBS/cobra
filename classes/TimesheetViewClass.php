@@ -99,7 +99,7 @@ class TimesheetViewClass
                 $red = ' zeros';
             }
             if (is_array($value)) {
-                var_dump($value);
+                var_dump($month[$i]);
             }
             $linkText = "<td class='light$red'>$value</td>";
             if (!empty($link)) {
