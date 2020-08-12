@@ -12,6 +12,31 @@ abstract class TimesheetClass
      */
     protected $pdo;
 
+    /**
+     * @var string
+     */
+    protected $queryStartStopDiff;
+
+    /**
+     * @var string
+     */
+    protected $queryTiempoDiff;
+
+    /**
+     * @var string
+     */
+    protected $queryNTPDiff;
+
+    /**
+     * @var string
+     */
+    protected $queryVisitadorPagos;
+
+    /**
+     * @var string
+     */
+    protected $queryCountVisitadorDays;
+
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
@@ -195,15 +220,9 @@ abstract class TimesheetClass
         $sum->diff = array_sum(array_column($month, 'diff'));
         $sum->bano = array_sum(array_column($month, 'bano'));
         $sum->break = array_sum(array_column($month, 'break'));
-        $sum->lla = array_sum(array_column($month, 'lla'));
-        $sum->tlla = array_sum(array_column($month, 'tlla'));
-        $sum->prom = array_sum(array_column($month, 'prom'));
-        $sum->pag = array_sum(array_column($month, 'pag'));
-        $sum->ct = array_sum(array_column($month, 'ct'));
-        $sum->nct = array_sum(array_column($month, 'nct'));
-        $sum->lph = $sum->lla / ($sum->diff + 1 / 3600);
-        return $sum;
+        return $this->prepareMonthSumCounts($month, $sum);
     }
+
 
     /**
      * @param $gestor
@@ -292,4 +311,41 @@ abstract class TimesheetClass
         }
     }
 
+    /**
+     * @param array $month
+     * @param TimesheetDayObject $sum
+     * @return TimesheetDayObject
+     */
+    protected function prepareMonthSumCounts(array $month, TimesheetDayObject $sum): TimesheetDayObject
+    {
+        $sum->lla = array_sum(array_column($month, 'lla'));
+        $sum->tlla = array_sum(array_column($month, 'tlla'));
+        $sum->prom = array_sum(array_column($month, 'prom'));
+        $sum->pag = array_sum(array_column($month, 'pag'));
+        $sum->ct = array_sum(array_column($month, 'ct'));
+        $sum->nct = array_sum(array_column($month, 'nct'));
+        $sum->lph = $sum->lla / ($sum->diff + 1 / 3600);
+        return $sum;
+    }
+
+    /**
+     * @param $gestor
+     * @param int $hoy
+     * @return TimesheetDayObject[]
+     */
+    protected function prepareAllSheet($gestor, $hoy): array
+    {
+        $month = [];
+        for ($i = 1; $i <= $hoy; $i++) {
+            $day = new TimesheetDayObject();
+            $resultStartStop = $this->getCurrentMain($gestor, $i);
+            foreach ($resultStartStop as $answerStartStop) {
+                $this->breakLoop($gestor, $i, $day, 'break');
+                $this->breakLoop($gestor, $i, $day, 'bano');
+                $this->loadDay($gestor, $i, $answerStartStop, $day);
+            }
+            $month[$i] = $day;
+        }
+        return $month;
+    }
 }

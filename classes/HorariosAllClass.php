@@ -48,18 +48,7 @@ order by c_visit';
      */
     public function prepareSheet($gestor, $hoy): array
     {
-        $month = [];
-        for ($i = 1; $i <= $hoy; $i++) {
-            $day = new TimesheetDayObject();
-            $resultStartStop = $this->getCurrentMain($gestor, $i);
-            foreach ($resultStartStop as $answerStartStop) {
-                $this->breakLoop($gestor, $i, $day, 'break');
-                $this->breakLoop($gestor, $i, $day, 'bano');
-                $this->loadDay($gestor, $i, $answerStartStop, $day);
-            }
-            $month[$i] = $day;
-        }
-        return $month;
+        return $this->prepareAllSheet($gestor, $hoy);
     }
 
     /**
@@ -69,15 +58,6 @@ order by c_visit';
     public function prepareMonthSum(array $month)
     {
         $sum = new TimesheetDayObject();
-        $sum->lla = array_sum(array_column($month, 'lla'));
-        $sum->tlla = array_sum(array_column($month, 'tlla'));
-        $sum->prom = array_sum(array_column($month, 'prom'));
-        $sum->pag = array_sum(array_column($month, 'pag'));
-        $sum->ct = array_sum(array_column($month, 'ct'));
-        $sum->nct = array_sum(array_column($month, 'nct'));
-        $sum->lph = $sum->lla / ($sum->diff + 1 / 3600);
-        return $sum;
+        return $this->prepareMonthSumCounts($month, $sum);
     }
-
-
 }
