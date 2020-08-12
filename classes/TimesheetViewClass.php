@@ -30,7 +30,7 @@ class TimesheetViewClass
 
     /**
      * @param string $label
-     * @param array $month
+     * @param TimesheetDayObject[] $month
      * @param TimesheetDayObject $sum
      * @param string $field
      * @return string

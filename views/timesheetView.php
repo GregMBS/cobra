@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php
+
+use cobra_salsa\TimesheetDayObject;
+
 require_once __DIR__ . '/timesheetHead.php';
+require_once __DIR__ . '/../classes/TimesheetDayObject.php';
 ?>
 <body>
 <h2>HORARIOS</h2>
@@ -10,7 +14,9 @@ require_once __DIR__ . '/timesheetHead.php';
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
     foreach ($gestores as $answerNombre) {
         $gestor = $answerNombre['c_cvge'];
+        /** @var TimesheetDayObject[] $month */
         $month = $sheet[$gestor];
+        /** @var TimesheetDayObject $monthSum */
         $monthSum = $sum[$gestor];
         ?>
         <table class="ui-widget">
