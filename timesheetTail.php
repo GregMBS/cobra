@@ -1,10 +1,5 @@
 <?php
 
-use cobra_salsa\HorariosAllClass;
-
-require_once __DIR__ . '/classes/HorariosAllClass.php';
-
-$hac = new HorariosAllClass($pdo);
 $gestores = $hc->listGestores();
 $sheet = [];
 $sum = [];
