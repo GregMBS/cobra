@@ -2,84 +2,82 @@
 
 namespace cobra_salsa;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-use PDO;
 
 /**
  * Database Class for horarios
  *
  * @author gmbs
  */
-class HorariosAllClass
+class HorariosAllClass  extends TimesheetClass
 {
-    /**
-     * @var PDO $pdo
-     */
-    protected $pdo;
+    protected $queryGestores = 'select distinct c_cvge from historia
+            where d_fech>last_day(curdate() - interval 1 month)
+            order by c_cvge limit 1000';
 
-    public function __construct($pdo)
-    {
-        $this->pdo = $pdo;
-    }
+    protected $queryVisitadores = 'select distinct c_visit
+    from historia
+where d_fech > last_day(curdate()-interval 1 month)
+order by c_visit';
 
-    public function getCurrentMain($dom)
-    {
-        $query = "select count(distinct c_cont) as cuentas,
-            sum(c_cvst like 'PROMESA DE%') as promesas,
+    protected $queryCurrentMain = "select count(distinct c_cont) as cuentas,
+            sum(n_prom > 0) as promesas,
             count(1) as gestiones,
-            count(1)-sum(queue='SIN CONTACTOS') as nocontactos,
+            count(1) - sum(queue='SIN CONTACTOS') as nocontactos,
             sum(queue='SIN CONTACTOS') as contactos
             from historia
             left join dictamenes on c_cvst=dictamen
-            where c_msge is null
-            and c_cniv is null
+            where :gestor = '' and c_msge is null
+            and c_cniv is null and c_cont>0
             and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
             group by D_FECH";
-        $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
-    }
 
-    public function getPagos($dom)
-    {
-        $query = "select count(1) as ct from pagos
-            where fecha=last_day(curdate() - interval 1 month) + interval :dom day";
-        $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
-    }
+    protected $queryPagos = "select count(1) as ct from pagos
+            where :gestor = ''
+            and fecha=last_day(curdate() - interval 1 month) + interval :dom day";
 
-    public function countAccounts()
-    {
-        $query = "select count(distinct c_cont) as ct
+    protected $queryCountAccounts = "select count(distinct c_cont) as ct
             from historia
-            where c_cont>0
+            where :gestor = '' and c_cont>0
             and c_cniv is null and c_msge is null
             and D_FECH>last_day(curdate() - interval 1 month)";
-        $stq   = $this->pdo->prepare($query);
-        $stq->execute();
-        $result = $stq->fetch(PDO::FETCH_ASSOC);
-        return $result['ct'];
+
+    /**
+     * @param $gestor
+     * @param int $hoy
+     * @return TimesheetDayObject[]
+     */
+    public function prepareSheet($gestor, $hoy): array
+    {
+        $month = [];
+        for ($i = 1; $i <= $hoy; $i++) {
+            $day = new TimesheetDayObject();
+            $resultStartStop = $this->getCurrentMain($gestor, $i);
+            foreach ($resultStartStop as $answerStartStop) {
+                $this->breakLoop($gestor, $i, $day, 'break');
+                $this->breakLoop($gestor, $i, $day, 'bano');
+                $this->loadDay($gestor, $i, $answerStartStop, $day);
+            }
+            $month[$i] = $day;
+        }
+        return $month;
     }
 
-    public function countAccountsPerDay($dom)
+    /**
+     * @param TimesheetDayObject[] $month
+     * @return TimesheetDayObject
+     */
+    public function prepareMonthSum(array $month)
     {
-        $query = "select count(distinct c_cont) as ct
-            from historia
-            where c_cont>0
-            and c_cniv is null and c_msge is null
-            and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day";
-        $stq   = $this->pdo->prepare($query);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
-        $stq->execute();
-        $result = $stq->fetch(PDO::FETCH_ASSOC);
-        return $result['ct'];
+        $sum = new TimesheetDayObject();
+        $sum->lla = array_sum(array_column($month, 'lla'));
+        $sum->tlla = array_sum(array_column($month, 'tlla'));
+        $sum->prom = array_sum(array_column($month, 'prom'));
+        $sum->pag = array_sum(array_column($month, 'pag'));
+        $sum->ct = array_sum(array_column($month, 'ct'));
+        $sum->nct = array_sum(array_column($month, 'nct'));
+        $sum->lph = $sum->lla / ($sum->diff + 1 / 3600);
+        return $sum;
     }
+
+
 }

@@ -258,7 +258,7 @@ abstract class TimesheetClass
      * @param $answerStartStop
      * @param TimesheetDayObject $day
      */
-    private function loadDay($gestor, int $dayNumber, $answerStartStop, TimesheetDayObject $day): void
+    protected function loadDay($gestor, int $dayNumber, $answerStartStop, TimesheetDayObject $day): void
     {
         $result = $this->getPagos($gestor, $dayNumber);
         $day->lla = $answerStartStop['cuentas'];
@@ -278,7 +278,7 @@ abstract class TimesheetClass
      * @param TimesheetDayObject $day
      * @param string $tipo
      */
-    private function breakLoop($gestor, int $dayNumber, TimesheetDayObject $day, string $tipo): void
+    protected function breakLoop($gestor, int $dayNumber, TimesheetDayObject $day, string $tipo): void
     {
         $result = $this->getTiempoDiff($gestor, $dayNumber, $tipo);
         foreach ($result as $answer) {
