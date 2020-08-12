@@ -36,6 +36,7 @@ if (!empty($gestor)) {
 } else {
     $sheet['total'] = $hc->prepareSheet($gestor, $dhoy);
     $sum['total'] = $hc->prepareMonthSum($sheet['total']);
+    var_dump($sheet);
+    die();
 }
-
 require_once __DIR__ . '/views/horarios2View.php';
