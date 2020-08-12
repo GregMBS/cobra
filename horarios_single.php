@@ -3,9 +3,11 @@
 use cobra_salsa\HorariosAllClass;
 use cobra_salsa\HorariosClass;
 use cobra_salsa\PdoClass;
+use cobra_salsa\TimesheetDayObject;
 use cobra_salsa\TimesheetViewClass;
 
 require_once 'classes/PdoClass.php';
+require_once 'classes/TimesheetDayObject.php';
 $pd = new PdoClass();
 $pdo = $pd->dbConnectAdmin();
 require_once 'classes/HorariosClass.php';
@@ -22,6 +24,7 @@ $capt = $pd->capt;
 $gestores = [];
 $gestor = filter_input(INPUT_GET, 'gestor');
 $gestores = $hc->listGestores();
+/** @var TimesheetDayObject[] $sheet */
 $sheet = [];
 $sum = [];
 if (!empty($gestor)) {

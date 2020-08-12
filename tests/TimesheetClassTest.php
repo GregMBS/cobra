@@ -179,4 +179,28 @@ class TimesheetClassTest extends TestCase
         return $report;
     }
 
+    public function testPrepareSheet()
+    {
+        $report = $this->hc->prepareSheet('gmbs', 10);
+        $this->assertIsArray($report);
+        $first = array_pop($report);
+        $this->assertInstanceOf(\cobra_salsa\TimesheetDayObject::class, $first);
+        $report = $this->pc->prepareSheet('cristina', 10);
+        $this->assertIsArray($report);
+        $first = array_pop($report);
+        $this->assertInstanceOf(\cobra_salsa\TimesheetDayObject::class, $first);
+    }
+
+    /**
+     * @depends testPrepareSheet
+     */
+    public function testPrepareMonthSum()
+    {
+        $month = $this->hc->prepareSheet('gmbs', 10);
+        $report = $this->hc->prepareMonthSum($month);
+        $this->assertInstanceOf(\cobra_salsa\TimesheetDayObject::class, $report);
+        $month = $this->pc->prepareSheet('cristina', 10);
+        $report = $this->pc->prepareMonthSum($month);
+        $this->assertInstanceOf(\cobra_salsa\TimesheetDayObject::class, $report);
+    }
 }
