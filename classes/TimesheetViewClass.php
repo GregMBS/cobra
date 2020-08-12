@@ -4,8 +4,6 @@
 namespace cobra_salsa;
 
 
-use DateTime;
-
 class TimesheetViewClass
 {
     /**
@@ -31,7 +29,7 @@ class TimesheetViewClass
     {
         $date = strtotime('last day of last month');
         if ($thisMonth) {
-            $date = new DateTime();
+            $date = strtotime('now');
         }
         $this->yr = date('Y', $date);
         $this->mes = date('m', $date);
