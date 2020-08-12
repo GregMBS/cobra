@@ -13,7 +13,7 @@ $hc = new PerfmesClass($pdo);
 require_once 'classes/PerfmesAllClass.php';
 $hac = new PerfmesAllClass($pdo);
 require_once __DIR__ . '/classes/TimesheetViewClass.php';
-$tv = new TimesheetViewClass();
+$tv = new TimesheetViewClass(FALSE);
 $yr = date('Y', strtotime('last day of previous month'));
 $mes = date('m', strtotime('last day of previous month'));
 $dhoy = date('d', strtotime('last day of previous month'));

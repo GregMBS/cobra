@@ -10,7 +10,7 @@ $pdo = $pd->dbConnectAdmin();
 require_once 'classes/HorariosClass.php';
 $hc = new HorariosClass($pdo);
 require_once __DIR__ . '/classes/TimesheetViewClass.php';
-$tv = new TimesheetViewClass();
+$tv = new TimesheetViewClass(TRUE);
 $yr = date('Y');
 $mes = date('m');
 $dhoy = date('d');

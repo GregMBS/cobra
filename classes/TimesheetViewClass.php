@@ -4,6 +4,8 @@
 namespace cobra_salsa;
 
 
+use DateTime;
+
 class TimesheetViewClass
 {
     /**
@@ -21,11 +23,19 @@ class TimesheetViewClass
      */
     private $dia;
 
-    public function __construct()
+    /**
+     * TimesheetViewClass constructor.
+     * @param bool $thisMonth
+     */
+    public function __construct(bool $thisMonth)
     {
-        $this->yr = date('Y');
-        $this->mes = date('m');
-        $this->dia = (int) date('d');
+        $date = strtotime('last day of last month');
+        if ($thisMonth) {
+            $date = new DateTime();
+        }
+        $this->yr = date('Y', $date);
+        $this->mes = date('m', $date);
+        $this->dia = (int)date('d', $date);
     }
 
     /**

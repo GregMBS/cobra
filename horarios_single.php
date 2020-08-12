@@ -15,7 +15,7 @@ $hc = new HorariosClass($pdo);
 require_once 'classes/HorariosAllClass.php';
 $hac = new HorariosAllClass($pdo);
 require_once __DIR__ . '/classes/TimesheetViewClass.php';
-$tv = new TimesheetViewClass();
+$tv = new TimesheetViewClass(TRUE);
 $yr = date('Y');
 $mes = date('m');
 $dhoy = date('d');
