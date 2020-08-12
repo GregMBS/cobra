@@ -18,7 +18,4 @@ echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $nombre, $capt, '');
 echo $tv->countRow('NO CONTACTOS', $month, $monthSum, 'nct', $nombre, $capt, '');
 echo $tv->countRow('PROMESAS', $month, $monthSum, 'prom', $nombre, $capt, 'pdh');
 echo $tv->countRow('PAGOS', $month, $monthSum, 'pag', $nombre, $capt, '');
-if ($nombre == 'cristina') {
-    var_dump($monthSum);
-    die();
-}
+die($nombre);
