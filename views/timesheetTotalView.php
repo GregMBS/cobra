@@ -47,7 +47,7 @@ require_once __DIR__ . '/../classes/TimesheetDayObject.php';
         <tr>
             <th>TOTAL</th>
             <?php
-            for ($i = 1; $i <= $dhoy; $i++) {
+            for ($i = 1; $i < $dhoy; $i++) {
                 $day = $month[$i];
                 $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
                 ?>
