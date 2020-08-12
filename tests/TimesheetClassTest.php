@@ -1,15 +1,20 @@
 <?php
 
 
+use cobra_salsa\HorariosAllClass;
 use cobra_salsa\HorariosClass;
 use cobra_salsa\PdoClass;
+use cobra_salsa\PerfmesAllClass;
 use cobra_salsa\PerfmesClass;
+use cobra_salsa\TimesheetDayObject;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../classes/PdoClass.php';
 require_once __DIR__ . '/../classes/TimesheetClass.php';
 require_once __DIR__ . '/../classes/HorariosClass.php';
 require_once __DIR__ . '/../classes/PerfmesClass.php';
+require_once __DIR__ . '/../classes/HorariosAllClass.php';
+require_once __DIR__ . '/../classes/PerfmesAllClass.php';
 require_once __DIR__ . '/../classes/TimesheetDayObject.php';
 require_once __DIR__ . '/../classes/ResumenObject.php';
 
@@ -30,12 +35,24 @@ class TimesheetClassTest extends TestCase
      */
     protected $pc;
 
+    /**
+     * @var HorariosAllClass
+     */
+    protected $hac;
+
+    /**
+     * @var PerfmesAllClass
+     */
+    protected $pac;
+
     protected function setUp(): void
     {
         $pd = new PdoClass();
         $this->pdo = $pd->dbConnectNobody();
         $this->hc = new HorariosClass($this->pdo);
         $this->pc = new PerfmesClass($this->pdo);
+        $this->hac = new HorariosAllClass($this->pdo);
+        $this->pac = new PerfmesAllClass($this->pdo);
     }
 
     public function testGetTiempoDiff()
@@ -184,11 +201,19 @@ class TimesheetClassTest extends TestCase
         $report = $this->hc->prepareSheet('gmbs', 10);
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertInstanceOf(\cobra_salsa\TimesheetDayObject::class, $first);
+        $this->assertInstanceOf(TimesheetDayObject::class, $first);
         $report = $this->pc->prepareSheet('cristina', 10);
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertInstanceOf(\cobra_salsa\TimesheetDayObject::class, $first);
+        $this->assertInstanceOf(TimesheetDayObject::class, $first);
+        $report = $this->hac->prepareSheet('', 10);
+        $this->assertIsArray($report);
+        $first = array_pop($report);
+        $this->assertInstanceOf(TimesheetDayObject::class, $first);
+        $report = $this->pac->prepareSheet('', 10);
+        $this->assertIsArray($report);
+        $first = array_pop($report);
+        $this->assertInstanceOf(TimesheetDayObject::class, $first);
     }
 
     /**
@@ -198,9 +223,15 @@ class TimesheetClassTest extends TestCase
     {
         $month = $this->hc->prepareSheet('gmbs', 10);
         $report = $this->hc->prepareMonthSum($month);
-        $this->assertInstanceOf(\cobra_salsa\TimesheetDayObject::class, $report);
+        $this->assertInstanceOf(TimesheetDayObject::class, $report);
         $month = $this->pc->prepareSheet('cristina', 10);
         $report = $this->pc->prepareMonthSum($month);
-        $this->assertInstanceOf(\cobra_salsa\TimesheetDayObject::class, $report);
+        $this->assertInstanceOf(TimesheetDayObject::class, $report);
+        $month = $this->hac->prepareSheet('', 10);
+        $report = $this->hac->prepareMonthSum($month);
+        $this->assertInstanceOf(TimesheetDayObject::class, $report);
+        $month = $this->pac->prepareSheet('', 10);
+        $report = $this->pac->prepareMonthSum($month);
+        $this->assertInstanceOf(TimesheetDayObject::class, $report);
     }
 }
