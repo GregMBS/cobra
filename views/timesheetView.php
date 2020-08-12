@@ -12,18 +12,18 @@ require_once __DIR__ . '/../classes/TimesheetDayObject.php';
 <div>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
-    foreach ($gestores as $answerNombre) {
-        $gestor = $answerNombre['c_cvge'];
+    foreach ($gestores as $gestor) {
+        $nombre = $gestor['c_cvge'];
         /** @var TimesheetDayObject[] $month */
-        $month = $sheet[$gestor];
+        $month = $sheet[$nombre];
         /** @var TimesheetDayObject $monthSum */
-        $monthSum = $sum[$gestor];
+        $monthSum = $sum[$nombre];
         ?>
         <table class="ui-widget">
             <thead class="ui-widget-header">
             <tr>
                 <th>
-                    <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a>
+                    <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $nombre . '&c_cvge=' . $nombre); ?>'><?php echo $nombre; ?></a>
                 </th>
                 <?php
                 for ($i = 1; $i <= $dhoy; $i++) {
