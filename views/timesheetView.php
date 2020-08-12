@@ -26,7 +26,7 @@ require_once __DIR__ . '/../classes/TimesheetDayObject.php';
                     <a href='<?php echo strtolower('gestor.php?capt=' . $capt . '&gestor=' . $gestor . '&c_cvge=' . $gestor); ?>'><?php echo $gestor; ?></a>
                 </th>
                 <?php
-                for ($i = 1; $i <= $dhoy+1; $i++) {
+                for ($i = 1; $i <= $dhoy; $i++) {
                     $day = $month[$i];
                     $dow = date("w", strtotime($yr . "-" . $mes . "-" . $i));
                     ?>

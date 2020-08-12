@@ -18,7 +18,7 @@ require_once __DIR__ . '/classes/TimesheetViewClass.php';
 $tv = new TimesheetViewClass(TRUE);
 $yr = date('Y');
 $mes = date('m');
-$dhoy = date('d');
+$dhoy = date('d') + 1;
 $hoy = date('Y-m-d');
 $capt = $pd->capt;
 $gestores = [];
