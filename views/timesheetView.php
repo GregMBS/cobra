@@ -67,7 +67,7 @@ require_once __DIR__ . '/../classes/TimesheetDayObject.php';
         </thead>
         <tbody class="ui-widget-content">
         <?php
-        require __DIR__ . '/timesheetTable.php';
+        require __DIR__ . '/timesheetTableCounts.php';
         ?>
         </tbody>
     </table>
