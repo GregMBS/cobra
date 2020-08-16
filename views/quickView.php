@@ -151,7 +151,6 @@
                         $sumMontos = 0;
                         $sumNegociaciones = 0;
                         $sumHoras = 0;
-                        $sumBreak = 0;
                         $odd = 0;
                         foreach ($resultHoy as $rowHoy) {
                             ?>
