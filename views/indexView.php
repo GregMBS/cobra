@@ -22,7 +22,7 @@ $msg = 'CobraMas';
                 <fieldset>
                     <div class="username">
                         <label for="capt" class="formCap">Usuario:</label>
-                        <input type="password" name="capt" id="capt" value=""
+                        <input type="text" name="capt" id="capt" value=""
                                onchange="this.value = this.value.replace(/ /g, '');" />
                         <br>
                     </div>
