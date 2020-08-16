@@ -4,10 +4,9 @@
         <title>Tiempo Real</title>
         <meta http-equiv="refresh" content="60"/>
         <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.jqueryui.min.css"
+              integrity="sha512-etw+uKrmSM/SQGzslcglze3XP/gZHpQx00aeyBRxkJGMXuFsMPBYvP2zVTCx9WVLdKLjUla+Byz0xAjFtXivwQ=="
+              crossorigin="anonymous" />
         <style>
             tr { text-align: center; }
             tr.odd { background-color: white }
@@ -195,6 +194,11 @@
             </div>
         </div>
         <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"
+                integrity="sha512-JSdvzvKEAXKggB5Zoh4JTEKon1nRt6JXJE3bEEtYUyqfBZCFWMcYWyaoJraRIPmj9C7C9IXbwLuXK/jJ3ztitQ=="
+                crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <script>
             $(function () {
                 $("#tab").tabs();
