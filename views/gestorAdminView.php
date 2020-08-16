@@ -25,7 +25,7 @@
                     <?php
                     $j = 0;
 
-                    foreach ($main as $row) {
+                    foreach ($result as $row) {
                         $j++; 
                         $usuaria = $row['USUARIA'];
                         $completo = $row['COMPLETO'];
