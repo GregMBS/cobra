@@ -152,10 +152,10 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $D_PAGO = filter_var($get['D_PAGO']);
     $N_PAGO = filter_var($get['N_PAGO']);
     $C_PROM = filter_var($get['C_PROM']);
-    $N_PROM1 = filter_var($get['N_PROM1']);
-    $N_PROM2 = filter_var($get['N_PROM2']);
-    $N_PROM3 = filter_var($get['N_PROM3']);
-    $N_PROM4 = filter_var($get['N_PROM4']);
+    $N_PROM1 = filter_var($get['N_PROM1'], FILTER_SANITIZE_NUMBER_FLOAT);
+    $N_PROM2 = filter_var($get['N_PROM2'], FILTER_SANITIZE_NUMBER_FLOAT);
+    $N_PROM3 = filter_var($get['N_PROM3'], FILTER_SANITIZE_NUMBER_FLOAT);
+    $N_PROM4 = filter_var($get['N_PROM4'], FILTER_SANITIZE_NUMBER_FLOAT);
     $C_NTEL = filter_var($get['C_NTEL']);
     $C_NDIR = filter_var($get['C_NDIR']);
     $C_EMAIL = filter_var($get['C_EMAIL']);
