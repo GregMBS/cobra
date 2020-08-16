@@ -1110,7 +1110,7 @@ if ($notalert > 0) { ?>
                 ?>
             </select></label><br>
         <label class="formCap">Status:
-            <select name="C_CVST" style="width: 8cm;" onblur="statusChange(this.form);">
+            <select name="C_CVST" style="width: 8cm;">
                 <option value="" selected="selected"></option>
                 <?php
                 foreach ($resultDictamenV as $answerDictamenV) {
@@ -1409,7 +1409,7 @@ if ($notalert > 0) { ?>
                         </select></label>
                     <br>
                     <label>Status
-                        <select name="C_CVST" id="C_CVST" onblur="statusChange(this.form);">
+                        <select name="C_CVST" id="C_CVST">
                             <option value=''></option>
                             <?php
                             foreach ($resultDictamen as $answerDictamen) {

@@ -541,8 +541,6 @@ function validate_form(tf, evt, minprom, authorized)
     }
     if ((cvt.substr(0, 3) === "PAG") || ((cvt.substr(0, 2) === "RE") && (authorized < 1)))
     {
-        document.getElementById("pagocapt").style.display = "table-row";
-        document.getElementById("pagocapt2").style.display = "table-row";
         if (validate_required(tf.N_PAGO) === false)
         {
             alertText = alertText + 'Monto de pago es necesario\n';
@@ -714,10 +712,10 @@ function validate_form(tf, evt, minprom, authorized)
         alertString = alertString + " Monto de promesa 2: $" + n2 + "\n";
     }
     if (npa > 0) {
-        alertString = alertString + " Fecha de promesa total: " + dPago;
+        alertString = alertString + " Fecha del pago: " + dPago;
     }
     if (npa > 0) {
-        alertString = alertString + " Monto de promesa total: $" + npa;
+        alertString = alertString + " Monto del pago: $" + npa;
     }
 
     if (flag === 0) {

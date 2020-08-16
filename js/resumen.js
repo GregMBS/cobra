@@ -44,13 +44,13 @@ function npromChange(thisform) {
         (thisform.elements['N_PROM4'].value * 1);
 }
 
-function statusChange(thisform) {
-    if (thisform.elements['C_CVST'].substr(0, 3) === "PAG") {
-        document.getElementById("pagocapt").style.backgroundColor = "yellow";
-        document.getElementById("pagocapt2").style.backgroundColor = "yellow";
-        document.getElementById("pagocaptv").style.backgroundColor = "yellow";
-    }
-}
+// function statusChange(thisform) {
+//     if (thisform.elements['C_CVST'].substr(0, 3) === "PAG") {
+//         document.getElementById("pagocapt").style.backgroundColor = "yellow";
+//         document.getElementById("pagocapt2").style.backgroundColor = "yellow";
+//         document.getElementById("pagocaptv").style.backgroundColor = "yellow";
+//     }
+// }
 
 /**
  *
