@@ -192,7 +192,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
      * @return ResumenObject
      * @throws Exception
      */
-    public function getNextAccount(string $capt, int $camp, ?string $go, ?string $find = ''): ResumenObject
+    public function getNextAccount(string $capt, int $camp, ?string $go = '', ?string $find = ''): ResumenObject
     {
         $queue = $this->getMyQueue($capt, $camp);
         $sql = $this->getQueryString($queue);

@@ -238,7 +238,12 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
 $userData = $rc->getUserData($capt);
 $mytipo = $userData->TIPO;
 $camp = $userData->camp;
-
+if (empty($go)) {
+    $go = '';
+}
+if (empty($find)) {
+    $find = '';
+}
 try {
     $row = $qc->getNextAccount($capt, $camp, $go, $find);
 } catch (Exception $e) {
