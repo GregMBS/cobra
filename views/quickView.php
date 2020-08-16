@@ -170,7 +170,6 @@
                             $sumMontos += $rowHoy['Monto_Promesas_Hoy'];
                             $sumNegociaciones += $rowHoy['Negociaciones'];
                             $sumHoras += $rowHoy['Horas'];
-                            $sumBreak += $rowHoy['Gestiones_por_hora'];
                         }
                         ?>
                     </tbody>
@@ -181,7 +180,6 @@
                     <td><?php echo $sumMontos; ?></td>
                     <td><?php echo $sumNegociaciones; ?></td>
                     <td><?php echo $sumHoras; ?></td>
-                    <td><?php echo $sumBreak; ?></td>
                     <td><?php echo number_format($sumGestiones / ($sumHoras + 1 / 3600)); ?></td>
                     </tr>
                     </tfoot>
