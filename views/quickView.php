@@ -11,7 +11,10 @@
         <style>
             tr.odd { background-color: white }
             tr.even { background-color: #dddddd }
-            .alert { background-color: red }
+            tfoot tr {
+                background-color: beige;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
