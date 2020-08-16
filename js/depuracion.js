@@ -637,9 +637,9 @@ function validate_form(tf, evt, minprom, authorized)
         tf.N_PAGO.style.backgroundColor = "yellow";
         flag = 1;
     }
-    const __ret = telCheck(cnt, alertText, tf, flag, co2);
-    alertText = __ret.alertText;
-    flag = __ret.flag;
+    const __ret2 = telCheck(cnt, alertText, tf, flag, co2);
+    alertText = __ret2.alertText;
+    flag = __ret2.flag;
 //date checks on promises
     if (n1 > 0) {
 //date must be today or in future
