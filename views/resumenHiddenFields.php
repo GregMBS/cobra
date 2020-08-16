@@ -52,7 +52,7 @@
         echo $status_aarsa;
     }
     ?>">
-    <input type="hidden" name="CUENTA" id="CUENTA2" readonly="readonly" value="<?php
+    <input type="hidden" name="CUENTA" readonly="readonly" value="<?php
     if (isset($numero_de_cuenta)) {
         echo $numero_de_cuenta;
     }
