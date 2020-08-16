@@ -33,7 +33,6 @@ group by c_cvge, c_cont
 order by c_cvge
 ";
 
-
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
