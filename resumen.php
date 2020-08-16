@@ -100,7 +100,8 @@ if (!empty($mytipo)) {
         }
         $N_PROM = str_replace('$', '', $N_PROM0);
         $C_FREQ = filter_input(INPUT_GET, 'C_FREQ');
-        $MERCv = filter_input(INPUT_GET, 'MERCv', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+        var_dump($get);
+        die();
         $gc->doVisit($get);
     }
 } else {
@@ -221,6 +222,9 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
         $flagmsg = $flagmsg . '<BR>' . "GESTION NECESITA TELEFONO";
     }
 
+    if ($error > 0) {
+        die($flagmsg);
+    }
     try {
         $gc->doGestion($get);
     } catch (Exception $e) {
