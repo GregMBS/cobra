@@ -22,7 +22,7 @@
         <div id="tab">
             <ul>
                 <li><a href="#AHORA">AHORA</a></li>
-                <li><a href="#BREAKS">BREAKS</a></li>
+<!--                <li><a href="#BREAKS">BREAKS</a></li>-->
                 <li><a href="#PORHORA">ULTIMA HORA</a></li>
                 <li><a href="#PORDIA">HOY</a></li>
             </ul>
@@ -76,7 +76,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id='BREAKS'>
+            <!--<div id='BREAKS'>
                 <table class='ui-widget' id='BREAKStab'>
                     <thead class='ui-widget-header'>
                         <tr>
@@ -89,21 +89,21 @@
                     </thead>
                     <tbody class="ui-widget-content">
                         <?php
-                        foreach ($resultBreaks as $rowBreaks) {
-                            ?>
+/*                        foreach ($resultBreaks as $rowBreaks) {
+                            */?>
                             <tr>
-                                <td><?php echo $rowBreaks['gestor']; ?></td>
-                                <td><?php echo $rowBreaks['tipo']; ?></td>
-                                <td><?php echo $rowBreaks['tiempo']; ?></td>
-                                <td><?php echo $rowBreaks['ntp']; ?></td>
-                                <td><?php echo $rowBreaks['diff']; ?></td>
+                                <td><?php /*echo $rowBreaks['gestor']; */?></td>
+                                <td><?php /*echo $rowBreaks['tipo']; */?></td>
+                                <td><?php /*echo $rowBreaks['tiempo']; */?></td>
+                                <td><?php /*echo $rowBreaks['ntp']; */?></td>
+                                <td><?php /*echo $rowBreaks['diff']; */?></td>
                             </tr>
                             <?php
-                        }
-                        ?>
+/*                        }
+                        */?>
                     </tbody>
                 </table>
-            </div>
+            </div>-->
             <div id='PORHORA'>
                 <table class="ui-widget" id='PORHORAtab'>
                     <thead class="ui-widget-header">
