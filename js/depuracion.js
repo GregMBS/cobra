@@ -125,29 +125,29 @@ function picky(tf, alertText, flag) {
     return {alertText, flag};
 }
 
-function telCheck(cnt, alertText, tf, flag, co2) {
-//new telephones can only have numbers
-    if (cnt !== 'null') {
-        if (notJustNumbers(cnt)) {
-            alertText = alertText + 'No puede usarse un separador o letras en telefonos' + '\n';
-            tf.C_NTEL.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-        if ((cnt.length !== 0) && (cnt.length !== 8) && (cnt.length !== 10) && (cnt.length !== 13)) {
-            alertText = alertText + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
-            tf.C_NTEL.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-    }
-    if (co2 !== 'null') {
-        if ((co2.length !== 0) && (co2.length !== 8) && (co2.length !== 10) && (co2.length !== 13)) {
-            alertText = alertText + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
-            tf.C_OBSE2.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-    }
-    return {alertText, flag};
-}
+// function telCheck(cnt, alertText, tf, flag, co2) {
+// //new telephones can only have numbers
+//     if (cnt !== 'null') {
+//         if (notJustNumbers(cnt)) {
+//             alertText = alertText + 'No puede usarse un separador o letras en telefonos' + '\n';
+//             tf.C_NTEL.style.backgroundColor = "yellow";
+//             flag = 1;
+//         }
+//         if ((cnt.length !== 0) && (cnt.length !== 8) && (cnt.length !== 10) && (cnt.length !== 13)) {
+//             alertText = alertText + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
+//             tf.C_NTEL.style.backgroundColor = "yellow";
+//             flag = 1;
+//         }
+//     }
+//     if (co2 !== 'null') {
+//         if ((co2.length !== 0) && (co2.length !== 8) && (co2.length !== 10) && (co2.length !== 13)) {
+//             alertText = alertText + 'Nuevo teléfono tiene que tener 8, 10, o 13 digitos';
+//             tf.C_OBSE2.style.backgroundColor = "yellow";
+//             flag = 1;
+//         }
+//     }
+//     return {alertText, flag};
+// }
 
 function validate_form(tf, evt, minprom, authorized)
 {
@@ -161,8 +161,8 @@ function validate_form(tf, evt, minprom, authorized)
     let n4 = 0;
     let st = 1000000;
     let ccn = " ";
-    let cnt = "";
-    let co2 = "";
+    // let cnt = "";
+    // let co2 = "";
     let cuando = "";
     let dp1 = "0000-00-00";
     let dp2 = "0000-00-00";
@@ -232,14 +232,14 @@ function validate_form(tf, evt, minprom, authorized)
     {
         ccn = trim(tf.C_CONTAN.value);
     }
-    if (typeof (tf.C_NTEL) !== "undefined")
-    {
-        cnt = trim(tf.C_NTEL.value);
-    }
-    if (typeof (tf.C_OBSE2) !== "undefined")
-    {
-        co2 = tf.C_OBSE2.value;
-    }
+    // if (typeof (tf.C_NTEL) !== "undefined")
+    // {
+    //     cnt = trim(tf.C_NTEL.value);
+    // }
+    // if (typeof (tf.C_OBSE2) !== "undefined")
+    // {
+    //     co2 = tf.C_OBSE2.value;
+    // }
     if (typeof (tf.CUANDO.value) !== "undefined")
     {
         cuando = tf.CUANDO.value;
@@ -637,9 +637,9 @@ function validate_form(tf, evt, minprom, authorized)
         tf.N_PAGO.style.backgroundColor = "yellow";
         flag = 1;
     }
-    const __ret2 = telCheck(cnt, alertText, tf, flag, co2);
-    alertText = __ret2.alertText;
-    flag = __ret2.flag;
+//    const __ret2 = telCheck(cnt, alertText, tf, flag, co2);
+//    alertText = __ret2.alertText;
+//    flag = __ret2.flag;
 //date checks on promises
     if (n1 > 0) {
 //date must be today or in future
