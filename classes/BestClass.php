@@ -16,6 +16,9 @@ require_once __DIR__ . '/ResumenObject.php';
 class BestClass extends BaseClass
 {
 
+    /**
+     * @return ResumenObject
+     */
     public function getResumenData() {
         $query = "select * from resumen
         where status_de_credito not regexp '-'
@@ -96,16 +99,18 @@ order by v_cc asc, d_fech desc limit 1";
 
     /**
      * @param string $query
-     * @return ResumenObject
+     * @return ResumenObject[]
      */
-    private function getResumen(string $query): ResumenObject
+    private function getResumen(string $query): array
     {
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchObject(ResumenObject::class);
+        $result = $stq->fetchAll(PDO::FETCH_CLASS,ResumenObject::class);
         if ($result) {
             return $result;
         }
-        return new ResumenObject();
+        return [
+            new ResumenObject()
+            ];
     }
 }
