@@ -26,14 +26,14 @@ class QuickHoyClass
   `Gestiones_por_hora` decimal(5,1),
   PRIMARY KEY (`auto`)
 )";
-    protected $insertHoy = "insert into hoy
-        (gestor,Horas,Gestiones,Promesas_Hoy,Negociaciones,
-        Gestiones_por_hora,Monto_Promesas_Hoy)
-        select c_cvge,time_to_sec(subtime(max(c_hrin),min(c_hrin)))/3600 as horas,
-        count(1),sum(C_CVST like 'PRO% DE%') as np,
-        sum(C_CVST like 'CLIENTE NEG%') as cn,
-        count(1)/time_to_sec(subtime(max(c_hrin),min(c_hrin)))*3600,
-        sum(n_prom)
+    protected $insertHoy = "create temporary table hoy
+        select c_cvge as 'gestor',
+        time_to_sec(subtime(max(c_hrin),min(c_hrin)))/3600 as 'Horas',
+        count(1) as 'Gestiones',
+        sum(C_CVST like 'PRO% DE%') as 'Promesas_Hoy',
+        sum(C_CVST like 'CLIENTE NEG%') as 'Negociaciones,
+        count(1)/time_to_sec(subtime(max(c_hrin),min(c_hrin)))*3600 as 'Gestiones_por_hora',
+        sum(n_prom) as 'Monto_Promesas_Hoy'
         from historia
         where D_FECH = curdate()
         and c_cont>0
@@ -55,7 +55,7 @@ class QuickHoyClass
      */
     public function getHoy()
     {
-        $this->pdo->query($this->createHoy);
+        //$this->pdo->query($this->createHoy);
         $this->pdo->query($this->insertHoy);
         //$this->pdo->query($this->updateHoyBreaktemp);
         $sta = $this->pdo->prepare($this->queryHoy);
