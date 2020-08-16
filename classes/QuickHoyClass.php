@@ -47,7 +47,7 @@ class QuickHoyClass
         time_to_sec(subtime(max(c_hrin),min(c_hrin)))/3600 as 'Horas',
         count(1) as 'Gestiones',
         sum(C_CVST like 'PRO% DE%') as 'Promesas_Hoy',
-        sum(C_CVST like 'CLIENTE NEG%') as 'Negociaciones,
+        sum(C_CVST like 'CLIENTE NEG%') as 'Negociaciones',
         count(1)/time_to_sec(subtime(max(c_hrin),min(c_hrin)))*3600 as 'Gestiones_por_hora',
         sum(n_prom) as 'Monto_Promesas_Hoy'
         from historia
