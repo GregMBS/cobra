@@ -52,6 +52,8 @@ class BestClassTest extends TestCase
     public function testGetResumenData()
     {
         $data = $this->cc->getResumenData();
-        $this->assertInstanceOf(ResumenObject::class, $data);
+        $this->assertIsArray($data);
+        $first = array_pop($data);
+        $this->assertInstanceOf(ResumenObject::class, $first);
     }
 }

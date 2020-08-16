@@ -17,7 +17,7 @@ class BestClass extends BaseClass
 {
 
     /**
-     * @return ResumenObject
+     * @return ResumenObject[]
      */
     public function getResumenData() {
         $query = "select * from resumen

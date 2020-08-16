@@ -1,6 +1,6 @@
 <?php
 
-set_time_limit(300);
+ini_set('memory_limit', '-1');
 require_once 'vendor/autoload.php';
 
 use cobra_salsa\PdoClass;
@@ -13,8 +13,6 @@ $pdo = $pc->dbConnectAdmin();
 require_once 'classes/BestClass.php';
 $bc = new BestClass($pdo);
 $summary = $bc->getResumenData();
-var_dump($summary);
-die();
 $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
