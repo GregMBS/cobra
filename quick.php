@@ -9,7 +9,7 @@ use cobra_salsa\QuickPorHoraClass;
 require_once 'classes/PdoClass.php';
 $pc     = new PdoClass();
 $pdo    = $pc->dbConnectAdmin();
-$capt   = filter_input(INPUT_GET, 'capt');
+$capt   = $pc->capt;
 $folios = 0;
 $errors = 0;
 require_once 'classes/QuickAhoraClass.php';
@@ -18,6 +18,10 @@ $resultAhora  = $qa->getAhora();
 require_once 'classes/QuickHoyClass.php';
 $qh           = new QuickHoyClass($pdo);
 $resultHoy    = $qh->getHoy();
+if ($capt == 'gmbs') {
+    var_dump($resultHoy);
+    die();
+}
 require_once 'classes/QuickBreaksClass.php';
 $qb           = new QuickBreaksClass($pdo);
 $resultBreaks = $qb->getBreaks();
