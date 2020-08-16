@@ -13,6 +13,8 @@ $pdo = $pc->dbConnectAdmin();
 require_once 'classes/BestClass.php';
 $bc = new BestClass($pdo);
 $summary = $bc->getResumenData();
+var_dump($summary);
+die();
 $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
