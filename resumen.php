@@ -100,8 +100,6 @@ if (!empty($mytipo)) {
         }
         $N_PROM = str_replace('$', '', $N_PROM0);
         $C_FREQ = filter_input(INPUT_GET, 'C_FREQ');
-        var_dump($get);
-        die();
         $gc->doVisit($get);
     }
 } else {
