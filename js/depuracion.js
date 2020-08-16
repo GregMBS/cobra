@@ -375,7 +375,7 @@ function validate_form(tf, evt, minprom, authorized)
         }
     }
     catch (err) {
-        let basictxt = "Error en basics";
+        let basictxt = err.message;
         alert(basictxt + '\n' + alertText);
         flag = 1;
     }
