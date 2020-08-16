@@ -39,7 +39,7 @@ sum(n_prom>0) as 'promesas',
 concat(round(sum((C_CARG is not null)&&(C_CARG<>''))/count(1)*100),'%') as 'porciento'
 from historia
 where D_FECH = curdate()
-and C_HRIN > hour(now()) - 1
+and C_HRIN > time(now()) - interval 1 hour
 and c_cont>0
 and c_msge is null
 and c_cniv is null
