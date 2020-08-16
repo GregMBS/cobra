@@ -152,12 +152,16 @@
                         $sumNegociaciones = 0;
                         $sumHoras = 0;
                         $sumBreak = 0;
+                        $odd = 0;
                         foreach ($resultHoy as $rowHoy) {
                             ?>
                             <tr<?php
-                            if ($rowHoy['Horas'] < $rowHoy['Break_min'] * 6) {
-                                echo ' class="alert"';
+                            if ($odd == 1) {
+                                echo ' class="odd"';
+                            } else {
+                                echo ' class="even"';
                             }
+                            $odd = 1 - $odd;
                             ?>>
                                 <th><?php echo $rowHoy['gestor']; ?></th>
                                 <td><?php echo $rowHoy['Gestiones']; ?></td>
