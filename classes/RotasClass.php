@@ -123,6 +123,8 @@ order by c_cvge
         $stq->bindValue(':fecha', $fecha);
         $stq->execute();
         $result = $stq->fetch(PDO::FETCH_NUM);
+        var_dump($result);
+        die();
         if ($result) {
             return $result[0];
         }
