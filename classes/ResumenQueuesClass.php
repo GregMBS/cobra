@@ -196,6 +196,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
     {
         $queue = $this->getMyQueue($capt, $camp);
         $sql = $this->getQueryString($queue);
+        $quick = false;
         if (isset($go)) {
             $quickArray = ['FromBuscar', 'FromMigo', 'FromUltima', 'FromProm'];
             $quick = in_array($go, $quickArray);
