@@ -181,14 +181,14 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $GESTOR
      * @return QueuelistObject[]
      */
-    public function getMyQueuelist($GESTOR)
+    public function getMyQueuelist($GESTOR): array
     {
         $query = "SELECT * FROM queuelist
                                     WHERE gestor = :gestor
                                     and cliente<>''
                                     ORDER BY cliente,sdc,camp";
         $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $GESTOR);
+        $stq->bindValue(':gestor', $GESTOR);
         $stq->execute();
         return $stq->fetchAll(PDO::FETCH_CLASS, QueuelistObject::class);
     }

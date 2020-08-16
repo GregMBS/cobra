@@ -78,7 +78,7 @@
                                 }
                                 ?>
                                 <option value='<?php echo $queue->camp; ?>' <?php
-                                if ($queue['bloqueado'] == 1) {
+                                if ($queue->bloqueado == 1) {
                                     echo "class='blocked'";
                                 }
                                 ?>><?php echo $queue->cliente . '-' . $queue->sdc . '-' . $CR; ?></option>
