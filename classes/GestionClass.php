@@ -143,8 +143,6 @@ and id_cuenta = :c_cont";
         $sti->bindParam(':C_OBSE2', $gestion['C_OBSE2']);
         $sti->bindParam(':C_EJE', $gestion['C_EJE']);
         $sti->execute();
-        var_dump($sti->errorInfo());
-        die();
         return $this->pdo->lastInsertId();
     }
 
