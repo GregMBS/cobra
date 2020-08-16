@@ -138,7 +138,6 @@
                             <th>$ Promesas Hoy</th>
                             <th>Negociaciones</th>
                             <th>Horas</th>
-                            <th>Break min</th>
                             <th>Gestiones por hora</th>
                         </tr>
                     </thead>
@@ -163,7 +162,6 @@
                                 <td><?php echo $rowHoy['Monto_Promesas_Hoy']; ?></td>
                                 <td><?php echo $rowHoy['Negociaciones']; ?></td>
                                 <td><?php echo $rowHoy['Horas']; ?></td>
-                                <td><?php echo $rowHoy['Break_min']; ?></td>
                                 <td><?php echo $rowHoy['Gestiones_por_hora']; ?></td>
                             </tr>
                             <?php
