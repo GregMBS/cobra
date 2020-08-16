@@ -23,7 +23,6 @@ order by c_visit';
             where c_cvge=:gestor and c_msge is null
             and c_cniv is null
             and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
-            and c_cont=0
             group by D_FECH";
 
     protected $queryCurrentMain = "select count(distinct c_cont) as cuentas,
