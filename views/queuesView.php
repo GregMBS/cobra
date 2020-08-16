@@ -59,13 +59,7 @@
                 <div style='float:left;width:40%'>
                     <?php
                     $myQueue = $qc->getMyQueue($rowList->INICIALES);
-                    if (is_array($myQueue)) {
-                        $CRc = $myQueue->status_aarsa;
-                        if ($CRc == '.') {
-                            $CRc = 'todos';
-                        }
-                        echo $myQueue->cliente . '-' . $myQueue->sdc . '-' . $CRc;
-                    }
+                    echo $myQueue->cliente . '-' . $myQueue->sdc . '-' . $myQueue->status_aarsa;
                     ?>
                     <br><label>
                         <select name='camp'>
