@@ -26,10 +26,10 @@ $mytipo = $pc->tipo;
 $C_CVGE = $capt;
 $flag = 0;
 $flagmsg = '';
-if ($capt == 'gmbs' && !empty($get)) {
-    var_dump($get);
-    die();
-}
+//if ($capt == 'gmbs' && !empty($get)) {
+//    var_dump($get);
+//    die();
+//}
 if (!empty($mytipo)) {
     $oldGo = '';
 
