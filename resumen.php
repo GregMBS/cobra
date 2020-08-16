@@ -26,8 +26,7 @@ $mytipo = $pc->tipo;
 $C_CVGE = $capt;
 $flag = 0;
 $flagmsg = '';
-$get = filter_input_array(INPUT_GET);
-if ($go == 'GUARDAR' && $capt == 'gmbs') {
+if ($capt == 'gmbs' && !empty($get)) {
     var_dump($get);
     die();
 }
