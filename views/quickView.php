@@ -9,6 +9,7 @@
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <style>
+            tr { text-align: center; }
             tr.odd { background-color: white }
             tr.even { background-color: #dddddd !important;}
             tfoot tr {
