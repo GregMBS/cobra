@@ -72,8 +72,6 @@ class QuickHoyClass
         //$this->pdo->query($this->updateHoyBreaktemp);
         $sta = $this->pdo->prepare($this->queryHoy);
         $sta->execute();
-        var_dump($sta->fetchAll());
-        die();
         return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
 }
