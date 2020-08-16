@@ -376,7 +376,7 @@ function validate_form(tf, evt, minprom, authorized)
     }
     catch (err) {
         let basictxt = "Error en basics";
-        alert(basictxt);
+        alert(basictxt + '\n' + alertText);
         flag = 1;
     }
 //Inbounds need motivation and carga/parentesco
