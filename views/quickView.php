@@ -10,7 +10,7 @@
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
         <style>
             tr.odd { background-color: white }
-            tr.even { background-color: #dddddd }
+            tr.even { background-color: #dddddd !important;}
             tfoot tr {
                 background-color: beige;
                 font-weight: bold;
