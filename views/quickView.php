@@ -41,10 +41,6 @@
                     </thead>
                     <tbody class='ui-widget-content'>
                         <?php
-                        if ($capt == 'gmbs') {
-                            var_dump($resultAhora);
-                            die();
-                        }
                         foreach ($resultAhora as $rowAhora) {
                             if ($rowAhora['logout'] == $rowAhora['auto']) {
                                 $url = 'logout.php?gone=forgot&capt=' . $rowAhora['gestor'];
