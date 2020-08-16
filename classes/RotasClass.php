@@ -18,7 +18,7 @@ class RotasClass
     max(d_prom1) as dp1, max(n_prom1) as np1, 
     max(d_prom2) as dp2, max(n_prom1) as np2, 
     max(d_prom3) as dp3, max(n_prom1) as np3, 
-    max(d_prom4) as dp4, max(n_prom1) as np4 
+    max(d_prom4) as dp4, max(n_prom1) as np4, max(d_fech) as fecha 
 from resumen
          join dictamenes on dictamen=status_aarsa
          join historia h1 on id_cuenta=c_cont
@@ -32,6 +32,11 @@ where n_prom > 0 and queue in ('CLIENTE NEGOCIANDO','PROMESAS','PAGOS','PAGANDO 
 group by c_cvge, c_cont
 order by c_cvge
 ";
+
+    protected $queryPagos = "select sum(monto) 
+    from pagos
+    where id_cuenta = :id_cuenta
+    and fecha >= :fecha";
 
     public function __construct($pdo)
     {
@@ -80,7 +85,9 @@ order by c_cvge
         $result = [];
         foreach ($array as $row) {
             $id_cuenta = $row['c_cont'];
+            $fecha = $row['fecha'];
             $account = $this->getAccount($id_cuenta);
+            $account['sum_monto'] = $this->getMonto($id_cuenta, $fecha);
             $result[] = array_merge($row, $account);
         }
         return $result;
@@ -99,6 +106,27 @@ order by c_cvge
         $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stq->execute();
         return $stq->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param int $id_cuenta
+     * @param string $fecha
+     * @return float
+     */
+    private function getMonto(int $id_cuenta, string $fecha): float
+    {
+        $pd = new PdoClass();
+        $pdo = $pd->dbConnectNobody();
+        $query = $this->queryPagos;
+        $stq = $pdo->prepare($query);
+        $stq->bindValue(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
+        $stq->bindValue(':fecha', $fecha);
+        $stq->execute();
+        $result = $stq->fetch(PDO::FETCH_NUM);
+        if ($result) {
+            return $result[0];
+        }
+        return 0;
     }
 
 }
