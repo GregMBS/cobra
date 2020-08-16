@@ -360,12 +360,12 @@ function validate_form(tf, evt, minprom, authorized)
         alertText = __ret.alertText;
         flag = __ret.flag;
 //Must have gestor
-        if (validate_required(tf.C_CVGE) === false)
-        {
-            alertText = alertText + 'GESTOR es necesario\n';
-            tf.C_CVGE.style.backgroundColor = "yellow";
-            flag = 1;
-        }
+//         if (validate_required(tf.C_CVGE) === false)
+//         {
+//             alertText = alertText + 'GESTOR es necesario\n';
+//             tf.C_CVGE.style.backgroundColor = "yellow";
+//             flag = 1;
+//         }
 //Must have telephone
         if (validate_required(tf.C_TELE) === false)
         {
