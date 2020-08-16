@@ -42,6 +42,10 @@
                     <tbody class='ui-widget-content'>
                         <?php
                         foreach ($resultAhora as $rowAhora) {
+                            if ($capt == 'gmbs') {
+                                var_dump($rowAhora);
+                                die();
+                            }
                             if ($rowAhora['logout'] == $rowAhora['auto']) {
                                 $url = 'logout.php?gone=forgot&capt=' . $rowAhora['gestor'];
                                 $logout = '<a href=' . $url . ' target="_blank">LOGOUT</a>';

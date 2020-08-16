@@ -39,7 +39,7 @@ class QuickHoyClass
         and c_cont>0
         and c_msge is null
         and c_cniv is null
-        group by C_CVGE order by c_cvge;";
+        group by C_CVGE order by c_cvge";
     protected $updateHoyBreaktemp = "update hoy, breaktemp
         set Break_min = sum_diff
         where hoy.gestor = breaktemp.gestor;";
