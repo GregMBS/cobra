@@ -3,8 +3,8 @@
 ini_set('memory_limit', '-1');
 require_once 'vendor/autoload.php';
 
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use cobra_salsa\BestClass;
+use cobra_salsa\OutputClass;
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
@@ -40,18 +40,13 @@ foreach ($summary as $row) {
     $aData['mejor_accion'] = $best->C_ACCION;
 
     $aData['gestiones'] = $bc->countGestiones($aData['id_cuenta']);
-    if ($i == 1) {
-        $output[0] = array_keys($aData);
-    }
-    $output[$i] = $aData;
-    $i++;
+    $output[] = $aData;
 }
-
+$header = array_keys($output[0]);
+require_once 'classes/OutputClass.php';
+$oc = new OutputClass();
 try {
-    $writer = WriterEntityFactory::createXLSXWriter();
-    $writer->openToBrowser($filename); // stream data directly to the browser
-    $writer->addRows($output); // add multiple rows at a time
-    $writer->close();
+    $oc->writeXLSXFile($filename, $output, $header);
 } catch (Exception $e) {
-    // fail silently
+    die($e->getMessage());
 }
