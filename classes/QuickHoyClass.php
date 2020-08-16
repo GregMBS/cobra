@@ -42,7 +42,7 @@ class QuickHoyClass
         group by C_CVGE order by c_cvge";
     protected $updateHoyBreaktemp = "update hoy, breaktemp
         set Break_min = sum_diff
-        where hoy.gestor = breaktemp.gestor;";
+        where hoy.gestor = breaktemp.gestor";
     protected $queryHoy = "SELECT * FROM hoy";
 
     public function __construct($pdo)
@@ -60,7 +60,7 @@ class QuickHoyClass
         $this->pdo->query($this->updateHoyBreaktemp);
         $sta = $this->pdo->prepare($this->queryHoy);
         $sta->execute();
-        var_dump($sta);
+        var_dump($sta->fetchAll());
         die();
         return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
