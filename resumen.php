@@ -152,7 +152,6 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $D_PAGO = filter_var($get['D_PAGO']);
     $N_PAGO = filter_var($get['N_PAGO']);
     $C_PROM = filter_var($get['C_PROM']);
-    $N_PROM_OLD = filter_var($get['N_PROM_OLD']);
     $N_PROM1 = filter_var($get['N_PROM1']);
     $N_PROM2 = filter_var($get['N_PROM2']);
     $N_PROM3 = filter_var($get['N_PROM3']);
