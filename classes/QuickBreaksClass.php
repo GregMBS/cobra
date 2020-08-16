@@ -25,19 +25,21 @@ class QuickBreaksClass
 select c_cvge,c_cvst,c_hrin
 from historia where c_cont=0 and
 d_fech=curdate() and c_cvst<>'login' and c_cvst<>'salir'
-order by c_cvge,c_cvst,c_hrin;";
+order by c_cvge,c_cvst,c_hrin";
     protected $createNtpdiff         = "create temporary table ntpdiff
 select gestor,tiempo,min(c_hrin) as mntp from historia,breaktab
-where d_fech=curdate() and gestor=c_cvge and c_hrin>tiempo
-group by gestor,tiempo;";
-    protected $updateBreaktabDiff    = "update breaktab,ntpdiff set ntp=mntp,
-diff=(time_to_sec(mntp)-time_to_sec(ntpdiff.tiempo))/60
-where ntpdiff.gestor=breaktab.gestor and ntpdiff.tiempo=breaktab.tiempo;";
+where d_fech = curdate() and gestor = c_cvge and c_hrin > tiempo
+group by gestor,tiempo";
+    protected $updateBreaktabDiff    = "update breaktab,ntpdiff 
+    set ntp = mntp,
+diff = (time_to_sec(mntp)-time_to_sec(ntpdiff.tiempo))/60
+where ntpdiff.gestor = breaktab.gestor 
+and ntpdiff.tiempo = breaktab.tiempo";
     protected $dropBreaktemp        = "drop table if exists breaktemp;";
     protected $createBreaktemp   = "create table breaktemp
 select gestor,sum(diff) as sum_diff from breaktab
-where tipo<>'junta' group by gestor;";
-    protected $queryBreaktab           = "SELECT * FROM breaktab;";
+where tipo<>'junta' group by gestor";
+    protected $queryBreaktab           = "SELECT * FROM breaktab";
 
     public function __construct($pdo)
     {
