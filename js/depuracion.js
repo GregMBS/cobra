@@ -702,22 +702,22 @@ function validate_form(tf, evt, minprom, authorized)
     }
     let alertString = 'Gestion de cuenta ' + tf.CUENTA.value + ' guardado con status ' + cvt + ".\n";
     if (n1 > 0) {
-        alertString = alertString + " Fecha de promisa 1: " + dp1 + " ";
+        alertString = alertString + " Fecha de promesa 1: " + dp1 + " ";
     }
     if (n1 > 0) {
-        alertString = alertString + " Monto de promisa 1: $" + n1 + "\n";
+        alertString = alertString + " Monto de promesa 1: $" + n1 + "\n";
     }
     if (n2 > 0) {
-        alertString = alertString + " Fecha de promisa 2: " + dp2 + " ";
+        alertString = alertString + " Fecha de promesa 2: " + dp2 + " ";
     }
     if (n2 > 0) {
-        alertString = alertString + " Monto de promisa 2: $" + n2 + "\n";
+        alertString = alertString + " Monto de promesa 2: $" + n2 + "\n";
     }
     if (npa > 0) {
-        alertString = alertString + " Fecha de promisa total: " + dPago;
+        alertString = alertString + " Fecha de promesa total: " + dPago;
     }
     if (npa > 0) {
-        alertString = alertString + " Monto de promisa total: $" + npa;
+        alertString = alertString + " Monto de promesa total: $" + npa;
     }
 
     if (flag === 0) {
