@@ -127,9 +127,9 @@ class LoginClass {
      * @param string $local
      */
     private function insertPermalog($capt, $local) {
-        $query = "insert into permalog "
-                . "(usuario,tipo,fechahora,gestor) "
-                . "values (:local, 'login', now(), :capt)";
+        $query = "insert into permalog 
+        (usuario,tipo,fechahora,gestor) 
+        values (:local, 'login', now(), :capt)";
         $stl = $this->pdo->prepare($query);
         $stl->bindParam(':capt', $capt);
         $stl->bindParam(':local', $local);

@@ -46,21 +46,21 @@ and fechahora>curdate()
 order by nombres.tipo desc,userlog.gestor";
     protected $createLogins         = "create temporary table logins
 select c_cvge,min(c_hrin) as tlog from historia
-where d_fech=curdate() and c_cvst='login'
-group by c_cvge;";
+where d_fech=curdate()
+group by c_cvge";
     protected $updateAhoraLogins    = "update ahora,logins set login=tlog where c_cvge=gestor;";
     protected $createLogouts        = "create temporary table logouts
 select c_cvge,max(c_hrin) as tlogo from historia 
-where d_fech=curdate() and c_cvst='salir' 
-group by c_cvge;";
+where d_fech=curdate() 
+group by c_cvge";
     protected $updateAhoraLogouts   = "update ahora,logouts set logout=tlogo where c_cvge=gestor;";
     protected $createBreakstat      = "create temporary table breakstat
 select c_cvge,max(auto) as mau from historia
 where d_fech=curdate() and c_cont=0
 group by c_cvge;";
     protected $updateAhoraBreakstat = "update ahora,breakstat,historia set status=c_cvst
-where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK';";
-    protected $queryAhora           = "SELECT * FROM ahora;";
+where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
+    protected $queryAhora           = "SELECT * FROM ahora";
 
     public function __construct($pdo)
     {
