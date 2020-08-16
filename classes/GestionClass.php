@@ -143,6 +143,8 @@ and id_cuenta = :c_cont";
         $sti->bindParam(':C_OBSE2', $gestion['C_OBSE2']);
         $sti->bindParam(':C_EJE', $gestion['C_EJE']);
         $sti->execute();
+        var_dump($sti->errorInfo());
+        die();
         return $this->pdo->lastInsertId();
     }
 
@@ -382,7 +384,6 @@ and id_cuenta = :c_cont";
 
     public function doVisit($gestion) {
         $auto = $this->insertVisit($gestion);
-        die($auto);
         $this->addHistdate($auto);
         $this->doCommon($auto, $gestion);
     }
