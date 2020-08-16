@@ -1652,8 +1652,8 @@ if ($notalert > 0) { ?>
                 <td><input type="text" name="C_EMAIL" id="C_EMAIL" value="" onmouseover='this.focus();'></td>
             </tr>
         </table>
-        <input type="submit" name="GUARDAR" id="GuardButt" value="GUARDAR" ondblclick="return false;">
-        <button type="button" value="RESET" onclick="this.form.GUARDAR.disabled = false">RESET</button>
+        <input type="submit" name="go" id="GuardButt" value="GUARDAR" ondblclick="return false;">
+        <button type="button" value="RESET" onclick="document.getElementById('GuardButt').disabled = false">RESET</button>
         <br>
         <div class="noshow">
             <input type="hidden" name="from" readonly="readonly" value="resumen.php">
