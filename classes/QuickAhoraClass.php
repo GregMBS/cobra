@@ -33,17 +33,17 @@ class QuickAhoraClass
     protected $insertAhora          = "insert into ahora (gestor,cuenta,nombre,cliente,camp,status,
 tiempo,queue,sistema,logout,id_cuenta) 
 SELECT distinct userlog.gestor,numero_de_cuenta,nombre_deudor,
-rslice.cliente, status_de_credito,rslice.status_aarsa,
+resumen.cliente, status_de_credito,resumen.status_aarsa,
 time_to_sec(timediff(now(),timeuser))/60,
-ifnull(queuelist.status_aarsa,if(rslice.status_aarsa<>'','ELASTIX','BREAK')),
+ifnull(queuelist.status_aarsa,if(resumen.status_aarsa<>'','ELASTIX','BREAK')),
 usuario,userlog.gestor,id_cuenta
 FROM userlog
-left join rslice on user=userlog.gestor
+left join resumen on locker=userlog.gestor
 left JOIN nombres ON userlog.gestor=iniciales
 LEFT JOIN queuelist ON nombres.camp=queuelist.camp and user=userlog.gestor
 WHERE userlog.gestor IS NOT NULL
 and fechahora>curdate()
-order by nombres.tipo desc,userlog.gestor;";
+order by nombres.tipo desc,userlog.gestor";
     protected $createLogins         = "create temporary table logins
 select c_cvge,min(c_hrin) as tlog from historia
 where d_fech=curdate() and c_cvst='login'
