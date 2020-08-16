@@ -159,7 +159,7 @@
                                 echo ' class="alert"';
                             }
                             ?>>
-                                <td><?php echo $rowHoy['gestor']; ?></td>
+                                <th><?php echo $rowHoy['gestor']; ?></th>
                                 <td><?php echo $rowHoy['Gestiones']; ?></td>
                                 <td><?php echo $rowHoy['Promesas_Hoy']; ?></td>
                                 <td><?php echo $rowHoy['Monto_Promesas_Hoy']; ?></td>
@@ -177,7 +177,7 @@
                         ?>
                     </tbody>
                     <tfoot>
-                    <tr><td>&nbsp;</td>
+                    <tr><th>&nbsp;</th>
                     <td><?php echo $sumGestiones; ?></td>
                     <td><?php echo $sumPromesas; ?></td>
                     <td><?php echo $sumMontos; ?></td>
