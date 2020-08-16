@@ -1700,7 +1700,7 @@ if ($notalert > 0) { ?>
             ?>, ' ');
     });
     document.getElementById("gestionForm").addEventListener("submit", function (event) {
-        return validate_form(this, event,<?php
+        let result = validate_form(this, event,<?php
             echo $saldo_descuento_2 + 0;
             ?>,<?php
             if (empty($AUTH)) {
@@ -1712,6 +1712,12 @@ if ($notalert > 0) { ?>
                 echo 0;
             }
             ?>, ' ');
+        if (result) {
+            alert('Guardado');
+        } else {
+            alert('No guardado');
+        }
+        return result;
     });
 </SCRIPT>
 </body>
