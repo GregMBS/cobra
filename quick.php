@@ -18,10 +18,6 @@ $resultAhora  = $qa->getAhora();
 require_once 'classes/QuickHoyClass.php';
 $qh           = new QuickHoyClass($pdo);
 $resultHoy    = $qh->getHoy();
-if ($capt == 'gmbs') {
-    var_dump($resultHoy);
-    die();
-}
 require_once 'classes/QuickBreaksClass.php';
 $qb           = new QuickBreaksClass($pdo);
 $resultBreaks = $qb->getBreaks();
