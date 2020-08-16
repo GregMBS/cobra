@@ -1138,16 +1138,16 @@ if ($notalert > 0) { ?>
         <table>
             <tr>
                 <td><label for="D_PROMv" class="formCap">Fecha promesa
-                        <INPUT TYPE="date" NAME="D_PROMv" ID="D_PROMv" VALUE="" SIZE=15></label>
+                        <INPUT TYPE="date" NAME="D_PROM" ID="D_PROMv" VALUE="" SIZE=15></label>
                     <br>
                     <label class="formCap">Cantidad de pago prometido
-                        $<input type="text" name="N_PROMv" id="N_PROMv" value=""></label><br>
+                        $<input type="text" name="N_PROM" id="N_PROMv" value=""></label><br>
                 </td>
                 <td id='pagocaptv'><label for="D_PAGOv" class="formCap">Fecha ya pag&oacute;
-                        <INPUT TYPE="date" NAME="D_PAGOv" ID="D_PAGOv" VALUE="" SIZE=15></label>
+                        <INPUT TYPE="date" NAME="D_PAGO" ID="D_PAGOv" VALUE="" SIZE=15></label>
                     <br>
                     <label class="formCap">Cantidad de ya pag&oacute;
-                        $<input type="text" name="N_PAGOv" id="N_PAGOv" value=""></label><br>
+                        $<input type="text" name="N_PAGO" id="N_PAGOv" value=""></label><br>
                 </td>
             </tr>
         </table>
