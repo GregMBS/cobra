@@ -200,6 +200,7 @@
                 $("#tab").tabs();
                 $("body").css("font-size", "10pt");
                 $(".rightnow a,#pbx,#cell,input[submit],button").button();
+                $('#AHORAtab').dataTable();
                 $('#PORHORAtab').dataTable();
                 $('#PORDIAtab').dataTable();
             });
