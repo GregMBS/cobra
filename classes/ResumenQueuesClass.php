@@ -187,21 +187,22 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
     /**
      * @param string $capt
      * @param int $camp
-     * @param $go
+     * @param string|null $go
      * @param string|null $find
      * @return ResumenObject
      * @throws Exception
      */
-    public function getNextAccount(string $capt, int $camp, string $go, ?string $find = ''): ResumenObject
+    public function getNextAccount(string $capt, int $camp, ?string $go, ?string $find = ''): ResumenObject
     {
         $queue = $this->getMyQueue($capt, $camp);
         $sql = $this->getQueryString($queue);
-        $quickArray = ['FromBuscar', 'FromMigo', 'FromUltima', 'FromProm'];
-        $quick = in_array($go, $quickArray);
-        if ($quick) {
-            $sql = $this->getQuickString($find);
+        if (isset($go)) {
+            $quickArray = ['FromBuscar', 'FromMigo', 'FromUltima', 'FromProm'];
+            $quick = in_array($go, $quickArray);
+            if ($quick) {
+                $sql = $this->getQuickString($find);
+            }
         }
-
         try {
             $row = $this->getAccount($sql);
             if (($row->id_cuenta == 0) && (!$quick)) {
