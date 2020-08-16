@@ -13,7 +13,7 @@ $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
 require_once 'classes/BestClass.php';
 $bc = new BestClass($pdo);
-$summary = (array) $bc->getResumenData();
+$summary = $bc->getResumenData();
 $fields = [
     'ejecutivo_asignado_call_center',
     'numero_de_cuenta',
@@ -37,11 +37,12 @@ $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
 foreach ($summary as $row) {
+    $array = (array) $row;
     $aData = array();
     foreach ($fields as $field) {
         $aData[$field] = '';
-        if (isset($row[$field])) {
-            $aData[$field] = $row[$field];
+        if (isset($array[$field])) {
+            $aData[$field] = $array[$field];
         }
     }
     $aData['ultimo_status'] = '';
