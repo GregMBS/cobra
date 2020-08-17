@@ -50,9 +50,9 @@ group by c_cvge";
     protected $updateAhoraLogins    = "update ahora,logins set login=tlog where c_cvge=gestor;";
     protected $createLogouts        = "create temporary table logouts
 select c_cvge,max(c_hrin) as tlogo from historia 
-where d_fech=curdate() 
+where d_fech=curdate() and c_cont = 0 and c_cvst <> 'login'
 group by c_cvge";
-    protected $updateAhoraLogouts   = "update ahora,logouts set logout=tlogo where c_cvge=gestor;";
+    protected $updateAhoraLogouts   = "update ahora,logouts set logout=tlogo where c_cvge=gestor and tlogo > login";
     protected $createBreakstat      = "create temporary table breakstat
 select c_cvge,max(auto) as mau from historia
 where d_fech=curdate() and c_cont=0
