@@ -4,6 +4,7 @@ use cobra_salsa\BuscarClass;
 use cobra_salsa\GestionClass;
 use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenClass;
+use cobra_salsa\ResumenObject;
 use cobra_salsa\ResumenQueuesClass;
 
 $get = filter_input_array(INPUT_GET);
@@ -13,6 +14,7 @@ setlocale(LC_MONETARY, 'en_US');
 require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenClass.php';
+require_once 'classes/ResumenObject.php';
 require_once 'classes/ResumenQueuesClass.php';
 require_once 'classes/BuscarClass.php';
 $pc = new PdoClass();
@@ -463,7 +465,6 @@ $gestiones = $rc->countGestiones($id_cuenta);
 $promesas = $rc->countPromesas($id_cuenta);
 $pagos = $rc->countPagos($id_cuenta);
 if (empty($row->nombre_deudor)) {
-    var_dump($row);
-    die($sql);
+    $row = new ResumenObject();
 }
 include __DIR__ . '/views/resumenView.php';
