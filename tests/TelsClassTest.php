@@ -110,7 +110,7 @@ class TelsClassTest extends TestCase
 
     public function testGetMercadosReport()
     {
-        $report = $this->cc->getMercadosReport('2020-01-01', '2020-01-31');
+        $report = $this->cc->getMercadosReport('2020-07-01', '2020-07-31');
         $this->assertIsArray($report);
         $first = array_pop($report);
         $keys = array_keys($first);
@@ -119,7 +119,7 @@ class TelsClassTest extends TestCase
 
     public function testGetContactosReport()
     {
-        $report = $this->cc->getContactosReport('2020-01-01', '2020-01-31');
+        $report = $this->cc->getContactosReport('2020-07-01', '2020-07-31');
         $this->assertIsArray($report);
         $first = array_pop($report);
         $keys = array_keys($first);

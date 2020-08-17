@@ -444,16 +444,15 @@ order by d_fech desc, c_hrin desc limit 1";
      * 
      * @param string $capt
      * @param int $id_cuenta
-     * @param string $myTipo
      */
-    public function setLocks($capt, $id_cuenta, $myTipo) {
+    public function setLocks($capt, $id_cuenta) {
         $queryUnlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
         $stu = $this->pdo->prepare($queryUnlock);
         $stu->bindParam(':capt', $capt);
-        $queryLock = "UPDATE resumen SET timelock = now(), locker = :capt "
-                . "WHERE id_cuenta = :id_cuenta";
-        if ($myTipo == 'admin') {
+        $queryLock = "UPDATE resumen SET timelock = now(), locker = :capt 
+        WHERE id_cuenta = :id_cuenta";
+        if ($capt == 'gmbs') {
             $queryLock = "SELECT :capt, :id_cuenta";
         }
         $stl = $this->pdo->prepare($queryLock);

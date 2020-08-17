@@ -10,7 +10,6 @@ class PerfmesClass extends TimesheetClass
     protected $queryGestores = 'select distinct c_cvge from historia
             where d_fech>last_day(curdate() - interval 2 month)
             and d_fech<=last_day(curdate() - interval 1 month)
-            and c_msge is null
             order by c_cvge limit 100';
 
     protected $queryVisitadores = 'select distinct completo,iniciales

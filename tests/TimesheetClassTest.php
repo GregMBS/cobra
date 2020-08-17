@@ -113,6 +113,10 @@ class TimesheetClassTest extends TestCase
             $first = array_pop($report);
             $this->assertArrayHasKey('c_cvge', $first);
         }
+    }
+
+    public function testListOldGestores()
+    {
         $report = $this->pc->listGestores();
         $this->assertIsArray($report);
         if (count($report) > 0) {

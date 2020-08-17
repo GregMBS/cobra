@@ -408,12 +408,11 @@ try {
 }
 
 $tl = date('r');
-if ($mytipo != 'admin') {
-    $rc->setLocks($capt, $id_cuenta, $mytipo);
-    if ($timelock) {
-        $tl = date('D M d Y H:i:s O', strtotime($timelock));
-    }
+$rc->setLocks($capt, $id_cuenta);
+if ($timelock) {
+    $tl = date('D M d Y H:i:s O', strtotime($timelock));
 }
+
 
 $CD = date("Y-m-d");
 $CT = date("H:i:s");

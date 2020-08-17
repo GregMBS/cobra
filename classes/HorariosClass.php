@@ -15,7 +15,8 @@ class HorariosClass extends TimesheetClass
     protected $queryVisitadores = 'select distinct c_visit
     from historia
 where d_fech > last_day(curdate()-interval 1 month)
-order by c_visit';
+order by c_visit
+limit 1000';
 
     protected $queryStartStopDiff = "select min(C_HRIN) as start, max(C_HRFI) as stop,
             time_to_sec(timediff(max(C_HRFI),min(C_HRIN))) as diff
