@@ -53,6 +53,7 @@ select c_cvge,max(c_hrin) as tlogo from historia
 where d_fech=curdate() and c_cont = 0 and c_cvst <> 'login'
 group by c_cvge";
     protected $updateAhoraLogouts   = "update ahora,logouts set logout=tlogo where c_cvge=gestor and tlogo > login";
+    protected $cleanAhoraLogouts   = "update ahora,logouts set logout='' where c_cvge=gestor queue <> ''";
     protected $createBreakstat      = "create temporary table breakstat
 select c_cvge,max(auto) as mau from historia
 where d_fech=curdate() and c_cont=0
@@ -77,6 +78,7 @@ where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
         $this->pdo->query($this->updateAhoraLogins);
         $this->pdo->query($this->createLogouts);
         $this->pdo->query($this->updateAhoraLogouts);
+        $this->pdo->query($this->cleanAhoraLogouts);
         $this->pdo->query($this->createBreakstat);
         $this->pdo->query($this->updateAhoraBreakstat);
         $sta    = $this->pdo->query($this->queryAhora);
