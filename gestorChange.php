@@ -14,7 +14,11 @@ $go = filter_input(INPUT_POST, 'go');
 $dataRaw = filter_input(INPUT_POST, 'data');
 $post = filter_input_array(INPUT_POST);
 $msg = "";
-$gestores = $gc->listGestores($post['agent']);
+$agent = '';
+if (isset($post['agent'])) {
+    $agent = $post['agent'];
+}
+$gestores = $gc->listGestores($agent);
 if (!empty($go)) {
     if ($go == 'cargar') {
         $data = preg_split("/[\s,]+/", $dataRaw, 0, PREG_SPLIT_NO_EMPTY);
