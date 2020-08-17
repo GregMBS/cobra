@@ -34,16 +34,15 @@ class QuickAhoraClass
 tiempo,queue,sistema,logout,id_cuenta) 
 SELECT distinct userlog.gestor,numero_de_cuenta,nombre_deudor,
 resumen.cliente, status_de_credito,resumen.status_aarsa,
-time_to_sec(timediff(now(),timeuser))/60,
+time_to_sec(timediff(now(),timelock))/60,
 ifnull(queuelist.status_aarsa,if(resumen.status_aarsa<>'','ELASTIX','BREAK')),
 usuario,userlog.gestor,id_cuenta
 FROM userlog
 left join resumen on locker=userlog.gestor
 left JOIN nombres ON userlog.gestor=iniciales
-LEFT JOIN queuelist ON nombres.camp=queuelist.camp and user=userlog.gestor
+LEFT JOIN queuelist ON nombres.camp=queuelist.camp and locker=userlog.gestor
 WHERE userlog.gestor IS NOT NULL
-and fechahora>curdate()
-order by nombres.tipo desc,userlog.gestor";
+and fechahora>curdate()";
     protected $createLogins         = "create temporary table logins
 select c_cvge,min(c_hrin) as tlog from historia
 where d_fech=curdate()
