@@ -295,8 +295,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @return array
      */
     public function getGestorList() {
-        $query = "SELECT usuaria,completo FROM nombres 
-    ORDER BY usuaria";
+        $query = "SELECT iniciales,completo FROM nombres 
+    ORDER BY iniciales";
         $stm = $this->pdo->query($query);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -307,7 +307,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @return array
      */
     public function getVisitadorList() {
-        $query = "SELECT usuaria,completo FROM nombres 
+        $query = "SELECT iniciales,completo FROM nombres 
     where completo<>'' 
 and tipo IN ('visitador','admin')";
         $stm = $this->pdo->query($query);

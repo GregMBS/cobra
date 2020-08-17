@@ -1169,7 +1169,7 @@ if ($notalert > 0) { ?>
             <?php
             foreach ($resultGestorV as $answerGestorV) {
                 ?>
-                <option value="<?php echo $answerGestorV['usuaria']; ?>"><?php echo htmlentities($answerGestorV['completo']); ?></option>
+                <option value="<?php echo $answerGestorV['iniciales']; ?>"><?php echo htmlentities($answerGestorV['completo']); ?></option>
             <?php }
             ?>
         </select>
@@ -1283,7 +1283,7 @@ if ($notalert > 0) { ?>
                             <?php
                             foreach ($resultGestor as $answerGestor) {
                                 ?>
-                                <option value="<?php echo $answerGestor['usuaria']; ?>"><?php echo $answerGestor['usuaria']; ?></option>
+                                <option value="<?php echo $answerGestor['iniciales']; ?>"><?php echo $answerGestor['iniciales']; ?></option>
                             <?php }
                             ?>
                         </select></td>
