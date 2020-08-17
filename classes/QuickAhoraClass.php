@@ -53,7 +53,7 @@ select c_cvge,max(c_hrin) as tlogo from historia
 where d_fech=curdate() and c_cont = 0 and c_cvst <> 'login'
 group by c_cvge";
     protected $updateAhoraLogouts   = "update ahora,logouts set logout=tlogo where c_cvge=gestor and tlogo > login";
-    protected $cleanAhoraLogouts   = "update ahora,logouts set logout='' where c_cvge=gestor AND queue <> ''";
+    protected $cleanAhoraLogouts   = "update ahora,logouts set logout='' where c_cvge=gestor AND tiempo <> ''";
     protected $createBreakstat      = "create temporary table breakstat
 select c_cvge,max(auto) as mau from historia
 where d_fech=curdate() and c_cont=0
