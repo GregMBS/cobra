@@ -26,11 +26,6 @@
         echo $camp;
     }
     ?>">
-    <input type="hidden" name="neworder" readonly="readonly" value="<?php
-    if (isset($neworder)) {
-        echo $neworder;
-    }
-    ?>">
     <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
     if (isset($C_CVGE)) {
         echo $C_CVGE;
