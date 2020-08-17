@@ -26,11 +26,6 @@
         echo $camp;
     }
     ?>">
-    <input type="hidden" name="C_CVGE" readonly="readonly" value="<?php
-    if (isset($C_CVGE)) {
-        echo $C_CVGE;
-    }
-    ?>">
     <input type="hidden" name="C_CVBA" readonly="readonly" value="<?php
     if (isset($cliente)) {
         echo $cliente;
