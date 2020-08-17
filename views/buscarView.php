@@ -84,9 +84,8 @@ use cobra_salsa\ResumenObject;
                         echo $capt;
                     }
                     ?>">
-                <input type="hidden" name="go" value="BUSCAR">
                 <input type="hidden" name="from" value="resumen.php">
-                <input type="submit" name="go1" value="BUSCAR">
+                <input type="submit" name="go" value="BUSCAR">
                 <input type="button" name="cancel" onclick="cancelbox('SearchBox')" value="Cancel">
             </form>
         </div>
