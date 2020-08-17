@@ -122,19 +122,6 @@ class LogoutClass
      *
      * @param string $capt
      */
-    private function clearRslice($capt)
-    {
-        $query = "DELETE from rslice 
-        WHERE user = :capt";
-        $std = $this->pdo->prepare($query);
-        $std->bindParam(':capt', $capt);
-        $std->execute();
-    }
-
-    /**
-     *
-     * @param string $capt
-     */
     private function expireTicket($capt)
     {
         $query = "update nombres set ticket = NULL 
@@ -153,7 +140,6 @@ class LogoutClass
         $this->getLogoutDatetime($capt, $go);
         $this->insertHistoria($capt, $go);
         $this->clearResumenLocks($capt);
-        $this->clearRslice($capt);
         $this->expireTicket($capt);
     }
 }

@@ -88,8 +88,6 @@ WHERE
         and fecha>fecha_de_actualizacion;
 # Clear cellphone queue
 delete FROM cobramaster.callme where tiempo<curdate();
-# Remove old rslices (> 1 hour)
-delete from rslice where timeuser<now()-interval 1 hour;
 # PROMESA HOY IS HOY
 UPDATE cobramaster.resumen set status_aarsa='PROMESA HOY' 
 where id_cuenta not in (select c_cont from cobramaster.historia where n_prom>0 

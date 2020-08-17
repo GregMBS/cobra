@@ -380,26 +380,6 @@ ORDER BY cliente,sdc,queue";
     }
 
     /**
-     * 
-     * @param string $capt
-     * @param int $id_cuenta
-     */
-    public function setSlice($capt, $id_cuenta) {
-        $qSliced = "delete from rslice where user = :capt";
-        $std = $this->pdo->prepare($qSliced);
-        $std->bindParam(':capt', $capt);
-        $std->execute();
-
-        $qSlice = "replace into rslice select *, :capt, now() 
-        from resumen 
-        where id_cuenta = :id_cuenta";
-        $sts = $this->pdo->prepare($qSlice);
-        $sts->bindParam(':capt', $capt);
-        $sts->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $sts->execute();
-    }
-
-    /**
      *
      * @param int $id_cuenta
      * @return HistoriaObject
@@ -458,20 +438,9 @@ order by d_fech desc, c_hrin desc limit 1";
         $stl = $this->pdo->prepare($queryLock);
         $stl->bindParam(':capt', $capt);
         $stl->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
-        $queryUnlockSlice = "UPDATE rslice SET timelock = NULL, locker = NULL "
-                . "WHERE locker = :capt";
-        $sts = $this->pdo->prepare($queryUnlockSlice);
-        $sts->bindParam(':capt', $capt);
-        $queryLockSlice = "UPDATE rslice SET timelock = now(), locker = :capt "
-                . "WHERE id_cuenta= :id_cuenta";
-        $str = $this->pdo->prepare($queryLockSlice);
-        $str->bindParam(':capt', $capt);
-        $str->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $this->pdo->beginTransaction();
         $stu->execute();
         $stl->execute();
-        $sts->execute();
-        $str->execute();
         $this->pdo->commit();
     }
 

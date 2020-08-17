@@ -6,8 +6,8 @@ function validate_form2(tf, evt, minprom) {
     let npa = 0;
     let n1 = 0;
     let cvt = "";
-    let cnt = "";
-    let co2 = "";
+    // let cnt = "";
+    // let co2 = "";
     let dp1 = "0000-00-00";
     let dPago = "0000-00-00";
     /**
@@ -28,12 +28,12 @@ function validate_form2(tf, evt, minprom) {
     if (typeof (tf.C_CVST) !== "undefined") {
         cvt = trim(tf.C_CVST.value);
     }
-    if (typeof (tf.C_NTEL) !== "undefined") {
-        cnt = trim(tf.C_NTEL.value);
-    }
-    if (typeof (tf.C_OBSE2) !== "undefined") {
-        co2 = tf.C_OBSE2.value;
-    }
+    // if (typeof (tf.C_NTEL) !== "undefined") {
+    //     cnt = trim(tf.C_NTEL.value);
+    // }
+    // if (typeof (tf.C_OBSE2) !== "undefined") {
+    //     co2 = tf.C_OBSE2.value;
+    // }
     if (typeof (tf.D_PROMv.value) !== "undefined") {
         dp1 = tf.D_PROMv.value;
     }
@@ -180,9 +180,9 @@ function validate_form2(tf, evt, minprom) {
         tf.N_PAGOv.style.backgroundColor = "yellow";
         flag = 1;
     }
-    const __retTel = telCheck(cnt, alertText, tf, flag, co2);
-    alertText = __retTel.alertText;
-    flag = __retTel.flag;
+    // const __retTel = telCheck(cnt, alertText, tf, flag, co2);
+    // alertText = __retTel.alertText;
+    // flag = __retTel.flag;
 //date checks on promises
 
 //monto de pago needs fecha de pago
