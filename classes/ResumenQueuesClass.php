@@ -201,7 +201,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
             $quickArray = ['FromBuscar', 'FromMigo', 'FromUltima', 'FromProm'];
             $quick = in_array($go, $quickArray);
             if ($quick) {
-                $sql = $this->getQuickString($find);
+                $sql = $this->getQuickString((int) $find);
             }
         }
         try {
