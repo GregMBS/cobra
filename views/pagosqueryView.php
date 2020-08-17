@@ -20,10 +20,10 @@
                 <select name="cliente">
                     <option value="todos" style="font-size:120%;">todos</option>
                     <?php
-                    foreach ($resultc as $answerc) {
+                    foreach ($clientes as $cliente) {
                         ?>
-                        <option value="<?php echo $answerc['cliente']; ?>" style="font-size:120%;">
-                            <?php echo $answerc['cliente']; ?></option>
+                        <option value="<?php echo $cliente; ?>" style="font-size:120%;">
+                            <?php echo $cliente; ?></option>
                         <?php
                     }
                     ?>
