@@ -358,7 +358,7 @@ order by cliente,gestor,fecha";
 
     /**
      * @param PDOStatement $std
-     * @param PagosQueryObject[] $output
+     * @param array $output
      * @return array
      */
     private function sheetLoop(PDOStatement $std, array $output): array
@@ -370,7 +370,7 @@ order by cliente,gestor,fecha";
             $cliente = $row->cliente;
             $fechapago = $row->fecha;
             $row->credit = $this->assignCredit($cuenta, $cliente, $fechapago);
-            $output[] = $row;
+            $output[] = (array) $row;
         }
         return $output;
     }

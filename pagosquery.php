@@ -14,7 +14,7 @@ $fecha2 = filter_input(INPUT_GET, 'fecha2');
 $cliente = filter_input(INPUT_GET, 'cliente');
 $clientes = $pc->listClientes();
 if (filter_has_var(INPUT_GET, 'go')) {
-    $result = (array) $pc->queryAll($fecha1, $fecha2, $cliente);
+    $result = $pc->queryAll($fecha1, $fecha2, $cliente);
     if (empty($result)) {
         require_once 'views/pagosqueryView.php';
     } else {
