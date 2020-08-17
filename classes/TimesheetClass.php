@@ -30,28 +30,11 @@ abstract class TimesheetClass
     /**
      * @var string
      */
-    protected $queryVisitadorPagos;
-
-    /**
-     * @var string
-     */
     protected $queryCountVisitadorDays;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
-    }
-
-    /**
-     *
-     * @param float $dec
-     * @return string
-     */
-    public function convertTime($dec)
-    {
-        $hour = floor($dec);
-        $min = round(60 * ($dec - $hour));
-        return $hour . ':' . str_pad($min, 2, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -174,29 +157,29 @@ abstract class TimesheetClass
      * @param int $dom
      * @return array
      */
-    public function getVisitadorPagos($visitador, $dom)
-    {
-        $query = $this->queryVisitadorPagos;
-        $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':visitador', $visitador);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
-    }
+//    public function getVisitadorPagos($visitador, $dom)
+//    {
+//        $query = $this->queryVisitadorPagos;
+//        $stq = $this->pdo->prepare($query);
+//        $stq->bindParam(':visitador', $visitador);
+//        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+//        $stq->execute();
+//        return $stq->fetchAll(PDO::FETCH_ASSOC);
+//    }
 
     /**
      *
      * @param string $gestor
      * @return array
      */
-    public function countAccounts($gestor)
-    {
-        $query = $this->queryCountAccounts;
-        $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
-        $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
-    }
+//    public function countAccounts($gestor)
+//    {
+//        $query = $this->queryCountAccounts;
+//        $stq = $this->pdo->prepare($query);
+//        $stq->bindParam(':gestor', $gestor);
+//        $stq->execute();
+//        return $stq->fetchAll(PDO::FETCH_ASSOC);
+//    }
 
     /**
      *

@@ -35,12 +35,6 @@ order by c_visit';
             where :gestor = ''
             and fecha=last_day(curdate() - interval 1 month) + interval :dom day";
 
-    protected $queryCountAccounts = "select count(distinct c_cont) as ct
-            from historia
-            where :gestor = '' and c_cont>0
-            and c_cniv is null and c_msge is null
-            and D_FECH>last_day(curdate() - interval 1 month)";
-
     /**
      * @param $gestor
      * @param int $hoy
