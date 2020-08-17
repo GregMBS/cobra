@@ -111,7 +111,11 @@ class PagosClassTest extends TestCase
         $report = $this->cc->queryAll('2020-01-01', '2020-01-31', 'FAMSA');
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertInstanceOf(PagosQueryObject::class, $first);
+        $this->assertIsArray($first);
+        $keys = array_keys((array) $first);
+        $expected = (array) new PagosQueryObject();
+        $expectedKeys = array_keys($expected);
+        $this->assertEquals($expectedKeys, $keys);
     }
 
     public function testByGestorThisMonth()
@@ -136,7 +140,11 @@ class PagosClassTest extends TestCase
         $report = $this->cc->queryOldSheet();
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertInstanceOf(PagosQueryObject::class, $first);
+        $this->assertIsArray($first);
+        $keys = array_keys((array) $first);
+        $expected = (array) new PagosQueryObject();
+        $expectedKeys = array_keys($expected);
+        $this->assertEquals($expectedKeys, $keys);
     }
 
     public function testSummaryThisMonth()

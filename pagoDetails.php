@@ -24,13 +24,12 @@ if (isset($when)) {
 }
 
 $filename = "Pagos_" . $dateString . ".xlsx";
-$header = get_object_vars($result[0]);
 $output = [];
-$output[] = array_keys($header);
+$output[] = array_keys((array) $result[0]);
 foreach ($result as $row) {
-    $row->monto = (float) $row->monto;
-    $row->confirmado = (bool) $row->confirmado;
-    $row->id_cuenta = (double) $row->id_cuenta;
+    $row['monto'] = (float) $row['monto'];
+    $row['confirmado'] = (bool) $row['confirmado'];
+    $row['id_cuenta'] = (double) $row['id_cuenta'];
     $output[] = (array) $row;
 }
 try {
