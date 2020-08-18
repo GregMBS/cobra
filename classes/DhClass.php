@@ -6,6 +6,7 @@ use PDO;
 use PDOStatement;
 
 require_once __DIR__ . '/DhObject.php';
+require_once __DIR__ . '/ResumenObject.php';
 
 /**
  * Database Class for ddh/pdh
@@ -62,7 +63,7 @@ where c_cvge = :gestor and d_fech = :fecha and n_prom > 0";
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
         $stq->execute();
-        $report = $stq->fetchAll(PDO::FETCH_CLASS, DhObject::class);
+        $report = $stq->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
         $stp = $this->pdo->prepare($this->queryWithPromesas);
         $stv = $this->pdo->prepare($this->queryVcc);
         /** @var DhObject[] $resumen */
