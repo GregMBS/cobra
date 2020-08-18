@@ -65,10 +65,10 @@
         <th></th>
         <th></th>
         <th></th>
+        <th class="numeric">$<?php echo number_format($sumSaldo, 0); ?></th>
         <th></th>
         <th></th>
-        <th></th>
-        <th class="numeric">$<?php echo number_format($sum, 2); ?></th>
+        <th class="numeric">$<?php echo number_format($sumProm, 2); ?></th>
         <th></th>
     </tr>
     </tfoot>
