@@ -21,7 +21,7 @@ if (isset($capt)) {
 ?>'">Regresar a la pagina administrativa
 </button>
 <br>
-<form action="/bigproms.php" method="get" name="queryParams">
+<form action="/big<?php echo $flag; ?>.php" method="get" name="queryParams">
     <input type="hidden" name="capt" value="<?php if (isset($capt)) {
         echo $capt;
     } ?>">
