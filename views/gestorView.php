@@ -32,7 +32,7 @@
                 <?php
                 $sumpr = 0;
                 $sump = 0;
-                foreach ($main as $answerstart) {
+                foreach ($result as $answerstart) {
                     $D_PROM = $answerstart['d_prom'];
                     $CUENTA = $answerstart['cuenta'];
                     $N_PROM = $answerstart['n_prom'];
