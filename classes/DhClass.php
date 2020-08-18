@@ -6,7 +6,7 @@ use PDO;
 use PDOStatement;
 
 require_once __DIR__ . '/DhObject.php';
-require_once __DIR__ . '/ResumenObject.php';
+require_once __DIR__ . '/HistoriaObject.php';
 
 /**
  * Database Class for ddh/pdh
