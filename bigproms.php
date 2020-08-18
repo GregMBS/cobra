@@ -28,7 +28,7 @@ if (!empty($fecha1)) {
 } else {
     $gestores = $bc->getGestionGestores();
     $clientes = $bc->getGestionClientes();
-    $flag = 'prom';
+    $flag = 'proms';
     $title = 'Query de las Promesas/Propuestas';
     require_once __DIR__ . '/views/bigView.php';
 }
