@@ -78,9 +78,11 @@ where c_cvge = :gestor and d_fech = :fecha and c_cont > 0 limit 10000";
             $stl->execute();
             /** @var HistoriaObject $promesa */
             $promesa = $stl->fetchObject(HistoriaObject::class);
-            $resumen->c_hrin = $promesa->C_HRIN;
-            $resumen->n_prom = $promesa->N_PROM;
-            $resumen->d_prom = $promesa->D_PROM;
+            if ($promesa) {
+                $resumen->c_hrin = $promesa->C_HRIN;
+                $resumen->n_prom = $promesa->N_PROM;
+                $resumen->d_prom = $promesa->D_PROM;
+            }
             $report[] = $resumen;
         }
         return $report;
