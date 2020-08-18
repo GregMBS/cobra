@@ -9,17 +9,11 @@
     <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css"
           rel="stylesheet" type="text/css"/>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script>
-        $(function () {
-            $('table').dataTable({
-                "bPaginate": false,
-                "bJQueryUI": true
-            });
-        });
-    </script>
+    <style>
+        .numeric {
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
 <table class="ui-widget">
@@ -54,10 +48,10 @@
             <td><?php echo $row->cliente; ?></td>
             <td><?php echo $row->status_de_credito; ?></td>
             <td><?php echo $row->dias_vencidos; ?></td>
-            <td><?php echo number_format($row->saldo_total, 0); ?></td>
+            <td class="numeric"><?php echo number_format($row->saldo_total, 0); ?></td>
             <td><?php echo $row->status_aarsa; ?></td>
             <td><?php echo $row->d_prom; ?></td>
-            <td><?php echo number_format($row->n_prom, 2); ?></td>
+            <td class="numeric"><?php echo number_format($row->n_prom, 2); ?></td>
             <td><?php echo $row->c_hrin; ?></td>
         </tr>
         <?php
@@ -74,10 +68,21 @@
         <th></th>
         <th></th>
         <th></th>
-        <th>$<?php echo number_format($sum, 2); ?></th>
+        <th class="numeric">$<?php echo number_format($sum, 2); ?></th>
         <th></th>
     </tr>
     </tfoot>
 </table>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        $('table').dataTable({
+            "bPaginate": false,
+            "bJQueryUI": true
+        });
+    });
+</script>
 </body>
 </html> 
