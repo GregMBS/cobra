@@ -43,7 +43,7 @@ where c_cvge = :gestor and d_fech = :fecha and n_prom > 0 limit 10000";
      */
     public function getDhMain($gestor, $fecha) {
         $query = "select distinct c_cont from historia 
-where c_cvge = :gestor and d_fech = :fecha limit 10000";
+where c_cvge = :gestor and d_fech = :fecha and c_cont > 0 limit 10000";
         return $this->getCommon($query, $gestor, $fecha);
     }
 
