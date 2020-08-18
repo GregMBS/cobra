@@ -57,7 +57,7 @@
             <td><?php echo number_format($row->saldo_total, 0); ?></td>
             <td><?php echo $row->status_aarsa; ?></td>
             <td><?php echo $row->d_prom; ?></td>
-            <td><?php echo number_format($row->n_prom, 0); ?></td>
+            <td><?php echo number_format($row->n_prom, 2); ?></td>
             <td><?php echo $row->c_hrin; ?></td>
         </tr>
         <?php
@@ -74,7 +74,7 @@
         <th></th>
         <th></th>
         <th></th>
-        <th>$<?php echo $sum; ?></th>
+        <th>$<?php echo number_format($sum, 2); ?></th>
         <th></th>
     </tr>
     </tfoot>
