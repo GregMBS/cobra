@@ -64,6 +64,20 @@
     }
     ?>
     </tbody>
+    <tfoot>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th><?php echo $sum; ?></th>
+        <th></th>
+    </tr>
+    </tfoot>
 </table>
 </body>
 </html> 

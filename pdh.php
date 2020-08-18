@@ -13,4 +13,8 @@ $gestor = filter_input(INPUT_GET, 'gestor');
 $fecha  = filter_input(INPUT_GET, 'fecha');
 set_time_limit(300);
 $result = $dc->getPromesas($gestor, $fecha);
+$sum = 0;
+foreach($result as $item){
+    $sum += $item->n_prom;
+}
 require_once 'views/dhView.php';
