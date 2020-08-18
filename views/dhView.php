@@ -66,6 +66,7 @@
     </tbody>
     <tfoot>
     <tr>
+        <th><?php echo count($result); ?> cuentas</th>
         <th></th>
         <th></th>
         <th></th>
@@ -73,8 +74,7 @@
         <th></th>
         <th></th>
         <th></th>
-        <th></th>
-        <th><?php echo $sum; ?></th>
+        <th>$<?php echo $sum; ?></th>
         <th></th>
     </tr>
     </tfoot>
