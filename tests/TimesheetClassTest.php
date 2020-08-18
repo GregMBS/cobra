@@ -77,22 +77,6 @@ class TimesheetClassTest extends TestCase
         $this->hasCount($report);
     }
 
-    public function testCountAccounts()
-    {
-        $report = $this->hc->countAccounts('cristina');
-        $this->hasCount($report);
-        $report = $this->pc->countAccounts('cristina');
-        $this->hasCount($report);
-    }
-
-    public function testGetVisitadorPagos()
-    {
-        $report = $this->hc->getVisitadorPagos('cristina', 7);
-        $this->hasCount($report);
-        $report = $this->pc->getVisitadorPagos('cristina', 7);
-        $this->hasCount($report);
-    }
-
     public function testGetNTPDiff()
     {
         $report = $this->hc->getNTPDiff('christine', 1, '');
@@ -178,14 +162,6 @@ class TimesheetClassTest extends TestCase
             $this->assertArrayHasKey('nocontactos', $first);
             $this->assertArrayHasKey('contactos', $first);
         }
-    }
-
-    public function testConvertTime()
-    {
-        $string = $this->hc->convertTime(2.05);
-        $this->assertEquals('2:03', $string);
-        $string = $this->pc->convertTime(2.05);
-        $this->assertEquals('2:03', $string);
     }
 
     /**

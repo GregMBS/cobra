@@ -38,7 +38,7 @@ class PagosClassTest extends TestCase
     {
         $clients = $this->cc->listClientes();
         $first = array_pop($clients);
-        $this->assertArrayHasKey('cliente', $first);
+        $this->assertIsString($first);
     }
 
     public function testQuerySheet()

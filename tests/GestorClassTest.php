@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../classes/PdoClass.php';
 require_once __DIR__ . '/../classes/GestorClass.php';
+require_once __DIR__ . '/../classes/DhObject.php';
 
 class GestorClassTest extends TestCase
 {
@@ -38,22 +39,7 @@ class GestorClassTest extends TestCase
 
     public function testGetPagosReport()
     {
-        $report = $this->cc->getPromsReport('gmbs');
+        $report = $this->cc->getPromsReport('cristina');
         $this->assertIsArray($report);
-        $first = array_pop($report);
-        $expected = [
-            'd_prom',
-            'cuenta',
-            'n_prom',
-            'c_cvge',
-            'ejecutivo_asignado_call_center',
-            'status_aarsa',
-            'saldo_vencido',
-            'cliente',
-            'id_cuenta',
-            'saldo_descuento_1'
-        ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
     }
 }
