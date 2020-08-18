@@ -59,6 +59,7 @@ class GestorClass {
         cliente,id_cuenta,saldo_descuento_1 
         FROM historia JOIN resumen on c_cont=id_cuenta
         WHERE n_prom>0 AND c_cvge =:gestor 
+        AND d_fech > last_day(curdate() - interval 1 month)
         ORDER BY d_prom,cliente,cuenta";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
