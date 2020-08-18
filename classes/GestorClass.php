@@ -49,7 +49,7 @@ class GestorClass {
     }
 
     /**
-     * 
+     *
      * @param string $gestor
      * @return array
      */
@@ -60,6 +60,25 @@ class GestorClass {
         FROM historia JOIN resumen on c_cont=id_cuenta
         WHERE n_prom>0 AND c_cvge =:gestor 
         AND d_fech > last_day(curdate() - interval 1 month)
+        ORDER BY d_prom,cliente,cuenta";
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $gestor);
+        $stq->execute();
+        return $stq->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     *
+     * @param string $gestor
+     * @return array
+     */
+    function getOldPromsReport($gestor) {
+        $query = "SELECT d_prom, cuenta, n_prom, c_cvge, 
+        ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, 
+        cliente,id_cuenta,saldo_descuento_1 
+        FROM historia JOIN resumen on c_cont=id_cuenta
+        WHERE n_prom>0 AND c_cvge =:gestor 
+        AND d_fech between (last_day(curdate() - interval 2 month) + interval 1 day) and (last_day(curdate() - interval 1 month))
         ORDER BY d_prom,cliente,cuenta";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
