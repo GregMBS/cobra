@@ -24,15 +24,6 @@ class DhClass {
     /**
      * @var string
      */
-    private $queryWithPromesas = "select n_prom, d_prom, c_hrin 
-        from historia
-        where c_cont = :id_cuenta
-        and n_prom > 0
-        order by c_hrin desc";
-
-    /**
-     * @var string
-     */
     private $queryPromesas = "select n_prom, d_prom, c_hrin 
         from historia
         where c_cont = :id_cuenta
@@ -52,22 +43,39 @@ class DhClass {
     /**
      * @param string $gestor
      * @param string $fecha
-     * @return array
+     * @return DhObject[]
      */
     public function getPromesas(string $gestor, string $fecha) {
-        $query = "select distinct resumen.*
-from resumen
-join historia on c_cont=id_cuenta
-where c_cvge = :gestor and d_fech = :fecha and n_prom > 0";
+        $query = "select c_cont, max(c_hrin) as maxTime from historia 
+where c_cvge = :gestor and d_fech = :fecha and n_prom > 0 group by c_cont";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':fecha', $fecha);
         $stq->execute();
-        $report = $stq->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
-        $stp = $this->pdo->prepare($this->queryWithPromesas);
-        $stv = $this->pdo->prepare($this->queryVcc);
-        /** @var DhObject[] $resumen */
-        $this->addPromAndRank($report, $stp, $stv);
+        $promesas = $stq->fetchAll(PDO::FETCH_ASSOC);
+        $queryResumen = "SELECT * from resumen where id_cuenta = :id_cuenta";
+        $str = $this->pdo->prepare($queryResumen);
+        $queryLastProm = "SELECT * from historia 
+        where c_cont = :c_cont and c_cvge = :gestor and d_fech = :fecha and n_prom > 0
+        order by c_hrin desc limit 1";
+        $stl = $this->pdo->prepare($queryLastProm);
+        $report = [];
+        foreach ($promesas as $prom) {
+            $str->bindParam(':id_cuenta', $prom['c_cont']);
+            $str->execute();
+            /** @var DhObject $resumen */
+            $resumen = $str->fetchObject(DhObject::class);
+            $stl->bindParam(':c_cont',$resumen->id_cuenta);
+            $stl->bindParam(':gestor', $gestor);
+            $stl->bindParam(':fecha', $fecha);
+            $stl->execute();
+            /** @var HistoriaObject $promesa */
+            $promesa = $stl->fetchObject(HistoriaObject::class);
+            $resumen->c_hrin = $promesa->C_HRIN;
+            $resumen->n_prom = $promesa->N_PROM;
+            $resumen->d_prom = $promesa->D_PROM;
+            $report[] = $resumen;
+        }
         return $report;
     }
 

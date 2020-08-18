@@ -28,7 +28,7 @@
         <th>CUENTA</th>
         <th>NOMBRE</th>
         <th>CLIENTE</th>
-                    <th>CAMPAÑA</th>
+        <th>CAMPAÑA</th>
         <th>DIAS VENCIDOS</th>
         <th>SALDO TOTAL</th>
         <th>RESULTADOS</th>

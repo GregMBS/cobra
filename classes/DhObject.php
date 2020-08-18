@@ -22,8 +22,4 @@ class DhObject extends ResumenObject
      */
     public $c_hrin = '';
 
-    /**
-     * @var int
-     */
-    public $v_cc = 99;
 }
