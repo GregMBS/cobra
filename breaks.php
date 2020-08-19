@@ -8,7 +8,7 @@ require_once 'classes/BreaksClass.php';
 $pd = new PdoClass();
 $pdo = $pd->dbConnectNobody();
 $bc = new BreaksClass($pdo);
-$capt = $pd->capt;
+$capt = filter_input(INPUT_GET, 'capt');
 
 /**
  * 
