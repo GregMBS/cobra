@@ -22,10 +22,6 @@ $bc->clearUserlog($capt);
 $ot = '';
 $og = '';
 $result = $bc->getBreaksTable($capt);
-if ($capt == 'gmbs') {
-    var_dump($result);
-    die();
-}
 $output = [];
 if (!empty($result)) {
     foreach ($result as $row) {
