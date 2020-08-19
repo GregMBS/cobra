@@ -5,6 +5,7 @@ use cobra_salsa\BreaksClass;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/BreaksClass.php';
+require_once 'classes/BreaksTableObject.php';
 $pd = new PdoClass();
 $pdo = $pd->dbConnectNobody();
 $bc = new BreaksClass($pdo);
@@ -26,6 +27,7 @@ $output = [];
 if (!empty($result)) {
     foreach ($result as $row) {
         $temp = (array)$row;
+        $temp['c_cvst'] = $row->c_cvst;
         $temp['DIFF'] = $row->diff;
         $temp['NTP'] = date('H:i:s');
         $temp['formatLate'] = ' class="late"';
