@@ -31,6 +31,16 @@ and c_cvst<>'salir' and c_cvge=:capt
 order by c_cvge,c_hrin";
 
     /**
+     * @var string
+     */
+    private $queryBreaksAdmin = "select auto,c_cvge,c_hrin,
+time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff' 
+from historia 
+where c_cont=0 and d_fech=curdate() and c_cvst<>'login' 
+and c_cvst<>'salir'
+order by c_cvge,c_hrin";
+
+    /**
      * 
      * @param PDO $pdo
      */
@@ -74,8 +84,11 @@ and c_hrin>:tiempo";
      * @return BreaksTableObject[]
      */
     function getBreaksTable($capt) {
-        $sdp = $this->pdo->prepare($this->queryBreaks);
-        $sdp->bindParam(':capt', $capt);
+        $sdp = $this->pdo->prepare($this->queryBreaksAdmin);
+        if ($capt !== 'gmbs') {
+            $sdp = $this->pdo->prepare($this->queryBreaks);
+            $sdp->bindParam(':capt', $capt);
+        }
         $sdp->execute();
         return $sdp->fetchAll(PDO::FETCH_CLASS, BreaksTableObject::class);
     }
