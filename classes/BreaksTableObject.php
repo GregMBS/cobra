@@ -20,6 +20,11 @@ class BreaksTableObject
     public $c_hrin = '';
 
     /**
+     * @var string
+     */
+    public $c_cvst = '';
+
+    /**
      * @var int
      */
     public $diff = 0;
