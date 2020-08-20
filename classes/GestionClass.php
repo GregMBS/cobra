@@ -310,7 +310,7 @@ and id_cuenta = :c_cont";
             $sti->bindValue(':C_OBSE1', $gestion['C_OBSE1']);
             $sti->bindValue(':C_ATTE', $gestion['C_ATTE']);
             $sti->bindValue(':C_CARG', $gestion['C_CARG']);
-            $sti->bindValue(':D_PROM', $gestion['D_PROM']);
+            $sti->bindValue(':D_PROM', $gestion['D_PROM1']);
             $sti->bindValue(':N_PROM', (float) $gestion['N_PROM']);
             $sti->bindValue(':C_PROM', $gestion['C_PROM']);
             $sti->bindValue(':D_PROM1', $gestion['D_PROM1']);
