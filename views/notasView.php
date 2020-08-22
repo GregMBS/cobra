@@ -20,8 +20,8 @@
                     </tr>
                 </thead>
                 <tbody class="ui-widget-content"><?php
-                    if ($main) {
-                        foreach ($main as $answer) {
+                    if ($result) {
+                        foreach ($result as $answer) {
                             ?>
                             <tr>
                                 <td><?php echo $answer['fecha']; ?></td>
