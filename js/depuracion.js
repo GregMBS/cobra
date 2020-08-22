@@ -267,13 +267,13 @@ function validate_form(tf, evt, minprom, authorized)
         }
         if ((n1 > 0)) {
 //wrong status for promise
-            let promStat = ["PROMESA DE PAGO PARCIAL", "PROMESA DE PAGO RECURRENTE", "PROMESA DE PAGO TOTAL", "CONFIRMA PROMESA"];
-            if (promStat.indexOf(cvt) === -1)
-            {
-                tf.D_PROM1.style.backgroundColor = "yellow";
-                flag = 1;
-                alertText = alertText + 'Este status no permite promesa';
-            }
+//             let promStat = ["PROMESA DE PAGO PARCIAL", "PROMESA DE PAGO RECURRENTE", "PROMESA DE PAGO TOTAL", "CONFIRMA PROMESA"];
+//             if (promStat.indexOf(cvt) === -1)
+//             {
+//                 tf.D_PROM1.style.backgroundColor = "yellow";
+//                 flag = 1;
+//                 alertText = alertText + 'Este status no permite promesa';
+//             }
 
 //amount but no date	
             if ((validate_date(tf.D_PROM1)) === false)
