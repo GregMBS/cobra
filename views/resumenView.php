@@ -35,7 +35,7 @@ if ($notalert > 0) { ?>
     </style>
     <script type="text/javascript" src="../js/external/dom-drag.js"></script>
     <script src="/js/resumen.js"></script>
-    <script type="text/javascript" src="../js/depuracion.js"></script>
+    <script type="text/javascript" src="../js/depuracion.js?rand=1"></script>
     <script type="text/javascript" src="../js/depuracionv.js"></script>
 </head>
 <body id="todos">
