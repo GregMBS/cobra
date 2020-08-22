@@ -91,7 +91,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
         if (!empty($visit)) {
             return 'visit';
         }
-        if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
+        if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO RECURRENTE') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
             return 'deudor';
         }
         return '';

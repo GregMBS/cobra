@@ -178,8 +178,8 @@ if ($go == 'GUARDAR' && !empty($get['C_CVST'])) {
     $error = 0;
     $D_PROM = $D_PROM1;
     $flagmsg = "";
-    $pagosArray = ['PAGANDO CONVENIO', 'PAGO DE CONVENIO', 'PAGO TOTAL', 'PAGO PARCIAL'];
-    $promsArray = ['PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO PARCIAL'];
+    $pagosArray = ['PAGANDO CONVENIO', 'PAGO DE CONVENIO', 'PAGO TOTAL', 'PAGO RECURRENTE', 'PAGO PARCIAL'];
+    $promsArray = ['PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO RECURRENTE', 'PROMESA DE PAGO PARCIAL'];
     if (($N_PAGO == 0) && (in_array($C_CVST, $pagosArray))) {
         $error = $error + 1;
         $flagmsg = $flagmsg . '<br>' . $C_CVST . ' necesita monto';

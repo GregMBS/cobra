@@ -99,7 +99,7 @@ class QueuelistObject
     public function getCrString()
     {
         if (empty($this->status_aarsa)) {
-            return " AND status_aarsa not in ('PAGO TOTAL','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION') ";
+            return " AND status_aarsa not in ('PAGO TOTAL','PAGO RECURRENTE','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION') ";
         }
         return " AND queue = '$this->status_aarsa' ";
     }

@@ -105,7 +105,7 @@ function validate_form2(tf, evt, minprom) {
         }
 //PROMESA DE PAGO PARCIAL requires cargo/parentesco and monto de promesa 
 // less than minprom      
-        if (cvt === "PROMESA DE PAGO PARCIAL") {
+        if ((cvt === "PROMESA DE PAGO PARCIAL") ||(cvt === "PROMESA DE PAGO RECURRENTE")) {
             if (validate_required(tf.C_CARG) === false) {
                 alertText = alertText + "Carga/Parentesco es necesario" + '\n';
                 tf.C_CNP.style.backgroundColor = "yellow";

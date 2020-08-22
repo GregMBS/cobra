@@ -27,13 +27,13 @@ class ValidationClass {
      *
      * @var array
      */
-    private $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO PARCIAL');
+    private $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO RECURRENTE', 'PAGO PARCIAL');
 
     /**
      *
      * @var array
      */
-    private $proms = array('PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO PARCIAL');
+    private $proms = array('PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO RECURRENTE', 'PROMESA DE PAGO PARCIAL');
 
     /**
      *

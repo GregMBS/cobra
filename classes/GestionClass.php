@@ -69,6 +69,7 @@ VALUES (:C_CVGE, :C_CVBA, :C_CONT, :C_CVST, :D_FECH, :C_HRIN, :C_HRFI,
 			where fecha>last_day(curdate()-interval 1 month))
 		and status_aarsa IN (
 			'PROMESA DE PAGO PARCIAL',
+			'PROMESA DE PAGO RECURRENTE',
 			'PROMESA DE PAGO TOTAL',
 			'CONFIRMA PROMESA')
 		and id_cuenta = :c_cont";

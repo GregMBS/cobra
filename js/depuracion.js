@@ -267,7 +267,7 @@ function validate_form(tf, evt, minprom, authorized)
         }
         if ((n1 > 0)) {
 //wrong status for promise
-            let promStat = ["PROMESA DE PAGO PARCIAL", "PROMESA DE PAGO TOTAL", "CONFIRMA PROMESA"];
+            let promStat = ["PROMESA DE PAGO PARCIAL", "PROMESA DE PAGO RECURRENTE", "PROMESA DE PAGO TOTAL", "CONFIRMA PROMESA"];
             if (promStat.indexOf(cvt) === -1)
             {
                 tf.D_PROM1.style.backgroundColor = "yellow";
@@ -498,7 +498,7 @@ function validate_form(tf, evt, minprom, authorized)
 
 //PROMESA DE PAGO PARCIAL requires cargo/parentesco and monto de promesa 
 // less than minprom      
-    if (cvt === "PROMESA DE PAGO PARCIAL")
+    if ((cvt === "PROMESA DE PAGO PARCIAL") || (cvt === "PROMESA DE PAGO RECURRENTE"))
     {
         if (validate_required(tf.C_CARG) === false)
         {
@@ -514,24 +514,7 @@ function validate_form(tf, evt, minprom, authorized)
             flag = 1;
         }
     }
-//PROPUESTA DE PAGO requires cargo/parentesco and monto de promesa 
-    if (cvt.substr(0, 12) === "PROPUESTA DE")
-    {
-        if (n1 < 10)
-        {
-            alertText = alertText + "MONTO DE PROMESA es necesario" + '\n';
-            tf.N_PROM1.style.backgroundColor = "yellow";
-            tf.N_PROM2.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-        if (validate_required(tf.C_CARG) === false)
-        {
-            alertText = alertText + "Carga/Parentesco es necesario" + '\n';
-            tf.C_CNP.style.backgroundColor = "yellow";
-            flag = 1;
-        }
-    }
-//PAGO TOTAL and PAGO PARCIAL and PAGANDO CONVENIO and REGULARIZADA and REESTRUCTURADA 
+//PAGO TOTAL and PAGO PARCIAL and PAGANDO CONVENIO and REGULARIZADA and REESTRUCTURADA
 //require monto de pago y fecha hoy o en pasado 
     if (dPago > tf.D_FECH.value)
     {
@@ -602,7 +585,7 @@ function validate_form(tf, evt, minprom, authorized)
                 'MENSAJE CON FAMILIAR|PAGANDO CONVENIO|MENSAJE CON TERCERO|CLIENTE NEGOCIANDO|' +
                 'PROMESA DE PAGO TOTAL|' +
                 'PROMESA DE PAGO PARCIAL|' +
-                'PROPUESTA DE PAGO|' +
+                'PROMESA DE PAGO RECURRENTE|' +
                 'NEGATIVA DE PAGO|' +
                 'MENSAJE CON EMPLEADO';
         cargoMatchList = new RegExp(cuandoMatchListStr);
