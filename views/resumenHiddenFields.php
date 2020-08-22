@@ -1,5 +1,5 @@
 <div class="noshow">
-    <input type="hidden" name="error" readonly="readonly" value="1">
+    <input type="hidden" name="error" readonly="readonly" value="0">
     <input type="hidden" name="C_HRFI" readonly="readonly" value="<?php
     if (isset($CT)) {
         echo $CT;
