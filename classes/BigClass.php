@@ -136,8 +136,7 @@ FROM
 	dictamenes ON status_aarsa = dictamen
 WHERE d_fech between :fecha1 and :fecha2
             ";
-        $this->queryBack = " and status_de_credito not REGEXP '-'
-            ORDER BY d_fech,c_hrin";
+        $this->queryBack = " and status_de_credito not REGEXP '-'";
         $query = $this->queryFront
             . $bio->getGestorStr()
             . $bio->getClienteStr()
