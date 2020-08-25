@@ -83,17 +83,20 @@ class ResumenQueuesClass
      */
     private function getQueueWithAccounts(QueuelistObject $queue)
     {
+        $activeQueues = "CREATE TEMPORARY TABLE active
+        SELECT distinct cliente, status_de_credito, status_aarsa 
+  from resumen 
+  where fecha_ultima_gestion < curdate()
+  and locker is null";
+        $this->pdo->query($activeQueues);
         $query = "SELECT queuelist.*
-FROM queuelist, dictamenes
+FROM queuelist, dictamenes, active
 WHERE queuelist.status_aarsa = queue
   AND gestor = :capt
   AND bloqueado = 0
-  AND (cliente, sdc, dictamen) in (
-  select cliente, status_de_credito, status_aarsa 
-  from resumen 
-  where fecha_ultima_gestion < curdate()
-  and locker is null
-  )
+  AND queuelist.cliente = active.cliente 
+  AND sdc = status_de_credito 
+  AND dictamen = active.status_aarsa 
 ORDER BY v_cc desc
 LIMIT 1";
         $stq = $this->pdo->prepare($query);
