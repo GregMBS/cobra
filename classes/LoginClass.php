@@ -41,11 +41,13 @@ class LoginClass {
         $stg->execute();
         /** @var UserDataObject $result */
         $result = $stg->fetchObject(UserDataObject::class);
-        if (password_verify($pw, $result->passw)) {
-            return $result;
-        }
-        if (sha1($pw) == $result->passw) {
-            return $result;
+        if (isset($result->passw)) {
+            if (password_verify($pw, $result->passw)) {
+                return $result;
+            }
+            if (sha1($pw) == $result->passw) {
+                return $result;
+            }
         }
         return new UserDataObject();
     }
