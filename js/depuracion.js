@@ -200,27 +200,28 @@ function validate_form(tf, evt, minprom, authorized)
 //actual sum de promesa
     if (typeof (tf.saldo_total) !== "undefined")
     {
-        st = parseFloat(tf.saldo_total.value);
+        st = Number(tf.saldo_total.value);
     }
     if (typeof (tf.N_PAGO) !== "undefined")
     {
-        npa = parseFloat(tf.N_PAGO.value);
+        npa = Number(tf.N_PAGO.value);
     }
     if (typeof (tf.N_PROM1) !== "undefined")
     {
-        n1 = parseFloat(tf.N_PROM1.value);
+        n1 = Number(tf.N_PROM1.value);
+
     }
     if (typeof (tf.N_PROM2) !== "undefined")
     {
-        n2 = parseFloat(tf.N_PROM2.value);
+        n2 = Number(tf.N_PROM2.value);
     }
     if (typeof (tf.N_PROM3) !== "undefined")
     {
-        n3 = parseFloat(tf.N_PROM3.value);
+        n3 = Number(tf.N_PROM3.value);
     }
     if (typeof (tf.N_PROM4) !== "undefined")
     {
-        n4 = parseFloat(tf.N_PROM4.value);
+        n4 = Number(tf.N_PROM4.value);
     }
     const np = n1 + n2 + n3 + n4;
     let cvt = '';
