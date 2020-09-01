@@ -459,8 +459,31 @@ $resultGestor = $rc->getGestorList();
 if ($id_cuenta > 0) {
     $rowSub = $rc->getHistory($id_cuenta);
 }
-
-$resultBN = $rc->getBadNo($id_cuenta);
+$resultBN = ['t1' => '',
+    't2' => '',
+    't3' => '',
+    't4' => '',
+    't1a' => '',
+    't2a' => '',
+    't3a' => '',
+    't4a' => '',
+    't1r1' => '',
+    't2r1' => '',
+    't1r2' => '',
+    't2r2' => '',
+    't1r3' => '',
+    't2r3' => '',
+    't1r4' => '',
+    't2r4' => '',
+    't1l' => '',
+    't2l' => '',
+    't1v' => '',
+    't2v' => '',
+    't3v' => '',
+    't4v' => ''];
+if (is_int($id_cuenta)) {
+    $resultBN = $rc->getBadNo($id_cuenta);
+}
 if ($resultBN) {
     extract($resultBN);
 }
@@ -468,10 +491,10 @@ $resultCnp = $rc->getCnp();
 
 $hasPic = FALSE;
 $picFile = '';
-$path = dirname(__FILE__) . '/pics/' . $numero_de_cuenta . '.jpg';
+$path = dirname(__FILE__) . ' / pics / ' . $numero_de_cuenta . ' . jpg';
 if (realpath($path)) {
     $hasPic = TRUE;
-    $picFile = 'pics/' . $numero_de_cuenta . '.jpg';
+    $picFile = 'pics / ' . $numero_de_cuenta . ' . jpg';
 }
 $gestiones = $rc->countGestiones($id_cuenta);
 $promesas = $rc->countPromesas($id_cuenta);

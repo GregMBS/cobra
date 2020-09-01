@@ -265,7 +265,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param int $id_cuenta
      * @return array
      */
-    public function getBadNo($id_cuenta) {
+    public function getBadNo(int $id_cuenta) {
         $stb = $this->pdo->prepare($this->badNoQuery);
         $stb->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stb->execute();
