@@ -16,6 +16,6 @@ if ($go == 'ASIGNAR') {
         }
     }
 }
-$file = __FILE__;
+$file = basename(__FILE__);
 $label = 'ASIGNAR';
 require_once 'views/checkView.php';

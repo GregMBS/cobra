@@ -5,6 +5,6 @@ if ($go == 'RECIBIR') {
         $cc->updateVasign($tipo, $CUENTA);
     }
 }
-$file = __FILE__;
+$file = basename(__FILE__);
 $label = 'RECIBIR';
 require_once 'views/checkView.php';
