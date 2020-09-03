@@ -8,6 +8,7 @@ use DatePeriod;
 use PDO;
 
 require_once __DIR__ . '/VisitSheetObject.php';
+require_once __DIR__ . '/UserDataObject.php';
 
 /**
  * Description of CheckClass
