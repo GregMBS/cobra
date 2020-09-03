@@ -6,6 +6,7 @@ use PDO;
 
 require_once __DIR__ . '/HistoriaObject.php';
 require_once __DIR__ . '/UserDataObject.php';
+require_once __DIR__ . '/BadNoObject.php';
 
 /**
  * Description of ResumenClass
@@ -263,13 +264,18 @@ where id_cuenta=:id_cuenta LIMIT 1";
     /**
      * 
      * @param int $id_cuenta
-     * @return array
+     * @return BadNoObject
      */
-    public function getBadNo(int $id_cuenta) {
+    public function getBadNo(int $id_cuenta): BadNoObject
+    {
         $stb = $this->pdo->prepare($this->badNoQuery);
         $stb->bindParam(':id_cuenta', $id_cuenta, PDO::PARAM_INT);
         $stb->execute();
-        return $stb->fetch(PDO::FETCH_ASSOC);
+        $badNo = $stb->fetchObject(BadNoObject::class);
+        if ($badNo) {
+            return $badNo;
+        }
+        return new BadNoObject();
     }
 
     /**

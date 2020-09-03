@@ -1,5 +1,6 @@
 <?php
 
+use cobra_salsa\BadNoObject;
 use cobra_salsa\BuscarClass;
 use cobra_salsa\GestionClass;
 use cobra_salsa\PdoClass;
@@ -15,6 +16,7 @@ require_once 'classes/PdoClass.php';
 require_once 'classes/GestionClass.php';
 require_once 'classes/ResumenClass.php';
 require_once 'classes/ResumenObject.php';
+require_once 'classes/BadNoObject.php';
 require_once 'classes/ResumenQueuesClass.php';
 require_once 'classes/BuscarClass.php';
 $pc = new PdoClass();
@@ -459,34 +461,11 @@ $resultGestor = $rc->getGestorList();
 if ($id_cuenta > 0) {
     $rowSub = $rc->getHistory($id_cuenta);
 }
-$resultBN = ['t1' => '',
-    't2' => '',
-    't3' => '',
-    't4' => '',
-    't1a' => '',
-    't2a' => '',
-    't3a' => '',
-    't4a' => '',
-    't1r1' => '',
-    't2r1' => '',
-    't1r2' => '',
-    't2r2' => '',
-    't1r3' => '',
-    't2r3' => '',
-    't1r4' => '',
-    't2r4' => '',
-    't1l' => '',
-    't2l' => '',
-    't1v' => '',
-    't2v' => '',
-    't3v' => '',
-    't4v' => ''];
+$resultBN = new BadNoObject();
 if (is_int($id_cuenta)) {
     $resultBN = $rc->getBadNo($id_cuenta);
 }
-if ($resultBN) {
-    extract($resultBN);
-}
+
 $resultCnp = $rc->getCnp();
 
 $hasPic = FALSE;

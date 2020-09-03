@@ -1310,62 +1310,59 @@ if ($notalert > 0) { ?>
                         <?php
                         if (isset($tel_1)) {
                             ?>
-                        <option <?php echo $t1; ?>value='<?php echo $tel_1 ?>'>TEL Casa
+                        <option <?php echo $resultBN->t1; ?>value='<?php echo $tel_1 ?>'>TEL Casa
                             - <?php echo $tel_1 ?></option><?php } ?>
                         <?php if (isset($tel_1_laboral)) { ?>
-                        <option <?php echo $t1l; ?>value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1
+                        <option <?php echo $resultBN->t1l; ?>value='<?php echo $tel_1_laboral; ?>'>TEL LABORAL 1
                             - <?php echo $empresa . ' - ' . $tel_1_laboral; ?></option><?php } ?>
                         <?php if (isset($tel_1_ref_1)) { ?>
-                        <option <?php echo $t1r1; ?>value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1
+                        <option <?php echo $resultBN->t1r1; ?>value='<?php echo $tel_1_ref_1; ?>'>TEL 1 REF 1
                             - <?php echo $nombre_referencia_1 . ' - ' . $tel_1_ref_1; ?></option><?php } ?>
                         <?php if (isset($tel_1_ref_2)) { ?>
-                        <option <?php echo $t1r2; ?>value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2
+                        <option <?php echo $resultBN->t1r2; ?>value='<?php echo $tel_1_ref_2; ?>'>TEL 1 REF 2
                             - <?php echo $nombre_referencia_2 . ' - ' . $tel_1_ref_2; ?></option><?php } ?>
                         <?php if (isset($tel_1_ref_3)) { ?>
-                        <option <?php echo $t1r3; ?>value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3
+                        <option <?php echo $resultBN->t1r3; ?>value='<?php echo $tel_1_ref_3; ?>'>TEL 1 REF 3
                             - <?php echo $nombre_referencia_3 . ' - ' . $tel_1_ref_3; ?></option><?php } ?>
                         <?php if (isset($tel_1_ref_4)) { ?>
-                        <option <?php echo $t1r4; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4
+                        <option <?php echo $resultBN->t1r4; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4
                             - <?php echo $nombre_referencia_4 . ' - ' . $tel_1_ref_4; ?></option><?php } ?>
                         <?php if (isset($tel_1_verif)) { ?>
-                        <option class='verif' <?php echo $t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF
+                        <option class='verif' <?php echo $resultBN->t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF
                             - <?php echo $tel_1_verif; ?></option><?php } ?>
                         <?php if (isset($tel_2)) { ?>
-                        <option <?php echo $t2; ?>value='<?php echo $tel_2; ?>'>CELULAR
+                        <option <?php echo $resultBN->t2; ?>value='<?php echo $tel_2; ?>'>CELULAR
                             - <?php echo $tel_2; ?></option><?php } ?>
                         <?php if (isset($tel_2_laboral)) { ?>
-                        <option <?php echo $t2l; ?>value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2
+                        <option <?php echo $resultBN->t2l; ?>value='<?php echo $tel_2_laboral; ?>'>TEL LABORAL 2
                             - <?php echo $empresa . ' - ' . $tel_2_laboral; ?></option><?php } ?>
                         <?php if (isset($tel_2_ref_1)) { ?>
-                        <option <?php echo $t2r1; ?>value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1
+                        <option <?php echo $resultBN->t2r1; ?>value='<?php echo $tel_2_ref_1; ?>'>TEL 2 REF 1
                             - <?php echo $nombre_referencia_1 . ' - ' . $tel_2_ref_1; ?></option><?php } ?>
                         <?php if (isset($tel_2_ref_2)) { ?>
-                        <option <?php echo $t2r2; ?>value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2
+                        <option <?php echo $resultBN->t2r2; ?>value='<?php echo $tel_2_ref_2; ?>'>TEL 2 REF 2
                             - <?php echo $nombre_referencia_2 . ' - ' . $tel_2_ref_2; ?></option><?php } ?>
                         <?php if (isset($tel_2_ref_3)) { ?>
-                        <option <?php echo $t2r3; ?>value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3
+                        <option <?php echo $resultBN->t2r3; ?>value='<?php echo $tel_2_ref_3; ?>'>TEL 2 REF 3
                             - <?php echo $nombre_referencia_3 . ' - ' . $tel_2_ref_3; ?></option><?php } ?>
                         <?php if (isset($tel_2_ref_4)) { ?>
-                        <option <?php echo $t2r4; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4
+                        <option <?php echo $resultBN->t2r4; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4
                             - <?php echo $nombre_referencia_4 . ' - ' . $tel_2_ref_4; ?></option><?php } ?>
                         <?php if (isset($tel_2_verif)) { ?>
-                        <option class='verif' <?php echo $t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF
+                        <option class='verif' <?php echo $resultBN->t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF
                             - <?php echo $tel_2_verif; ?></option><?php } ?>
                         <?php if (isset($tel_3)) { ?>
-                        <option <?php echo $t3; ?>value='<?php echo $tel_3; ?>'>TEL 3
+                        <option <?php echo $resultBN->t3; ?>value='<?php echo $tel_3; ?>'>TEL 3
                             - <?php echo $tel_3; ?></option><?php } ?>
                         <?php if (isset($tel_3_verif)) { ?>
-                        <option class='verif' <?php echo $t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF
+                        <option class='verif' <?php echo $resultBN->t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF
                             - <?php echo $tel_3_verif; ?></option><?php } ?>
                         <?php if (isset($tel_4)) { ?>
-                        <option <?php echo $t4; ?>value='<?php echo $tel_4; ?>'>TEL 4
+                        <option <?php echo $resultBN->t4; ?>value='<?php echo $tel_4; ?>'>TEL 4
                             - <?php echo $tel_4; ?></option><?php } ?>
                         <?php if (isset($tel_4_verif)) { ?>
-                        <option class='verif' <?php echo $t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF
+                        <option class='verif' <?php echo $resultBN->t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF
                             - <?php echo $tel_4_verif; ?></option><?php } ?>
-                        <?php if (isset($telefono_de_ultimo_contacto)) { ?>
-                        <option <?php echo $tuc; ?>value='<?php echo $telefono_de_ultimo_contacto; ?>'>
-                            TEL DE ULT. CONT. - <?php echo $telefono_de_ultimo_contacto; ?></option><?php } ?>
                     </select>
                 </td>
             </tr>
