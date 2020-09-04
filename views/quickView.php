@@ -141,6 +141,7 @@
                             <th>$ Promesas Hoy</th>
                             <th>Negociaciones</th>
                             <th>Horas</th>
+                            <th>Break (min)</th>
                             <th>Gestiones por hora</th>
                         </tr>
                     </thead>
@@ -151,6 +152,7 @@
                         $sumMontos = 0;
                         $sumNegociaciones = 0;
                         $sumHoras = 0;
+                        $sumBreak = 0;
                         $odd = 0;
                         foreach ($resultHoy as $rowHoy) {
                             ?>
@@ -168,6 +170,7 @@
                                 <td><?php echo $rowHoy['Monto_Promesas_Hoy']; ?></td>
                                 <td><?php echo $rowHoy['Negociaciones']; ?></td>
                                 <td><?php echo $rowHoy['Horas']; ?></td>
+                                <td><?php echo $rowHoy['Break_Minutos']; ?></td>
                                 <td><?php echo $rowHoy['Gestiones_por_hora']; ?></td>
                             </tr>
                             <?php
@@ -176,6 +179,7 @@
                             $sumMontos += $rowHoy['Monto_Promesas_Hoy'];
                             $sumNegociaciones += $rowHoy['Negociaciones'];
                             $sumHoras += $rowHoy['Horas'];
+                            $sumBreak += $rowHoy['Break_Minutos'];
                         }
                         ?>
                     </tbody>
@@ -185,7 +189,8 @@
                     <td><?php echo $sumPromesas; ?></td>
                     <td><?php echo $sumMontos; ?></td>
                     <td><?php echo $sumNegociaciones; ?></td>
-                    <td><?php echo $sumHoras; ?></td>
+                        <td><?php echo $sumHoras; ?></td>
+                        <td><?php echo $sumBreak; ?></td>
                     <td><?php echo number_format($sumGestiones / ($sumHoras + 1 / 3600)); ?></td>
                     </tr>
                     </tfoot>
