@@ -33,7 +33,7 @@ class QuickHoyClass
         sum(C_CVST like 'CLIENTE NEG%') as 'Negociaciones',
         count(1)/time_to_sec(subtime(max(c_hrfi),min(c_hrin)))*3600 as 'Gestiones_por_hora',
         sum(n_prom) as 'Monto_Promesas_Hoy',
-        sum_diff as 'Break_Minutos'
+        max(sum_diff) as 'Break_Minutos'
         from historia
         left join breaktemp on c_cvge = gestor
         where D_FECH = curdate()
