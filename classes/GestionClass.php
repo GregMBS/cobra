@@ -353,11 +353,11 @@ and id_cuenta = :c_cont";
     }
 
     /**
-     * 
+     *
      * @param int $auto
      * @param array $gestion
      */
-    private function doCommon($auto, $gestion) {
+    private function doCommon(int $auto, array $gestion) {
         $this->addHistgest($auto, $gestion['C_CVGE']);
         if (!empty($gestion['C_NTEL'])) {
             $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
@@ -381,17 +381,20 @@ and id_cuenta = :c_cont";
         $this->resumenStatusUpdate($gestion['C_CONT'], $best);
     }
 
-    public function doVisit($gestion) {
+    /**
+     * @param array $gestion
+     */
+    public function doVisit(array $gestion) {
         $auto = $this->insertVisit($gestion);
         $this->addHistdate($auto);
         $this->doCommon($auto, $gestion);
     }
 
     /**
-     * @param $gestion
+     * @param array $gestion
      * @throws Exception
      */
-    public function doGestion($gestion) {
+    public function doGestion(array $gestion) {
         $this->beginTransaction();
         $auto = $this->insertGestion($gestion);
         if ($auto == 0) {

@@ -129,7 +129,7 @@ if ($go == 'NUEVOS') {
     $redirector = "Location: resumen.php?&capt=" . $capt;
     header($redirector);
 }
-if ($go == 'GUARDAR' && !empty($get['C_CVST']) && !empty($get['C_TELE'])) {
+if ($go == 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !empty($get['C_TELE'])) {
     $oldGo = filter_var($get['oldGo']);
     $flag = filter_var($get['error']);
     $C_CVGE = filter_var($get['C_CVGE']);
