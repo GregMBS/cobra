@@ -60,7 +60,7 @@ if (!empty($mytipo)) {
         header($page);
     }
 
-    if (($go == 'CAPTURADO') && (!empty($get['C_CVST']))) {
+    if (($go == 'CAPTURADO') && (!empty($get['C_CVST'])) && (!empty($get['C_CVGE']))) {
         $C_HRIN = filter_input(INPUT_GET, 'C_VH') . ':' . filter_input(INPUT_GET, 'C_VMN');
         $C_HRFI = date('H:i:s');
         $C_CVGE = filter_input(INPUT_GET, 'C_CVGE');
