@@ -135,7 +135,7 @@ class CargaClass
      * @param array $row
      * @return array
      */
-    public function getDataColumnNames($row)
+    public function getDataColumnNames(array $row)
     {
         $columnArray = array();
         foreach ($row as $columnName) {
@@ -156,7 +156,7 @@ class CargaClass
      * @param array $columnNames
      * @throws Exception
      */
-    public function prepareTemp($columnNames)
+    public function prepareTemp(array $columnNames)
     {
         $queryDrop = "DROP TABLE IF EXISTS temp;";
         try {
@@ -195,7 +195,7 @@ class CargaClass
      * @return int
      * @throws Exception
      */
-    public function loadData(array $data, $columnNames)
+    public function loadData(array $data, array $columnNames)
     {
         $glue = ',';
         $list = implode($glue, $columnNames);
@@ -229,7 +229,7 @@ class CargaClass
      * @param array $columnNames
      * @return array
      */
-    public function prepareUpdate($columnNames)
+    public function prepareUpdate(array $columnNames)
     {
         $output = array();
         foreach ($columnNames as $name) {
@@ -244,7 +244,7 @@ class CargaClass
      * @return int
      * @throws Exception
      */
-    public function updateResumen($fieldlist)
+    public function updateResumen(array $fieldlist)
     {
         $fields = implode(',', $fieldlist);
         $query = "UPDATE IGNORE temp, resumen
@@ -266,7 +266,7 @@ class CargaClass
      * @return int
      * @throws Exception
      */
-    public function insertIntoResumen($fieldlist)
+    public function insertIntoResumen(array $fieldlist)
     {
         $fields = implode(',', $fieldlist);
         $query = "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
