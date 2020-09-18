@@ -15,8 +15,6 @@ require_once __DIR__ . '/timesheetHead.php';
             $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
             foreach ($gestores as $answerNombre) {
                 $gestor = $answerNombre['c_cvge'];
-                $month = $sheet[$gestor];
-                $monthSum = $sum[$gestor];
                 ?>
                 <option value='<?php echo $gestor; ?>'><?php echo $gestor; ?></option>
                 <?php
