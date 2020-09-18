@@ -10,6 +10,8 @@ require_once __DIR__ . '/timesheetHead.php';
         <label for="selectGestor">Gestor: </label>
         <select name='gestor' id="selectGestor">
             <?php
+            var_dump($sheet);
+            die();
             $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
             foreach ($gestores as $answerNombre) {
                 $gestor = $answerNombre['c_cvge'];
