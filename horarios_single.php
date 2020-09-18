@@ -34,8 +34,4 @@ if (!empty($gestor)) {
     $sheet[$gestor] = $hc->prepareSheet($gestor, $dhoy);
     $sum[$gestor] = $hc->prepareMonthSum($sheet[$gestor]);
     require_once __DIR__ . '/views/horarioView.php';
-} else {
-    $sheet['total'] = $hc->prepareSheet('', $dhoy);
-    $sum['total'] = $hc->prepareMonthSum($sheet['total']);
-    require_once __DIR__ . '/views/timesheetTotalView.php';
 }

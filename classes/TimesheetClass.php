@@ -316,7 +316,7 @@ abstract class TimesheetClass
      * @param int $hoy
      * @return TimesheetDayObject[]
      */
-    protected function prepareAllSheet($gestor, $hoy): array
+    protected function prepareAllSheet($gestor, int $hoy): array
     {
         $month = [];
         for ($i = 1; $i <= $hoy; $i++) {
