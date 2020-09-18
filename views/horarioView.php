@@ -2,7 +2,7 @@
 <html lang="es">
 <?php
 require_once __DIR__ . '/timesheetHead.php';
-var_dump($sheet);
+var_dump(array_pop($sheet));
 die();
 ?>
 <body>
