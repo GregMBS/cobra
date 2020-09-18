@@ -2,8 +2,8 @@
 <html lang="es">
 <?php
 require_once __DIR__ . '/timesheetHead.php';
-var_dump(array_pop($sheet));
-die();
+$month = array_pop($sheet);
+$monthSum = array_pop($sum);
 ?>
 <body>
 <h2>HORARIOS</h2>
@@ -15,8 +15,6 @@ die();
             $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
             foreach ($gestores as $answerNombre) {
                 $gestor = $answerNombre['c_cvge'];
-                $month = $sheet[$gestor];
-                $monthSum = $sum[$gestor];
                 ?>
                 <option value='<?php echo $gestor; ?>'><?php echo $gestor; ?></option>
                 <?php
