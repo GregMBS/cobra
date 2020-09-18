@@ -14,7 +14,7 @@ require_once __DIR__ . '/timesheetHead.php';
             <?php
             $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
             foreach ($gestores as $answerNombre) {
-                $gestor = $answerNombre['c_cvge'];
+            $gestor = $answerNombre['c_cvge'];
                 ?>
                 <option value='<?php echo $gestor; ?>'><?php echo $gestor; ?></option>
                 <?php
