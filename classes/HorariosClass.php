@@ -8,8 +8,9 @@ require_once __DIR__ . '/TimesheetDayObject.php';
 class HorariosClass extends TimesheetClass
 {
 
-    protected $queryGestores = 'select distinct c_cvge from historia
+    protected $queryGestores = 'select distinct c_cvge from historia, nombres
             where d_fech>last_day(curdate() - interval 1 month)
+            and c_cvge = iniciales
             order by c_cvge limit 1000';
 
     protected $queryVisitadores = 'select distinct c_visit
