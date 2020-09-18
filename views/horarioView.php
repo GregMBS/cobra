@@ -14,9 +14,9 @@ $monthSum = array_pop($sum);
             <?php
             $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
             foreach ($gestores as $answerNombre) {
-                $gestor = $answerNombre['c_cvge'];
+                $nombre = $answerNombre['c_cvge'];
                 ?>
-                <option value='<?php echo $gestor; ?>'><?php echo $gestor; ?></option>
+                <option value='<?php echo $nombre; ?>'><?php echo $nombre; ?></option>
                 <?php
             } ?>
             <option value='total'>total</option>
