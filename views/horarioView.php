@@ -2,6 +2,8 @@
 <html lang="es">
 <?php
 require_once __DIR__ . '/timesheetHead.php';
+var_dump($sheet);
+die();
 ?>
 <body>
 <h2>HORARIOS</h2>
@@ -10,8 +12,6 @@ require_once __DIR__ . '/timesheetHead.php';
         <label for="selectGestor">Gestor: </label>
         <select name='gestor' id="selectGestor">
             <?php
-            var_dump($sheet);
-            die();
             $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
             foreach ($gestores as $answerNombre) {
                 $gestor = $answerNombre['c_cvge'];
