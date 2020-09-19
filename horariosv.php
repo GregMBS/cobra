@@ -5,9 +5,9 @@ $visitadores = $hc->listVisitadores();
 $sheet = [];
 $sum = [];
 foreach ($visitadores as $gestor) {
-//    $sheet[$nombre] = $hc->prepareVisitSheet($hc, $nombre, $dhoy);
-//    $sum[$nombre] = $hc->prepareMonthSum($sheet[$nombre]);
-    $sheet[$gestor] = [];
-    $sum[$gestor] = [];
+    $sheet[$gestor] = $hc->prepareVisitSheet($hc, $gestor, $dhoy);
+    $sum[$gestor] = $hc->prepareMonthSum($sheet[$gestor]);
+//    $sheet[$gestor] = [];
+//    $sum[$gestor] = [];
 }
 require_once __DIR__ . '/views/visitadorTimesheetView.php';
