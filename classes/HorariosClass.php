@@ -49,7 +49,7 @@ limit 1000';
             from historia
             left join dictamenes on c_cvst=dictamen
             where c_visit=:gestor and c_msge is null
-            and c_cniv <> ''> and c_cont>0
+            and c_cniv <> '' and c_cont>0
             and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
             group by D_FECH";
 
