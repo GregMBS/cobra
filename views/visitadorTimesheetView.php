@@ -30,9 +30,10 @@
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
     foreach ($visitadores as $answerNombre) {
-    $visitador = $answerNombre['c_visit'];
-    $month = $sheet[$gestor];
-    $monthSum = $sum[$gestor];
+        if ($visitador) {
+            $visitador = $answerNombre;
+            $month = $sheet[$gestor];
+            $monthSum = $sum[$gestor];
     ?>
     <thead>
     <tr>
@@ -59,7 +60,9 @@
     <tr style="height:2em"></tr>
     </tbody>
 </table>
-<?php } ?>
+<?php
+}
+    } ?>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
 </body>
