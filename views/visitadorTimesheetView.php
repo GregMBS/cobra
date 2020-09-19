@@ -29,10 +29,8 @@
 <table>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
-    var_dump($visitadores);
-    die();
+    array_pop($visitadores);
     foreach ($visitadores as $visitador) {
-    if ($visitador) {
     $month = $sheet[$gestor];
     $monthSum = $sum[$gestor];
     ?>
@@ -46,7 +44,6 @@
             ?>
             <th><?php echo $day_esp[$dow] . " " . $i; ?></th>
             <?php
-        }
         }
         ?>
         <th>TOTAL</th>
