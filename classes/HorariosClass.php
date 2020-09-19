@@ -105,7 +105,7 @@ and d_fech<=last_day(curdate())) as tmp";
         $month = [];
         for ($i = 1; $i <= $hoy; $i++) {
             $day = new TimesheetDayObject();
-            $resultStartStop = $hc->getVisitadorMain($visitador, $i);
+            $resultStartStop = $this->getVisitadorMain($visitador, $i);
             foreach ($resultStartStop as $answerStartStop) {
                 $this->loadDay($visitador, $i, $answerStartStop, $day);
             }
