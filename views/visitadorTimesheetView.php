@@ -30,6 +30,7 @@
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
     array_pop($visitadores);
+    var_dump($visitadores);
     foreach ($visitadores as $visitador) {
     $month = $sheet[$gestor];
     $monthSum = $sum[$gestor];
