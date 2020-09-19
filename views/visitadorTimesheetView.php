@@ -29,9 +29,8 @@
 <table>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
-    foreach ($visitadores as $answerNombre) {
-    if ($answerNombre) {
-    $visitador = $answerNombre;
+    foreach ($visitadores as $visitador) {
+    if ($visitador) {
     $month = $sheet[$gestor];
     $monthSum = $sum[$gestor];
     ?>
