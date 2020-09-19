@@ -59,7 +59,7 @@ abstract class TimesheetClass
         $stm = $this->pdo->query($query);
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_COLUMN);
-        if (!empty($result[0])) {
+        if (!empty($result)) {
             return $result;
         }
         return [
