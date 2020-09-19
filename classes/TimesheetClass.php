@@ -235,26 +235,6 @@ abstract class TimesheetClass
     }
 
     /**
-     * @param $hc
-     * @param string $visitador
-     * @param int $hoy
-     * @return TimesheetDayObject[]
-     */
-    public function prepareVisitSheet($hc, string $visitador, int $hoy): array
-    {
-        $month = [];
-        for ($i = 1; $i <= $hoy; $i++) {
-            $day = new TimesheetDayObject();
-            $resultStartStop = $hc->getVisitadorMain($visitador, $i);
-            foreach ($resultStartStop as $answerStartStop) {
-                $this->loadDay($visitador, $i, $answerStartStop, $day);
-            }
-            $month[$i] = $day;
-        }
-        return $month;
-    }
-
-    /**
      * @param $gestor
      * @param int $dayNumber
      * @param $answerStartStop
