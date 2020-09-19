@@ -112,6 +112,7 @@ class TimesheetClassTest extends TestCase
     public function testListVisitadores()
     {
         $report = $this->hc->listVisitadores();
+        var_dump($report);
         $first = array_pop($report);
         $this->assertIsArray($first);
         $this->assertArrayHasKey('c_visit', $first);
