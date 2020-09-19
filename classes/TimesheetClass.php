@@ -59,6 +59,8 @@ abstract class TimesheetClass
         $stm = $this->pdo->query($query);
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($result);
+        die();
         if (!empty($result[0]['c_visit'])) {
             return $result;
         }
