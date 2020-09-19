@@ -29,6 +29,8 @@
 <table>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
+    var_dump($visitadores);
+    die();
     foreach ($visitadores as $visitador) {
     if ($visitador) {
     $month = $sheet[$gestor];
