@@ -41,9 +41,9 @@ where c_cvge = :gestor and d_fech = :fecha and n_prom > 0 limit 10000";
      * @param string $fecha
      * @return array
      */
-    public function getDhMain($gestor, $fecha) {
+    public function getDhMain(string $gestor, string $fecha) {
         $query = "select distinct c_cont from historia 
-where c_cvge = :gestor and d_fech = :fecha and c_cont > 0 limit 10000";
+where (c_cvge = :gestor or c_visit = :gestor) and d_fech = :fecha and c_cont > 0 limit 10000";
         return $this->getCommon($query, $gestor, $fecha);
     }
 
