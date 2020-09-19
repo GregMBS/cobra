@@ -58,14 +58,14 @@ abstract class TimesheetClass
         $query = $this->queryVisitadores;
         $stm = $this->pdo->query($query);
         $stm->execute();
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stm->fetchAll(PDO::FETCH_COLUMN);
         var_dump($result);
         die();
-        if (!empty($result[0]['c_visit'])) {
+        if (!empty($result[0])) {
             return $result;
         }
         return [
-            ['c_visit' => 'gmbs']
+            'gmbs'
         ];
     }
 
