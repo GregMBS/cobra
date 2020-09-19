@@ -26,15 +26,14 @@
 </head>
 <body>
 <h2>VISITAS DEL MES ACTUAL</h2>
-<table>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
     array_shift($visitadores);
-    var_dump($visitadores);
     foreach ($visitadores as $visitador) {
     $month = $sheet[$gestor];
     $monthSum = $sum[$gestor];
     ?>
+        <table>
     <thead>
     <tr>
         <th><?php echo $visitador; ?></th>
