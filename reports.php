@@ -59,10 +59,10 @@ $horarios = [
         'label' => 'Productividad este Mes'],
     ['page' => 'perfmes',
         'label' => 'Productividad Mes Anterior'],
-    ['page' => 'horariosv',
-        'label' => 'Productividad Visit este Mes'],
-    ['page' => 'perfmesv',
-        'label' => 'Productividad Visit Mes Ant'],
+//    ['page' => 'horariosv',
+//        'label' => 'Productividad Visit este Mes'],
+//    ['page' => 'perfmesv',
+//        'label' => 'Productividad Visit Mes Ant'],
     ['page' => 'horarios_single',
         'label' => 'Nomina Confidential']
     ];
