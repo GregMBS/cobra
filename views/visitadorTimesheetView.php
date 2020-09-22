@@ -28,7 +28,9 @@
 <h2>VISITAS DEL MES ACTUAL</h2>
     <?php
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
-    array_shift($visitadores);
+    if (empty($visitadores[0])) {
+        array_shift($visitadores);
+    }
     foreach ($visitadores as $visitador) {
     $month = $sheet[$visitador];
     $monthSum = $sum[$visitador];
