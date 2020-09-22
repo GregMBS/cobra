@@ -16,7 +16,7 @@ if (!empty($go)) {
     $lc = new LoginClass($pdo);
     $userData = $lc->getUserData($capt, $pw);
     $field = "ejecutivo_asignado_call_center";
-    if (isset($userData->TIPO)) {
+    if (!empty($userData->TIPO)) {
         if ($userData->TIPO == 'visitador') {
             $field = "ejecutivo_asignado_domiciliario";
         }
