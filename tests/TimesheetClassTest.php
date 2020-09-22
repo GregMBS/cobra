@@ -112,13 +112,12 @@ class TimesheetClassTest extends TestCase
     public function testListVisitadores()
     {
         $report = $this->hc->listVisitadores();
-        var_dump($report);
+        $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertIsArray($first);
-        $this->assertArrayHasKey('c_visit', $first);
+        $this->assertIsString($first);
         $report = $this->pc->listVisitadores();
         $first = array_pop($report);
-        $this->assertArrayHasKey('c_visit', $first);
+        $this->assertIsString($first);
     }
 
     public function testGetStartStopDiff()

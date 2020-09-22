@@ -6,8 +6,11 @@ $sheet = [];
 $sum = [];
 foreach ($visitadores as $gestor) {
     if ($gestor) {
-        $sheet[$gestor] = $hc->prepareVisitSheet($hc, $gestor, $dhoy);
-        $sum[$gestor] = $hc->prepareMonthSum($sheet[$gestor]);
+        $mySheet = $hc->prepareVisitSheet($hc, $gestor, $dhoy);
+        var_dump($mySheet);
+        $mySum = $hc->prepareMonthSum($sheet[$gestor]);
+        $sheet[$gestor] = $mySheet;
+        $sum[$gestor] = $mySum;
 //    $sheet[$gestor] = [];
 //    $sum[$gestor] = [];
     }
