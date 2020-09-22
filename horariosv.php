@@ -13,9 +13,9 @@ foreach ($visitadores as $gestor) {
         $mySheet = $hc->prepareVisitSheet($hc, $gestor, $dhoy);
         var_dump($mySheet);
         echo '<br>';
-        $mySum = $hc->prepareMonthSum($mySheet);
+//        $mySum = $hc->prepareMonthSum($mySheet);
         $sheet[$gestor] = $mySheet;
-        $sum[$gestor] = $mySum;
+//        $sum[$gestor] = $mySum;
     }
 }
 require_once __DIR__ . '/views/visitadorTimesheetView.php';
