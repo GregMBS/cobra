@@ -33,4 +33,5 @@ foreach ($visitadores as $gestor) {
         $sum[$gestor] = $mySum;
     }
 }
+var_dump($sheet);
 require_once __DIR__ . '/views/visitadorTimesheetView.php';
