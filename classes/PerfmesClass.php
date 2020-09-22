@@ -14,7 +14,7 @@ class PerfmesClass extends TimesheetClass
             and d_fech<=last_day(curdate() - interval 1 month)
             order by c_cvge limit 100';
 
-    protected $queryVisitadores = 'select distinct completo,iniciales
+    protected $queryVisitadores = 'select distinct iniciales
 			from nombres join historia on iniciales=c_visit
             where d_fech>last_day(curdate() - interval 2 month)
             and d_fech<=last_day(curdate() - interval 1 month)
