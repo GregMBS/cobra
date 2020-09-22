@@ -95,8 +95,6 @@ and d_fech<=last_day(curdate())) as tmp";
             }
             $month[$i] = $day;
         }
-        var_dump($visitador);
-        var_dump($month);
         return $month;
     }
 
