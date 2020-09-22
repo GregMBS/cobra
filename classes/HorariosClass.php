@@ -79,22 +79,6 @@ where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())) as tmp";
 
     /**
-     *
-     * @param string $gestor
-     * @param int $dom
-     * @return array
-     */
-    public function getVisitadorMain(string $gestor, int $dom)
-    {
-        $query = $this->queryVisitMain;
-        $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':gestor', $gestor);
-        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
-        $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * @param $hc
      * @param string $visitador
      * @param int $hoy
@@ -111,7 +95,35 @@ and d_fech<=last_day(curdate())) as tmp";
             }
             $month[$i] = $day;
         }
+        var_dump($visitador);
+        var_dump($month);
         return $month;
+    }
+
+    /**
+     *
+     * @param string $gestor
+     * @param int $dom
+     * @return array
+     */
+    public function getVisitadorMain(string $gestor, int $dom)
+    {
+        $query = $this->queryVisitMain;
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $gestor);
+        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+        $stq->execute();
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($result)) {
+            return $result;
+        }
+        return [
+            'cuentas' => 0,
+            'promesas' => 0,
+            'gestiones' => 0,
+            'nocontactos' => 0,
+            'contactos' => 0
+        ];
     }
 
 
