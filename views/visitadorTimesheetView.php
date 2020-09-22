@@ -33,8 +33,8 @@
     $month = $sheet[$visitador];
     $monthSum = $sum[$visitador];
     ?>
-        <table>
-    <thead>
+        <table class="ui-widget">
+    <thead class="ui-widget-header">
     <tr>
         <th><?php echo $visitador; ?></th>
         <?php
