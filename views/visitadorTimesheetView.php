@@ -30,8 +30,8 @@
     $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
     array_shift($visitadores);
     foreach ($visitadores as $visitador) {
-    $month = $sheet[$gestor];
-    $monthSum = $sum[$gestor];
+    $month = $sheet[$visitador];
+    $monthSum = $sum[$visitador];
     ?>
         <table>
     <thead>

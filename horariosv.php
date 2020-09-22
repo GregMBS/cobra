@@ -18,6 +18,4 @@ foreach ($visitadores as $gestor) {
         $sum[$gestor] = new TimesheetDayObject();
     }
 }
-var_dump($sheet);
-var_dump($sum);
 require_once __DIR__ . '/views/visitadorTimesheetView.php';
