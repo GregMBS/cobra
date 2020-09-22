@@ -4,6 +4,7 @@ require_once __DIR__ . '/timesheetHead.php';
 $visitadores = $hc->listVisitadores();
 $sheet = [];
 $sum = [];
+var_dump($visitadores);
 foreach ($visitadores as $gestor) {
     if ($gestor) {
         print_r($gestor);
