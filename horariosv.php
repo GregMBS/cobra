@@ -1,7 +1,5 @@
 <?php
 
-use cobra_salsa\TimesheetDayObject;
-
 require_once __DIR__ . '/timesheetHead.php';
 require_once __DIR__ . '/classes/TimesheetDayObject.php';
 $visitadores = $hc->listVisitadores();
@@ -11,11 +9,11 @@ foreach ($visitadores as $gestor) {
     $mySheet = [];
     $mySum = [];
     if (!empty($gestor)) {
-        $mySheet = $hc->prepareVisitSheet($hc, $gestor, $dhoy);
+        $mySheet = $hc->prepareVisitSheet($gestor, $dhoy);
         echo '<br>';
         $mySum = $hc->prepareMonthSum($mySheet);
         $sheet[$gestor] = $mySheet;
-        $sum[$gestor] = new TimesheetDayObject();
+        $sum[$gestor] = $mySum;
     }
 }
 require_once __DIR__ . '/views/visitadorTimesheetView.php';

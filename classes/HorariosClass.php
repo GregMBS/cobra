@@ -79,12 +79,11 @@ where d_fech>last_day(curdate()-interval 1 month)
 and d_fech<=last_day(curdate())) as tmp";
 
     /**
-     * @param $hc
      * @param string $visitador
      * @param int $hoy
      * @return TimesheetDayObject[]
      */
-    public function prepareVisitSheet($hc, string $visitador, int $hoy): array
+    public function prepareVisitSheet(string $visitador, int $hoy): array
     {
         $month = [];
         for ($i = 1; $i <= $hoy; $i++) {

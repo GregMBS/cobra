@@ -2,6 +2,8 @@
 
 namespace cobra_salsa;
 
+use PDO;
+
 require_once __DIR__ . '/TimesheetClass.php';
 require_once __DIR__ . '/TimesheetDayObject.php';
 
@@ -63,4 +65,61 @@ and d_fech<=last_day(curdate()-interval 1 month)
     protected $queryPagos = "select count(1) as ct from pagos
             where gestor=:gestor
             and fecha=last_day(curdate() - interval 2 month) + interval :dom day";
+
+    protected $queryVisitMain = "select count(distinct c_cont) as cuentas,
+            sum(n_prom > 0) as promesas,
+            count(1) as gestiones,
+            count(1) - sum(queue='SIN CONTACTOS') as nocontactos,
+            sum(queue='SIN CONTACTOS') as contactos
+            from historia
+            left join dictamenes on c_cvst=dictamen
+            where c_visit=:gestor and c_msge is null
+            and c_cniv <> '' and c_cont>0
+            and D_FECH=last_day(curdate() - interval 2 month) + interval :dom day
+            group by D_FECH";
+
+    /**
+     * @param string $visitador
+     * @param int $hoy
+     * @return TimesheetDayObject[]
+     */
+    public function prepareVisitSheet(string $visitador, int $hoy): array
+    {
+        $month = [];
+        for ($i = 1; $i <= $hoy; $i++) {
+            $day = new TimesheetDayObject();
+            $resultStartStop = $this->getVisitadorMain($visitador, $i);
+            foreach ($resultStartStop as $answerStartStop) {
+                $this->loadDay($visitador, $i, $answerStartStop, $day);
+            }
+            $month[$i] = $day;
+        }
+        return $month;
+    }
+
+    /**
+     *
+     * @param string $gestor
+     * @param int $dom
+     * @return array
+     */
+    public function getVisitadorMain(string $gestor, int $dom)
+    {
+        $query = $this->queryVisitMain;
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $gestor);
+        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+        $stq->execute();
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($result)) {
+            return $result;
+        }
+        return [
+            'cuentas' => 0,
+            'promesas' => 0,
+            'gestiones' => 0,
+            'nocontactos' => 0,
+            'contactos' => 0
+        ];
+    }
 }
