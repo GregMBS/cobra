@@ -12,12 +12,12 @@ foreach ($visitadores as $gestor) {
     $mySum = [];
     if (!empty($gestor)) {
         $mySheet = $hc->prepareVisitSheet($hc, $gestor, $dhoy);
-        var_dump($gestor);
-        var_dump($mySheet);
         echo '<br>';
         $mySum = $hc->prepareMonthSum($mySheet);
         $sheet[$gestor] = $mySheet;
         $sum[$gestor] = new TimesheetDayObject();
     }
 }
+var_dump($sheet);
+var_dump($sum);
 require_once __DIR__ . '/views/visitadorTimesheetView.php';
