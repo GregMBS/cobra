@@ -11,7 +11,7 @@ foreach ($visitadores as $gestor) {
         $mySheet = $hc->prepareVisitSheet($hc, $gestor, $dhoy);
         var_dump($mySheet);
         echo '<br>';
-        $mySum = $hc->prepareMonthSum($sheet[$gestor]);
+        $mySum = $hc->prepareMonthSum($mySheet);
         $sheet[$gestor] = $mySheet;
         $sum[$gestor] = $mySum;
     }
