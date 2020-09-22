@@ -22,16 +22,15 @@ $dst = '';
 $visitadores = $hc->listVisitadores();
 $sheet = [];
 $sum = [];
-foreach ($visitadores as $gestor) {
+foreach ($visitadores as $visitador) {
     $mySheet = [];
     $mySum = [];
-    if (!empty($gestor)) {
-        $mySheet = $hc->prepareVisitSheet($gestor, $dhoy);
+    if (!empty($visitador)) {
+        $mySheet = $hc->prepareVisitSheet($visitador, $dhoy);
         echo '<br>';
         $mySum = $hc->prepareMonthSum($mySheet);
-        $sheet[$gestor] = $mySheet;
-        $sum[$gestor] = $mySum;
+        $sheet[$visitador] = $mySheet;
+        $sum[$visitador] = $mySum;
     }
 }
-var_dump($sheet);
 require_once __DIR__ . '/views/visitadorTimesheetView.php';
