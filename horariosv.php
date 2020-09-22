@@ -6,6 +6,8 @@ $sheet = [];
 $sum = [];
 var_dump($visitadores);
 foreach ($visitadores as $gestor) {
+    $mySheet = [];
+    $mySum = [];
     if (!empty($gestor)) {
         print_r($gestor);
         $mySheet = $hc->prepareVisitSheet($hc, $gestor, $dhoy);
