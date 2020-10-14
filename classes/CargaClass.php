@@ -80,7 +80,6 @@ class CargaClass
 
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         $data = $this->getDataCSV($filename);
-        var_dump($data);
         $count = $this->loadData($data, $columnNames);
         echo $count. " total records loaded. ";
 
@@ -208,6 +207,7 @@ class CargaClass
         $queryLoadTrim = rtrim($queryLoad, ",");
         try {
             $stl = $this->pdo->prepare($queryLoadTrim);
+            var_dump($stl->queryString);
             $stl->execute();
             return $stl->rowCount();
         } catch (PDOException $Exception) {
