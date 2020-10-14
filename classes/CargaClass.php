@@ -77,7 +77,6 @@ class CargaClass
 
         $columnNames = $this->getDataColumnNames($fields);
         $this->prepareTemp($columnNames);
-die();
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         $data = $this->getDataCSV($filename);
         $count = $this->loadData($data, $columnNames);
@@ -179,6 +178,7 @@ die();
         } catch (PDOException $Exception) {
             throw new Exception($Exception);
         }
+        var_dump($queryStart);
         $queryIndex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50))";
         try {
             $sta = $this->pdo->prepare($queryIndex);
@@ -186,6 +186,8 @@ die();
         } catch (PDOException $Exception) {
             throw new Exception($Exception);
         }
+        var_dump($queryIndex);
+        die();
     }
 
     /**
