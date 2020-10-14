@@ -74,7 +74,7 @@ class CargaClass
     public function asociar(array $post): void
     {
         var_dump($post);
-        die():
+        die();
         $fields = $this->loadCargadex($post);
 
         $columnNames = $this->getDataColumnNames($fields);
