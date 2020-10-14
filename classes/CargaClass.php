@@ -199,20 +199,20 @@ class CargaClass
     {
         $glue = ',';
         $list = implode($glue, $columnNames);
-        $queryLoad = "INSERT IGNORE INTO temp (" . $list . ", fecha_de_actualizacion) VALUES ";
+        $count = 0;
         foreach ($data as $row) {
-                $limpio = str_replace("'", "", $row);
-                $queryLoad .= "('" . implode("','", $limpio) . "', CURDATE()),";
+            $queryLoad = "INSERT IGNORE INTO temp (" . $list . ", fecha_de_actualizacion) VALUES ";
+            $limpio = str_replace("'", "", $row);
+            $queryLoadTrim = $queryLoad . "('" . implode("','", $limpio) . "', CURDATE());";
+            try {
+                $stl = $this->pdo->prepare($queryLoadTrim);
+                $stl->execute();
+                $count += $stl->rowCount();
+            } catch (PDOException $Exception) {
+                throw new Exception($Exception);
+            }
         }
-        $queryLoadTrim = rtrim($queryLoad, ",");
-        try {
-            $stl = $this->pdo->prepare($queryLoadTrim);
-            var_dump($stl->queryString);
-            $stl->execute();
-            return $stl->rowCount();
-        } catch (PDOException $Exception) {
-            throw new Exception($Exception);
-        }
+            return $count;
     }
 
     /**
