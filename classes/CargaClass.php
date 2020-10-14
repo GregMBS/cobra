@@ -74,8 +74,15 @@ class CargaClass
     public function asociar(array $post): void
     {
         $fields = $this->loadCargadex($post);
+        $dupCheck = $this->array_dup($fields);
+        if (!empty($dupCheck)) {
+            echo "Duplicate fields: ";
+            var_dump($dupCheck);
+            die();
+        }
 
         $columnNames = $this->getDataColumnNames($fields);
+
         $this->prepareTemp($columnNames);
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         $data = $this->getDataCSV($filename);
@@ -92,6 +99,10 @@ class CargaClass
         $this->updateClientes();
         $this->updatePagos();
         $this->createLookupTable();
+    }
+
+    private function array_dup($ar){
+        return array_unique(array_diff_assoc($ar,array_unique($ar)));
     }
 
     /**
