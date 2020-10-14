@@ -77,7 +77,7 @@ class CargaClass
 
         $columnNames = $this->getDataColumnNames($fields);
         $this->prepareTemp($columnNames);
-
+die();
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
         $data = $this->getDataCSV($filename);
         $count = $this->loadData($data, $columnNames);
