@@ -178,7 +178,6 @@ class CargaClass
         } catch (PDOException $Exception) {
             throw new Exception($Exception);
         }
-        var_dump($queryStart);
         $queryIndex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50))";
         try {
             $sta = $this->pdo->prepare($queryIndex);
@@ -186,8 +185,6 @@ class CargaClass
         } catch (PDOException $Exception) {
             throw new Exception($Exception);
         }
-        var_dump($queryIndex);
-        die();
     }
 
     /**
