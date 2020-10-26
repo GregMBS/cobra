@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <title>Tiempo Real</title>
-        <meta http-equiv="refresh" content="60"/>
+        <meta http-equiv="refresh" content="120"/>
         <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.jqueryui.min.css"
               integrity="sha512-etw+uKrmSM/SQGzslcglze3XP/gZHpQx00aeyBRxkJGMXuFsMPBYvP2zVTCx9WVLdKLjUla+Byz0xAjFtXivwQ=="
