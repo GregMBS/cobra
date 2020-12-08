@@ -699,7 +699,7 @@ if ($notalert > 0) { ?>
                 <?php
                 if (isset($subproducto)) {
                     ?>
-                    <td>Subproducto</td>
+                    <td>Grupo</td>
                     <td><span class="fakeInput"><?php
                             echo htmlentities($subproducto);
                             ?></span></td>
