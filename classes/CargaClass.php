@@ -447,7 +447,7 @@ from resumen;
         if (!empty($post['pos'])) {
             foreach ($post['pos'] as $posit) {
                 if (!is_int($posit)) {
-                    var_dump($post);
+                    var_dump($posit);
                     die();
                 }
                 $fields[] = $this->insertIntoCargadex($posit, $columns, $cliente);
