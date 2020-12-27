@@ -115,7 +115,7 @@ switch ($go) {
                             </dt>
                         <dd>
                             <select name="pos[]" id="pos<?php echo $c; ?>">
-                                <option value='nousar<?php echo $c ?>'>no usar</option>
+                                <option value='nousar<?php echo $c ?>' style="background-color: yellow">no usar</option>
                                 <?php
                                 $columns = $cc->getDBColumnNames();
                                 $k = count($columns);
