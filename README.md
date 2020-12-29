@@ -8,10 +8,10 @@ Contact greg@gmbs-consulting for installation instructions
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Note: This project is dependent upon an out-of-support version of Laravel (5.8). This means that security issues are no longer thoroughly maintained.
 
 ```
-Give examples
+USE AT YOUR OWN RISK
 ```
 
 ### Installing
