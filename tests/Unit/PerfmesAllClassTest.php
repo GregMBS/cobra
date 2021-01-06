@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use App\Historia;
 use App\HoursDataClass;
-use App\Pago;
 use App\LastMonthAllClass;
+use App\Pago;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -16,7 +16,6 @@ class PerfmesAllClassTest extends TestCase
         $start = date('Y-m-d', strtotime('first day of last month'));
         $end = date('Y-m-d', strtotime('last day of last month'));
         $gestion = Historia::whereBetween('d_fech', [$start, $end])->first();
-        /** @var Carbon $fecha */
         $fecha = new Carbon($gestion->D_FECH);
         $dom = $fecha->day;
         $testKeys = [
@@ -38,7 +37,6 @@ class PerfmesAllClassTest extends TestCase
         $pago = Pago::whereBetween('fecha', [$start, $end])->first();
         $count = Pago::whereFecha($pago->fecha)->count();
         if ($pago) {
-            /** @var Carbon $fecha */
             $fecha = new Carbon($pago->fecha);
             $dom = $fecha->day;
             $hc = new LastMonthAllClass();

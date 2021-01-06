@@ -160,12 +160,10 @@ class LastMonthClass extends BaseClass
             $stq->bindValue(':start', $this->start);
             $stq->bindValue(':dom', $dom, PDO::PARAM_INT);
             $stq->execute();
-            $result = $stq->fetch(PDO::FETCH_ASSOC);
-            return $result;
+            return $stq->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             dd($e);
         }
-        return array();
     }
 
     /**

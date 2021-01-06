@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use App\CheckClass;
+use App\Resumen;
 use App\User;
 use App\Vasign;
-use App\Resumen;
 use Tests\TestCase;
 
 class CheckClassTest extends TestCase

@@ -15,6 +15,11 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @method static|Resumen whereStatusDeCredito(string $sdc)
  * @method static|Resumen find(int $id)
  * @method static|Resumen first()
+ * @method static where(string $string, string $string1, string $string2)
+ * @method static distinct()
+ * @method static count()
+ * @method static whereNull(string $string)
+ * @method static join(string $string, string $string1, string $string2, string $string3)
  * @property int $id_cuenta
  */
 class Resumen extends Model implements HasMedia

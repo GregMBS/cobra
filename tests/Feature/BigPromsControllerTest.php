@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\User;
-use Storage;
 use Tests\TestCase;
 
 class BigPromsControllerTest extends TestCase

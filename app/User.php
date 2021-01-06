@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method  User whereCompleto(string $completo)
  * @method  static|User whereTipo(string $tipo)
  * @method  static|User first()
+ * @method static find(int|string|null $id)
  * @author gmbs
  *
  */

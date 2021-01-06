@@ -36109,7 +36109,8 @@ function createComponent (
 
   // return a placeholder vnode
   var name = Ctor.options.name || tag;
-  var vnode = new VNode(
+  // noinspection UnnecessaryLocalVariableJS
+    var vnode = new VNode(
     ("vue-component-" + (Ctor.cid) + (name ? ("-" + name) : '')),
     data, undefined, undefined, undefined, context,
     { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children },

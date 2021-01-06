@@ -61,7 +61,8 @@ and status_de_credito regexp '-'";
      * @param array $data
      * @return array
      */
-    public function activateAccounts(array $data) {
+    public function activateAccounts(array $data): array
+    {
         $query = "update resumen
 set status_de_credito=substring_index(status_de_credito,'-',1)
 where numero_de_cuenta=:cta";
@@ -70,11 +71,10 @@ where numero_de_cuenta=:cta";
             $std->bindValue(':cta', $d);
             $std->execute();
         }
-        $count = [
+        return [
             'active' => $this->countActive($data),
             'inactive' => $this->countInactive($data)
         ];
-        return $count;
     }
 
     /**

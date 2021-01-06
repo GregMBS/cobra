@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\BestController;
 use App\User;
+use Exception;
 use Storage;
 use Tests\TestCase;
 
@@ -20,8 +21,8 @@ class BestControllerTest extends TestCase
     public function testIndex()
     {
         $bc = new BestController();
-        $this->expectException(\Exception::class);
-        $result = $bc->index();
+        $this->expectException(Exception::class);
+        $bc->index();
         $this->assertFileExists(storage_path('temp.xlsx'));
         $this->assertFileIsReadable(storage_path('temp.xlsx'));
         Storage::delete('temp.xlsx');

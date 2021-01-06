@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Trouble
  * @package App
  * @method Trouble whereAuto(int $auto)
+ * @method static find(int $auto)
  * @property int $auto
  * @property string $fechacomp
  * @property string $it_guy

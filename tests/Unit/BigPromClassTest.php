@@ -60,7 +60,7 @@ class BigPromClassTest extends TestCase
     /**
      * @return bool
      */
-    private function hasProms()
+    private function hasProms(): bool
     {
         $date = date('Y-m-d', strtotime('last day of last month'));
         $count = Historia::where('n_prom', '>', 0)->where('d_fech', '>', $date)->count();

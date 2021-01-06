@@ -20,7 +20,7 @@ class Admin
         if ($user->tipo == 'admin') {
             return $next($request);
         }
-        dd($user->tipo);
+        //dd($user->tipo);
         return redirect('/');
     }
 }

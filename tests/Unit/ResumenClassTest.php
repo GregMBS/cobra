@@ -8,6 +8,7 @@ use App\Historia;
 use App\Pago;
 use App\Resumen;
 use App\ResumenClass;
+use Exception;
 use Illuminate\Database\Query\Builder;
 use Tests\TestCase;
 
@@ -83,7 +84,7 @@ class ResumenClassTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetDict()
     {
@@ -112,13 +113,13 @@ class ResumenClassTest extends TestCase
             $this->assertNotContains('TEL OCUPADA', $dictamenes);
             $this->assertContains('NOTIFICACION BAJO PUERTA', $dictamenes);
             $this->assertNotContains('PROMESA INCUMPLIDA', $dictamenes);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertEquals('', $e->getMessage());
         }
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetMotiv()
     {
@@ -135,7 +136,7 @@ class ResumenClassTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testCnp()
     {
@@ -145,7 +146,7 @@ class ResumenClassTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetAccion()
     {

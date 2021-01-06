@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\AgentAdminClass;
 use App\AgentDataClass;
-use App\User;
 use Tests\TestCase;
 
 class GestoradminClassTest extends TestCase

@@ -28,10 +28,12 @@ class BestController extends Controller
     /**
      * @throws Exception
      */
-    public function index() {
+    public function index(): bool
+    {
         $filename = "Ultimo_y_mejor_".date('ymd').".csv";
         $data = $this->bc->getReport();
         $header = array_keys($data[0]);
         $this->oc->writeXLSXFile($filename, $data, $header);
+        return true;
     }
 }

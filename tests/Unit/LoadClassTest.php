@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\LoadClass;
 use App\Cliente;
+use App\LoadClass;
 use App\Resumen;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\TestCase;

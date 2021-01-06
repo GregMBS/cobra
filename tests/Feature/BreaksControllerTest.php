@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Breaks;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Tests\TestCase;
 

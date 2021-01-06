@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\SearchClass;
 use App\Resumen;
+use App\SearchClass;
 use Tests\TestCase;
 
 class BuscarClassTest extends TestCase

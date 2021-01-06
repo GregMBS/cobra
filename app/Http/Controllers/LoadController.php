@@ -58,37 +58,24 @@ class LoadController extends Controller
      * @return Reader\BaseReader
      * @throws Exception
      */
-    private function getReader($ext)
+    private function getReader(string $ext)
     {
         switch ($ext) {
-            case 'text/plain':
-                $reader = new Reader\Csv();
-                return $reader;
-                break;
-
             case 'text/csv':
-                $reader = new Reader\Csv();
-                return $reader;
-                break;
+            case 'text/plain':
+                return new Reader\Csv();
 
             case 'application/vnd.oasis.opendocument.spreadsheet':
-                $reader = new Reader\Ods();
-                return $reader;
-                break;
+                return new Reader\Ods();
 
             case 'application/vnd.ms-excel':
-                $reader = new Reader\Xls();
-                return $reader;
-                break;
+                return new Reader\Xls();
 
             case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                $reader = new Reader\Xlsx();
-                return $reader;
-                break;
+                return new Reader\Xlsx();
 
             default:
                 throw new Exception('CSV, XLS, XLSX, and ODS only');
-                break;
         }
     }
 

@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Queuelist;
 use App\Resumen;
 use App\ResumenQueuesClass;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\TestCase;
@@ -220,7 +221,7 @@ class ResumenQueuesClassTest extends TestCase
         $this->assertEquals($this->resumenKeys, $keys);
         */
         /* INICIAL */
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         /** @var Queuelist $query */
         $query = Queuelist::whereStatusAarsa('INICIAL');
         $queue = $query->first();

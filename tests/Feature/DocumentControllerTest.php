@@ -5,10 +5,10 @@ namespace Tests\Feature;
 use App\Http\Controllers\DocumentController;
 use App\Resumen;
 use App\User;
-use Illuminate\Http\UploadedFile;
 use Illuminate\View\View;
 use Spatie\MediaLibrary\MediaCollection\MediaCollection;
 use Storage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tests\TestCase;
 
 class DocumentControllerTest extends TestCase
@@ -41,10 +41,9 @@ class DocumentControllerTest extends TestCase
     {
         /** @var Resumen $resumen */
         $resumen = Resumen::all()->first();
-        /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
-        $file = new \Symfony\Component\HttpFoundation\File\UploadedFile(public_path('/FISA.jpg'), 'FISA.jpg');
+        $file = new UploadedFile(public_path('/FISA.jpg'), 'FISA.jpg');
 
-        $response = $this->actingAs($this->user)->post('/documents/' . $resumen->id_cuenta, [
+        $this->actingAs($this->user)->post('/documents/' . $resumen->id_cuenta, [
            'document' => $file
         ]);
 
@@ -59,11 +58,10 @@ class DocumentControllerTest extends TestCase
         /** @var Resumen $resumen */
         $resumen = Resumen::all()->first();
         $rid = $resumen->id_cuenta;
-        /** @var Collection $documents */
         $documents = $resumen->getMedia('documents');
         /** @var MediaCollection $document */
         foreach ($documents as $document) {
-            $docId = $document->id;
+            $docId = $document->name;
             $url = "/documents/$rid/$docId";
             $response = $this->actingAs($this->user)->delete($url);
             $this->assertTrue($response);

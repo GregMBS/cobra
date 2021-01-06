@@ -4,6 +4,10 @@ namespace Tests\Unit;
 
 use App\Resumen;
 use App\SegmentAdminClass;
+use DB;
+use Exception;
+use PDO;
+use PDOException;
 use Tests\TestCase;
 
 class SegmentadminClassTest extends TestCase
@@ -51,7 +55,7 @@ class SegmentadminClassTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testAgregarBorrarSegmento()
     {
@@ -84,12 +88,12 @@ class SegmentadminClassTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testInactivarSegmento()
     {
-        /** @var \PDO $pdo */
-        $pdo = \DB::getPdo();
+        /** @var PDO $pdo */
+        $pdo = DB::getPdo();
         $query = "select cliente, 
 substring_index(status_de_credito, '-', 1) as sdc, 
 sum(substring_index(status_de_credito, '-', 1) = status_de_credito) as activo, 
@@ -102,7 +106,7 @@ having activo > 0 and inactivo = 0";
             $stq = $pdo->prepare($query);
             $stq->execute();
             $result = $stq->fetch();
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             dd($e->getMessage());
         }
         if ($result) {

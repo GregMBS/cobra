@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\BigDataClass;
 use App\BigCallClass;
+use App\BigDataClass;
 use Illuminate\Http\Request;
 use Tests\TestCase;
 

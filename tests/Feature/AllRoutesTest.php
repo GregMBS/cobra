@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\User;
-use \Route;
 use Illuminate\Routing\RouteCollection;
+use Route;
 use Tests\TestCase;
 
 class AllRoutesTest extends TestCase

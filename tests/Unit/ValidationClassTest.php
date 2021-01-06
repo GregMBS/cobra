@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
 use App\ValidationClass;
+use Tests\TestCase;
 
 class ValidationClassTest extends TestCase
 {

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method Queuelist orderBy(string $column)
  * @method Queuelist first(array $columns = ['*'])
  * @method Queuelist firstOrFail(array $columns = ['*'])
+ * @method static where(string $string, string $string1, string $string2)
  */
 class Queuelist extends Model
 {

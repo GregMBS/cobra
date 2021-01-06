@@ -32,9 +32,9 @@ class TroubleClassTest extends TestCase
      * @param Trouble $trouble
      * @return Trouble
      */
-    private function checkTrouble(Trouble $trouble)
+    private function checkTrouble(Trouble $trouble): Trouble
     {
-        $this->assertInternalType('int', $trouble->auto);
+        $this->assertIsInt($trouble->auto);
         $tro = Trouble::find($trouble->auto);
         $this->assertInstanceOf(Trouble::class, $tro);
         return $tro;

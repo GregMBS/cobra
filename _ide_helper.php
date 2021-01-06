@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection ALL */
+
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
  * Generated for Laravel 5.5.13 on 2017-09-28.

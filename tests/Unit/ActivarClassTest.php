@@ -7,7 +7,7 @@ use App\Resumen;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
-class ActivateClassTest extends TestCase
+class ActivarClassTest extends TestCase
 {
 
     private $cuentas = [];
