@@ -245,7 +245,19 @@ if ($notalert > 0) { ?>
                     }
                     if (!empty($avapar)) {
                         ?>
-                        <span class='formCapa'>Referencia OXXO</span>
+                        <span class='formCapa'>
+                            <?php
+                            if ($cliente == 'FAMSA') {
+                            ?>
+                            Referencia OXXO
+                            <?php
+                            } else {
+                            ?>
+                            Comentario
+                            <?php
+                            }
+                            ?>
+                        </span>
                         <span class="fakeInput"><?php
                             echo $avapar;
                             ?></span><br>
