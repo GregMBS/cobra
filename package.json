@@ -22,6 +22,7 @@
         "datatables.net": "*",
         "dropzone": "*",
         "flatpickr": "*",
-        "js-yaml": "*"
+        "js-yaml": "*",
+        "postcss": "^8.1.2"
     }
 }
