@@ -8,31 +8,31 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.2.0",
+        "php": ">=8.0",
         "ext-PDO": "*",
         "ext-fileinfo": "*",
         "ext-http": "*",
         "ext-json": "*",
-        "barryvdh/laravel-ide-helper": "^2.4",
-        "box/spout": "^2.7",
-        "fideloper/proxy": "~4.0",
-        "filp/whoops": "~2.0",
-        "fzaninotto/faker": "~1.4",
-        "laravel/framework": "^6.0",
-        "laravel/helpers": "^1.4",
-        "laravel/homestead": "^7.16",
-        "laravel/tinker": "~1.0",
+        "barryvdh/laravel-ide-helper": "*",
+        "box/spout": "*",
+        "fideloper/proxy": "*",
+        "filp/whoops": "*",
+        "fzaninotto/faker": "*",
+        "laravel/framework": "*",
+        "laravel/helpers": "*",
+        "laravel/homestead": "*",
+        "laravel/tinker": "*",
         "laravelcollective/html": "*",
-        "maatwebsite/excel": "~3.0",
+        "maatwebsite/excel": "*",
         "rcrowe/twigbridge": "*",
-        "spatie/laravel-medialibrary": "^7.0.0",
-        "twig/extensions": "^1.5",
-        "twig/twig": "~1.30"
+        "spatie/laravel-medialibrary": "*",
+        "twig/extensions": "*",
+        "twig/twig": "*"
     },
     "require-dev": {
-        "laravel/dusk": "^5.0.0",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "^8.0"
+        "laravel/dusk": "*",
+        "mockery/mockery": "*",
+        "phpunit/phpunit": "*"
     },
     "autoload": {
         "classmap": [
