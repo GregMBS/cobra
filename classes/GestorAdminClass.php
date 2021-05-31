@@ -148,7 +148,7 @@ class GestorAdminClass {
     public function getNombres() {
         $query = "SELECT USUARIA, COMPLETO, TIPO, CAMP, INICIALES, PASSW 
     FROM nombres 
-    where iniciales <> 'gmbs'
+    where iniciales NOT IN ('gmbs','natalya')
     order by TIPO, USUARIA";
         $stm = $this->pdo->query($query);
         $stm->execute();
