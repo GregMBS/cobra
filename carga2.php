@@ -18,6 +18,12 @@ $cc = new CargaClass($pdo);
 <html lang="es">
 <head>
     <title>COBRA Carga</title>
+    <style>
+        option.nousar {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa
@@ -115,7 +121,7 @@ switch ($go) {
                             </dt>
                         <dd>
                             <select name="pos[]" id="pos<?php echo $c; ?>">
-                                <option value='nousar<?php echo $c ?>' style="background-color: yellow">no usar</option>
+                                <option value='nousar<?php echo $c ?>' class="nousar">NO USAR</option>
                                 <?php
                                 $columns = $cc->getDBColumnNames();
                                 $k = count($columns);
