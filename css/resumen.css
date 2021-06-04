@@ -256,11 +256,7 @@ td.chico {
 }
 */
 
-#pagocapt td {
-    background-color: #ffffff;
-}
-
-#pagocapt2 td {
+.pagable {
     background-color: #ffffff;
 }
 
