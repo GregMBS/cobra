@@ -9,7 +9,7 @@
     <title>Resumen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="/css/resumen.css">
-    <style type="text/css">
+    <style>
         <?php if(isset($notalert)){
 if ($notalert > 0) { ?>
         #notas input {
@@ -1107,7 +1107,7 @@ if ($notalert > 0) { ?>
                 <option value="Vecino/a">Vecino/a</option>
             </select></label><br>
         <label class="formCap">Gestion
-            <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12' onkeypress="tooLong('C_OBSE12')"></textarea>
+            <textarea rows="2" cols="40" name="C_OBSE1" id='C_OBSE12' onkeydown="tooLong('C_OBSE12')"></textarea>
         </label><br>
         <label class="formCap">Acci&oacute;n:
             <select name="ACCION" style="width: 8cm;">
@@ -1398,7 +1398,7 @@ if ($notalert > 0) { ?>
             <tr>
                 <td><label for="C_OBSE1">Gestion</label></td>
                 <td><textarea rows="4" cols="50" name="C_OBSE1" id='C_OBSE1'
-                              onkeypress="tooLong('C_OBSE1')" onkeyup="valid(this, 'special')"
+                              onkeydown="tooLong('C_OBSE1')" onkeyup="valid(this, 'special')"
                               onmouseover='this.focus();'
                               onblur="valid(this, 'special')" onmousedown='this.focus();'></textarea></td>
                 <td colspan=2><label>Accion
@@ -1629,12 +1629,12 @@ if ($notalert > 0) { ?>
                         ?></span></td>
             </tr>
             <tr id="pagocapt">
-                <td><label for="N_PAGO">Monto Pag&oacute;</label></td>
-                <td>$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
+                <td class="pagable"><label for="N_PAGO">Monto Pag&oacute;</label></td>
+                <td class="pagable">$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
             </tr>
             <tr id="pagocapt2">
-                <td><label for="D_PAGOi">Fecha Pag&oacute;</label></td>
-                <td><INPUT TYPE="date" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15
+                <td class="pagable"><label for="D_PAGOi">Fecha Pag&oacute;</label></td>
+                <td class="pagable"><INPUT TYPE="date" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15
                            min="<?php echo date('Y-m-d'); ?>>">
                 </td>
             </tr>
