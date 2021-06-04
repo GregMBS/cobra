@@ -4,6 +4,20 @@
  */
 function openSearch(timelock) {
     setInterval(function() { clock(timelock); }, 1000);
+
+    const pagable = document.getElementsByClassName("pagable");
+
+    document.getElementById('gestionForm').C_CVST.onchange = function() {
+        let estatus = this.value;
+        for (let i = 0; i < pagable.length; i++) {
+            pagable[i].style.backgroundColor = "";
+        }
+        if (estatus.substr(0, 3) === "PAG") {
+            for (let i = 0; i < pagable.length; i++) {
+                pagable[i].style.backgroundColor = "yellow";
+            }
+        }
+    }
 }
 
 /**
@@ -44,19 +58,6 @@ function npromChange(thisform) {
         (thisform.elements['N_PROM4'].value * 1);
 }
 
-const pagable = document.getElementsByClassName("pagable");
-
-document.getElementById('gestionForm').C_CVST.onchange = function() {
-    let estatus = this.value;
-    for (let i = 0; i < pagable.length; i++) {
-        pagable[i].style.backgroundColor = "";
-    }
-    if (estatus.substr(0, 3) === "PAG") {
-        for (let i = 0; i < pagable.length; i++) {
-            pagable[i].style.backgroundColor = "yellow";
-        }
-    }
-}
 
 /**
  *
