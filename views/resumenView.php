@@ -19,9 +19,9 @@ if ($notalert > 0) { ?>
         <?php
         }
         }
-        if ((preg_match('/-/', $row->status_de_credito)) && ($mytipo <> 'admin')) {
+        if ((preg_match('/-/', $row->status_de_credito)) && ($capt <> 'gmbs')) {
             ?>
-        #GuardButt {
+        .GuardButt {
             display: none;
         }
 
@@ -1221,7 +1221,7 @@ if ($notalert > 0) { ?>
     if (!empty($rowSub)) {
         ?>
         <div id='tableContainer' class='tableContainer'>
-            <table class="special" id='historybody'>
+            <table class="special GuardButt" id='historybody'>
                 <tbody class="scrollContent">
                 <?php
                 $j = 0;
@@ -1660,9 +1660,10 @@ if ($notalert > 0) { ?>
                 <td><input type="text" name="C_EMAIL" id="C_EMAIL" value="" onmouseover='this.focus();'></td>
             </tr>
         </table>
-        <input type="submit" name="go" id="GuardButt" value="GUARDAR" ondblclick="return false;">
+        <div class="GuardButt">
+        <input type="submit" name="go" id="GuardButton" value="GUARDAR" ondblclick="return false;">
         <button type="button" value="RESET" onclick="document.getElementById('GuardButt').disabled = false">RESET</button>
-        <br>
+        </div>
         <div class="noshow">
             <input type="hidden" name="from" readonly="readonly" value="resumen.php">
             <input type="hidden" name="D_FECH" readonly="readonly" value="<?php
