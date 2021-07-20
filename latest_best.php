@@ -11,6 +11,7 @@ use cobra_salsa\PdoClass;
 require_once 'classes/PdoClass.php';
 $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
+$pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 require_once 'classes/BestClass.php';
 $bc = new BestClass($pdo);
 $summary = $bc->getResumenData();
