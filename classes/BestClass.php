@@ -17,7 +17,7 @@ class BestClass extends BaseClass
 {
 
     /**
-     * @return ResumenObject
+     * @return false|\PDOStatement
      */
     public function getResumenData() {
         $query = "select ejecutivo_asignado_call_center, numero_de_cuenta, nombre_deudor, cliente, status_de_credito, 
@@ -28,11 +28,7 @@ class BestClass extends BaseClass
         order by numero_de_cuenta";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $result = $stq->fetchObject(ResumenObject::class);
-        if ($result) {
-            return $result;
-        }
-        return new ResumenObject();
+        return $stq;
     }
 
     /**
@@ -105,21 +101,4 @@ order by v_cc asc, d_fech desc limit 1";
         }
         return new HistoriaObject();
     }
-
-    /**
-     * @param string $query
-     * @return ResumenObject[]
-     */
-/*    private function getResumen(string $query): array
-    {
-        $stq = $this->pdo->prepare($query);
-        $stq->execute();
-        $result = $stq->fetchAll(PDO::FETCH_CLASS,ResumenObject::class);
-        if ($result) {
-            return $result;
-        }
-        return [
-            new ResumenObject()
-        ];
-    }*/
 }

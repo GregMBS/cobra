@@ -7,6 +7,7 @@ require_once 'vendor/autoload.php';
 use cobra_salsa\BestClass;
 use cobra_salsa\OutputClass;
 use cobra_salsa\PdoClass;
+use cobra_salsa\ResumenObject;
 
 require_once 'classes/PdoClass.php';
 $pc = new PdoClass();
@@ -37,7 +38,8 @@ $fields = [
 $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
-while ($row = $bc->getResumenData()) {
+$stq = $bc->getResumenData();
+while ($row = $stq->fetchObject(ResumenObject::class)) {
     $array = (array) $row;
     $aData = array();
     foreach ($fields as $field) {
