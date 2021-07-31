@@ -14,7 +14,6 @@ $pdo = $pc->dbConnectAdmin();
 $pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 require_once 'classes/BestClass.php';
 $bc = new BestClass($pdo);
-$summary = $bc->getResumenData();
 $fields = [
     'ejecutivo_asignado_call_center',
     'numero_de_cuenta',
@@ -38,7 +37,7 @@ $fields = [
 $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
-foreach ($summary as $row) {
+while ($row = $bc->getResumenData()) {
     $array = (array) $row;
     $aData = array();
     foreach ($fields as $field) {
