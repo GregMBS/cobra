@@ -1,1 +1,1 @@
-mysql -p4sale cobra </var/www/vencidos.sql
+mysql -ugmbs -pDeathSta1 cobra </var/www/vencidos.sql
