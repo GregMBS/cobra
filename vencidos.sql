@@ -22,27 +22,25 @@ UPDATE resumen
 set locker=null, timelock=null 
 where timelock<curdate();
 # Ignore gestions more than 2 months ago
-UPDATE resumen
-SET status_aarsa=''
-where status_de_credito not regexp '-'
-and fecha_ultima_gestion<now() - interval 2 month
-and status_aarsa<>'';
-# Select best priority value per cuenta in last 2 months
+# UPDATE resumen
+# SET status_aarsa=''
+# where status_de_credito not regexp '-'
+# and fecha_ultima_gestion<now() - interval 2 month
+# and status_aarsa<>'';
+# Select best priority value per cuenta ever
 create temporary table bestval
 select c_cont,min(v_cc) as mvc
 from historia,dictamenes
-where d_fech>=last_day(curdate()-interval 2 month)
-and c_cvst=dictamen
+where c_cvst=dictamen
 group by c_cont;
-# Select status associated with best priority in last 2 months
+# Select status associated with best priority ever
 create temporary table beststat
 select h.c_cont,h.c_cvst
 from historia h, dictamenes, bestval b
-where d_fech>=last_day(curdate()-interval 2 month)
-and c_cvst=dictamen
+where c_cvst=dictamen
 and h.c_cont = b.c_cont
 and v_cc=mvc;
-# Set status to best in last 2 months
+# Set status to best
 UPDATE resumen, beststat
 set status_aarsa = c_cvst
 where c_cont = id_cuenta 

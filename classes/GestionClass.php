@@ -413,8 +413,7 @@ and id_cuenta = :c_cont";
      */
     private function getBest($c_cvst, $c_cont) {
         $query = "SELECT c_cvst FROM historia, dictamenes 
-        WHERE d_fech > CURDATE() - INTERVAL 30 DAY 
-        AND c_cvst = dictamen 
+        WHERE c_cvst = dictamen 
         AND c_cont = :c_cont 
         ORDER BY v_cc 
         LIMIT 1";
