@@ -65,7 +65,10 @@ order by v_cc asc, d_fech desc limit 1";
     {
         $query = "select count(1) as ct from historia where c_cont = :c_cont";
         $result = $this->getArray($query, $c_cont);
-        return (int) $result['ct'];
+        if (isset($result['ct'])) {
+            return (int)$result['ct'];
+        }
+        return 0;
     }
 
     /**
