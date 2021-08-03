@@ -99,6 +99,10 @@ class ResumenObject
     public $cuenta_concentradora_1;
     public $saldo_cuota;
     public $email_deudor;
+
+    /**
+     * @var int
+     */
     public $id_cuenta = 0;
     public $nss;
     public $rfc_deudor;
