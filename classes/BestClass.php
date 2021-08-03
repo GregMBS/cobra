@@ -61,7 +61,7 @@ order by v_cc asc, d_fech desc limit 1";
      * @param int $c_cont
      * @return int
      */
-    public function countGestiones($c_cont): int
+    public function countGestiones(int $c_cont): int
     {
         $query = "select count(1) as ct from historia where c_cont = :c_cont";
         $result = $this->getArray($query, $c_cont);
