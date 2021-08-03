@@ -64,6 +64,12 @@ order by v_cc asc, d_fech desc limit 1";
     public function countGestiones(int $c_cont): int
     {
         $query = "select count(1) as ct from historia where c_cont = :c_cont";
+        if (!is_int($c_cont)) {
+            return 'X';
+        }
+        if ($c_cont == 0) {
+            return 'XX';
+        }
         $result = $this->getArray($query, $c_cont);
         if (isset($result['ct'])) {
             return (int)$result['ct'];
