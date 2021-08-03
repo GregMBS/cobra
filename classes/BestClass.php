@@ -105,6 +105,7 @@ order by v_cc asc, d_fech desc limit 1";
         $stq->bindParam(':c_cont', $c_cont);
         $stq->execute();
         $result = $stq->fetchObject( HistoriaObject::class);
+        var_dump($result); die();
         if ($result) {
             return $result;
         }
