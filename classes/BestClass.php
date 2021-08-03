@@ -72,7 +72,7 @@ order by v_cc asc, d_fech desc limit 1";
         }
         $result = $this->getArray($query, $c_cont);
         if (isset($result['ct'])) {
-            return (int)$result['ct'];
+            return $result['ct'];
         }
         return 0;
     }
