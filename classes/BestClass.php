@@ -105,7 +105,8 @@ order by v_cc asc, d_fech desc limit 1";
             $stq = $this->pdo->prepare($query);
             $stq->bindValue(':c_cont', $c_cont, PDO::PARAM_INT);
             $stq->execute();
-            $result = $stq->fetchObject( HistoriaObject::class);
+            $result = $stq->fetch();
+            var_dump($result); die();
         } catch (\PDOException $p) {
             var_dump($p->errorInfo);
             die();
