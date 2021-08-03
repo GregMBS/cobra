@@ -113,8 +113,6 @@ order by v_cc asc, d_fech desc limit 1";
         if (is_object($result)) {
             return $result;
         }
-        var_dump($stq->debugDumpParams());
-        die();
-//        return new HistoriaObject();
+        return new HistoriaObject();
     }
 }
