@@ -48,25 +48,26 @@ while ($row = $stq->fetchObject(ResumenObject::class)) {
             $aData[$field] = $array[$field];
         }
     }
+    $idc = intval($aData['id_cuenta']);
     $aData['ultimo_status'] = '';
     $aData['ultimo_tel'] = '';
     $aData['ultimo_comentario'] = '';
     $aData['mejor_status'] = '';
     $aData['mejor_tel'] = '';
     $aData['mejor_fecha'] = '';
-    $latest = $bc->getLastHistoriaData($aData['id_cuenta']);
+    $latest = $bc->getLastHistoriaData($idc);
     $aData['ultimo_status'] = $latest->C_CVST;
     $aData['ultimo_tel'] = $latest->C_TELE;
     $aData['ultimo_comentario'] = $latest->C_OBSE1;
     $aData['ultimo_accion'] = $latest->C_ACCION;
 
-    $best = $bc->getBestHistoriaData($aData['id_cuenta']);
+    $best = $bc->getBestHistoriaData($idc);
     $aData['mejor_status'] = $best->C_CVST;
     $aData['mejor_tel'] = $best->C_TELE;
     $aData['mejor_fecha'] = $best->D_FECH;
     $aData['mejor_accion'] = $best->C_ACCION;
 
-    $aData['gestiones'] = $bc->countGestiones($aData['id_cuenta']);
+    $aData['gestiones'] = $bc->countGestiones($idc);
     $output[] = $aData;
 }
 $header = array_keys($output[0]);
