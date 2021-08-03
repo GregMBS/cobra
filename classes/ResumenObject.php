@@ -103,7 +103,7 @@ class ResumenObject
     /**
      * @var int
      */
-    public $id_cuenta = 0;
+    public $id_cuenta;
     public $nss;
     public $rfc_deudor;
     public $telefonos_marcados;
