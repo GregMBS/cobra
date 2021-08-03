@@ -105,13 +105,12 @@ order by v_cc asc, d_fech desc limit 1";
             $stq = $this->pdo->prepare($query);
             $stq->bindValue(':c_cont', $c_cont, PDO::PARAM_INT);
             $stq->execute();
-            $result = $stq->fetchAll();
-            var_dump($result); die();
+            $result = $stq->fetchObject(HistoriaObject::class);
         } catch (\PDOException $p) {
             var_dump($p->errorInfo);
             die();
         }
-        if ($result) {
+        if (is_object($result)) {
             return $result;
         }
         var_dump($stq->debugDumpParams());
