@@ -68,6 +68,7 @@ while ($row = $stq->fetchObject(ResumenObject::class)) {
     $aData['mejor_accion'] = $best->C_ACCION;
 
     $aData['gestiones'] = $bc->countGestiones($idc);
+    var_dump($aData);die();
     $output[] = $aData;
 }
 $header = array_keys($output[0]);
