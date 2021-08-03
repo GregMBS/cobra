@@ -81,7 +81,6 @@ class PdoClass {
         $this->db = $config->dbName;
         $this->dsn = 'mysql:dbname=' . $this->db . ';host=localhost';
         $this->pdo = new PDO($this->dsn, $this->username, $this->passwd);
-        $this->pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
 
     /**
