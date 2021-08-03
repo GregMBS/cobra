@@ -103,7 +103,7 @@ order by v_cc asc, d_fech desc limit 1";
     {
         try {
             $stq = $this->pdo->prepare($query);
-            $stq->bindParam(':c_cont', $c_cont);
+            $stq->bindValue(':c_cont', $c_cont, PDO::PARAM_INT);
             $stq->execute();
             $result = $stq->fetchObject( HistoriaObject::class);
         } catch (\PDOException $p) {
@@ -113,6 +113,8 @@ order by v_cc asc, d_fech desc limit 1";
         if ($result) {
             return $result;
         }
-        return new HistoriaObject();
+        var_dump($stq->debugDumpParams());
+        die();
+//        return new HistoriaObject();
     }
 }
