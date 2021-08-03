@@ -101,11 +101,15 @@ order by v_cc asc, d_fech desc limit 1";
      */
     private function getHistoria(string $query, int $c_cont): HistoriaObject
     {
-        $stq = $this->pdo->prepare($query);
-        $stq->bindParam(':c_cont', $c_cont);
-        $stq->execute();
-        $result = $stq->fetchObject( HistoriaObject::class);
-        var_dump([$stq->queryString,$c_cont]); die();
+        try {
+            $stq = $this->pdo->prepare($query);
+            $stq->bindParam(':c_cont', $c_cont);
+            $stq->execute();
+            $result = $stq->fetchObject( HistoriaObject::class);
+        } catch (\PDOException $p) {
+            var_dump($p->errorInfo);
+            die();
+        }
         if ($result) {
             return $result;
         }
