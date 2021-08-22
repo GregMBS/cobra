@@ -49,8 +49,14 @@ and status_de_credito not regexp '-';
 update resumen,historia
 set status_aarsa = 'PAGO TOTAL'
 where c_cont=id_cuenta
-and c_cvst = 'PAGO TOTAL'
-and status_de_credito not regexp '-';
+  and c_cvst = 'PAGO TOTAL'
+  and status_de_credito not regexp '-';
+# ACLARACION is forever
+update resumen,historia
+set status_aarsa = 'ACLARACION'
+where c_cont=id_cuenta
+  and c_cvst = 'ACLARACION'
+  and status_de_credito not regexp '-';
 # PAGO TOTAL - MULTIPLES PAGOS is forever
 update resumen,historia
 set status_aarsa = 'PAGO TOTAL - MULTIPLES PAGOS'
