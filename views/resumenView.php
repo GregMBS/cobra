@@ -244,27 +244,6 @@ if ($notalert > 0) { ?>
                         <?php
                     }
                     ?>
-                    <span class='formCapa'>
-                            <?php
-                            if ($cliente == 'FAMSA') {
-                                ?>
-                                Referencia OXXO
-                                <?php
-                            }
-                            if ($cliente == 'Banco Azteca') {
-                                ?>
-                                Producto
-                                <?php
-                            }
-                            ?>
-                        </span>
-                    <?php
-                    if (!empty($avapar)) {
-                        ?>
-                        <span class="fakeInput"><?php
-                            echo $avapar;
-                            ?></span><br>
-                    <?php } ?>
                 </td>
             <tr>
                 <td>
@@ -316,6 +295,27 @@ if ($notalert > 0) { ?>
                         <input type="text" name="numProm" id="numProm" readonly="readonly"
                                value="<?php echo $numProms . ' promesas'; ?>"><label for="numProm"> promesas</label>
                     </div>
+                    <span class='formCapa'>
+                            <?php
+                            if ($cliente == 'FAMSA') {
+                                ?>
+                                Referencia OXXO
+                                <?php
+                            }
+                            if ($cliente == 'Banco Azteca') {
+                                ?>
+                                Producto
+                                <?php
+                            }
+                            ?>
+                        </span>
+                    <?php
+                    if (!empty($avapar)) {
+                        ?>
+                        <span class="fakeInput"><?php
+                            echo $avapar;
+                            ?></span><br>
+                    <?php } ?>
                 </td>
             </tr>
         </table>
