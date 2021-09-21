@@ -243,21 +243,24 @@ if ($notalert > 0) { ?>
                         <br>
                         <?php
                     }
-                    if (!empty($avapar)) {
-                        ?>
-                        <span class='formCapa'>
+                    ?>
+                    <span class='formCapa'>
                             <?php
                             if ($cliente == 'FAMSA') {
-                            ?>
-                            Referencia OXXO
-                            <?php
-                            } else {
-                            ?>
-                            Comentario
-                            <?php
+                                ?>
+                                Referencia OXXO
+                                <?php
+                            }
+                            if ($cliente == 'Banco Azteca') {
+                                ?>
+                                Producto
+                                <?php
                             }
                             ?>
                         </span>
+                    <?php
+                    if (!empty($avapar)) {
+                        ?>
                         <span class="fakeInput"><?php
                             echo $avapar;
                             ?></span><br>
@@ -1340,7 +1343,8 @@ if ($notalert > 0) { ?>
                         <option <?php echo $resultBN->t1r4; ?>value='<?php echo $tel_1_ref_4; ?>'>TEL 1 REF 4
                             - <?php echo $nombre_referencia_4 . ' - ' . $tel_1_ref_4; ?></option><?php } ?>
                         <?php if (isset($tel_1_verif)) { ?>
-                        <option class='verif' <?php echo $resultBN->t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1 VERIF
+                        <option class='verif' <?php echo $resultBN->t1v; ?>value='<?php echo $tel_1_verif; ?>'>TEL 1
+                            VERIF
                             - <?php echo $tel_1_verif; ?></option><?php } ?>
                         <?php if (isset($tel_2)) { ?>
                         <option <?php echo $resultBN->t2; ?>value='<?php echo $tel_2; ?>'>CELULAR
@@ -1361,19 +1365,22 @@ if ($notalert > 0) { ?>
                         <option <?php echo $resultBN->t2r4; ?>value='<?php echo $tel_2_ref_4; ?>'>TEL 2 REF 4
                             - <?php echo $nombre_referencia_4 . ' - ' . $tel_2_ref_4; ?></option><?php } ?>
                         <?php if (isset($tel_2_verif)) { ?>
-                        <option class='verif' <?php echo $resultBN->t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2 VERIF
+                        <option class='verif' <?php echo $resultBN->t2v; ?>value='<?php echo $tel_2_verif; ?>'>TEL 2
+                            VERIF
                             - <?php echo $tel_2_verif; ?></option><?php } ?>
                         <?php if (isset($tel_3)) { ?>
                         <option <?php echo $resultBN->t3; ?>value='<?php echo $tel_3; ?>'>TEL 3
                             - <?php echo $tel_3; ?></option><?php } ?>
                         <?php if (isset($tel_3_verif)) { ?>
-                        <option class='verif' <?php echo $resultBN->t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3 VERIF
+                        <option class='verif' <?php echo $resultBN->t3v; ?>value='<?php echo $tel_3_verif; ?>'>TEL 3
+                            VERIF
                             - <?php echo $tel_3_verif; ?></option><?php } ?>
                         <?php if (isset($tel_4)) { ?>
                         <option <?php echo $resultBN->t4; ?>value='<?php echo $tel_4; ?>'>TEL 4
                             - <?php echo $tel_4; ?></option><?php } ?>
                         <?php if (isset($tel_4_verif)) { ?>
-                        <option class='verif' <?php echo $resultBN->t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4 VERIF
+                        <option class='verif' <?php echo $resultBN->t4v; ?>value='<?php echo $tel_4_verif; ?>'>TEL 4
+                            VERIF
                             - <?php echo $tel_4_verif; ?></option><?php } ?>
                     </select>
                 </td>
@@ -1544,10 +1551,10 @@ if ($notalert > 0) { ?>
                 <td>$<input type="text" name="N_PROM2" id="N_PROM2" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td><span class="fakeInput">$<?php
-                    if (isset($N_PROM2_OLD)) {
-                        echo $N_PROM2_OLD;
-                    }
-                    ?></span><br>
+                        if (isset($N_PROM2_OLD)) {
+                            echo $N_PROM2_OLD;
+                        }
+                        ?></span><br>
             </tr>
             <tr>
                 <td><label for="D_PROM2">Fecha promesa 2o</label></td>
@@ -1556,9 +1563,9 @@ if ($notalert > 0) { ?>
                            max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
                 </td>
                 <td><span class="fakeInput"><?php
-                           if (isset($D_PROM2_OLD)) {
-                               echo $D_PROM2_OLD;
-                           }
+                        if (isset($D_PROM2_OLD)) {
+                            echo $D_PROM2_OLD;
+                        }
                         ?></span></td>
             </tr>
             <tr>
@@ -1566,10 +1573,10 @@ if ($notalert > 0) { ?>
                 <td>$<input type="text" name="N_PROM3" id="N_PROM3" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td><span class="fakeInput">$<?php
-                    if (isset($N_PROM3_OLD)) {
-                        echo $N_PROM3_OLD;
-                    }
-                    ?></span><br>
+                        if (isset($N_PROM3_OLD)) {
+                            echo $N_PROM3_OLD;
+                        }
+                        ?></span><br>
             </tr>
             <tr>
                 <td><label for="D_PROM3">Fecha promesa 3o</label></td>
@@ -1578,9 +1585,9 @@ if ($notalert > 0) { ?>
                            max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
                 </td>
                 <td><span class="fakeInput"><?php
-                           if (isset($D_PROM3_OLD)) {
-                               echo $D_PROM3_OLD;
-                           }
+                        if (isset($D_PROM3_OLD)) {
+                            echo $D_PROM3_OLD;
+                        }
                         ?></span></td>
             </tr>
             <tr>
@@ -1588,9 +1595,9 @@ if ($notalert > 0) { ?>
                 <td>$<input type="text" name="N_PROM4" id="N_PROM4" value="0" onchange="npromChange(this.form);"
                             onmouseover='this.focus();'></td>
                 <td><span class="fakeInput">$<?php
-                    if (isset($N_PROM4_OLD)) {
-                        echo $N_PROM4_OLD;
-                    }
+                        if (isset($N_PROM4_OLD)) {
+                            echo $N_PROM4_OLD;
+                        }
                         ?></span><br>
             </tr>
             <tr>
@@ -1600,9 +1607,9 @@ if ($notalert > 0) { ?>
                            max="<?php echo date('Y-m-d', strtotime("+2 months")); ?>">
                 </td>
                 <td><span class="fakeInput"><?php
-                           if (isset($D_PROM4_OLD)) {
-                               echo $D_PROM4_OLD;
-                           }
+                        if (isset($D_PROM4_OLD)) {
+                            echo $D_PROM4_OLD;
+                        }
                         ?></span></td>
             </tr>
             <tr>
@@ -1623,19 +1630,20 @@ if ($notalert > 0) { ?>
                            value=""></td>
                 <td>Cant. prometido anterior</td>
                 <td><span class="fakeInput"><?php
-                    if (isset($N_PROM_OLD)) {
-                        echo floor($N_PROM_OLD);
-                    }
+                        if (isset($N_PROM_OLD)) {
+                            echo floor($N_PROM_OLD);
+                        }
                         ?></span></td>
             </tr>
             <tr id="pagocapt">
                 <td class="pagable"><label for="N_PAGO">Monto Pag&oacute;</label></td>
-                <td class="pagable">$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'></td>
+                <td class="pagable">$<input type="text" name="N_PAGO" id="N_PAGO" value="0" onmouseover='this.focus();'>
+                </td>
             </tr>
             <tr id="pagocapt2">
                 <td class="pagable"><label for="D_PAGOi">Fecha Pag&oacute;</label></td>
                 <td class="pagable"><INPUT TYPE="date" NAME="D_PAGO" ID="D_PAGOi" VALUE="" SIZE=15
-                           min="<?php echo date('Y-m-d'); ?>>">
+                                           min="<?php echo date('Y-m-d'); ?>>">
                 </td>
             </tr>
             <tr>
@@ -1661,8 +1669,9 @@ if ($notalert > 0) { ?>
             </tr>
         </table>
         <div class="GuardButt">
-        <input type="submit" name="go" id="GuardButton" value="GUARDAR" ondblclick="return false;">
-        <button type="button" value="RESET" onclick="document.getElementById('GuardButt').disabled = false">RESET</button>
+            <input type="submit" name="go" id="GuardButton" value="GUARDAR" ondblclick="return false;">
+            <button type="button" value="RESET" onclick="document.getElementById('GuardButt').disabled = false">RESET
+            </button>
         </div>
         <div class="noshow">
             <input type="hidden" name="from" readonly="readonly" value="resumen.php">
