@@ -2,6 +2,7 @@
 
 use cobra_salsa\PdoClass;
 use cobra_salsa\QueuesClass;
+use cobra_salsa\QueuelistObject;
 
 require_once 'classes/PdoClass.php';
 require_once 'classes/QueuesClass.php';
