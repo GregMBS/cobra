@@ -411,7 +411,18 @@ and id_cuenta = :c_cont";
      * @param int $c_cont
      * @return string
      */
-    private function getBest($c_cvst, $c_cont) {
+    private function getBest(string $c_cvst, int $c_cont): string
+    {
+        $checkAclaracion = "SELECT count(1) FROM historia 
+        WHERE c_cvst = 'ACLARACION'
+        AND c_cont = :c_cont";
+        $sta = $this->pdo->prepare($checkAclaracion);
+        $sta->bindParam(':c_cont', $c_cont, PDO::PARAM_INT);
+        $sta->execute();
+        $count = $sta->fetch(PDO::FETCH_ASSOC);
+        if ($count > 0) {
+            return 'ACLARACION';
+        }
         $query = "SELECT c_cvst FROM historia, dictamenes 
         WHERE c_cvst = dictamen 
         AND c_cont = :c_cont 
