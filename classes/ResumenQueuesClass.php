@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection SyntaxError */
 
 namespace cobra_salsa;
 
@@ -26,7 +26,7 @@ class ResumenQueuesClass
      *
      * @param PDO $pdo
      */
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
@@ -37,7 +37,7 @@ class ResumenQueuesClass
      * @param int $camp
      * @return QueuelistObject
      */
-    private function getMyQueue($capt, $camp)
+    private function getMyQueue(string $capt, int $camp): QueuelistObject
     {
         $query = "SELECT * 
         FROM queuelist 
@@ -60,7 +60,7 @@ class ResumenQueuesClass
      * @param $dictamen
      * @return string
      */
-    public function getStatusQueue($dictamen)
+    public function getStatusQueue($dictamen): string
     {
         $query = "SELECT queue 
         FROM dictamenes 
@@ -69,7 +69,7 @@ class ResumenQueuesClass
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':dictamen', $dictamen);
         $stq->execute();
-        $result = $stq->fetchColumn(0);
+        $result = $stq->fetchColumn();
         if ($result) {
             return $result;
         }
@@ -81,7 +81,7 @@ class ResumenQueuesClass
      * @param QueuelistObject $queue
      * @return QueuelistObject
      */
-    private function getQueueWithAccounts(QueuelistObject $queue)
+    private function getQueueWithAccounts(QueuelistObject $queue): QueuelistObject
     {
         $activeQueues = "CREATE TEMPORARY TABLE active
         SELECT distinct cliente, status_de_credito, status_aarsa 
@@ -114,7 +114,7 @@ LIMIT 1";
      * @param int $id_cuenta
      * @return string
      */
-    private function getQuickString(int $id_cuenta)
+    private function getQuickString(int $id_cuenta): string
     {
         $queryBase = "SELECT * FROM resumen WHERE id_cuenta = %u LIMIT 1";
         return sprintf($queryBase, $id_cuenta);
@@ -125,19 +125,20 @@ LIMIT 1";
      * @param QueuelistObject $queue
      * @return string
      */
-    private function getQueryString(QueuelistObject $queue)
+    private function getQueryString(QueuelistObject $queue): string
     {
         $clientStr = $queue->getClientString();
         $sdcStr = $queue->getSDCString();
         $crStr = $queue->getCrString();
+        $string = "%s";
 
         switch ($queue->status_aarsa) {
 
             case 'SIN GESTION':
-                $queryBase = "SELECT * FROM resumen 
-            WHERE locker is null %s %s 
-            AND ((status_aarsa='') or (status_aarsa is null)) 
-            ORDER BY saldo_total desc LIMIT 1";
+                $queryBase = "SELECT * FROM resumen " .
+            "WHERE locker is null " . $string . " " . $string .
+            "AND ((status_aarsa='') or (status_aarsa is null)) 
+            ORDER BY fecha_de_actualizacion LIMIT 1";
                 return sprintf($queryBase, $clientStr, $sdcStr);
 
             case 'INICIAL':
@@ -151,17 +152,18 @@ order by fecha_ultima_gestion  LIMIT 1";
                 return sprintf($queryBase, $queue->gestor);
 
             case 'ESPECIAL':
-                $queryBase = "SELECT * FROM resumen
-WHERE locker is null %s %s
-AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
+                $queryBase = "SELECT * FROM resumen" .
+"WHERE locker is null" .
+                     $string . " " . $string .
+"AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
 order by fecha_ultima_gestion  LIMIT 1";
                 return sprintf($queryBase, $clientStr, $sdcStr);
 
             default:
                 $queryBase = "SELECT resumen.* FROM resumen 
 join dictamenes on dictamen=status_aarsa 
-WHERE locker is null %s %s %s
-ORDER BY fecha_ultima_gestion LIMIT 1";
+WHERE locker is null ". $string . " " . $string . " " . $string .
+"ORDER BY fecha_ultima_gestion LIMIT 1";
                 return sprintf($queryBase, $clientStr, $sdcStr, $crStr);
         }
     }
@@ -172,7 +174,7 @@ ORDER BY fecha_ultima_gestion LIMIT 1";
      * @return ResumenObject
      * @throws Exception
      */
-    private function getAccount(string $sql)
+    private function getAccount(string $sql): ResumenObject
     {
         $stq = $this->pdo->prepare($sql);
         try {
