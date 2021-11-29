@@ -603,10 +603,12 @@ if ($notalert > 0) { ?>
                             echo $id_cuenta;
                         }
                         ?></span></td>
-                <?php if (!empty($folio)) { ?>
-                <td>Ultimo folio</td>
-                <td><span class="fakeInput"><?php echo $folio; ?>'/>
-        <?php } ?></span></td>
+                <td>Tipo cartera</td>
+                <td><span class="fakeInput"><?php
+                        if (isset($ciudad_referencia_4)) {
+                            echo $ciudad_referencia_4;
+                        }
+                        ?></span></td>
             </tr>
             <tr>
                 <td>Fecha de asignacion</td>
