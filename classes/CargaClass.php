@@ -44,7 +44,7 @@ class CargaClass
      *
      * @return string
      */
-    public function moveLoadedFile()
+    public function moveLoadedFile(): string
     {
         $destination = "/tmp/" . $_FILES['file']['name'];
         move_uploaded_file($_FILES["file"]["tmp_name"], $destination);
@@ -55,7 +55,7 @@ class CargaClass
      *
      * @return array
      */
-    public function getDBColumnNames()
+    public function getDBColumnNames(): array
     {
         $columnArray = array();
         $query = "SHOW COLUMNS FROM resumen";
@@ -99,9 +99,36 @@ class CargaClass
         $this->updateClientes();
         $this->updatePagos();
         $this->createLookupTable();
+
+        $countNew = $this->setFechaAsig();
+        echo $countNew . " completely new accounts added.";
     }
 
-    private function array_dup($ar){
+    /**
+     * @return int
+     * @throws Exception
+     */
+    private function setFechaAsig(): int
+    {
+        $query = "update resumen
+set fecha_de_asignacion=fecha_de_actualizacion
+where fecha_de_asignacion is null";
+        try {
+            $sti = $this->pdo->prepare($query);
+            $sti->execute();
+            return $sti->rowCount();
+
+        } catch (PDOException $Exception) {
+            throw new Exception($Exception->getMessage(), $Exception->getCode());
+        }
+    }
+
+    /**
+     * @param $ar
+     * @return array
+     */
+    private function array_dup($ar): array
+    {
         return array_unique(array_diff_assoc($ar,array_unique($ar)));
     }
 
@@ -109,7 +136,7 @@ class CargaClass
      *
      * @return ColumnObject[]
      */
-    public function getDBColumns()
+    public function getDBColumns(): array
     {
         $query = "SHOW COLUMNS FROM resumen";
         $stc = $this->pdo->query($query);
@@ -145,7 +172,7 @@ class CargaClass
      * @param array $row
      * @return array
      */
-    public function getDataColumnNames(array $row)
+    public function getDataColumnNames(array $row): array
     {
         $columnArray = array();
         foreach ($row as $columnName) {
@@ -205,7 +232,7 @@ class CargaClass
      * @return int
      * @throws Exception
      */
-    public function loadData(array $data, array $columnNames)
+    public function loadData(array $data, array $columnNames): int
     {
         $glue = ',';
         $list = implode($glue, $columnNames);
@@ -240,7 +267,7 @@ class CargaClass
      * @param array $columnNames
      * @return array
      */
-    public function prepareUpdate(array $columnNames)
+    public function prepareUpdate(array $columnNames): array
     {
         $output = array();
         foreach ($columnNames as $name) {
@@ -255,7 +282,7 @@ class CargaClass
      * @return int
      * @throws Exception
      */
-    public function updateResumen(array $fieldlist)
+    public function updateResumen(array $fieldlist): int
     {
         $fields = implode(',', $fieldlist);
         $query = "UPDATE IGNORE temp, resumen
@@ -277,7 +304,7 @@ class CargaClass
      * @return int
      * @throws Exception
      */
-    public function insertIntoResumen(array $fieldlist)
+    public function insertIntoResumen(array $fieldlist): int
     {
         $fields = implode(',', $fieldlist);
         $query = "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
@@ -378,7 +405,7 @@ from resumen;
      * @param string $cliente
      * @return int
      */
-    public function countCargadex(string $cliente)
+    public function countCargadex(string $cliente): int
     {
         $query = "select count(1) as cnt from cargadex where cliente = :cliente";
         $stc = $this->pdo->prepare($query);
@@ -398,8 +425,8 @@ from resumen;
         $data = [];
         try {
             $handle = fopen($filename, "r");
-            $header = fgetcsv($handle, 0, ",");
-            while ($row = fgetcsv($handle, 0, ",")) {
+            $header = fgetcsv($handle);
+            while ($row = fgetcsv($handle)) {
                 $data[] = $row;
             }
             fclose($handle);
@@ -423,8 +450,8 @@ from resumen;
         $data = [];
         try {
             $handle = fopen($filename, "r");
-            fgetcsv($handle, 0, ",");
-            while ($row = fgetcsv($handle, 0, ",")) {
+            fgetcsv($handle);
+            while ($row = fgetcsv($handle)) {
                 $data[] = $row;
             }
             fclose($handle);
