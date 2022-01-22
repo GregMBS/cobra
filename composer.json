@@ -11,7 +11,6 @@
         "php": ">=8.0",
         "ext-PDO": "*",
         "ext-fileinfo": "*",
-        "ext-http": "*",
         "ext-json": "*",
         "barryvdh/laravel-ide-helper": "*",
         "box/spout": "*",
