@@ -60,7 +60,7 @@
 <?php
 foreach ($rowt as $answert) {
     ?>
-                    <option value='<?php echo $answert['iniciales']; ?>'><?php echo $answert[0]; ?></option>
+                    <option value='<?php echo $answert['iniciales']; ?>'><?php echo $answert['iniciales']; ?></option>
                 <?php } ?>
             </SELECT></label><br>
             <label>Fecha<SELECT NAME="formDay">
