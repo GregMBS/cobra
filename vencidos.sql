@@ -55,7 +55,7 @@ where c_cont=id_cuenta
 update resumen,historia
 set status_aarsa = 'ACLARACION'
 where c_cont=id_cuenta
-  and c_cvst = 'ACLARACION'
+  and c_cvst IN ('ACLARACION', 'QUEJA CONDUSEF')
   and status_de_credito not regexp '-';
 # PAGO TOTAL - MULTIPLES PAGOS is forever
 update resumen,historia
