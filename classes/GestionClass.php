@@ -414,7 +414,7 @@ and id_cuenta = :c_cont";
     private function getBest(string $c_cvst, int $c_cont): string
     {
         $checkAclaracion = "SELECT count(1) at ct FROM historia 
-        WHERE c_cvst = 'ACLARACION'
+        WHERE c_cvst IN ('ACLARACION', 'QUEJA CONDUSEF')
         AND c_cont = :c_cont
         AND d_fech > (curdate() - interval 1 year)";
         $sta = $this->pdo->prepare($checkAclaracion);
