@@ -1,5 +1,5 @@
 <?php
-
+set_time_limit(300);
 use cobra_salsa\CargaClass;
 use cobra_salsa\PdoClass;
 
