@@ -9,7 +9,7 @@ $msg = 'CobraMas';
         $msg = 'COBRA';
         ?>
         <style>
-            body {text-align: center; background-color: #FCF5E5; width: 50em; color:#000000;}
+            body {text-align: center; background-color: #ebd5b3; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
             fieldset {width: 21em; background-color: #c0c0c0;}
         </style>
