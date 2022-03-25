@@ -1,11 +1,16 @@
 <?php
 
+use cobra_salsa\BigClass;
 use cobra_salsa\BigInputObject;
 use cobra_salsa\OutputClass;
 
 require_once __DIR__ . '/bigHead.php';
 require_once 'classes/BigInputObject.php';
 require_once 'classes/OutputClass.php';
+/**
+ * @var string $fecha2
+ * @var BigClass $bc
+ */
 $fecha3 = filter_input(INPUT_GET, 'fecha3');
 $fecha4 = filter_input(INPUT_GET, 'fecha4');
 $gestor = filter_input(INPUT_GET, 'gestor');

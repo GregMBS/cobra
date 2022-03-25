@@ -1,5 +1,15 @@
 <?php
+
+use cobra_salsa\CheckClass;
+
 require_once 'checkCommon.php';
+/**
+ * @var string $go
+ * @var string $gestor
+ * @var string $tipo
+ * @var string $CUENTA
+ * @var CheckClass $cc
+ */
 if ($go == 'ASIGNAR') {
     if ($tipo == 'id_cuenta') {
         $C_CONT = $CUENTA;

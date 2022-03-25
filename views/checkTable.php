@@ -1,3 +1,11 @@
+<?php
+/**
+ * @var VisitSheetObject[] $resultMain
+ */
+
+use cobra_salsa\VisitSheetObject;
+
+?>
 <table class="ui-widget">
     <thead class="ui-widget-header">
     <tr>

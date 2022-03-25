@@ -18,6 +18,15 @@ $QUEUES = explode(',', $QUEUE);
 if (!empty($go)) {
     if (is_array($QUEUES)) {
         list($cliente, $sdc, $status) = $QUEUES;
+        if ($go == 'INTRO TODOS') {
+            $qc->updateQueueAll($cliente, $sdc, $status);
+        }
+        if ($go == 'BLOQUEAR TODOS') {
+            $qc->blockQueueAll($cliente, $sdc, $status);
+        }
+        if ($go == 'DESBLOQUEAR TODOS') {
+            $qc->unblockQueueAll($cliente, $sdc, $status);
+        }
     }
     
 }
@@ -29,15 +38,6 @@ if ($go == 'BLOQUEAR') {
 }
 if ($go == 'DESBLOQUEAR') {
     $qc->unblockQueue($CAMP, $GESTOR);
-}
-if ($go == 'INTRO TODOS') {
-    $qc->updateQueueAll($cliente, $sdc, $status);
-}
-if ($go == 'BLOQUEAR TODOS') {
-    $qc->blockQueueAll($cliente, $sdc, $status);
-}
-if ($go == 'DESBLOQUEAR TODOS') {
-    $qc->unblockQueueAll($cliente, $sdc, $status);
 }
 
 $resultList = $qc->getGestores();

@@ -1,3 +1,15 @@
+<?php
+/**
+ * @var string $message
+ * @var string $gestor
+ * @var string $capt
+ * @var string $fechaout
+ * @var string $label
+ * @var array $result
+ * @var array $resultd
+ * @var array $resultcount
+ */
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

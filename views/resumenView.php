@@ -280,8 +280,8 @@ if ($notalert > 0) { ?>
                         </label><br>
                         <?php
                         $campoColor = " style='background-color:red; color:white;'";
-                        $numGests = $resultNumGests['cng'] or 0;
-                        $numProms = $resultNumProm['cnp'] or 0;
+                        $numGests = $resultNumGests['cng'];
+                        $numProms = $resultNumProm['cnp'];
 
                         if ($numGests > 20) {
                             $campoColor = " style='background-color:yellow; color:black;'";

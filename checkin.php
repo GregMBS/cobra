@@ -1,5 +1,13 @@
 <?php
+
+use cobra_salsa\CheckClass;
+
 require_once 'checkCommon.php';
+/**
+ * @var string $go
+ * @var string $tipo
+ * @var CheckClass $cc
+ */
 if ($go == 'RECIBIR') {
     if (!empty($CUENTA)) {
         $cc->updateVasign($tipo, $CUENTA);

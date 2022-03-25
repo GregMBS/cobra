@@ -8,15 +8,15 @@ $msg = 'CobraMas';
         <?php
         $msg = 'COBRA';
         ?>
-        <style type="text/css">
-            body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
+        <style>
+            body {text-align: center; background-color: #FCF5E5; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
             fieldset {width: 21em; background-color: #c0c0c0;}
         </style>
     </head>
     <body>
         <h1><?php echo $msg; ?></h1>
-        <em>versi&oacute;n configurado para RIBEMI</em>
+        <em>versi&oacute;n configurado para RBM</em>
         <div class="forma">
             <form action="/index.php" method="post" autocomplete="off">
                 <fieldset>
@@ -36,7 +36,7 @@ $msg = 'CobraMas';
         </div>
         <p>&nbsp;</p>
         <a href="/licencia.txt">
-            <cite>&copy;Gregory Miles Blumenthal Scharf 2020</cite>
+            <cite>&copy;GMBS Consulting 2022</cite>
         </a>
     </body>
 </html>
