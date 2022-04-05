@@ -280,8 +280,8 @@ if ($notalert > 0) { ?>
                         </label><br>
                         <?php
                         $campoColor = " style='background-color:red; color:white;'";
-                        $numGests = $resultNumGests['cng'] or 0;
-                        $numProms = $resultNumProm['cnp'] or 0;
+                        $numGests = $resultNumGests['cng'];
+                        $numProms = $resultNumProm['cnp'];
 
                         if ($numGests > 20) {
                             $campoColor = " style='background-color:yellow; color:black;'";
@@ -607,6 +607,12 @@ if ($notalert > 0) { ?>
                 <td><span class="fakeInput"><?php
                         if (isset($ciudad_referencia_4)) {
                             echo $ciudad_referencia_4;
+                        }
+                        ?></span></td>
+                <td>Ma&ntilde;anera</td>
+                <td><span class="fakeInput"><?php
+                        if (isset($plazo)) {
+                            echo $plazo;
                         }
                         ?></span></td>
             </tr>
