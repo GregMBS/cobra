@@ -8,7 +8,14 @@ $msg = 'CobraMas';
         <?php
         $msg = 'COBRA';
         ?>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="/manifest.json">
+
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="application-name" content="COBRA">
+        <meta name="apple-mobile-web-app-title" content="COBRA">
+        <meta name="msapplication-starturl" content="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <style>
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
