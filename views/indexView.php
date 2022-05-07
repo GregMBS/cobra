@@ -18,7 +18,7 @@ $msg = 'CobraMas';
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <style>
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
-            div.forma {margin-left:5.5cm; font-weight: bold;}
+            div.forma {margin-left:5.5cm; font-weight: bold; font-size: large}
             fieldset {width: 21em; background-color: #c0c0c0;}
             fieldset div {margin: 1em}
         </style>
