@@ -13,6 +13,7 @@ $msg = 'CobraMas';
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
             fieldset {width: 21em; background-color: #c0c0c0;}
+            fieldset div {margin: 1em}
         </style>
     </head>
     <body>
@@ -37,7 +38,7 @@ $msg = 'CobraMas';
         </div>
         <p>&nbsp;</p>
         <a href="/licencia.txt">
-            <cite>&copy;Gregory Miles Blumenthal Scharf 2020</cite>
+            <cite>&copy;Gregory Miles Blumenthal Scharf 2022</cite>
         </a>
     </body>
 </html>
