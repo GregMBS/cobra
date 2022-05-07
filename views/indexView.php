@@ -8,7 +8,8 @@ $msg = 'CobraMas';
         <?php
         $msg = 'COBRA';
         ?>
-        <style type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
             body {text-align: center; background-color: #ffffff; width: 50em; color:#000000;}
             div.forma {margin-left:5.5cm; font-weight: bold;}
             fieldset {width: 21em; background-color: #c0c0c0;}
