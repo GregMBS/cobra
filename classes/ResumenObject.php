@@ -104,7 +104,7 @@ class ResumenObject
      * @var int
      */
     public $id_cuenta;
-    public $nss;
+    public $nss = '';
     public $rfc_deudor;
     public $telefonos_marcados;
     public $tel_1_verif;

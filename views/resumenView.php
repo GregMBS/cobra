@@ -1,7 +1,66 @@
 <?php
 /**
  * @var string[] $clientes
+ * @var BadNoObject $resultBN
+ * @var ResumenClass $rc
+ * @var array $row
+ * @var array $resultFilter
+ * @var array $resultNumGests
+ * @var array $resultNumProm
+ * @var array $resultAccion
+ * @var array $resultCnp
+ * @var array $resultDictamen
+ * @var array $resultGestor
+ * @var array $resultMotiv
+ * @var array $resultAccionV
+ * @var array $resultCnpV
+ * @var array $resultDictamenV
+ * @var array $resultGestorV
+ * @var array $resultMotivV
+ * @var string $capt
+ * @var string $mytipo
+ * @var int $id_cuenta
+ * @var int $gestiones
+ * @var int $promesas
+ * @var int $pagos
+ * @var int $flag
+ * @var string $go
+ * @var string $cliente
+ * @var string $sdc
+ * @var string $currentQueue
+ * @var string $domicilio_deudor
+ * @var string $colonia_deudor
+ * @var string $ciudad_deudor
+ * @var string $estado_deudor
+ * @var string $cp_deudor
+ * @var string $colonia_deudor_alterno
+ * @var string $ciudad_deudor_alterno
+ * @var string $estado_deudor_alterno
+ * @var string $colonia_deudor_alterno_2a
+ * @var string $ciudad_deudor_alterno_2a
+ * @var string $estado_deudor_alterno_2a
+ * @var string $nombre_referencia_1
+ * @var string $nombre_referencia_2
+ * @var string $nombre_referencia_3
+ * @var string $nombre_referencia_4
+ * @var string $empresa
+ * @var string $producto
+ * @var string $CD
+ * @var string $nss
+ * @var string $CUANDO
+ * @var string $tl
+ * @var string $flagmsg
+ * @var float $saldo_descuento_1
+ * @var float $saldo_descuento_2
+ * @var float $saldo_total
+ * @var float $saldo_vencido
+ * @var float $gastos_de_cobranza
+ * @var float $monto_adeudado
  */
+
+use cobra_salsa\BadNoObject;
+use cobra_salsa\ResumenClass;
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,6 +130,10 @@ if ($notalert > 0) { ?>
         <input type="hidden" name="capt" value="<?php echo $capt ?>">
         <input type="submit" name="go" value="PROMESAS"></form>
     <?php
+    /**
+     * @var boolean $hasPic
+     * @var string $picFile
+     */
     if ($hasPic) { ?>
         <form action="<?php echo $picFile; ?>" target="_blank">
             <input type="submit" value="Foto">
@@ -255,8 +318,8 @@ if ($notalert > 0) { ?>
                         ?></span><br>
                     <span class='formCapa'>Numero de cuenta</span>
                     <span class="fakeInput"><?php
-                        if (isset($numero_de_cuenta)) {
-                            echo $numero_de_cuenta;
+                        if (isset($numero_de_credito)) {
+                            echo $numero_de_credito;
                         }
                         ?></span><br>
                     <span class='formCapa'>Status de cuenta</span>
@@ -280,8 +343,8 @@ if ($notalert > 0) { ?>
                         </label><br>
                         <?php
                         $campoColor = " style='background-color:red; color:white;'";
-                        $numGests = $resultNumGests['cng'] or 0;
-                        $numProms = $resultNumProm['cnp'] or 0;
+                        $numGests = $resultNumGests['cng'];
+                        $numProms = $resultNumProm['cnp'];
 
                         if ($numGests > 20) {
                             $campoColor = " style='background-color:yellow; color:black;'";
@@ -591,10 +654,10 @@ if ($notalert > 0) { ?>
     <div id="CONTABLES">
         <table>
             <tr>
-                <td>Numero de credito</td>
+                <td>Numero de paqueta</td>
                 <td><span class="fakeInput"><?php
-                        if (isset($numero_de_credito)) {
-                            echo $numero_de_credito;
+                        if (isset($numero_de_cuenta)) {
+                            echo $numero_de_cuenta;
                         }
                         ?></span></td>
                 <td>ID cuenta</td>
@@ -840,8 +903,8 @@ if ($notalert > 0) { ?>
         <label>Buscar a: <input type=
                                 "text" name="find" id="find"></label>
         <label>en <select name="field">
-                <option value="numero_de_cuenta">Cuenta</option>
-                <option value="numero_de_credito"># del Grupo</option>
+                <option value="numero_de_credito">Cuenta</option>
+                <option value="numero_de_cuenta"># del paquete</option>
                 <option value="nombre_deudor">Nombre</option>
                 <option value="domicilio_deudor">Direcci&oacute;n</option>
                 <option value="TELS">Telefonos</option>
@@ -1242,9 +1305,6 @@ if ($notalert > 0) { ?>
                     <tr class="<?php echo $rc->highlight($stat, $visit); ?>"><?php
                         for ($k = 0; $k < 5; $k++) {
                             $anku = utf8_encode($answer[$k]);
-                            if (is_null($anku)) {
-                                $anku = "&nbsp;";
-                            }
                             $ank = str_replace('00:00:00',
                                 '', $anku);
                             $jsCode = '';
@@ -1263,10 +1323,7 @@ if ($notalert > 0) { ?>
                             echo ' class="' . $fieldsize[$k] . '"' . $jsCode;
                             ?>>
                                 <?php
-                                if (isset($ank)) {
-                                    echo htmlentities($ank,
-                                        ENT_QUOTES, "UTF-8");
-                                }
+                                echo htmlentities($ank,ENT_QUOTES, "UTF-8");
                                 ?>
                             </td>
                             <?php
@@ -1702,12 +1759,12 @@ if ($notalert > 0) { ?>
     openSearch('<?php echo $tl; ?>');
     <?php
     $pagingBase = "paging('HISTORIA', %u, '%s', '%s');";
-    $pagingString = sprintf($pagingBase, $flag, $flagmsg, $row->numero_de_cuenta);
+    $pagingString = sprintf($pagingBase, $flag, $flagmsg, $row->numero_de_credito);
     echo $pagingString;
     ?>
     document.getElementById("capturaForm").addEventListener("submit", function (event) {
         return validate_form2(this, event,<?php
-            echo $saldo_descuento_2 + 0;
+            echo $saldo_descuento_2;
             ?>,<?php
             if (empty($AUTH)) {
                 $AUTH = '';
@@ -1721,7 +1778,7 @@ if ($notalert > 0) { ?>
     });
     document.getElementById("gestionForm").addEventListener("submit", function (event) {
         let result = validate_form(this, event,<?php
-            echo $saldo_descuento_2 + 0;
+            echo $saldo_descuento_2;
             ?>,<?php
             if (empty($AUTH)) {
                 $AUTH = '';

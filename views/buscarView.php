@@ -60,8 +60,8 @@ use cobra_salsa\ResumenObject;
             <form name="search" method="get" action="/buscar.php" id="search">
                 <label>Buscar a: <input type="text" name="find"></label>
                 <label> en <select name="field">
-                    <option value="numero_de_cuenta">Cuenta</option>
-                    <option value="numero_de_credito"># del Grupo</option>
+                    <option value="numero_de_credito">Cuenta</option>
+                    <option value="numero_de_cuenta"># del paquete</option>
                     <option value="nombre_deudor">Nombre</option>
                     <option value="domicilio_deudor">Dirección</option>
                     <option value="TELS">Telefonos</option>
