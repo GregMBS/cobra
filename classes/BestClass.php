@@ -17,7 +17,7 @@ class BestClass extends BaseClass
 {
 
     /**
-     * @return false|\PDOStatement
+     * @return false|array
      */
     public function getResumenData() {
         $query = "select ejecutivo_asignado_call_center, numero_de_cuenta, nombre_deudor, cliente, status_de_credito, 
@@ -28,7 +28,8 @@ class BestClass extends BaseClass
         order by numero_de_cuenta";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        return $stq;
+        $data = $stq->fetchObject('ResumenObject');
+        return $data;
     }
 
     /**

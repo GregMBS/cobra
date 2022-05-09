@@ -5,6 +5,7 @@
 .buildpath
 .project
 .idea/cobra_ribemi.iml
+.idea/cobra_rbm.iml
 .idea/codeStyles/
 .idea/dataSources.local.xml
 .idea/dataSources.xml

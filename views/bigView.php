@@ -3,6 +3,7 @@
  * @var string $title
  * @var string[] $gestores
  * @var string[] $clientes
+ * @var string $flag
  */
 ?>
 <!DOCTYPE html>

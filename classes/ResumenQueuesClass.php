@@ -1,4 +1,4 @@
-<?php /** @noinspection SyntaxError */
+<?php
 
 namespace cobra_salsa;
 
