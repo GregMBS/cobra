@@ -46,8 +46,14 @@ require_once __DIR__ . '/../classes/TimesheetDayObject.php';
     $nombre = 'TOTAL';
     /** @var TimesheetDayObject[] $month */
     $month = $sheet[$nombre];
+    if (empty($month)) {
+        $month = array();
+    }
     /** @var TimesheetDayObject $monthSum */
     $monthSum = $sum[$nombre];
+    if (empty($monthSum)) {
+        $monthSum = array();
+    }
     ?>
     <table class="ui-widget">
         <thead class="ui-widget-header">

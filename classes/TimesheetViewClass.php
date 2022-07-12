@@ -96,7 +96,7 @@ class TimesheetViewClass
      * @param string $link
      * @return string
      */
-    public function countRow(string $label, array $month, TimesheetDayObject $sum, string $field, string $gestor, string $capt, string $link = '')
+    public function countRow(string $label, array $month, TimesheetDayObject $sum, string $field, string $gestor, string $capt, string $link = ''): string
     {
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
