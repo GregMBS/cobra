@@ -10,27 +10,27 @@ abstract class TimesheetClass
     /**
      * @var PDO $pdo
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var string
      */
-    protected $queryStartStopDiff;
+    protected string $queryStartStopDiff;
 
     /**
      * @var string
      */
-    protected $queryTiempoDiff;
+    protected string $queryTiempoDiff;
 
     /**
      * @var string
      */
-    protected $queryNTPDiff;
+    protected string $queryNTPDiff;
 
     /**
      * @var string
      */
-    protected $queryCountVisitadorDays;
+    protected string $queryCountVisitadorDays;
 
     public function __construct($pdo)
     {
@@ -109,6 +109,9 @@ abstract class TimesheetClass
     public function getTiempoDiff($gestor, $dom, $tipo)
     {
         $query = $this->queryTiempoDiff;
+        if (!$query) {
+            return array();
+        }
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $gestor);
         $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
