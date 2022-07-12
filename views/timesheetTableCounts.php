@@ -7,6 +7,9 @@ require_once __DIR__ . '/../classes/TimesheetDayObject.php';
  * @var TimesheetDayObject $monthSum
  * @var array $month
  */
+if (!$month) {
+    $month = array();
+}
 echo $tv->countRow('GESTIONES', $month, $monthSum, 'tlla', $nombre, $capt, 'ddh');
 echo $tv->countRow('CUENTAS', $month, $monthSum, 'lla', $nombre, $capt, 'ddh');
 echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $nombre, $capt, '');
