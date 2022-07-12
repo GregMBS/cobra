@@ -30,7 +30,6 @@ class ResumenClass {
 from notas 
 where c_cvge = :capt 
 AND borrado=0 
-and fecha<>'0000-00-00'
 AND concat_ws(' ',fecha,hora)<now()
 ORDER BY fecha, hora LIMIT 1";
 
