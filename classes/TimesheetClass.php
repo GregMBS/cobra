@@ -304,12 +304,12 @@ abstract class TimesheetClass
         $month = [];
         for ($i = 1; $i <= $hoy; $i++) {
             $day = new TimesheetDayObject();
-            $resultStartStop = $this->getCurrentMain($gestor, $i);
-            foreach ($resultStartStop as $answerStartStop) {
-                $this->breakLoop($gestor, $i, $day, 'break');
-                $this->breakLoop($gestor, $i, $day, 'bano');
-                $this->loadDay($gestor, $i, $answerStartStop, $day);
-            }
+            //$resultStartStop = $this->getCurrentMain($gestor, $i);
+            //foreach ($resultStartStop as $answerStartStop) {
+                //$this->breakLoop($gestor, $i, $day, 'break');
+                //$this->breakLoop($gestor, $i, $day, 'bano');
+                //$this->loadDay($gestor, $i, $answerStartStop, $day);
+            //}
             $month[$i] = $day;
         }
         return $month;
