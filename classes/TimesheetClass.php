@@ -10,27 +10,27 @@ abstract class TimesheetClass
     /**
      * @var PDO $pdo
      */
-    protected PDO $pdo;
+    protected $pdo;
 
     /**
      * @var string
      */
-    protected string $queryStartStopDiff;
+    protected $queryStartStopDiff;
 
     /**
      * @var string
      */
-    protected string $queryTiempoDiff;
+    protected $queryTiempoDiff;
 
     /**
      * @var string
      */
-    protected string $queryNTPDiff;
+    protected $queryNTPDiff;
 
     /**
      * @var string
      */
-    protected string $queryCountVisitadorDays;
+    protected $queryCountVisitadorDays;
 
     public function __construct($pdo)
     {
