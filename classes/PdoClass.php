@@ -67,7 +67,7 @@ class PdoClass {
      *
      * @var string
      */
-    public $tipo;
+    public $tipo = '';
 
     /**
      *
@@ -106,13 +106,14 @@ class PdoClass {
         if ($count[0] != 1) {
             $redirector = 'Location: index.php';
             header($redirector);
+        } else {
+	    $stt = $this->pdo->prepare($this->queryTipo);
+            $stt->bindParam(':ticket', $ticket);
+            $stt->bindParam(':capt', $capt);
+            $stt->execute();
+            $tipo = $stt->fetch();
+            $this->tipo = $tipo['tipo'];
         }
-        $stt = $this->pdo->prepare($this->queryTipo);
-        $stt->bindParam(':ticket', $ticket);
-        $stt->bindParam(':capt', $capt);
-        $stt->execute();
-        $tipo = $stt->fetch();
-        $this->tipo = $tipo['tipo'];
         return $this->pdo;
     }
 
