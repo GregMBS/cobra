@@ -1,4 +1,4 @@
-<?php /** @noinspection SyntaxError */
+<?php
 
 namespace cobra_salsa;
 
@@ -152,7 +152,7 @@ order by fecha_ultima_gestion  LIMIT 1";
                 return sprintf($queryBase, $queue->gestor);
 
             case 'ESPECIAL':
-                $queryBase = "SELECT * FROM resumen" .
+                $queryBase = "SELECT * FROM resumen " .
 "WHERE locker is null" .
                      $string . " " . $string .
 "AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day

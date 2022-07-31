@@ -1,5 +1,8 @@
 <?php
 
+/** @var BigClass $bc */
+
+use cobra_salsa\BigClass;
 use cobra_salsa\BigInputObject;
 use cobra_salsa\OutputClass;
 
@@ -13,6 +16,7 @@ $cliente = filter_input(INPUT_GET, 'cliente');
 $tipo = filter_input(INPUT_GET, 'tipo');
 $go = filter_input(INPUT_GET, 'go');
 if (!empty($fecha1)) {
+    /** @var string $fecha2 */
     $bio = new BigInputObject($fecha1, $fecha2, $gestor, $cliente, $fecha3, $fecha4, $tipo);
     $result = $bc->getGestiones($bio);
     if ($result) {

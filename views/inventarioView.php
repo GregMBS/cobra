@@ -8,7 +8,7 @@
     <head>
         <title>Query del Inventario</title>
 
-        <style type="text/css">
+        <style>
             body {font-family: arial, helvetica, sans-serif; font-size: 8pt; }
             table {border: 1pt solid #000000;background-color: #c0c0c0;}
             tr:hover {background-color: #ff0000;}

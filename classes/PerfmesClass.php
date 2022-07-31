@@ -20,14 +20,14 @@ class PerfmesClass extends TimesheetClass
             and d_fech<=last_day(curdate() - interval 1 month)
 	    order by iniciales';
 
-    protected string $queryCountVisitadorDays = "select sum(fs) as sfs,sum(ss) as sss from
+    protected $queryCountVisitadorDays = "select sum(fs) as sfs,sum(ss) as sss from
 (select distinct d_fech,dayofweek(d_fech)>1 and day(d_fech)<16 as fs,
 dayofweek(d_fech)>1 and day(d_fech)>15 as ss from historia
 where d_fech>last_day(curdate()-interval 2 month)
 and d_fech<=last_day(curdate()-interval 1 month)
 ) as tmp";
 
-    protected string $queryStartStopDiff = "select min(C_HRIN) as start, max(C_HRFI) as stop,
+    protected $queryStartStopDiff = "select min(C_HRIN) as start, max(C_HRFI) as stop,
             time_to_sec(timediff(max(C_HRFI),min(C_HRIN))) as diff
             from historia
             where c_cvge=:gestor and c_msge is null
@@ -47,7 +47,7 @@ and d_fech<=last_day(curdate()-interval 1 month)
             and D_FECH=last_day(curdate() - interval 2 month) + interval :dom day
             group by D_FECH";
 
-    protected string $queryTiempoDiff = "select c_hrin as tiempo,
+    protected $queryTiempoDiff = "select c_hrin as tiempo,
             time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as diff
             from historia
             where c_cont=0 and c_cvge=:gestor
@@ -55,7 +55,7 @@ and d_fech<=last_day(curdate()-interval 1 month)
             and c_cvst=:tipo
             order by c_cvge,c_cvst,c_hrin";
 
-    protected string $queryNTPDiff = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as diff,
+    protected $queryNTPDiff = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as diff,
             min(c_hrin) as ntp
             from historia
             where c_cvge = :gestor

@@ -52,6 +52,8 @@
         echo $ejecutivo_asignado_call_center;
     }
     ?>">
-    <input type="hidden" name="oldGo" readonly="readonly" value="<?php echo $go; ?>">
+    <input type="hidden" name="oldGo" readonly="readonly" value="<?php
+    /** @var string $go */
+    echo $go; ?>">
 </div>
 

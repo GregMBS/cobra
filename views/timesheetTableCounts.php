@@ -1,11 +1,15 @@
 <?php
 use cobra_salsa\TimesheetDayObject;
+use cobra_salsa\TimesheetViewClass;
 
 require_once __DIR__ . '/../classes/TimesheetDayObject.php';
 
 /**
  * @var TimesheetDayObject $monthSum
+ * @var TimesheetViewClass $tv
  * @var array $month
+ * @var string $nombre
+ * @var string $capt
  */
 if (!$month) {
     $month = array();

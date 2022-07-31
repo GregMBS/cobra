@@ -66,7 +66,7 @@ if (isset($report)) {
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
 <script>
-    // Attach a submit handler to the form
+    // Attach submit handler to the form
     $(".change").submit(function (event) {
 
         // Stop form from submitting normally

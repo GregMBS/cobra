@@ -1,6 +1,7 @@
 <?php
 /**
  * @var string $title
+ * @var string $flag
  * @var string[] $gestores
  * @var string[] $clientes
  */

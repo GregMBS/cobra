@@ -8,7 +8,7 @@
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" type="text/javascript"></script>
-        <style type="text/css">
+        <style>
             tr:hover {background-color: #ff0000;}
         </style>
     </head>

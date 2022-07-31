@@ -13,6 +13,7 @@ require_once __DIR__ . '/timesheetHead.php';
         <select name='gestor' id="selectGestor">
             <?php
             $day_esp = ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
+            /** @var array $gestores */
             foreach ($gestores as $answerNombre) {
             $gestor = $answerNombre['c_cvge'];
                 ?>
