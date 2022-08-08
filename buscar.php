@@ -23,6 +23,10 @@ if (filter_has_var(INPUT_GET, 'C_CONT')) {
 }
 $CLIENTE = filter_input(INPUT_GET, 'cliente');
 /** @var ResumenObject $result */
-$result = $bc->searchAccounts($field, $find, $CLIENTE);
+if (empty($find)) {
+    $result = new ResumenObject();
+} else {
+    $result = $bc->searchAccounts($field, $find, $CLIENTE);
+}
 $clientes = $bc->listClients();
 require_once 'views/buscarView.php';
