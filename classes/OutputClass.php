@@ -10,6 +10,8 @@ namespace cobra_salsa;
 
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Exception;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -51,7 +53,7 @@ class OutputClass
     public function writeXLSXFile($filename, $array, $headers = [])
     {
         try {
-            $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
+/*            $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
             $writer->openToBrowser($filename); // stream data directly to the browser
             if (count($headers) > 0) {
                 $rowHead = WriterEntityFactory::createRowFromArray($headers);
@@ -61,7 +63,19 @@ class OutputClass
                 $row = WriterEntityFactory::createRowFromArray($rowData);
                 $writer->addRow($row);
             }
-            $writer->close();
+            $writer->close();*/
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $start = 'A1';
+            if (count($headers) > 0) {
+                $sheet->fromArray($headers, NULL, $start);
+                $start = 'B1';
+            }
+            $row = $sheet->getHighestRow()+1;
+            $sheet->insertNewRowBefore($row);
+            $sheet->fromArray($array,NULL,$start);
+            $writer = new Xlsx($spreadsheet);
+            $writer->save($filename);
         } catch (Exception $e) {
             throw new Exception($e);
         }
