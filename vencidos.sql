@@ -91,13 +91,13 @@ WHERE
         AND status_de_credito NOT REGEXP '-'
         and fecha>fecha_de_actualizacion;
 # Clear cellphone queue
-delete FROM cobramaster.callme where tiempo<curdate();
+# delete FROM cobramaster.callme where tiempo<curdate();
 # PROMESA HOY IS HOY
-UPDATE cobramaster.resumen set status_aarsa='PROMESA HOY' 
-where id_cuenta not in (select c_cont from cobramaster.historia where n_prom>0 
+UPDATE resumen set status_aarsa='PROMESA HOY' 
+where id_cuenta not in (select c_cont from historia where n_prom>0 
 and status_aarsa not in ('PAGO TOTAL', 'PAGO TOTAL - MULTIPLES PAGOS')
 and d_prom>curdate()) 
-and id_cuenta in (select c_cont from cobramaster.historia where n_prom>0 
+and id_cuenta in (select c_cont from historia where n_prom>0 
 and d_prom=curdate()) 
 and fecha_de_ultimo_pago>last_day(curdate()-interval 1 month);
 # Reset queue MANUAL

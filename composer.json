@@ -9,15 +9,9 @@
 		"ext-pdo": "*",
 		"ext-mysqli": "*",
 		"ext-json": "*",
-		"ext-calendar": "*",
-        "phpoffice/phpspreadsheet": "^1.24.1"
-    },
+		"ext-calendar": "*"
+	},
 	"require-dev": {
 		"phpunit/phpunit": "9.2.6"
-	},
-	"config": {
-		"platform": {
-			"php": "7.4"
-		}
 	}
 }
