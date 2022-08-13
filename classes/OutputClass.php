@@ -8,7 +8,7 @@
 
 namespace cobra_salsa;
 
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use Exception;
 
 require_once __DIR__ . '/../vendor/autoload.php';
