@@ -5,7 +5,6 @@
 		}
 	},
 	"require": {
-		"box/spout": "*",
 		"openspout/openspout": "3.*",
 		"ext-pdo": "*",
 		"ext-mysqli": "*",
