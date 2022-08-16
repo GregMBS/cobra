@@ -38,7 +38,7 @@ $cc = new CargaClass($pdo);
 </form>
 <?php
 $go = '';
-if (array_key_exists('go', $post) {
+if (array_key_exists('go', $post)) {
    $go = $post['go'];
 }
 switch ($go) {
