@@ -299,7 +299,7 @@ if ($notalert > 0) { ?>
                             <?php
                             if ($cliente == 'FAMSA') {
                                 ?>
-                                Referencia PAYCASH
+                                Referencias OXXO/PAYCASH
                                 <?php
                             }
                             if ($cliente == 'Banco Azteca') {
