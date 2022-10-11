@@ -361,7 +361,7 @@ AND c_cont <> 0
      * @return array
      */
     public function getQueueList($capt) {
-        $query = "SELECT cliente,sdc,queue FROM queuelist 
+        $query = "SELECT cliente,sdc,status_aarsa as 'queue' FROM queuelist 
 WHERE gestor = :capt 
 ORDER BY cliente,sdc,queue";
         $stf = $this->pdo->prepare($query);

@@ -24,6 +24,12 @@ class PdoClass {
      *
      * @var string
      */
+    protected $host = 'localhost';
+
+    /**
+     *
+     * @var string
+     */
     protected $db = 'cobraribemi';
 
     /**
@@ -79,7 +85,7 @@ class PdoClass {
     public function __construct() {
         $config = new ConfigObject();
         $this->db = $config->dbName;
-        $this->dsn = 'mysql:dbname=' . $this->db . ';host=localhost';
+        $this->dsn = 'mysql:dbname=' . $this->db . ';host=' . $this->host;
         $this->pdo = new PDO($this->dsn, $this->username, $this->passwd);
     }
 

@@ -12,6 +12,6 @@
 		"ext-calendar": "*"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "9.2.6"
+		"phpunit/phpunit": "*"
 	}
 }

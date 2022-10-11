@@ -41,8 +41,7 @@ FROM userlog
 left join resumen on locker=userlog.gestor
 left JOIN nombres ON userlog.gestor=iniciales
 LEFT JOIN queuelist ON nombres.camp=queuelist.camp and locker=userlog.gestor
-WHERE userlog.gestor IS NOT NULL
-and fechahora>curdate()";
+WHERE fechahora>curdate()";
     protected $createLogins         = "create temporary table logins
 select c_cvge,min(c_hrin) as tlog from historia
 where d_fech=curdate()

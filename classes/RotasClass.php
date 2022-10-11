@@ -14,7 +14,8 @@ require_once __DIR__ . '/ResumenObject.php';
 class RotasClass
 {
     protected $pdo;
-    protected $queryRotas = "select c_cont,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
+    protected $queryRotas = /** @lang text */
+        "select c_cont,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
     max(d_prom1) as dp1, max(n_prom1) as np1, 
     max(d_prom2) as dp2, max(n_prom2) as np2, 
     max(d_prom3) as dp3, max(n_prom3) as np3, 
