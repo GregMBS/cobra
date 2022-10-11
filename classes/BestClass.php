@@ -51,7 +51,7 @@ class BestClass extends BaseClass
         from historia
 join dictamenes on c_cvst = dictamen
 where c_cont = :c_cont
-order by v_cc, d_fech desc limit 1";
+order by v_cc asc, d_fech desc limit 1";
         return $this->getHistoria($query, $c_cont);
     }
     
