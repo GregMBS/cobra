@@ -24,8 +24,7 @@ class BestClass extends BaseClass
         id_cuenta, saldo_total, saldo_descuento_1, saldo_descuento_2, date(fecha_ultima_gestion) as fecha_ultima, 
         time(fecha_ultima_gestion) as hora_ultima, 
         producto, subproducto, status_aarsa, tel_1, tel_2, fecha_de_ultimo_pago, monto_ultimo_pago from resumen
-        where status_de_credito not regexp '-'
-        order by numero_de_cuenta";
+        where status_de_credito not regexp '-'";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
         return $stq;
@@ -52,7 +51,7 @@ class BestClass extends BaseClass
         from historia
 join dictamenes on c_cvst = dictamen
 where c_cont = :c_cont
-order by v_cc asc, d_fech desc limit 1";
+order by v_cc, d_fech desc limit 1";
         return $this->getHistoria($query, $c_cont);
     }
     
