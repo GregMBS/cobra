@@ -39,8 +39,9 @@ $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
 $stq = $bc->getResumenData();
-$result = $stq->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
-foreach ($result as $row) {
+//$result = $stq->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
+//foreach ($result as $row) {
+while ($row = $stq->fetchObject( ResumenObject::class)) {
     $array = (array) $row;
     $aData = array();
     foreach ($fields as $field) {

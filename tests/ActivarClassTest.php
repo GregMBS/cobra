@@ -1,10 +1,9 @@
 <?php
 
 use cobra_salsa\ActivarClass;
-use cobra_salsa\PdoClass;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/ActivarClass.php';
 
 class ActivarClassTest extends TestCase

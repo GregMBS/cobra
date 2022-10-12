@@ -3,10 +3,9 @@
 
 use cobra_salsa\BigClass;
 use cobra_salsa\BigInputObject;
-use cobra_salsa\PdoClass;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/BigClass.php';
 require_once __DIR__ . '/../classes/BigInputObject.php';
 
