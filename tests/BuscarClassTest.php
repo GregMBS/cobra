@@ -2,11 +2,10 @@
 
 
 use cobra_salsa\BuscarClass;
-use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenObject;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/BuscarClass.php';
 require_once __DIR__ . '/../classes/ResumenObject.php';
 

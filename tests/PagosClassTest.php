@@ -4,11 +4,10 @@
 use cobra_salsa\PagosClass;
 use cobra_salsa\PagosObject;
 use cobra_salsa\PagosQueryObject;
-use cobra_salsa\PdoClass;
 use cobra_salsa\ResumenObject;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/PagosClass.php';
 require_once __DIR__ . '/../classes/PagosObject.php';
 require_once __DIR__ . '/../classes/PagosQueryObject.php';
@@ -62,8 +61,10 @@ class PagosClassTest extends TestCase
             'sm',
             'smc'
         ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if ($first) {
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        }
     }
 
     public function testDetailsThisMonth()
@@ -94,8 +95,10 @@ class PagosClassTest extends TestCase
             'sm',
             'smc'
         ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if ($first) {
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        }
     }
 
     public function testListPagos()
@@ -140,11 +143,13 @@ class PagosClassTest extends TestCase
         $report = $this->cc->queryOldSheet();
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertIsArray($first);
-        $keys = array_keys((array) $first);
-        $expected = (array) new PagosQueryObject();
-        $expectedKeys = array_keys($expected);
-        $this->assertEquals($expectedKeys, $keys);
+        if ($first) {
+            $this->assertIsArray($first);
+            $keys = array_keys((array)$first);
+            $expected = (array)new PagosQueryObject();
+            $expectedKeys = array_keys($expected);
+            $this->assertEquals($expectedKeys, $keys);
+        }
     }
 
     public function testSummaryThisMonth()
@@ -175,8 +180,10 @@ class PagosClassTest extends TestCase
             'sm',
             'smc'
         ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if ($first) {
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        }
     }
 
     public function testGetCuentaClienteFromID()

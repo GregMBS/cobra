@@ -59,9 +59,7 @@
                 <div style='float:left;width:40%'>
                     <?php
                     $myQueue = $qc->getMyQueue($rowList->INICIALES);
-                    if (is_a($myQueue,'QueuelistObject::class')) {
-                        echo $myQueue->cliente . '-' . $myQueue->sdc . '-' . $myQueue->status_aarsa;
-                    }
+                    echo $myQueue->cliente . '-' . $myQueue->sdc . '-' . $myQueue->status_aarsa;
                     ?>
                     <br><label>
                         <select name='camp'>

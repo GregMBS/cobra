@@ -53,7 +53,7 @@ class StatusClass extends ConfigObject
     public function getTables()
     {
         $query = "SELECT * FROM information_schema.`TABLES` T 
-where table_schema = $this->dbName
+where table_schema = '$this->dbName'
 order by data_length desc";
         $stm = $this->pdo->prepare($query);
         $stm->execute();

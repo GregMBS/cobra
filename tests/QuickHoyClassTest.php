@@ -1,11 +1,10 @@
 <?php
 
 
-use cobra_salsa\PdoClass;
 use cobra_salsa\QuickHoyClass;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/QuickHoyClass.php';
 
 class QuickHoyClassTest extends TestCase

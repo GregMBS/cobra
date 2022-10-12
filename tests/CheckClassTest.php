@@ -1,12 +1,11 @@
 <?php
 
 use cobra_salsa\CheckClass;
-use cobra_salsa\PdoClass;
 use cobra_salsa\UserDataObject;
 use cobra_salsa\VisitSheetObject;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/CheckClass.php';
 require_once __DIR__ . '/../classes/UserDataObject.php';
 require_once __DIR__ . '/../classes/VisitSheetObject.php';
@@ -70,14 +69,20 @@ class CheckClassTest extends TestCase
 
     public function testGetIdCuentaFromCuenta()
     {
-        $report = $this->cc->getIdCuentaFromCuenta('0-9902');
-        $this->assertEquals(194420, $report);
+        $gic = $this->getIdCuentaCuenta();
+        $cuenta = $gic->numero_de_cuenta;
+        $id_cuenta = $gic->id_cuenta;
+        $report = $this->cc->getIdCuentaFromCuenta($cuenta);
+        $this->assertEquals($id_cuenta, $report);
     }
 
     public function testGetCuentaFromIdCuenta()
     {
-        $report = $this->cc->getCuentaFromIdCuenta(194420);
-        $this->assertEquals('0-9902', $report);
+        $gic = $this->getIdCuentaCuenta();
+        $cuenta = $gic->numero_de_cuenta;
+        $id_cuenta = $gic->id_cuenta;
+        $report = $this->cc->getCuentaFromIdCuenta($id_cuenta);
+        $this->assertEquals($cuenta, $report);
     }
 
     public function testGetCompleto()
@@ -94,5 +99,16 @@ class CheckClassTest extends TestCase
             $first = array_pop($report);
             $this->assertInstanceOf(UserDataObject::class, $first);
         }
+    }
+
+    /**
+     * @return false|mixed|object|stdClass|null
+     */
+    private function getIdCuentaCuenta()
+    {
+        $query = "SELECT id_cuenta, numero_de_cuenta from resumen LIMIT 1";
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
+        return $stq->fetchObject();
     }
 }

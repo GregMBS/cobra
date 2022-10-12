@@ -1,11 +1,10 @@
 <?php
 
-use cobra_salsa\PdoClass;
 use cobra_salsa\QueuelistObject;
 use cobra_salsa\QueuesgClass;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/QueuesgClass.php';
 require_once __DIR__ . '/../classes/QueuelistObject.php';
 
@@ -33,13 +32,17 @@ class QueuesgClassTest extends TestCase
      */
     public function testSetCamp()
     {
-        $start = $this->cc->getCamp('FAMSA', 'ESPECIAL', 'Armando FAMSA', 'gmbs');
+        $queue = $this->getQueue();
+        $cliente = $queue->cliente;
+        $queuename = $queue->queue;
+        $sdc = $queue->sdc;
+        $start = $this->cc->getCamp($cliente, $queuename, $sdc, 'gmbs');
         $this->cc->setCamp($start, 'gmbs');
         $report = $this->cc->getMyQueue('gmbs');
         $this->assertInstanceOf(QueuelistObject::class, $report);
-        $this->assertEquals('FAMSA', $report->cliente);
-        $this->assertEquals('ESPECIAL', $report->status_aarsa);
-        $this->assertEquals('Armando FAMSA', $report->sdc);
+        $this->assertEquals($cliente, $report->cliente);
+        $this->assertEquals($queuename, $report->status_aarsa);
+        $this->assertEquals($sdc, $report->sdc);
         $this->assertEquals($start, $report->camp);
     }
 
@@ -55,7 +58,11 @@ class QueuesgClassTest extends TestCase
 
     public function testGetCamp()
     {
-        $report = $this->cc->getCamp('FAMSA', 'ESPECIAL', 'Armando FAMSA', 'gmbs');
+        $queue = $this->getQueue();
+        $cliente = $queue->cliente;
+        $queuename = $queue->queue;
+        $sdc = $queue->sdc;
+        $report = $this->cc->getCamp($cliente, $queuename, $sdc, 'gmbs');
         $this->assertIsInt($report);
         $this->assertGreaterThan(0, $report);
     }
@@ -75,5 +82,21 @@ class QueuesgClassTest extends TestCase
         $this->assertIsArray($report);
         $first = array_pop($report);
         $this->assertArrayHasKey('cliente', $first);
+    }
+
+    /**
+     * @return false|mixed|object|stdClass|null
+     */
+    private function getQueue()
+    {
+        $query = "SELECT cliente, status_aarsa AS queue, sdc 
+from cobraribemi.queuelist
+where cliente <> '' and queuelist.status_aarsa <> '' and sdc <> ''
+and gestor = 'gmbs'
+LIMIT 1
+";
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
+        return $stq->fetchObject();
     }
 }

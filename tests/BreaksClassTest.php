@@ -4,10 +4,9 @@
 use cobra_salsa\BreaksClass;
 use cobra_salsa\BreaksObject;
 use cobra_salsa\BreaksTableObject;
-use cobra_salsa\PdoClass;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/BreaksClass.php';
 require_once __DIR__ . '/../classes/BreaksObject.php';
 require_once __DIR__ . '/../classes/BreaksTableObject.php';

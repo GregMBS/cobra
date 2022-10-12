@@ -110,19 +110,25 @@ class BigClassTest extends TestCase
     public function testGetGestionGestores()
     {
         $report = $this->cc->getGestionGestores();
+        $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertIsArray($first);
-        $this->assertArrayHasKey('c_cvge', $first);
-        $this->assertArrayHasKey(0, $first);
+        if ($first) {
+            $this->assertIsArray($first);
+            $this->assertArrayHasKey('c_cvge', $first);
+            $this->assertArrayHasKey(0, $first);
+        }
     }
 
     public function testGetGestionClientes()
     {
         $report = $this->cc->getGestionClientes();
+        $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertIsArray($first);
-        $this->assertArrayHasKey('c_cvba', $first);
-        $this->assertArrayHasKey(0, $first);
+        if ($first) {
+            $this->assertIsArray($first);
+            $this->assertArrayHasKey('c_cvba', $first);
+            $this->assertArrayHasKey(0, $first);
+        }
     }
 
     public function testGetGestiones()

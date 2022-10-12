@@ -3,10 +3,9 @@
 
 use cobra_salsa\DhClass;
 use cobra_salsa\DhObject;
-use cobra_salsa\PdoClass;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/DhClass.php';
 require_once __DIR__ . '/../classes/DhObject.php';
 

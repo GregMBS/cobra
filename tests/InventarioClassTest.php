@@ -1,10 +1,9 @@
 <?php
 
 use cobra_salsa\InventarioClass;
-use cobra_salsa\PdoClass;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/InventarioClass.php';
 
 

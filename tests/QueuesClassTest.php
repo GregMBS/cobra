@@ -1,14 +1,13 @@
 <?php
 
 
-use cobra_salsa\PdoClass;
 use cobra_salsa\QueuelistObject;
 use cobra_salsa\QueueObject;
 use cobra_salsa\QueuesClass;
 use cobra_salsa\UserDataObject;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/QueuesClass.php';
 require_once __DIR__ . '/../classes/QueuelistObject.php';
 require_once __DIR__ . '/../classes/QueueObject.php';

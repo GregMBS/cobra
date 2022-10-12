@@ -3,13 +3,12 @@
 
 use cobra_salsa\HorariosAllClass;
 use cobra_salsa\HorariosClass;
-use cobra_salsa\PdoClass;
 use cobra_salsa\PerfmesAllClass;
 use cobra_salsa\PerfmesClass;
 use cobra_salsa\TimesheetDayObject;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
+require_once __DIR__ . '/PdoClass.php';
 require_once __DIR__ . '/../classes/TimesheetClass.php';
 require_once __DIR__ . '/../classes/HorariosClass.php';
 require_once __DIR__ . '/../classes/PerfmesClass.php';
@@ -58,15 +57,19 @@ class TimesheetClassTest extends TestCase
     public function testGetTiempoDiff()
     {
         $report = $this->hc->getTiempoDiff('cristina', 1, 'Break');
+        $this->assertIsArray($report);
         if (count($report) > 0) {
             $first = array_pop($report);
             $this->assertArrayHasKey('tiempo', $first);
             $this->assertArrayHasKey('diff', $first);
         }
         $report = $this->pc->getTiempoDiff('cristina', 1, 'Break');
+        $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertArrayHasKey('tiempo', $first);
-        $this->assertArrayHasKey('diff', $first);
+        if ($first) {
+            $this->assertArrayHasKey('tiempo', $first);
+            $this->assertArrayHasKey('diff', $first);
+        }
     }
 
     public function testGetPagos()

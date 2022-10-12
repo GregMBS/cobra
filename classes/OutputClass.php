@@ -8,8 +8,11 @@
 
 namespace cobra_salsa;
 
+use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use Exception;
+use OpenSpout\Writer\Exception\WriterNotOpenedException;
+use OpenSpout\Writer\XLSX\Writer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -32,8 +35,7 @@ class OutputClass
         try {
             $writer = WriterEntityFactory::createCSVWriter(); // for CSV files
             $writer->openToBrowser($filename); // stream data directly to the browser
-            $row = WriterEntityFactory::createRowFromArray($headers);
-            $writer->addRow($row);
+            $this->writeRow($headers, $writer);
             $writer->addRows($array); // add multiple rows at a time
             $writer->close();
         } catch (Exception $e) {
@@ -43,28 +45,51 @@ class OutputClass
 
     /**
      *
-     * @param $filename
+     * @param string $filename
      * @param array $array
-     * @param array $headers
+     * @param array|null $headers
      * @throws Exception
      */
-    public function writeXLSXFile($filename, $array, $headers = [])
+    public function writeXLSXFile(string $filename, array $array, ?array $headers = [])
     {
         try {
             $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
             $writer->openToBrowser($filename); // stream data directly to the browser
-            if (count($headers) > 0) {
-                $rowHead = WriterEntityFactory::createRowFromArray($headers);
-                $writer->addRow($rowHead);
-            }
+            $this->writeHeaders($headers, $writer);
             foreach ($array as $rowData) {
-                $row = WriterEntityFactory::createRowFromArray($rowData);
-                $writer->addRow($row);
+                $this->writeRow($rowData, $writer);
             }
             $writer->close();
         } catch (Exception $e) {
             throw new Exception($e);
         }
+    }
+
+    /**
+     * @param array $headers
+     * @param Writer|null $writer
+     * @return void
+     * @throws IOException
+     * @throws WriterNotOpenedException
+     */
+    public function writeHeaders(array $headers, ?Writer $writer): void
+    {
+        if (count($headers) > 0) {
+            $this->writeRow($headers, $writer);
+        }
+    }
+
+    /**
+     * @param $rowData
+     * @param Writer|null $writer
+     * @return void
+     * @throws IOException
+     * @throws WriterNotOpenedException
+     */
+    public function writeRow($rowData, ?Writer $writer): void
+    {
+        $row = WriterEntityFactory::createRowFromArray($rowData);
+        $writer->addRow($row);
     }
 
 }

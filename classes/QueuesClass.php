@@ -173,7 +173,11 @@ and sdc=:sdc and status_aarsa=:status";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $GESTOR);
         $stq->execute();
-        return $stq->fetchObject(QueuelistObject::class);
+        $result = $stq->fetchObject(QueuelistObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new QueuelistObject();
     }
 
     /**
