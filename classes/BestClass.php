@@ -36,7 +36,8 @@ class BestClass extends BaseClass
      * @param int $c_cont
      * @return HistoriaObject
      */
-    public function getLastHistoriaData($c_cont) {
+    public function getLastHistoriaData(int $c_cont): HistoriaObject
+    {
         $query = "select * from historia
         where c_cont = :c_cont
         order by d_fech desc, c_hrin desc limit 1";
@@ -48,7 +49,8 @@ class BestClass extends BaseClass
      * @param int $c_cont
      * @return HistoriaObject
      */
-    public function getBestHistoriaData($c_cont) {
+    public function getBestHistoriaData(int $c_cont): HistoriaObject
+    {
         $query = "select historia.* 
         from historia
 join dictamenes on c_cvst = dictamen
