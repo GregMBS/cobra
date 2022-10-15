@@ -25,7 +25,7 @@ if ($count>0) {
     require_once 'classes/OutputClass.php';
     $oc = new OutputClass();
     try {
-        $oc->writeXLSXFile($filename, $output, $header);
+        $oc->writeCSVFile($filename, $output, $header);
     } catch (Exception $e) {
         die($e->getMessage());
     }
