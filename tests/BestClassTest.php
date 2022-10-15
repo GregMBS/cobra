@@ -16,36 +16,49 @@ class BestClassTest extends TestCase
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var BestClass
      */
-    protected $cc;
+    protected BestClass $cc;
+
+    /**
+     * @var int
+     */
+    protected int $id;
 
     protected function setUp(): void
     {
         $pc = new PdoClass();
         $this->pdo = $pc->dbConnectNobody();
         $this->cc = new BestClass($this->pdo);
+        $this->id = $this->getTopIdCuenta();
     }
 
     public function testGetLastHistoriaData()
     {
-        $data = $this->cc->getLastHistoriaData(33333);
+        $data = $this->cc->getLastHistoriaData($this->id);
         $this->assertInstanceOf(HistoriaObject::class, $data);
     }
 
     public function testCountGestiones()
     {
-        $data = $this->cc->countGestiones(33333);
+        $data = $this->cc->countGestiones($this->id);
         $this->assertIsInt($data);
     }
 
     public function testGetBestHistoriaData()
     {
-        $data = $this->cc->getBestHistoriaData(33333);
+        $data = $this->cc->getBestHistoriaData($this->id);
         $this->assertInstanceOf(HistoriaObject::class, $data);
+    }
+
+    public function testGetNewBestHistoriaData()
+    {
+        $data = $this->cc->getNewBestHistoriaData($this->id);
+        $this->assertIsArray($data);
+        var_dump($data);
     }
 
     public function testGetResumenData()
@@ -53,5 +66,28 @@ class BestClassTest extends TestCase
         $stq = $this->cc->getResumenData();
         $data = $stq->fetchObject( ResumenObject::class);
         $this->assertInstanceOf(ResumenObject::class, $data);
+    }
+
+    /**
+     * @return int
+     */
+    private function getTopIdCuenta(): int
+    {
+        $query = "SELECT MAX(C_CONT) as cc from historia";
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
+        $result = $stq->fetch();
+        return $result[0];
+    }
+
+    public function testAll()
+    {
+        ini_set('memory_limit', '2048M');
+        $this->cc->createBestTemp();
+        $this->cc->createLastBest();
+        $stq = $this->cc->getLastBest();
+        $output = $stq->fetchAll(PDO::FETCH_ASSOC);
+        $count = count($output);
+        $this->assertGreaterThan(0, $count);
     }
 }
