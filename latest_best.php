@@ -38,7 +38,7 @@ $fields = [
 $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
-$stq = $this->cc->getLastBest();
+$stq = $bc->getLastBest();
 $output = $stq->fetchAll(PDO::FETCH_ASSOC);
 $count = count($output);
 if ($count>0) {
