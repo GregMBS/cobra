@@ -31,14 +31,19 @@ class OutputClass
      * @param array $headers
      * @throws Exception
      */
-    public function writeCSVFile($filename, $array, $headers)
+    public function writeCSVFile(string $filename, array $array, array $headers)
     {
         try {
-            $writer = WriterEntityFactory::createCSVWriter(); // for CSV files
-            $writer->openToBrowser($filename); // stream data directly to the browser
-            $this->writeCSVRow($headers, $writer);
-            $writer->addRows($array); // add multiple rows at a time
-            $writer->close();
+            ob_start();
+            $fp = fopen('php://output', 'w');
+            fputcsv($fp,$headers);
+            for($i = 0; $i < count($array); $i++) {
+                fputcsv($fp,$array);
+            }
+            fclose($fp);
+            $csvText = ob_get_clean();
+            header('Content-type: text/csv');
+            file_put_contents($filename, $csvText);
         } catch (Exception $e) {
             throw new Exception($e);
         }

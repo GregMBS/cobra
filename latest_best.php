@@ -14,7 +14,7 @@ $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
 require_once 'classes/BestClass.php';
 $bc = new BestClass($pdo);
-$filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
+$filename = "Ultimo_y_mejor_" . date('ymd') . ".csv";
 $bc->createBestTemp();
 $bc->createLastBest();
 $stq = $bc->getLastBest();
@@ -25,7 +25,7 @@ if ($count>0) {
     require_once 'classes/OutputClass.php';
     $oc = new OutputClass();
     try {
-        $oc->writeXLSXFile($filename, $output, $header);
+        $oc->writeCSVFile($filename, $output, $header);
     } catch (Exception $e) {
         die($e->getMessage());
     }
