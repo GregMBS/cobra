@@ -41,10 +41,15 @@ $i = 1;
 $stq = $bc->getLastBest();
 $output = $stq->fetchAll(PDO::FETCH_ASSOC);
 $header = array_keys(current($output));
-require_once 'classes/OutputClass.php';
-$oc = new OutputClass();
-try {
-    $oc->writeXLSXFile($filename, $output, $header);
-} catch (Exception $e) {
-    die($e->getMessage());
+if ($header) {
+    require_once 'classes/OutputClass.php';
+    $oc = new OutputClass();
+    try {
+        $oc->writeXLSXFile($filename, $output, $header);
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
+} else {
+    var_dump($output);
+    die();
 }
