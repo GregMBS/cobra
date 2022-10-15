@@ -38,10 +38,11 @@ $fields = [
 $filename = "Ultimo_y_mejor_" . date('ymd') . ".xlsx";
 $output = array();
 $i = 1;
-$stq = $bc->getLastBest();
+$stq = $this->cc->getLastBest();
 $output = $stq->fetchAll(PDO::FETCH_ASSOC);
-$header = array_keys(current($output));
-if ($header) {
+$count = count($output);
+if ($count>0) {
+    $header = array_keys(current($output));
     require_once 'classes/OutputClass.php';
     $oc = new OutputClass();
     try {
@@ -50,6 +51,5 @@ if ($header) {
         die($e->getMessage());
     }
 } else {
-    var_dump($output);
-    die();
+    die('empty output');
 }
