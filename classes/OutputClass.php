@@ -13,6 +13,7 @@ use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use Exception;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
+use OpenSpout\Writer\CSV\Writer as CW;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -35,7 +36,7 @@ class OutputClass
         try {
             $writer = WriterEntityFactory::createCSVWriter(); // for CSV files
             $writer->openToBrowser($filename); // stream data directly to the browser
-            $this->writeRow($headers, $writer);
+            $this->writeCSVRow($headers, $writer);
             $writer->addRows($array); // add multiple rows at a time
             $writer->close();
         } catch (Exception $e) {
@@ -80,6 +81,20 @@ class OutputClass
     }
 
     /**
+     * @param array $headers
+     * @param CW|null $writer
+     * @return void
+     * @throws IOException
+     * @throws WriterNotOpenedException
+     */
+    public function writeCSVHeaders(array $headers, ?CW $writer): void
+    {
+        if (count($headers) > 0) {
+            $this->writeRow($headers, $writer);
+        }
+    }
+
+    /**
      * @param $rowData
      * @param Writer|null $writer
      * @return void
@@ -87,6 +102,19 @@ class OutputClass
      * @throws WriterNotOpenedException
      */
     public function writeRow($rowData, ?Writer $writer): void
+    {
+        $row = WriterEntityFactory::createRowFromArray($rowData);
+        $writer->addRow($row);
+    }
+
+    /**
+     * @param $rowData
+     * @param CW|null $writer
+     * @return void
+     * @throws IOException
+     * @throws WriterNotOpenedException
+     */
+    public function writeCSVRow($rowData, ?CW $writer): void
     {
         $row = WriterEntityFactory::createRowFromArray($rowData);
         $writer->addRow($row);
