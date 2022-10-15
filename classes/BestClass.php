@@ -191,21 +191,21 @@ where id_cuenta=c_cont";
     {
         $queryDropR = "drop table if exists ranked";
         $this->pdo->query($queryDropR);
-        $queryR = "create temporary table ranked
+        $queryR = "create table ranked
 select historia.*,v_cc
 from historia
          join dictamenes on c_cvst = dictamen";
         $this->pdo->query($queryR);
         $queryDropBR = "drop table if exists bestrank";
         $this->pdo->query($queryDropBR);
-        $queryBR = "create temporary table bestrank
+        $queryBR = "create table bestrank
 select c_cont, min(v_cc) as vc
 from ranked
 group by c_cont";
         $this->pdo->query($queryBR);
         $queryDropBRT = "drop table if exists bestrankedtemp";
         $this->pdo->query($queryDropBRT);
-        $queryBT = "create temporary table bestrankedtemp
+        $queryBT = "create table bestrankedtemp
 select * from ranked
 where (c_cont, v_cc) IN (select c_cont, vc from bestrank)";
         $this->pdo->query($queryBT);
