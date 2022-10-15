@@ -124,7 +124,9 @@ order by v_cc, d_fech desc limit 1";
      */
     public function createLastBest()
     {
-        $queryL = "create temporary table lasttemp
+        $queryDropL = "drop table if exists lasttemp";
+        $this->pdo->query($queryDropL);
+        $queryL = "create table lasttemp
 select c_cont,
        c_cvst as ultimo_status,
        c_tele as ultimo_tel,
@@ -133,7 +135,9 @@ select c_cont,
 from historia
 limit 0";
         $this->pdo->query($queryL);
-        $queryB = "create temporary table besttemp
+        $queryDropB = "drop table if exists besttemp";
+        $this->pdo->query($queryDropB);
+        $queryB = "create table besttemp 
 select c_cont,
        c_cvst as mejor_status,
        c_tele as mejor_tel,
@@ -142,7 +146,9 @@ select c_cont,
 from historia
 limit 0";
         $this->pdo->query($queryB);
-        $queryG = "create temporary table gestioncount
+        $queryDropG = "drop table if exists gestioncount";
+        $this->pdo->query($queryDropG);
+        $queryG = "create table gestioncount (PRIMARY KEY id (c_cont))
 select c_cont, count(1) as gestiones
 from historia
 group by c_cont";
