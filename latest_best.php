@@ -40,7 +40,7 @@ $output = array();
 $i = 1;
 $stq = $bc->getLastBest();
 $output = $stq->fetchAll(PDO::FETCH_ASSOC);
-$header = array_keys($output[0]);
+$header = array_keys(current($output));
 require_once 'classes/OutputClass.php';
 $oc = new OutputClass();
 try {
