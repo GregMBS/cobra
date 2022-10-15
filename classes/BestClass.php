@@ -147,7 +147,9 @@ select c_cont, count(1) as gestiones
 from historia
 group by c_cont";
         $this->pdo->query($queryG);
-        $queryLB = "create temporary table lastbest (INDEX id (id_cuenta))
+        $queryDropLB = "drop table if exists lastbest";
+        $this->pdo->query($queryDropLB);
+        $queryLB = "create table lastbest (INDEX id (id_cuenta))
 select ejecutivo_asignado_call_center, numero_de_cuenta, nombre_deudor, cliente, status_de_credito,
        id_cuenta, saldo_total, saldo_descuento_1, saldo_descuento_2, date(fecha_ultima_gestion) as fecha_ultima,
        time(fecha_ultima_gestion) as hora_ultima,
