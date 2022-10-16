@@ -41,8 +41,14 @@ class OutputClass
                 fputcsv($fp,$row);
             }
             fclose($fp);
-            //$csvText = ob_get_clean();
-            //file_put_contents($filename, $csvText);
+            // reset the file pointer to the start of the file
+            fseek($fp, 0);
+            // tell the browser it's going to be a csv file
+            header('Content-Type: text/csv');
+            // tell the browser we want to save it instead of displaying it
+            header('Content-Disposition: attachment; filename="'.$filename.'";');
+            // make php send the generated csv lines to the browser
+            fpassthru($fp);
         } catch (Exception $e) {
             throw new Exception($e);
         }
