@@ -8,12 +8,12 @@
 
 namespace cobra_salsa;
 
+use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use Exception;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
-use OpenSpout\Writer\CSV\Writer as CW;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -34,19 +34,15 @@ class OutputClass
     public function writeCSVFile(string $filename, array $array, array $headers)
     {
         try {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/csv');
-            header("Content-Disposition: attachment; filename=".$filename);
-            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-
-            $handle = fopen('php://output', 'w');
-            ob_clean(); // clean slate
-            fputcsv($handle, $headers);
-            foreach ($array as $row) {
-                fputcsv($handle, $row);   // direct to buffered output
+            $writer = WriterEntityFactory::createCSVWriter();
+            $writer->openToFile($filename);
+            $head = WriterEntityFactory::createRowFromArray($headers);
+            $writer->addRow($head);
+            foreach ($array as $data) {
+                $row = WriterEntityFactory::createRowFromArray($data);
+                $writer->addRow($row);
             }
-            ob_flush(); // dump buffer
-            fclose($handle);
+            $writer->close();
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -89,20 +85,6 @@ class OutputClass
     }
 
     /**
-     * @param array $headers
-     * @param CW|null $writer
-     * @return void
-     * @throws IOException
-     * @throws WriterNotOpenedException
-     */
-    public function writeCSVHeaders(array $headers, ?CW $writer): void
-    {
-        if (count($headers) > 0) {
-            $this->writeRow($headers, $writer);
-        }
-    }
-
-    /**
      * @param $rowData
      * @param Writer|null $writer
      * @return void
@@ -110,19 +92,6 @@ class OutputClass
      * @throws WriterNotOpenedException
      */
     public function writeRow($rowData, ?Writer $writer): void
-    {
-        $row = WriterEntityFactory::createRowFromArray($rowData);
-        $writer->addRow($row);
-    }
-
-    /**
-     * @param $rowData
-     * @param CW|null $writer
-     * @return void
-     * @throws IOException
-     * @throws WriterNotOpenedException
-     */
-    public function writeCSVRow($rowData, ?CW $writer): void
     {
         $row = WriterEntityFactory::createRowFromArray($rowData);
         $writer->addRow($row);
