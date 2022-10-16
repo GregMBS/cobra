@@ -34,21 +34,19 @@ class OutputClass
     public function writeCSVFile(string $filename, array $array, array $headers)
     {
         try {
-            //ob_start();
-            $fp = fopen('php://output', 'w');
-            fputcsv($fp,$headers);
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/csv');
+            header("Content-Disposition: attachment; filename=".$filename);
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+
+            $handle = fopen('php://output', 'w');
+            ob_clean(); // clean slate
+            fputcsv($handle, $headers);
             foreach ($array as $row) {
-                fputcsv($fp,$row);
+                fputcsv($handle, $row);   // direct to buffered output
             }
-            fclose($fp);
-            // reset the file pointer to the start of the file
-            fseek($fp, 0);
-            // tell the browser it's going to be a csv file
-            header('Content-Type: application/vnd.ms-excel');
-            // tell the browser we want to save it instead of displaying it
-            header('Content-Disposition: attachment; filename="'.$filename.'";');
-            // make php send the generated csv lines to the browser
-            fpassthru($fp);
+            ob_flush(); // dump buffer
+            fclose($handle);
         } catch (Exception $e) {
             throw new Exception($e);
         }
