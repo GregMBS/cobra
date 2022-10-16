@@ -14,7 +14,7 @@ $pc = new PdoClass();
 $pdo = $pc->dbConnectAdmin();
 require_once 'classes/BestClass.php';
 $bc = new BestClass($pdo);
-$filename = "Ultimo_y_mejor_" . date('ymd') . ".csv";
+$filename = "Ultimo_y_mejor_" . date('ymd') . ".txt";
 $bc->createBestTemp();
 $bc->createLastBest();
 $stq = $bc->getLastBest();
