@@ -34,15 +34,15 @@ class OutputClass
     public function writeCSVFile(string $filename, array $array, array $headers)
     {
         try {
-            ob_start();
+            //ob_start();
             $fp = fopen('php://output', 'w');
             fputcsv($fp,$headers);
             foreach ($array as $row) {
                 fputcsv($fp,$row);
             }
             fclose($fp);
-            $csvText = ob_get_clean();
-            file_put_contents($filename, $csvText);
+            //$csvText = ob_get_clean();
+            //file_put_contents($filename, $csvText);
         } catch (Exception $e) {
             throw new Exception($e);
         }
