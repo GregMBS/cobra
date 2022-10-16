@@ -44,7 +44,7 @@ class OutputClass
             // reset the file pointer to the start of the file
             fseek($fp, 0);
             // tell the browser it's going to be a csv file
-            header('Content-Type: text/csv');
+            header('Content-Type: application/vnd.ms-excel');
             // tell the browser we want to save it instead of displaying it
             header('Content-Disposition: attachment; filename="'.$filename.'";');
             // make php send the generated csv lines to the browser
