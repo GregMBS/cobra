@@ -42,7 +42,6 @@ class OutputClass
             }
             fclose($fp);
             $csvText = ob_get_clean();
-            header('Content-type: text/csv');
             file_put_contents($filename, $csvText);
         } catch (Exception $e) {
             throw new Exception($e);
