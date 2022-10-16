@@ -37,8 +37,8 @@ class OutputClass
             ob_start();
             $fp = fopen('php://output', 'w');
             fputcsv($fp,$headers);
-            for($i = 0; $i < count($array); $i++) {
-                fputcsv($fp,$array);
+            foreach ($array as $row) {
+                fputcsv($fp,$row);
             }
             fclose($fp);
             $csvText = ob_get_clean();
