@@ -200,7 +200,8 @@ where id_cuenta=c_cont";
         $queryR = "create table ranked
 select historia.*,v_cc
 from historia
-         join dictamenes on c_cvst = dictamen";
+         join dictamenes on c_cvst = dictamen
+         where D_FECH > curdate() - INTERVAL 1 YEAR ";
         $this->pdo->query($queryR);
         $queryDropBR = "drop table if exists bestrank";
         $this->pdo->query($queryDropBR);
