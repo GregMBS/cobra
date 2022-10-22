@@ -100,8 +100,30 @@ and d_prom>curdate())
 and id_cuenta in (select c_cont from historia where n_prom>0 
 and d_prom=curdate()) 
 and fecha_de_ultimo_pago>last_day(curdate()-interval 1 month);
-# Reset queue MANUAL
-UPDATE resumen
-set especial = 1
-where especial > 1
-and fecha_de_actualizacion=curdate()-interval 1 day;
+# build table bigtemp
+DROP TABLE IF EXISTS bigtemp;
+create table bigtemp
+SELECT
+    numero_de_cuenta,
+    nombre_deudor AS 'NOMBRE',
+    resumen.cliente AS 'CLIENTE',
+    status_de_credito AS 'SEGMENTO',
+    saldo_total,
+    saldo_descuento_1,
+    saldo_descuento_2,
+    queue,
+    h1.*,
+    v_cc AS 'PONDERACION',
+    domicilio_deudor AS 'CALLE',
+    colonia_deudor AS 'COLONIA',
+    direccion_nueva,
+    email_deudor,
+    fecha_de_ultimo_pago,
+    monto_ultimo_pago
+FROM
+    resumen
+        JOIN
+    historia h1 ON c_cont = id_cuenta
+        LEFT JOIN
+    dictamenes ON status_aarsa = dictamen
+WHERE status_de_credito NOT regexp '-';
