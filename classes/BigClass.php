@@ -111,7 +111,8 @@ WHERE n_prom>0
      * @return array
      */
     public function getGestiones(BigInputObject $bio) {
-        $queryPrep = "CREATE TEMPORARY TABLE bigtemp 
+/*
+        $queryPrep = "CREATE TEMPORARY TABLE bigtemp
         SELECT 
     numero_de_cuenta,
     nombre_deudor AS 'NOMBRE',
@@ -138,6 +139,7 @@ FROM
 WHERE status_de_credito not REGEXP '-'";
         $stp = $this->pdo->prepare($queryPrep);
         $stp->execute();
+*/
         $this->queryFront = "SELECT 
     *
 FROM
