@@ -111,7 +111,8 @@ WHERE n_prom>0
      * @return array
      */
     public function getGestiones(BigInputObject $bio) {
-        $this->queryFront = "SELECT 
+        $queryPrep = "CREATE TEMPORARY TABLE bigtemp 
+        SELECT 
     numero_de_cuenta,
     nombre_deudor AS 'NOMBRE',
     resumen.cliente AS 'CLIENTE',
@@ -134,14 +135,18 @@ FROM
     historia h1 ON c_cont = id_cuenta
 		LEFT JOIN
 	dictamenes ON status_aarsa = dictamen
+WHERE status_de_credito not REGEXP '-'";
+        $stp = $this->pdo->prepare($queryPrep);
+        $stp->execute();
+        $this->queryFront = "SELECT 
+    *
+FROM
+    bigtemp
 WHERE d_fech between :fecha1 and :fecha2
             ";
-        $this->queryBack = " and status_de_credito not REGEXP '-'";
         $query = $this->queryFront
             . $bio->getGestorStr()
-            . $bio->getClienteStr()
-            . $this->queryBack;
-
+            . $bio->getClienteStr();
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(':fecha1', $bio->getFecha1());
         $stm->bindValue(':fecha2', $bio->getFecha2());
