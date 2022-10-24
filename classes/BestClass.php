@@ -199,7 +199,7 @@ where id_cuenta=c_cont";
         $this->pdo->query($queryDropR);
         $queryR = "create table ranked
 select historia.*,v_cc
-from historia
+from historia use index (timing)
          join dictamenes on c_cvst = dictamen
          where D_FECH > curdate() - INTERVAL 1 YEAR ";
         $this->pdo->query($queryR);
