@@ -93,11 +93,15 @@ EOV;
     private function getTelCom(string $string, string $backup): array
     {
         $output['tel']='';
+        $output['com'] = $string;
         $telTemp = $this->getFirstWord(trim($string));
         if (is_numeric($telTemp)) {
             $output['tel'] = $telTemp;
+            $output['com'] = $this->getOtherWords($string, $backup);
         }
-        $output['com'] = $this->getOtherWords($string, $backup);
+        if (empty($output['com'])) {
+            $output['com'] = $backup;
+        }
         return $output;
     }
 
