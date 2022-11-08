@@ -9,6 +9,8 @@ $capt = $pd->capt;
 $cargas = [
     ['page' => 'carga2',
         'label' => 'Cargar Cartera'],
+    ['page' => 'cargitas',
+        'label' => 'Carga de Gestiones'],
     ['page' => 'pagobulk',
         'label' => 'Cargar Pagos Confirmados']
 ];
