@@ -244,12 +244,19 @@ where fecha_de_asignacion is null";
             try {
                 $stl = $this->pdo->prepare($queryLoadTrim);
                 $stl->execute();
-                $count += $stl->rowCount();
+                $queryCleanBlank = "DELETE FROM temp WHERE numero_de_cuenta = ''";
+                $stb = $this->pdo->prepare($queryCleanBlank);
+                $stb->execute();
+                $queryCountTemp = "SELECT COUNT(1) AS 'ct' FROM temp";
+                $stc = $this->pdo->prepare($queryCountTemp);
+                $stc->execute();
+                $result = $stc->fetch(PDO::FETCH_ASSOC);
+                $count = $result['ct'];
             } catch (PDOException $Exception) {
                 throw new Exception($Exception);
             }
         }
-            return $count;
+        return $count;
     }
 
     /**
