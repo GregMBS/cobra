@@ -21,7 +21,7 @@ class NotaClass {
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      * 
@@ -140,9 +140,9 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      */
     public function insertNotaAdmin(string $target, string $capt, string $FECHA, string $HORA, string $NOTA) {
         $query = "INSERT INTO notas
-            (C_CVGE, fuente, D_FECH, C_HORA, FECHA, HORA, NOTA)
+            (C_CVGE, fuente, D_FECH, C_HORA, FECHA, HORA, NOTA, c_cont)
             VALUES
-            (:target, :capt, curdate(), curtime(), :fecha, :hora, :nota)";
+            (:target, :capt, curdate(), curtime(), :fecha, :hora, :nota, 0)";
         $sti = $this->pdo->prepare($query);
         $sti->bindParam(':target', $target);
         $sti->bindParam(':capt', $capt);

@@ -21,13 +21,13 @@ class CargaClass
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      *
      * @var array
      */
-    private $internal = array(
+    private array $internal = array(
         'id_cuenta',
         'especial',
         'fecha_de_actualizacion',
@@ -89,18 +89,18 @@ class CargaClass
         $count = $this->loadData($data, $columnNames);
         echo $count. " total records loaded. ";
 
-        $fieldlist = $this->getNewFields();
-        $updateList = $this->prepareUpdate($fieldlist);
+        $fieldList = $this->getNewFields();
+        $updateList = $this->prepareUpdate($fieldList);
         $countUpdate = $this->updateResumen($updateList);
         echo $countUpdate . " old records updated. ";
 
-        $countInsert = $this->insertIntoResumen($fieldlist);
+        $countInsert = $this->insertIntoResumen($fieldList);
         echo $countInsert . " new records inserted.";
         $this->updateClientes();
         $this->updatePagos();
         $this->createLookupTable();
 
-        $countNew = $this->setFechaAsig();
+        $countNew = $this->setFechaAsigna();
         echo $countNew . " completely new accounts added.";
     }
 
@@ -108,7 +108,7 @@ class CargaClass
      * @return int
      * @throws Exception
      */
-    private function setFechaAsig(): int
+    private function setFechaAsigna(): int
     {
         $query = "update resumen
 set fecha_de_asignacion=fecha_de_actualizacion
@@ -178,7 +178,7 @@ where fecha_de_asignacion is null";
         foreach ($row as $columnName) {
             $cn = $columnName;
             if ($columnName == '') {
-                $cn = 'vacio';
+                $cn = 'empty';
             }
             if (in_array($cn, $this->internal)) {
                 $cn = $columnName . '_solo_internal';
@@ -278,13 +278,13 @@ where fecha_de_asignacion is null";
 
     /**
      *
-     * @param array $fieldlist
+     * @param array $fieldList
      * @return int
      * @throws Exception
      */
-    public function updateResumen(array $fieldlist): int
+    public function updateResumen(array $fieldList): int
     {
-        $fields = implode(',', $fieldlist);
+        $fields = implode(',', $fieldList);
         $query = "UPDATE IGNORE temp, resumen
             SET " . $fields . " 
             where temp.numero_de_cuenta=resumen.numero_de_cuenta
@@ -300,14 +300,14 @@ where fecha_de_asignacion is null";
 
     /**
      *
-     * @param array $fieldlist
+     * @param array $fieldList
      * @return int
      * @throws Exception
      */
-    public function insertIntoResumen(array $fieldlist): int
+    public function insertIntoResumen(array $fieldList): int
     {
-        $fields = implode(',', $fieldlist);
-        $query = "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
+        $fields = implode(',', $fieldList);
+        $query = /** @lang Text */ "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
         try {
             $sti = $this->pdo->prepare($query);
             $sti->execute();

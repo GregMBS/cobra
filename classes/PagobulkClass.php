@@ -13,11 +13,16 @@ use PDOStatement;
 class PagobulkClass extends BaseClass {
     
     private function buildTemp() {
-        $select = "SELECT numero_de_cuenta AS 'cuenta', 
+        $select = "SELECT null AS 'auto',
+                numero_de_cuenta AS 'cuenta', 
                 fecha_de_ultimo_pago AS 'fecha', 
                 monto_ultimo_pago AS 'monto', 
-                cliente, ejecutivo_asignado_call_center AS 'c_cvge', 
-                1 AS 'confirmado', id_cuenta
+                cliente, 
+                ejecutivo_asignado_call_center AS 'gestor', 
+                1 AS 'confirmado', 
+                '' as 'credito',
+                id_cuenta,
+                now() as 'fechacapt'
                 FROM resumen
                 LIMIT 0";
         $queryBuildTemp = "CREATE TEMPORARY TABLE pagotemp " . $select;
@@ -33,7 +38,8 @@ class PagobulkClass extends BaseClass {
      * 
      * @return PDOStatement
      */
-    private function prepareCleanOld() {
+    private function prepareCleanOld(): PDOStatement
+    {
         $query = "delete from pagos
 where confirmado=0 and cuenta=:cuenta
  and fecha<=:fecha";
@@ -44,7 +50,8 @@ where confirmado=0 and cuenta=:cuenta
      * 
      * @return PDOStatement
      */
-    private function prepareAddTemp() {
+    private function prepareAddTemp(): PDOStatement
+    {
         $select = "SELECT :cuenta, :fecha, :monto, 
                 cliente, :c_cvge, 1 AS 'confirmado', id_cuenta
                 FROM resumen
@@ -57,7 +64,8 @@ where confirmado=0 and cuenta=:cuenta
      * 
      * @return PDOStatement
      */
-    private function prepareFindGestor() {
+    private function prepareFindGestor(): PDOStatement
+    {
         $queryFindGestor = "SELECT c_cvge 
 FROM historia 
 WHERE d_fech <= :fecha 
@@ -74,7 +82,7 @@ LIMIT 1";
      * @param string $cuenta
      * @param string $fecha
      */
-    private function runCleanOld($stp, $cuenta, $fecha) {
+    private function runCleanOld(PDOStatement $stp, string $cuenta, string $fecha) {
             $stp->bindValue(':cuenta', $cuenta);
             $stp->bindValue(':fecha', $fecha);
             $stp->execute();
@@ -88,7 +96,7 @@ LIMIT 1";
      * @param float $monto
      * @param string $c_cvge
      */
-    private function runAddTemp($stp, $cuenta, $fecha, $monto, $c_cvge) {
+    private function runAddTemp(PDOStatement $stp, string $cuenta, string $fecha, float $monto, string $c_cvge) {
             $stp->bindValue(':cuenta', $cuenta);
             $stp->bindValue(':fecha', $fecha);
             $stp->bindValue(':monto', $monto);
@@ -104,14 +112,19 @@ LIMIT 1";
      * 
      * @return array
      */
-    private function runFindGestor($stp, $cuenta, $fecha) {
+    private function runFindGestor(PDOStatement $stp, string $cuenta, string $fecha): array
+    {
             $stp->bindValue(':cuenta', $cuenta);
             $stp->bindValue(':fecha', $fecha);
             $stp->execute();
         return $stp->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function cargar($input) {
+    /**
+     * @param string $input
+     * @return void
+     */
+    public function cargar(string $input) {
 
         $data = preg_split("/[\s,]+/", $input, 0, PREG_SPLIT_NO_EMPTY);
         $max = ceil(count($data) / 3);

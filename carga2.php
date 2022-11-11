@@ -57,7 +57,7 @@ switch ($go) {
             echo "Stored in: " . $destination . "</p>";
             ?>
             <p>
-            <form action="carga2.php" method="post" name="clientePick">
+            <form action="/carga2.php" method="post" name="clientePick">
                 <table>
                     <tr>
                         <td><label for="pickCliente">Client</label></td>
@@ -87,7 +87,7 @@ switch ($go) {
 
     case 'clientePick':
         ?>
-        <form action="carga2.php" method="post" name="assoc" id="aForm">
+        <form action="/carga2.php" method="post" name="assoc" id="aForm">
             <?php
             try {
                 list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);

@@ -149,7 +149,7 @@ EOV;
      */
     public function loadVisitas(array $data): string
     {
-        $header = /** @lang Text */ "INSERT INTO cobraribemi.historia
+        $header = /** @lang Text */ "INSERT INTO historia
     (c_visit,c_cvge,c_ntel,cuenta,c_obse1,d_fech,c_cvst,c_hrin,c_hrfi,c_accion,c_cniv) VALUES  ";
         $sql = $header;
         foreach ($data as $row) {

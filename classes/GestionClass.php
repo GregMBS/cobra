@@ -23,8 +23,8 @@ class GestionClass {
      *
      * @var PDO
      */
-    private $pdo;
-    private $gestionInsertQuery = "INSERT IGNORE INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
+    private PDO $pdo;
+    private string $gestionInsertQuery = "INSERT IGNORE INTO historia (C_CVBA,C_CVGE,C_CONT,C_CVST,D_FECH,C_HRIN,C_HRFI,
 C_TELE,CUANDO,CUENTA,C_OBSE1,C_ATTE,C_CARG,D_PROM,N_PROM,C_PROM,
 D_PROM1,N_PROM1,D_PROM2,N_PROM2,
 D_PROM3,N_PROM3,D_PROM4,N_PROM4,
@@ -39,7 +39,7 @@ VALUES (:C_CVBA, :C_CVGE, :C_CONT, :C_CVST,date(:D_FECH),
      *
      * @var string
      */
-    private $visitInsertQuery = "INSERT INTO historia (C_CVGE,C_CVBA,C_CONT,C_CVST,D_FECH,C_HRIN,
+    private string $visitInsertQuery = "INSERT INTO historia (C_CVGE,C_CVBA,C_CONT,C_CVST,D_FECH,C_HRIN,
 C_HRFI,C_TELE,CUENTA,C_OBSE1,C_CONTAN,C_ATTE,C_CARG,C_RCON,C_NSE,C_CNIV,C_CFAC,
 C_CPTA,C_CTIPO,C_COWN,C_CSTAT,C_VISIT,D_PROM,N_PROM,D_PROM1,N_PROM1,C_PROM,C_FREQ,C_ACCION,C_MOTIV,
 C_CREJ,C_CPAT,C_CALLE1,C_CALLE2,C_NTEL,C_NDIR,C_EMAIL,C_OBSE2,C_EJE) 
@@ -54,7 +54,7 @@ VALUES (:C_CVGE, :C_CVBA, :C_CONT, :C_CVST, :D_FECH, :C_HRIN, :C_HRFI,
      *
      * @var string
      */
-    private $setPromesaIncumplida = "update resumen
+    private string $setPromesaIncumplida = "update resumen
 		set status_aarsa='PROMESA INCUMPLIDA'
 		where id_cuenta not in (
 			select c_cont from historia
@@ -78,7 +78,7 @@ VALUES (:C_CVGE, :C_CVBA, :C_CONT, :C_CVST, :D_FECH, :C_HRIN, :C_HRFI,
      *
      * @var string 
      */
-    private $setPagoAnt = "update resumen,dictamenes
+    private string $setPagoAnt = "update resumen,dictamenes
 set status_aarsa='PAGO DEL MES ANTERIOR'
 where status_aarsa=dictamen and cliente not like 'J%' and cliente not like '%JUR'
 and queue='pagos'
@@ -94,7 +94,7 @@ and id_cuenta = :c_cont";
      * 
      * @param PDO $pdo
      */
-    public function __construct($pdo) {
+    public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
 
@@ -103,7 +103,8 @@ and id_cuenta = :c_cont";
      * @param array $gestion
      * @return int
      */
-    private function insertVisit($gestion) {
+    private function insertVisit(array $gestion): int
+    {
         $hora = $gestion['C_VH'].':'.$gestion['C_VMN'];
         $sti = $this->pdo->prepare($this->visitInsertQuery);
         $sti->bindParam(':C_CVGE', $gestion['C_CVGE']);
@@ -144,14 +145,14 @@ and id_cuenta = :c_cont";
         $sti->bindParam(':C_OBSE2', $gestion['C_OBSE2']);
         $sti->bindParam(':C_EJE', $gestion['C_EJE']);
         $sti->execute();
-        return $this->pdo->lastInsertId();
+        return intval($this->pdo->lastInsertId());
     }
 
     /**
      * 
      * @param int $auto
      */
-    private function addHistdate($auto) {
+    private function addHistdate(int $auto) {
         $query = "INSERT IGNORE INTO histdate VALUES (:auto, CURDATE())";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
@@ -163,7 +164,7 @@ and id_cuenta = :c_cont";
      * @param int $auto
      * @param string $c_cvge
      */
-    private function addHistgest($auto, $c_cvge) {
+    private function addHistgest(int $auto, string $c_cvge) {
         $query = "INSERT IGNORE INTO histgest VALUES (:auto, :c_cvge)";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
@@ -176,7 +177,7 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $tele
      */
-    public function addNewTel($C_CONT, $tele) {
+    public function addNewTel(int $C_CONT, string $tele) {
         $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
         $query = "UPDATE resumen 
         SET tel_4_verif = tel_3_verif, 
@@ -195,7 +196,7 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $ndir
      */
-    public function updateAddress($C_CONT, $ndir) {
+    public function updateAddress(int $C_CONT, string $ndir) {
         $query = "UPDATE resumen SET direccion_nueva = :ndir WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':ndir', $ndir);
@@ -208,7 +209,7 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $email
      */
-    private function updateEmail($C_CONT, $email) {
+    private function updateEmail(int $C_CONT, string $email) {
         $query = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':email', $email);
@@ -222,7 +223,8 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @return string
      */
-    private function attributePayment($capt, $C_CONT) {
+    private function attributePayment(string $capt, int $C_CONT): string
+    {
         $who = $capt;
         $query = "select c_cvge 
         from historia 
@@ -246,7 +248,7 @@ and id_cuenta = :c_cont";
      * @param float $N_PAGO
      * @param string $who
      */
-    private function addPago($C_CONT, $D_PAGO, $N_PAGO, $who) {
+    private function addPago(int $C_CONT, string $D_PAGO, float $N_PAGO, string $who) {
         $query = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
     SELECT numero_de_cuenta, :D_PAGO, :N_PAGO, cliente, :who, numero_de_credito, id_cuenta 
     FROM resumen WHERE id_cuenta = :C_CONT";
@@ -273,7 +275,7 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $best
      */
-    private function resumenStatusUpdate($C_CONT, $best = '') {
+    private function resumenStatusUpdate(int $C_CONT, string $best = '') {
         $query = "UPDATE resumen SET status_aarsa = :best, fecha_ultima_gestion = NOW() 
         WHERE id_cuenta = :C_CONT";
         $stb = $this->pdo->prepare($query);
@@ -295,7 +297,8 @@ and id_cuenta = :c_cont";
      * @return int
      * @throws Exception
      */
-    private function insertGestion($gestion) {
+    private function insertGestion(array $gestion): int
+    {
         try {
             $sti = $this->pdo->prepare($this->gestionInsertQuery);
             $sti->bindValue(':C_CVBA', $gestion['C_CVBA']);
@@ -334,7 +337,7 @@ and id_cuenta = :c_cont";
             $sti->bindValue(':C_EJE', $gestion['C_EJE']);
             $sti->bindValue(':AUTH', $gestion['AUTH']);
             $sti->execute();
-            $auto = $this->pdo->lastInsertId();
+            $auto = intval($this->pdo->lastInsertId());
             if ($auto > 0) {
                 return $auto;
             }

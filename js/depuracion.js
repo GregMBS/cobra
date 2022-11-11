@@ -5,7 +5,7 @@ function trim(str)
         return null;
     }
 
-    return str.replace(/^[\s]+/, '').replace(/[\s]+$/, '').replace(/[\s]{2,}/, ' ');
+    return str.replace(/^\s+/, '').replace(/\s+$/, '').replace(/\s{2,}/, ' ');
 }
 
 /**

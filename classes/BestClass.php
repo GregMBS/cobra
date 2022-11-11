@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 use PDOStatement;
 
 require_once __DIR__ . '/HistoriaObject.php';
@@ -67,9 +68,6 @@ order by v_cc, d_fech desc limit 1";
     public function countGestiones(int $c_cont): int
     {
         $query = "select count(1) as ct from historia where c_cont = :c_cont";
-        if (!is_int($c_cont)) {
-            return 'X';
-        }
         if ($c_cont == 0) {
             return 'XX';
         }
@@ -109,7 +107,7 @@ order by v_cc, d_fech desc limit 1";
             $stq->bindValue(':c_cont', $c_cont, PDO::PARAM_INT);
             $stq->execute();
             $result = $stq->fetchObject(HistoriaObject::class);
-        } catch (\PDOException $p) {
+        } catch (PDOException $p) {
             var_dump($p->errorInfo);
             die();
         }

@@ -87,9 +87,9 @@ function clock(timelock) {
 }
 
 const r = {
-    'special': /[\W]/g,
+    'special': /\W/g,
     'quotes': /['"]/g,
-    'notNumbers': /[^\d]/g
+    'notNumbers': /\D/g
 };
 
 function valid(o, w) {
