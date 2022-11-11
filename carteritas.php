@@ -17,6 +17,7 @@ $ic = new InputClass();
 $cc = new CarteritasClass($pdo);
 $go = '';
 $count = 0;
+$error = '';
 if (!empty($post)) {
     if (array_key_exists('go', $post)) {
         $go = $post['go'];
@@ -24,12 +25,12 @@ if (!empty($post)) {
 }
 if ($go == 'cargar') {
     if ($_FILES["file"]["error"] > 0) {
-        echo "<p>Error: " . $_FILES["file"]["error"] . "</p>";
-    }
-    if ($_FILES["file"]["error"] == 0) {
+        $error = "<p>Error: " . $_FILES["file"]["error"] . "</p>";
+    } else {
         $filename = $cc->moveLoadedFile();
         try {
             $data = $ic->readXLSXFile($filename);
+            $dataCount = count($data);
             $loadVisitas = $cc->loadVisitas($data);
             $fixVisitas = $cc->fix_visitas;
             $fixTels = $cc->fix_tels;
@@ -44,35 +45,8 @@ if ($go == 'cargar') {
             $sqp = $pdo->prepare($fixProms);
             $sqp->execute();
         } catch (Exception $e) {
-            var_dump($e->getMessage());
+            $error = $e->getMessage();
         }
     }
 }
-    ?>
-    <!DOCTYPE HTML>
-
-    <html lang="es">
-    <head>
-        <title>COBRA Carga de Gestiones</title>
-    </head>
-<body>
-<button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa
-</button>
-<br>
-<h1>COBRA Carga de Gestiones</h1>
-<form action="carteritas.php" method="post" enctype="multipart/form-data" name="cargar">
-    <p>Filename:
-        <input type="hidden" name="capt" id="capt" value="<?php echo $capt ?>"/>
-        <input type="file" name="file" id="file"><br>
-        <button type="submit" name="go" value="cargar">Elegir archivo</button>
-    </p>
-</form>
-<?php
-if ($count > 0) {
-?>
-    <h2><?php echo $count; ?> gestiones cargadas</h2>
-<?php
-}
-?>
-</body>
-</html>
+require_once 'views/carteritasView.php';
