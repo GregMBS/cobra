@@ -33,13 +33,6 @@ if ($notalert > 0) { ?>
 
         <?php } ?>
     </style>
-    <?php
-    if ($capt != 'gmbs') {
-    ?>
-    <script type="text/javascript" src="../js/external/dom-drag.js"></script>
-    <?php
-    }
-    ?>
     <script src="/js/resumen.js"></script>
     <script type="text/javascript" src="../js/depuracion.js?rand=1"></script>
     <script type="text/javascript" src="../js/depuracionv.js"></script>
