@@ -34,12 +34,12 @@
                     <th>FECHA PROMESA 4</th>
                     <th>MONTO PROMESA 4</th>
                     <th>MONTO PAGO</th>
-                    <th>SEMAFORO</th>
+                    <th>SEMÁFORO</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $oldc = 0;
+                $oldC = 0;
                 foreach ($result as $row) {
                     $CUENTA = $row['numero_de_cuenta'];
                     $CLIENTE = $row['cliente'];
@@ -57,29 +57,29 @@
                     $MONTO_PAGO = $row['sum_monto'];
                     $NOMBRE = $row['nombre_deudor'];
                     $STATUS_DE_CREDITO = $row['status_de_credito'];
-                    $MONTOTOTAL = $row['saldo_total'];
-                    $VENC = $row['semaforo'];
+                    $MONTO_TOTAL = $row['saldo_total'];
+                    $VENCIDO = $row['semaforo'];
                     $color = 'white';
-                    $semtext = '';
-                    if ($VENC > 0) {
+                    $semText = '';
+                    if ($VENCIDO > 0) {
                         $color = 'red';
-                        $semtext = 'VENCIDO';
+                        $semText = 'VENCIDO';
                     }
-                    if ($VENC <= 0) {
+                    if ($VENCIDO <= 0) {
                         $color = 'blue';
-                        $semtext = 'VIGENTE';
+                        $semText = 'VIGENTE';
                     }
                     if ($MONTO_PAGO > 10) {
                         if ($STATUS_AARSA == 'PAGO TOTAL') {
                             $color = 'green';
-                            $semtext = 'PAGO';
+                            $semText = 'PAGO';
                         } else {
                             $color = 'yellow';
-                            $semtext = 'PAGANDO';
+                            $semText = 'PAGANDO';
                         }
                     }
-                    if ($oldc != $ID_CUENTA) {
-                        $oldc = $ID_CUENTA;
+                    if ($oldC != $ID_CUENTA) {
+                        $oldC = $ID_CUENTA;
                         ?>
                         <tr>
                             <td><a href='/resumen.php?go=FromMigo&i=0&field=id_cuenta&find=<?php echo $ID_CUENTA; ?>&capt=<?php echo $capt; ?>'><?php echo $CUENTA; ?></a></td>
@@ -88,15 +88,15 @@
                             <td><?php echo $STATUS_AARSA; ?></td>
                             <td><?php echo $GESTOR; ?></td>
                             <td><?php echo $FECHA_PROMESA1; ?></td>
-                            <td class='num'><?php echo number_format($MONTO_PROMESA1, 0); ?></td>
+                            <td class='num'><?php echo number_format($MONTO_PROMESA1); ?></td>
                             <td><?php echo $FECHA_PROMESA2; ?></td>
-                            <td class='num'><?php echo number_format($MONTO_PROMESA2, 0); ?></td>
+                            <td class='num'><?php echo number_format($MONTO_PROMESA2); ?></td>
                             <td><?php echo $FECHA_PROMESA3; ?></td>
-                            <td class='num'><?php echo number_format($MONTO_PROMESA3, 0); ?></td>
+                            <td class='num'><?php echo number_format($MONTO_PROMESA3); ?></td>
                             <td><?php echo $FECHA_PROMESA4; ?></td>
-                            <td class='num'><?php echo number_format($MONTO_PROMESA4, 0); ?></td>
-                            <td class='num'><?php echo number_format($MONTO_PAGO, 0); ?></td>
-                            <td style='background-color:<?php echo $color; ?>'><?php echo $semtext; ?></td>
+                            <td class='num'><?php echo number_format($MONTO_PROMESA4); ?></td>
+                            <td class='num'><?php echo number_format($MONTO_PAGO); ?></td>
+                            <td style='background-color:<?php echo $color; ?>'><?php echo $semText; ?></td>
                         </tr>
                         <?php
                     }
@@ -105,10 +105,12 @@
             </tbody>
         </table>
         <script>
-            $('#rotasTable').dataTable({
-                "bPaginate": false
+            $(document).ready(function() {
+                $('#rotasTable').dataTable({
+                    "bPaginate": false
+                });
+                $('tr:odd').addClass('odd');
             });
-            $('tr:odd').addClass('odd');
         </script>
     </body>
 </html>

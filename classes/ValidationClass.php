@@ -95,8 +95,8 @@ class ValidationClass {
      * @return array
      */
     public function countVisitErrors($gestion) {
-        $errorv = 0;
-        $flagmsgv = "";
+        $errorV = 0;
+        $flagMsgV = "";
 
         $requiredArray = array(
             array(empty($gestion['C_CVST']), '<BR>RESUELTO ES NECESARIO'),
@@ -115,19 +115,19 @@ class ValidationClass {
 
         foreach ($requiredArray as $required) {
             $test = $this->checkRequired($required[0], $required[1]);
-            $errorv += $test['value'];
-            $flagmsgv .= $test['message'];
+            $errorV += $test['value'];
+            $flagMsgV .= $test['message'];
         }
 
         foreach ($conditionalArray as $conditional) {
             $test = $this->checkRequiredConditional($conditional[0], $conditional[1], $conditional[2]);
-            $errorv += $test['value'];
-            $flagmsgv .= $test['message'];
+            $errorV += $test['value'];
+            $flagMsgV .= $test['message'];
         }
 
         return array(
-            'errorv' => $errorv,
-            'flagmsgv' => $flagmsgv
+            'errorv' => $errorV,
+            'flagmsgv' => $flagMsgV
         );
     }
 
@@ -138,11 +138,11 @@ class ValidationClass {
      */
     public function countGestionErrors($gestion) {
         $error = 0;
-        $flagmsg = "";
+        $flagMsg = "";
 
         $requiredArray = array(
             array(empty($gestion['C_CVST']), '<BR>RESUELTO ES NECESARIO'),
-            array(empty($gestion['C_TELE']), '<BR>TELEFONO ES NECESARIO'),
+            array(empty($gestion['C_TELE']), '<BR>TELÉFONO ES NECESARIO'),
             array(empty($gestion['ACCION']), '<BR>ACCION ES NECESARIO'),
             array(strlen($gestion['C_OBSE1']) >250, "COMENTARIO DEMASIADO LARGO"),
         );
@@ -162,18 +162,18 @@ class ValidationClass {
         foreach ($requiredArray as $required) {
             $test = $this->checkRequired($required[0], $required[1]);
             $error += $test['value'];
-            $flagmsg .= $test['message'];
+            $flagMsg .= $test['message'];
         }
 
         foreach ($conditionalArray as $conditional) {
             $test = $this->checkRequiredConditional($conditional[0], $conditional[1], $conditional[2]);
             $error += $test['value'];
-            $flagmsg .= $test['message'];
+            $flagMsg .= $test['message'];
         }
 
         return array(
            'errors' => $error,
-           'flagmsg' => $flagmsg
+           'flagmsg' => $flagMsg
        );
     }
 
