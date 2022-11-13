@@ -58,7 +58,6 @@ class BestClassTest extends TestCase
     {
         $data = $this->cc->getNewBestHistoriaData($this->id);
         $this->assertIsArray($data);
-        var_dump($data);
     }
 
     public function testGetResumenData()

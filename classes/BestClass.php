@@ -193,6 +193,7 @@ where id_cuenta=c_cont";
 
     public function createBestTemp()
     {
+/*
         $queryDropR = "drop table if exists ranked";
         $this->pdo->query($queryDropR);
         $queryR = "create table ranked
@@ -201,6 +202,7 @@ from historia use index (timing)
          join dictamenes on c_cvst = dictamen
          where D_FECH > curdate() - INTERVAL 1 YEAR ";
         $this->pdo->query($queryR);
+*/
         $queryDropBR = "drop table if exists bestrank";
         $this->pdo->query($queryDropBR);
         $queryBR = "create table bestrank
