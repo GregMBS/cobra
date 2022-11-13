@@ -127,3 +127,9 @@ FROM
         LEFT JOIN
     dictamenes ON status_aarsa = dictamen
 WHERE status_de_credito NOT regexp '-';
+# build table ranked
+DROP TABLE IF EXISTS ranked;
+create table ranked
+  select historia.*,v_cc
+  from historia
+  join dictamenes on c_cvst = dictamen;
