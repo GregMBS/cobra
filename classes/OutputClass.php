@@ -68,7 +68,7 @@ class OutputClass
     private function writeFile(string $type, string $filename, array $headers, array $array): void
     {
         $writer = WriterEntityFactory::createWriter($type);
-        $writer->openToFile($filename);
+        $writer->openToBrowser($filename);
         $row = WriterEntityFactory::createRowFromArray($headers);
         $writer->addRow($row);
         foreach ($array as $data) {
