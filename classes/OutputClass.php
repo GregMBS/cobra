@@ -10,10 +10,9 @@ namespace cobra_salsa;
 
 use OpenSpout\Common\Exception\IOException;
 use Exception;
+use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
-use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
-use OpenSpout\Writer\CSV\Writer as CSVWriter;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -34,9 +33,7 @@ class OutputClass
     public function writeCSVFile(string $filename, array $array, array $headers)
     {
         try {
-            $writer = WriterEntityFactory::createCSVWriter();
-            $this->writeFile($writer, $filename, $headers, $array);
-            $writer->close();
+            $this->writeFile("CSV", $filename, $headers, $array);
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -52,25 +49,25 @@ class OutputClass
     public function writeXLSXFile(string $filename, array $array, ?array $headers = [])
     {
         try {
-            $writer = WriterEntityFactory::createXLSXWriter();
-            $this->writeFile($writer, $filename, $headers, $array);
-            $writer->close();
+            $this->writeFile('XLSX', $filename, $headers, $array);
         } catch (Exception $e) {
             throw new Exception($e);
         }
     }
 
     /**
-     * @param XLSXWriter|CSVWriter $writer
+     * @param string $type
      * @param string $filename
      * @param array $headers
      * @param array $array
      * @return void
      * @throws IOException
      * @throws WriterNotOpenedException
+     * @throws UnsupportedTypeException
      */
-    private function writeFile($writer, string $filename, array $headers, array $array): void
+    private function writeFile(string $type, string $filename, array $headers, array $array): void
     {
+        $writer = WriterEntityFactory::createWriter($type);
         $writer->openToFile($filename);
         $row = WriterEntityFactory::createRowFromArray($headers);
         $writer->addRow($row);
@@ -78,6 +75,7 @@ class OutputClass
             $row = WriterEntityFactory::createRowFromArray($data);
             $writer->addRow($row);
         }
+        $writer->close();
     }
 
 }
