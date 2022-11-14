@@ -10,10 +10,8 @@ namespace cobra_salsa;
 
 use OpenSpout\Common\Exception\IOException;
 use Exception;
+use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
-use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
-use OpenSpout\Writer\CSV\Writer as CSVWriter;
-use OpenSpout\Common\Entity\Row;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -34,7 +32,7 @@ class OutputClass
     public function writeCSVFile(string $filename, array $array, array $headers)
     {
         try {
-            $writer = new CSVWriter();
+            $writer = WriterEntityFactory::createCSVWriter();
             $this->writeFile($writer, $filename, $headers, $array);
             $writer->close();
         } catch (Exception $e) {
@@ -52,7 +50,7 @@ class OutputClass
     public function writeXLSXFile(string $filename, array $array, ?array $headers = [])
     {
         try {
-            $writer = new XLSXWriter();
+            $writer = WriterEntityFactory::createXLSXWriter();
             $this->writeFile($writer, $filename, $headers, $array);
             $writer->close();
         } catch (Exception $e) {
@@ -61,7 +59,7 @@ class OutputClass
     }
 
     /**
-     * @param CSVWriter|XLSXWriter $writer
+     * @param $writer
      * @param string $filename
      * @param array $headers
      * @param array $array
@@ -72,9 +70,10 @@ class OutputClass
     private function writeFile($writer, string $filename, array $headers, array $array): void
     {
         $writer->openToFile($filename);
-        $writer->addRow(Row::fromValues($headers));
+        $row = WriterEntityFactory::createRowFromArray($headers);
+        $writer->addRow($row);
         foreach ($array as $data) {
-            $row = Row::fromValues($data);
+            $row = WriterEntityFactory::createRowFromArray($data);
             $writer->addRow($row);
         }
     }

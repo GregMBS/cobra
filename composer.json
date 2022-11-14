@@ -13,5 +13,10 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "*"
+	},
+	"config": {
+		"platform": {
+			"php": "7.4"
+		}
 	}
 }

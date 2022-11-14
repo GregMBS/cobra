@@ -2,7 +2,7 @@
 
 namespace cobra_salsa;
 
-use OpenSpout\Reader\XLSX\Reader;
+use OpenSpout\Reader\Common\Creator\ReaderEntityFactory;
 use Exception;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -24,8 +24,7 @@ class InputClass
     public function readXLSXFile(string $filename): array
     {
         try {
-            $reader = new Reader();
-            $reader->open($filename);
+            $reader = ReaderEntityFactory::createReaderFromFile($filename);
             $output = [];
             foreach ($reader->getSheetIterator() as $sheet) {
                 if ($sheet->getIndex() === 0) { // index is 0-based
