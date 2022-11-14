@@ -33,7 +33,7 @@ class OutputClass
     public function writeCSVFile(string $filename, array $array, array $headers)
     {
         try {
-            $this->writeFile("CSV", $filename, $headers, $array);
+            $this->writeFile('csv', $filename, $headers, $array);
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -49,7 +49,7 @@ class OutputClass
     public function writeXLSXFile(string $filename, array $array, ?array $headers = [])
     {
         try {
-            $this->writeFile('XLSX', $filename, $headers, $array);
+            $this->writeFile('xlsx', $filename, $headers, $array);
         } catch (Exception $e) {
             throw new Exception($e);
         }
