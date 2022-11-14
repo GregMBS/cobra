@@ -12,6 +12,8 @@ use OpenSpout\Common\Exception\IOException;
 use Exception;
 use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
+use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
+use OpenSpout\Writer\CSV\Writer as CSVWriter;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -59,7 +61,7 @@ class OutputClass
     }
 
     /**
-     * @param $writer
+     * @param XLSXWriter|CSVWriter $writer
      * @param string $filename
      * @param array $headers
      * @param array $array
