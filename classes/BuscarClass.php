@@ -134,6 +134,7 @@ tel_4_verif = :find )";
             $queryMain = $queryMain . " and cliente = :cliente ";
             $cliFlag = 1;
         }
+        $queryMain .= " LIMIT 1000 ";
         try {
             $stm = $this->pdo->prepare($queryMain);
             $stm->bindParam(':find', $find);

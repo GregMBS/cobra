@@ -21,6 +21,7 @@ use cobra_salsa\ResumenObject;
     <body>
         <h1>BUSCAR</h1>
         <button onClick="window.location = '<?php echo $source; ?>?go=FromBuscar&i=0&field=id_cuenta&find=<?php echo $C_CONT; ?>&capt=<?php echo $capt; ?>'">Regresar al resumen</button>
+        <p><em>Nota: Se reporte un máximo de 1000 cuentas</em></p>
         <table class="ui-widget" id="buscarTable">
             <thead class="ui-widget-header">
                 <tr>
