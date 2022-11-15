@@ -17,6 +17,7 @@ $ic = new InputClass();
 $cc = new CarteritasClass($pdo);
 $go = '';
 $count = 0;
+$dataCount = 0;
 $error = '';
 if (!empty($post)) {
     if (array_key_exists('go', $post)) {
