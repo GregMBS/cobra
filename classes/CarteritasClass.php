@@ -3,6 +3,10 @@
 namespace cobra_salsa;
 
 use DateTimeImmutable;
+use Exception;
+
+require_once 'InputClass.php';
+require_once 'CarteritasObject.php';
 
 class CarteritasClass extends BaseClass
 {
@@ -147,7 +151,7 @@ EOV;
      * @param array $data
      * @return string
      */
-    public function loadVisitas(array $data): string
+    private function loadVisitas(array $data): string
     {
         $header = /** @lang Text */ "INSERT INTO historia
     (c_visit,c_cvge,c_ntel,cuenta,c_obse1,d_fech,c_cvst,c_hrin,c_hrfi,c_accion,c_cniv) VALUES  ";
@@ -169,5 +173,23 @@ EOV;
             $sql .= $temp;
         }
         return rtrim($sql, ',') . ";\n";
+    }
+
+    /**
+     * @param string $filename
+     * @return CarteritasObject
+     * @throws Exception
+     */
+    public function prepareData(string $filename): CarteritasObject
+    {
+        $ic = new InputClass();
+        $data = $ic->readXLSXFile($filename);
+        var_dump($data);
+        $dataCount = count($data);
+        $loadVisitas = $this->loadVisitas($data);
+        $object = new CarteritasObject();
+        $object->dataCount = $dataCount;
+        $object->loadVisitas = $loadVisitas;
+        return $object;
     }
 }

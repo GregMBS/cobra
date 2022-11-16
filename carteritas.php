@@ -1,11 +1,9 @@
 <?php
 
 use cobra_salsa\CarteritasClass;
-use cobra_salsa\InputClass;
 use cobra_salsa\PdoClass;
 
 require_once 'classes/PdoClass.php';
-require_once 'classes/InputClass.php';
 require_once 'classes/CarteritasClass.php';
 
 $pc = new PdoClass();
@@ -13,7 +11,6 @@ $pdo = $pc->dbConnectAdmin();
 $capt = $pc->capt;
 $post = filter_input_array(INPUT_POST);
 $get = filter_input_array(INPUT_GET);
-$ic = new InputClass();
 $cc = new CarteritasClass($pdo);
 $go = '';
 $count = 0;
@@ -30,9 +27,9 @@ if ($go == 'cargar') {
     } else {
         $filename = $cc->moveLoadedFile();
         try {
-            $data = $ic->readXLSXFile($filename);
-            $dataCount = count($data);
-            $loadVisitas = $cc->loadVisitas($data);
+            $prepareData = $cc->prepareData($filename);
+            $dataCount = $prepareData->dataCount;
+            $loadVisitas = $prepareData->loadVisitas;
             $fixVisitas = $cc->fix_visitas;
             $fixTels = $cc->fix_tels;
             $fixProms = $cc->fix_proms;
