@@ -28,14 +28,17 @@ if ($go == 'cargar') {
         $filename = $cc->moveLoadedFile();
         try {
             $prepareData = $cc->prepareData($filename);
-            $dataCount = $prepareData->dataCount;
-            $loadVisitas = $prepareData->loadVisitas;
-            $fixVisitas = $cc->fix_visitas;
-            $fixTels = $cc->fix_tels;
-            $fixProms = $cc->fix_proms;
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        }
+        $dataCount = $prepareData->dataCount;
+        $loadVisitas = $prepareData->loadVisitas;
+        $fixVisitas = $cc->fix_visitas;
+        $fixTels = $cc->fix_tels;
+        $fixProms = $cc->fix_proms;
+        try {
             $sql = $pdo->prepare($loadVisitas);
             $sql->execute();
-            var_dump($sql);
             $count = $sql->rowCount();
             $sqv = $pdo->prepare($fixVisitas);
             $sqv->execute();
