@@ -31,11 +31,13 @@ class CarteritasClassTest extends TestCase
      */
     public function testLoadVisitas()
     {
-        $filename = 'C:\Users\llame\carteritas\data\carga.xlsx';
+        $filename = 'C:\Users\llame\Documents\RIBEMI\Banco Azteca\14 Noviembre.xlsx';
         $result = $this->cc->prepareData($filename);
-        $dataCount = $result['dataCount'];
-        $loadVisitas = $result['loadVisitas'];
+        $dataCount = $result->dataCount;
+        $loadVisitas = $result->loadVisitas;
         $this->assertIsInt($dataCount);
         $this->assertIsString($loadVisitas);
+        $error = $this->pdo->query($loadVisitas);
+        var_dump($error);
     }
 }

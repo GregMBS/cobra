@@ -50,5 +50,8 @@ if ($go == 'cargar') {
             $error = $e->getMessage();
         }
     }
+    if ($count !== $dataCount) {
+        $error = "<p>Error: Archivo guardado mal. Envialo a greg@gmbs-consulting.com para investigar.</p>";
+    }
 }
 require_once 'views/carteritasView.php';
