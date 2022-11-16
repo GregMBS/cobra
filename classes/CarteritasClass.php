@@ -184,7 +184,6 @@ EOV;
     {
         $ic = new InputClass();
         $data = $ic->readXLSXFile($filename);
-        var_dump($data);
         $dataCount = count($data);
         $loadVisitas = $this->loadVisitas($data);
         $object = new CarteritasObject();

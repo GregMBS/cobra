@@ -30,6 +30,7 @@ if ($go == 'cargar') {
             $prepareData = $cc->prepareData($filename);
             $dataCount = $prepareData->dataCount;
             $loadVisitas = $prepareData->loadVisitas;
+            var_dump($loadVisitas);
             $fixVisitas = $cc->fix_visitas;
             $fixTels = $cc->fix_tels;
             $fixProms = $cc->fix_proms;
