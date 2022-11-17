@@ -10,7 +10,7 @@ class CarteritasObject
     public int $dataCount = 0;
 
     /**
-     * @var string
+     * @var int
      */
-    public string $loadVisitas = '';
+    public int $count = 0;
 }

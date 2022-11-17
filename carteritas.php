@@ -32,14 +32,11 @@ if ($go == 'cargar') {
             $error = $e->getMessage();
         }
         $dataCount = $prepareData->dataCount;
-        $loadVisitas = $prepareData->loadVisitas;
+        $count = $prepareData->count;
         $fixVisitas = $cc->fix_visitas;
         $fixTels = $cc->fix_tels;
         $fixProms = $cc->fix_proms;
         try {
-            $sql = $pdo->prepare($loadVisitas);
-            $sql->execute();
-            $count = $sql->rowCount();
             $sqv = $pdo->prepare($fixVisitas);
             $sqv->execute();
             $sqt = $pdo->prepare($fixTels);

@@ -16,19 +16,14 @@ class BigClass extends BaseClass {
      *
      * @var string
      */
-    private $queryFront;
-
-    /**
-     *
-     * @var string
-     */
-    private $queryBack;
+    private string $queryFront;
 
     /**
      *
      * @return array
      */
-    public function getGestionClientes() {
+    public function getGestionClientes(): array
+    {
         $query = "SELECT distinct c_cvba FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         limit 10
@@ -41,7 +36,8 @@ class BigClass extends BaseClass {
      *
      * @return array
      */
-    public function getGestionGestores() {
+    public function getGestionGestores(): array
+    {
         $query = "SELECT distinct c_cvge FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvge
@@ -55,7 +51,8 @@ class BigClass extends BaseClass {
      * @param BigInputObject $bio
      * @return array
      */
-    public function getProms(BigInputObject $bio) {
+    public function getProms(BigInputObject $bio): array
+    {
         $this->queryFront = "SELECT 
     numero_de_cuenta,
     nombre_deudor AS 'NOMBRE',
@@ -83,12 +80,12 @@ WHERE n_prom>0
             and d_fech between :fecha1 and :fecha2
             and d_prom between :fecha3 and :fecha4
             ";
-        $this->queryBack = " and status_de_credito not REGEXP '-'
+        $queryBack = " and status_de_credito not REGEXP '-'
             ORDER BY d_fech,c_hrin";
         $query = $this->queryFront
             . $bio->getGestorStr()
             . $bio->getClienteStr()
-            . $this->queryBack;
+            . $queryBack;
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(':fecha1', $bio->getFecha1());
@@ -110,7 +107,8 @@ WHERE n_prom>0
      * @param BigInputObject $bio
      * @return array
      */
-    public function getGestiones(BigInputObject $bio) {
+    public function getGestiones(BigInputObject $bio): array
+    {
 /*
         $queryPrep = "CREATE TEMPORARY TABLE bigtemp
         SELECT 

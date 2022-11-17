@@ -29,15 +29,14 @@ class CarteritasClassTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testLoadVisitas()
+    public function testPrepareData()
     {
         $filename = 'C:\Users\llame\Documents\RIBEMI\Banco Azteca\14 Noviembre.xlsx';
         $result = $this->cc->prepareData($filename);
         $dataCount = $result->dataCount;
-        $loadVisitas = $result->loadVisitas;
+        $count = $result->count;
         $this->assertIsInt($dataCount);
-        $this->assertIsString($loadVisitas);
-        $error = $this->pdo->query($loadVisitas);
-        var_dump($error);
+        $this->assertIsInt($count);
+        //$this->assertEquals($dataCount, $count);
     }
 }

@@ -150,6 +150,7 @@ EOV;
     /**
      * @param array $data
      * @return string
+     * @throws Exception
      */
     private function loadVisitas(array $data): string
     {
@@ -157,20 +158,26 @@ EOV;
     (c_visit,c_cvge,c_ntel,cuenta,c_obse1,d_fech,c_cvst,c_hrin,c_hrfi,c_accion,c_cniv) VALUES  ";
         $sql = $header;
         foreach ($data as $row) {
-            $f = $this->getFirstWord($row[2]);
-            $tc = $this->getTelCom($row[5], $row[4]);
-            $t = $tc['tel'];
-            $a = trim($row[0]);
-            $c = $tc['com'];
-            /** @var DateTimeImmutable $fechaHora */
-            $fechaHora = $row[3];
-            $fe = $fechaHora->format('Y-m-d');
-            $s = $this->getStatus($row[4]);
-            $h = $fechaHora->format('H:i:s');
-            $temp = ("\n('" . $f . "','" . $f . "','" . $t . "','" . $a
-                . "','" . $c . "','" . $fe . "','" . $s . "','" . $h .
-                "','00:00:00','VISITA A DOMICILIO','planta baja'),");
-            $sql .= $temp;
+            if (is_array($row)) {
+                $f = $this->getFirstWord($row[2]);
+                $tc = $this->getTelCom($row[5], $row[4]);
+                $t = $tc['tel'];
+                $a = trim($row[0]);
+                $c = $tc['com'];
+                /** @var DateTimeImmutable $fechaHora */
+                $fechaHora = $row[3];
+                if (is_a($fechaHora, DateTimeImmutable::class)) {
+                    $fe = $fechaHora->format('Y-m-d');
+                    $s = $this->getStatus($row[4]);
+                    $h = $fechaHora->format('H:i:s');
+                    $temp = ("\n('" . $f . "','" . $f . "','" . $t . "','" . $a
+                        . "','" . $c . "','" . $fe . "','" . $s . "','" . $h .
+                        "','00:00:00','VISITA A DOMICILIO','planta baja'),");
+                    $sql .= $temp;
+                } else {
+                    var_dump($row);
+                }
+            }
         }
         return rtrim($sql, ',') . ";\n";
     }
@@ -185,10 +192,20 @@ EOV;
         $ic = new InputClass();
         $data = $ic->readXLSXFile($filename);
         $dataCount = count($data);
-        $loadVisitas = $this->loadVisitas($data);
+        $count = 0;
+        foreach ($data as $row) {
+            $loadVisitas = $this->loadVisitas($row);
+            $sql = $this->pdo->prepare($loadVisitas);
+            try {
+                $sql->execute();
+                $count++;
+            } catch (Exception $e) {
+
+            }
+        }
         $object = new CarteritasObject();
         $object->dataCount = $dataCount;
-        $object->loadVisitas = $loadVisitas;
+        $object->count = $count;
         return $object;
     }
 }

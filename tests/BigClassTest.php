@@ -14,19 +14,22 @@ class BigClassTest extends TestCase
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var BigClass
      */
-    protected $cc;
+    protected BigClass $cc;
 
     /**
      * @var BigInputObject
      */
-    protected $bio;
+    protected BigInputObject $bio;
 
-    private $fields = [
+    /**
+     * @var string[]
+     */
+    private array $fields = [
         "numero_de_cuenta",
         "NOMBRE",
         "CLIENTE",
