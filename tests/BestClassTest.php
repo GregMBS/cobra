@@ -54,11 +54,13 @@ class BestClassTest extends TestCase
         $this->assertInstanceOf(HistoriaObject::class, $data);
     }
 
+/*
     public function testGetNewBestHistoriaData()
     {
         $data = $this->cc->getNewBestHistoriaData($this->id);
         $this->assertIsArray($data);
     }
+*/
 
     public function testGetResumenData()
     {
@@ -79,6 +81,7 @@ class BestClassTest extends TestCase
         return $result[0];
     }
 
+    /*
     public function testAll()
     {
         ini_set('memory_limit', '2048M');
@@ -89,4 +92,5 @@ class BestClassTest extends TestCase
         $count = count($output);
         $this->assertGreaterThan(0, $count);
     }
+    */
 }
