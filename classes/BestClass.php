@@ -201,9 +201,8 @@ where id_cuenta=c_cont";
         $this->pdo->query($queryDropR);
         $queryR = "create temporary table ranked
 select historia.*,v_cc
-from historia use index (timing)
-         join dictamenes on c_cvst = dictamen
-         where D_FECH > curdate() - INTERVAL 10 YEAR ";
+from historia
+        left join dictamenes on c_cvst = dictamen ";
         $this->pdo->query($queryR);
 
         $queryDropBR = "drop table if exists bestrank";
