@@ -125,6 +125,7 @@ order by v_cc, d_fech desc limit 1";
         $queryDropL = "drop table if exists lasttemp";
         $this->pdo->query($queryDropL);
         $queryL = "create table lasttemp
+         ENGINE=MEMORY
 select c_cont,
        c_cvst as ultimo_status,
        c_tele as ultimo_tel,
@@ -136,6 +137,7 @@ limit 0";
         $queryDropB = "drop table if exists besttemp";
         $this->pdo->query($queryDropB);
         $queryB = "create table besttemp 
+         ENGINE=MEMORY
 select c_cont,
        c_cvst as mejor_status,
        c_tele as mejor_tel,
@@ -147,6 +149,7 @@ limit 0";
         $queryDropG = "drop table if exists gestioncount";
         $this->pdo->query($queryDropG);
         $queryG = "create table gestioncount (PRIMARY KEY id (c_cont))
+         ENGINE=MEMORY
 select c_cont, count(1) as gestiones
 from historia
 group by c_cont";
@@ -154,6 +157,7 @@ group by c_cont";
         $queryDropLB = "drop table if exists lastbest";
         $this->pdo->query($queryDropLB);
         $queryLB = "create table lastbest (INDEX id (id_cuenta))
+         ENGINE=MEMORY
 select ejecutivo_asignado_call_center, numero_de_cuenta, nombre_deudor, cliente, status_de_credito,
        id_cuenta, saldo_total, saldo_descuento_1, saldo_descuento_2, date(fecha_ultima_gestion) as fecha_ultima,
        time(fecha_ultima_gestion) as hora_ultima,
@@ -193,19 +197,21 @@ where id_cuenta=c_cont";
 
     public function createBestTemp()
     {
-/*
+
         $queryDropR = "drop table if exists ranked";
         $this->pdo->query($queryDropR);
-        $queryR = "create table ranked
+        $queryR = "create temporary table ranked
+         ENGINE=MEMORY
 select historia.*,v_cc
 from historia use index (timing)
          join dictamenes on c_cvst = dictamen
          where D_FECH > curdate() - INTERVAL 1 YEAR ";
         $this->pdo->query($queryR);
-*/
+
         $queryDropBR = "drop table if exists bestrank";
         $this->pdo->query($queryDropBR);
         $queryBR = "create table bestrank
+         ENGINE=MEMORY
 select c_cont, min(v_cc) as vc
 from ranked
 group by c_cont";
@@ -213,6 +219,7 @@ group by c_cont";
         $queryDropBRT = "drop table if exists bestrankedtemp";
         $this->pdo->query($queryDropBRT);
         $queryBT = "create table bestrankedtemp
+         ENGINE=MEMORY
 select * from ranked
 where (c_cont, v_cc) IN (select c_cont, vc from bestrank)";
         $this->pdo->query($queryBT);
