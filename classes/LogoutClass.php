@@ -31,7 +31,7 @@ class LogoutClass
     /**
      * @var PDO $pdo
      */
-    protected $pdo;
+    protected PDO $pdo;
     /**
      *
      * @var string
@@ -45,7 +45,7 @@ class LogoutClass
      *
      * @param PDO $pdo
      */
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }

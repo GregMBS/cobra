@@ -15,61 +15,61 @@ class BigInputObject extends DateClass {
      *
      * @var string
      */
-    protected $fecha1;
+    protected string $fecha1;
 
     /**
      *
      * @var string
      */
-    protected $fecha2;
+    protected string $fecha2;
 
     /**
      *
      * @var string
      */
-    protected $fecha3;
+    protected string $fecha3;
 
     /**
      *
      * @var string
      */
-    protected $fecha4;
+    protected string $fecha4;
 
     /**
      *
      * @var string
      */
-    protected $tipo;
+    protected string $tipo;
 
     /**
      *
      * @var string
      */
-    protected $gestor;
+    protected string $gestor;
 
     /**
      *
      * @var string
      */
-    protected $cliente;
+    protected string $cliente;
 
     /**
      *
      * @var string
      */
-    public $minDate = '2007-10-17';
+    public string $minDate = '2007-10-17';
 
     /**
      *
      * @var string
      */
-    public $maxDateGestion = '2030-12-31';
+    public string $maxDateGestion = '2030-12-31';
 
     /**
      *
      * @var string
      */
-    public $maxDateProm = '2030-12-31';
+    public string $maxDateProm = '2030-12-31';
 
     /**
      * 
@@ -82,7 +82,8 @@ class BigInputObject extends DateClass {
      * @param string $tipo
      */
     public function __construct(
-    $fecha1, $fecha2, $gestor, $cliente, $fecha3 = '2007-10-17', $fecha4 = '2030-12-31', $tipo = ""
+        string $fecha1, string $fecha2, string $gestor, string $cliente, string $fecha3 = '2007-10-17',
+        string $fecha4 = '2030-12-31', string $tipo = ""
     ) {
         $this->maxDateGestion = date("Y-m-d");
         $this->fecha1 = $this->fixDate($fecha1, $this->minDate);
@@ -99,7 +100,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    public function getFecha1() {
+    public function getFecha1(): string
+    {
         return $this->fecha1;
     }
 
@@ -107,7 +109,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    public function getFecha2() {
+    public function getFecha2(): string
+    {
         return $this->fecha2;
     }
 
@@ -115,7 +118,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    public function getFecha3() {
+    public function getFecha3(): string
+    {
         return $this->fecha3;
     }
 
@@ -123,7 +127,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    public function getFecha4() {
+    public function getFecha4(): string
+    {
         return $this->fecha4;
     }
 
@@ -131,7 +136,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    public function getGestor() {
+    public function getGestor(): string
+    {
         return $this->gestor;
     }
 
@@ -139,7 +145,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    public function getCliente() {
+    public function getCliente(): string
+    {
         return $this->cliente;
     }
 
@@ -147,7 +154,8 @@ class BigInputObject extends DateClass {
      * 
      * @return boolean
      */
-    public function hasGestor() {
+    public function hasGestor(): bool
+    {
         return ($this->gestor != 'todos');
     }
 
@@ -155,7 +163,8 @@ class BigInputObject extends DateClass {
      * 
      * @return boolean
      */
-    public function hasCliente() {
+    public function hasCliente(): bool
+    {
         return ($this->cliente != 'todos');
     }
 
@@ -175,7 +184,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    public function getGestorStr() {
+    public function getGestorStr(): string
+    {
         $str = "";
         if ($this->hasGestor()) {
             $str = " and c_cvge=:gestor ";
@@ -188,7 +198,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    public function getClienteStr() {
+    public function getClienteStr(): string
+    {
         $str = "";
         if ($this->hasCliente()) {
             $str = " and c_cvba=:cliente ";
@@ -200,7 +211,8 @@ class BigInputObject extends DateClass {
      * 
      * @return string
      */
-    private function getTipoStr() {
+    private function getTipoStr(): string
+    {
         switch ($this->tipo) {
             case 'visits':
                 return " and c_visit <> '' and c_msge is null ";

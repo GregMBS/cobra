@@ -103,7 +103,7 @@ and d_fech<=last_day(curdate()-interval 1 month)
      * @param int $dom
      * @return array
      */
-    public function getVisitadorMain(string $gestor, int $dom)
+    public function getVisitadorMain(string $gestor, int $dom): array
     {
         $query = $this->queryVisitMain;
         $stq = $this->pdo->prepare($query);

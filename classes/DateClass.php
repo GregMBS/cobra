@@ -11,7 +11,8 @@ class DateClass
      * @param string $date
      * @return boolean
      */
-    protected function validDate($date) {
+    protected function validDate(string $date): bool
+    {
         if (empty($date)) {
             return FALSE;
         }
@@ -31,7 +32,8 @@ class DateClass
      * @param string $default
      * @return string
      */
-    public function fixDate($date, $default) {
+    public function fixDate(string $date, string $default): string
+    {
         if ($this->validDate($date)) {
             return $date;
         }

@@ -50,9 +50,9 @@ if (!empty($gestor)) {
         CHECKLIST
     </button>
     <?php
-    if ($resultcount) {
-        $ASIG = $resultcount['countOut'];
-        $RECIB = $resultcount['countIn'];
+    if ($resultCount) {
+        $ASIG = $resultCount['countOut'];
+        $RECIB = $resultCount['countIn'];
     }
     ?>
     <p>Asignado: <?php echo $ASIG; ?><br>

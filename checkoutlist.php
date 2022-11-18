@@ -10,13 +10,13 @@ $pdo = $pdoc->dbConnectAdmin();
 $cc = new CheckClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $vst = filter_input(INPUT_GET, 'visitador');
-$visitstr = '';
+$visitStr = '';
 $visitador = 'TODOS';
 if (!empty($vst)) {
     $completo = $cc->getCompleto($vst);
     if (!empty($completo)) {
         $visitador = $completo;
-        $visitstr = " and gestor=:vst ";
+        $visitStr = " and gestor=:vst ";
     }
 }
 

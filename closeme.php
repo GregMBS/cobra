@@ -2,10 +2,10 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="es">
 <head>
-<title>Cierrame!</title>
+<title>Cierra</title>
 </head>
 <body>
 <p><?php echo $_REQUEST['msg'];?></p>
-<button onClick="window.close()">Cierrame!</button>
+<button onClick="window.close()">Cierra</button>
 </body>
 </html>

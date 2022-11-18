@@ -11,7 +11,7 @@ use PDO;
  */
 class QuickHoyClass
 {
-    protected $pdo;
+    protected PDO $pdo;
     protected $insertHoy = "create temporary table hoy
         select c_cvge as 'gestor',
         time_to_sec(subtime(max(c_hrin),min(c_hrin)))/3600 as 'Horas',
@@ -42,13 +42,13 @@ class QuickHoyClass
         and c_cniv is null
         group by C_CVGE order by c_cvge";
 
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
     /**
-     * @return mixed
+     * @return array|false
      */
     public function getHoy()
     {

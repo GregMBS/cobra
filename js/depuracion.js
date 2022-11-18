@@ -414,7 +414,7 @@ function validate_form(tf, evt, minprom, authorized)
     }
     if (cvt !== 'null') {
 //CONFIRMA PROMESA requires PROMESA and cargo/parentesco
-        if (cvt.substr(0, 8) === "CONFIRMA")
+        if (cvt.substring(0, 7) === "CONFIRMA")
         {
             if (validate_required(tf.C_CARG) === false)
             {
@@ -523,7 +523,7 @@ function validate_form(tf, evt, minprom, authorized)
         tf.D_PAGO.style.backgroundColor = "orange";
         flag = 1;
     }
-    if ((cvt.substr(0, 3) === "PAG") || ((cvt.substr(0, 2) === "RE") && (authorized < 1)))
+    if ((cvt.substring(0, 2) === "PAG") || ((cvt.substring(0, 1) === "RE") && (authorized < 1)))
     {
         if (validate_required(tf.N_PAGO) === false)
         {
@@ -563,7 +563,7 @@ function validate_form(tf, evt, minprom, authorized)
         flag = 1;
     }
 //NO CONTACTO means NO CONTACTO!
-    if (cvt.substr(0, 4) === "TEL ")
+    if (cvt.substring(0, 3) === "TEL ")
     {
         if (tf.C_CARG.value.length !== 0)
         {
@@ -572,7 +572,7 @@ function validate_form(tf, evt, minprom, authorized)
             flag = 1;
         }
     }
-    if (cvt.substr(0, 11) === "MENSAJE EN ") {
+    if (cvt.substring(0, 10) === "MENSAJE EN ") {
         if (tf.C_CARG.value.length !== 0) {
             alertText = alertText + 'Cargo del contacto no es necesario cuando STATUS es ' + cvt;
             tf.C_CARG.style.backgroundColor = "yellow";
@@ -648,7 +648,7 @@ function validate_form(tf, evt, minprom, authorized)
             flag = 1;
         }
         if (authorized < 1) {
-            if (dp2.substr(0, 7) !== tf.D_FECH.value.substr(0, 7))
+            if (dp2.substring(0, 6) !== tf.D_FECH.value.substring(0, 6))
             {
                 alert("Promesas en el mes siguiente necesita autorización");
                 flag = 1;

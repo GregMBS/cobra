@@ -49,7 +49,7 @@ order by c_visit';
      * @param TimesheetDayObject[] $month
      * @return TimesheetDayObject
      */
-    public function prepareMonthSum(array $month)
+    public function prepareMonthSum(array $month): TimesheetDayObject
     {
         $sum = new TimesheetDayObject();
         return $this->prepareMonthSumCounts($month, $sum);

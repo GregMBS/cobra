@@ -875,7 +875,7 @@ if ($notalert > 0) { ?>
         ?>">
         <input type="hidden" name="from" value="resumen.php">
         <input type="submit" name="go" value="BUSCAR">
-        <input type="button" name="cancel" onclick="cancelbox('SearchBox')"
+        <input type="button" name="cancel" onclick="cancelBox('SearchBox')"
                value="Cancel">
     </form>
 </div>

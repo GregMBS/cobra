@@ -67,8 +67,8 @@ use cobra_salsa\ResumenObject;
                     <option value="numero_de_credito"># del Grupo</option>
                     <option value="nombre_deudor">Nombre</option>
                     <option value="domicilio_deudor">Dirección</option>
-                    <option value="TELS">Telefonos</option>
-                    <option value="ROBOT">Telefonos marcados</option>
+                    <option value="TELS">Teléfonos</option>
+                    <option value="ROBOT">Teléfonos marcados</option>
                     <option value="REFS">Aval/Referencias</option>
                     <option value="id_cuenta">Expediente</option>
                 </select></label><br>
@@ -89,7 +89,7 @@ use cobra_salsa\ResumenObject;
                     ?>">
                 <input type="hidden" name="from" value="resumen.php">
                 <input type="submit" name="go" value="BUSCAR">
-                <input type="button" name="cancel" onclick="cancelbox('SearchBox')" value="Cancel">
+                <input type="button" name="cancel" onclick="cancelBox('SearchBox')" value="Cancel">
             </form>
         </div>
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>

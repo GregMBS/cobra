@@ -13,7 +13,7 @@ require_once __DIR__ . '/ResumenObject.php';
  */
 class RotasClass
 {
-    protected $pdo;
+    protected PDO $pdo;
     protected $queryRotas = /** @lang text */
         "select c_cont,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
     max(d_prom1) as dp1, max(n_prom1) as np1, 
@@ -39,7 +39,7 @@ order by c_cvge
     where id_cuenta = :id_cuenta
     and fecha >= :fecha";
 
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }

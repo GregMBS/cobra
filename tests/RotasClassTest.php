@@ -13,7 +13,7 @@ class RotasClassTest extends TestCase
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var RotasClass

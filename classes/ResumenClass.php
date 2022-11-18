@@ -77,7 +77,7 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @param PDO $pdo
      */
-    public function __construct($pdo) {
+    public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
 

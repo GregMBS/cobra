@@ -16,18 +16,18 @@ class BaseClass {
     /**
      * @var PDO $pdo
      */
-    protected $pdo;
+    protected PDO $pdo;
     
     /**
      * @var ConfigObject $config
      */
-    public $config;
+    public ConfigObject $config;
     
     /**
      * 
      * @param PDO $pdo
      */
-    public function __construct($pdo) {
+    public function __construct(PDO $pdo) {
         $this->config = new ConfigObject();
         $this->pdo = $pdo;
     }

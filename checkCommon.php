@@ -15,7 +15,7 @@ $go = filter_input(INPUT_GET, 'go');
 $gestor = filter_input(INPUT_GET, 'gestor');
 $CUENTA = trim(filter_input(INPUT_GET, 'CUENTA'));
 $result = $cc->getVisitadores();
-$resultcount = $cc->countInOut($gestor);
+$resultCount = $cc->countInOut($gestor);
 $resultMain = $cc->listVasign($gestor);
 if (empty($tipo)) {
     $tipo = 'id_cuenta';

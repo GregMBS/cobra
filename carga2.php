@@ -90,7 +90,14 @@ switch ($go) {
         <form action="/carga2.php" method="post" name="assoc" id="aForm">
             <?php
             try {
-                list($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num) = $cc->clientePick($post);
+                $pick = $cc->clientePick($post);
+                $cliente = $pick->getCliente();
+                $post = $pick->getPost();
+                $fecha_de_actualizacion = $pick->getFechaDeActualizacion();
+                $filename = $pick->getFilename();
+                $header = $pick->getHeader();
+                $data = $pick->getData();
+                $num = $pick->getNum();
             } catch (Exception $e) {
                 die($e->getMessage());
             }

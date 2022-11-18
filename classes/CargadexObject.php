@@ -9,35 +9,35 @@ class CargadexObject
     /**
      * @var int
      */
-    var $auto = 0;
+    var int $auto = 0;
 
     /**
      * @var string
      */
-    var $field = '';
+    var string $field = '';
 
     /**
      * @var string
      */
-    var $type = '';
+    var string $type = '';
 
     /**
      * @var string
      */
-    var $nullok = '';
+    var string $nullok = '';
 
     /**
      * @var int
      */
-    var $position = 0;
+    var int $position = 0;
 
     /**
      * @var string
      */
-    var $cliente = '';
+    var string $cliente = '';
 
     /**
      * @var string
      */
-    var $ktable = '';
+    var string $ktable = '';
 }

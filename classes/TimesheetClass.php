@@ -10,7 +10,7 @@ abstract class TimesheetClass
     /**
      * @var PDO $pdo
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var string
@@ -32,7 +32,7 @@ abstract class TimesheetClass
      */
     protected $queryCountVisitadorDays;
 
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }

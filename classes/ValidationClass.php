@@ -21,32 +21,32 @@ class ValidationClass {
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      *
      * @var array
      */
-    private $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO RECURRENTE', 'PAGO PARCIAL');
+    private array $paid = array('PAGANDO CONVENIO', 'PAGO TOTAL', 'PAGO RECURRENTE', 'PAGO PARCIAL');
 
     /**
      *
      * @var array
      */
-    private $proms = array('PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO RECURRENTE', 'PROMESA DE PAGO PARCIAL');
+    private array $proms = array('PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO RECURRENTE', 'PROMESA DE PAGO PARCIAL');
 
     /**
      *
      * @var array
      */
-    private $blankDates = array('', '0000-00-00');
+    private array $blankDates = array('', '0000-00-00');
 
     
     /**
      * 
      * @param PDO $pdo
      */
-    public function __construct($pdo) {
+    public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
 
@@ -56,7 +56,8 @@ class ValidationClass {
      * @param string $message
      * @return array
      */
-    private function checkRequired($fieldCondition, $message) {
+    private function checkRequired(bool $fieldCondition, string $message): array
+    {
         $output = array(
             'value' => 0,
             'message' => ''

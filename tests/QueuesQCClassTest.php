@@ -19,7 +19,7 @@ class QueuesQCClassTest extends TestCase
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var QueuesQCClass

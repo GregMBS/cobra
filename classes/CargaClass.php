@@ -8,6 +8,8 @@ use PDOException;
 
 require_once __DIR__ . '/CargadexObject.php';
 require_once __DIR__ . '/ColumnObject.php';
+require_once __DIR__ . '/HeaderObject.php';
+require_once __DIR__ . '/CargaPickObject.php';
 
 /**
  * Description of CargaClass
@@ -35,7 +37,7 @@ class CargaClass
         'timelock'
     );
 
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
@@ -381,10 +383,10 @@ from resumen;
 
     /**
      * @param $post
-     * @return array
+     * @return CargaPickObject
      * @throws Exception
      */
-    public function clientePick($post): array
+    public function clientePick($post): CargaPickObject
     {
         $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
         $fecha_de_actualizacion = date('Y-m-d');
@@ -393,8 +395,16 @@ from resumen;
         }
         $this->clearCargadex($cliente);
         $filename = filter_var($post['filename'], FILTER_SANITIZE_STRING);
-        list($data, $header, $num) = $this->getHeaderDataCSV($filename);
-        return array($cliente, $post, $fecha_de_actualizacion, $filename, $header, $data, $num);
+        $headerData = $this->getHeaderDataCSV($filename);
+        $pick = new CargaPickObject();
+        $pick->setCliente($cliente);
+        $pick->setPost($post);
+        $pick->setFechaDeActualizacion($fecha_de_actualizacion);
+        $pick->setFilename($filename);
+        $pick->setHeader($headerData->getHeader());
+        $pick->setData($headerData->getData());
+        $pick->setNum($headerData->getNum());
+        return $pick;
     }
 
     /**
@@ -423,11 +433,11 @@ from resumen;
     }
 
     /**
-     * @param $filename
-     * @return array
+     * @param string $filename
+     * @return HeaderObject
      * @throws Exception
      */
-    private function getHeaderDataCSV($filename): array
+    private function getHeaderDataCSV(string $filename): HeaderObject
     {
         $data = [];
         try {
@@ -444,7 +454,11 @@ from resumen;
         while ($num == 0) {
             $num = count($header);
         }
-        return array($data, $header, $num);
+        $headerData = new HeaderObject();
+        $headerData->setData($data);
+        $headerData->setHeader($header);
+        $headerData->setNum($num);
+        return $headerData;
     }
 
     /**

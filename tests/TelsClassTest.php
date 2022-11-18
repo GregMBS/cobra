@@ -13,7 +13,7 @@ class TelsClassTest extends TestCase
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var TelsClass

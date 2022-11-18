@@ -15,7 +15,7 @@ if (!empty($gestor)) {
 <?php } ?>">
 <div id="vtable">
     <h1><?php echo $message; ?></h1>
-    <form id='asigform' action='/checkboth.php' method='get'>
+    <form id='asigform' action='/checkBoth.php' method='get'>
         <label for="gestor" class="formCap">Visitador:</label>
         <select name="gestor" id="gestor" onChange="document.getElementById('asigform').submit()">
             <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
@@ -32,11 +32,11 @@ if (!empty($gestor)) {
             <select name="fechaout">
                 <option value='' <?php if ($fechaout == '') { ?> selected='selected'<?php } ?>></option>
                 <?php
-                foreach ($resultd as $answerd) {
+                foreach ($resultD as $answerD) {
                     ?>
-                    <option value="<?php echo $answerd; ?>" <?php
-                    if ($fechaout == $answerd) {
-                        ?> selected='selected'<?php } ?>><?php echo $answerd; ?>
+                    <option value="<?php echo $answerD; ?>" <?php
+                    if ($fechaout == $answerD) {
+                        ?> selected='selected'<?php } ?>><?php echo $answerD; ?>
                     </option>
                 <?php }
                 ?>
@@ -50,8 +50,8 @@ if (!empty($gestor)) {
         echo $label;
         ?>">
     </form>
-    <p>Asignado: <?php echo $resultcount['countOut']; ?><br>
-        Recibido: <?php echo $resultcount['countIn']; ?></p>
+    <p>Asignado: <?php echo $resultCount['countOut']; ?><br>
+        Recibido: <?php echo $resultCount['countIn']; ?></p>
     <?php
     require_once __DIR__ . '/checkTable.php';
     ?>

@@ -11,7 +11,7 @@ use PDO;
  */
 class QuickBreaksClass
 {
-    protected $pdo;
+    protected PDO $pdo;
     protected $createBreaktab          = "CREATE TEMPORARY TABLE  `breaktab` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -41,13 +41,13 @@ select gestor,sum(diff) as sum_diff from breaktab
 group by gestor";
     protected $queryBreaktab           = "SELECT * FROM breaktab";
 
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
     /**
-     * @return mixed
+     * @return array|false
      */
     public function getBreaks()
     {

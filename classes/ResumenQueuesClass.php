@@ -20,7 +20,7 @@ class ResumenQueuesClass
     /**
      * @var PDO $pdo
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      *

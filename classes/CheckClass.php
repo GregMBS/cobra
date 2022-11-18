@@ -22,7 +22,8 @@ class CheckClass extends BaseClass {
      * @param string $CUENTA
      * @return int
      */
-    public function getIdCuentaFromCuenta($CUENTA) {
+    public function getIdCuentaFromCuenta(string $CUENTA): int
+    {
         $id_cuenta = 0;
         $query = "select id_cuenta from resumen
 where numero_de_cuenta=:cuenta
@@ -42,7 +43,8 @@ and status_de_credito not regexp '-' LIMIT 1";
      * @param int $id_cuenta
      * @return string
      */
-    public function getCuentaFromIdCuenta($id_cuenta) {
+    public function getCuentaFromIdCuenta(int $id_cuenta): string
+    {
         $query = "select numero_de_cuenta from resumen
 where id_cuenta=:id_cuenta
 and status_de_credito not regexp '-' LIMIT 1";
@@ -60,16 +62,16 @@ and status_de_credito not regexp '-' LIMIT 1";
      *
      * @param string $CUENTA
      * @param string $gestor
-     * @param string $fechaout
+     * @param string $fechaOut
      * @param int $ID_CUENTA
      */
-    public function insertVasignBoth($CUENTA, $gestor, $fechaout, $ID_CUENTA) {
+    public function insertVasignBoth(string $CUENTA, string $gestor, string $fechaOut, int $ID_CUENTA) {
         $query = "INSERT INTO vasign (cuenta, gestor, fechaout, fechain, c_cont)
 VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
         $sti = $this->pdo->prepare($query);
         $sti->bindParam(':cuenta', $CUENTA);
         $sti->bindParam(':gestor', $gestor);
-        $sti->bindParam(':fechaout', $fechaout);
+        $sti->bindParam(':fechaout', $fechaOut);
         $sti->bindParam(':id_cuenta', $ID_CUENTA);
         $sti->execute();
     }
@@ -80,7 +82,7 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
      * @param string $gestor
      * @param int $ID_CUENTA
      */
-    public function insertVasign($CUENTA, $gestor, $ID_CUENTA) {
+    public function insertVasign(string $CUENTA, string $gestor, int $ID_CUENTA) {
         $query = "INSERT INTO vasign
 			(cuenta, gestor, fechaout,c_cont)
 			VALUES
@@ -96,7 +98,8 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
      *
      * @return UserDataObject[]
      */
-    public function getVisitadores() {
+    public function getVisitadores(): array
+    {
         $query = "SELECT * FROM nombres where completo<>''
 and tipo IN ('visitador','admin')";
         $stm = $this->pdo->query($query);
@@ -106,9 +109,10 @@ and tipo IN ('visitador','admin')";
 
     /**
      *
-     * @return array
+     * @return string[]
      */
-    public function getOneMonth() {
+    public function getOneMonth(): array
+    {
         $output = array();
         $end = new DateTime();
         $begin = new DateTime();
@@ -127,7 +131,8 @@ and tipo IN ('visitador','admin')";
      * @param string $gestor
      * @return array
      */
-    public function countInOut($gestor) {
+    public function countInOut(string $gestor): array
+    {
         $query = "select sum(fechaout>curdate()) as countOut,
     sum(fechain>curdate()) as countIn
     from vasign
@@ -143,20 +148,21 @@ where gestor=:gestor";
      * @param string $gestor
      * @return VisitSheetObject[]
      */
-    public function listVasign($gestor = '') {
-        $gString = 'order by gestor, fechain DESC, fechaout DESC, numero_de_cuenta';
+    public function listVasign(string $gestor = ''): array
+    {
+        $gString = 'order by gestor, fechaIn DESC, fechaout DESC, numero_de_cuenta';
         if (!empty($gestor)) {
             $gString = "WHERE gestor = :gestor 
-            ORDER BY fechain DESC";
+            ORDER BY fechaIn DESC";
         }
 
-        $querymain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
+        $queryMain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
 queue, completo, fechaout, fechain, gestor
 from resumen
 join vasign on id_cuenta=c_cont
 join nombres on iniciales=gestor
 join dictamenes on dictamen = status_aarsa " . $gString;
-        $stm = $this->pdo->prepare($querymain);
+        $stm = $this->pdo->prepare($queryMain);
         if (!empty($gestor)) {
             $stm->bindValue(':gestor', $gestor);
         }
@@ -169,7 +175,8 @@ join dictamenes on dictamen = status_aarsa " . $gString;
      * @param string $vst
      * @return string
      */
-    public function getCompleto($vst) {
+    public function getCompleto(string $vst): string
+    {
         $query = "SELECT completo FROM nombres
 where iniciales=:vst
 limit 1";
@@ -188,7 +195,7 @@ limit 1";
      * @param string $tipo
      * @param string $CUENTA
      */
-    public function updateVasign($tipo, $CUENTA) {
+    public function updateVasign(string $tipo, string $CUENTA) {
         $queryCuenta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
         if ($tipo == 'id_cuenta') {
             $queryCuenta = "select id_cuenta from resumen where id_cuenta = :cuenta";

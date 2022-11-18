@@ -12,7 +12,7 @@ function openSearch(timelock) {
         for (let i = 0; i < pagable.length; i++) {
             pagable[i].style.backgroundColor = "";
         }
-        if (estatus.substr(0, 3) === "PAG") {
+        if (estatus.substring(0, 2) === "PAG") {
             for (let i = 0; i < pagable.length; i++) {
                 pagable[i].style.backgroundColor = "yellow";
             }
@@ -28,9 +28,9 @@ function openSearch(timelock) {
  * @param {string} cuenta
  */
 function paging(pageId, flag = 0, flagMsg = '', cuenta = '') {
-    const telefonos = document.getElementById("TELEFONOS");
-    if (telefonos) {
-        telefonos.style.display = "none";
+    const tels = document.getElementById("TELEFONOS");
+    if (tels) {
+        tels.style.display = "none";
     }
     document.getElementById("REFERENCIAS").style.display = "none";
     document.getElementById("LABORAL").style.display = "none";
@@ -104,7 +104,7 @@ function valid(o, w) {
 function tooLong(campo) {
     if (window.document.getElementById(campo).value.length > 250) {
         window.document.getElementById(campo).value = window.document.getElementById(campo).value.replace('  ', ' ');
-        window.document.getElementById(campo).value = window.document.getElementById(campo).value.substr(0, 200);
+        window.document.getElementById(campo).value = window.document.getElementById(campo).value.substring(0, 199);
         confirm('GESTION demasiado largo');
         window.document.getElementById(campo).style.backgroundColor = "yellow";
         return false;
@@ -116,7 +116,7 @@ function showSearch() {
     document.getElementById('find').focus();
 }
 
-function cancelbox(boxname) {
+function cancelBox(boxname) {
     document.getElementById(boxname).style.display = "none";
 }
 

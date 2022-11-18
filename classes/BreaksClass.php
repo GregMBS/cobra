@@ -18,12 +18,12 @@ class BreaksClass {
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      * @var string
      */
-    private $queryBreaks = "select auto,c_cvge,c_hrin,c_cvst,
+    private string $queryBreaks = "select auto,c_cvge,c_hrin,c_cvst,
 time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff' 
 from historia 
 where c_cont=0 and d_fech=curdate() and c_cvst<>'login' 
@@ -33,7 +33,7 @@ order by c_cvge,c_hrin";
     /**
      * @var string
      */
-    private $queryBreaksAdmin = "select auto,c_cvge,c_hrin,c_cvst,
+    private string $queryBreaksAdmin = "select auto,c_cvge,c_hrin,c_cvst,
 time_to_sec(now())-time_to_sec(concat_ws(' ',d_fech,c_hrin)) as 'diff' 
 from historia 
 where c_cont=0 and d_fech=curdate() and c_cvst<>'login' 
@@ -44,7 +44,7 @@ order by c_cvge,c_hrin";
      * 
      * @param PDO $pdo
      */
-    public function __construct($pdo) {
+    public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
 
@@ -54,7 +54,8 @@ order by c_cvge,c_hrin";
      * @param string $GESTOR
      * @return array
      */
-    function getTimes($TIEMPO, $GESTOR) {
+    function getTimes(string $TIEMPO, string $GESTOR): array
+    {
         $query = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
 min(c_hrin) as 'minHr'
 from historia 
@@ -71,7 +72,7 @@ and c_hrin>:tiempo";
      * 
      * @param string $capt
      */
-    function clearUserlog($capt) {
+    function clearUserlog(string $capt) {
         $query = "delete from userlog where gestor = :capt";
         $sdl = $this->pdo->prepare($query);
         $sdl->bindParam(':capt', $capt);
@@ -83,7 +84,8 @@ and c_hrin>:tiempo";
      * @param string $capt
      * @return BreaksTableObject[]
      */
-    function getBreaksTable($capt) {
+    function getBreaksTable(string $capt): array
+    {
         $sdp = $this->pdo->prepare($this->queryBreaksAdmin);
         if ($capt !== 'gmbs') {
             $sdp = $this->pdo->prepare($this->queryBreaks);
@@ -100,7 +102,7 @@ and c_hrin>:tiempo";
      * @param string $empieza
      * @param string $termina
      */
-    public function updateBreak($auto, $tipo, $empieza, $termina) {
+    public function updateBreak(int $auto, string $tipo, string $empieza, string $termina) {
         $query = "UPDATE breaks
             SET tipo=:tipo,
             empieza=:empieza,
@@ -118,7 +120,7 @@ and c_hrin>:tiempo";
      * 
      * @param int $auto
      */
-    public function deleteBreak($auto) {
+    public function deleteBreak(int $auto) {
         $query = "DELETE FROM breaks WHERE auto=:auto";
         $stb = $this->pdo->prepare($query);
         $stb->bindParam(':auto', $auto, PDO::PARAM_INT);
@@ -132,7 +134,7 @@ and c_hrin>:tiempo";
      * @param string $empieza
      * @param string $termina
      */
-    public function insertBreak($gestor, $tipo, $empieza, $termina) {
+    public function insertBreak(string $gestor, string $tipo, string $empieza, string $termina) {
         $query = "INSERT INTO breaks (gestor, tipo, empieza, termina)
 	VALUES (:gestor,:tipo,:empieza,:termina)";
         $sta = $this->pdo->prepare($query);
@@ -147,7 +149,8 @@ and c_hrin>:tiempo";
      * 
      * @return BreaksObject[]
      */
-    public function listBreaks() {
+    public function listBreaks(): array
+    {
         $query = "SELECT * FROM breaks ORDER BY gestor,empieza";
         $stm = $this->pdo->query($query);
         $stm->execute();
@@ -158,7 +161,8 @@ and c_hrin>:tiempo";
      * 
      * @return array
      */
-    public function listUsuarias() {
+    public function listUsuarias(): array
+    {
         $query = "SELECT iniciales FROM nombres WHERE tipo <> ''";
         $stm = $this->pdo->query($query);
         $stm->execute();

@@ -119,7 +119,7 @@ function validate_form2(tf, evt, minprom) {
             }
         }
 //PROPUESTA DE PAGO requires cargo/parentesco and monto de promesa 
-        if (cvt.substr(0, 12) === "PROPUESTA DE") {
+        if (cvt.substring(0, 11) === "PROPUESTA DE") {
             if (n1 < 10) {
                 alertText = alertText + "MONTO DE PROMESA es necesario" + '\n';
                 tf.N_PROMv.style.backgroundColor = "yellow";
@@ -132,7 +132,7 @@ function validate_form2(tf, evt, minprom) {
             }
         }
 //PAGO TOTAL and PAGO PARCIAL and PAGANDO CONVENIO require monto de pago y fecha hoy o en pasado 
-        if (cvt.substr(0, 3) === "PAG") {
+        if (cvt.substring(0, 2) === "PAG") {
             document.getElementById("pagocaptv").style.display = "table-row";
             if (validate_required(tf.N_PAGOv) === false) {
                 alertText = alertText + 'Monto de pago es necesario\n';

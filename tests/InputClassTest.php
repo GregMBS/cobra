@@ -26,7 +26,11 @@ class InputClassTest extends TestCase
     public function testReadXLSXFile()
     {
         $filename = 'C:\Users\llame\carteritas\data\carga.xlsx';
-        $result = $this->ic->readXLSXFile($filename);
+        try {
+            $result = $this->ic->readXLSXFile($filename);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
         $this->assertIsArray($result);
         var_dump($result);
     }

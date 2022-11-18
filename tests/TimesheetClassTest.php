@@ -22,7 +22,7 @@ class TimesheetClassTest extends TestCase
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var HorariosClass

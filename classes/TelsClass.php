@@ -20,7 +20,7 @@ class TelsClass {
     /**
      * @var PDO $pdo
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      *
@@ -71,7 +71,7 @@ where status_de_credito not regexp '-'";
      * 
      * @param PDO $pdo
      */
-    public function __construct($pdo) {
+    public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
 

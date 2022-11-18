@@ -12,5 +12,5 @@ if ($go == 'RECIBIR') {
         }
     }
 }
-$resultd = $cc->getOneMonth();
-require_once 'views/checkbothView.php';
+$resultD = $cc->getOneMonth();
+require_once 'views/checkBothView.php';

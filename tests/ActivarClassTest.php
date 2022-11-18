@@ -12,7 +12,7 @@ class ActivarClassTest extends TestCase
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var ActivarClass

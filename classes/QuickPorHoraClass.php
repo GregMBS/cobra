@@ -11,7 +11,7 @@ use PDO;
  */
 class QuickPorHoraClass
 {
-    protected $pdo;
+    protected PDO $pdo;
     protected $queryPorHora  = "select c_cvge as 'gestor', 
     sum((C_CARG is not null)&&(C_CARG<>'')) as 'contactos',
 count(1)as 'gestiones', 
@@ -25,13 +25,13 @@ and c_msge is null
 and c_cniv is null
 group by C_CVGE";
 
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
     /**
-     * @return mixed
+     * @return array|false
      */
     public function getPorHora()
     {

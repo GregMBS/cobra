@@ -13,7 +13,7 @@ class InventarioClassTest extends TestCase
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      * @var InventarioClass

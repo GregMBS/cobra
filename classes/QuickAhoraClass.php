@@ -13,7 +13,7 @@ use PDOStatement;
 class QuickAhoraClass
 {
     /** @var PDO $pdo */
-    protected $pdo;
+    protected PDO $pdo;
     protected $createAhora          = "CREATE TEMPORARY TABLE  `ahora` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -61,7 +61,7 @@ group by c_cvge;";
 where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
     protected $queryAhora           = "SELECT * FROM ahora";
 
-    public function __construct($pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }

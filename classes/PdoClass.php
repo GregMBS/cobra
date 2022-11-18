@@ -47,7 +47,7 @@ class PdoClass {
     /**
      * @var PDO
      */
-    protected $pdo;
+    protected PDO $pdo;
 
     /**
      *

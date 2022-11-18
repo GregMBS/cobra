@@ -20,7 +20,8 @@ class ActivarClass extends BaseClass {
      * @param array $data
      * @return int
      */
-    public function activateCuentas($data) {
+    public function activateCuentas(array $data): int
+    {
         $query = "update resumen
 set status_de_credito = substring_index(status_de_credito,'-',1)
 where numero_de_cuenta = :cta";
@@ -32,7 +33,8 @@ where numero_de_cuenta = :cta";
      * @param array $data
      * @return int
      */
-    public function inactivateCuentas($data) {
+    public function inactivateCuentas(array $data): int
+    {
         $query = "update resumen
 set status_de_credito=concat(substring_index(status_de_credito,'-',1),'-inactivo') 
 where status_de_credito not regexp '-' and numero_de_cuenta=:cta";
@@ -45,7 +47,7 @@ where status_de_credito not regexp '-' and numero_de_cuenta=:cta";
      * @param string $query
      * @return int
      */
-    private function runProcess($data, $query)
+    private function runProcess(array $data, string $query): int
     {
         $count = 0;
         $std = $this->pdo->prepare($query);

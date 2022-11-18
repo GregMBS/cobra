@@ -9,17 +9,17 @@ class PagosObject
     /**
      * @var int
      */
-    public $auto = 0;
+    public int $auto = 0;
 
     /**
      * @var string
      */
-    public $cuenta = '';
+    public string $cuenta = '';
 
     /**
      * @var string
      */
-    public $fecha = '';
+    public string $fecha = '';
 
     /**
      * @var float
@@ -29,34 +29,37 @@ class PagosObject
     /**
      * @var string
      */
-    public $cliente = '';
+    public string $cliente = '';
 
     /**
      * @var string
      */
-    public $gestor = '';
+    public string $gestor = '';
 
     /**
      * @var int
      */
-    public $confirmado = 0;
+    public int $confirmado = 0;
 
     /**
      * @var string
      */
-    public $credito = '';
+    public string $credito = '';
 
     /**
      * @var int
      */
-    public $id_cuenta = 0;
+    public int $id_cuenta = 0;
 
     /**
      * @var string
      */
-    public $fechacapt = '';
+    public string $fechacapt = '';
 
-    private $NoSi = [
+    /**
+     * @var string[]
+     */
+    private array $NoSi = [
         'NO',
         'S&Iacute;'
     ];
@@ -64,7 +67,7 @@ class PagosObject
     /**
      * @return string
      */
-    public function confString()
+    public function confString(): string
     {
         return $this->NoSi[$this->confirmado];
     }
