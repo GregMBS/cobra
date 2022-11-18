@@ -203,7 +203,7 @@ where id_cuenta=c_cont";
 select historia.*,v_cc
 from historia use index (timing)
          join dictamenes on c_cvst = dictamen
-         where D_FECH > curdate() - INTERVAL 1 YEAR ";
+         where D_FECH > curdate() - INTERVAL 10 YEAR ";
         $this->pdo->query($queryR);
 
         $queryDropBR = "drop table if exists bestrank";
