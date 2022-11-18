@@ -61,13 +61,17 @@ foreach ($result as $row) {
     $aData['ultimo_tel'] = $latest->C_TELE;
     $aData['ultimo_comentario'] = $latest->C_OBSE1;
     $aData['ultimo_accion'] = $latest->C_ACCION;
-
+    $aData['mejor_status'] = $latest->C_CVST;
+    $aData['mejor_tel'] = $latest->C_TELE;
+    $aData['mejor_fecha'] = $aData['fecha_ultima'];
+    $aData['mejor_accion'] = $latest->C_ACCION;
     $best = $bc->getBestHistoriaData($idc);
-    $aData['mejor_status'] = $best->C_CVST;
-    $aData['mejor_tel'] = $best->C_TELE;
-    $aData['mejor_fecha'] = $best->D_FECH;
-    $aData['mejor_accion'] = $best->C_ACCION;
-
+    if (!empty($best->D_FECH)) {
+        $aData['mejor_status'] = $best->C_CVST;
+        $aData['mejor_tel'] = $best->C_TELE;
+        $aData['mejor_fecha'] = $best->D_FECH;
+        $aData['mejor_accion'] = $best->C_ACCION;
+    }
     $aData['gestiones'] = $bc->countGestiones($idc);
     $output[] = $aData;
 }
