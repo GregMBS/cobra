@@ -67,9 +67,9 @@ where breakstat.c_cvge=gestor and historia.auto=mau and queue='BREAK'";
     }
 
     /**
-     * @return PDOStatement
+     * @return PDOStatement|array
      */
-    public function getAhora(): PDOStatement
+    public function getAhora(): array
     {
         $this->pdo->query($this->createAhora);
         $this->pdo->query($this->insertAhora);
