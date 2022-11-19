@@ -27,7 +27,7 @@ class VisitSheetObject
     public ?string $cliente;
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $saldo_total = 0;
 

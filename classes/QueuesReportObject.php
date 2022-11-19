@@ -27,22 +27,22 @@ class QueuesReportObject
     public int $ctm = 0;
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $mtt = 0;
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $mtd = 0;
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $mtw = 0;
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $mtm = 0;
 }

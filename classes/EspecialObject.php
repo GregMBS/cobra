@@ -5,32 +5,32 @@ namespace cobra_salsa;
 class EspecialObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $cliente = '';
+    public ?string $cliente = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $status_de_credito = '';
+    public ?string $status_de_credito = '';
 
     /**
-     * @var int
+     * @var int|null
      */
-    public int $cnt = 0;
+    public ?int $cnt = 0;
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $mnt = 0.0;
 
     /**
-     * @var int
+     * @var int|null
      */
-    public int $ecount = 0;
+    public ?int $ecount = 0;
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $emount = 0.0;
 }

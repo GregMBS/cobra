@@ -7,177 +7,177 @@ namespace cobra_salsa;
 class GestionObject
 {
     /**
-     * @var string
+     * @var string|null
      */
     public $C_CVBA = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_CVGE = '';
 
     /**
-     * @var int
+     * @var int|null
      */
     public int $C_CONT = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_CVST = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $D_FECH = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_HRIN = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_HRFI = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_TELE = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $CUANDO = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $CUENTA = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_OBSE1 = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_ATTE = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_CARG = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $D_PROM = '';
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $N_PROM = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_PROM = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $D_PROM1 = '';
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $N_PROM1 = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $D_PROM2 = '';
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $N_PROM2 = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $D_PROM3 = '';
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $N_PROM3 = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $D_PROM4 = '';
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $N_PROM4 = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_CONTAN = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $ACCION = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_CNP = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_MOTIV = '';
 
     /**
-     * @var int
+     * @var int|null
      */
     public int $C_CAMP = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_NTEL = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_NDIR = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_EMAIL = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_OBSE2 = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $C_EJE = '';
 
     /**
-     * @var string
+     * @var string|null
      */
     public $AUTH = '';
 

@@ -22,7 +22,7 @@ class PagosQueryObject
     public $fechacapt = '';
 
     /**
-     * @var float
+     * @var float|null
      */
     public ?float $monto = 0;
 
