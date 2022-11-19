@@ -35,6 +35,18 @@ order by c_visit';
             where :gestor = ''
             and fecha=last_day(curdate() - interval 2 month) + interval :dom day";
 
+    protected string $queryVisitMain = "select count(distinct c_cont) as cuentas,
+            sum(n_prom > 0) as promesas,
+            count(1) as gestiones,
+            count(1) - sum(queue='SIN CONTACTOS') as nocontactos,
+            sum(queue='SIN CONTACTOS') as contactos
+            from historia
+            left join dictamenes on c_cvst=dictamen
+            where c_msge is null
+            and c_cniv <> '' and c_cont>0
+            and D_FECH=last_day(curdate() - interval 2 month) + interval :dom day
+            group by D_FECH";
+
     /**
      * @param string $gestor
      * @param int $hoy
