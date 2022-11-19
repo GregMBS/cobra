@@ -28,11 +28,11 @@ class DateClass
 
     /**
      *
-     * @param string $date
+     * @param string|null $date
      * @param string $default
      * @return string
      */
-    public function fixDate(string $date, string $default): string
+    public function fixDate(?string $date, string $default): string
     {
         if ($this->validDate($date)) {
             return $date;
