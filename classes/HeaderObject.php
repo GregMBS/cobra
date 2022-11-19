@@ -17,7 +17,7 @@ class HeaderObject
     /**
      * @var int
      */
-    public int $num;
+    public int $num = 0;
 
     /**
      * @return array

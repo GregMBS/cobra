@@ -9,32 +9,32 @@ class VisitSheetObject
     /**
      * @var int
      */
-    public int $id_cuenta;
+    public int $id_cuenta = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $numero_de_cuenta;
+    public ?string $numero_de_cuenta;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $nombre_deudor;
+    public ?string $nombre_deudor;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $cliente;
+    public ?string $cliente;
 
     /**
      * @var float
      */
-    public float $saldo_total;
+    public ?float $saldo_total = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $queue;
+    public ?string $queue;
 
     /**
      * @var string|null
@@ -42,17 +42,17 @@ class VisitSheetObject
     public ?string $completo;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $fechaout;
+    public ?string $fechaout;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $fechain;
+    public ?string $fechain;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $gestor;
+    public ?string $gestor;
 }

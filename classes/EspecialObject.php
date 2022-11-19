@@ -22,7 +22,7 @@ class EspecialObject
     /**
      * @var float
      */
-    public float $mnt = 0.0;
+    public ?float $mnt = 0.0;
 
     /**
      * @var int
@@ -32,5 +32,5 @@ class EspecialObject
     /**
      * @var float
      */
-    public float $emount = 0.0;
+    public ?float $emount = 0.0;
 }

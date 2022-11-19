@@ -37,7 +37,7 @@ class CargaPickObject
     /**
      * @var int
      */
-    public int $num;
+    public int $num = 0;
 
     /**
      * @param string $cliente

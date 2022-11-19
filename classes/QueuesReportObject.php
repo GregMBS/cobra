@@ -29,20 +29,20 @@ class QueuesReportObject
     /**
      * @var float
      */
-    public float $mtt = 0;
+    public ?float $mtt = 0;
 
     /**
      * @var float
      */
-    public float $mtd = 0;
+    public ?float $mtd = 0;
 
     /**
      * @var float
      */
-    public float $mtw = 0;
+    public ?float $mtw = 0;
 
     /**
      * @var float
      */
-    public float $mtm = 0;
+    public ?float $mtm = 0;
 }

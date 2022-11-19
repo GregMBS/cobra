@@ -79,7 +79,7 @@ class GestionObject
     /**
      * @var float
      */
-    public float $N_PROM = 0;
+    public ?float $N_PROM = 0;
 
     /**
      * @var string
@@ -94,7 +94,7 @@ class GestionObject
     /**
      * @var float
      */
-    public float $N_PROM1 = 0;
+    public ?float $N_PROM1 = 0;
 
     /**
      * @var string
@@ -104,7 +104,7 @@ class GestionObject
     /**
      * @var float
      */
-    public float $N_PROM2 = 0;
+    public ?float $N_PROM2 = 0;
 
     /**
      * @var string
@@ -114,7 +114,7 @@ class GestionObject
     /**
      * @var float
      */
-    public float $N_PROM3 = 0;
+    public ?float $N_PROM3 = 0;
 
     /**
      * @var string
@@ -124,7 +124,7 @@ class GestionObject
     /**
      * @var float
      */
-    public float $N_PROM4 = 0;
+    public ?float $N_PROM4 = 0;
 
     /**
      * @var string

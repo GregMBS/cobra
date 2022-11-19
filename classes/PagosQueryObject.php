@@ -24,7 +24,7 @@ class PagosQueryObject
     /**
      * @var float
      */
-    public float $monto = 0;
+    public ?float $monto = 0;
 
     /**
      * @var string
