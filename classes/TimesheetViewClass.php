@@ -9,7 +9,7 @@ class TimesheetViewClass
     /**
      * @var string
      */
-    private $yr;
+    private string $yr;
 
     /**
      * @var string
