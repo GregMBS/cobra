@@ -57,19 +57,19 @@ class BigInputObject extends DateClass {
      *
      * @var string
      */
-    public string $minDate = '2007-10-17';
+    public $minDate = '2007-10-17';
 
     /**
      *
      * @var string
      */
-    public string $maxDateGestion = '2030-12-31';
+    public $maxDateGestion = '2030-12-31';
 
     /**
      *
      * @var string
      */
-    public string $maxDateProm = '2030-12-31';
+    public $maxDateProm = '2030-12-31';
 
     /**
      * 

@@ -20,14 +20,14 @@ class LogoutClass
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    public string $date;
+    public ?string $date;
     /**
      *
-     * @var string
+     * @var string|null
      */
-    public string $time;
+    public ?string $time;
     /**
      * @var PDO $pdo
      */

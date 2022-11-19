@@ -14,20 +14,20 @@ class BreaksObject
     /**
      * @var string
      */
-    public string $gestor = '';
+    public $gestor = '';
 
     /**
      * @var string
      */
-    public string $tipo = '';
+    public $tipo = '';
 
     /**
      * @var string
      */
-    public string $empieza = '';
+    public $empieza = '';
 
     /**
      * @var string
      */
-    public string $termina = '';
+    public $termina = '';
 }

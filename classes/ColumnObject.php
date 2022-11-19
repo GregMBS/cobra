@@ -9,15 +9,15 @@ class ColumnObject
     /**
      * @var string
      */
-    public string $Field = '';
+    public $Field = '';
 
     /**
      * @var string
      */
-    public string $Type = '';
+    public $Type = '';
 
     /**
      * @var string
      */
-    public string $Null = '';
+    public $Null = '';
 }

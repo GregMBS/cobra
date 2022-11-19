@@ -12,12 +12,12 @@ class BreaksTableObject
     /**
      * @var string
      */
-    public string $c_cvge = '';
+    public $c_cvge = '';
 
     /**
      * @var string
      */
-    public string $c_hrin = '';
+    public $c_hrin = '';
 
     /**
      * @var string|null

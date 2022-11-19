@@ -65,15 +65,15 @@ class PdoClass {
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    public string $capt;
+    public ?string $capt;
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    public string $tipo = '';
+    public ?string $tipo = '';
 
     /**
      *

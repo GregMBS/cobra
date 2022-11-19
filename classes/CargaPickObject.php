@@ -7,7 +7,7 @@ class CargaPickObject
     /**
      * @var string
      */
-    public string $cliente;
+    public $cliente;
 
     /**
      * @var array
@@ -17,12 +17,12 @@ class CargaPickObject
     /**
      * @var string
      */
-    public string $fecha_de_actualizacion;
+    public $fecha_de_actualizacion;
 
     /**
      * @var string
      */
-    public string $filename;
+    public $filename;
 
     /**
      * @var array

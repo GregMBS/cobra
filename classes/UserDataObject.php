@@ -9,22 +9,22 @@ class UserDataObject
     /**
      * @var string
      */
-    public string $USUARIA = '';
+    public $USUARIA = '';
 
     /**
      * @var string
      */
-    public string $INICIALES = '';
+    public $INICIALES = '';
 
     /**
      * @var string
      */
-    public string $COMPLETO = '';
+    public $COMPLETO = '';
 
     /**
      * @var string
      */
-    public string $TIPO = '';
+    public $TIPO = '';
 
     /**
      * @var string | null
@@ -49,7 +49,7 @@ class UserDataObject
     /**
      * @var string
      */
-    public string $passw = '';
+    public $passw = '';
 
     /**
      * @var bool|null

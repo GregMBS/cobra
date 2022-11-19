@@ -9,12 +9,12 @@ class GestionObject
     /**
      * @var string
      */
-    public string $C_CVBA = '';
+    public $C_CVBA = '';
 
     /**
      * @var string
      */
-    public string $C_CVGE = '';
+    public $C_CVGE = '';
 
     /**
      * @var int
@@ -24,57 +24,57 @@ class GestionObject
     /**
      * @var string
      */
-    public string $C_CVST = '';
+    public $C_CVST = '';
 
     /**
      * @var string
      */
-    public string $D_FECH = '';
+    public $D_FECH = '';
 
     /**
      * @var string
      */
-    public string $C_HRIN = '';
+    public $C_HRIN = '';
 
     /**
      * @var string
      */
-    public string $C_HRFI = '';
+    public $C_HRFI = '';
 
     /**
      * @var string
      */
-    public string $C_TELE = '';
+    public $C_TELE = '';
 
     /**
      * @var string
      */
-    public string $CUANDO = '';
+    public $CUANDO = '';
 
     /**
      * @var string
      */
-    public string $CUENTA = '';
+    public $CUENTA = '';
 
     /**
      * @var string
      */
-    public string $C_OBSE1 = '';
+    public $C_OBSE1 = '';
 
     /**
      * @var string
      */
-    public string $C_ATTE = '';
+    public $C_ATTE = '';
 
     /**
      * @var string
      */
-    public string $C_CARG = '';
+    public $C_CARG = '';
 
     /**
      * @var string
      */
-    public string $D_PROM = '';
+    public $D_PROM = '';
 
     /**
      * @var float
@@ -84,12 +84,12 @@ class GestionObject
     /**
      * @var string
      */
-    public string $C_PROM = '';
+    public $C_PROM = '';
 
     /**
      * @var string
      */
-    public string $D_PROM1 = '';
+    public $D_PROM1 = '';
 
     /**
      * @var float
@@ -99,7 +99,7 @@ class GestionObject
     /**
      * @var string
      */
-    public string $D_PROM2 = '';
+    public $D_PROM2 = '';
 
     /**
      * @var float
@@ -109,7 +109,7 @@ class GestionObject
     /**
      * @var string
      */
-    public string $D_PROM3 = '';
+    public $D_PROM3 = '';
 
     /**
      * @var float
@@ -119,7 +119,7 @@ class GestionObject
     /**
      * @var string
      */
-    public string $D_PROM4 = '';
+    public $D_PROM4 = '';
 
     /**
      * @var float
@@ -129,22 +129,22 @@ class GestionObject
     /**
      * @var string
      */
-    public string $C_CONTAN = '';
+    public $C_CONTAN = '';
 
     /**
      * @var string
      */
-    public string $ACCION = '';
+    public $ACCION = '';
 
     /**
      * @var string
      */
-    public string $C_CNP = '';
+    public $C_CNP = '';
 
     /**
      * @var string
      */
-    public string $C_MOTIV = '';
+    public $C_MOTIV = '';
 
     /**
      * @var int
@@ -154,31 +154,31 @@ class GestionObject
     /**
      * @var string
      */
-    public string $C_NTEL = '';
+    public $C_NTEL = '';
 
     /**
      * @var string
      */
-    public string $C_NDIR = '';
+    public $C_NDIR = '';
 
     /**
      * @var string
      */
-    public string $C_EMAIL = '';
+    public $C_EMAIL = '';
 
     /**
      * @var string
      */
-    public string $C_OBSE2 = '';
+    public $C_OBSE2 = '';
 
     /**
      * @var string
      */
-    public string $C_EJE = '';
+    public $C_EJE = '';
 
     /**
      * @var string
      */
-    public string $AUTH = '';
+    public $AUTH = '';
 
 }

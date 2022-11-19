@@ -14,17 +14,17 @@ class VisitSheetObject
     /**
      * @var string
      */
-    public string $numero_de_cuenta;
+    public $numero_de_cuenta;
 
     /**
      * @var string
      */
-    public string $nombre_deudor;
+    public $nombre_deudor;
 
     /**
      * @var string
      */
-    public string $cliente;
+    public $cliente;
 
     /**
      * @var float
@@ -34,7 +34,7 @@ class VisitSheetObject
     /**
      * @var string
      */
-    public string $queue;
+    public $queue;
 
     /**
      * @var string|null
@@ -44,15 +44,15 @@ class VisitSheetObject
     /**
      * @var string
      */
-    public string $fechaout;
+    public $fechaout;
 
     /**
      * @var string
      */
-    public string $fechain;
+    public $fechain;
 
     /**
      * @var string
      */
-    public string $gestor;
+    public $gestor;
 }

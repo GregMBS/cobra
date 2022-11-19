@@ -14,12 +14,12 @@ class PagosObject
     /**
      * @var string
      */
-    public string $cuenta = '';
+    public $cuenta = '';
 
     /**
      * @var string
      */
-    public string $fecha = '';
+    public $fecha = '';
 
     /**
      * @var float
@@ -29,12 +29,12 @@ class PagosObject
     /**
      * @var string
      */
-    public string $cliente = '';
+    public $cliente = '';
 
     /**
      * @var string
      */
-    public string $gestor = '';
+    public $gestor = '';
 
     /**
      * @var int
@@ -44,7 +44,7 @@ class PagosObject
     /**
      * @var string
      */
-    public string $credito = '';
+    public $credito = '';
 
     /**
      * @var int
@@ -54,7 +54,7 @@ class PagosObject
     /**
      * @var string
      */
-    public string $fechacapt = '';
+    public $fechacapt = '';
 
     /**
      * @var string[]

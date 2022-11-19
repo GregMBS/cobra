@@ -14,20 +14,20 @@ class NoteObject
     /**
      * @var string
      */
-    public string $notAlertT = '';
+    public $notAlertT = '';
 
     /**
      * @var string
      */
-    public string $cuenta = '';
+    public $cuenta = '';
 
     /**
      * @var string
      */
-    public string $nota = '';
+    public $nota = '';
 
     /**
      * @var string
      */
-    public string $fuente = '';
+    public $fuente = '';
 }

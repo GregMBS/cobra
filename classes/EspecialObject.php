@@ -7,12 +7,12 @@ class EspecialObject
     /**
      * @var string
      */
-    public string $cliente = '';
+    public $cliente = '';
 
     /**
      * @var string
      */
-    public string $status_de_credito = '';
+    public $status_de_credito = '';
 
     /**
      * @var int

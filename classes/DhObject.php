@@ -15,11 +15,11 @@ class DhObject extends ResumenObject
     /**
      * @var string
      */
-    public string $d_prom = '';
+    public $d_prom = '';
 
     /**
      * @var string
      */
-    public string $c_hrin = '';
+    public $c_hrin = '';
 
 }

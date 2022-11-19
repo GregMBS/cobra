@@ -9,12 +9,12 @@ class TimesheetDayObject
     /**
      * @var string
      */
-    public string $start = ' ';
+    public $start = ' ';
 
     /**
      * @var string
      */
-    public string $stop  = ' ';
+    public $stop  = ' ';
 
     /**
      * @var int

@@ -10,25 +10,25 @@ class BadNoObject
      *
      * @var string
      */
-    public string $t1 =  '';
+    public $t1 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t2 =  '';
+    public $t2 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t3 =  '';
+    public $t3 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t4 =  '';
+    public $t4 =  '';
 
     /**
      *
@@ -58,84 +58,84 @@ class BadNoObject
      *
      * @var string
      */
-    public string $t1r1 =  '';
+    public $t1r1 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t2r1 =  '';
+    public $t2r1 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t1r2 =  '';
+    public $t1r2 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t2r2 =  '';
+    public $t2r2 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t1r3 =  '';
+    public $t1r3 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t2r3 =  '';
+    public $t2r3 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t1r4 =  '';
+    public $t1r4 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t2r4 =  '';
+    public $t2r4 =  '';
 
     /**
      *
      * @var string
      */
-    public string $t1l =  '';
+    public $t1l =  '';
 
     /**
      *
      * @var string
      */
-    public string $t2l =  '';
+    public $t2l =  '';
 
     /**
      *
      * @var string
      */
-    public string $t1v =  '';
+    public $t1v =  '';
 
     /**
      *
      * @var string
      */
-    public string $t2v =  '';
+    public $t2v =  '';
 
     /**
      *
      * @var string
      */
-    public string $t3v =  '';
+    public $t3v =  '';
 
     /**
      *
      * @var string
      */
-    public string $t4v =  '';
+    public $t4v =  '';
 
 }

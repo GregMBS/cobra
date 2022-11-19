@@ -9,17 +9,17 @@ class PagosQueryObject
     /**
      * @var string
      */
-    public string $cuenta = '';
+    public $cuenta = '';
 
     /**
      * @var string
      */
-    public string $fecha = '';
+    public $fecha = '';
 
     /**
      * @var string
      */
-    public string $fechacapt = '';
+    public $fechacapt = '';
 
     /**
      * @var float
@@ -29,17 +29,17 @@ class PagosQueryObject
     /**
      * @var string
      */
-    public string $cliente = '';
+    public $cliente = '';
 
     /**
      * @var string
      */
-    public string $sdc = '';
+    public $sdc = '';
 
     /**
      * @var string
      */
-    public string $gestor = '';
+    public $gestor = '';
 
     /**
      * @var int
@@ -54,5 +54,5 @@ class PagosQueryObject
     /**
      * @var string
      */
-    public string $credit = '';
+    public $credit = '';
 }

@@ -8,11 +8,11 @@ class ConfigObject
      *
      * @var string
      */
-    public string $dbName = 'cobraribemi';
+    public $dbName = 'cobraribemi';
     
     /**
      *
      * @var string
      */
-    public string $robotDb = 'robotribemi';
+    public $robotDb = 'robotribemi';
 }
