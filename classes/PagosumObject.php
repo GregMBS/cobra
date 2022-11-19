@@ -4,10 +4,25 @@ namespace cobra_salsa;
 
 class PagosumObject
 {
-    private string $cli;
-    private string $sdc;
-    private float $sm;
-    private float $smc;
+    /**
+     * @var string|null
+     */
+    private ?string $cli = "";
+
+    /**
+     * @var string|null
+     */
+    private ?string $sdc = "";
+
+    /**
+     * @var float|null
+     */
+    private ?float $sm = 0;
+
+    /**
+     * @var float|null
+     */
+    private ?float $smc = 0;
 
     /**
      * @return string
