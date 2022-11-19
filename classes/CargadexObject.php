@@ -7,37 +7,37 @@ namespace cobra_salsa;
 class CargadexObject
 {
     /**
-     * @var int
+     * @var int|null
      */
-    var int $auto = 0;
+    var ?int $auto = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $field = '';
+    var ?string $field = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $type = '';
+    var ?string $type = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $nullok = '';
+    var ?string $nullok = '';
 
     /**
-     * @var int
+     * @var int|null
      */
-    var int $position = 0;
+    var ?int $position = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $cliente = '';
+    var ?string $cliente = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $ktable = '';
+    var ?string $ktable = '';
 }
