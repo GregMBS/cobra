@@ -32,34 +32,34 @@ class QueuelistObject
     var int $camp;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $orden1;
+    var ?string $orden1;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $updown1;
+    var ?string $updown1;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $orden2;
+    var ?string $orden2;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $updown2;
+    var ?string $updown2;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $orden3;
+    var ?string $orden3;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $updown3;
+    var ?string $updown3;
 
     /**
      * @var string

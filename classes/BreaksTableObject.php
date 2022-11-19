@@ -20,9 +20,9 @@ class BreaksTableObject
     public string $c_hrin = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $c_cvst = '';
+    public ?string $c_cvst = '';
 
     /**
      * @var int

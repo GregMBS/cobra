@@ -37,14 +37,14 @@ class UserDataObject
     public int $camp = 0;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $turno = '';
+    public ?string $turno = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $authcode = '';
+    public ?string $authcode = '';
 
     /**
      * @var string
@@ -52,9 +52,9 @@ class UserDataObject
     public string $passw = '';
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    public bool $policy = true;
+    public ?bool $policy = true;
 
     /**
      * @var int

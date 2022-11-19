@@ -32,27 +32,27 @@ class BadNoObject
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    public string $t1a =  '';
+    public ?string $t1a =  '';
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    public string $t2a =  '';
+    public ?string $t2a =  '';
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    public string $t3a =  '';
+    public ?string $t3a =  '';
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    public string $t4a =  '';
+    public ?string $t4a =  '';
 
     /**
      *

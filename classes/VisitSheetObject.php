@@ -37,9 +37,9 @@ class VisitSheetObject
     public string $queue;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $completo;
+    public ?string $completo;
 
     /**
      * @var string
