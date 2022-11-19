@@ -6,10 +6,10 @@ namespace cobra_salsa;
 
 class HistoriaObject
 {
-    public int $Auto;
+    public $Auto;
     public $C_CVGE;
     public $C_CVBA;
-    public int $C_CONT;
+    public $C_CONT;
     public $C_CVST;
     public $D_FECH;
     public $C_HRIN;
@@ -33,7 +33,7 @@ class HistoriaObject
     public $CUANDO = '';
     public $D_PROM = '';
     public $C_PROM;
-    public float $N_PROM = 0;
+    public $N_PROM = 0;
     public $C_CALLE1;
     public $C_CALLE2;
     public $C_CNP;
@@ -48,16 +48,16 @@ class HistoriaObject
     public $C_CPAT;
     public $C_ACCION;
     public $C_MOTIV;
-    public int $C_CAMP;
+    public $C_CAMP;
     public $D_PROM1 = '';
-    public float $N_PROM1 = 0;
+    public $N_PROM1 = 0;
     public $D_PROM2 = '';
-    public float $N_PROM2 = 0;
+    public $N_PROM2 = 0;
     public $C_EJE;
-    public int $error;
+    public $error;
     public $D_PROM3 = '';
-    public float $N_PROM3 = 0;
+    public $N_PROM3 = 0;
     public $D_PROM4 = '';
-    public float $N_PROM4 = 0;
+    public $N_PROM4 = 0;
 
 }
