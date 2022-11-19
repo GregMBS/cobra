@@ -8,10 +8,10 @@ class DateClass
 {
     /**
      *
-     * @param string $date
+     * @param string|null $date
      * @return boolean
      */
-    protected function validDate(string $date): bool
+    protected function validDate(?string $date): bool
     {
         if (empty($date)) {
             return FALSE;
