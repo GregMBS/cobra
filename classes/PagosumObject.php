@@ -29,6 +29,9 @@ class PagosumObject
      */
     public function getCli(): string
     {
+        if (empty($this->cli)) {
+            return "";
+        }
         return $this->cli;
     }
 
