@@ -139,7 +139,7 @@ LIMIT 1";
             "WHERE locker is null " . $string . " " . $string .
             "AND ((status_aarsa='') or (status_aarsa is null)) 
             ORDER BY fecha_de_actualizacion LIMIT 1";
-                return sprintf($queryBase, $clientStr, $sdcStr);
+                return sprintf($queryBase, [$clientStr, $sdcStr]);
 
             case 'INICIAL':
                 $queryBase = "SELECT * FROM resumen
@@ -157,14 +157,14 @@ order by fecha_ultima_gestion  LIMIT 1";
                      $string . " " . $string .
 "AND fecha_ultima_gestion<last_day(curdate()-interval 1 month)+interval 1 day
 order by fecha_ultima_gestion  LIMIT 1";
-                return sprintf($queryBase, $clientStr, $sdcStr);
+                return sprintf($queryBase, [$clientStr, $sdcStr]);
 
             default:
                 $queryBase = "SELECT resumen.* FROM resumen 
 join dictamenes on dictamen=status_aarsa 
 WHERE locker is null ". $string . " " . $string . " " . $string .
 "ORDER BY fecha_ultima_gestion LIMIT 1";
-                return sprintf($queryBase, $clientStr, $sdcStr, $crStr);
+                return sprintf($queryBase, [$clientStr, $sdcStr, $crStr]);
         }
     }
 
@@ -211,7 +211,7 @@ WHERE locker is null ". $string . " " . $string . " " . $string .
         }
         try {
             $row = $this->getAccount($sql);
-            if (($row->id_cuenta == 0) && (!$quick)) {
+            if (($row->id_cuenta === 0) && (!$quick)) {
                 $queue = $this->getQueueWithAccounts($queue);
                 $sql = $this->getQueryString($queue);
                 $row = $this->getAccount($sql);

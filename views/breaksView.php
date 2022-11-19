@@ -39,7 +39,7 @@
              * @var string $NTP
              * @var int $DIFF
              */
-            extract($row);
+            extract($row, EXTR_OVERWRITE);
             ?>
             <tr<?php echo $formatLate; ?>>
                 <td><?php echo $c_cvge; ?></td>

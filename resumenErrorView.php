@@ -1,6 +1,6 @@
 <?php 
 /**
- * @var string $flagmsg
+ * @var string $flagMsg
  * @var string $capt
  * @var int|null $C_CONT
  */
@@ -11,7 +11,7 @@
         <TITLE>Error de capturar gestion</TITLE>
     </HEAD>
     <BODY>
-        <h2><?php echo $flagmsg; ?></h2>
+        <h2><?php echo $flagMsg; ?></h2>
         <?php
         if (isset($C_CONT)) {
             ?>

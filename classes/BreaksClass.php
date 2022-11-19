@@ -54,7 +54,7 @@ order by c_cvge,c_hrin";
      * @param string $GESTOR
      * @return array
      */
-    function getTimes(string $TIEMPO, string $GESTOR): array
+    public function getTimes(string $TIEMPO, string $GESTOR): array
     {
         $query = "select time_to_sec(min(c_hrin))-time_to_sec(:tiempo) as 'diff',
 min(c_hrin) as 'minHr'
@@ -72,7 +72,8 @@ and c_hrin>:tiempo";
      * 
      * @param string $capt
      */
-    function clearUserlog(string $capt) {
+    public function clearUserlog(string $capt): void
+    {
         $query = "delete from userlog where gestor = :capt";
         $sdl = $this->pdo->prepare($query);
         $sdl->bindParam(':capt', $capt);
@@ -84,7 +85,7 @@ and c_hrin>:tiempo";
      * @param string $capt
      * @return BreaksTableObject[]
      */
-    function getBreaksTable(string $capt): array
+    public function getBreaksTable(string $capt): array
     {
         $sdp = $this->pdo->prepare($this->queryBreaksAdmin);
         if ($capt !== 'gmbs') {

@@ -138,7 +138,7 @@ tel_4_verif = :find )";
         try {
             $stm = $this->pdo->prepare($queryMain);
             $stm->bindParam(':find', $find);
-            if ($cliFlag == 1) {
+            if ($cliFlag === 1) {
                 $stm->bindParam(':cliente', $CLIENTE);
             }
             $stm->execute();
@@ -239,7 +239,7 @@ tel_4_verif = :find )";
                 $queryMain = $this->queryHead . $this->searchExactField($field);
         }
         $result = $this->runSearch($CLIENTE, $queryMain, $find);
-        if ((count($result)==0) && ($field != 'ROBOT'))
+        if ((count($result) === 0) && ($field !== 'ROBOT'))
         {
             $queryMain = $this->queryHead . $this->searchField($field);
             $result = $this->runSearch($CLIENTE, $queryMain, $find);

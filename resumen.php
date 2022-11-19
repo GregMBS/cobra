@@ -30,7 +30,7 @@ $mytipo = $pc->tipo;
 $C_CVGE = $capt;
 $flag = 0;
 $flagMsg = '';
-//if ($capt == 'gmbs' && !empty($get)) {
+//if ($capt === 'gmbs' && !empty($get)) {
 //    var_dump($get);
 //    die();
 //}
@@ -38,7 +38,7 @@ if (!empty($mytipo)) {
     $oldGo = '';
 
     $go = filter_input(INPUT_GET, 'go');
-    if ($go == 'ULTIMA') {
+    if ($go === 'ULTIMA') {
         $find = $rc->lastMyGestion($capt);
         $redirector = "Location: resumen.php?capt=$capt&find=$find&field=id_cuenta&go=FromUltima";
         header($redirector);
@@ -55,12 +55,12 @@ if (!empty($mytipo)) {
     $notalertt = $notas['notalertt'];
 
 
-    if ($go == 'LOGOUT') {
+    if ($go === 'LOGOUT') {
         $page = "Location: logout.php?gone=&capt=" . $capt;
         header($page);
     }
 
-    if (($go == 'CAPTURADO') && (!empty($get['C_CVST'])) && (!empty($get['C_CVGE']))) {
+    if (($go === 'CAPTURADO') && (!empty($get['C_CVST'])) && (!empty($get['C_CVGE']))) {
         $C_HRIN = filter_input(INPUT_GET, 'C_VH') . ':' . filter_input(INPUT_GET, 'C_VMN');
         $C_HRFI = date('H:i:s');
         $C_CVGE = filter_input(INPUT_GET, 'C_CVGE');
@@ -111,7 +111,7 @@ if (!empty($mytipo)) {
     include 'resumenErrorView.php';
     exit();
 }
-if ($go == 'NUEVOS') {
+if ($go === 'NUEVOS') {
     $C_CONT = filter_input(INPUT_GET, 'C_CONT', FILTER_VALIDATE_INT);
     $C_NTEL = filter_input(INPUT_GET, 'C_NTEL');
     $C_NDIR = trim(filter_input(INPUT_GET, 'C_NDIR'));
@@ -122,14 +122,14 @@ if ($go == 'NUEVOS') {
     if (!empty($C_NDIR)) {
         $gc->updateAddress($C_CONT, $C_NDIR);
     }
-    if (!empty($C_OBSE2) && $C_OBSE2 == filter_var($C_OBSE2, FILTER_SANITIZE_NUMBER_FLOAT)) {
+    if (!empty($C_OBSE2) && $C_OBSE2 === filter_var($C_OBSE2, FILTER_SANITIZE_NUMBER_FLOAT)) {
         $gc->addNewTel($C_CONT, $C_OBSE2);
     }
 //$redirector = "Location: resumen.php?&capt=".$capt."&go=ULTIMA";
     $redirector = "Location: resumen.php?&capt=" . $capt;
     header($redirector);
 }
-if ($go == 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !empty($get['C_TELE'])) {
+if ($go === 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !empty($get['C_TELE'])) {
     $oldGo = filter_var($get['oldGo']);
     $flag = filter_var($get['error']);
     $C_CVGE = filter_var($get['C_CVGE']);
@@ -180,10 +180,10 @@ if ($go == 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !emp
     $C_HRFI = date('H:i:s');
     $N_PROM = $N_PROM1 + $N_PROM2 + $N_PROM3 + $N_PROM4;
     $AUTH = filter_var($get['AUTH']);
-    if ($C_CVGE != $capt) {
+    if ($C_CVGE !== $capt) {
         $AUTH = $capt;
     }
-    if ($mytipo == 'admin') {
+    if ($mytipo === 'admin') {
         $AUTH = $capt;
     }
     if (empty($AUTH)) {
@@ -193,45 +193,45 @@ if ($go == 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !emp
     $D_PROM = $D_PROM1;
     $pagosArray = ['PAGANDO CONVENIO', 'PAGO DE CONVENIO', 'PAGO TOTAL', 'PAGO RECURRENTE', 'PAGO PARCIAL'];
     $promsArray = ['PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO RECURRENTE', 'PROMESA DE PAGO PARCIAL'];
-    if (($N_PAGO == 0) && (in_array($C_CVST, $pagosArray))) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<br>' . $C_CVST . ' necesita monto';
+    if (($N_PAGO === 0) && (in_array($C_CVST, $pagosArray, true))) {
+        $error++;
+        $flagMsg .= '<br>' . $C_CVST . ' necesita monto';
     }
-    if ((substr($C_CVST, 0, 11) == 'MENSAJE CON') && ($C_CARG == '')) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . $C_CVST . " NECESITA PARENTESCO/CARGO";
+    if ((strpos($C_CVST, 'MENSAJE CON') === 0) && ($C_CARG === '')) {
+        $error++;
+        $flagMsg .=  '<BR>' . $C_CVST . " NECESITA PARENTESCO/CARGO";
     }
-    if (($N_PROM == 0) && (in_array($C_CVST, $promsArray))) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . $C_CVST . "PROMESA NECESITA MONTO";
+    if (($N_PROM === 0) && (in_array($C_CVST, $promsArray, true))) {
+        $error++;
+        $flagMsg .=  '<BR>' . $C_CVST . "PROMESA NECESITA MONTO";
     }
-    if (($N_PROM > 0) && ($D_PROM == '0000-00-00')) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . "PROMESA NECESITA FECHA";
+    if (($N_PROM > 0) && ($D_PROM === '0000-00-00')) {
+        $error++;
+        $flagMsg .=  '<BR>' . "PROMESA NECESITA FECHA";
     }
-    if (($N_PAGO > 0) && ($D_PAGO == '0000-00-00')) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . "PAGO NECESITA FECHA";
+    if (($N_PAGO > 0) && ($D_PAGO === '0000-00-00')) {
+        $error++;
+        $flagMsg .=  '<BR>' . "PAGO NECESITA FECHA";
     }
-    if (($N_PROM > 0) && ($D_PROM == '')) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . "PROMESA NECESITA FECHA";
+    if (($N_PROM > 0) && ($D_PROM === '')) {
+        $error++;
+        $flagMsg .=  '<BR>' . "PROMESA NECESITA FECHA";
     }
-    if (($N_PROM == 0) && ($D_PROM >= $D_FECH)) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . "PROMESA NECESITA MONTO";
+    if (($N_PROM === 0) && ($D_PROM >= $D_FECH)) {
+        $error++;
+        $flagMsg .=  '<BR>' . "PROMESA NECESITA MONTO";
     }
-    if (($N_PAGO == 0) && ($D_PAGO > '0000-00-00')) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . "PAGO NECESITA MONTO";
+    if (($N_PAGO === 0) && ($D_PAGO > '0000-00-00')) {
+        $error++;
+        $flagMsg .=  '<BR>' . "PAGO NECESITA MONTO";
     }
-    if (($N_PROM1 == 0) && ($N_PROM2 > 0)) {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
+    if (($N_PROM1 === 0) && ($N_PROM2 > 0)) {
+        $error++;
+        $flagMsg .=  '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
     }
-    if ($C_TELE == '') {
-        $error = $error + 1;
-        $flagMsg = $flagMsg . '<BR>' . "GESTION NECESITA TELEFONO";
+    if ($C_TELE === '') {
+        $error++;
+        $flagMsg .=  '<BR>' . "GESTION NECESITA TELEFONO";
     }
 
     if ($error > 0) {
@@ -244,10 +244,10 @@ if ($go == 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !emp
         $flagMsg = $e->getMessage();
     }
 
-    if ($find == "/") {
+    if ($find === "/") {
         $find = NULL;
     }
-    if ($capt == "/") {
+    if ($capt === "/") {
         $capt = NULL;
     }
 
@@ -397,7 +397,7 @@ $C_OBSE2 = $latest->C_OBSE2;
 $ultimo_status_de_la_gestion = $latest->C_CVST;
 $CUANDO = $latest->CUANDO;
 
-if ($id_cuenta == 0) {
+if ($id_cuenta === 0) {
     $newCamp = $rc->leaveEmptyQueue($capt);
 }
 $currentQueue = $qc->getStatusQueue($row->status_aarsa);
@@ -460,14 +460,14 @@ $resultGestor = $rc->getGestorList();
 if ($id_cuenta > 0) {
     $rowSub = $rc->getHistory($id_cuenta);
 }
-$resultBN = new BadNoObject();
+// $resultBN = new BadNoObject();
 $resultBN = $rc->getBadNo($id_cuenta);
 
 $resultCnp = $rc->getCnp();
 
 $hasPic = FALSE;
 $picFile = '';
-$path = dirname(__FILE__) . ' / pics / ' . $numero_de_cuenta . ' . jpg';
+$path = __DIR__ . ' / pics / ' . $numero_de_cuenta . ' . jpg';
 if (realpath($path)) {
     $hasPic = TRUE;
     $picFile = 'pics / ' . $numero_de_cuenta . ' . jpg';

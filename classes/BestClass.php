@@ -28,9 +28,7 @@ class BestClass extends BaseClass
         producto, subproducto, status_aarsa, tel_1, tel_2, fecha_de_ultimo_pago, monto_ultimo_pago from resumen
         force index (cuenta)
         where status_de_credito not regexp '-'";
-        $stq = $this->pdo->prepare($query);
-        $stq->execute();
-        return $stq;
+        return $this->pdo->query($query);
     }
 
     /**
@@ -73,7 +71,7 @@ order by v_cc, d_fech desc limit 1";
             return 'X';
         }
         */
-        if ($c_cont == 0) {
+        if ($c_cont === 0) {
             return 'XX';
         }
         $result = $this->getArray($query, $c_cont);

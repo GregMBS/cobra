@@ -35,7 +35,6 @@ group by C_CVGE";
      */
     public function getPorHora()
     {
-        $sta    = $this->pdo->query($this->queryPorHora);
-        return $sta->fetchAll(PDO::FETCH_ASSOC);
+        return $this->pdo->query($this->queryPorHora)->fetchAll(PDO::FETCH_ASSOC);
     }
 }

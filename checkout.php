@@ -1,7 +1,7 @@
 <?php
 require_once 'checkCommon.php';
-if ($go == 'ASIGNAR') {
-    if ($tipo == 'id_cuenta') {
+if ($go === 'ASIGNAR') {
+    if ($tipo === 'id_cuenta') {
         $C_CONT = $CUENTA;
         $CTA = $cc->getCuentaFromIdCuenta($CUENTA);
     } else {

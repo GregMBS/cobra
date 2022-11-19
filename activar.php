@@ -14,7 +14,7 @@ $dataRaw = filter_input(INPUT_POST, 'data');
 $msg = "";
 if (!empty($go)) {
 
-    if ($go == 'cargar') {
+    if ($go === 'cargar') {
         $data = preg_split("/[\s,]+/", $dataRaw, 0, PREG_SPLIT_NO_EMPTY);
         $count = $ac->activateCuentas($data);
         $msg = "<p>$count Cuentas est&aacute;n activadas</p>";

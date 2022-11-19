@@ -23,7 +23,7 @@ $hoy = date('Y-m-d');
 $capt = $pd->capt;
 $gestores = [];
 $gestor = filter_input(INPUT_GET, 'gestor');
-if ($gestor == 'total') {
+if ($gestor === 'total') {
     $gestor = '';
 }
 $gestores = $hc->listGestores();

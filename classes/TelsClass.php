@@ -165,15 +165,13 @@ order by c_tele";
     public function getContactosReport(string $fecha1, string $fecha2): array
     {
         $this->createContactos($fecha1, $fecha2);
-        $statement = $this->pdo->prepare($this->contactosReportQuery);
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $this->pdo->query($this->contactosReportQuery)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * @return DatePeriod
      */
-    function getDates(): DatePeriod
+    public function getDates(): DatePeriod
     {
         $begin = new DateTime('first day of last month');
         $endDay = new DateTime('now');

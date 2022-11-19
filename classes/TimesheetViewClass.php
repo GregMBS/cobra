@@ -29,7 +29,7 @@ class TimesheetViewClass
     {
         $date = strtotime('last day of last month');
         if ($thisMonth) {
-            $date = strtotime('now');
+            $date = time();
         }
         $this->yr = date('Y', $date);
         $this->mes = date('m', $date);
@@ -50,7 +50,7 @@ class TimesheetViewClass
         for ($i = 1; $i <= $this->dia; $i++) {
             $red = '';
             $value = $month[$i]->$field;
-            if ($value == '00:00') {
+            if ($value === '00:00') {
                 $red = ' zeros';
             }
             $template .= "<td class='light$red'>$value</td>";
@@ -74,7 +74,7 @@ class TimesheetViewClass
         for ($i = 1; $i <= $this->dia; $i++) {
             $red = '';
             $value = $month[$i]->$field;
-            if ($value == '0') {
+            if ($value === '0') {
                 $red = ' zeros';
             }
             $string = $this->convertTime($value);
@@ -103,7 +103,7 @@ class TimesheetViewClass
         for ($i = 1; $i <= $this->dia; $i++) {
             $red = '';
             $value = $month[$i]->$field;
-            if ($value == '0') {
+            if ($value === '0') {
                 $red = ' zeros';
             }
             if (is_array($value)) {

@@ -45,7 +45,7 @@
                     <tbody class='ui-widget-content'>
                         <?php
                         foreach ($resultAhora as $rowAhora) {
-                            if ($rowAhora['logout'] == $rowAhora['auto']) {
+                            if ($rowAhora['logout'] === $rowAhora['auto']) {
                                 $url = 'logout.php?gone=forgot&capt=' . $rowAhora['gestor'];
                                 $logout = '<a href=' . $url . ' target="_blank">LOGOUT</a>';
                             } else {
@@ -157,7 +157,7 @@
                         foreach ($resultHoy as $rowHoy) {
                             ?>
                             <tr<?php
-                            if ($odd == 1) {
+                            if ($odd === 1) {
                                 echo ' class="odd"';
                             } else {
                                 echo ' class="even"';

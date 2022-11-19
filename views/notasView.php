@@ -28,7 +28,7 @@
                                 <td><?php echo $answer['hora']; ?></td>
                                 <td><?php echo $answer['cuenta']; ?></td>
                                 <td colspan=5><?php echo $answer['nota']; ?></td>
-                                <td><?php if ($answer['c_cvge'] == $capt) { ?>
+                                <td><?php if ($answer['c_cvge'] === $capt) { ?>
                                         <form action="/notas.php" method="get" name="lista<?php echo $answer['auto'];?>" >
                                             <input type="hidden" name="which" readonly="readonly" value=<?php echo $answer['auto']; ?> />
                                             <input type="hidden" name="capt" readonly="readonly" value=<?php echo $capt; ?> />

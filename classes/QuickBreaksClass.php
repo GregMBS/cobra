@@ -57,7 +57,6 @@ group by gestor";
         $this->pdo->query($this->updateBreakTabDiff);
         $this->pdo->query($this->dropBreakTemp);
         $this->pdo->query($this->createBreakTemp);
-        $sta    = $this->pdo->query($this->queryBreakTab);
-        return $sta->fetchAll(PDO::FETCH_ASSOC);
+        return $this->pdo->query($this->queryBreakTab)->fetchAll(PDO::FETCH_ASSOC);
     }
 }

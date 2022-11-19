@@ -12,6 +12,7 @@
 		"ext-calendar": "*"
 	},
 	"require-dev": {
+		"roave/security-advisories": "dev-latest",
 		"phpunit/phpunit": "*"
 	},
 	"config": {

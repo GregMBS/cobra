@@ -32,7 +32,7 @@ $monthSum = array_pop($sum);
 <?php
 
 $go = filter_input(INPUT_GET, 'go');
-if ($go == 'gestor') { ?>
+if ($go === 'gestor') { ?>
 <div>
     <table class="ui-widget">
         <thead class="ui-widget-header">

@@ -75,8 +75,7 @@ class BestClassTest extends TestCase
     private function getTopIdCuenta(): int
     {
         $query = "SELECT MAX(C_CONT) as cc from historia";
-        $stq = $this->pdo->prepare($query);
-        $stq->execute();
+        $stq = $this->pdo->query($query);
         $result = $stq->fetch();
         return $result[0];
     }

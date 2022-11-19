@@ -79,7 +79,7 @@ class MigoClass
             "aaData" => $data
         );
 
-        return json_encode($response);
+        return json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -88,9 +88,8 @@ class MigoClass
     private function countTotalRecords(): int
     {
 ## Total number of records without filtering
-        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS all_count FROM resumen 
+        $stmt = $this->pdo->query("SELECT COUNT(1) AS all_count FROM resumen 
         WHERE status_de_credito NOT REGEXP '-'");
-        $stmt->execute();
         $records = $stmt->fetch();
         return $records['all_count'];
     }
@@ -106,7 +105,7 @@ class MigoClass
 ## Search
         $searchArray = [];
         $searchQuery = " ";
-        if ($searchValue != '') {
+        if ($searchValue !== '') {
             $searchBase = " %s LIKE :%s OR";
             $searchString = "";
             foreach ($keys as $key) {

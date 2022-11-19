@@ -163,8 +163,7 @@ class GestorAdminClass {
     public function getGroups(): array
     {
         $query = "SELECT grupo FROM grupos";
-        $result = $this->pdo->query($query);
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

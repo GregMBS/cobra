@@ -70,7 +70,7 @@
                         $semText = 'VIGENTE';
                     }
                     if ($MONTO_PAGO > 10) {
-                        if ($STATUS_AARSA == 'PAGO TOTAL') {
+                        if ($STATUS_AARSA === 'PAGO TOTAL') {
                             $color = 'green';
                             $semText = 'PAGO';
                         } else {
@@ -78,7 +78,7 @@
                             $semText = 'PAGANDO';
                         }
                     }
-                    if ($oldC != $ID_CUENTA) {
+                    if ($oldC !== $ID_CUENTA) {
                         $oldC = $ID_CUENTA;
                         ?>
                         <tr>

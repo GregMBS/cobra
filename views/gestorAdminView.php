@@ -60,7 +60,7 @@
                                         echo $group;
                                     }
                                     ?>" style="font-size:120%;" <?php
-                                            if (strtolower($group) == strtolower($tipo)) {
+                                            if (strtolower($group) === strtolower($tipo)) {
                                                 echo "selected='selected'";
                                             }
                                             ?>>

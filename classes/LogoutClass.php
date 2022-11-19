@@ -73,7 +73,7 @@ class LogoutClass
     {
         $this->date = date('Y-m-d');
         $this->time = date('H:i:s');
-        if ($go == 'forgot') {
+        if ($go === 'forgot') {
             $stl = $this->pdo->prepare($this->queryLastDateTime);
             $stl->bindParam(':capt', $capt);
             $stl->execute();

@@ -11,13 +11,13 @@ $sc   = new SegmentAdminClass($pdo);
 $capt = filter_input(INPUT_GET, 'capt');
 $go   = filter_input(INPUT_GET, 'go');
 if (!empty($go)) {
-    if ($go == "BORRAR") {
+    if ($go === "BORRAR") {
         $cliente     = filter_input(INPUT_GET, 'cliente');
         $segmento    = filter_input(INPUT_GET, 'segmento');
         $sc->borrarSegmento($cliente, $segmento);
     }
 
-    if ($go == "AGREGAR") {
+    if ($go === "AGREGAR") {
         $cliseg          = filter_input(INPUT_GET, 'cliseg');
         $clientesegmento = explode(';', $cliseg);
         $cliente         = $clientesegmento[0];
@@ -25,7 +25,7 @@ if (!empty($go)) {
         $sc->agregarSegmento($cliente, $segmento);
         header("Location: segmentAdmin.php?capt=".$capt);
     }
-    if ($go == "AGREGARALL") {
+    if ($go === "AGREGARALL") {
         $sc->addAllSegmentos();
         header("Location: segmentAdmin.php?capt=".$capt);
     }

@@ -197,7 +197,7 @@ limit 1";
      */
     public function updateVasign(string $tipo, string $CUENTA) {
         $queryCuenta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
-        if ($tipo == 'id_cuenta') {
+        if ($tipo === 'id_cuenta') {
             $queryCuenta = "select id_cuenta from resumen where id_cuenta = :cuenta";
         }
         $stc = $this->pdo->prepare($queryCuenta);
