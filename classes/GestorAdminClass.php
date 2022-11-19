@@ -21,7 +21,7 @@ class GestorAdminClass {
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      * 
@@ -37,7 +37,7 @@ class GestorAdminClass {
      * @param string $tipo
      * @param string $usuaria
      */
-    public function updateOpenParams($completo, $tipo, $usuaria) {
+    public function updateOpenParams(string $completo, string $tipo, string $usuaria) {
         $query = "UPDATE nombres
             SET completo = :completo,
             tipo = :tipo
@@ -54,7 +54,7 @@ class GestorAdminClass {
      * @param string $passw
      * @param string $usuaria
      */
-    public function updatePassword($passw, $usuaria) {
+    public function updatePassword(string $passw, string $usuaria) {
         $bpw = password_hash($passw, PASSWORD_DEFAULT);
         $query = "UPDATE nombres
             SET passw = :bpw
@@ -71,7 +71,7 @@ class GestorAdminClass {
      * 
      * @param string $usuaria
      */
-    public function deleteFromNombres($usuaria) {
+    public function deleteFromNombres(string $usuaria) {
         $query = "DELETE FROM nombres WHERE usuaria = :usuaria";
         $stb = $this->pdo->prepare($query);
         $stb->bindParam(':usuaria', $usuaria);
@@ -82,7 +82,7 @@ class GestorAdminClass {
      * 
      * @param string $usuaria
      */
-    public function deleteFromQueuelist($usuaria) {
+    public function deleteFromQueuelist(string $usuaria) {
         $query = "DELETE FROM queuelist WHERE gestor = :usuaria";
         $stb = $this->pdo->prepare($query);
         $stb->bindParam(':usuaria', $usuaria);
@@ -93,7 +93,7 @@ class GestorAdminClass {
      * 
      * @param string $usuaria
      */
-    public function deleteFromResumen($usuaria) {
+    public function deleteFromResumen(string $usuaria) {
         $query = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
             WHERE ejecutivo_asignado_call_center = :usuaria";
         $stb = $this->pdo->prepare($query);
@@ -109,7 +109,7 @@ class GestorAdminClass {
      * @param string $iniciales
      * @param string $passw
      */
-    public function addToNombres($completo, $tipo, $usuaria, $iniciales, $passw) {
+    public function addToNombres(string $completo, string $tipo, string $usuaria, string $iniciales, string $passw) {
         $bpw = password_hash($passw, PASSWORD_DEFAULT);
         $query = "INSERT INTO nombres (USUARIA, INICIALES, COMPLETO, PASSW,
             TIPO, CAMP) 
@@ -127,7 +127,7 @@ class GestorAdminClass {
      * 
      * @param string $iniciales
      */
-    public function addToQueuelists($iniciales) {
+    public function addToQueuelists(string $iniciales) {
         $queryListIn = "insert ignore into queuelist
 		SELECT distinct null, :iniciales, cliente, status_aarsa, 999999,
 		orden1, updown1, orden2, updown2, orden3, updown3,
@@ -145,7 +145,8 @@ class GestorAdminClass {
      * 
      * @return array
      */
-    public function getNombres() {
+    public function getNombres(): array
+    {
         $query = "SELECT USUARIA, COMPLETO, TIPO, CAMP, INICIALES, PASSW 
     FROM nombres 
     where iniciales NOT IN ('gmbs','natalya')
@@ -159,7 +160,8 @@ class GestorAdminClass {
      * 
      * @return array
      */
-    public function getGroups() {
+    public function getGroups(): array
+    {
         $query = "SELECT grupo FROM grupos";
         $result = $this->pdo->query($query);
         return $result->fetchAll(PDO::FETCH_ASSOC);

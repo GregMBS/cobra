@@ -17,7 +17,7 @@ class ActivarClassTest extends TestCase
     /**
      * @var ActivarClass
      */
-    protected $cc;
+    protected ActivarClass $cc;
 
     protected function setUp(): void
     {

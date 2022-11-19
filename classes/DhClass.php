@@ -29,7 +29,8 @@ class DhClass {
      * @param string $fecha
      * @return DhObject[]
      */
-    public function getPromesas(string $gestor, string $fecha) {
+    public function getPromesas(string $gestor, string $fecha): array
+    {
         $query = "select distinct c_cont from historia 
 where c_cvge = :gestor and d_fech = :fecha and n_prom > 0 limit 10000";
         return $this->getCommon($query, $gestor, $fecha);
@@ -39,9 +40,10 @@ where c_cvge = :gestor and d_fech = :fecha and n_prom > 0 limit 10000";
      * 
      * @param string $gestor
      * @param string $fecha
-     * @return array
+     * @return DhObject[]
      */
-    public function getDhMain(string $gestor, string $fecha) {
+    public function getDhMain(string $gestor, string $fecha): array
+    {
         $query = "select distinct c_cont from historia 
 where (c_cvge = :gestor or c_visit = :gestor) and d_fech = :fecha and c_cont > 0 limit 10000";
         return $this->getCommon($query, $gestor, $fecha);

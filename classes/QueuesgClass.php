@@ -17,7 +17,7 @@ class QueuesgClass {
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      * 
@@ -35,7 +35,8 @@ class QueuesgClass {
      * @param string $capt
      * @return int
      */
-    public function getCamp($cliente, $queue, $sdc, $capt) {
+    public function getCamp(string $cliente, string $queue, string $sdc, string $capt): int
+    {
         $query  = "select camp from queuelist
     where cliente=:cliente
     and status_aarsa=:queue
@@ -58,7 +59,7 @@ class QueuesgClass {
      * @param int $camp
      * @param string $capt
      */
-    public function setCamp($camp, $capt) {
+    public function setCamp(int $camp, string $capt) {
         $query = "UPDATE nombres SET camp=:camp 
         where iniciales=:capt;";
         $stu = $this->pdo->prepare($query);
@@ -71,7 +72,8 @@ class QueuesgClass {
      * 
      * @return array
      */
-    public function getClients() {
+    public function getClients(): array
+    {
         $query  = "SELECT distinct cliente
         FROM queuelist where cliente<>''
         ORDER BY cliente";
@@ -85,7 +87,8 @@ class QueuesgClass {
      * @param string $capt
      * @return array
      */
-    public function getSdcClients($capt) {
+    public function getSdcClients(string $capt): array
+    {
         $query  = "SELECT distinct sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado=0 and cliente<>''
         ORDER BY cliente,sdc";
@@ -100,7 +103,8 @@ class QueuesgClass {
      * @param string $capt
      * @return array
      */
-    public function getQueueSdcClients($capt) {
+    public function getQueueSdcClients(string $capt): array
+    {
         $query  = "SELECT distinct status_aarsa,sdc,cliente
         FROM queuelist WHERE gestor = :capt and bloqueado = 0
         ORDER BY cliente,sdc,status_aarsa";
@@ -114,7 +118,7 @@ class QueuesgClass {
      * @param string $capt
      * @return QueuelistObject
      */
-    public function getMyQueue(string $capt)
+    public function getMyQueue(string $capt): QueuelistObject
     {
         $query = "SELECT queuelist.* FROM queuelist, nombres 
         WHERE iniciales = :capt 

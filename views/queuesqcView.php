@@ -67,42 +67,42 @@
         $QUEUE = $answer->status_aarsa;
         $QUEUES = str_replace('+', '%2B', $QUEUE);
         $SDC = $answer->sdc;
-        $SDCS = str_replace('+', '%2B', $SDC);
+        $SDCs = str_replace('+', '%2B', $SDC);
         $counts = $qc->getSegmentoCount($CLIENTE, $SDC);
-        foreach ($counts as $answerc) {
-            $ASIGNADOS = $answerc['ct'];
-            $DINERO = $answerc['sst'];
+        foreach ($counts as $answerC) {
+            $ASIGNADOS = $answerC['ct'];
+            $DINERO = $answerC['sst'];
         }
         $sub = $qc->getReportSub($CLIENTE, $SDC, $QUEUE);
-        $pcc = number_format($sub->ctt / ($ASIGNADOS + 0.001) * 100, 0);
-        $pcd = number_format($sub->ctd / ($sub->ctt + 0.001) * 100, 0);
-        $empd = "class='good'";
+        $pcc = number_format($sub->ctt / ($ASIGNADOS + 0.001) * 100);
+        $pcd = number_format($sub->ctd / ($sub->ctt + 0.001) * 100);
+        $empD = "class='good'";
         if ($pcd < 80) {
-            $empd = "class='fair'";
+            $empD = "class='fair'";
         }
         if ($pcd < 40) {
-            $empd = "class='bad'";
+            $empD = "class='bad'";
         }
-        $pcs = number_format($sub->ctw / ($sub->ctt + 0.001) * 100, 0);
-        $emps = "class='good'";
+        $pcs = number_format($sub->ctw / ($sub->ctt + 0.001) * 100);
+        $empS = "class='good'";
         if ($pcs < 80) {
-            $emps = "class='fair'";
+            $empS = "class='fair'";
         }
         if ($pcs < 40) {
-            $emps = "class='bad'";
+            $empS = "class='bad'";
         }
-        $pcm = number_format($sub->ctm / ($sub->ctt + 0.001) * 100, 0);
-        $empm = "class='good'";
+        $pcm = number_format($sub->ctm / ($sub->ctt + 0.001) * 100);
+        $empM = "class='good'";
         if ($pcm < 80) {
-            $empm = "class='fair'";
+            $empM = "class='fair'";
         }
         if ($pcm < 40) {
-            $empm = "class='bad'";
+            $empM = "class='bad'";
         }
-        $pcmc = number_format($sub->mtt / ($DINERO + 0.001) * 100, 0);
-        $pcmd = number_format($sub->mtd / ($sub->mtt + 0.001) * 100, 0);
-        $pcms = number_format($sub->mtw / ($sub->mtt + 0.001) * 100, 0);
-        $pcmm = number_format($sub->mtm / ($sub->mtt + 0.001) * 100, 0);
+        $pcmC = number_format($sub->mtt / ($DINERO + 0.001) * 100);
+        $pcmD = number_format($sub->mtd / ($sub->mtt + 0.001) * 100);
+        $pcmS = number_format($sub->mtw / ($sub->mtt + 0.001) * 100);
+        $pcmM = number_format($sub->mtm / ($sub->mtt + 0.001) * 100);
         ?>
         <tr>
             <td>
@@ -113,7 +113,7 @@
             </td>
             <td>
                 <?php echo $ASIGNADOS; ?><br>
-                <?php echo number_format($DINERO, 0); ?>
+                <?php echo number_format($DINERO); ?>
             </td>
             <td>
                 <?php echo $QUEUE; ?>
@@ -125,45 +125,45 @@
                 ?>&queue=<?php
                 echo $QUEUES;
                 ?>&status_de_credito=<?php
-                echo $SDCS;
+                echo $SDCs;
                 ?>&rato=total"><?php
                     echo $sub->ctt
-                        . '<br>' . number_format($sub->mtt, 0);
+                        . '<br>' . number_format($sub->mtt);
                     ?></a>
             </td>
-            <td><?php echo $pcc . '%<br>' . number_format($pcmc, 0) . "%"; ?>
+            <td><?php echo $pcc . '%<br>' . number_format($pcmC) . "%"; ?>
             </td>
-            <td <?php echo $empd ?>><a href="/speclistqc.php?capt=<?php
+            <td <?php echo $empD ?>><a href="/speclistqc.php?capt=<?php
                 echo $capt; ?>&cliente=<?php
                 echo $CLIENTE; ?>&queue=<?php
                 echo $QUEUES; ?>&status_de_credito=<?php
-                echo $SDCS; ?>&rato=diario"><?php
-                    echo $sub->ctd . '<br>' . number_format($sub->mtd, 0);
+                echo $SDCs; ?>&rato=diario"><?php
+                    echo $sub->ctd . '<br>' . number_format($sub->mtd);
                     ?></a>
             </td>
-            <td <?php echo $empd ?>><?php echo $pcd . '%<br>' . number_format($pcmd, 0) . "%";
+            <td <?php echo $empD ?>><?php echo $pcd . '%<br>' . number_format($pcmD) . "%";
                 ?>
             </td>
-            <td <?php echo $emps ?>><a href="/speclistqc.php?capt=<?php
+            <td <?php echo $empS ?>><a href="/speclistqc.php?capt=<?php
                 echo $capt; ?>&cliente=<?php
                 echo $CLIENTE; ?>&queue=<?php
                 echo $QUEUES; ?>&status_de_credito=<?php
-                echo $SDCS; ?>&rato=semanal"><?php
-                    echo $sub->ctw . '<br>' . number_format($sub->mtw, 0);
+                echo $SDCs; ?>&rato=semanal"><?php
+                    echo $sub->ctw . '<br>' . number_format($sub->mtw);
                     ?></a>
             </td>
-            <td <?php echo $emps ?>><?php echo $pcs . '%<br>' . number_format($pcms, 0) . "%";
+            <td <?php echo $empS ?>><?php echo $pcs . '%<br>' . number_format($pcmS) . "%";
                 ?>
             </td>
-            <td <?php echo $empm ?>><a href="/speclistqc.php?capt=<?php
+            <td <?php echo $empM ?>><a href="/speclistqc.php?capt=<?php
                 echo $capt ?>&cliente=<?php
                 echo $CLIENTE ?>&queue=<?php
                 echo $QUEUES ?>&status_de_credito=<?php
-                echo $SDCS ?>&rato=mensual"><?php
-                    echo $sub->ctm . '<br>' . number_format($sub->mtm, 0);
+                echo $SDCs ?>&rato=mensual"><?php
+                    echo $sub->ctm . '<br>' . number_format($sub->mtm);
                     ?></a>
             </td>
-            <td <?php echo $empm ?>><?php echo $pcm . '%<br>' . number_format($pcmm, 0) . "%";
+            <td <?php echo $empM ?>><?php echo $pcm . '%<br>' . number_format($pcmM) . "%";
                 ?>
             </td>
         </tr>
@@ -188,10 +188,10 @@
         $SDC = $answer->status_de_credito;
         $COUNT = $answer->cnt;
         $MOUNT = $answer->mnt;
-        $ECOUNT = $answer->ecount;
-        $EMOUNT = $answer->emount;
-        $PCOUNT = round($ECOUNT / $COUNT * 100);
-        $PMOUNT = round($EMOUNT / ($MOUNT + 0.001) * 100);
+        $ECount = $answer->ecount;
+        $EMount = $answer->emount;
+        $PCount = round($ECount / $COUNT * 100);
+        $PMount = round($EMount / ($MOUNT + 0.001) * 100);
         ?>
         <tr>
             <td>
@@ -202,15 +202,15 @@
             </td>
             <td>
                 <?php echo $COUNT; ?><br>
-                <?php echo number_format($MOUNT, 0); ?>
+                <?php echo number_format($MOUNT); ?>
             </td>
             <td>
-                <?php echo $ECOUNT; ?><br>
-                <?php echo number_format($EMOUNT, 0); ?>
+                <?php echo $ECount; ?><br>
+                <?php echo number_format($EMount); ?>
             </td>
             <td>
-                <?php echo $PCOUNT; ?><br>
-                <?php echo number_format($PMOUNT, 0); ?>
+                <?php echo $PCount; ?><br>
+                <?php echo number_format($PMount); ?>
             </td>
         </tr>
     <?php } ?>

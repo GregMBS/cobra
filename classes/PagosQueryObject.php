@@ -9,50 +9,50 @@ class PagosQueryObject
     /**
      * @var string
      */
-    public $cuenta = '';
+    public string $cuenta = '';
 
     /**
      * @var string
      */
-    public $fecha = '';
+    public string $fecha = '';
 
     /**
      * @var string
      */
-    public $fechacapt = '';
+    public string $fechacapt = '';
 
     /**
      * @var float
      */
-    public $monto = 0;
+    public float $monto = 0;
 
     /**
      * @var string
      */
-    public $cliente = '';
+    public string $cliente = '';
 
     /**
      * @var string
      */
-    public $sdc = '';
+    public string $sdc = '';
 
     /**
      * @var string
      */
-    public $gestor = '';
+    public string $gestor = '';
 
     /**
      * @var int
      */
-    public $confirmado = 0;
+    public int $confirmado = 0;
 
     /**
      * @var int
      */
-    public $id_cuenta = 0;
+    public int $id_cuenta = 0;
 
     /**
      * @var string
      */
-    public $credit = '';
+    public string $credit = '';
 }

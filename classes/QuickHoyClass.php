@@ -12,7 +12,7 @@ use PDO;
 class QuickHoyClass
 {
     protected PDO $pdo;
-    protected $insertHoy = "create temporary table hoy
+    protected string $insertHoy = "create temporary table hoy
         select c_cvge as 'gestor',
         time_to_sec(subtime(max(c_hrin),min(c_hrin)))/3600 as 'Horas',
         count(1) as 'Gestiones',
@@ -26,7 +26,7 @@ class QuickHoyClass
         and c_msge is null
         and c_cniv is null
         group by C_CVGE order by c_cvge";
-    protected $queryHoy = "select c_cvge as 'gestor',
+    protected string $queryHoy = "select c_cvge as 'gestor',
         time_to_sec(subtime(max(c_hrfi),min(c_hrin)))/3600 as 'Horas',
         count(1) as 'Gestiones',
         sum(C_CVST like 'PRO% DE%') as 'Promesas_Hoy',

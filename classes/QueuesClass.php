@@ -21,7 +21,7 @@ class QueuesClass extends BaseClass
      * @param int $CAMP
      * @param string $GESTOR
      */
-    public function updateQueue($CAMP, $GESTOR)
+    public function updateQueue(int $CAMP, string $GESTOR)
     {
         $query = "UPDATE nombres SET camp=:camp 
         where iniciales=:gestor";
@@ -36,7 +36,7 @@ class QueuesClass extends BaseClass
      * @param int $CAMP
      * @param string $GESTOR
      */
-    public function blockQueue($CAMP, $GESTOR)
+    public function blockQueue(int $CAMP, string $GESTOR)
     {
         $query = "UPDATE queuelist SET bloqueado = 1 
         WHERE gestor = :gestor 
@@ -52,7 +52,7 @@ class QueuesClass extends BaseClass
      * @param int $CAMP
      * @param string $GESTOR
      */
-    public function unblockQueue($CAMP, $GESTOR)
+    public function unblockQueue(int $CAMP, string $GESTOR)
     {
         $query = "UPDATE queuelist SET bloqueado = 0 
         WHERE gestor = :gestor 
@@ -69,7 +69,7 @@ class QueuesClass extends BaseClass
      * @param string $sdc
      * @param string $status
      */
-    public function updateQueueAll($cliente, $sdc, $status)
+    public function updateQueueAll(string $cliente, string $sdc, string $status)
     {
         $query = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
 where iniciales=gestor and cliente=:cliente
@@ -93,7 +93,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $sdc
      * @param string $status
      */
-    public function blockQueueAll($cliente, $sdc, $status)
+    public function blockQueueAll(string $cliente, string $sdc, string $status)
     {
         $query = "UPDATE queuelist SET bloqueado = 1 
         where cliente=:cliente 
@@ -112,7 +112,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $sdc
      * @param string $status
      */
-    public function unblockQueueAll($cliente, $sdc, $status)
+    public function unblockQueueAll(string $cliente, string $sdc, string $status)
     {
         $query = "UPDATE queuelist SET bloqueado = 0 
         where cliente=:cliente 
@@ -129,7 +129,7 @@ and sdc=:sdc and status_aarsa=:status";
      *
      * @return UserDataObject[]
      */
-    public function getGestores()
+    public function getGestores(): array
     {
         $query = "SELECT distinct nombres.*
             FROM nombres
@@ -145,7 +145,7 @@ and sdc=:sdc and status_aarsa=:status";
      *
      * @return QueueObject[]
      */
-    public function getAllQueues()
+    public function getAllQueues(): array
     {
         $query = "SELECT distinct cliente,sdc,status_aarsa,bloqueado
         FROM queuelist
@@ -161,7 +161,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $GESTOR
      * @return QueuelistObject
      */
-    public function getMyQueue($GESTOR)
+    public function getMyQueue(string $GESTOR): QueuelistObject
     {
         $query = "SELECT queuelist.*
                                 FROM queuelist, nombres 
@@ -185,7 +185,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $GESTOR
      * @return QueuelistObject[]
      */
-    public function getMyQueuelist($GESTOR): array
+    public function getMyQueuelist(string $GESTOR): array
     {
         $query = "SELECT * FROM queuelist
                                     WHERE gestor = :gestor

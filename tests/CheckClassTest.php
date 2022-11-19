@@ -20,7 +20,7 @@ class CheckClassTest extends TestCase
     /**
      * @var CheckClass
      */
-    protected $cc;
+    protected CheckClass $cc;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class CheckClassTest extends TestCase
             $first = array_pop($report);
             $this->assertInstanceOf(VisitSheetObject::class, $first);
         }
-        $report = $this->cc->listVasign('');
+        $report = $this->cc->listVasign();
         $this->assertIsArray($report);
         if (count($report) > 0) {
             $first = array_pop($report);

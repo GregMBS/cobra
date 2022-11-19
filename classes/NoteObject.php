@@ -9,25 +9,25 @@ class NoteObject
     /**
      * @var int
      */
-    public $notAlert = 0;
+    public int $notAlert = 0;
 
     /**
      * @var string
      */
-    public $notAlertT = '';
+    public string $notAlertT = '';
 
     /**
      * @var string
      */
-    public $cuenta = '';
+    public string $cuenta = '';
 
     /**
      * @var string
      */
-    public $nota = '';
+    public string $nota = '';
 
     /**
      * @var string
      */
-    public $fuente = '';
+    public string $fuente = '';
 }

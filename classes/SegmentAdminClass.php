@@ -11,7 +11,7 @@ class SegmentAdminClass
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      *
@@ -27,7 +27,7 @@ class SegmentAdminClass
      * @param string $cliente
      * @param string $segmento
      */
-    public function borrarSegmento($cliente, $segmento)
+    public function borrarSegmento(string $cliente, string $segmento)
     {
         $query = "DELETE FROM queuelist
             WHERE cliente=:cliente
@@ -43,7 +43,7 @@ class SegmentAdminClass
      * @param string $cliente
      * @param string $segmento
      */
-    public function agregarSegmento($cliente, $segmento)
+    public function agregarSegmento(string $cliente, string $segmento)
     {
         $queryListIn = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
@@ -92,7 +92,7 @@ class SegmentAdminClass
      *
      * @return array
      */
-    public function listQueuedSegmentos()
+    public function listQueuedSegmentos(): array
     {
         $queryDrop = "drop table if exists queued";
         $this->pdo->query($queryDrop);
@@ -118,7 +118,7 @@ group by cliente, status_de_credito";
      *
      * @return array
      */
-    public function listUnqueuedSegments()
+    public function listUnqueuedSegments(): array
     {
         $queryDrop = "drop table if exists unqueued";
         $queryTemp = "create table unqueued

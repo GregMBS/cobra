@@ -18,7 +18,7 @@ class GestorClassTest extends TestCase
     /**
      * @var GestorClass
      */
-    protected $cc;
+    protected GestorClass $cc;
 
     protected function setUp(): void
     {

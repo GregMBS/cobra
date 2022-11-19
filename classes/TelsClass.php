@@ -26,7 +26,7 @@ class TelsClass {
      *
      * @var string
      */
-    private $mercadosReportQuery = "select cliente,nombre_deudor,concat(' ',numero_de_cuenta) as 'numero_de_cuenta',
+    private string $mercadosReportQuery = "select cliente,nombre_deudor,concat(' ',numero_de_cuenta) as 'numero_de_cuenta',
 concat(' ',tel_1) as 'tel 1',tel_1 in (select c_tele from marcados) as tel_1_marcado,
 concat(' ',tel_2) as 'tel 2',tel_2 in (select c_tele from marcados) as tel_2_marcado,
 concat(' ',tel_3) as 'tel 3',tel_3 in (select c_tele from marcados) as tel_3_marcado,
@@ -49,7 +49,7 @@ order by cliente,numero_de_cuenta";
      *
      * @var string
      */
-    private $contactosReportQuery = "select cliente,nombre_deudor,concat(' ',numero_de_cuenta) as 'numero_de_cuenta',
+    private string $contactosReportQuery = "select cliente,nombre_deudor,concat(' ',numero_de_cuenta) as 'numero_de_cuenta',
 concat(' ',tel_1) as 'tel 1',tel_1 in (select c_tele from contactados) as tel_1_contacto,
 concat(' ',tel_2) as 'tel 2',tel_2 in (select c_tele from contactados) as tel_2_contacto,
 concat(' ',tel_3) as 'tel 3',tel_3 in (select c_tele from contactados) as tel_3_contacto,
@@ -80,7 +80,7 @@ where status_de_credito not regexp '-'";
      * @param array $result
      * @throws Exception
      */
-    public function outputDocument($result) {
+    public function outputDocument(array $result) {
         if (!empty($result)) {
             $filename = "Query_de_telefonos_" . date('ymd') . ".xlsx";
             $output = array();
@@ -98,7 +98,7 @@ where status_de_credito not regexp '-'";
      * @param string $fecha1
      * @param string $fecha2
      */
-    private function createMarcados($fecha1, $fecha2) {
+    private function createMarcados(string $fecha1, string $fecha2) {
         $queryDrop = 'DROP TABLE IF EXISTS marcados';
         $this->pdo->query($queryDrop);
         $queryCreate = "CREATE TABLE marcados
@@ -121,7 +121,7 @@ order by c_tele";
      * @param string $fecha1
      * @param string $fecha2
      */
-    private function createContactos($fecha1, $fecha2) {
+    private function createContactos(string $fecha1, string $fecha2) {
         $queryDrop = 'DROP TABLE IF EXISTS contactados';
         $this->pdo->query($queryDrop);
         $queryCreate = "CREATE TABLE contactados
@@ -148,7 +148,8 @@ order by c_tele";
      * @param string $fecha2
      * @return array
      */
-    public function getMercadosReport(string $fecha1, string $fecha2) {
+    public function getMercadosReport(string $fecha1, string $fecha2): array
+    {
         $this->createMarcados($fecha1, $fecha2);
         $statement = $this->pdo->prepare($this->mercadosReportQuery);
         $statement->execute();
@@ -161,7 +162,8 @@ order by c_tele";
      * @param string $fecha2
      * @return array
      */
-    public function getContactosReport(string $fecha1, string $fecha2) {
+    public function getContactosReport(string $fecha1, string $fecha2): array
+    {
         $this->createContactos($fecha1, $fecha2);
         $statement = $this->pdo->prepare($this->contactosReportQuery);
         $statement->execute();

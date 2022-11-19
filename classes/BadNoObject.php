@@ -10,132 +10,132 @@ class BadNoObject
      *
      * @var string
      */
-    public $t1 =  '';
+    public string $t1 =  '';
 
     /**
      *
      * @var string
      */
-    public $t2 =  '';
+    public string $t2 =  '';
 
     /**
      *
      * @var string
      */
-    public $t3 =  '';
+    public string $t3 =  '';
 
     /**
      *
      * @var string
      */
-    public $t4 =  '';
+    public string $t4 =  '';
 
     /**
      *
      * @var string
      */
-    public $t1a =  '';
+    public string $t1a =  '';
 
     /**
      *
      * @var string
      */
-    public $t2a =  '';
+    public string $t2a =  '';
 
     /**
      *
      * @var string
      */
-    public $t3a =  '';
+    public string $t3a =  '';
 
     /**
      *
      * @var string
      */
-    public $t4a =  '';
+    public string $t4a =  '';
 
     /**
      *
      * @var string
      */
-    public $t1r1 =  '';
+    public string $t1r1 =  '';
 
     /**
      *
      * @var string
      */
-    public $t2r1 =  '';
+    public string $t2r1 =  '';
 
     /**
      *
      * @var string
      */
-    public $t1r2 =  '';
+    public string $t1r2 =  '';
 
     /**
      *
      * @var string
      */
-    public $t2r2 =  '';
+    public string $t2r2 =  '';
 
     /**
      *
      * @var string
      */
-    public $t1r3 =  '';
+    public string $t1r3 =  '';
 
     /**
      *
      * @var string
      */
-    public $t2r3 =  '';
+    public string $t2r3 =  '';
 
     /**
      *
      * @var string
      */
-    public $t1r4 =  '';
+    public string $t1r4 =  '';
 
     /**
      *
      * @var string
      */
-    public $t2r4 =  '';
+    public string $t2r4 =  '';
 
     /**
      *
      * @var string
      */
-    public $t1l =  '';
+    public string $t1l =  '';
 
     /**
      *
      * @var string
      */
-    public $t2l =  '';
+    public string $t2l =  '';
 
     /**
      *
      * @var string
      */
-    public $t1v =  '';
+    public string $t1v =  '';
 
     /**
      *
      * @var string
      */
-    public $t2v =  '';
+    public string $t2v =  '';
 
     /**
      *
      * @var string
      */
-    public $t3v =  '';
+    public string $t3v =  '';
 
     /**
      *
      * @var string
      */
-    public $t4v =  '';
+    public string $t4v =  '';
 
 }

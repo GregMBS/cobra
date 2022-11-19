@@ -22,7 +22,7 @@ class SpeclistqcClass {
      *
      * @var string
      */
-    private $queryHead = "SELECT distinct resumen.*
+    private string $queryHead = "SELECT distinct resumen.*
 FROM resumen
 JOIN dictamenes ON dictamen=status_aarsa
 WHERE resumen.cliente=:cliente
@@ -32,7 +32,7 @@ AND queue=:queue ";
      *
      * @var string
      */
-    private $queryTail = " ORDER BY saldo_total desc";
+    private string $queryTail = " ORDER BY saldo_total desc";
 
 
     /**
@@ -48,7 +48,8 @@ AND queue=:queue ";
      * @param string $rato
      * @return string
      */
-    private function getRatoString($rato) {
+    private function getRatoString(string $rato): string
+    {
         switch ($rato) {
             case 'diario':
                 return " AND fecha_ultima_gestion > curdate() ";
@@ -72,14 +73,15 @@ AND queue=:queue ";
      * @param string $queue
      * @return ResumenObject[]
      */
-    public function getReport($rato, $cliente, $sdc, $queue) {
+    public function getReport(string $rato, string $cliente, string $sdc, string $queue): array
+    {
         $ratoString = $this->getRatoString($rato);
         $sdcString = 'AND status_de_credito not regexp "-" ';
         if (!(empty($sdc))) {
             $sdcString = "AND status_de_credito=:sdc ";
         }
-        $querymain = $this->queryHead . $sdcString . $ratoString . $this->queryTail;
-        $stm = $this->pdo->prepare($querymain);
+        $queryMain = $this->queryHead . $sdcString . $ratoString . $this->queryTail;
+        $stm = $this->pdo->prepare($queryMain);
         $stm->bindParam(':cliente', $cliente);
         $stm->bindParam(':queue', $queue);
         if (!(empty($sdc))) {

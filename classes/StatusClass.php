@@ -27,10 +27,9 @@ class StatusClass extends ConfigObject
      *
      * @param int $id
      */
-    public function killProc($id)
+    public function killProc(int $id)
     {
-        $idi = (int)$id;
-        $query = "KILL $idi";
+        $query = "KILL $id";
         $this->pdo->query($query);
     }
 
@@ -38,7 +37,7 @@ class StatusClass extends ConfigObject
      *
      * @return array
      */
-    public function getProcesslist()
+    public function getProcesslist(): array
     {
         $query = "show processlist";
         $stm = $this->pdo->query($query);
@@ -50,7 +49,7 @@ class StatusClass extends ConfigObject
      *
      * @return array
      */
-    public function getTables()
+    public function getTables(): array
     {
         $query = "SELECT * FROM information_schema.`TABLES` T 
 where table_schema = '$this->dbName'

@@ -14,7 +14,7 @@ require_once __DIR__ . '/ResumenObject.php';
 class RotasClass
 {
     protected PDO $pdo;
-    protected $queryRotas = /** @lang text */
+    protected string $queryRotas = /** @lang text */
         "select c_cont,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
     max(d_prom1) as dp1, max(n_prom1) as np1, 
     max(d_prom2) as dp2, max(n_prom2) as np2, 
@@ -34,30 +34,41 @@ group by c_cvge, c_cont
 order by c_cvge
 ";
 
-    protected $queryPagos = "select sum(monto) 
+    protected string $queryPagos = "select sum(monto) 
     from pagos
     where id_cuenta = :id_cuenta
     and fecha >= :fecha";
 
+    /**
+     * @param PDO $pdo
+     */
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function getRotas($capt)
+    /**
+     * @param string $capt
+     * @return array
+     */
+    public function getRotas(string $capt): array
     {
         $promesas = $this->buildPromesas($capt);
         return $this->addAccountData($promesas);
     }
 
+    /**
+     * @param string $capt
+     * @return array
+     */
     private function buildPromesas(string $capt): array
     {
-        $gestorstr = " and (ejecutivo_asignado_call_center=:capt or c_cvge=:capt) ";
+        $gestorStr = " and (ejecutivo_asignado_call_center=:capt or c_cvge=:capt) ";
         $tipo = $this->getUserType($capt);
         if ($tipo == 'admin') {
-            $gestorstr = "";
+            $gestorStr = "";
         }
-        $query = sprintf($this->queryRotas, $gestorstr);
+        $query = sprintf($this->queryRotas, $gestorStr);
         $stq = $this->pdo->prepare($query);
         if ($tipo != 'admin') {
             $stq->bindParam(':capt', $capt);

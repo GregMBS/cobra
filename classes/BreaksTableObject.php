@@ -7,25 +7,25 @@ class BreaksTableObject
     /**
      * @var int
      */
-    public $auto = 0;
+    public int $auto = 0;
 
     /**
      * @var string
      */
-    public $c_cvge = '';
+    public string $c_cvge = '';
 
     /**
      * @var string
      */
-    public $c_hrin = '';
+    public string $c_hrin = '';
 
     /**
      * @var string
      */
-    public $c_cvst = '';
+    public string $c_cvst = '';
 
     /**
      * @var int
      */
-    public $diff = 0;
+    public int $diff = 0;
 }

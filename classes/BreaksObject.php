@@ -9,25 +9,25 @@ class BreaksObject
     /**
      * @var int
      */
-    public $auto = 0;
+    public int $auto = 0;
 
     /**
      * @var string
      */
-    public $gestor = '';
+    public string $gestor = '';
 
     /**
      * @var string
      */
-    public $tipo = '';
+    public string $tipo = '';
 
     /**
      * @var string
      */
-    public $empieza = '';
+    public string $empieza = '';
 
     /**
      * @var string
      */
-    public $termina = '';
+    public string $termina = '';
 }

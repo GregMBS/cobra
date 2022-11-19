@@ -27,22 +27,22 @@ class TimesheetClassTest extends TestCase
     /**
      * @var HorariosClass
      */
-    protected $hc;
+    protected HorariosClass $hc;
 
     /**
      * @var PerfmesClass
      */
-    protected $pc;
+    protected PerfmesClass $pc;
 
     /**
      * @var HorariosAllClass
      */
-    protected $hac;
+    protected HorariosAllClass $hac;
 
     /**
      * @var PerfmesAllClass
      */
-    protected $pac;
+    protected PerfmesAllClass $pac;
 
     protected function setUp(): void
     {
@@ -169,14 +169,13 @@ class TimesheetClassTest extends TestCase
 
     /**
      * @param array $report
-     * @return array
+     * @return void
      */
-    private function hasCount(array $report): array
+    private function hasCount(array $report)
     {
         $this->assertIsArray($report);
         $first = array_pop($report);
         $this->assertArrayHasKey('ct', $first);
-        return $report;
     }
 
     public function testPrepareSheet()

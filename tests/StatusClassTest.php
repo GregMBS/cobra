@@ -18,7 +18,7 @@ class StatusClassTest extends TestCase
     /**
      * @var StatusClass
      */
-    protected $cc;
+    protected StatusClass $cc;
 
     protected function setUp(): void
     {

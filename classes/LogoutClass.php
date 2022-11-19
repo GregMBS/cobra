@@ -22,12 +22,12 @@ class LogoutClass
      *
      * @var string
      */
-    public $date;
+    public string $date;
     /**
      *
      * @var string
      */
-    public $time;
+    public string $time;
     /**
      * @var PDO $pdo
      */
@@ -36,7 +36,7 @@ class LogoutClass
      *
      * @var string
      */
-    protected $queryLastDateTime = "select d_fech,c_hrfi from historia 
+    protected string $queryLastDateTime = "select d_fech,c_hrfi from historia 
                     where c_cvge = :capt
                     order by d_fech desc,c_hrin desc 
                     limit 1";
@@ -54,7 +54,7 @@ class LogoutClass
      *
      * @param string $capt
      */
-    public function unlockCuentas($capt)
+    public function unlockCuentas(string $capt)
     {
         $query = "UPDATE resumen 
         SET timelock = NULL, locker = NULL 
@@ -69,7 +69,7 @@ class LogoutClass
      * @param string $capt
      * @param string $go
      */
-    private function getLogoutDatetime($capt, $go)
+    private function getLogoutDatetime(string $capt, string $go)
     {
         $this->date = date('Y-m-d');
         $this->time = date('H:i:s');
@@ -90,7 +90,7 @@ class LogoutClass
      * @param string $capt
      * @param string $go
      */
-    private function insertHistoria($capt, $go)
+    private function insertHistoria(string $capt, string $go)
     {
         $query = "INSERT INTO historia
 		(C_CVGE, C_CVBA, C_CONT, CUENTA, C_CVST, D_FECH, C_HRIN, C_HRFI)
@@ -109,7 +109,7 @@ class LogoutClass
      *
      * @param string $capt
      */
-    private function clearResumenLocks($capt)
+    private function clearResumenLocks(string $capt)
     {
         $query = "UPDATE resumen SET locker=NULL, timelock=NULL 
         WHERE locker = :capt";
@@ -122,7 +122,7 @@ class LogoutClass
      *
      * @param string $capt
      */
-    private function expireTicket($capt)
+    private function expireTicket(string $capt)
     {
         $query = "update nombres set ticket = NULL 
         where iniciales = :capt";

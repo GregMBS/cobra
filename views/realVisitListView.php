@@ -51,29 +51,25 @@
                                 for ($k = 0; $k < 4; $k++) {
                                     $field = $fields[$k];
                                     $anku = utf8_encode($answer[$field]);
+/*
                                     if (is_null($anku)) {
                                         $anku = "&nbsp;";
                                     }
+                                    */
                                     $ank = str_replace('00:00:00', '', $anku);
-                                    $jscode = '';
+                                    $jsCode = '';
                                     if ($field == "short") {
-                                        $jscode1 = " onClick='alert(";
-                                        $jscode2 = ")'";
-                                        $jscode = $jscode1 . '"' . preg_replace("[\n\r]", " ", $gestion) . '"' . $jscode2;
+                                        $jsCode1 = " onClick='alert(";
+                                        $jsCode2 = ")'";
+                                        $jsCode = $jsCode1 . '"' . preg_replace("[\n\r]", " ", $gestion) . '"' . $jsCode2;
                                     }
                                     ?>
                                     <td<?php
                                     if ($c == 1) {
                                         echo " style='background-color:#dddddd'";
                                     }
-                                    echo ' class="' . $fieldsize[$k] . '"' . $jscode;
-                                    ?>>
-                                            <?php
-                                            if (isset($ank)) {
-                                                echo $ank;
-                                            }
-                                            ?>
-                                    </td>
+                                    echo ' class="' . $fieldsize[$k] . '"' . $jsCode;
+                                    ?>><?php echo $ank; ?></td>
                                     <?php
                                 } $c = 1 - $c;
                                 ?>

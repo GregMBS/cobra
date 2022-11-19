@@ -27,11 +27,12 @@ class LoginClass {
     }
 
     /**
-     * @param $capt
-     * @param $pw
+     * @param string $capt
+     * @param string $pw
      * @return UserDataObject
      */
-    public function getUserData($capt, $pw) {
+    public function getUserData(string $capt, string $pw): UserDataObject
+    {
         $query = "SELECT nombres.* 
         FROM nombres JOIN grupos ON grupo=tipo 
         WHERE LOWER(iniciales) = LOWER(:capt) 
@@ -56,7 +57,8 @@ class LoginClass {
      * @param string $tipo
      * @return string
      */
-    public function getLink(string $tipo) {
+    public function getLink(string $tipo): string
+    {
         $query = "SELECT enlace 
         FROM grupos 
         WHERE grupo = :tipo 
@@ -64,7 +66,7 @@ class LoginClass {
         $stg = $this->pdo->prepare($query);
         $stg->bindParam(':tipo', $tipo);
         $stg->execute();
-        $result = $stg->fetchColumn(0);
+        $result = $stg->fetchColumn();
         if ($result) {
             return $result;
         }
@@ -77,7 +79,7 @@ class LoginClass {
      * @param string $capt
      * @param string $tipo
      */
-    private function setTicket($cpw, $capt, $tipo) {
+    private function setTicket(string $cpw, string $capt, string $tipo) {
         $query = "update nombres 
         set ticket = :cpw 
         where iniciales = :capt
@@ -93,7 +95,7 @@ class LoginClass {
      * 
      * @param string $capt
      */
-    private function setInitialQueue($capt) {
+    private function setInitialQueue(string $capt) {
         $query = "update nombres n, queuelist qu
 			set n.camp = qu.camp
 			where iniciales = gestor
@@ -110,7 +112,7 @@ class LoginClass {
      * @param string $capt
      * @param string $local
      */
-    private function setUserlog($capt, $local) {
+    private function setUserlog(string $capt, string $local) {
         $query1 = "delete from userlog where gestor = :capt ";
         $std = $this->pdo->prepare($query1);
         $std->bindParam(':capt', $capt);
@@ -128,7 +130,7 @@ class LoginClass {
      * @param string $capt
      * @param string $local
      */
-    private function insertPermalog($capt, $local) {
+    private function insertPermalog(string $capt, string $local) {
         $query = "insert into permalog 
         (usuario,tipo,fechahora,gestor) 
         values (:local, 'login', now(), :capt)";
@@ -142,7 +144,7 @@ class LoginClass {
      * 
      * @param string $capt
      */
-    private function insertHistoria($capt) {
+    private function insertHistoria(string $capt) {
         $query = "INSERT INTO historia
 			(C_CVGE,C_CVBA,C_CONT,CUENTA,C_CVST,D_FECH,C_HRIN,C_HRFI)
 			VALUES (:capt, '', 0, 0, 'login', curdate(), curtime(), curtime())";
@@ -153,12 +155,12 @@ class LoginClass {
 
     /**
      * @param string $cpw
-     * @param $capt
+     * @param string $capt
      * @param UserDataObject $userData
-     * @param $local
+     * @param string $local
      * @return string
      */
-    function runLogin(string $cpw, $capt, UserDataObject $userData, $local): string
+    function runLogin(string $cpw, string $capt, UserDataObject $userData, string $local): string
     {
         $this->setTicket($cpw, $capt, $userData->TIPO);
         $this->setInitialQueue($capt);

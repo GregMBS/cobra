@@ -7,6 +7,7 @@ use PDOStatement;
 
 require_once __DIR__ . '/ResumenObject.php';
 require_once __DIR__ . '/PagosObject.php';
+require_once __DIR__ . '/PagosumObject.php';
 require_once __DIR__ . '/PagosQueryObject.php';
 require_once __DIR__ . '/HistoriaObject.php';
 
@@ -36,7 +37,7 @@ class PagosClass
      *
      * @return array
      */
-    public function byGestorThisMonth()
+    public function byGestorThisMonth(): array
     {
         $temp = array();
         $output = array();
@@ -48,7 +49,7 @@ class PagosClass
      *
      * @return PagosQueryObject[]
      */
-    public function detailsThisMonth()
+    public function detailsThisMonth(): array
     {
         $output = array();
         $queryActDet = "select cuenta, fecha, monto, pagos.cliente, 
@@ -73,8 +74,8 @@ order by cliente,gestor,fecha";
         foreach ($data as $row) {
             $cuenta = $row->cuenta;
             $cliente = $row->cliente;
-            $fechapago = $row->fecha;
-            $row->credit = $this->assignCredit($cuenta, $cliente, $fechapago);
+            $fechaPago = $row->fecha;
+            $row->credit = $this->assignCredit($cuenta, $cliente, $fechaPago);
             $output[] = $row;
         }
 
@@ -85,10 +86,10 @@ order by cliente,gestor,fecha";
      *
      * @param string $cuenta
      * @param string $cliente
-     * @param string $fechapago
+     * @param string $fechaPago
      * @return string
      */
-    private function assignCredit($cuenta, $cliente, $fechapago)
+    private function assignCredit(string $cuenta, string $cliente, string $fechaPago): string
     {
         $queryId = "select id_cuenta from resumen 
                 where numero_de_cuenta = :cuenta
@@ -97,8 +98,8 @@ order by cliente,gestor,fecha";
         $stq->bindParam(':cuenta', $cuenta);
         $stq->bindParam(':cliente', $cliente);
         $stq->execute();
-        $resultc = $stq->fetch(PDO::FETCH_ASSOC);
-        $id_cuenta = $resultc['id_cuenta'];
+        $resultC = $stq->fetch(PDO::FETCH_ASSOC);
+        $id_cuenta = $resultC['id_cuenta'];
 
         $query = "SELECT * FROM historia 
             WHERE c_cont= :id_cuenta
@@ -108,7 +109,7 @@ order by cliente,gestor,fecha";
                 limit 1";
         $stp = $this->pdo->prepare($query);
         $stp->bindParam(':id_cuenta', $id_cuenta);
-        $stp->bindParam(':fechapago', $fechapago);
+        $stp->bindParam(':fechapago', $fechaPago);
         $stp->execute();
         $result = $stp->fetchObject(HistoriaObject::class);
         if ($result) {
@@ -151,9 +152,9 @@ order by cliente,gestor,fecha";
 
     /**
      *
-     * @return array
+     * @return PagosumObject[]
      */
-    public function summaryThisMonth()
+    public function summaryThisMonth(): array
     {
         $query = "select pagos.cliente as cli, status_de_credito as sdc,
 	sum(monto) as sm, sum(monto*confirmado) as smc
@@ -163,14 +164,14 @@ and status_de_credito not regexp '-'
 group by cli, sdc with rollup";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_CLASS, PagosumObject::class);
     }
 
     /**
      *
-     * @return array
+     * @return PagosumObject[]
      */
-    public function summaryLastMonth()
+    public function summaryLastMonth(): array
     {
         $query = "select pagos.cliente as cli, status_de_credito as sdc,
 	sum(monto) as sm, sum(monto*confirmado) as smc
@@ -181,14 +182,14 @@ and status_de_credito not regexp '-'
 group by cli, sdc with rollup";
         $stm = $this->pdo->query($query);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_CLASS, PagosumObject::class);
     }
 
     /**
      *
      * @return array
      */
-    public function byGestorLastMonth()
+    public function byGestorLastMonth(): array
     {
         $temp = array();
         $output = array();
@@ -200,7 +201,7 @@ group by cli, sdc with rollup";
      *
      * @return PagosQueryObject[]
      */
-    public function detailsLastMonth()
+    public function detailsLastMonth(): array
     {
         $output = array();
         $queryAntDet = "select cuenta, fecha, monto, pagos.cliente, 
@@ -221,7 +222,7 @@ order by cliente,gestor,fecha";
      * @param int $ID_CUENTA
      * @return ResumenObject
      */
-    public function getCuentaClienteFromID($ID_CUENTA)
+    public function getCuentaClienteFromID(int $ID_CUENTA): ResumenObject
     {
         $query = "SELECT *
 FROM resumen 
@@ -241,7 +242,7 @@ WHERE id_cuenta=:id";
      * @param int $ID_CUENTA
      * @return PagosObject[]
      */
-    public function listPagos($ID_CUENTA)
+    public function listPagos(int $ID_CUENTA): array
     {
         $query = "SELECT *
 FROM pagos
@@ -257,7 +258,7 @@ ORDER BY fecha";
      *
      * @return PagosQueryObject[]
      */
-    public function querySheet()
+    public function querySheet(): array
     {
         $output = array();
         $queryDA = "select cuenta, fecha, fechacapt, monto,
@@ -280,10 +281,7 @@ order by cliente,gestor,fecha";
     {
         $std = $this->pdo->prepare($queryDA);
         $std->execute();
-        if ($std) {
-            $output = $this->sheetLoop($std, $output);
-        }
-        return $output;
+        return $this->sheetLoop($std, $output);
     }
 
     /**
@@ -312,7 +310,7 @@ order by cliente,gestor,fecha";
      * @param string $cliente
      * @return string[]
      */
-    public function queryAll($start, $end, $cliente)
+    public function queryAll(string $start, string $end, string $cliente): array
     {
         $output = array();
         $startQuery = " ";
@@ -348,18 +346,14 @@ order by cliente,gestor,fecha";
             $std->bindParam(':cliente', $cliente);
         }
         $std->execute();
-        if ($std) {
-            $output = $this->sheetLoop($std, $output);
-        }
-
-        return $output;
+        return $this->sheetLoop($std, $output);
     }
 
     /**
      *
      * @return PagosQueryObject[]
      */
-    public function queryOldSheet()
+    public function queryOldSheet(): array
     {
         $output = array();
         $queryDA = "select cuenta, fecha, fechacapt, monto,
@@ -378,7 +372,7 @@ order by cliente,gestor,fecha";
      *
      * @return array
      */
-    public function listClientes()
+    public function listClientes(): array
     {
         $query = "SELECT DISTINCT cliente FROM pagos 
                     ORDER BY cliente

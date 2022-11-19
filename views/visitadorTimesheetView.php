@@ -55,10 +55,10 @@
     <?php
     echo $tv->countRow('VISITAS', $month, $monthSum, 'tlla', $visitador, $capt, 'ddh');
     echo $tv->countRow('CUENTAS', $month, $monthSum, 'lla', $visitador, $capt, 'ddh');
-    echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $visitador, $capt, '');
-    echo $tv->countRow('NO CONTACTOS', $month, $monthSum, 'nct', $visitador, $capt, '');
+    echo $tv->countRow('CONTACTOS', $month, $monthSum, 'ct', $visitador, $capt);
+    echo $tv->countRow('NO CONTACTOS', $month, $monthSum, 'nct', $visitador, $capt);
     echo $tv->countRow('PROMESAS', $month, $monthSum, 'prom', $visitador, $capt, 'pdh');
-    echo $tv->countRow('PAGOS', $month, $monthSum, 'pag', $visitador, $capt, '');
+    echo $tv->countRow('PAGOS', $month, $monthSum, 'pag', $visitador, $capt);
     ?>
     <tr style="height:2em"></tr>
     </tbody>

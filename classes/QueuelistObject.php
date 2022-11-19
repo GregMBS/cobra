@@ -9,72 +9,72 @@ class QueuelistObject
     /**
      * @var int
      */
-    var $auto;
+    var int $auto;
 
     /**
      * @var string
      */
-    var $gestor = '';
+    var string $gestor = '';
 
     /**
      * @var string
      */
-    var $cliente = '';
+    var string $cliente = '';
 
     /**
      * @var string
      */
-    var $status_aarsa = '';
+    var string $status_aarsa = '';
 
     /**
      * @var int
      */
-    var $camp;
+    var int $camp;
 
     /**
      * @var string
      */
-    var $orden1;
+    var string $orden1;
 
     /**
      * @var string
      */
-    var $updown1;
+    var string $updown1;
 
     /**
      * @var string
      */
-    var $orden2;
+    var string $orden2;
 
     /**
      * @var string
      */
-    var $updown2;
+    var string $updown2;
 
     /**
      * @var string
      */
-    var $orden3;
+    var string $orden3;
 
     /**
      * @var string
      */
-    var $updown3;
+    var string $updown3;
 
     /**
      * @var string
      */
-    var $sdc = '';
+    var string $sdc = '';
 
     /**
      * @var int
      */
-    var $bloqueado;
+    var int $bloqueado;
 
     /**
      * @return string
      */
-    public function getClientString()
+    public function getClientString(): string
     {
         if (empty($this->cliente)) {
             return '';
@@ -85,7 +85,7 @@ class QueuelistObject
     /**
      * @return string
      */
-    public function getSDCString()
+    public function getSDCString(): string
     {
         if (empty($this->sdc)) {
             return " AND status_de_credito not regexp '-' ";
@@ -96,7 +96,7 @@ class QueuelistObject
     /**
      * @return string
      */
-    public function getCrString()
+    public function getCrString(): string
     {
         if (empty($this->status_aarsa)) {
             return " AND status_aarsa not in ('PAGO TOTAL','PAGO RECURRENTE','PAGO PARCIAL','PAGANDO CONVENIO', 'ACLARACION', 'QUEJA CONDUSEF') ";

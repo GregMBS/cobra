@@ -20,7 +20,7 @@ class SpeclistqcClassTest extends TestCase
     /**
      * @var SpeclistqcClass
      */
-    protected $cc;
+    protected SpeclistqcClass $cc;
 
     protected function setUp(): void
     {

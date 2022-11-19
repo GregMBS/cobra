@@ -9,50 +9,50 @@ class VisitSheetObject
     /**
      * @var int
      */
-    public $id_cuenta;
+    public int $id_cuenta;
 
     /**
      * @var string
      */
-    public $numero_de_cuenta;
+    public string $numero_de_cuenta;
 
     /**
      * @var string
      */
-    public $nombre_deudor;
+    public string $nombre_deudor;
 
     /**
      * @var string
      */
-    public $cliente;
+    public string $cliente;
 
     /**
      * @var float
      */
-    public $saldo_total;
+    public float $saldo_total;
 
     /**
      * @var string
      */
-    public $queue;
+    public string $queue;
 
     /**
      * @var string
      */
-    public $completo;
+    public string $completo;
 
     /**
      * @var string
      */
-    public $fechaout;
+    public string $fechaout;
 
     /**
      * @var string
      */
-    public $fechain;
+    public string $fechain;
 
     /**
      * @var string
      */
-    public $gestor;
+    public string $gestor;
 }

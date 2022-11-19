@@ -16,31 +16,31 @@ class PdoClass {
      *
      * @var string
      */
-    protected $dsn = 'mysql:dbname=cobraribemi;host=localhost';
+    protected string $dsn = 'mysql:dbname=cobraribemi;host=localhost';
 
     /**
      *
      * @var string
      */
-    protected $host = '10.0.0.155';
+    protected string $host = '10.0.0.155';
 
     /**
      *
      * @var string
      */
-    protected $db = 'cobraribemi';
+    protected string $db = 'cobraribemi';
 
     /**
      *
      * @var string
      */
-    protected $username = "gmbs";
+    protected string $username = "gmbs";
 
     /**
      *
      * @var string
      */
-    protected $passwd = "DeathSta1";
+    protected string $passwd = "DeathSta1";
 
     /**
      * @var PDO
@@ -51,33 +51,33 @@ class PdoClass {
      *
      * @var string
      */
-    protected $queryAdmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+    protected string $queryAdmin = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt AND tipo='admin'";
 
     /**
      *
      * @var string
      */
-    protected $queryUser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
+    protected string $queryUser = "SELECT count(1) FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt";
 
     /**
      *
      * @var string
      */
-    public $capt;
+    public string $capt;
 
     /**
      *
      * @var string
      */
-    public $tipo = '';
+    public string $tipo = '';
 
     /**
      *
      * @var string
      */
-    protected $queryTipo = 'SELECT tipo FROM nombres WHERE ticket=:ticket
+    protected string $queryTipo = 'SELECT tipo FROM nombres WHERE ticket=:ticket
             AND iniciales=:capt limit 1';
 
     public function __construct() {
@@ -92,7 +92,8 @@ class PdoClass {
      * @param string $queryCheck
      * @return PDO
      */
-    private function dbConnect($queryCheck) {
+    private function dbConnect(string $queryCheck): PDO
+    {
         $ticket = filter_input(INPUT_COOKIE, 'auth');
         $capt = filter_input(INPUT_GET, 'capt');
         if (empty($capt)) {
@@ -125,7 +126,8 @@ class PdoClass {
     /**
      * @returns PDO
      */
-    public function dbConnectAdmin() {
+    public function dbConnectAdmin(): PDO
+    {
         $query = $this->queryAdmin;
         return $this->dbConnect($query);
     }
@@ -133,7 +135,8 @@ class PdoClass {
     /**
      * @returns PDO
      */
-    public function dbConnectUser() {
+    public function dbConnectUser(): PDO
+    {
         $query = $this->queryUser;
         return $this->dbConnect($query);
     }
@@ -141,7 +144,8 @@ class PdoClass {
     /**
      * @returns PDO
      */
-    public function dbConnectNobody() {
+    public function dbConnectNobody(): PDO
+    {
         return $this->pdo;
     }
 

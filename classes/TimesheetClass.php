@@ -15,22 +15,22 @@ abstract class TimesheetClass
     /**
      * @var string
      */
-    protected $queryStartStopDiff;
+    protected string $queryStartStopDiff;
 
     /**
      * @var string
      */
-    protected $queryTiempoDiff;
+    protected string $queryTiempoDiff;
 
     /**
      * @var string
      */
-    protected $queryNTPDiff;
+    protected string $queryNTPDiff;
 
     /**
      * @var string
      */
-    protected $queryCountVisitadorDays;
+    protected string $queryCountVisitadorDays;
 
     public function __construct(PDO $pdo)
     {
@@ -41,7 +41,7 @@ abstract class TimesheetClass
      *
      * @return array
      */
-    public function listGestores()
+    public function listGestores(): array
     {
         $query = $this->queryGestores;
         $stm = $this->pdo->query($query);
@@ -53,7 +53,7 @@ abstract class TimesheetClass
      *
      * @return array
      */
-    public function listVisitadores()
+    public function listVisitadores(): array
     {
         $query = $this->queryVisitadores;
         $stm = $this->pdo->query($query);
@@ -73,7 +73,7 @@ abstract class TimesheetClass
      * @param integer $dom
      * @return array
      */
-    public function getStartStopDiff($gestor, $dom)
+    public function getStartStopDiff(string $gestor, int $dom): array
     {
         $query = $this->queryStartStopDiff;
         $stq = $this->pdo->prepare($query);
@@ -89,7 +89,7 @@ abstract class TimesheetClass
      * @param int $dom
      * @return array
      */
-    public function getCurrentMain($gestor, $dom)
+    public function getCurrentMain(string $gestor, int $dom): array
     {
         $query = $this->queryCurrentMain;
         $stq = $this->pdo->prepare($query);
@@ -106,7 +106,7 @@ abstract class TimesheetClass
      * @param string $tipo
      * @return array
      */
-    public function getTiempoDiff($gestor, $dom, $tipo)
+    public function getTiempoDiff(string $gestor, int $dom, string $tipo): array
     {
         $query = $this->queryTiempoDiff;
         if (!$query) {
@@ -127,7 +127,7 @@ abstract class TimesheetClass
      * @param string $tiempo
      * @return array
      */
-    public function getNTPDiff($gestor, $dow, $tiempo)
+    public function getNTPDiff(string $gestor, int $dow, string $tiempo): array
     {
         $query = $this->queryNTPDiff;
         $stq = $this->pdo->prepare($query);
@@ -144,7 +144,7 @@ abstract class TimesheetClass
      * @param int $dom
      * @return array
      */
-    public function getPagos($gestor, $dom)
+    public function getPagos(string $gestor, int $dom): array
     {
         $query = $this->queryPagos;
         $stq = $this->pdo->prepare($query);
@@ -188,7 +188,7 @@ abstract class TimesheetClass
      *
      * @return array
      */
-    public function countVisitadorDays()
+    public function countVisitadorDays(): array
     {
         $query = $this->queryCountVisitadorDays;
         $stm = $this->pdo->query($query);
@@ -200,7 +200,7 @@ abstract class TimesheetClass
      * @param TimesheetDayObject[] $month
      * @return TimesheetDayObject
      */
-    public function prepareMonthSum(array $month)
+    public function prepareMonthSum(array $month): TimesheetDayObject
     {
         $sum = new TimesheetDayObject();
         $sum->diff = array_sum(array_column($month, 'diff'));
@@ -211,11 +211,11 @@ abstract class TimesheetClass
 
 
     /**
-     * @param $gestor
+     * @param string $gestor
      * @param int $hoy
      * @return TimesheetDayObject[]
      */
-    public function prepareSheet($gestor, $hoy): array
+    public function prepareSheet(string $gestor, int $hoy): array
     {
         $month = [];
         for ($i = 1; $i <= $hoy; $i++) {
@@ -314,4 +314,50 @@ abstract class TimesheetClass
         }
         return $month;
     }
+
+    /**
+     * @param string $visitador
+     * @param int $hoy
+     * @return TimesheetDayObject[]
+     */
+    public function prepareVisitSheet(string $visitador, int $hoy): array
+    {
+        $month = [];
+        for ($i = 1; $i <= $hoy; $i++) {
+            $day = new TimesheetDayObject();
+            $resultStartStop = $this->getVisitadorMain($visitador, $i);
+            foreach ($resultStartStop as $answerStartStop) {
+                $this->loadDay($visitador, $i, $answerStartStop, $day);
+            }
+            $month[$i] = $day;
+        }
+        return $month;
+    }
+
+    /**
+     *
+     * @param string $gestor
+     * @param int $dom
+     * @return array
+     */
+    public function getVisitadorMain(string $gestor, int $dom): array
+    {
+        $query = $this->queryVisitMain;
+        $stq = $this->pdo->prepare($query);
+        $stq->bindParam(':gestor', $gestor);
+        $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
+        $stq->execute();
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($result)) {
+            return $result;
+        }
+        return [
+            'cuentas' => 0,
+            'promesas' => 0,
+            'gestiones' => 0,
+            'nocontactos' => 0,
+            'contactos' => 0
+        ];
+    }
+
 }

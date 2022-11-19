@@ -17,7 +17,7 @@ class MigoClass
     /**
      * @var string[]
      */
-    public $keys = [
+    public array $keys = [
         'numero_de_cuenta',
         'nombre_deudor',
         'cliente',
@@ -97,11 +97,11 @@ class MigoClass
 
     /**
      * @param string[] $keys
-     * @param $searchValue
-     * @param $capt
+     * @param string $searchValue
+     * @param string $capt
      * @return array
      */
-    private function buildQuery(array $keys, $searchValue, $capt = ''): array
+    private function buildQuery(array $keys, string $searchValue, string $capt = ''): array
     {
 ## Search
         $searchArray = [];
@@ -148,7 +148,8 @@ class MigoClass
      * @param int $rowPerPage
      * @return ResumenObject[]
      */
-    private function getFiltered($searchArray, $searchQuery, $columnName = '', $columnSortOrder = 'ASC', $row = 0, $rowPerPage = 10): array
+    private function getFiltered(array  $searchArray, string $searchQuery, string $columnName = '',
+                                 string $columnSortOrder = 'ASC', int $row = 0, int $rowPerPage = 10): array
     {
 
         if (is_null($row)) {
@@ -172,11 +173,11 @@ class MigoClass
 
 // Bind values
         foreach ($searchArray as $key => $search) {
-            $stmt->bindValue(':' . $key, $search, PDO::PARAM_STR);
+            $stmt->bindValue(':' . $key, $search);
         }
 
-        $stmt->bindValue(':limit', (int)$row, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', (int)$rowPerPage, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $row, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $rowPerPage, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, ResumenObject::class);
     }

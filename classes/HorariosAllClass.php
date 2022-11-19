@@ -10,16 +10,16 @@ namespace cobra_salsa;
  */
 class HorariosAllClass  extends TimesheetClass
 {
-    protected $queryGestores = 'select distinct c_cvge from historia
+    protected string $queryGestores = 'select distinct c_cvge from historia
             where d_fech>last_day(curdate() - interval 1 month)
             order by c_cvge limit 1000';
 
-    protected $queryVisitadores = 'select distinct c_visit
+    protected string $queryVisitadores = 'select distinct c_visit
     from historia
 where d_fech > last_day(curdate()-interval 1 month)
 order by c_visit';
 
-    protected $queryCurrentMain = "select count(distinct c_cont) as cuentas,
+    protected string $queryCurrentMain = "select count(distinct c_cont) as cuentas,
             sum(n_prom > 0) as promesas,
             count(1) as gestiones,
             count(1) - sum(queue='SIN CONTACTOS') as nocontactos,
@@ -31,16 +31,16 @@ order by c_visit';
             and D_FECH=last_day(curdate() - interval 1 month) + interval :dom day
             group by D_FECH";
 
-    protected $queryPagos = "select count(1) as ct from pagos
+    protected string $queryPagos = "select count(1) as ct from pagos
             where :gestor = ''
             and fecha=last_day(curdate() - interval 1 month) + interval :dom day";
 
     /**
-     * @param $gestor
+     * @param string $gestor
      * @param int $hoy
      * @return TimesheetDayObject[]
      */
-    public function prepareSheet($gestor, $hoy): array
+    public function prepareSheet(string $gestor, int $hoy): array
     {
         return $this->prepareAllSheet($gestor, $hoy);
     }
@@ -49,7 +49,7 @@ order by c_visit';
      * @param TimesheetDayObject[] $month
      * @return TimesheetDayObject
      */
-    public function prepareMonthSum(array $month)
+    public function prepareMonthSum(array $month): TimesheetDayObject
     {
         $sum = new TimesheetDayObject();
         return $this->prepareMonthSumCounts($month, $sum);

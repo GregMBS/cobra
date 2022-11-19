@@ -18,7 +18,7 @@ class QuickHoyClassTest extends TestCase
     /**
      * @var QuickHoyClass
      */
-    protected $cc;
+    protected QuickHoyClass $cc;
 
     protected function setUp(): void
     {

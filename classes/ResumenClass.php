@@ -19,13 +19,13 @@ class ResumenClass {
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      *
      * @var string
      */
-    private $notesQuery = "select min(concat_ws(' ',fecha,hora)<now()) as alert,
+    private string $notesQuery = "select min(concat_ws(' ',fecha,hora)<now()) as alert,
             min(concat_ws(' ',fecha,hora)) as fechahora
 from notas 
 where c_cvge = :capt 
@@ -37,7 +37,7 @@ ORDER BY fecha, hora LIMIT 1";
      *
      * @var string
      */
-    private $notasDataQuery = "select cuenta,nota,fuente
+    private string $notasDataQuery = "select cuenta,nota,fuente
 from notas 
 where c_cvge IN (:capt,'todos')
 AND borrado=0 
@@ -48,7 +48,7 @@ LIMIT 1";
      *
      * @var string
      */
-    private $badNoQuery = "select if(tel_1 in (select * from deadlines),' class=\"badno\" ','') as t1,
+    private string $badNoQuery = "select if(tel_1 in (select * from deadlines),' class=\"badno\" ','') as t1,
 if(tel_2 in (select * from deadlines),' class=\"badno\" ','') as t2,
 if(tel_3 in (select * from deadlines),' class=\"badno\" ','') as t3,
 if(tel_4 in (select * from deadlines),' class=\"badno\" ','') as t4,
@@ -87,7 +87,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $visit
      * @return string
      */
-    public function highlight($stat, $visit) {
+    public function highlight(string $stat, string $visit): string
+    {
         if (!empty($visit)) {
             return 'visit';
         }
@@ -102,7 +103,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $capt
      * @return int
      */
-    public function lastMyGestion($capt) {
+    public function lastMyGestion(string $capt): int
+    {
         $query = "SELECT c_cont FROM historia WHERE c_cvge = :capt
          AND c_cont <> 0
          ORDER BY d_fech DESC, c_hrfi DESC LIMIT 1";
@@ -121,7 +123,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $dirty
      * @return string
      */
-    public function cleanFind($dirty) {
+    public function cleanFind(string $dirty): string
+    {
         $upper = strtoupper($dirty);
         $stripped = strip_tags($upper);
         return trim($stripped);
@@ -133,7 +136,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $fechahora
      * @return array
      */
-    private function notaData($capt, $fechahora) {
+    private function notaData(string $capt, string $fechahora): array
+    {
         $stn = $this->pdo->prepare($this->notasDataQuery);
         $stn->bindParam(':capt', $capt);
         $stn->bindParam(':fechahora', $fechahora);
@@ -146,7 +150,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param string $capt
      * @return array
      */
-    public function notAlert($capt) {
+    public function notAlert(string $capt): array
+    {
         $stn = $this->pdo->prepare($this->notesQuery);
         $stn->bindParam(':capt', $capt);
         $stn->execute();
@@ -173,21 +178,22 @@ where id_cuenta=:id_cuenta LIMIT 1";
 
     /**
      * 
-     * @param string $mytipo
+     * @param string $myTipo
      * @return array
      */
-    public function getDict($mytipo) {
+    public function getDict(string $myTipo): array
+    {
         $query = "SELECT dictamen,v_cc,judicial 
         FROM dictamenes 
         where callcenter=1 
         order by dictamen";
-        if ($mytipo == 'visitador') {
+        if ($myTipo == 'visitador') {
             $query = "SELECT dictamen,v_cc,judicial 
             FROM dictamenes 
             where visitas=1 
             order by dictamen";
         }
-        if ($mytipo == 'admin') {
+        if ($myTipo == 'admin') {
             $query = "SELECT dictamen,v_cc,judicial 
             FROM dictamenes 
             order by dictamen";
@@ -201,7 +207,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @return array
      */
-    public function getDictV() {
+    public function getDictV(): array
+    {
         return $this->getDict('visitador');
     }
 
@@ -209,7 +216,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @return array
      */
-    public function getMotiv() {
+    public function getMotiv(): array
+    {
         $query = "SELECT motiv FROM motivadores order by motiv";
         $stm = $this->pdo->query($query);
         $stm->execute();
@@ -220,7 +228,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @return array
      */
-    public function getMotivV() {
+    public function getMotivV(): array
+    {
         $query = "SELECT motiv FROM motivadores where visitas = 1 order by motiv";
         $stm = $this->pdo->query($query);
         $stm->execute();
@@ -231,7 +240,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @return array
      */
-    public function getCnp() {
+    public function getCnp(): array
+    {
         $query = "SELECT status FROM cnp";
         $stm = $this->pdo->query($query);
         $stm->execute();
@@ -242,7 +252,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @return array
      */
-    public function getAccion() {
+    public function getAccion(): array
+    {
         $query = "SELECT accion FROM acciones where callcenter=1";
         $stm = $this->pdo->query($query);
         $stm->execute();
@@ -253,7 +264,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @return array
      */
-    public function getAccionV() {
+    public function getAccionV(): array
+    {
         $query = "SELECT accion FROM acciones where visitas=1";
         $stm = $this->pdo->query($query);
         $stm->execute();
@@ -282,7 +294,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * @param int $id_cuenta
      * @return array
      */
-    public function getHistory($id_cuenta) {
+    public function getHistory(int $id_cuenta): array
+    {
         $query = "SELECT c_cvst,concat(d_fech,' ',c_hrin) as fecha,
                     c_cvge,c_tele,left(c_obse1,50) as short,c_obse1,
                     auto,c_cniv 
@@ -299,7 +312,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @return array
      */
-    public function getGestorList() {
+    public function getGestorList(): array
+    {
         $query = "SELECT iniciales,completo FROM nombres 
     ORDER BY iniciales";
         $stm = $this->pdo->query($query);
@@ -311,7 +325,8 @@ where id_cuenta=:id_cuenta LIMIT 1";
      * 
      * @return array
      */
-    public function getVisitadorList() {
+    public function getVisitadorList(): array
+    {
         $query = "SELECT iniciales,completo FROM nombres 
     where completo<>'' 
 and tipo IN ('visitador','admin')";
@@ -325,7 +340,8 @@ and tipo IN ('visitador','admin')";
      * @param string $capt
      * @return array
      */
-    public function getNumGests($capt) {
+    public function getNumGests(string $capt): array
+    {
         $query = "SELECT count(1) as cng FROM historia 
 WHERE c_cvge=:capt 
 AND d_fech=curdate()
@@ -342,7 +358,8 @@ AND c_cont <> 0
      * @param string $capt
      * @return array
      */
-    public function getNumProm($capt) {
+    public function getNumProm(string $capt): array
+    {
         $query = "SELECT count(1) as cnp FROM historia 
 WHERE c_cvge=:capt 
 AND n_prom > 0 
@@ -360,7 +377,8 @@ AND c_cont <> 0
      * @param string $capt
      * @return array
      */
-    public function getQueueList($capt) {
+    public function getQueueList(string $capt): array
+    {
         $query = "SELECT cliente,sdc,status_aarsa as 'queue' FROM queuelist 
 WHERE gestor = :capt 
 ORDER BY cliente,sdc,queue";
@@ -375,7 +393,7 @@ ORDER BY cliente,sdc,queue";
      * @param string $capt
      * @return UserDataObject
      */
-    public function getUserData($capt): UserDataObject
+    public function getUserData(string $capt): UserDataObject
     {
         $query = "SELECT * FROM nombres WHERE iniciales = :capt LIMIT 1";
         $stg = $this->pdo->prepare($query);
@@ -389,7 +407,7 @@ ORDER BY cliente,sdc,queue";
      * @param int $id_cuenta
      * @return HistoriaObject
      */
-    public function getLastStatus($id_cuenta): HistoriaObject
+    public function getLastStatus(int $id_cuenta): HistoriaObject
     {
         $query = "select * from historia where c_cont = :id_cuenta 
         order by d_fech desc, c_hrin desc limit 1";
@@ -408,7 +426,7 @@ ORDER BY cliente,sdc,queue";
      * @param int $id_cuenta
      * @return HistoriaObject
      */
-    public function getPromData($id_cuenta): HistoriaObject
+    public function getPromData(int $id_cuenta): HistoriaObject
     {
         $query = "select *
 from historia 
@@ -430,7 +448,7 @@ order by d_fech desc, c_hrin desc limit 1";
      * @param string $capt
      * @param int $id_cuenta
      */
-    public function setLocks($capt, $id_cuenta) {
+    public function setLocks(string $capt, int $id_cuenta) {
         $queryUnlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
         $stu = $this->pdo->prepare($queryUnlock);
@@ -454,7 +472,8 @@ order by d_fech desc, c_hrin desc limit 1";
      * @param int $ID_CUENTA
      * @return array
      */
-    public function listVisits($ID_CUENTA) {
+    public function listVisits(int $ID_CUENTA): array
+    {
         $query = "SELECT c_cvst, concat(d_fech,' ',c_hrin) as fh,
 	if(c_visit is null,c_cvge,c_visit) as gestor,
 	left(c_obse1,50) as short, c_obse1, auto
@@ -472,7 +491,8 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      * @param int $id_cuenta
      * @return int
      */
-    public function countGestiones($id_cuenta) {
+    public function countGestiones(int $id_cuenta): int
+    {
         $query = "SELECT COUNT(1) as gestiones FROM historia 
                 WHERE c_cont = :id_cuenta
                 AND c_cont > 0";
@@ -492,7 +512,8 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      * @param int $id_cuenta
      * @return int
      */
-    public function countPromesas($id_cuenta) {
+    public function countPromesas(int $id_cuenta): int
+    {
         $query = "SELECT COUNT(1) as prom FROM historia 
                 WHERE c_cont = :id_cuenta 
                 AND n_prom > 0";
@@ -512,7 +533,8 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      * @param int $id_cuenta
      * @return int
      */
-    public function countPagos($id_cuenta) {
+    public function countPagos(int $id_cuenta): int
+    {
         $query = "SELECT COUNT(1) as pag FROM pagos 
                 WHERE id_cuenta = :id_cuenta";
         $stg = $this->pdo->prepare($query);

@@ -21,3 +21,4 @@
 .idea/php-test-framework.xml
 .phpunit.result.cache
 composer.lock
+/vendor/bin/

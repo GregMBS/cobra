@@ -18,7 +18,7 @@ class RotasClassTest extends TestCase
     /**
      * @var RotasClass
      */
-    protected $cc;
+    protected RotasClass $cc;
 
     protected function setUp(): void
     {

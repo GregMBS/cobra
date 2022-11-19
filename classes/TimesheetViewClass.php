@@ -14,12 +14,12 @@ class TimesheetViewClass
     /**
      * @var string
      */
-    private $mes;
+    private string $mes;
 
     /**
      * @var int
      */
-    private $dia;
+    private int $dia;
 
     /**
      * TimesheetViewClass constructor.
@@ -43,7 +43,7 @@ class TimesheetViewClass
      * @param string $field
      * @return string
      */
-    public function timeRow(string $label, array $month, TimesheetDayObject $sum, string $field)
+    public function timeRow(string $label, array $month, TimesheetDayObject $sum, string $field): string
     {
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
@@ -67,7 +67,7 @@ class TimesheetViewClass
      * @param string $field
      * @return string
      */
-    public function diffRow(string $label, array $month, TimesheetDayObject $sum, string $field)
+    public function diffRow(string $label, array $month, TimesheetDayObject $sum, string $field): string
     {
         $total = $sum->$field;
         $template = "<tr><td class='heavy'>$label</td>";
@@ -129,7 +129,7 @@ class TimesheetViewClass
      * @param float $dec
      * @return string
      */
-    private function convertTime($dec)
+    private function convertTime(float $dec): string
     {
         $hour = floor($dec / 3600);
         $min = floor($dec / 60) - ($hour * 60);

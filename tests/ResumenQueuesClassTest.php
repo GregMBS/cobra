@@ -19,7 +19,7 @@ class ResumenQueuesClassTest extends TestCase
     /**
      * @var ResumenQueuesClass
      */
-    protected $cc;
+    protected ResumenQueuesClass $cc;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ResumenQueuesClassTest extends TestCase
     public function testGetNextAccount()
     {
         try {
-            $report = $this->cc->getNextAccount('gmbs', 0, '', '');
+            $report = $this->cc->getNextAccount('gmbs', 0);
             $this->assertInstanceOf(ResumenObject::class, $report);
         } catch (Exception $e) {
             die($e->getMessage());

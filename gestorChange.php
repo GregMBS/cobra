@@ -18,7 +18,7 @@ $agent = '';
 if (isset($post['agent'])) {
     $agent = $post['agent'];
 }
-$gestores = $gc->listGestores($agent);
+$gestores = $gc->listGestores();
 if (!empty($go)) {
     if ($go == 'cargar') {
         $data = preg_split("/[\s,]+/", $dataRaw, 0, PREG_SPLIT_NO_EMPTY);

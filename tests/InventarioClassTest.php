@@ -18,7 +18,7 @@ class InventarioClassTest extends TestCase
     /**
      * @var InventarioClass
      */
-    protected $cc;
+    protected InventarioClass $cc;
 
     protected function setUp(): void
     {

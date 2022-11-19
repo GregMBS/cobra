@@ -24,7 +24,7 @@ class PagosClassTest extends TestCase
     /**
      * @var PagosClass
      */
-    protected $cc;
+    protected PagosClass $cc;
 
     protected function setUp(): void
     {

@@ -13,17 +13,18 @@ class GestorChangeClass extends BaseClass {
      * @param array $data
      * @return ResumenObject[]
      */
-    public function listCuentas(array $data) {
+    public function listCuentas(array $data): array
+    {
         $query = "SELECT * FROM resumen 
         WHERE numero_de_cuenta IN (:cta)";
         return $this->runProcess($data, $query);
     }
 
     /**
-     * @param string|null $gestor
      * @return string[]
      */
-    public function listGestores(?string $gestor = '') {
+    public function listGestores(): array
+    {
         $query = "SELECT iniciales FROM nombres 
         ORDER BY iniciales";
         $stu = $this->pdo->prepare($query);
@@ -38,7 +39,8 @@ class GestorChangeClass extends BaseClass {
      * @param string $sdc
      * @return ResumenObject
      */
-    public function changeGestor(int $id_cuenta, string $gestor, string $sdc) {
+    public function changeGestor(int $id_cuenta, string $gestor, string $sdc): ResumenObject
+    {
         $query = "UPDATE resumen
 SET ejecutivo_asignado_call_center = :gestor, status_de_credito = :sdc, fecha_de_actualizacion = CURDATE()
 WHERE id_cuenta = :id_cuenta";
@@ -65,7 +67,7 @@ WHERE id_cuenta = :id_cuenta";
      * @param string $query
      * @return ResumenObject[]
      */
-    private function runProcess($data, $query)
+    private function runProcess(array $data, string $query): array
     {
         $output = array();
         $std = $this->pdo->prepare($query);

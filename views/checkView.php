@@ -46,17 +46,17 @@ if (!empty($gestor)) {
         echo $label;
         ?>">
     </form>
-    <button onclick="window.location = 'checkoutlist.php?capt=<?php echo $capt; ?>&visitador=<?php echo $gestor; ?>'">
+    <button onclick="window.location = 'checkoutList.php?capt=<?php echo $capt; ?>&visitador=<?php echo $gestor; ?>'">
         CHECKLIST
     </button>
     <?php
     if ($resultCount) {
-        $ASIG = $resultCount['countOut'];
-        $RECIB = $resultCount['countIn'];
+        $ASIGNADO = $resultCount['countOut'];
+        $RECIBIDO = $resultCount['countIn'];
     }
     ?>
-    <p>Asignado: <?php echo $ASIG; ?><br>
-        Recibido: <?php echo $RECIB; ?></p>
+    <p>Asignado: <?php echo $ASIGNADO; ?><br>
+        Recibido: <?php echo $RECIBIDO; ?></p>
     <?php
     require_once __DIR__ . '/checkTable.php';
     ?>

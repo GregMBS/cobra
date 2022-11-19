@@ -23,7 +23,7 @@ class BreaksClassTest extends TestCase
     /**
      * @var BreaksClass
      */
-    protected $cc;
+    protected BreaksClass $cc;
 
     protected function setUp(): void
     {

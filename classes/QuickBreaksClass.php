@@ -12,7 +12,7 @@ use PDO;
 class QuickBreaksClass
 {
     protected PDO $pdo;
-    protected $createBreaktab          = "CREATE TEMPORARY TABLE  `breaktab` (
+    protected string $createBreakTab = "CREATE TEMPORARY TABLE  `breaktab` (
   `auto` int(11) NOT NULL AUTO_INCREMENT,
   `gestor` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `tipo` varchar(255) COLLATE utf8_spanish_ci,
@@ -21,25 +21,25 @@ class QuickBreaksClass
   `diff` int(11),
   PRIMARY KEY (`auto`)
 )";
-    protected $insertBreaktab          = "insert into breaktab (gestor,tipo,tiempo)
+    protected string $insertBreakTab          = "insert into breaktab (gestor,tipo,tiempo)
 select c_cvge,c_cvst,c_hrin
 from historia where c_cont=0 and
 d_fech=curdate() and c_cvst<>'login' and c_cvst<>'salir'
 order by c_cvge,c_cvst,c_hrin";
-    protected $createNtpdiff         = "create temporary table ntpdiff
+    protected string $createNtpDiff         = "create temporary table ntpdiff
 select gestor,tiempo,min(c_hrin) as mntp from historia,breaktab
 where d_fech = curdate() and gestor = c_cvge and c_hrin > tiempo
 group by gestor,tiempo";
-    protected $updateBreaktabDiff    = "update breaktab,ntpdiff 
+    protected string $updateBreakTabDiff    = "update breaktab,ntpdiff 
     set ntp = mntp,
 diff = (time_to_sec(mntp)-time_to_sec(ntpdiff.tiempo))/60
 where ntpdiff.gestor = breaktab.gestor 
 and ntpdiff.tiempo = breaktab.tiempo";
-    protected $dropBreaktemp        = "drop table if exists breaktemp";
-    protected $createBreaktemp   = "create table breaktemp
+    protected string $dropBreakTemp        = "drop table if exists breaktemp";
+    protected string $createBreakTemp   = "create table breaktemp
 select gestor,sum(diff) as sum_diff from breaktab
 group by gestor";
-    protected $queryBreaktab           = "SELECT * FROM breaktab";
+    protected string $queryBreakTab           = "SELECT * FROM breaktab";
 
     public function __construct(PDO $pdo)
     {
@@ -51,13 +51,13 @@ group by gestor";
      */
     public function getBreaks()
     {
-        $this->pdo->query($this->createBreaktab);
-        $this->pdo->query($this->insertBreaktab);
-        $this->pdo->query($this->createNtpdiff);
-        $this->pdo->query($this->updateBreaktabDiff);
-        $this->pdo->query($this->dropBreaktemp);
-        $this->pdo->query($this->createBreaktemp);
-        $sta    = $this->pdo->query($this->queryBreaktab);
+        $this->pdo->query($this->createBreakTab);
+        $this->pdo->query($this->insertBreakTab);
+        $this->pdo->query($this->createNtpDiff);
+        $this->pdo->query($this->updateBreakTabDiff);
+        $this->pdo->query($this->dropBreakTemp);
+        $this->pdo->query($this->createBreakTemp);
+        $sta    = $this->pdo->query($this->queryBreakTab);
         return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
 }

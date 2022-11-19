@@ -9,56 +9,56 @@ class UserDataObject
     /**
      * @var string
      */
-    public $USUARIA = '';
+    public string $USUARIA = '';
 
     /**
      * @var string
      */
-    public $INICIALES = '';
+    public string $INICIALES = '';
 
     /**
      * @var string
      */
-    public $COMPLETO = '';
+    public string $COMPLETO = '';
 
     /**
      * @var string
      */
-    public $TIPO = '';
+    public string $TIPO = '';
 
     /**
      * @var string
      */
-    public $TICKET = '';
+    public string $TICKET = '';
 
     /**
      * @var int
      */
-    public $camp = 0;
+    public int $camp = 0;
 
     /**
      * @var string
      */
-    public $turno = '';
+    public string $turno = '';
 
     /**
      * @var string
      */
-    public $authcode = '';
+    public string $authcode = '';
 
     /**
      * @var string
      */
-    public $passw = '';
+    public string $passw = '';
 
     /**
      * @var bool
      */
-    public $policy = true;
+    public bool $policy = true;
 
     /**
      * @var int
      */
-    public $id = 0;
+    public int $id = 0;
 
 }

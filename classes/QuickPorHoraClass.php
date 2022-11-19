@@ -12,7 +12,7 @@ use PDO;
 class QuickPorHoraClass
 {
     protected PDO $pdo;
-    protected $queryPorHora  = "select c_cvge as 'gestor', 
+    protected string $queryPorHora  = "select c_cvge as 'gestor', 
     sum((C_CARG is not null)&&(C_CARG<>'')) as 'contactos',
 count(1)as 'gestiones', 
 sum(n_prom>0) as 'promesas',

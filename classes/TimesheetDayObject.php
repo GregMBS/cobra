@@ -9,60 +9,60 @@ class TimesheetDayObject
     /**
      * @var string
      */
-    public $start = ' ';
+    public string $start = ' ';
 
     /**
      * @var string
      */
-    public $stop  = ' ';
+    public string $stop  = ' ';
 
     /**
      * @var int
      */
-    public $diff  = 0;
+    public int $diff  = 0;
 
     /**
      * @var int
      */
-    public $break = 0;
+    public int $break = 0;
 
     /**
      * @var int
      */
-    public $bano  = 0;
+    public int $bano  = 0;
 
     /**
      * @var int
      */
-    public $lla   = 0;
+    public int $lla   = 0;
 
     /**
      * @var int
      */
-    public $tlla  = 0;
+    public int $tlla  = 0;
 
     /**
      * @var int
      */
-    public $prom  = 0;
+    public int $prom  = 0;
 
     /**
      * @var int
      */
-    public $pag   = 0;
+    public int $pag   = 0;
 
     /**
      * @var int
      */
-    public $lph   = 0;
+    public int $lph   = 0;
 
     /**
      * @var int
      */
-    public $ct    = 0;
+    public int $ct    = 0;
 
     /**
      * @var int
      */
-    public $nct   = 0;
+    public int $nct   = 0;
 }

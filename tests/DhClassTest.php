@@ -19,7 +19,7 @@ class DhClassTest extends TestCase
     /**
      * @var DhClass
      */
-    protected $cc;
+    protected DhClass $cc;
 
     protected function setUp(): void
     {

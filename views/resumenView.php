@@ -1247,9 +1247,11 @@ if ($notalert > 0) { ?>
                     <tr class="<?php echo $rc->highlight($stat, $visit); ?>"><?php
                         for ($k = 0; $k < 5; $k++) {
                             $anku = utf8_encode($answer[$k]);
+                            /*
                             if (is_null($anku)) {
                                 $anku = "&nbsp;";
                             }
+                            */
                             $ank = str_replace('00:00:00',
                                 '', $anku);
                             $jsCode = '';
@@ -1266,14 +1268,7 @@ if ($notalert > 0) { ?>
                                 echo " style='background-color:#dddddd'";
                             }
                             echo ' class="' . $fieldsize[$k] . '"' . $jsCode;
-                            ?>>
-                                <?php
-                                if (isset($ank)) {
-                                    echo htmlentities($ank,
-                                        ENT_QUOTES, "UTF-8");
-                                }
-                                ?>
-                            </td>
+                            ?>><?php echo htmlentities($ank, ENT_QUOTES, "UTF-8"); ?></td>
                             <?php
                         }
                         $c = 1 - $c;
@@ -1707,12 +1702,12 @@ if ($notalert > 0) { ?>
     openSearch('<?php echo $tl; ?>');
     <?php
     $pagingBase = "paging('HISTORIA', %u, '%s', '%s');";
-    $pagingString = sprintf($pagingBase, $flag, $flagmsg, $row->numero_de_cuenta);
+    $pagingString = sprintf($pagingBase, $flag, $flagMsg, $row->numero_de_cuenta);
     echo $pagingString;
     ?>
     document.getElementById("capturaForm").addEventListener("submit", function (event) {
         return validate_form2(this, event,<?php
-            echo $saldo_descuento_2 + 0;
+            echo $saldo_descuento_2;
             ?>,<?php
             if (empty($AUTH)) {
                 $AUTH = '';
@@ -1726,7 +1721,7 @@ if ($notalert > 0) { ?>
     });
     document.getElementById("gestionForm").addEventListener("submit", function (event) {
         let result = validate_form(this, event,<?php
-            echo $saldo_descuento_2 + 0;
+            echo $saldo_descuento_2;
             ?>,<?php
             if (empty($AUTH)) {
                 $AUTH = '';

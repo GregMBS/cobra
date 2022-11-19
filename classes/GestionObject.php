@@ -9,176 +9,176 @@ class GestionObject
     /**
      * @var string
      */
-    public $C_CVBA = '';
+    public string $C_CVBA = '';
 
     /**
      * @var string
      */
-    public $C_CVGE = '';
+    public string $C_CVGE = '';
 
     /**
      * @var int
      */
-    public $C_CONT = 0;
+    public int $C_CONT = 0;
 
     /**
      * @var string
      */
-    public $C_CVST = '';
+    public string $C_CVST = '';
 
     /**
      * @var string
      */
-    public $D_FECH = '';
+    public string $D_FECH = '';
 
     /**
      * @var string
      */
-    public $C_HRIN = '';
+    public string $C_HRIN = '';
 
     /**
      * @var string
      */
-    public $C_HRFI = '';
+    public string $C_HRFI = '';
 
     /**
      * @var string
      */
-    public $C_TELE = '';
+    public string $C_TELE = '';
 
     /**
      * @var string
      */
-    public $CUANDO = '';
+    public string $CUANDO = '';
 
     /**
      * @var string
      */
-    public $CUENTA = '';
+    public string $CUENTA = '';
 
     /**
      * @var string
      */
-    public $C_OBSE1 = '';
+    public string $C_OBSE1 = '';
 
     /**
      * @var string
      */
-    public $C_ATTE = '';
+    public string $C_ATTE = '';
 
     /**
      * @var string
      */
-    public $C_CARG = '';
+    public string $C_CARG = '';
 
     /**
      * @var string
      */
-    public $D_PROM = '';
+    public string $D_PROM = '';
 
     /**
      * @var float
      */
-    public $N_PROM = 0;
+    public float $N_PROM = 0;
 
     /**
      * @var string
      */
-    public $C_PROM = '';
+    public string $C_PROM = '';
 
     /**
      * @var string
      */
-    public $D_PROM1 = '';
+    public string $D_PROM1 = '';
 
     /**
      * @var float
      */
-    public $N_PROM1 = 0;
+    public float $N_PROM1 = 0;
 
     /**
      * @var string
      */
-    public $D_PROM2 = '';
+    public string $D_PROM2 = '';
 
     /**
      * @var float
      */
-    public $N_PROM2 = 0;
+    public float $N_PROM2 = 0;
 
     /**
      * @var string
      */
-    public $D_PROM3 = '';
+    public string $D_PROM3 = '';
 
     /**
      * @var float
      */
-    public $N_PROM3 = 0;
+    public float $N_PROM3 = 0;
 
     /**
      * @var string
      */
-    public $D_PROM4 = '';
+    public string $D_PROM4 = '';
 
     /**
      * @var float
      */
-    public $N_PROM4 = 0;
+    public float $N_PROM4 = 0;
 
     /**
      * @var string
      */
-    public $C_CONTAN = '';
+    public string $C_CONTAN = '';
 
     /**
      * @var string
      */
-    public $ACCION = '';
+    public string $ACCION = '';
 
     /**
      * @var string
      */
-    public $C_CNP = '';
+    public string $C_CNP = '';
 
     /**
      * @var string
      */
-    public $C_MOTIV = '';
+    public string $C_MOTIV = '';
 
     /**
      * @var int
      */
-    public $C_CAMP = 0;
+    public int $C_CAMP = 0;
 
     /**
      * @var string
      */
-    public $C_NTEL = '';
+    public string $C_NTEL = '';
 
     /**
      * @var string
      */
-    public $C_NDIR = '';
+    public string $C_NDIR = '';
 
     /**
      * @var string
      */
-    public $C_EMAIL = '';
+    public string $C_EMAIL = '';
 
     /**
      * @var string
      */
-    public $C_OBSE2 = '';
+    public string $C_OBSE2 = '';
 
     /**
      * @var string
      */
-    public $C_EJE = '';
+    public string $C_EJE = '';
 
     /**
      * @var string
      */
-    public $AUTH = '';
+    public string $AUTH = '';
 
 }

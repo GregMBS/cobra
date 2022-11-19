@@ -18,7 +18,7 @@ class QueuesgClassTest extends TestCase
     /**
      * @var QueuesgClass
      */
-    protected $cc;
+    protected QueuesgClass $cc;
 
     protected function setUp(): void
     {

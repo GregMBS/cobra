@@ -12,7 +12,9 @@
         </style>
     </head>
     <body>
-	<button onclick="window.location = 'reports.php?capt=<?php echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
+	<button onclick="window.location = 'reports.php?capt=<?php use cobra_salsa\PagosumObject;
+
+    echo $capt; ?>'">Regresar a la pagina administrativa</button><br>
 	<h2>Mes Actual</h2>
 	<table class="ui-widget">
 	    <thead class="ui-widget-header">
@@ -24,23 +26,15 @@
 		</tr>
 	    </thead>
 	    <tbody class="ui-widget-content">
-		<?php
-		foreach ($resultAct as $row) {
-			$CLIENTE = $row['cli'];
-			$SDC	 = $row['sdc'];
-			if (empty($SDC)) {
-				$SDC = 'total';
-			}
-			$PAGO	 = $row['sm'];
-			$CONF	 = $row['smc'];
-			?>
-			<tr>
-			    <td><?php echo $CLIENTE; ?></td>
-			    <td><?php echo $SDC; ?></td>
-			    <td class="num"><?php echo number_format($PAGO, 2); ?></td>
-			    <td class="num"><?php echo number_format($CONF, 2); ?></td>
-			</tr>
-		<?php } ?>
+        <?php
+        foreach ($resultAct as $row) { ?>
+        <tr>
+            <td><?php echo $row->getCli(); ?></td>
+            <td><?php echo $row->getSdc(); ?></td>
+            <td class="num"><?php echo $row->getSm(); ?></td>
+            <td class="num"><?php echo $row->getSmc(); ?></td>
+        </tr>
+        <?php } ?>
 	    </tbody>
 	</table>
 	<table class="ui-widget">
@@ -111,20 +105,12 @@
 	    </thead>
 	    <tbody class="ui-widget-content">
 		<?php
-		foreach ($resultAnt as $row) {
-			$CLIENTE = $row['cli'];
-			$SDC	 = $row['sdc'];
-			if (empty($SDC)) {
-				$SDC = 'total';
-			}
-			$PAGO	 = $row['sm'];
-			$CONF	 = $row['smc'];
-			?>
+        foreach ($resultAnt as $row) { ?>
 			<tr>
-			    <td><?php echo $CLIENTE; ?></td>
-			    <td><?php echo $SDC; ?></td>
-			    <td class="num"><?php echo number_format($PAGO, 2); ?></td>
-			    <td class="num"><?php echo number_format($CONF, 2); ?></td>
+			    <td><?php echo $row->getCli(); ?></td>
+			    <td><?php echo $row->getSdc(); ?></td>
+			    <td class="num"><?php echo $row->getSm(); ?></td>
+			    <td class="num"><?php echo $row->getSmc(); ?></td>
 			</tr>
 		<?php } ?>
 	    </tbody>

@@ -30,28 +30,28 @@
             </thead>
             <tbody class="ui-widget-content">
                 <?php
-                $sumpr = 0;
+                $sumPr = 0;
                 $sump = 0;
-                foreach ($result as $answerstart) {
-                    $D_PROM = $answerstart['d_prom'];
-                    $CUENTA = $answerstart['cuenta'];
-                    $N_PROM = $answerstart['n_prom'];
-                    $sumpr+=$N_PROM;
-                    $C_CVGE = $answerstart['c_cvge'];
-                    $GESTOR = $answerstart['ejecutivo_asignado_call_center'];
-                    $STATUS = $answerstart['status_aarsa'];
-                    $MSGC = $answerstart['saldo_vencido'];
-                    $CLIENTE = $answerstart['cliente'];
-                    $ID_CUENTA = $answerstart['id_cuenta'];
-                    $S_D = $answerstart['saldo_descuento_1'];
-                    $resultp = $gc->getPagos($CUENTA, $CLIENTE);
+                foreach ($result as $answerStart) {
+                    $D_PROM = $answerStart['d_prom'];
+                    $CUENTA = $answerStart['cuenta'];
+                    $N_PROM = $answerStart['n_prom'];
+                    $sumPr+=$N_PROM;
+                    $C_CVGE = $answerStart['c_cvge'];
+                    $GESTOR = $answerStart['ejecutivo_asignado_call_center'];
+                    $STATUS = $answerStart['status_aarsa'];
+                    $MSGC = $answerStart['saldo_vencido'];
+                    $CLIENTE = $answerStart['cliente'];
+                    $ID_CUENTA = $answerStart['id_cuenta'];
+                    $S_D = $answerStart['saldo_descuento_1'];
+                    $resultP = $gc->getPagos($CUENTA, $CLIENTE);
                     $MONTO = 0;
                     $FECHA = '';
-                    foreach ($resultp as $answerp) {
-                        $MONTO = $answerp['sm'];
+                    foreach ($resultP as $answerP) {
+                        $MONTO = $answerP['sm'];
                         $sump+=$MONTO;
                         if ($MONTO > 0) {
-                            $FECHA = $answerp['mf'];
+                            $FECHA = $answerP['mf'];
                         }
                     }
                     ?>
@@ -75,7 +75,7 @@
                     <td>SUM</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <th class="right"><?php echo number_format($sumpr, 2); ?></th>
+                    <th class="right"><?php echo number_format($sumPr, 2); ?></th>
                     <td class="right">&nbsp;</td>
                     <td class="right">&nbsp;</td>
                     <td>&nbsp;</td>

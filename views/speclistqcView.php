@@ -26,7 +26,7 @@
                     <th>SALDO TOTAL</th>
                     <th>QUEUE</th>
                     <th>GESTOR</th>
-                    <th>ULT. GESTI&Oacute;N</th>
+                    <th>ULT. GESTION</th>
                 </tr>
             </thead>
             <tbody class="ui-widget-content">
@@ -44,7 +44,7 @@ foreach ($main as $row) {
     $STATUS = $row->status_aarsa;
     $PRODUCTO = $row->producto;
     $CIUDAD = $row->ciudad_deudor;
-    $MONTOTOTAL = $row->saldo_total;
+    $MontoTotal = $row->saldo_total;
     ?>
                     <tr>
                         <td><a href='/resumen.php?go=FromMigo&i=0&field=id_cuenta&find=<?php
@@ -57,7 +57,7 @@ foreach ($main as $row) {
                         <td><?php echo utf8_decode($NOMBRE); ?></td>
                         <td><?php echo $CLIENTE; ?></td>
                         <td><?php echo $SEGMENTO; ?></td>
-                        <td class='num'><?php echo number_format($MONTOTOTAL, 2); ?></td>
+                        <td class='num'><?php echo number_format($MontoTotal, 2); ?></td>
                         <td><?php echo $STATUS; ?></td>
                         <td><?php echo $GESTOR; ?></td>
                         <td><?php echo $FUG; ?></td>

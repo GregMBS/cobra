@@ -7,30 +7,30 @@ class EspecialObject
     /**
      * @var string
      */
-    public $cliente = '';
+    public string $cliente = '';
 
     /**
      * @var string
      */
-    public $status_de_credito = '';
+    public string $status_de_credito = '';
 
     /**
      * @var int
      */
-    public $cnt = 0;
+    public int $cnt = 0;
 
     /**
      * @var float
      */
-    public $mnt = 0.0;
+    public float $mnt = 0.0;
 
     /**
      * @var int
      */
-    public $ecount = 0;
+    public int $ecount = 0;
 
     /**
      * @var float
      */
-    public $emount = 0.0;
+    public float $emount = 0.0;
 }

@@ -48,7 +48,7 @@
             <td><?php echo $row->cliente; ?></td>
             <td><?php echo $row->status_de_credito; ?></td>
             <td><?php echo $row->dias_vencidos; ?></td>
-            <td class="numeric"><?php echo number_format($row->saldo_total, 0); ?></td>
+            <td class="numeric"><?php echo number_format($row->saldo_total); ?></td>
             <td><?php echo $row->status_aarsa; ?></td>
             <td><?php echo $row->d_prom; ?></td>
             <td class="numeric"><?php echo number_format($row->n_prom, 2); ?></td>
@@ -65,7 +65,7 @@
         <th></th>
         <th></th>
         <th></th>
-        <th class="numeric">$<?php echo number_format($sumSaldo, 0); ?></th>
+        <th class="numeric">$<?php echo number_format($sumSaldo); ?></th>
         <th></th>
         <th></th>
         <th class="numeric">$<?php echo number_format($sumProm, 2); ?></th>

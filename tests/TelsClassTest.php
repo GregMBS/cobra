@@ -18,12 +18,12 @@ class TelsClassTest extends TestCase
     /**
      * @var TelsClass
      */
-    protected $cc;
+    protected TelsClass $cc;
 
     /**
      * @var string[]
      */
-    private $marcados = [
+    private array $marcados = [
         'cliente',
         'nombre_deudor',
         'numero_de_cuenta',
@@ -60,7 +60,7 @@ class TelsClassTest extends TestCase
     /**
      * @var string[]
      */
-    private $contactos = [
+    private array $contactos = [
         'cliente',
         'nombre_deudor',
         'numero_de_cuenta',

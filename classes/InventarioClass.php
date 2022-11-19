@@ -15,13 +15,13 @@ class InventarioClass {
      *
      * @var PDO
      */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      *
      * @var string 
      */
-    private $queryStart = "SELECT id_cuenta,numero_de_cuenta,nombre_deudor,resumen.cliente,
+    private string $queryStart = "SELECT id_cuenta,numero_de_cuenta,nombre_deudor,resumen.cliente,
     substring_index(status_de_credito,'-',1) as segmento,
     if (status_de_credito regexp '-',substring_index(status_de_credito,'-',-1),'') as disposicion,
     producto,subproducto,
@@ -42,7 +42,7 @@ where status_de_credito not regexp '-'
      *
      * @var string 
      */
-    private $queryEnd = " 
+    private string $queryEnd = " 
 group by id_cuenta
 ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
 
@@ -59,13 +59,14 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
      * @param string $cliente
      * @return array
      */
-    public function getInventarioReport($cliente) {
-        $clientestr = '';
+    public function getInventarioReport(string $cliente): array
+    {
+        $clienteStr = '';
         if ($cliente != 'todos') {
-            $clientestr = " and cliente=:cliente ";
+            $clienteStr = " and cliente=:cliente ";
         }
-        $querymain = $this->queryStart . $clientestr . $this->queryEnd;
-        $stm = $this->pdo->prepare($querymain);
+        $queryMain = $this->queryStart . $clienteStr . $this->queryEnd;
+        $stm = $this->pdo->prepare($queryMain);
         if ($cliente != 'todos') {
             $stm->bindParam(':cliente', $cliente);
         }
@@ -77,7 +78,8 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
      * 
      * @return string[]
      */
-    public function listClients() {
+    public function listClients(): array
+    {
         $query = "SELECT cliente FROM clientes";
         $stm = $this->pdo->query($query);
         $stm->execute();

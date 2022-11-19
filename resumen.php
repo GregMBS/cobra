@@ -29,7 +29,7 @@ $capt = $pc->capt;
 $mytipo = $pc->tipo;
 $C_CVGE = $capt;
 $flag = 0;
-$flagmsg = '';
+$flagMsg = '';
 //if ($capt == 'gmbs' && !empty($get)) {
 //    var_dump($get);
 //    die();
@@ -107,7 +107,7 @@ if (!empty($mytipo)) {
         $gc->doVisit($get);
     }
 } else {
-    $flagmsg = "Acceso sin autorización";
+    $flagMsg = "Acceso sin autorización";
     include 'resumenErrorView.php';
     exit();
 }
@@ -191,58 +191,57 @@ if ($go == 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !emp
     }
     $error = 0;
     $D_PROM = $D_PROM1;
-    $flagmsg = "";
     $pagosArray = ['PAGANDO CONVENIO', 'PAGO DE CONVENIO', 'PAGO TOTAL', 'PAGO RECURRENTE', 'PAGO PARCIAL'];
     $promsArray = ['PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO RECURRENTE', 'PROMESA DE PAGO PARCIAL'];
     if (($N_PAGO == 0) && (in_array($C_CVST, $pagosArray))) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<br>' . $C_CVST . ' necesita monto';
+        $flagMsg = $flagMsg . '<br>' . $C_CVST . ' necesita monto';
     }
     if ((substr($C_CVST, 0, 11) == 'MENSAJE CON') && ($C_CARG == '')) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . $C_CVST . " NECESITA PARENTESCO/CARGO";
+        $flagMsg = $flagMsg . '<BR>' . $C_CVST . " NECESITA PARENTESCO/CARGO";
     }
     if (($N_PROM == 0) && (in_array($C_CVST, $promsArray))) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . $C_CVST . "PROMESA NECESITA MONTO";
+        $flagMsg = $flagMsg . '<BR>' . $C_CVST . "PROMESA NECESITA MONTO";
     }
     if (($N_PROM > 0) && ($D_PROM == '0000-00-00')) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA FECHA";
+        $flagMsg = $flagMsg . '<BR>' . "PROMESA NECESITA FECHA";
     }
     if (($N_PAGO > 0) && ($D_PAGO == '0000-00-00')) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PAGO NECESITA FECHA";
+        $flagMsg = $flagMsg . '<BR>' . "PAGO NECESITA FECHA";
     }
     if (($N_PROM > 0) && ($D_PROM == '')) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA FECHA";
+        $flagMsg = $flagMsg . '<BR>' . "PROMESA NECESITA FECHA";
     }
     if (($N_PROM == 0) && ($D_PROM >= $D_FECH)) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PROMESA NECESITA MONTO";
+        $flagMsg = $flagMsg . '<BR>' . "PROMESA NECESITA MONTO";
     }
     if (($N_PAGO == 0) && ($D_PAGO > '0000-00-00')) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "PAGO NECESITA MONTO";
+        $flagMsg = $flagMsg . '<BR>' . "PAGO NECESITA MONTO";
     }
     if (($N_PROM1 == 0) && ($N_PROM2 > 0)) {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
+        $flagMsg = $flagMsg . '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
     }
     if ($C_TELE == '') {
         $error = $error + 1;
-        $flagmsg = $flagmsg . '<BR>' . "GESTION NECESITA TELEFONO";
+        $flagMsg = $flagMsg . '<BR>' . "GESTION NECESITA TELEFONO";
     }
 
     if ($error > 0) {
-        die($flagmsg);
+        die($flagMsg);
     }
     try {
         $gc->doGestion($get);
     } catch (Exception $e) {
         $error = 1000;
-        $flagmsg = $e->getMessage();
+        $flagMsg = $e->getMessage();
     }
 
     if ($find == "/") {
@@ -365,7 +364,7 @@ $fecha_de_deasignacion = $row->fecha_de_deasignacion;
 $cuenta_concentradora_1 = $row->cuenta_concentradora_1;
 $saldo_cuota = $row->saldo_cuota;
 $email_deudor = $row->email_deudor;
-$id_cuenta = $row->id_cuenta;
+//$id_cuenta = $row->id_cuenta;
 $nss = $row->nss;
 $rfc_deudor = $row->rfc_deudor;
 $telefonos_marcados = $row->telefonos_marcados;
@@ -378,7 +377,7 @@ $dias_vencidos = $row->dias_vencidos;
 $ejecutivo_asignado_call_center = $row->ejecutivo_asignado_call_center;
 $ejecutivo_asignado_domiciliario = $row->ejecutivo_asignado_domiciliario;
 $prioridad_de_gestion = $row->prioridad_de_gestion;
-$nrpp = $row->nrpp;
+$nrpp = $row->NRPP;
 $parentesco_aval = $row->parentesco_aval;
 $localizar = $row->localizar;
 $fecha_ultima_gestion = $row->fecha_ultima_gestion;
@@ -387,10 +386,10 @@ $fecha_convenio = $row->fecha_convenio;
 $direccion_nueva = $row->direccion_nueva;
 $timelock = $row->timelock;
 $locker = $row->locker;
-$fecha_convenio = $row->fecha_convenio;
+//$fecha_convenio = $row->fecha_convenio;
 $especial = $row->especial;
-$direccion_nueva = $row->direccion_nueva;
-$norobot = $row->norobot;
+//$direccion_nueva = $row->direccion_nueva;
+$noRobot = $row->norobot;
 
 $latest = $rc->getLastStatus($id_cuenta);
 
@@ -462,9 +461,7 @@ if ($id_cuenta > 0) {
     $rowSub = $rc->getHistory($id_cuenta);
 }
 $resultBN = new BadNoObject();
-if (is_int($id_cuenta)) {
-    $resultBN = $rc->getBadNo($id_cuenta);
-}
+$resultBN = $rc->getBadNo($id_cuenta);
 
 $resultCnp = $rc->getCnp();
 

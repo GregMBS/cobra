@@ -17,7 +17,7 @@ class SegmentAdminClassTest extends TestCase
     /**
      * @var SegmentAdminClass
      */
-    protected $cc;
+    protected SegmentAdminClass $cc;
 
     protected function setUp(): void
     {
