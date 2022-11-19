@@ -17,12 +17,12 @@ class PagosumObject
     /**
      * @var float|null
      */
-    private ?float $sm = 0;
+    private $sm = 0;
 
     /**
      * @var float|null
      */
-    private ?float $smc = 0;
+    private $smc = 0;
 
     /**
      * @return string
@@ -64,7 +64,11 @@ class PagosumObject
      */
     public function getSm(): float
     {
-        return number_format($this->sm,2);
+        $sm = $this->sm;
+        if (empty($sm)) {
+            $sm = 0;
+        }
+        return number_format($sm,2);
     }
 
     /**
@@ -80,7 +84,11 @@ class PagosumObject
      */
     public function getSmc(): float
     {
-        return number_format($this->smc,2);
+        $smc = $this->smc;
+        if (empty($smc)) {
+            $smc = 0;
+        }
+        return number_format($smc,2);
     }
 
     /**
