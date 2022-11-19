@@ -13,63 +13,63 @@ class BigInputObject extends DateClass {
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    protected string $fecha1;
+    protected ?string $fecha1;
+
+    /**
+     *
+     * @var string|null
+     */
+    protected ?string $fecha2;
+
+    /**
+     *
+     * @var string|null
+     */
+    protected ?string $fecha3;
+
+    /**
+     *
+     * @var string|null
+     */
+    protected ?string $fecha4;
+
+    /**
+     *
+     * @var string|null
+     */
+    protected ?string $tipo;
+
+    /**
+     *
+     * @var string|null
+     */
+    protected ?string $gestor;
+
+    /**
+     *
+     * @var string|null
+     */
+    protected ?string $cliente;
 
     /**
      *
      * @var string
      */
-    protected string $fecha2;
+    public string $minDate = '2007-10-17';
 
     /**
      *
      * @var string
      */
-    protected string $fecha3;
+    public string $maxDateGestion = '2030-12-31';
 
     /**
      *
      * @var string
      */
-    protected string $fecha4;
-
-    /**
-     *
-     * @var string
-     */
-    protected string $tipo;
-
-    /**
-     *
-     * @var string
-     */
-    protected string $gestor;
-
-    /**
-     *
-     * @var string
-     */
-    protected string $cliente;
-
-    /**
-     *
-     * @var string
-     */
-    public $minDate = '2007-10-17';
-
-    /**
-     *
-     * @var string
-     */
-    public $maxDateGestion = '2030-12-31';
-
-    /**
-     *
-     * @var string
-     */
-    public $maxDateProm = '2030-12-31';
+    public string $maxDateProm = '2030-12-31';
 
     /**
      * 
@@ -77,13 +77,13 @@ class BigInputObject extends DateClass {
      * @param string $fecha2
      * @param string $gestor
      * @param string $cliente
-     * @param string $fecha3
-     * @param string $fecha4
-     * @param string $tipo
+     * @param string|null $fecha3
+     * @param string|null $fecha4
+     * @param string|null $tipo
      */
     public function __construct(
-        string $fecha1, string $fecha2, string $gestor, string $cliente, string $fecha3 = '2007-10-17',
-        string $fecha4 = '2030-12-31', string $tipo = ""
+        string $fecha1, string $fecha2, string $gestor, string $cliente, ?string $fecha3 = '2007-10-17',
+        ?string $fecha4 = '2030-12-31', ?string $tipo = ""
     ) {
         $this->maxDateGestion = date("Y-m-d");
         $this->fecha1 = $this->fixDate($fecha1, $this->minDate);
