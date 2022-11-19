@@ -16,7 +16,33 @@ class BigClass extends BaseClass {
      *
      * @var string
      */
-    private string $queryFront;
+    private string $queryFront = "SELECT 
+    numero_de_cuenta,
+    nombre_deudor AS 'NOMBRE',
+    resumen.cliente AS 'CLIENTE',
+    status_de_credito AS 'SEGMENTO',
+    saldo_total,
+    saldo_descuento_1,
+    saldo_descuento_2,
+    queue,
+    h1.*,
+    v_cc AS 'PONDERACION',
+    domicilio_deudor AS 'CALLE',
+    colonia_deudor AS 'COLONIA',
+    direccion_nueva,
+    email_deudor,
+    fecha_de_ultimo_pago,
+    monto_ultimo_pago
+FROM
+    resumen
+        JOIN
+    historia h1 ON c_cont = id_cuenta
+		LEFT JOIN
+	dictamenes ON status_aarsa = dictamen
+WHERE n_prom>0
+            and d_fech between :fecha1 and :fecha2
+            and d_prom between :fecha3 and :fecha4
+            ";
 
     /**
      *
@@ -53,33 +79,6 @@ class BigClass extends BaseClass {
      */
     public function getProms(BigInputObject $bio): array
     {
-        $this->queryFront = "SELECT 
-    numero_de_cuenta,
-    nombre_deudor AS 'NOMBRE',
-    resumen.cliente AS 'CLIENTE',
-    status_de_credito AS 'SEGMENTO',
-    saldo_total,
-    saldo_descuento_1,
-    saldo_descuento_2,
-    queue,
-    h1.*,
-    v_cc AS 'PONDERACION',
-    domicilio_deudor AS 'CALLE',
-    colonia_deudor AS 'COLONIA',
-    direccion_nueva,
-    email_deudor,
-    fecha_de_ultimo_pago,
-    monto_ultimo_pago
-FROM
-    resumen
-        JOIN
-    historia h1 ON c_cont = id_cuenta
-		LEFT JOIN
-	dictamenes ON status_aarsa = dictamen
-WHERE n_prom>0
-            and d_fech between :fecha1 and :fecha2
-            and d_prom between :fecha3 and :fecha4
-            ";
         $queryBack = " and status_de_credito not REGEXP '-'
             ORDER BY d_fech,c_hrin";
         $query = $this->queryFront
