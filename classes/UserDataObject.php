@@ -27,9 +27,9 @@ class UserDataObject
     public string $TIPO = '';
 
     /**
-     * @var string
+     * @var string | null
      */
-    public string $TICKET = '';
+    public ?string $TICKET = '';
 
     /**
      * @var int
