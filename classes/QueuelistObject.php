@@ -7,29 +7,29 @@ namespace cobra_salsa;
 class QueuelistObject
 {
     /**
-     * @var int
+     * @var int|null
      */
-    var int $auto;
+    var ?int $auto;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $gestor = '';
+    var ?string $gestor = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $cliente = '';
+    var ?string $cliente = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $status_aarsa = '';
+    var ?string $status_aarsa = '';
 
     /**
-     * @var int
+     * @var int|null
      */
-    var int $camp;
+    var ?int $camp;
 
     /**
      * @var string|null
@@ -62,14 +62,14 @@ class QueuelistObject
     var ?string $updown3;
 
     /**
-     * @var string
+     * @var string|null
      */
-    var string $sdc = '';
+    var ?string $sdc = '';
 
     /**
-     * @var int
+     * @var int|null
      */
-    var int $bloqueado;
+    var ?int $bloqueado;
 
     /**
      * @return string
