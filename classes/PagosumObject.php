@@ -60,15 +60,14 @@ class PagosumObject
     }
 
     /**
-     * @return float
+     * @return string
      */
-    public function getSm(): float
+    public function getSm(): string
     {
-        $sm = $this->sm;
-        if (empty($sm)) {
-            $sm = 0;
+        if (empty($this->sm)) {
+            return "0.00";
         }
-        return number_format($sm,2);
+        return number_format($this->sm,2);
     }
 
     /**
@@ -80,15 +79,14 @@ class PagosumObject
     }
 
     /**
-     * @return float
+     * @return string
      */
-    public function getSmc(): float
+    public function getSmc(): string
     {
-        $smc = $this->smc;
-        if (empty($smc)) {
-            $smc = 0;
+        if (empty($this->smc)) {
+            return "0.00";
         }
-        return number_format($smc,2);
+        return number_format($this->smc,2);
     }
 
     /**
