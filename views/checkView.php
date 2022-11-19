@@ -20,11 +20,11 @@ if (!empty($gestor)) {
     ?>' method='get'>
         <label for="gestor" class="formCap">Visitador:</label>
         <select name="gestor" id="gestor" onChange="document.getElementById('asigform').submit()">
-            <option value='' <?php if ($gestor === '') { ?> selected='selected'<?php } ?>></option>
+            <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
             <?php
             foreach ($result as $answer) {
                 ?>
-                <option value="<?php echo $answer->USUARIA; ?>" <?php if ($gestor === $answer->USUARIA) {
+                <option value="<?php echo $answer->USUARIA; ?>" <?php if ($gestor == $answer->USUARIA) {
                     ?> selected='selected'<?php } ?>><?php echo htmlentities($answer->USUARIA . '-' . $answer->COMPLETO); ?>
                 </option>
             <?php }
@@ -33,10 +33,10 @@ if (!empty($gestor)) {
         <label><input type="text" id="CUENTA" name="CUENTA" value=""></label><br>
         <label for="id_cuenta">c&oacute;digo de barras</label>
         <input type="radio" id="id_cuenta" name="tipo" <?php
-        if ($tipo === 'id_cuenta') {
+        if ($tipo == 'id_cuenta') {
         ?>checked="checked"<?php } ?> value="id_cuenta">
         <label for="numero_de_cuenta">numero de cuenta</label>
-        <input type="radio" id="numero_de_cuenta" name="tipo" <?php if ($tipo === 'numero_de_cuenta') {
+        <input type="radio" id="numero_de_cuenta" name="tipo" <?php if ($tipo == 'numero_de_cuenta') {
         ?>checked="checked"<?php } ?> value="numero_de_cuenta">
         <input type="hidden" name="capt" value="<?php echo $capt; ?>">
         <input type="hidden" name="go" value="<?php

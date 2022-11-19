@@ -17,15 +17,15 @@ $gestor = filter_input(INPUT_POST, 'gestor');
 $empieza = filter_input(INPUT_POST, 'empieza');
 $termina = filter_input(INPUT_POST, 'termina');
 
-if ($go === "CAMBIAR") {
+if ($go == "CAMBIAR") {
     $bc->updateBreak($auto, $tipo, $empieza, $termina);
 }
 
-if ($go === "BORRAR") {
+if ($go == "BORRAR") {
     $bc->deleteBreak($auto);
 }
 
-if ($go === "AGREGAR") {
+if ($go == "AGREGAR") {
     $bc->insertBreak($gestor, $empieza, $empieza, $termina);
 }
 

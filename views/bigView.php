@@ -70,7 +70,7 @@ if (isset($capt)) {
     <p>
         <?php
         if (!empty($flag)) {
-            if ($flag === 'prom') {
+            if ($flag == 'prom') {
                 ?>
                 <label>VENCIDO de:
                     <input name="fecha3" id="fecha3" readonly="readonly"/>

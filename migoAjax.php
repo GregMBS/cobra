@@ -10,7 +10,7 @@ $pd = new PdoClass();
 $pdo = $pd->dbConnectUser();
 $mc = new MigoClass($pdo);
 
-if ($pd->tipo === 'admin') {
+if ($pd->tipo == 'admin') {
     echo $mc->getAjax($mc->keys);
 } else {
     echo $mc->getAjax($mc->keys, $pd->capt);

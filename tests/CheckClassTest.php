@@ -107,6 +107,8 @@ class CheckClassTest extends TestCase
     private function getIdCuentaCuenta()
     {
         $query = "SELECT id_cuenta, numero_de_cuenta from resumen LIMIT 1";
-        return $this->pdo->query($query)->fetchObject();
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
+        return $stq->fetchObject();
     }
 }

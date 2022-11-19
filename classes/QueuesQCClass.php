@@ -83,7 +83,7 @@ and queue = :queue ";
     function getReportSub(string $CLIENTE, string $SDC, string $QUEUE): QueuesReportObject
     {
         $query = $this->reportSubHead . " and status_de_credito not regexp '-'";
-        if ($SDC !== '') {
+        if ($SDC <> '') {
             $query = $this->reportSubHead . " and status_de_credito = :sdc";
         }
         return $this->subQuery($query, $CLIENTE, $QUEUE, $SDC);

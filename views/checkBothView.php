@@ -18,11 +18,11 @@ if (!empty($gestor)) {
     <form id='asigform' action='/checkBoth.php' method='get'>
         <label for="gestor" class="formCap">Visitador:</label>
         <select name="gestor" id="gestor" onChange="document.getElementById('asigform').submit()">
-            <option value='' <?php if ($gestor === '') { ?> selected='selected'<?php } ?>></option>
+            <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
             <?php
             foreach ($result as $answer) {
                 ?>
-                <option value="<?php echo $answer->USUARIA; ?>" <?php if ($gestor === $answer->USUARIA) {
+                <option value="<?php echo $answer->USUARIA; ?>" <?php if ($gestor == $answer->USUARIA) {
                     ?> selected='selected'<?php } ?>><?php echo htmlentities($answer->USUARIA . '-' . $answer->COMPLETO); ?>
                 </option>
             <?php }
@@ -30,12 +30,12 @@ if (!empty($gestor)) {
         </select>
         <label>
             <select name="fechaout">
-                <option value='' <?php if ($fechaout === '') { ?> selected='selected'<?php } ?>></option>
+                <option value='' <?php if ($fechaout == '') { ?> selected='selected'<?php } ?>></option>
                 <?php
                 foreach ($resultD as $answerD) {
                     ?>
                     <option value="<?php echo $answerD; ?>" <?php
-                    if ($fechaout === $answerD) {
+                    if ($fechaout == $answerD) {
                         ?> selected='selected'<?php } ?>><?php echo $answerD; ?>
                     </option>
                 <?php }

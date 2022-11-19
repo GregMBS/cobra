@@ -21,7 +21,7 @@ if (!empty($post)) {
         $go = $post['go'];
     }
 }
-if ($go === 'cargar') {
+if ($go == 'cargar') {
     if ($_FILES["file"]["error"] > 0) {
         $error = "<p>Error: " . $_FILES["file"]["error"] . "</p>";
     } else {

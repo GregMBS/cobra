@@ -46,7 +46,7 @@ class LoginClass {
             if (password_verify($pw, $result->passw)) {
                 return $result;
             }
-            if (sha1($pw) === $result->passw) {
+            if (sha1($pw) == $result->passw) {
                 return $result;
             }
         }
@@ -160,7 +160,7 @@ class LoginClass {
      * @param string $local
      * @return string
      */
-    public function runLogin(string $cpw, string $capt, UserDataObject $userData, string $local): string
+    function runLogin(string $cpw, string $capt, UserDataObject $userData, string $local): string
     {
         $this->setTicket($cpw, $capt, $userData->TIPO);
         $this->setInitialQueue($capt);

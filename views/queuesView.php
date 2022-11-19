@@ -67,12 +67,12 @@
                             $queueList = $qc->getMyQueuelist($rowList->INICIALES);
                             foreach ($queueList as $queue) {
                                 $CR = $queue->status_aarsa;
-                                if ($CR === '.') {
+                                if ($CR == '.') {
                                     $CR = 'todos';
                                 }
                                 ?>
                                 <option value='<?php echo $queue->camp; ?>' <?php
-                                if ($queue->bloqueado === 1) {
+                                if ($queue->bloqueado == 1) {
                                     echo "class='blocked'";
                                 }
                                 ?>><?php echo $queue->cliente . '-' . $queue->sdc . '-' . $CR; ?></option>

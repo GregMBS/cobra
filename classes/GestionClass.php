@@ -145,7 +145,7 @@ and id_cuenta = :c_cont";
         $sti->bindParam(':C_OBSE2', $gestion['C_OBSE2']);
         $sti->bindParam(':C_EJE', $gestion['C_EJE']);
         $sti->execute();
-        return (int)$this->pdo->lastInsertId();
+        return intval($this->pdo->lastInsertId());
     }
 
     /**
@@ -337,23 +337,21 @@ and id_cuenta = :c_cont";
             $sti->bindValue(':C_EJE', $gestion['C_EJE']);
             $sti->bindValue(':AUTH', $gestion['AUTH']);
             $sti->execute();
-            $auto = (int)$this->pdo->lastInsertId();
+            $auto = intval($this->pdo->lastInsertId());
             if ($auto > 0) {
                 return $auto;
             }
-            throw new PDOException(json_encode($sti->errorInfo(), JSON_THROW_ON_ERROR));
+            throw new Exception(json_encode($sti->errorInfo()));
         } catch (PDOException $exc) {
-            throw new PDOException($exc);
+            throw new Exception($exc);
         }
     }
 
-    private function beginTransaction(): void
-    {
+    private function beginTransaction() {
         $this->pdo->beginTransaction();
     }
 
-    private function commitTransaction(): void
-    {
+    private function commitTransaction() {
         $this->pdo->commit();
     }
 
@@ -402,7 +400,7 @@ and id_cuenta = :c_cont";
     public function doGestion(array $gestion) {
         $this->beginTransaction();
         $auto = $this->insertGestion($gestion);
-        if ($auto === 0) {
+        if ($auto == 0) {
             var_dump($gestion);
             throw new Exception('INPUT GESTION FAILS');
         }

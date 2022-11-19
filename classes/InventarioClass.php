@@ -62,12 +62,12 @@ ORDER BY cliente,status_de_credito,queue,numero_de_cuenta";
     public function getInventarioReport(string $cliente): array
     {
         $clienteStr = '';
-        if ($cliente !== 'todos') {
+        if ($cliente != 'todos') {
             $clienteStr = " and cliente=:cliente ";
         }
         $queryMain = $this->queryStart . $clienteStr . $this->queryEnd;
         $stm = $this->pdo->prepare($queryMain);
-        if ($cliente !== 'todos') {
+        if ($cliente != 'todos') {
             $stm->bindParam(':cliente', $cliente);
         }
         $stm->execute();

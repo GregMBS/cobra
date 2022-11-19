@@ -1,6 +1,6 @@
 <?php
 require_once 'checkCommon.php';
-if ($go === 'RECIBIR') {
+if ($go == 'RECIBIR') {
     if (!empty($CUENTA)) {
         $cc->updateVasign($tipo, $CUENTA);
     }

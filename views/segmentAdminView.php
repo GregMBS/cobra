@@ -39,7 +39,7 @@
             <td><?php echo $cliente; ?></td>
             <td><?php echo $segmento; ?></td>
             <td><?php echo $count; ?></td>
-            <?php if ($count === 0) { ?>
+            <?php if ($count == 0) { ?>
                 <td>
                     <form class="gestorChange" name="gestorChange<?php echo $j ?>" method="get"
                           action="/segmentAdmin.php" id="gestorChange<?php echo $j ?>">

@@ -11,7 +11,7 @@ $sc = new StatusClass($pdo);
 $go = filter_input(INPUT_GET, 'go');
 $id = filter_input(INPUT_GET, 'ID');
 if (!empty($go)) {
-    if ($go === "KILL") {
+    if ($go == "KILL") {
         $sc->killProc($id);
     }
 }

@@ -17,20 +17,20 @@ $passw = filter_input(INPUT_GET, 'passw');
 $capt = filter_input(INPUT_GET, 'capt');
 
 if (!empty($go)) {
-    if ($go === "GUARDAR") {
+    if ($go == "GUARDAR") {
         $gc->updateOpenParams($completo, $tipo, $usuaria);
         $gc->updatePassword($passw, $usuaria);
         header("Location: gestorAdmin.php?capt=" . $capt);
     }
 
-    if ($go === "BORRAR") {
+    if ($go == "BORRAR") {
         $gc->deleteFromNombres($usuaria);
         $gc->deleteFromQueuelist($usuaria);
         $gc->deleteFromResumen($usuaria);
         header("Location: gestorAdmin.php?capt=" . $capt);
     }
 
-    if ($go === "AGREGAR") {
+    if ($go == "AGREGAR") {
         $iniciales = strtolower($usuaria);
         $gc->addToNombres($completo, $tipo, $usuaria, $iniciales, $passw);
         $gc->addToQueuelists($iniciales);

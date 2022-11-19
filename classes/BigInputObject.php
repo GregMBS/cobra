@@ -156,7 +156,7 @@ class BigInputObject extends DateClass {
      */
     public function hasGestor(): bool
     {
-        return ($this->gestor !== 'todos');
+        return ($this->gestor != 'todos');
     }
 
     /**
@@ -165,7 +165,7 @@ class BigInputObject extends DateClass {
      */
     public function hasCliente(): bool
     {
-        return ($this->cliente !== 'todos');
+        return ($this->cliente != 'todos');
     }
 
     /**

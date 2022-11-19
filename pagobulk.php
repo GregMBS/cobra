@@ -11,7 +11,7 @@ $pc = new PagobulkClass($pdo);
 $go = filter_input(INPUT_POST, 'go');
 $data = filter_input(INPUT_POST, 'data');
 $message = '';
-if ($go === 'cargar') {
+if ($go == 'cargar') {
     $pc->cargar($data);
     $message = 'Pagos cargados';
 }

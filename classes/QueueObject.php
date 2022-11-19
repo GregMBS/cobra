@@ -31,7 +31,7 @@ class QueueObject
      */
     public function getStatusAarsa(): string
     {
-        if ($this->status_aarsa === '.') {
+        if ($this->status_aarsa == '.') {
             return 'todos';
         }
         return $this->status_aarsa;
@@ -42,7 +42,7 @@ class QueueObject
      */
     public function getBloqueado(): string
     {
-        if ($this->bloqueado === 1) {
+        if ($this->bloqueado == 1) {
             return "class='blocked'";
         }
         return '';

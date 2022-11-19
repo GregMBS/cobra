@@ -67,7 +67,8 @@ class BuscarClassTest extends TestCase
 from resumen
 where cliente = 'FAMSA'
 limit 1";
-        $stq = $this->pdo->query($query);
+        $stq = $this->pdo->prepare($query);
+        $stq->execute();
         $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result['nm'];
     }

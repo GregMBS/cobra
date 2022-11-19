@@ -17,13 +17,13 @@ $year = filter_input(INPUT_GET, 'formYear', FILTER_VALIDATE_REGEXP, array("optio
 $month = filter_input(INPUT_GET, 'formMonth', FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/0-9/")));
 $day = filter_input(INPUT_GET, 'formDay', FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/0-9/")));
 if (!empty($go)) {
-    if ($go === 'GUARDAR') {
+    if ($go == 'GUARDAR') {
         $FECHA = date($year . '-' . $month . '-' . $day);
         $nc->insertNotaAdmin($target, $capt, $FECHA, $HORA, $NOTA);
         $redirector = "Location: notadmin.php?capt=" . $capt;
         header($redirector);
     }
-    if ($go === 'BORRAR') {
+    if ($go == 'BORRAR') {
         $AUTO = filter_input(INPUT_GET, 'which', FILTER_VALIDATE_INT);
         $nc->softDeleteOneNotaAdmin($AUTO);
         $redirector = "Location: notadmin.php?capt=" . $capt;

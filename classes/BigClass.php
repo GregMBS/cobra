@@ -54,7 +54,8 @@ WHERE n_prom>0
         where d_fech>last_day(curdate()-interval 2 month)
         limit 10
 	";
-        return $this->pdo->query($query)->fetchAll();
+        $result = $this->pdo->query($query);
+        return $result->fetchAll();
     }
 
     /**
@@ -67,7 +68,8 @@ WHERE n_prom>0
         where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvge
         limit 1000";
-        return $this->pdo->query($query)->fetchAll();
+        $result = $this->pdo->query($query);
+        return $result->fetchAll();
     }
 
     /**

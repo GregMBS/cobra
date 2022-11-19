@@ -19,14 +19,14 @@ if ($notalert > 0) { ?>
         <?php
         }
         }
-        if ((false !== strpos($row->status_de_credito, "-")) && ($capt !== 'gmbs')) {
+        if ((preg_match('/-/', $row->status_de_credito)) && ($capt <> 'gmbs')) {
             ?>
         .GuardButt {
             display: none;
         }
 
         <?php } ?>
-        <?php if ($mytipo === 'visitador') { ?>
+        <?php if ($mytipo == 'visitador') { ?>
         #dataBox, #clock {
             display: none;
         }
@@ -39,7 +39,7 @@ if ($notalert > 0) { ?>
 </head>
 <body id="todos">
 <div id="buttonBox">
-    <?php if (($go === 'FromUltima') || ($go === 'FromBuscar')) { ?>
+    <?php if (($go == 'FromUltima') || ($go == 'FromBuscar')) { ?>
         <form class="buttons" name="seg" method="get" action="../resumen.php" id="segId">
             <input type="hidden" name="capt" value="<?php echo $capt ?>">
             <input type="hidden" name="find" value="<?php echo $id_cuenta ?>">
@@ -133,7 +133,7 @@ if ($notalert > 0) { ?>
         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
         <input type="submit" name="go" value="LOGOUT"></form>
     <?php if (!empty($camp)) {
-        if ($camp === 0) { ?>
+        if ($camp == 0) { ?>
             <form action="../resumen.php" method="get">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                 <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
@@ -148,7 +148,7 @@ if ($notalert > 0) { ?>
                         foreach ($resultFilter as $filter) {
                             ?>
                             <option value="<?php echo $filter['cliente']; ?>" <?php
-                            if (($cliente === $filter['cliente']) && ($sdc === $filter['sdc']) && ($currentQueue === $filter['queue'])) {
+                            if (($cliente == $filter['cliente']) && ($sdc == $filter['sdc']) && ($currentQueue == $filter['queue'])) {
                                 ?>
                                 selected='selected'
                                 <?php
@@ -174,7 +174,7 @@ if ($notalert > 0) { ?>
             <?php
         }
     }
-    if ($mytipo === 'admin') {
+    if ($mytipo == 'admin') {
         ?>
         <form action="../reports.php" method="get">
             <input type="hidden" name="capt" value="<?php echo $capt; ?>">
@@ -235,7 +235,7 @@ if ($notalert > 0) { ?>
                         <br>
                         <?php
                     }
-                    if (strpos($cliente, "INFONAVIT") === 0) {
+                    if (substr($cliente, 0, 9) == "INFONAVIT") {
                         ?>
                         <label class='formCapa'>NSS</label>
                         <span class="fakeInput"><?php echo $nss; ?></span>
@@ -296,12 +296,12 @@ if ($notalert > 0) { ?>
                     </div>
                     <span class='formCapa'>
                             <?php
-                            if ($cliente === 'FAMSA') {
+                            if ($cliente == 'FAMSA') {
                                 ?>
                                 Referencias OXXO/PAYCASH
                                 <?php
                             }
-                            if ($cliente === 'Banco Azteca') {
+                            if ($cliente == 'Banco Azteca') {
                                 ?>
                                 Producto
                                 <?php
@@ -415,7 +415,7 @@ if ($notalert > 0) { ?>
                 ?></span><br>
             <?php
         }
-        if ($cliente === 'UR') {
+        if ($cliente == 'UR') {
             ?>
             <span class='formCap'>Madre</span>
         <?php } else { ?>
@@ -481,7 +481,7 @@ if ($notalert > 0) { ?>
                 ?></span><br>
             <?php
         }
-        if ($cliente === 'UR') {
+        if ($cliente == 'UR') {
             ?>
             <span class=' formCap'>Tutor</span>
         <?php } else { ?>
@@ -1255,7 +1255,7 @@ if ($notalert > 0) { ?>
                             $ank = str_replace('00:00:00',
                                 '', $anku);
                             $jsCode = '';
-                            if ($fieldsize[$k] === "gestion") {
+                            if ($fieldsize[$k] == "gestion") {
                                 $jsCode1 = " onClick='alert(";
                                 $jsCode2 = ")'";
                                 $jsCode = $jsCode1 . '"' . preg_replace("[\n\r]",
@@ -1264,7 +1264,7 @@ if ($notalert > 0) { ?>
                             }
                             ?>
                             <td<?php
-                            if ($c === 1) {
+                            if ($c == 1) {
                                 echo " style='background-color:#dddddd'";
                             }
                             echo ' class="' . $fieldsize[$k] . '"' . $jsCode;
@@ -1290,7 +1290,7 @@ if ($notalert > 0) { ?>
     <form action="../resumen.php" method="get" id="gestionForm">
         <table id="dataBox">
             <?php
-            if ($mytipo === 'admin' || $mytipo === 'supervisor') {
+            if ($mytipo == 'admin' || $mytipo == 'supervisor') {
                 ?>
                 <tr>
                     <td><label for="C_CVGE">Gestor</label></td>
@@ -1487,38 +1487,38 @@ if ($notalert > 0) { ?>
                 <td colspan=2><label>Localizable <select name='CUANDO'>
                             <option value=""></option>
                             <option value="madrugada" <?php
-                            if ($CUANDO === 'madrugada') {
+                            if ($CUANDO == 'madrugada') {
                                 echo 'selected="selected"';
                             }
                             ?>>madrugada
                             </option>
                             <option value="manana" <?php
-                            if ($CUANDO === 'manana') {
+                            if ($CUANDO == 'manana') {
                                 echo 'selected="selected"';
                             }
                             ?>>ma&ntilde;ana
                             </option>
                             <option value="tarde" <?php
-                            if ($CUANDO === 'tarde') {
+                            if ($CUANDO == 'tarde') {
                                 echo 'selected="selected"';
                             }
                             ?>>tarde
                             </option>
                             <option value="noche" <?php
-                            if ($CUANDO === 'noche') {
+                            if ($CUANDO == 'noche') {
                                 echo 'selected="selected"';
                             }
                             ?>>noche
                             </option>
                             <option value="robot" <?php
-                            if ($CUANDO === 'robot') {
+                            if ($CUANDO == 'robot') {
                                 echo
                                 'selected="selected"';
                             }
                             ?>>robot
                             </option>
                             <option value="visita" <?php
-                            if ($CUANDO === 'visita') {
+                            if ($CUANDO == 'visita') {
                                 echo
                                 'selected="selected"';
                             }
@@ -1712,7 +1712,7 @@ if ($notalert > 0) { ?>
             if (empty($AUTH)) {
                 $AUTH = '';
             }
-            if (($mytipo === 'admin') || ($AUTH !== '')) {
+            if (($mytipo == 'admin') || ($AUTH != '')) {
                 echo 1;
             } else {
                 echo 0;
@@ -1726,7 +1726,7 @@ if ($notalert > 0) { ?>
             if (empty($AUTH)) {
                 $AUTH = '';
             }
-            if (($mytipo === 'admin') || ($AUTH !== '')) {
+            if (($mytipo == 'admin') || ($AUTH != '')) {
                 echo 1;
             } else {
                 echo 0;

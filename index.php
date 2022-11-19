@@ -17,11 +17,11 @@ if (!empty($go)) {
     $userData = $lc->getUserData($capt, $pw);
     $field = "ejecutivo_asignado_call_center";
     if (!empty($userData->TIPO)) {
-        if ($userData->TIPO === 'visitador') {
+        if ($userData->TIPO == 'visitador') {
             $field = "ejecutivo_asignado_domiciliario";
         }
         $cpw = $capt . sha1($pw) . date('U');
-        if ($capt === "gmbs") {
+        if ($capt == "gmbs") {
             setcookie('auth', $cpw, time() + 60 * 60 * 24);
         } else {
             setcookie('auth', $cpw, time() + 60 * 60 * 11);

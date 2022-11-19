@@ -20,7 +20,7 @@ if (isset($post['agent'])) {
 }
 $gestores = $gc->listGestores();
 if (!empty($go)) {
-    if ($go === 'cargar') {
+    if ($go == 'cargar') {
         $data = preg_split("/[\s,]+/", $dataRaw, 0, PREG_SPLIT_NO_EMPTY);
         $report = $gc->listCuentas($data);
     }

@@ -141,7 +141,8 @@ where fecha_de_asignacion is null";
     public function getDBColumns(): array
     {
         $query = "SHOW COLUMNS FROM resumen";
-        return $this->pdo->query($query)->fetchAll(PDO::FETCH_CLASS, ColumnObject::class);
+        $stc = $this->pdo->query($query);
+        return $stc->fetchAll(PDO::FETCH_CLASS, ColumnObject::class);
     }
 
     /**
@@ -178,10 +179,10 @@ where fecha_de_asignacion is null";
         $columnArray = array();
         foreach ($row as $columnName) {
             $cn = $columnName;
-            if (empty($columnName)) {
+            if ($columnName == '') {
                 $cn = 'empty';
             }
-            if (in_array($cn, $this->internal, true)) {
+            if (in_array($cn, $this->internal)) {
                 $cn = $columnName . '_solo_internal';
             }
             $columnArray[] = $cn;
@@ -266,7 +267,8 @@ where fecha_de_asignacion is null";
     private function getNewFields(): array
     {
         $query = "show fields from temp where field not regexp 'nousar'";
-        return $this->pdo->query($query)->fetchAll(PDO::FETCH_COLUMN, 0);
+        $result = $this->pdo->query($query);
+        return $result->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
     /**
@@ -439,7 +441,7 @@ from resumen;
     {
         $data = [];
         try {
-            $handle = fopen($filename, 'rb');
+            $handle = fopen($filename, "r");
             $header = fgetcsv($handle);
             while ($row = fgetcsv($handle)) {
                 $data[] = $row;
@@ -449,7 +451,7 @@ from resumen;
             throw new Exception($e);
         }
         $num = 0;
-        while ($num === 0) {
+        while ($num == 0) {
             $num = count($header);
         }
         $headerData = new HeaderObject();
@@ -468,7 +470,7 @@ from resumen;
     {
         $data = [];
         try {
-            $handle = fopen($filename, 'rb');
+            $handle = fopen($filename, "r");
             fgetcsv($handle);
             while ($row = fgetcsv($handle)) {
                 $data[] = $row;
@@ -492,7 +494,7 @@ from resumen;
 
         if (!empty($post['pos'])) {
             foreach ($post['pos'] as $posit) {
-                $posInteger = (int)$posit;
+                $posInteger = intval($posit);
                 $fields[] = $this->insertIntoCargadex($posInteger, $columns, $cliente);
             }
         }
