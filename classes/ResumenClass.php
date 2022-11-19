@@ -82,12 +82,12 @@ where id_cuenta=:id_cuenta LIMIT 1";
     }
 
     /**
-     * 
-     * @param string $stat
-     * @param string $visit
+     *
+     * @param string|null $stat
+     * @param string|null $visit
      * @return string
      */
-    public function highlight(string $stat, string $visit): string
+    public function highlight(?string $stat, ?string $visit): string
     {
         if (!empty($visit)) {
             return 'visit';
