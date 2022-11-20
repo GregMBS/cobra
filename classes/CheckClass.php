@@ -7,8 +7,8 @@ use DateInterval;
 use DatePeriod;
 use PDO;
 
-require_once 'VisitSheetObject.php';
-require_once 'UserDataObject.php';
+require_once 'classes/VisitSheetObject.php';
+require_once 'classes/UserDataObject.php';
 
 /**
  * Description of CheckClass
@@ -150,17 +150,16 @@ where gestor=:gestor";
 
     /**
      *
-     * @param string $gestor
+     * @param string|null $gestor
      * @return VisitSheetObject[]
      */
-    public function listVasign(string $gestor = ''): array
+    public function listVasign(?string $gestor = ''): array
     {
         $gString = 'order by gestor, fechaIn DESC, fechaout DESC, numero_de_cuenta';
         if (!empty($gestor)) {
             $gString = "WHERE gestor = :gestor 
             ORDER BY fechaIn DESC";
         }
-
         $queryMain = "select id_cuenta, numero_de_cuenta, nombre_deudor, cliente, saldo_total,
 queue, completo, fechaout, fechain, gestor
 from resumen
