@@ -7,8 +7,8 @@ use PDO;
 use PDOException;
 use RuntimeException;
 
-require_once __DIR__ . '/QueuelistObject.php';
-require_once __DIR__ . '/ResumenObject.php';
+require_once 'classes/QueuelistObject.php';
+require_once 'classes/ResumenObject.php';
 
 /**
  * Description of ResumenQueuesClass

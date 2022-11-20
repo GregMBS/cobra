@@ -5,9 +5,9 @@ namespace cobra_salsa;
 use PDO;
 use PDOException;
 
-require_once __DIR__ . '/QueuelistObject.php';
-require_once __DIR__ . '/QueueObject.php';
-require_once __DIR__ . '/UserDataObject.php';
+require_once 'classes/QueuelistObject.php';
+require_once 'classes/QueueObject.php';
+require_once 'classes/UserDataObject.php';
 
 /**
  * Description of QueuesClass

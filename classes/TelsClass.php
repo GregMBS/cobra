@@ -9,7 +9,7 @@ use Exception;
 use PDO;
 use PDOException;
 
-require_once __DIR__ . '/OutputClass.php';
+require_once 'classes/OutputClass.php';
 
 /**
  * Description of TelsClass

@@ -9,7 +9,7 @@ use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use RuntimeException;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'classes/../vendor/autoload.php';
 
 /**
  * Description of OutputClass

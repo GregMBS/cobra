@@ -5,7 +5,7 @@ namespace cobra_salsa;
 use PDO;
 use PDOException;
 
-require_once __DIR__ . '/ConfigObject.php';
+require_once 'classes/ConfigObject.php';
 
 class StatusClass extends ConfigObject
 {

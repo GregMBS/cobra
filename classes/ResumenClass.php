@@ -4,9 +4,9 @@ namespace cobra_salsa;
 
 use PDO;
 
-require_once __DIR__ . '/HistoriaObject.php';
-require_once __DIR__ . '/UserDataObject.php';
-require_once __DIR__ . '/BadNoObject.php';
+require_once 'classes/HistoriaObject.php';
+require_once 'classes/UserDataObject.php';
+require_once 'classes/BadNoObject.php';
 
 /**
  * Description of ResumenClass

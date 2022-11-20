@@ -5,8 +5,8 @@ namespace cobra_salsa;
 use PDO;
 use PDOException;
 
-require_once __DIR__ . '/../classes/PdoClass.php';
-require_once __DIR__ . '/../classes/ResumenObject.php';
+require_once 'classes/../classes/PdoClass.php';
+require_once 'classes/../classes/ResumenObject.php';
 
 /**
  * Description of BuscarClass

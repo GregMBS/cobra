@@ -10,7 +10,7 @@ use OpenSpout\Reader\XLSX\Sheet;
 use OpenSpout\Common\Entity\Cell;
 use RuntimeException;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'classes/../vendor/autoload.php';
 
 /**
  * Description of InputClass

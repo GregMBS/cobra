@@ -4,9 +4,9 @@ namespace cobra_salsa;
 
 use PDO;
 
-require_once __DIR__ . '/QueuesReportObject.php';
-require_once __DIR__ . '/QueuelistObject.php';
-require_once __DIR__ . '/EspecialObject.php';
+require_once 'classes/QueuesReportObject.php';
+require_once 'classes/QueuelistObject.php';
+require_once 'classes/EspecialObject.php';
 
 /**
  * Description of QueuesQCClass

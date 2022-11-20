@@ -2,7 +2,7 @@
 
 namespace cobra_salsa;
 
-require_once __DIR__ . '/DateClass.php';
+require_once 'classes/DateClass.php';
 
 /**
  * Description of BigInputObject

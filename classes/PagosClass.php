@@ -5,11 +5,11 @@ namespace cobra_salsa;
 use PDO;
 use PDOStatement;
 
-require_once __DIR__ . '/ResumenObject.php';
-require_once __DIR__ . '/PagosObject.php';
-require_once __DIR__ . '/PagosumObject.php';
-require_once __DIR__ . '/PagosQueryObject.php';
-require_once __DIR__ . '/HistoriaObject.php';
+require_once 'classes/ResumenObject.php';
+require_once 'classes/PagosObject.php';
+require_once 'classes/PagosumObject.php';
+require_once 'classes/PagosQueryObject.php';
+require_once 'classes/HistoriaObject.php';
 
 /**
  * Description of PagosClass

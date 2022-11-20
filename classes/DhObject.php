@@ -3,7 +3,7 @@
 
 namespace cobra_salsa;
 
-require_once __DIR__ . '/ResumenObject.php';
+require_once 'classes/ResumenObject.php';
 
 class DhObject extends ResumenObject
 {

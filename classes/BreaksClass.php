@@ -4,8 +4,8 @@ namespace cobra_salsa;
 
 use PDO;
 
-require_once __DIR__ . '/BreaksObject.php';
-require_once __DIR__ . '/BreaksTableObject.php';
+require_once 'classes/BreaksObject.php';
+require_once 'classes/BreaksTableObject.php';
 
 /**
  * Description of BreaksClass

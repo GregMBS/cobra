@@ -4,7 +4,7 @@ namespace cobra_salsa;
 
 use PDO;
 
-require_once __DIR__ . '/UserDataObject.php';
+require_once 'classes/UserDataObject.php';
 
 /**
  * Description of LoginClass

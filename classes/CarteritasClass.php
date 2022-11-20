@@ -96,6 +96,7 @@ EOV;
 
     private function getTelCom(string $string, string $backup): array
     {
+        $output = array();
         $output['tel']='';
         $output['com'] = $string;
         $telTemp = $this->getFirstWord(trim($string));
@@ -161,7 +162,6 @@ EOV;
                 $t = $tc['tel'];
                 $a = trim($row[0]);
                 $c = $tc['com'];
-                /** @var DateTimeImmutable $fechaHora */
                 $fechaHora = $row[3];
                 if (is_a($fechaHora, DateTimeImmutable::class)) {
                     $fe = $fechaHora->format('Y-m-d');

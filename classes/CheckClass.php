@@ -7,8 +7,8 @@ use DateInterval;
 use DatePeriod;
 use PDO;
 
-require_once __DIR__ . '/VisitSheetObject.php';
-require_once __DIR__ . '/UserDataObject.php';
+require_once 'classes/VisitSheetObject.php';
+require_once 'classes/UserDataObject.php';
 
 /**
  * Description of CheckClass
@@ -52,7 +52,10 @@ and status_de_credito not regexp '-' LIMIT 1";
         $stc->bindParam(':id_cuenta', $id_cuenta);
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
-        return $result['numero_de_cuenta'] ?? '';
+        if (is_string($result['numero_de_cuenta'])) {
+            return $result['numero_de_cuenta'];
+        }
+        return (string)$result['numero_de_cuenta'];
     }
 
     /**

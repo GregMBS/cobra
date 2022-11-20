@@ -7,10 +7,10 @@ use PDO;
 use PDOException;
 use RuntimeException;
 
-require_once __DIR__ . '/CargadexObject.php';
-require_once __DIR__ . '/ColumnObject.php';
-require_once __DIR__ . '/HeaderObject.php';
-require_once __DIR__ . '/CargaPickObject.php';
+require_once 'classes/CargadexObject.php';
+require_once 'classes/ColumnObject.php';
+require_once 'classes/HeaderObject.php';
+require_once 'classes/CargaPickObject.php';
 
 /**
  * Description of CargaClass
@@ -255,7 +255,7 @@ values ('%s','%s','%s','%s','%s')", $nField, $nType, $nNullOk, $nPosition, $clie
                 $result = $stc->fetch(PDO::FETCH_ASSOC);
                 $count = (int)$result['ct'];
             } catch (PDOException $Exception) {
-                throw new PDOException($Exception);
+                throw new PDOException($Exception->getMessage());
             }
         }
         return $count;
@@ -305,7 +305,7 @@ values ('%s','%s','%s','%s','%s')", $nField, $nType, $nNullOk, $nPosition, $clie
         try {
             $stu = $this->pdo->query($query);
         } catch (PDOException $Exception) {
-            throw new PDOException($Exception->getMessage(), $Exception->getCode());
+            throw new PDOException($Exception->getMessage());
         }
         return $stu->rowCount();
     }
@@ -323,7 +323,7 @@ values ('%s','%s','%s','%s','%s')", $nField, $nType, $nNullOk, $nPosition, $clie
         try {
             $sti = $this->pdo->query($query);
         } catch (PDOException $Exception) {
-            throw new PDOException($Exception->getMessage(), $Exception->getCode());
+            throw new PDOException($Exception->getMessage());
         }
         return $sti->rowCount();
     }
@@ -383,11 +383,11 @@ from resumen;
     }
 
     /**
-     * @param $post
+     * @param array $post
      * @return CargaPickObject
      * @throws Exception
      */
-    public function clientePick($post): CargaPickObject
+    public function clientePick(array $post): CargaPickObject
     {
         $cliente = filter_var($post['cliente'], FILTER_SANITIZE_STRING);
         $fecha_de_actualizacion = date('Y-m-d');
@@ -409,9 +409,9 @@ from resumen;
     }
 
     /**
-     * @param $cliente
+     * @param string $cliente
      */
-    private function clearCargadex($cliente): void
+    private function clearCargadex(string $cliente): void
     {
         $query = "delete from cargadex where cliente = :cliente";
         $stq = $this->pdo->prepare($query);
@@ -430,7 +430,10 @@ from resumen;
         $stc->bindValue(':cliente', $cliente);
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
-        return (int)$result['cnt'];
+        if ($result) {
+            return (int)$result['cnt'];
+        }
+        return 0;
     }
 
     /**
@@ -449,7 +452,7 @@ from resumen;
             }
             fclose($handle);
         } catch (Exception $e) {
-            throw new PDOException($e);
+            throw new PDOException($e->getMessage());
         }
         $num = 0;
         while ($num === 0) {
@@ -463,11 +466,11 @@ from resumen;
     }
 
     /**
-     * @param $filename
+     * @param string $filename
      * @return array
      * @throws Exception
      */
-    private function getDataCSV($filename): array
+    private function getDataCSV(string $filename): array
     {
         $data = [];
         try {
@@ -478,7 +481,7 @@ from resumen;
             }
             fclose($handle);
         } catch (Exception $e) {
-            throw new RuntimeException($e);
+            throw new RuntimeException($e->getMessage());
         }
         return $data;
     }

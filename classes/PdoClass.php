@@ -4,8 +4,8 @@ namespace cobra_salsa;
 
 use PDO;
 
-require_once __DIR__ . '/BaseClass.php';
-require_once __DIR__ . '/ConfigObject.php';
+require_once 'classes/BaseClass.php';
+require_once 'classes/ConfigObject.php';
 
 /**
  * Description of PdoClass

@@ -5,7 +5,7 @@ namespace cobra_salsa;
 use JsonException;
 use PDO;
 
-require_once __DIR__ . '/ResumenObject.php';
+require_once 'classes/ResumenObject.php';
 
 /**
  * Description of MigoClass

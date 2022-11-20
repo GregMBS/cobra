@@ -4,7 +4,7 @@ namespace cobra_salsa;
 
 use PDO;
 
-require_once __DIR__ . '/QueuelistObject.php';
+require_once 'classes/QueuelistObject.php';
 
 /**
  * Description of QueuesgClass

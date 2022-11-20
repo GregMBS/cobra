@@ -2,8 +2,8 @@
 
 namespace cobra_salsa;
 
-require_once __DIR__ . '/TimesheetClass.php';
-require_once __DIR__ . '/TimesheetDayObject.php';
+require_once 'classes/TimesheetClass.php';
+require_once 'classes/TimesheetDayObject.php';
 
 class HorariosClass extends TimesheetClass
 {

@@ -5,8 +5,8 @@ namespace cobra_salsa;
 use PDO;
 use PDOException;
 
-require_once __DIR__ . '/DhObject.php';
-require_once __DIR__ . '/HistoriaObject.php';
+require_once 'classes/DhObject.php';
+require_once 'classes/HistoriaObject.php';
 
 /**
  * Database Class for ddh/pdh

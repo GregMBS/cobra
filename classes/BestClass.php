@@ -6,8 +6,8 @@ use PDO;
 use PDOException;
 use PDOStatement;
 
-require_once __DIR__ . '/HistoriaObject.php';
-require_once __DIR__ . '/ResumenObject.php';
+require_once 'classes/HistoriaObject.php';
+require_once 'classes/ResumenObject.php';
 
 /**
  * Database Queries for 'best' reports
