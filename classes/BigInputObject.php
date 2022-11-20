@@ -171,12 +171,13 @@ class BigInputObject extends DateClass {
     /**
      * 
      */
-    private function alignDates() {
+    private function alignDates(): void
+    {
         if ($this->fecha2 < $this->fecha1) {
-            list($this->fecha1, $this->fecha2) = array($this->fecha2, $this->fecha1);
+            [$this->fecha1, $this->fecha2] = array($this->fecha2, $this->fecha1);
         }
         if ($this->fecha4 < $this->fecha3) {
-            list($this->fecha3, $this->fecha4) = array($this->fecha4, $this->fecha3);
+            [$this->fecha3, $this->fecha4] = array($this->fecha4, $this->fecha3);
         }
     }
 

@@ -13,6 +13,7 @@ use Exception;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
+use RuntimeException;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -30,12 +31,12 @@ class OutputClass
      * @param array $headers
      * @throws Exception
      */
-    public function writeCSVFile(string $filename, array $array, array $headers)
+    public function writeCSVFile(string $filename, array $array, array $headers): void
     {
         try {
             $this->writeFile('csv', $filename, $headers, $array);
         } catch (Exception $e) {
-            throw new Exception($e);
+            throw new RuntimeException($e);
         }
     }
 
@@ -46,12 +47,12 @@ class OutputClass
      * @param array|null $headers
      * @throws Exception
      */
-    public function writeXLSXFile(string $filename, array $array, ?array $headers = [])
+    public function writeXLSXFile(string $filename, array $array, ?array $headers = []): void
     {
         try {
             $this->writeFile('xlsx', $filename, $headers, $array);
         } catch (Exception $e) {
-            throw new Exception($e);
+            throw new RuntimeException($e);
         }
     }
 

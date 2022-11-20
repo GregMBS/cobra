@@ -103,7 +103,8 @@ and c_hrin>:tiempo";
      * @param string $empieza
      * @param string $termina
      */
-    public function updateBreak(int $auto, string $tipo, string $empieza, string $termina) {
+    public function updateBreak(int $auto, string $tipo, string $empieza, string $termina): void
+    {
         $query = "UPDATE breaks
             SET tipo=:tipo,
             empieza=:empieza,
@@ -121,7 +122,8 @@ and c_hrin>:tiempo";
      * 
      * @param int $auto
      */
-    public function deleteBreak(int $auto) {
+    public function deleteBreak(int $auto): void
+    {
         $query = "DELETE FROM breaks WHERE auto=:auto";
         $stb = $this->pdo->prepare($query);
         $stb->bindParam(':auto', $auto, PDO::PARAM_INT);
@@ -135,7 +137,8 @@ and c_hrin>:tiempo";
      * @param string $empieza
      * @param string $termina
      */
-    public function insertBreak(string $gestor, string $tipo, string $empieza, string $termina) {
+    public function insertBreak(string $gestor, string $tipo, string $empieza, string $termina): void
+    {
         $query = "INSERT INTO breaks (gestor, tipo, empieza, termina)
 	VALUES (:gestor,:tipo,:empieza,:termina)";
         $sta = $this->pdo->prepare($query);

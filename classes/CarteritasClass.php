@@ -130,10 +130,7 @@ EOV;
     private function getStatus(string $string): string
     {
         $result = $this->getOtherWords($string, $string . $string);
-        if (isset($this->status[$result])) {
-            return $this->status[$result];
-        }
-        return $string;
+        return $this->status[$result] ?? $string;
     }
 
     /**

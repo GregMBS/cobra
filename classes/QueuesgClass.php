@@ -59,7 +59,8 @@ class QueuesgClass {
      * @param int $camp
      * @param string $capt
      */
-    public function setCamp(int $camp, string $capt) {
+    public function setCamp(int $camp, string $capt): void
+    {
         $query = "UPDATE nombres SET camp=:camp 
         where iniciales=:capt;";
         $stu = $this->pdo->prepare($query);

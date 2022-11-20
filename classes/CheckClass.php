@@ -52,10 +52,7 @@ and status_de_credito not regexp '-' LIMIT 1";
         $stc->bindParam(':id_cuenta', $id_cuenta);
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
-        if (isset($result['numero_de_cuenta'])) {
-            return $result['numero_de_cuenta'];
-        }
-        return '';
+        return $result['numero_de_cuenta'] ?? '';
     }
 
     /**
@@ -65,7 +62,8 @@ and status_de_credito not regexp '-' LIMIT 1";
      * @param string $fechaOut
      * @param int $ID_CUENTA
      */
-    public function insertVasignBoth(string $CUENTA, string $gestor, string $fechaOut, int $ID_CUENTA) {
+    public function insertVasignBoth(string $CUENTA, string $gestor, string $fechaOut, int $ID_CUENTA): void
+    {
         $query = "INSERT INTO vasign (cuenta, gestor, fechaout, fechain, c_cont)
 VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
         $sti = $this->pdo->prepare($query);
@@ -82,7 +80,8 @@ VALUES (:cuenta, :gestor, :fechaout, now(), :idc)";
      * @param string $gestor
      * @param int $ID_CUENTA
      */
-    public function insertVasign(string $CUENTA, string $gestor, int $ID_CUENTA) {
+    public function insertVasign(string $CUENTA, string $gestor, int $ID_CUENTA): void
+    {
         $query = "INSERT INTO vasign
 			(cuenta, gestor, fechaout,c_cont)
 			VALUES
@@ -195,7 +194,8 @@ limit 1";
      * @param string $tipo
      * @param string $CUENTA
      */
-    public function updateVasign(string $tipo, string $CUENTA) {
+    public function updateVasign(string $tipo, string $CUENTA): void
+    {
         $queryCuenta = "select id_cuenta from resumen where numero_de_cuenta = :cuenta";
         if ($tipo === 'id_cuenta') {
             $queryCuenta = "select id_cuenta from resumen where id_cuenta = :cuenta";

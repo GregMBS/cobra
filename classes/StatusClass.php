@@ -27,7 +27,7 @@ class StatusClass extends ConfigObject
      *
      * @param int $id
      */
-    public function killProc(int $id)
+    public function killProc(int $id): void
     {
         $query = "KILL $id";
         $this->pdo->query($query);
@@ -54,8 +54,7 @@ class StatusClass extends ConfigObject
         $query = "SELECT * FROM information_schema.`TABLES` T 
 where table_schema = '$this->dbName'
 order by data_length desc";
-        $stm = $this->pdo->prepare($query);
-        $stm->execute();
+        $stm = $this->pdo->query($query);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 }

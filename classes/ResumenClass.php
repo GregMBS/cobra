@@ -449,7 +449,8 @@ order by d_fech desc, c_hrin desc limit 1";
      * @param string $capt
      * @param int $id_cuenta
      */
-    public function setLocks(string $capt, int $id_cuenta) {
+    public function setLocks(string $capt, int $id_cuenta): void
+    {
         $queryUnlock = "UPDATE resumen SET timelock = NULL, locker = NULL "
                 . "WHERE locker = :capt";
         $stu = $this->pdo->prepare($queryUnlock);

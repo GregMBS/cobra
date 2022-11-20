@@ -146,14 +146,15 @@ and id_cuenta = :c_cont";
         $sti->bindParam(':C_OBSE2', $gestion['C_OBSE2']);
         $sti->bindParam(':C_EJE', $gestion['C_EJE']);
         $sti->execute();
-        return intval($this->pdo->lastInsertId());
+        return (int)$this->pdo->lastInsertId();
     }
 
     /**
      * 
      * @param int $auto
      */
-    private function addHistdate(int $auto) {
+    private function addHistdate(int $auto): void
+    {
         $query = "INSERT IGNORE INTO histdate VALUES (:auto, CURDATE())";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
@@ -165,7 +166,8 @@ and id_cuenta = :c_cont";
      * @param int $auto
      * @param string $c_cvge
      */
-    private function addHistgest(int $auto, string $c_cvge) {
+    private function addHistgest(int $auto, string $c_cvge): void
+    {
         $query = "INSERT IGNORE INTO histgest VALUES (:auto, :c_cvge)";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':auto', $auto, PDO::PARAM_INT);
@@ -178,7 +180,8 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $tele
      */
-    public function addNewTel(int $C_CONT, string $tele) {
+    public function addNewTel(int $C_CONT, string $tele): void
+    {
         $tel = filter_var($tele, FILTER_SANITIZE_NUMBER_INT);
         $query = "UPDATE resumen 
         SET tel_4_verif = tel_3_verif, 
@@ -197,7 +200,8 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $ndir
      */
-    public function updateAddress(int $C_CONT, string $ndir) {
+    public function updateAddress(int $C_CONT, string $ndir): void
+    {
         $query = "UPDATE resumen SET direccion_nueva = :ndir WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':ndir', $ndir);
@@ -210,7 +214,8 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $email
      */
-    private function updateEmail(int $C_CONT, string $email) {
+    private function updateEmail(int $C_CONT, string $email): void
+    {
         $query = "UPDATE resumen SET email_deudor = :email WHERE id_cuenta = :C_CONT";
         $stn = $this->pdo->prepare($query);
         $stn->bindParam(':email', $email);
@@ -249,7 +254,8 @@ and id_cuenta = :c_cont";
      * @param float $N_PAGO
      * @param string $who
      */
-    private function addPago(int $C_CONT, string $D_PAGO, float $N_PAGO, string $who) {
+    private function addPago(int $C_CONT, string $D_PAGO, float $N_PAGO, string $who): void
+    {
         $query = "INSERT IGNORE INTO pagos (CUENTA,FECHA,MONTO,CLIENTE,GESTOR,CREDITO,ID_CUENTA) 
     SELECT numero_de_cuenta, :D_PAGO, :N_PAGO, cliente, :who, numero_de_credito, id_cuenta 
     FROM resumen WHERE id_cuenta = :C_CONT";
@@ -264,7 +270,8 @@ and id_cuenta = :c_cont";
     /**
      * 
      */
-    private function updateAllUltimoPagos() {
+    private function updateAllUltimoPagos(): void
+    {
         $query = "update resumen,pagos 
                 set fecha_de_ultimo_pago = fecha, monto_ultimo_pago = monto 
                 where fecha_de_ultimo_pago < fecha and pagos.id_cuenta = resumen.id_cuenta";
@@ -276,7 +283,8 @@ and id_cuenta = :c_cont";
      * @param int $C_CONT
      * @param string $best
      */
-    private function resumenStatusUpdate(int $C_CONT, string $best = '') {
+    private function resumenStatusUpdate(int $C_CONT, string $best = ''): void
+    {
         $query = "UPDATE resumen SET status_aarsa = :best, fecha_ultima_gestion = NOW() 
         WHERE id_cuenta = :C_CONT";
         $stb = $this->pdo->prepare($query);
@@ -363,7 +371,8 @@ and id_cuenta = :c_cont";
      * @param int $auto
      * @param array $gestion
      */
-    private function doCommon(int $auto, array $gestion) {
+    private function doCommon(int $auto, array $gestion): void
+    {
         $this->addHistgest($auto, $gestion['C_CVGE']);
         if (!empty($gestion['C_NTEL'])) {
             $this->addNewTel($gestion['C_CONT'], $gestion['C_NTEL']);
@@ -390,7 +399,8 @@ and id_cuenta = :c_cont";
     /**
      * @param array $gestion
      */
-    public function doVisit(array $gestion) {
+    public function doVisit(array $gestion): void
+    {
         $auto = $this->insertVisit($gestion);
         $this->addHistdate($auto);
         $this->doCommon($auto, $gestion);
@@ -400,7 +410,8 @@ and id_cuenta = :c_cont";
      * @param array $gestion
      * @throws Exception
      */
-    public function doGestion(array $gestion) {
+    public function doGestion(array $gestion): void
+    {
         $this->beginTransaction();
         $auto = $this->insertGestion($gestion);
         if ($auto === 0) {
