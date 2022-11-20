@@ -2,6 +2,7 @@
 
 namespace cobra_salsa;
 
+use JsonException;
 use PDO;
 
 require_once __DIR__ . '/ResumenObject.php';
@@ -42,6 +43,9 @@ class MigoClass
         $this->pdo = $pdo;
     }
 
+    /**
+     * @throws JsonException
+     */
     public function getAjax(array $keys, $capt = '')
     {
         ## Read value
@@ -57,7 +61,7 @@ class MigoClass
         $searchValue = $search['value']; // Search value
 
         $totalRecords = $this->countTotalRecords();
-        list($searchArray, $searchQuery) = $this->buildQuery($keys, $searchValue, $capt);
+        [$searchArray, $searchQuery] = $this->buildQuery($keys, $searchValue, $capt);
         $totalRecordsFiltered = $this->countFilteredRecords($searchQuery, $searchArray);
         $empRecords = $this->getFiltered($searchArray, $searchQuery, $columnName, $columnSortOrder, $row, $rowPerPage);
 
@@ -73,13 +77,13 @@ class MigoClass
 
 ## Response
         $response = array(
-            "draw" => intval($draw),
+            "draw" => (int)$draw,
             "iTotalRecords" => $totalRecords,
             "iTotalDisplayRecords" => $totalRecordsFiltered,
             "aaData" => $data
         );
 
-        return json_encode($response);
+        return json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -88,9 +92,8 @@ class MigoClass
     private function countTotalRecords(): int
     {
 ## Total number of records without filtering
-        $stmt = $this->pdo->prepare("SELECT COUNT(1) AS all_count FROM resumen 
+        $stmt = $this->pdo->query("SELECT COUNT(1) AS all_count FROM resumen 
         WHERE status_de_credito NOT REGEXP '-'");
-        $stmt->execute();
         $records = $stmt->fetch();
         return $records['all_count'];
     }
@@ -106,7 +109,7 @@ class MigoClass
 ## Search
         $searchArray = [];
         $searchQuery = " ";
-        if ($searchValue != '') {
+        if ($searchValue !== '') {
             $searchBase = " %s LIKE :%s OR";
             $searchString = "";
             foreach ($keys as $key) {

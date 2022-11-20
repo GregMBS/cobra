@@ -46,7 +46,7 @@ class LoginClass {
             if (password_verify($pw, $result->passw)) {
                 return $result;
             }
-            if (sha1($pw) == $result->passw) {
+            if (sha1($pw) === $result->passw) {
                 return $result;
             }
         }

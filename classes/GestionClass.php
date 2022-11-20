@@ -338,21 +338,23 @@ and id_cuenta = :c_cont";
             $sti->bindValue(':C_EJE', $gestion['C_EJE']);
             $sti->bindValue(':AUTH', $gestion['AUTH']);
             $sti->execute();
-            $auto = intval($this->pdo->lastInsertId());
+            $auto = (int)$this->pdo->lastInsertId();
             if ($auto > 0) {
                 return $auto;
             }
-            throw new Exception(json_encode($sti->errorInfo()));
+            throw new PDOException(json_encode($sti->errorInfo(), JSON_THROW_ON_ERROR));
         } catch (PDOException $exc) {
-            throw new Exception($exc);
+            throw new PDOException($exc);
         }
     }
 
-    private function beginTransaction() {
+    private function beginTransaction(): void
+    {
         $this->pdo->beginTransaction();
     }
 
-    private function commitTransaction() {
+    private function commitTransaction(): void
+    {
         $this->pdo->commit();
     }
 
