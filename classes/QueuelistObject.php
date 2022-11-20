@@ -9,67 +9,67 @@ class QueuelistObject
     /**
      * @var int|null
      */
-    var ?int $auto;
+    public ?int $auto;
 
     /**
      * @var string|null
      */
-    var ?string $gestor = '';
+    public ?string $gestor = '';
 
     /**
      * @var string|null
      */
-    var ?string $cliente = '';
+    public ?string $cliente = '';
 
     /**
      * @var string|null
      */
-    var ?string $status_aarsa = '';
+    public ?string $status_aarsa = '';
 
     /**
      * @var int|null
      */
-    var ?int $camp;
+    public ?int $camp;
 
     /**
      * @var string|null
      */
-    var ?string $orden1;
+    public ?string $orden1;
 
     /**
      * @var string|null
      */
-    var ?string $updown1;
+    public ?string $updown1;
 
     /**
      * @var string|null
      */
-    var ?string $orden2;
+    public ?string $orden2;
 
     /**
      * @var string|null
      */
-    var ?string $updown2;
+    public ?string $updown2;
 
     /**
      * @var string|null
      */
-    var ?string $orden3;
+    public ?string $orden3;
 
     /**
      * @var string|null
      */
-    var ?string $updown3;
+    public ?string $updown3;
 
     /**
      * @var string|null
      */
-    var ?string $sdc = '';
+    public ?string $sdc = '';
 
     /**
      * @var int|null
      */
-    var ?int $bloqueado;
+    public ?int $bloqueado;
 
     /**
      * @return string

@@ -9,22 +9,22 @@ class QueueObject
     /**
      * @var string
      */
-    var string $cliente = '';
+    public string $cliente = '';
 
     /**
      * @var string
      */
-    var string $sdc = '';
+    public string $sdc = '';
 
     /**
      * @var string
      */
-    var string $status_aarsa = '';
+    public string $status_aarsa = '';
 
     /**
      * @var int
      */
-    var int $bloqueado;
+    public int $bloqueado;
 
     /**
      * @return string
