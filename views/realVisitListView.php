@@ -58,7 +58,7 @@
                                     */
                                     $ank = str_replace('00:00:00', '', $anku);
                                     $jsCode = '';
-                                    if ($field == "short") {
+                                    if ($field === "short") {
                                         $jsCode1 = " onClick='alert(";
                                         $jsCode2 = ")'";
                                         $jsCode = $jsCode1 . '"' . preg_replace("[\n\r]", " ", $gestion) . '"' . $jsCode2;

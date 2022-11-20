@@ -33,10 +33,10 @@ if (!empty($gestor)) {
         <label><input type="text" id="CUENTA" name="CUENTA" value=""></label><br>
         <label for="id_cuenta">c&oacute;digo de barras</label>
         <input type="radio" id="id_cuenta" name="tipo" <?php
-        if ($tipo == 'id_cuenta') {
+        if ($tipo === 'id_cuenta') {
         ?>checked="checked"<?php } ?> value="id_cuenta">
         <label for="numero_de_cuenta">numero de cuenta</label>
-        <input type="radio" id="numero_de_cuenta" name="tipo" <?php if ($tipo == 'numero_de_cuenta') {
+        <input type="radio" id="numero_de_cuenta" name="tipo" <?php if ($tipo === 'numero_de_cuenta') {
         ?>checked="checked"<?php } ?> value="numero_de_cuenta">
         <input type="hidden" name="capt" value="<?php echo $capt; ?>">
         <input type="hidden" name="go" value="<?php

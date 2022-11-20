@@ -322,7 +322,7 @@ order by cliente,gestor,fecha";
         if (!empty($end)) {
             $endQuery = " and fecha <= :end ";
         }
-        if ($cliente != "todos") {
+        if ($cliente !== "todos") {
             $clienteQuery = " and pagos.cliente = :cliente ";
         }
         $query = "select cuenta, fecha, fechacapt, monto,
@@ -342,7 +342,7 @@ order by cliente,gestor,fecha";
         if (!empty($end)) {
             $std->bindParam(':end', $end);
         }
-        if ($cliente != "todos") {
+        if ($cliente !== "todos") {
             $std->bindParam(':cliente', $cliente);
         }
         $std->execute();

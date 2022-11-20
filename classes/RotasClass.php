@@ -65,12 +65,12 @@ order by c_cvge
     {
         $gestorStr = " and (ejecutivo_asignado_call_center=:capt or c_cvge=:capt) ";
         $tipo = $this->getUserType($capt);
-        if ($tipo == 'admin') {
+        if ($tipo === 'admin') {
             $gestorStr = "";
         }
         $query = sprintf($this->queryRotas, $gestorStr);
         $stq = $this->pdo->prepare($query);
-        if ($tipo != 'admin') {
+        if ($tipo !== 'admin') {
             $stq->bindParam(':capt', $capt);
         }
         $stq->execute();

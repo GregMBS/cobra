@@ -11,7 +11,7 @@ $qc = new QueuesgClass($pdo);
 $capt = $pd->capt;
 $go   = filter_input(INPUT_GET, 'go');
 $msg  = "";
-if ($go == 'INTRO') {
+if ($go === 'INTRO') {
     $cliente     = filter_input(INPUT_GET, 'cliente');
     $sdc         = filter_input(INPUT_GET, 'sdc');
     $queue       = filter_input(INPUT_GET, 'queue');

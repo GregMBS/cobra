@@ -40,25 +40,25 @@ use cobra_salsa\BreaksObject;
                     <select form="cambiar<?php echo $row->auto; ?>" name="tipo">
                         <option value=""></option>
                         <option value="break"<?php
-                        if ($row->tipo == 'hora') {
+                        if ($row->tipo === 'hora') {
                             echo " selected='selected'";
                         }
                         ?>>hora (60 min)
                         </option>
                         <option value="break"<?php
-                        if ($row->tipo == 'break') {
+                        if ($row->tipo === 'break') {
                             echo " selected='selected'";
                         }
                         ?>>break (30 min)
                         </option>
                         <option value="fumo"<?php
-                        if ($row->tipo == 'fumo') {
+                        if ($row->tipo === 'fumo') {
                             echo " selected='selected'";
                         }
                         ?>>fumo (15 min)
                         </option>
                         <option value="bano"<?php
-                        if ($row->tipo == 'bano') {
+                        if ($row->tipo === 'bano') {
                             echo " selected='selected'";
                         }
                         ?>>baño (10 min)

@@ -18,6 +18,7 @@
 	"config": {
 		"platform": {
 			"php": "7.4"
-		}
+		},
+		"secure-http": true
 	}
 }

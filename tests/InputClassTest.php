@@ -32,6 +32,5 @@ class InputClassTest extends TestCase
             die($e->getMessage());
         }
         $this->assertIsArray($result);
-        var_dump($result);
     }
 }

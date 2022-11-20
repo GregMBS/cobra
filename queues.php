@@ -20,22 +20,22 @@ if (!empty($go)) {
     }
     
 }
-if ($go == 'INTRO') {
+if ($go === 'INTRO') {
     $qc->updateQueue($CAMP, $GESTOR);
 }
-if ($go == 'BLOQUEAR') {
+if ($go === 'BLOQUEAR') {
     $qc->blockQueue($CAMP, $GESTOR);
 }
-if ($go == 'DESBLOQUEAR') {
+if ($go === 'DESBLOQUEAR') {
     $qc->unblockQueue($CAMP, $GESTOR);
 }
-if ($go == 'INTRO TODOS') {
+if ($go === 'INTRO TODOS') {
     $qc->updateQueueAll($cliente, $sdc, $status);
 }
-if ($go == 'BLOQUEAR TODOS') {
+if ($go === 'BLOQUEAR TODOS') {
     $qc->blockQueueAll($cliente, $sdc, $status);
 }
-if ($go == 'DESBLOQUEAR TODOS') {
+if ($go === 'DESBLOQUEAR TODOS') {
     $qc->unblockQueueAll($cliente, $sdc, $status);
 }
 

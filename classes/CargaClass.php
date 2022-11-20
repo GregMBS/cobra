@@ -79,8 +79,7 @@ class CargaClass
         $dupCheck = $this->array_dup($fields);
         if (!empty($dupCheck)) {
             echo "Duplicate fields: ";
-            var_dump($dupCheck);
-            die();
+            die($dupCheck);
         }
 
         $columnNames = $this->getDataColumnNames($fields);
@@ -441,7 +440,7 @@ from resumen;
     {
         $data = [];
         try {
-            $handle = fopen($filename, "r");
+            $handle = fopen($filename, 'rb');
             $header = fgetcsv($handle);
             while ($row = fgetcsv($handle)) {
                 $data[] = $row;
@@ -470,7 +469,7 @@ from resumen;
     {
         $data = [];
         try {
-            $handle = fopen($filename, "r");
+            $handle = fopen($filename, 'rb');
             fgetcsv($handle);
             while ($row = fgetcsv($handle)) {
                 $data[] = $row;

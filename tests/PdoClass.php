@@ -109,7 +109,7 @@ class PdoClass {
         $stc->bindParam(':capt', $capt);
         $stc->execute();
         $count = $stc->fetch();
-        if ($count[0] != 1) {
+        if ($count[0] !== 1) {
             $redirector = 'Location: index.php';
             header($redirector);
         } else {

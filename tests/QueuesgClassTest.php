@@ -30,18 +30,17 @@ class QueuesgClassTest extends TestCase
     /**
      * @depends testGetCamp
      */
-    public function testSetCamp()
+    public function testSetCamp(): void
     {
         $queue = $this->getQueue();
         $cliente = $queue->cliente;
-        $queuename = $queue->queue;
+        $queueName = $queue->queue;
         $sdc = $queue->sdc;
-        $start = $this->cc->getCamp($cliente, $queuename, $sdc, 'gmbs');
+        $start = $this->cc->getCamp($cliente, $queueName, $sdc, 'gmbs');
         $this->cc->setCamp($start, 'gmbs');
         $report = $this->cc->getMyQueue('gmbs');
-        $this->assertInstanceOf(QueuelistObject::class, $report);
         $this->assertEquals($cliente, $report->cliente);
-        $this->assertEquals($queuename, $report->status_aarsa);
+        $this->assertEquals($queueName, $report->status_aarsa);
         $this->assertEquals($sdc, $report->sdc);
         $this->assertEquals($start, $report->camp);
     }
@@ -60,9 +59,9 @@ class QueuesgClassTest extends TestCase
     {
         $queue = $this->getQueue();
         $cliente = $queue->cliente;
-        $queuename = $queue->queue;
+        $queueName = $queue->queue;
         $sdc = $queue->sdc;
-        $report = $this->cc->getCamp($cliente, $queuename, $sdc, 'gmbs');
+        $report = $this->cc->getCamp($cliente, $queueName, $sdc, 'gmbs');
         $this->assertIsInt($report);
         $this->assertGreaterThan(0, $report);
     }

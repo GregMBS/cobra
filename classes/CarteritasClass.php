@@ -174,8 +174,6 @@ EOV;
                         . "','" . $c . "','" . $fe . "','" . $s . "','" . $h .
                         "','00:00:00','VISITA A DOMICILIO','planta baja'),");
                     $sql .= $temp;
-                } else {
-                    var_dump($row);
                 }
             }
         }

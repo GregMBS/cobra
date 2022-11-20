@@ -11,6 +11,7 @@ namespace cobra_salsa;
 use Exception;
 use PDO;
 use PDOException;
+use RuntimeException;
 
 /**
  * Description of GestionClass
@@ -400,9 +401,8 @@ and id_cuenta = :c_cont";
     public function doGestion(array $gestion) {
         $this->beginTransaction();
         $auto = $this->insertGestion($gestion);
-        if ($auto == 0) {
-            var_dump($gestion);
-            throw new Exception('INPUT GESTION FAILS');
+        if ($auto === 0) {
+            throw new RuntimeException('INPUT GESTION FAILS');
         }
         $this->doCommon($auto, $gestion);
         $this->commitTransaction();

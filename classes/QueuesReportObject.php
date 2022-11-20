@@ -7,24 +7,24 @@ namespace cobra_salsa;
 class QueuesReportObject
 {
     /**
-     * @var int
+     * @var int|null
      */
-    public int $ctt = 0;
+    public ?int $ctt = 0;
 
     /**
-     * @var int
+     * @var int|null
      */
-    public int $ctd = 0;
+    public ?int $ctd = 0;
 
     /**
-     * @var int
+     * @var int|null
      */
-    public int $ctw = 0;
+    public ?int $ctw = 0;
 
     /**
-     * @var int
+     * @var int|null
      */
-    public int $ctm = 0;
+    public ?int $ctm = 0;
 
     /**
      * @var float|null

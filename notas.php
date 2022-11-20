@@ -16,7 +16,7 @@ $HORA = (int) filter_input(INPUT_GET, 'HORA', FILTER_VALIDATE_INT);
 $MIN = (int) filter_input(INPUT_GET, 'MIN', FILTER_VALIDATE_INT);
 $NOTA = filter_input(INPUT_GET, 'NOTA');
 $FECHA = filter_input(INPUT_GET, 'FECHA');
-if ($go == 'GUARDAR') {
+if ($go === 'GUARDAR') {
     $D_FECH = date('Y-m-d');
     $C_HORA = date('H:i:s');
     if ($HORA != '00') {
@@ -28,7 +28,7 @@ if ($go == 'GUARDAR') {
     $redirector = "Location: notas.php?capt='" . $capt . "'&go=FROMGUARDAR";
     header($redirector);
 }
-if ($go == 'BORRAR') {
+if ($go === 'BORRAR') {
     $AUTO = (int) filter_input(INPUT_GET, 'which', FILTER_VALIDATE_INT);
     $nc->softDeleteOneNota($capt, $AUTO);
     $redirector = "Location: notas.php?capt=" . $capt . "&go=FROMBORRAR";

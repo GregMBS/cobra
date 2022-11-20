@@ -5,6 +5,7 @@ namespace cobra_salsa;
 use Exception;
 use PDO;
 use PDOException;
+use RuntimeException;
 
 require_once __DIR__ . '/QueuelistObject.php';
 require_once __DIR__ . '/ResumenObject.php';
@@ -135,9 +136,8 @@ LIMIT 1";
         switch ($queue->status_aarsa) {
 
             case 'SIN GESTION':
-                $queryBase = "SELECT * FROM resumen " .
-            "WHERE locker is null " . $string . " " . $string .
-            "AND ((status_aarsa='') or (status_aarsa is null)) 
+                $queryBase = /** @lang Text */  "SELECT * FROM resumen 
+                WHERE locker is null %s %s AND ((status_aarsa='') or (status_aarsa is null)) 
             ORDER BY fecha_de_actualizacion LIMIT 1";
                 return sprintf($queryBase, $clientStr, $sdcStr);
 
@@ -185,7 +185,7 @@ WHERE locker is null ". $string . " " . $string . " " . $string .
             }
             return new ResumenObject();
         } catch (PDOException $p) {
-            throw new Exception($p);
+            throw new PDOException($p);
         }
     }
 
@@ -211,13 +211,13 @@ WHERE locker is null ". $string . " " . $string . " " . $string .
         }
         try {
             $row = $this->getAccount($sql);
-            if (($row->id_cuenta == 0) && (!$quick)) {
+            if (($row->id_cuenta === 0) && (!$quick)) {
                 $queue = $this->getQueueWithAccounts($queue);
                 $sql = $this->getQueryString($queue);
                 $row = $this->getAccount($sql);
             }
         } catch (Exception $e) {
-            throw new Exception($e);
+            throw new RuntimeException($e);
         }
         return $row;
     }

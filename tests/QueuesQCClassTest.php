@@ -33,7 +33,7 @@ class QueuesQCClassTest extends TestCase
         $this->cc = new QueuesQCClass($this->pdo);
     }
 
-    public function testGetReportSub()
+    public function testGetReportSub(): void
     {
         $report = $this->cc->getReportSub('','','');
         $this->assertInstanceOf(QueuesReportObject::class, $report);

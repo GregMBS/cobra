@@ -113,8 +113,7 @@ order by v_cc, d_fech desc limit 1";
             $stq->execute();
             $result = $stq->fetchObject(HistoriaObject::class);
         } catch (PDOException $p) {
-            var_dump($p->errorInfo);
-            die();
+            die($p->errorInfo);
         }
         if (is_object($result)) {
             return $result;

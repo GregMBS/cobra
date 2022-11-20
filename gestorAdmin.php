@@ -17,24 +17,24 @@ $passw = filter_input(INPUT_GET, 'passw');
 $capt = filter_input(INPUT_GET, 'capt');
 
 if (!empty($go)) {
-    if ($go == "GUARDAR") {
-        $gc->updateOpenParams($completo, $tipo, $usuaria);
-        $gc->updatePassword($passw, $usuaria);
-        header("Location: gestorAdmin.php?capt=" . $capt);
-    }
-
-    if ($go == "BORRAR") {
-        $gc->deleteFromNombres($usuaria);
-        $gc->deleteFromQueuelist($usuaria);
-        $gc->deleteFromResumen($usuaria);
-        header("Location: gestorAdmin.php?capt=" . $capt);
-    }
-
-    if ($go == "AGREGAR") {
-        $iniciales = strtolower($usuaria);
-        $gc->addToNombres($completo, $tipo, $usuaria, $iniciales, $passw);
-        $gc->addToQueuelists($iniciales);
-        header("Location: gestorAdmin.php?capt=" . $capt);
+    switch ($go) {
+        case 'GUARDAR':
+            $gc->updateOpenParams($completo, $tipo, $usuaria);
+            $gc->updatePassword($passw, $usuaria);
+            header("Location: gestorAdmin.php?capt=" . $capt);
+            break;
+        case 'BORRAR':
+            $gc->deleteFromNombres($usuaria);
+            $gc->deleteFromQueuelist($usuaria);
+            $gc->deleteFromResumen($usuaria);
+            header("Location: gestorAdmin.php?capt=" . $capt);
+            break;
+        case 'AGREGAR':
+            $iniciales = strtolower($usuaria);
+            $gc->addToNombres($completo, $tipo, $usuaria, $iniciales, $passw);
+            $gc->addToQueuelists($iniciales);
+            header("Location: gestorAdmin.php?capt=" . $capt);
+            break;
     }
 }
 $result = $gc->getNombres();

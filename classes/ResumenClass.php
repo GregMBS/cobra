@@ -89,10 +89,11 @@ where id_cuenta=:id_cuenta LIMIT 1";
      */
     public function highlight(?string $stat, ?string $visit): string
     {
+        $statArray = ['PROMESA DE PAGO TOTAL', 'PROMESA DE PAGO RECURRENTE', 'PROMESA DE PAGO PARCIAL', 'CLIENTE NEGOCIANDO'];
         if (!empty($visit)) {
             return 'visit';
         }
-        if (($stat == 'PROMESA DE PAGO TOTAL') || ($stat == 'PROMESA DE PAGO RECURRENTE') || ($stat == 'PROMESA DE PAGO PARCIAL') || ($stat == 'CLIENTE NEGOCIANDO')) {
+        if (in_array($stat, $statArray, true)) {
             return 'deudor';
         }
         return '';
@@ -187,13 +188,13 @@ where id_cuenta=:id_cuenta LIMIT 1";
         FROM dictamenes 
         where callcenter=1 
         order by dictamen";
-        if ($myTipo == 'visitador') {
+        if ($myTipo === 'visitador') {
             $query = "SELECT dictamen,v_cc,judicial 
             FROM dictamenes 
             where visitas=1 
             order by dictamen";
         }
-        if ($myTipo == 'admin') {
+        if ($myTipo === 'admin') {
             $query = "SELECT dictamen,v_cc,judicial 
             FROM dictamenes 
             order by dictamen";
@@ -455,7 +456,7 @@ order by d_fech desc, c_hrin desc limit 1";
         $stu->bindParam(':capt', $capt);
         $queryLock = "UPDATE resumen SET timelock = now(), locker = :capt 
         WHERE id_cuenta = :id_cuenta";
-        if ($capt == 'gmbs') {
+        if ($capt === 'gmbs') {
             $queryLock = "SELECT :capt, :id_cuenta";
         }
         $stl = $this->pdo->prepare($queryLock);
