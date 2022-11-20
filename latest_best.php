@@ -49,7 +49,7 @@ foreach ($result as $row) {
             $aData[$field] = $array[$field];
         }
     }
-    $idc = intval($aData['id_cuenta']);
+    $idc = (int)$aData['id_cuenta'];
     $aData['ultimo_status'] = '';
     $aData['ultimo_tel'] = '';
     $aData['ultimo_comentario'] = '';

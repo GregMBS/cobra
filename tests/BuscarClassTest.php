@@ -27,6 +27,9 @@ class BuscarClassTest extends TestCase
      */
     protected string $name;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $pc = new PdoClass();
@@ -35,7 +38,10 @@ class BuscarClassTest extends TestCase
         $this->name = $this->getTestName();
     }
 
-    public function testListClients()
+    /**
+     * @return void
+     */
+    public function testListClients(): void
     {
         $clients = $this->cc->listClients();
         $this->assertIsArray($clients);
@@ -43,14 +49,20 @@ class BuscarClassTest extends TestCase
         $this->assertIsString($first);
     }
 
-    public function testSearchExactAccounts()
+    /**
+     * @return void
+     */
+    public function testSearchExactAccounts(): void
     {
         $accounts = $this->cc->searchAccounts('nombre_deudor',$this->name,'FAMSA');
         $first = array_pop($accounts);
         $this->assertInstanceOf(ResumenObject::class, $first);
     }
 
-    public function testSearchAccounts()
+    /**
+     * @return void
+     */
+    public function testSearchAccounts(): void
     {
         $shortName = substr($this->name, 5);
         $accounts = $this->cc->searchAccounts('nombre_deudor',$shortName,'FAMSA');
@@ -67,8 +79,7 @@ class BuscarClassTest extends TestCase
 from resumen
 where cliente = 'FAMSA'
 limit 1";
-        $stq = $this->pdo->prepare($query);
-        $stq->execute();
+        $stq = $this->pdo->query($query);
         $result = $stq->fetch(PDO::FETCH_ASSOC);
         return $result['nm'];
     }

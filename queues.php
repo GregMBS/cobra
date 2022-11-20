@@ -14,11 +14,8 @@ $CAMP = filter_input(INPUT_GET, 'camp', FILTER_VALIDATE_INT);
 $GESTOR = filter_input(INPUT_GET, 'gestor');
 $QUEUE = filter_input(INPUT_GET, 'queue');
 $QUEUES = explode(',', $QUEUE);
-if (!empty($go)) {
-    if (is_array($QUEUES)) {
-        list($cliente, $sdc, $status) = $QUEUES;
-    }
-    
+if (!empty($go) && is_array($QUEUES)) {
+    [$cliente, $sdc, $status] = $QUEUES;
 }
 if ($go === 'INTRO') {
     $qc->updateQueue($CAMP, $GESTOR);

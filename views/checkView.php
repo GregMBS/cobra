@@ -20,11 +20,11 @@ if (!empty($gestor)) {
     ?>' method='get'>
         <label for="gestor" class="formCap">Visitador:</label>
         <select name="gestor" id="gestor" onChange="document.getElementById('asigform').submit()">
-            <option value='' <?php if ($gestor == '') { ?> selected='selected'<?php } ?>></option>
+            <option value='' <?php if ($gestor === '') { ?> selected='selected'<?php } ?>></option>
             <?php
             foreach ($result as $answer) {
                 ?>
-                <option value="<?php echo $answer->USUARIA; ?>" <?php if ($gestor == $answer->USUARIA) {
+                <option value="<?php echo $answer->USUARIA; ?>" <?php if ($gestor === $answer->USUARIA) {
                     ?> selected='selected'<?php } ?>><?php echo htmlentities($answer->USUARIA . '-' . $answer->COMPLETO); ?>
                 </option>
             <?php }

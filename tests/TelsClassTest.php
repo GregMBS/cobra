@@ -101,13 +101,13 @@ class TelsClassTest extends TestCase
         $this->cc = new TelsClass($this->pdo);
     }
 
-    public function testGetDates()
+    public function testGetDates(): void
     {
         $report = $this->cc->getDates();
         $this->assertInstanceOf(DatePeriod::class, $report);
     }
 
-    public function testGetMercadosReport()
+    public function testGetMercadosReport(): void
     {
         $report = $this->cc->getMercadosReport('2020-07-01', '2020-07-31');
         $this->assertIsArray($report);
@@ -116,7 +116,7 @@ class TelsClassTest extends TestCase
         $this->assertEquals($this->marcados, $keys);
     }
 
-    public function testGetContactosReport()
+    public function testGetContactosReport(): void
     {
         $report = $this->cc->getContactosReport('2020-07-01', '2020-07-31');
         $this->assertIsArray($report);

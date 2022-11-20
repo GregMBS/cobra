@@ -19,19 +19,17 @@ $FECHA = filter_input(INPUT_GET, 'FECHA');
 if ($go === 'GUARDAR') {
     $D_FECH = date('Y-m-d');
     $C_HORA = date('H:i:s');
-    if ($HORA != '00') {
-        $HORA = str_pad($HORA, 2, "0", STR_PAD_LEFT) . ':'
+    $HoraStr = str_pad($HORA, 2, "0", STR_PAD_LEFT) . ':'
                 . str_pad($MIN, 2, "0", STR_PAD_LEFT) . ':00';
-    }
     $nc->softDeleteNotas($capt, $C_CONT);
-    $nc->insertNota($capt, $D_FECH, $C_HORA, $FECHA, $HORA, $NOTA, $CUENTA, $C_CONT);
-    $redirector = "Location: notas.php?capt='" . $capt . "'&go=FROMGUARDAR";
+    $nc->insertNota($capt, $D_FECH, $C_HORA, $FECHA, $HoraStr, $NOTA, $CUENTA, $C_CONT);
+    $redirector = "Location: notas.php?capt='" . $capt . "'&go=FromGuardar";
     header($redirector);
 }
 if ($go === 'BORRAR') {
     $AUTO = (int) filter_input(INPUT_GET, 'which', FILTER_VALIDATE_INT);
     $nc->softDeleteOneNota($capt, $AUTO);
-    $redirector = "Location: notas.php?capt=" . $capt . "&go=FROMBORRAR";
+    $redirector = "Location: notas.php?capt=" . $capt . "&go=FromBorrar";
     header($redirector);
 }
 $result = $nc->listMyNotas($capt);

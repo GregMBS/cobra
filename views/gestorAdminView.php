@@ -17,7 +17,7 @@
                 <tr>
                 <th>Gestor</th>
                 <th>Completo</th>
-                <th>Contrase&ntilde;a</th>
+                <th>Contraseña</th>
                 <th>Tipo</th>
                 </tr>
                 </thead>
@@ -60,7 +60,7 @@
                                         echo $group;
                                     }
                                     ?>" style="font-size:120%;" <?php
-                                            if (strtolower($group) == strtolower($tipo)) {
+                                            if (strtolower($group) === strtolower($tipo)) {
                                                 echo "selected='selected'";
                                             }
                                             ?>>

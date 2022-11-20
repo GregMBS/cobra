@@ -110,7 +110,6 @@ from historia,resumen,dictamenes
 where c_cont=id_cuenta and dictamen=c_cvst
 and status_de_credito not regexp '-'
 and c_msge is null
-and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
         $stf = $this->pdo->prepare($queryCreate);
@@ -137,7 +136,6 @@ where c_cont=id_cuenta and dictamen=c_cvst
 and status_de_credito not like '%ivo'
 and c_msge is null
 and queue not in ('sin gestion','sin contactos','ilocalizables')
-and c_tele REGEXP '^-?[0-9]+$' and c_tele+1>1
 and d_fech between :fecha1 and :fecha2
 order by c_tele";
         $stf = $this->pdo->prepare($queryFill);

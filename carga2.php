@@ -136,7 +136,7 @@ switch ($go) {
                                 foreach ($columns as $k => $column) {
                                     ?>
                                     <option value='<?php echo $k ?>'<?php
-                                    if (trim($header[$c]) == $column) {
+                                    if (trim($header[$c]) === $column) {
                                         echo " selected='selected'";
                                     }
                                     ?>><?php echo $column; ?></option>
