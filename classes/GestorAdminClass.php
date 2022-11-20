@@ -37,7 +37,8 @@ class GestorAdminClass {
      * @param string $tipo
      * @param string $usuaria
      */
-    public function updateOpenParams(string $completo, string $tipo, string $usuaria) {
+    public function updateOpenParams(string $completo, string $tipo, string $usuaria): void
+    {
         $query = "UPDATE nombres
             SET completo = :completo,
             tipo = :tipo
@@ -54,7 +55,8 @@ class GestorAdminClass {
      * @param string $passw
      * @param string $usuaria
      */
-    public function updatePassword(string $passw, string $usuaria) {
+    public function updatePassword(string $passw, string $usuaria): void
+    {
         $bpw = password_hash($passw, PASSWORD_DEFAULT);
         $query = "UPDATE nombres
             SET passw = :bpw
@@ -71,7 +73,8 @@ class GestorAdminClass {
      * 
      * @param string $usuaria
      */
-    public function deleteFromNombres(string $usuaria) {
+    public function deleteFromNombres(string $usuaria): void
+    {
         $query = "DELETE FROM nombres WHERE usuaria = :usuaria";
         $stb = $this->pdo->prepare($query);
         $stb->bindParam(':usuaria', $usuaria);
@@ -82,7 +85,8 @@ class GestorAdminClass {
      * 
      * @param string $usuaria
      */
-    public function deleteFromQueuelist(string $usuaria) {
+    public function deleteFromQueuelist(string $usuaria): void
+    {
         $query = "DELETE FROM queuelist WHERE gestor = :usuaria";
         $stb = $this->pdo->prepare($query);
         $stb->bindParam(':usuaria', $usuaria);
@@ -93,7 +97,8 @@ class GestorAdminClass {
      * 
      * @param string $usuaria
      */
-    public function deleteFromResumen(string $usuaria) {
+    public function deleteFromResumen(string $usuaria): void
+    {
         $query = "UPDATE resumen SET ejecutivo_asignado_call_center='sinasig'
             WHERE ejecutivo_asignado_call_center = :usuaria";
         $stb = $this->pdo->prepare($query);
@@ -109,7 +114,8 @@ class GestorAdminClass {
      * @param string $iniciales
      * @param string $passw
      */
-    public function addToNombres(string $completo, string $tipo, string $usuaria, string $iniciales, string $passw) {
+    public function addToNombres(string $completo, string $tipo, string $usuaria, string $iniciales, string $passw): void
+    {
         $bpw = password_hash($passw, PASSWORD_DEFAULT);
         $query = "INSERT INTO nombres (USUARIA, INICIALES, COMPLETO, PASSW,
             TIPO, CAMP) 
@@ -127,7 +133,8 @@ class GestorAdminClass {
      * 
      * @param string $iniciales
      */
-    public function addToQueuelists(string $iniciales) {
+    public function addToQueuelists(string $iniciales): void
+    {
         $queryListIn = "insert ignore into queuelist
 		SELECT distinct null, :iniciales, cliente, status_aarsa, 999999,
 		orden1, updown1, orden2, updown2, orden3, updown3,

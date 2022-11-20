@@ -36,7 +36,8 @@ class NotaClass {
      * @param string $capt
      * @param int $C_CONT
      */
-    public function softDeleteNotas(string $capt, int $C_CONT) {
+    public function softDeleteNotas(string $capt, int $C_CONT): void
+    {
         $query = "UPDATE notas SET borrado=1
 WHERE c_cvge=:capt and c_cont=:C_CONT";
         $stb = $this->pdo->prepare($query);
@@ -50,7 +51,8 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      * @param string $capt
      * @param int $AUTO
      */
-    public function softDeleteOneNota(string $capt, int $AUTO) {
+    public function softDeleteOneNota(string $capt, int $AUTO): void
+    {
         $query = "UPDATE notas set borrado=1 
         where AUTO=:AUTO and C_CVGE=:capt";
         $stb = $this->pdo->prepare($query);
@@ -63,7 +65,8 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      * 
      * @param int $AUTO
      */
-    public function softDeleteOneNotaAdmin(int $AUTO) {
+    public function softDeleteOneNotaAdmin(int $AUTO): void
+    {
         $query = "UPDATE notas set borrado=1 
         where AUTO=:AUTO";
         $stb = $this->pdo->prepare($query);
@@ -82,7 +85,8 @@ WHERE c_cvge=:capt and c_cont=:C_CONT";
      * @param string $CUENTA
      * @param int $C_CONT
      */
-    public function insertNota(string $capt, string $D_FECH, string $C_HORA, string $FECHA, string $HORA, string $NOTA, string $CUENTA, int $C_CONT) {
+    public function insertNota(string $capt, string $D_FECH, string $C_HORA, string $FECHA, string $HORA, string $NOTA, string $CUENTA, int $C_CONT): void
+    {
         $query = "INSERT INTO notas
         (C_CVGE,fuente,D_FECH,C_HORA,FECHA,HORA,NOTA,CUENTA,C_CONT)
 VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
@@ -138,7 +142,8 @@ VALUES (:capt, :capt, date(:D_FECH), :C_HORA, :FECHA, :HORA, :NOTA,
      * @param string $HORA
      * @param string $NOTA
      */
-    public function insertNotaAdmin(string $target, string $capt, string $FECHA, string $HORA, string $NOTA) {
+    public function insertNotaAdmin(string $target, string $capt, string $FECHA, string $HORA, string $NOTA): void
+    {
         $query = "INSERT INTO notas
             (C_CVGE, fuente, D_FECH, C_HORA, FECHA, HORA, NOTA, c_cont)
             VALUES

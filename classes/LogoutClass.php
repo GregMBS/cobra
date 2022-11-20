@@ -54,7 +54,7 @@ class LogoutClass
      *
      * @param string $capt
      */
-    public function unlockCuentas(string $capt)
+    public function unlockCuentas(string $capt): void
     {
         $query = "UPDATE resumen 
         SET timelock = NULL, locker = NULL 
@@ -69,7 +69,7 @@ class LogoutClass
      * @param string $capt
      * @param string $go
      */
-    private function getLogoutDatetime(string $capt, string $go)
+    private function getLogoutDatetime(string $capt, string $go): void
     {
         $this->date = date('Y-m-d');
         $this->time = date('H:i:s');
@@ -90,7 +90,7 @@ class LogoutClass
      * @param string $capt
      * @param string $go
      */
-    private function insertHistoria(string $capt, string $go)
+    private function insertHistoria(string $capt, string $go): void
     {
         $query = "INSERT INTO historia
 		(C_CVGE, C_CVBA, C_CONT, CUENTA, C_CVST, D_FECH, C_HRIN, C_HRFI)
@@ -109,7 +109,7 @@ class LogoutClass
      *
      * @param string $capt
      */
-    private function clearResumenLocks(string $capt)
+    private function clearResumenLocks(string $capt): void
     {
         $query = "UPDATE resumen SET locker=NULL, timelock=NULL 
         WHERE locker = :capt";
@@ -122,7 +122,7 @@ class LogoutClass
      *
      * @param string $capt
      */
-    private function expireTicket(string $capt)
+    private function expireTicket(string $capt): void
     {
         $query = "update nombres set ticket = NULL 
         where iniciales = :capt";
@@ -135,7 +135,7 @@ class LogoutClass
      * @param string $capt
      * @param string $go
      */
-    public function runLogout(string $capt, string $go)
+    public function runLogout(string $capt, string $go): void
     {
         $this->getLogoutDatetime($capt, $go);
         $this->insertHistoria($capt, $go);

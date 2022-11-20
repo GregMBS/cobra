@@ -79,7 +79,8 @@ class LoginClass {
      * @param string $capt
      * @param string $tipo
      */
-    private function setTicket(string $cpw, string $capt, string $tipo) {
+    private function setTicket(string $cpw, string $capt, string $tipo): void
+    {
         $query = "update nombres 
         set ticket = :cpw 
         where iniciales = :capt
@@ -95,7 +96,8 @@ class LoginClass {
      * 
      * @param string $capt
      */
-    private function setInitialQueue(string $capt) {
+    private function setInitialQueue(string $capt): void
+    {
         $query = "update nombres n, queuelist qu
 			set n.camp = qu.camp
 			where iniciales = gestor
@@ -112,7 +114,8 @@ class LoginClass {
      * @param string $capt
      * @param string $local
      */
-    private function setUserlog(string $capt, string $local) {
+    private function setUserlog(string $capt, string $local): void
+    {
         $query1 = "delete from userlog where gestor = :capt ";
         $std = $this->pdo->prepare($query1);
         $std->bindParam(':capt', $capt);
@@ -130,7 +133,8 @@ class LoginClass {
      * @param string $capt
      * @param string $local
      */
-    private function insertPermalog(string $capt, string $local) {
+    private function insertPermalog(string $capt, string $local): void
+    {
         $query = "insert into permalog 
         (usuario,tipo,fechahora,gestor) 
         values (:local, 'login', now(), :capt)";
@@ -144,7 +148,8 @@ class LoginClass {
      * 
      * @param string $capt
      */
-    private function insertHistoria(string $capt) {
+    private function insertHistoria(string $capt): void
+    {
         $query = "INSERT INTO historia
 			(C_CVGE,C_CVBA,C_CONT,CUENTA,C_CVST,D_FECH,C_HRIN,C_HRFI)
 			VALUES (:capt, '', 0, 0, 'login', curdate(), curtime(), curtime())";

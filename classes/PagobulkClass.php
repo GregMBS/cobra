@@ -12,7 +12,8 @@ use PDOStatement;
  */
 class PagobulkClass extends BaseClass {
     
-    private function buildTemp() {
+    private function buildTemp(): void
+    {
         $select = "SELECT null AS 'auto',
                 numero_de_cuenta AS 'cuenta', 
                 fecha_de_ultimo_pago AS 'fecha', 
@@ -29,7 +30,8 @@ class PagobulkClass extends BaseClass {
         $this->pdo->query($queryBuildTemp);        
     }
     
-    private function insertPagos() {
+    private function insertPagos(): void
+    {
         $query = "INSERT IGNORE INTO pagos SELECT * FROM pagotemp";
         $this->pdo->query($query);
     }
@@ -82,7 +84,8 @@ LIMIT 1";
      * @param string $cuenta
      * @param string $fecha
      */
-    private function runCleanOld(PDOStatement $stp, string $cuenta, string $fecha) {
+    private function runCleanOld(PDOStatement $stp, string $cuenta, string $fecha): void
+    {
             $stp->bindValue(':cuenta', $cuenta);
             $stp->bindValue(':fecha', $fecha);
             $stp->execute();
@@ -96,7 +99,8 @@ LIMIT 1";
      * @param float $monto
      * @param string $c_cvge
      */
-    private function runAddTemp(PDOStatement $stp, string $cuenta, string $fecha, float $monto, string $c_cvge) {
+    private function runAddTemp(PDOStatement $stp, string $cuenta, string $fecha, float $monto, string $c_cvge): void
+    {
             $stp->bindValue(':cuenta', $cuenta);
             $stp->bindValue(':fecha', $fecha);
             $stp->bindValue(':monto', $monto);
@@ -124,7 +128,8 @@ LIMIT 1";
      * @param string $input
      * @return void
      */
-    public function cargar(string $input) {
+    public function cargar(string $input): void
+    {
 
         $data = preg_split("/[\s,]+/", $input, 0, PREG_SPLIT_NO_EMPTY);
         $max = ceil(count($data) / 3);

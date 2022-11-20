@@ -21,7 +21,7 @@ class QueuesClass extends BaseClass
      * @param int $CAMP
      * @param string $GESTOR
      */
-    public function updateQueue(int $CAMP, string $GESTOR)
+    public function updateQueue(int $CAMP, string $GESTOR): void
     {
         $query = "UPDATE nombres SET camp=:camp 
         where iniciales=:gestor";
@@ -36,7 +36,7 @@ class QueuesClass extends BaseClass
      * @param int $CAMP
      * @param string $GESTOR
      */
-    public function blockQueue(int $CAMP, string $GESTOR)
+    public function blockQueue(int $CAMP, string $GESTOR): void
     {
         $query = "UPDATE queuelist SET bloqueado = 1 
         WHERE gestor = :gestor 
@@ -52,7 +52,7 @@ class QueuesClass extends BaseClass
      * @param int $CAMP
      * @param string $GESTOR
      */
-    public function unblockQueue(int $CAMP, string $GESTOR)
+    public function unblockQueue(int $CAMP, string $GESTOR): void
     {
         $query = "UPDATE queuelist SET bloqueado = 0 
         WHERE gestor = :gestor 
@@ -69,7 +69,7 @@ class QueuesClass extends BaseClass
      * @param string $sdc
      * @param string $status
      */
-    public function updateQueueAll(string $cliente, string $sdc, string $status)
+    public function updateQueueAll(string $cliente, string $sdc, string $status): void
     {
         $query = "UPDATE nombres,queuelist SET nombres.camp=queuelist.camp
 where iniciales=gestor and cliente=:cliente
@@ -93,7 +93,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $sdc
      * @param string $status
      */
-    public function blockQueueAll(string $cliente, string $sdc, string $status)
+    public function blockQueueAll(string $cliente, string $sdc, string $status): void
     {
         $query = "UPDATE queuelist SET bloqueado = 1 
         where cliente=:cliente 
@@ -112,7 +112,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $sdc
      * @param string $status
      */
-    public function unblockQueueAll(string $cliente, string $sdc, string $status)
+    public function unblockQueueAll(string $cliente, string $sdc, string $status): void
     {
         $query = "UPDATE queuelist SET bloqueado = 0 
         where cliente=:cliente 
