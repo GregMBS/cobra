@@ -22,3 +22,4 @@
 .phpunit.result.cache
 composer.lock
 /vendor/bin/
+/psalm.xml
