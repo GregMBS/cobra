@@ -33,7 +33,7 @@
                 <?php
 $j = 0;
 foreach ($main as $row) {
-    $j = $j + 1;
+    $j++;
     $CUENTA = $row->numero_de_cuenta;
     $CLIENTE = $row->cliente;
     $ID_CUENTA = $row->id_cuenta;

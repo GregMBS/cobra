@@ -108,7 +108,7 @@ if (!empty($mytipo)) {
     }
 } else {
     $flagMsg = "Acceso sin autorización";
-    include 'resumenErrorView.php';
+    include 'views/resumenErrorView.php';
     exit();
 }
 if ($go === 'NUEVOS') {
@@ -122,7 +122,7 @@ if ($go === 'NUEVOS') {
     if (!empty($C_NDIR)) {
         $gc->updateAddress($C_CONT, $C_NDIR);
     }
-    if (!empty($C_OBSE2) && $C_OBSE2 == filter_var($C_OBSE2, FILTER_SANITIZE_NUMBER_FLOAT)) {
+    if (!empty($C_OBSE2) && $C_OBSE2 === filter_var($C_OBSE2, FILTER_SANITIZE_NUMBER_FLOAT)) {
         $gc->addNewTel($C_CONT, $C_OBSE2);
     }
 //$redirector = "Location: resumen.php?&capt=".$capt."&go=ULTIMA";
@@ -197,11 +197,11 @@ if ($go === 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !em
         $error++;
         $flagMsg .=  '<br>' . $C_CVST . ' necesita monto';
     }
-    if ((strpos($C_CVST, 'MENSAJE CON') === 0) && ($C_CARG === '')) {
+    if (($C_CARG === '') && (strpos($C_CVST, 'MENSAJE CON') === 0)) {
         $error++;
         $flagMsg .=  '<BR>' . $C_CVST . " NECESITA PARENTESCO/CARGO";
     }
-    if (($N_PROM === 0) && (in_array($C_CVST, $promsArray))) {
+    if (($N_PROM === 0) && (in_array($C_CVST, $promsArray, true))) {
         $error++;
         $flagMsg .=  '<BR>' . $C_CVST . "PROMESA NECESITA MONTO";
     }
@@ -217,19 +217,19 @@ if ($go === 'GUARDAR' && !empty($get['C_CVGE']) && !empty($get['C_CVST']) && !em
         $error++;
         $flagMsg .=  '<BR>' . "PROMESA NECESITA FECHA";
     }
-    if (($N_PROM == 0) && ($D_PROM >= $D_FECH)) {
+    if (($N_PROM === 0) && ($D_PROM >= $D_FECH)) {
         $error++;
         $flagMsg .=  '<BR>' . "PROMESA NECESITA MONTO";
     }
-    if (($N_PAGO == 0) && ($D_PAGO > '0000-00-00')) {
+    if (($N_PAGO === 0) && ($D_PAGO > '0000-00-00')) {
         $error++;
         $flagMsg .=  '<BR>' . "PAGO NECESITA MONTO";
     }
-    if (($N_PROM1 == 0) && ($N_PROM2 > 0)) {
+    if (($N_PROM1 === 0) && ($N_PROM2 > 0)) {
         $error++;
         $flagMsg .=  '<BR>' . "USA PROMESA INICIAL ANTES PROMESA TERMINAL";
     }
-    if ($C_TELE == '') {
+    if ($C_TELE === '') {
         $error++;
         $flagMsg .=  '<BR>' . "GESTION NECESITA TELEFONO";
     }
@@ -397,7 +397,7 @@ $C_OBSE2 = $latest->C_OBSE2;
 $ultimo_status_de_la_gestion = $latest->C_CVST;
 $CUANDO = $latest->CUANDO;
 
-if ($id_cuenta == 0) {
+if ($id_cuenta === 0) {
     $newCamp = $rc->leaveEmptyQueue($capt);
 }
 $currentQueue = $qc->getStatusQueue($row->status_aarsa);

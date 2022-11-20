@@ -65,7 +65,7 @@
                                     }
                                     ?>
                                     <td<?php
-                                    if ($c == 1) {
+                                    if ($c === 1) {
                                         echo " style='background-color:#dddddd'";
                                     }
                                     echo ' class="' . $fieldsize[$k] . '"' . $jsCode;

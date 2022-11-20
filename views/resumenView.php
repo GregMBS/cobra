@@ -10,16 +10,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="/css/resumen.css">
     <style>
-        <?php if(isset($notalert)){
-if ($notalert > 0) { ?>
-        #notas input {
-            background-color: #ff0000;
-        }
+        <?php if(isset($notalert) && $notalert > 0){ ?>
+                #notas input {
+                    background-color: #ff0000;
+                }
 
-        <?php
-        }
-        }
-        if ((false !== strpos($row->status_de_credito, "-")) && ($capt !== 'gmbs')) {
+                <?php
+                }
+        if (($capt !== 'gmbs') && (false !== strpos($row->status_de_credito, "-"))) {
             ?>
         .GuardButt {
             display: none;
@@ -133,7 +131,7 @@ if ($notalert > 0) { ?>
         <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
         <input type="submit" name="go" value="LOGOUT"></form>
     <?php if (!empty($camp)) {
-        if ($camp == 0) { ?>
+        if ($camp === 0) { ?>
             <form action="../resumen.php" method="get">
                 <input type="hidden" name="capt" value="<?php echo $capt ?>">
                 <input type="hidden" name="id_cuenta" value="<?php echo $id_cuenta ?>">
@@ -148,7 +146,7 @@ if ($notalert > 0) { ?>
                         foreach ($resultFilter as $filter) {
                             ?>
                             <option value="<?php echo $filter['cliente']; ?>" <?php
-                            if (($cliente == $filter['cliente']) && ($sdc == $filter['sdc']) && ($currentQueue == $filter['queue'])) {
+                            if (($cliente === $filter['cliente']) && ($sdc === $filter['sdc']) && ($currentQueue === $filter['queue'])) {
                                 ?>
                                 selected='selected'
                                 <?php

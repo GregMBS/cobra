@@ -33,12 +33,9 @@ if ($go === 'cargar') {
         $fixTels = $cc->fix_tels;
         $fixProms = $cc->fix_proms;
         try {
-            $sqv = $pdo->prepare($fixVisitas);
-            $sqv->execute();
-            $sqt = $pdo->prepare($fixTels);
-            $sqt->execute();
-            $sqp = $pdo->prepare($fixProms);
-            $sqp->execute();
+            $sqv = $pdo->query($fixVisitas);
+            $sqt = $pdo->query($fixTels);
+            $sqp = $pdo->query($fixProms);
         } catch (Exception $e) {
             $error = $e->getMessage();
         }

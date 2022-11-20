@@ -30,16 +30,16 @@
     $j = 0;
 
     foreach ($queued as $row) {
-        $j = $j + 1;
+        $j++;
         $cliente = $row['cliente'];
         $segmento = $row['sdc'];
-        $count = $row['cnt'];
+        $count = (int)$row['cnt'];
         ?>
         <tr>
             <td><?php echo $cliente; ?></td>
             <td><?php echo $segmento; ?></td>
             <td><?php echo $count; ?></td>
-            <?php if ($count == 0) { ?>
+            <?php if ($count === 0) { ?>
                 <td>
                     <form class="gestorChange" name="gestorChange<?php echo $j ?>" method="get"
                           action="/segmentAdmin.php" id="gestorChange<?php echo $j ?>">

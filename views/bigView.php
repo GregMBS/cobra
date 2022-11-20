@@ -69,16 +69,14 @@ if (isset($capt)) {
     </p>
     <p>
         <?php
-        if (!empty($flag)) {
-            if ($flag === 'prom') {
-                ?>
-                <label>VENCIDO de:
-                    <input name="fecha3" id="fecha3" readonly="readonly"/>
-                    a:
-                    <input name="fecha4" id="fecha4" readonly="readonly"/>
-                </label>
-                <?php
-            }
+        if (!empty($flag) && $flag === 'prom') {
+            ?>
+            <label>VENCIDO de:
+                <input name="fecha3" id="fecha3" readonly="readonly"/>
+                a:
+                <input name="fecha4" id="fecha4" readonly="readonly"/>
+            </label>
+            <?php
         }
         ?>
     </p>

@@ -29,15 +29,8 @@
                 $j = 0;
 
                 foreach ($main as $row) {
-                    $j = $j + 1;
-                    $ID = $row[0];
-                    $User = $row[1];
-                    $Host = $row[2];
-                    $db = $row[3];
-                    $Command = $row[4];
-                    $Time = $row[5];
-                    $State = $row[6];
-                    $Info = $row[7];
+                    $j++;
+                    [$ID, $User, $Host, $db, $Command, $Time, $State, $Info] = $row;
                     ?>
                     <tr>
                         <td><label><input type="text" readonly="readonly" name="ID" value="<?php echo $ID; ?>" /></label></td>

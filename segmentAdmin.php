@@ -19,9 +19,8 @@ if (!empty($go)) {
 
     if ($go === "AGREGAR") {
         $cliseg          = filter_input(INPUT_GET, 'cliseg');
-        $clientesegmento = explode(';', $cliseg);
-        $cliente         = $clientesegmento[0];
-        $segmento        = $clientesegmento[1];
+        $clienteSegmento = explode(';', $cliseg);
+        [$cliente, $segmento] = $clienteSegmento;
         $sc->agregarSegmento($cliente, $segmento);
         header("Location: segmentAdmin.php?capt=".$capt);
     }
