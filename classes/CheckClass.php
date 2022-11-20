@@ -7,8 +7,8 @@ use DateInterval;
 use DatePeriod;
 use PDO;
 
-require_once 'classes/VisitSheetObject.php';
-require_once 'classes/UserDataObject.php';
+require_once 'VisitSheetObject.php';
+require_once 'UserDataObject.php';
 
 /**
  * Description of CheckClass
@@ -130,19 +130,22 @@ and tipo IN ('visitador','admin')";
 
     /**
      *
-     * @param string $gestor
+     * @param string|null $gestor
      * @return array
      */
-    public function countInOut(string $gestor): array
+    public function countInOut(?string $gestor): array
     {
-        $query = "select sum(fechaout>curdate()) as countOut,
+        if ($gestor) {
+            $query = "select sum(fechaout>curdate()) as countOut,
     sum(fechain>curdate()) as countIn
     from vasign
 where gestor=:gestor";
-        $stc = $this->pdo->prepare($query);
-        $stc->bindParam(':gestor', $gestor);
-        $stc->execute();
-        return $stc->fetch(PDO::FETCH_ASSOC);
+            $stc = $this->pdo->prepare($query);
+            $stc->bindParam(':gestor', $gestor);
+            $stc->execute();
+            return $stc->fetch(PDO::FETCH_ASSOC);
+        }
+        return [];
     }
 
     /**

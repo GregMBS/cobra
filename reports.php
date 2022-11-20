@@ -19,7 +19,7 @@ $visitas = [
         'label' => 'Asignar Visitas'],
     ['page' => 'checkin',
         'label' => 'Recibir Visitas'],
-    ['page' => 'checkoutlist',
+    ['page' => 'checkoutList',
         'label' => 'Check List']
 ];
 $admin = [
