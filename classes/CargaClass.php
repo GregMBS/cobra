@@ -5,6 +5,7 @@ namespace cobra_salsa;
 use Exception;
 use PDO;
 use PDOException;
+use RuntimeException;
 
 require_once __DIR__ . '/CargadexObject.php';
 require_once __DIR__ . '/ColumnObject.php';
@@ -27,7 +28,7 @@ class CargaClass
 
     /**
      *
-     * @var array
+     * @var string[]
      */
     private array $internal = array(
         'id_cuenta',
@@ -115,12 +116,11 @@ class CargaClass
 set fecha_de_asignacion=fecha_de_actualizacion
 where fecha_de_asignacion is null";
         try {
-            $sti = $this->pdo->prepare($query);
-            $sti->execute();
+            $sti = $this->pdo->query($query);
             return $sti->rowCount();
 
         } catch (PDOException $Exception) {
-            throw new Exception($Exception->getMessage(), $Exception->getCode());
+            throw new PDOException($Exception->getMessage(), $Exception->getCode());
         }
     }
 
@@ -176,12 +176,13 @@ where fecha_de_asignacion is null";
     public function getDataColumnNames(array $row): array
     {
         $columnArray = array();
+        /** @var string $columnName */
         foreach ($row as $columnName) {
             $cn = $columnName;
-            if ($columnName == '') {
+            if ($columnName === '') {
                 $cn = 'empty';
             }
-            if (in_array($cn, $this->internal)) {
+            if (in_array($cn, $this->internal, true)) {
                 $cn = $columnName . '_solo_internal';
             }
             $columnArray[] = $cn;
@@ -194,14 +195,13 @@ where fecha_de_asignacion is null";
      * @param array $columnNames
      * @throws Exception
      */
-    public function prepareTemp(array $columnNames)
+    public function prepareTemp(array $columnNames): void
     {
         $queryDrop = "DROP TABLE IF EXISTS temp;";
         try {
-            $std = $this->pdo->prepare($queryDrop);
-            $std->execute();
+            $this->pdo->query($queryDrop);
         } catch (PDOException $Exception) {
-            throw new Exception($Exception);
+            throw new PDOException($Exception);
         }
         $queryStart = "CREATE TABLE temp 
         ENGINE=INNODB AUTO_INCREMENT=10 
@@ -212,17 +212,15 @@ where fecha_de_asignacion is null";
             ", CURDATE() as fecha_de_actualizacion 
             FROM resumen LIMIT 0";
         try {
-            $stc = $this->pdo->prepare($queryStart);
-            $stc->execute();
+            $this->pdo->query($queryStart);
         } catch (PDOException $Exception) {
-            throw new Exception($Exception);
+            throw new PDOException($Exception);
         }
         $queryIndex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50))";
         try {
-            $sta = $this->pdo->prepare($queryIndex);
-            $sta->execute();
+            $this->pdo->query($queryIndex);
         } catch (PDOException $Exception) {
-            throw new Exception($Exception);
+            throw new PDOException($Exception);
         }
     }
 
@@ -243,18 +241,15 @@ where fecha_de_asignacion is null";
             $limpio = str_replace("'", "", $row);
             $queryLoadTrim = $queryLoad . "('" . implode("','", $limpio) . "', CURDATE());";
             try {
-                $stl = $this->pdo->prepare($queryLoadTrim);
-                $stl->execute();
+                $this->pdo->query($queryLoadTrim);
                 $queryCleanBlank = "DELETE FROM temp WHERE numero_de_cuenta = ''";
-                $stb = $this->pdo->prepare($queryCleanBlank);
-                $stb->execute();
+                $this->pdo->query($queryCleanBlank);
                 $queryCountTemp = "SELECT COUNT(1) AS 'ct' FROM temp";
-                $stc = $this->pdo->prepare($queryCountTemp);
-                $stc->execute();
+                $stc = $this->pdo->query($queryCountTemp);
                 $result = $stc->fetch(PDO::FETCH_ASSOC);
                 $count = $result['ct'];
             } catch (PDOException $Exception) {
-                throw new Exception($Exception);
+                throw new PDOException($Exception);
             }
         }
         return $count;
@@ -298,11 +293,10 @@ where fecha_de_asignacion is null";
             where temp.numero_de_cuenta=resumen.numero_de_cuenta
             and temp.cliente=resumen.cliente";
         try {
-            $stu = $this->pdo->prepare($query);
-            $stu->execute();
+            $stu = $this->pdo->query($query);
             return $stu->rowCount();
         } catch (PDOException $Exception) {
-            throw new Exception($Exception->getMessage(), $Exception->getCode());
+            throw new PDOException($Exception->getMessage(), $Exception->getCode());
         }
     }
 
@@ -317,19 +311,18 @@ where fecha_de_asignacion is null";
         $fields = implode(',', $fieldList);
         $query = /** @lang Text */ "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
         try {
-            $sti = $this->pdo->prepare($query);
-            $sti->execute();
+            $sti = $this->pdo->query($query);
             return $sti->rowCount();
 
         } catch (PDOException $Exception) {
-            throw new Exception($Exception->getMessage(), $Exception->getCode());
+            throw new PDOException($Exception->getMessage(), $Exception->getCode());
         }
     }
 
     /**
      *
      */
-    public function updateClientes()
+    public function updateClientes(): void
     {
 
         $query = "INSERT IGNORE INTO clientes 
@@ -340,7 +333,7 @@ where fecha_de_asignacion is null";
     /**
      *
      */
-    private function updatePagos()
+    private function updatePagos(): void
     {
         $query = "insert ignore into pagos (cuenta,fecha,monto,cliente,gestor,confirmado,id_cuenta)
 select numero_de_cuenta, fecha_de_ultimo_pago, 
@@ -360,7 +353,7 @@ group by id_cuenta,c_cvge,fecha_de_ultimo_pago having fecha_de_ultimo_pago>min(d
     /**
      *
      */
-    private function createLookupTable()
+    private function createLookupTable(): void
     {
         $queryTruncate = "truncate rlook";
         $this->pdo->query($queryTruncate);
@@ -447,10 +440,10 @@ from resumen;
             }
             fclose($handle);
         } catch (Exception $e) {
-            throw new Exception($e);
+            throw new PDOException($e);
         }
         $num = 0;
-        while ($num == 0) {
+        while ($num === 0) {
             $num = count($header);
         }
         $headerData = new HeaderObject();
@@ -476,7 +469,7 @@ from resumen;
             }
             fclose($handle);
         } catch (Exception $e) {
-            throw new Exception($e);
+            throw new RuntimeException($e);
         }
         return $data;
     }
@@ -492,9 +485,9 @@ from resumen;
         $fields = [];
 
         if (!empty($post['pos'])) {
+            /** @var int $posit */
             foreach ($post['pos'] as $posit) {
-                $posInteger = intval($posit);
-                $fields[] = $this->insertIntoCargadex($posInteger, $columns, $cliente);
+                $fields[] = $this->insertIntoCargadex($posit, $columns, $cliente);
             }
         }
         return $fields;

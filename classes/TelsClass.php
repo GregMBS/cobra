@@ -173,7 +173,7 @@ order by c_tele";
     /**
      * @return DatePeriod
      */
-    function getDates(): DatePeriod
+    public function getDates(): DatePeriod
     {
         $begin = new DateTime('first day of last month');
         $endDay = new DateTime('now');

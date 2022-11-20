@@ -37,7 +37,7 @@ class GestorClass {
      * @param string $CLIENTE
      * @return array
      */
-    function getPagos(string $CUENTA, string $CLIENTE): array
+    public function getPagos(string $CUENTA, string $CLIENTE): array
     {
         $query = "select sum(monto) as sm, max(fecha) as mf 
         from pagos 
@@ -54,7 +54,7 @@ class GestorClass {
      * @param string $gestor
      * @return array
      */
-    function getPromsReport(string $gestor): array
+    public function getPromsReport(string $gestor): array
     {
         $query = "SELECT d_prom, cuenta, n_prom, c_cvge, 
         ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, 
@@ -74,7 +74,7 @@ class GestorClass {
      * @param string $gestor
      * @return array
      */
-    function getOldPromsReport(string $gestor): array
+    public function getOldPromsReport(string $gestor): array
     {
         $query = "SELECT d_prom, cuenta, n_prom, c_cvge, 
         ejecutivo_asignado_call_center, status_aarsa, saldo_vencido, 

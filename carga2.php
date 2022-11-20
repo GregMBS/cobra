@@ -1,5 +1,6 @@
 <?php
 set_time_limit(300);
+
 use cobra_salsa\CargaClass;
 use cobra_salsa\PdoClass;
 
@@ -37,12 +38,7 @@ $cc = new CargaClass($pdo);
     </p>
 </form>
 <?php
-$go = '';
-if (!empty($post)) {
-    if (array_key_exists('go', $post)) {
-        $go = $post['go'];
-    }
-}
+$go = $post['go'] ?? '';
 switch ($go) {
 
     case 'cargar':
@@ -125,11 +121,11 @@ switch ($go) {
 
                     if (!empty($header[$c])) {
                         ?>
-                            <dt>
-                                <label for="pos<?php echo $c; ?>"><?php
-                                    echo trim($header[$c])
-                                    ?></label>
-                            </dt>
+                        <dt>
+                            <label for="pos<?php echo $c; ?>"><?php
+                                echo trim($header[$c])
+                                ?></label>
+                        </dt>
                         <dd>
                             <select name="pos[]" id="pos<?php echo $c; ?>">
                                 <option value='nousar<?php echo $c ?>' class="nousar">NO USAR</option>

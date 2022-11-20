@@ -553,7 +553,7 @@ ORDER BY historia.D_FECH DESC, historia.C_HRIN DESC";
      * @param string $capt
      * @return int
      */
-    function leaveEmptyQueue(string $capt): int
+    public function leaveEmptyQueue(string $capt): int
     {
         $newCamp = 3;
         $query = "SELECT queuelist.camp as cp 

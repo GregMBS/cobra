@@ -160,7 +160,7 @@ class LoginClass {
      * @param string $local
      * @return string
      */
-    function runLogin(string $cpw, string $capt, UserDataObject $userData, string $local): string
+    public function runLogin(string $cpw, string $capt, UserDataObject $userData, string $local): string
     {
         $this->setTicket($cpw, $capt, $userData->TIPO);
         $this->setInitialQueue($capt);

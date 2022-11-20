@@ -73,7 +73,7 @@ order by v_cc, d_fech desc limit 1";
             return 'X';
         }
         */
-        if ($c_cont == 0) {
+        if ($c_cont === 0) {
             return 'XX';
         }
         $result = $this->getArray($query, $c_cont);

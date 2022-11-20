@@ -12,15 +12,11 @@ $capt = $pc->capt;
 $post = filter_input_array(INPUT_POST);
 $get = filter_input_array(INPUT_GET);
 $cc = new CarteritasClass($pdo);
-$go = '';
 $count = 0;
 $dataCount = 0;
 $error = '';
-if (!empty($post)) {
-    if (array_key_exists('go', $post)) {
-        $go = $post['go'];
-    }
-}
+$go = $post['go'] ?? '';
+
 if ($go === 'cargar') {
     if ($_FILES["file"]["error"] > 0) {
         $error = "<p>Error: " . $_FILES["file"]["error"] . "</p>";
