@@ -9,6 +9,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 /**
  * Description of GestorAdminClass
@@ -170,7 +171,11 @@ class GestorAdminClass {
     public function getGroups(): array
     {
         $query = "SELECT grupo FROM grupos";
-        $result = $this->pdo->query($query);
+        try {
+            $result = $this->pdo->query($query);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 

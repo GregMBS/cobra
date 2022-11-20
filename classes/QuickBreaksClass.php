@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 /**
  * Description of BigClass
@@ -51,13 +52,17 @@ group by gestor";
      */
     public function getBreaks()
     {
-        $this->pdo->query($this->createBreakTab);
-        $this->pdo->query($this->insertBreakTab);
-        $this->pdo->query($this->createNtpDiff);
-        $this->pdo->query($this->updateBreakTabDiff);
-        $this->pdo->query($this->dropBreakTemp);
-        $this->pdo->query($this->createBreakTemp);
-        $sta    = $this->pdo->query($this->queryBreakTab);
+        try {
+            $this->pdo->query($this->createBreakTab);
+            $this->pdo->query($this->insertBreakTab);
+            $this->pdo->query($this->createNtpDiff);
+            $this->pdo->query($this->updateBreakTabDiff);
+            $this->pdo->query($this->dropBreakTemp);
+            $this->pdo->query($this->createBreakTemp);
+            $sta = $this->pdo->query($this->queryBreakTab);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
 }

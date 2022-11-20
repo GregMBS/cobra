@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 /**
  * Description of BigClass
@@ -35,7 +36,11 @@ group by C_CVGE";
      */
     public function getPorHora()
     {
-        $sta    = $this->pdo->query($this->queryPorHora);
+        try {
+            $sta = $this->pdo->query($this->queryPorHora);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $sta->fetchAll(PDO::FETCH_ASSOC);
     }
 }

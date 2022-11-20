@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 require_once __DIR__ . '/ConfigObject.php';
 
@@ -54,7 +55,11 @@ class StatusClass extends ConfigObject
         $query = "SELECT * FROM information_schema.`TABLES` T 
 where table_schema = '$this->dbName'
 order by data_length desc";
-        $stm = $this->pdo->query($query);
+        try {
+            $stm = $this->pdo->query($query);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 }

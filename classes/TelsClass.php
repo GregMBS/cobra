@@ -7,6 +7,7 @@ use DatePeriod;
 use DateTime;
 use Exception;
 use PDO;
+use PDOException;
 
 require_once __DIR__ . '/OutputClass.php';
 
@@ -154,7 +155,11 @@ order by c_tele";
     public function getMercadosReport(string $fecha1, string $fecha2): array
     {
         $this->createMarcados($fecha1, $fecha2);
-        $statement = $this->pdo->query($this->mercadosReportQuery);
+        try {
+            $statement = $this->pdo->query($this->mercadosReportQuery);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -167,7 +172,11 @@ order by c_tele";
     public function getContactosReport(string $fecha1, string $fecha2): array
     {
         $this->createContactos($fecha1, $fecha2);
-        $statement = $this->pdo->query($this->contactosReportQuery);
+        try {
+            $statement = $this->pdo->query($this->contactosReportQuery);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
