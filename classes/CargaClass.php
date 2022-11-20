@@ -80,7 +80,7 @@ class CargaClass
         $dupCheck = $this->array_dup($fields);
         if (!empty($dupCheck)) {
             echo "Duplicate fields: ";
-            die($dupCheck);
+            die(json_encode($dupCheck, JSON_THROW_ON_ERROR));
         }
 
         $columnNames = $this->getDataColumnNames($fields);
@@ -118,16 +118,16 @@ where fecha_de_asignacion is null";
         try {
             $sti = $this->pdo->query($query);
         } catch (PDOException $Exception) {
-            throw new PDOException($Exception->getMessage(), $Exception->getCode());
+            throw new PDOException($Exception->getMessage());
         }
         return $sti->rowCount();
     }
 
     /**
-     * @param $ar
+     * @param array $ar
      * @return array
      */
-    private function array_dup($ar): array
+    private function array_dup(array $ar): array
     {
         return array_unique(array_diff_assoc($ar,array_unique($ar)));
     }
@@ -160,13 +160,14 @@ where fecha_de_asignacion is null";
         $nType = $column->Type;
         $nNullOk = $column->Null;
         $nPosition = $pos;
-        if (stripos($pos, 'nousar') === 0) {
+        if (stripos($nField, 'nousar') === 0) {
             $nField = 'nousar';
             $nType = '';
             $nNullOk = '';
             $nPosition = '';
         }
-        $query = "insert into cargadex (field,type,nullOk,position,cliente) values ('$nField','$nType','$nNullOk','$nPosition','$cliente');";
+        $query = sprintf("insert into cargadex (field,type,nullOk,position,cliente) 
+values ('%s','%s','%s','%s','%s')", $nField, $nType, $nNullOk, $nPosition, $cliente);
         $this->pdo->query($query);
         return $nField;
     }
@@ -204,7 +205,7 @@ where fecha_de_asignacion is null";
         try {
             $this->pdo->query($queryDrop);
         } catch (PDOException $Exception) {
-            throw new PDOException($Exception);
+            throw new PDOException($Exception->getMessage());
         }
         $queryStart = "CREATE TABLE temp 
         ENGINE=INNODB AUTO_INCREMENT=10 
@@ -217,13 +218,13 @@ where fecha_de_asignacion is null";
         try {
             $this->pdo->query($queryStart);
         } catch (PDOException $Exception) {
-            throw new PDOException($Exception);
+            throw new PDOException($Exception->getMessage());
         }
         $queryIndex = "ALTER TABLE temp ADD INDEX nc(numero_de_cuenta(50), cliente(50))";
         try {
             $this->pdo->query($queryIndex);
         } catch (PDOException $Exception) {
-            throw new PDOException($Exception);
+            throw new PDOException($Exception->getMessage());
         }
     }
 
@@ -239,8 +240,10 @@ where fecha_de_asignacion is null";
         $glue = ',';
         $list = implode($glue, $columnNames);
         $count = 0;
+        /** @var array $row */
         foreach ($data as $row) {
             $queryLoad = "INSERT IGNORE INTO temp (" . $list . ", fecha_de_actualizacion) VALUES ";
+            /** @var array $limpio */
             $limpio = str_replace("'", "", $row);
             $queryLoadTrim = $queryLoad . "('" . implode("','", $limpio) . "', CURDATE());";
             try {
@@ -250,7 +253,7 @@ where fecha_de_asignacion is null";
                 $queryCountTemp = "SELECT COUNT(1) AS 'ct' FROM temp";
                 $stc = $this->pdo->query($queryCountTemp);
                 $result = $stc->fetch(PDO::FETCH_ASSOC);
-                $count = $result['ct'];
+                $count = (int)$result['ct'];
             } catch (PDOException $Exception) {
                 throw new PDOException($Exception);
             }

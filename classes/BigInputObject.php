@@ -102,7 +102,10 @@ class BigInputObject extends DateClass {
      */
     public function getFecha1(): string
     {
-        return $this->fecha1;
+        if ($this->fecha1) {
+            return $this->fecha1;
+        }
+        return date("Y-m-01");
     }
 
     /**
@@ -111,7 +114,10 @@ class BigInputObject extends DateClass {
      */
     public function getFecha2(): string
     {
-        return $this->fecha2;
+        if ($this->fecha2) {
+            return $this->fecha2;
+        }
+        return date("Y-m-t");
     }
 
     /**
@@ -120,7 +126,10 @@ class BigInputObject extends DateClass {
      */
     public function getFecha3(): string
     {
-        return $this->fecha3;
+        if ($this->fecha3) {
+            return $this->fecha3;
+        }
+        return date("Y-m-01");
     }
 
     /**
@@ -129,7 +138,10 @@ class BigInputObject extends DateClass {
      */
     public function getFecha4(): string
     {
-        return $this->fecha4;
+        if ($this->fecha4) {
+            return $this->fecha4;
+        }
+        return date("Y-m-t");
     }
 
     /**
@@ -138,7 +150,10 @@ class BigInputObject extends DateClass {
      */
     public function getGestor(): string
     {
-        return $this->gestor;
+        if ($this->gestor) {
+            return $this->gestor;
+        }
+        return '';
     }
 
     /**
@@ -147,7 +162,10 @@ class BigInputObject extends DateClass {
      */
     public function getCliente(): string
     {
-        return $this->cliente;
+        if ($this->cliente) {
+            return $this->cliente;
+        }
+        return '';
     }
 
     /**
