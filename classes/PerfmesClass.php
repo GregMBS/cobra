@@ -2,8 +2,6 @@
 
 namespace cobra_salsa;
 
-use PDO;
-
 require_once __DIR__ . '/TimesheetClass.php';
 require_once __DIR__ . '/TimesheetDayObject.php';
 
