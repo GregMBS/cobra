@@ -117,11 +117,10 @@ set fecha_de_asignacion=fecha_de_actualizacion
 where fecha_de_asignacion is null";
         try {
             $sti = $this->pdo->query($query);
-            return $sti->rowCount();
-
         } catch (PDOException $Exception) {
             throw new PDOException($Exception->getMessage(), $Exception->getCode());
         }
+        return $sti->rowCount();
     }
 
     /**
@@ -140,7 +139,11 @@ where fecha_de_asignacion is null";
     public function getDBColumns(): array
     {
         $query = "SHOW COLUMNS FROM resumen";
-        $stc = $this->pdo->query($query);
+        try {
+            $stc = $this->pdo->query($query);
+        } catch (Exception $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $stc->fetchAll(PDO::FETCH_CLASS, ColumnObject::class);
     }
 
@@ -261,7 +264,11 @@ where fecha_de_asignacion is null";
     private function getNewFields(): array
     {
         $query = "show fields from temp where field not regexp 'nousar'";
-        $result = $this->pdo->query($query);
+        try {
+            $result = $this->pdo->query($query);
+        } catch (Exception $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $result->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
@@ -294,10 +301,10 @@ where fecha_de_asignacion is null";
             and temp.cliente=resumen.cliente";
         try {
             $stu = $this->pdo->query($query);
-            return $stu->rowCount();
         } catch (PDOException $Exception) {
             throw new PDOException($Exception->getMessage(), $Exception->getCode());
         }
+        return $stu->rowCount();
     }
 
     /**
@@ -312,11 +319,10 @@ where fecha_de_asignacion is null";
         $query = /** @lang Text */ "insert ignore into resumen (" . $fields . ") select " . $fields . " from temp";
         try {
             $sti = $this->pdo->query($query);
-            return $sti->rowCount();
-
         } catch (PDOException $Exception) {
             throw new PDOException($Exception->getMessage(), $Exception->getCode());
         }
+        return $sti->rowCount();
     }
 
     /**

@@ -52,7 +52,7 @@ and queue = :queue ";
      * @param string $SDC
      * @return array
      */
-    function getSegmentoCount(string $CLIENTE, string $SDC): array
+    public function getSegmentoCount(string $CLIENTE, string $SDC): array
     {
         $query = "SELECT count(1) as ct, sum(saldo_total) as sst
                             FROM resumen
@@ -80,7 +80,7 @@ and queue = :queue ";
      * @param string $QUEUE
      * @return QueuesReportObject
      */
-    function getReportSub(string $CLIENTE, string $SDC, string $QUEUE): QueuesReportObject
+    public function getReportSub(string $CLIENTE, string $SDC, string $QUEUE): QueuesReportObject
     {
         $query = $this->reportSubHead . " and status_de_credito not regexp '-'";
         if ($SDC !== '') {
@@ -93,7 +93,7 @@ and queue = :queue ";
      * 
      * @return QueuelistObject[]
      */
-    function getQueues(): array
+    public function getQueues(): array
     {
         $query = "select distinct queuelist.*
 from queuelist
@@ -107,8 +107,7 @@ where status_aarsa = dictamen
 )
 order by cliente, sdc, status_aarsa limit 1000
 ";
-        $stq = $this->pdo->prepare($query);
-        $stq->execute();
+        $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(PDO::FETCH_CLASS, QueuelistObject::class);
         if ($result) {
             return $result;
@@ -122,7 +121,7 @@ order by cliente, sdc, status_aarsa limit 1000
      *
      * @return array
      */
-    function getMain(): array
+    public function getMain(): array
     {
         $query = "select cliente,
 status_de_credito,count(1) as cnt, sum(saldo_total) as mnt,
@@ -132,8 +131,7 @@ from resumen
 where status_de_credito not regexp '-'
 group by cliente,status_de_credito
 ";
-        $stq = $this->pdo->prepare($query);
-        $stq->execute();
+        $stq = $this->pdo->query($query);
         $result = $stq->fetchAll(PDO::FETCH_CLASS, EspecialObject::class);
         if ($result) {
             return $result;

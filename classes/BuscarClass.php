@@ -131,7 +131,7 @@ tel_4_verif = :find )";
     {
         $cliFlag = 0;
         if (strlen($CLIENTE) > 1) {
-            $queryMain = $queryMain . " and cliente = :cliente ";
+            $queryMain .= " and cliente = :cliente ";
             $cliFlag = 1;
         }
         $queryMain .= " LIMIT 1000 ";
@@ -239,7 +239,7 @@ tel_4_verif = :find )";
                 $queryMain = $this->queryHead . $this->searchExactField($field);
         }
         $result = $this->runSearch($CLIENTE, $queryMain, $find);
-        if ((count($result) === 0) && ($field !== 'ROBOT'))
+        if (($field !== 'ROBOT') && (count($result) === 0))
         {
             $queryMain = $this->queryHead . $this->searchField($field);
             $result = $this->runSearch($CLIENTE, $queryMain, $find);

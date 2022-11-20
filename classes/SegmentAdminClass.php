@@ -3,6 +3,8 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
+use PDOStatement;
 
 class SegmentAdminClass
 {
@@ -27,7 +29,7 @@ class SegmentAdminClass
      * @param string $cliente
      * @param string $segmento
      */
-    public function borrarSegmento(string $cliente, string $segmento)
+    public function borrarSegmento(string $cliente, string $segmento): void
     {
         $query = "DELETE FROM queuelist
             WHERE cliente=:cliente
@@ -43,7 +45,7 @@ class SegmentAdminClass
      * @param string $cliente
      * @param string $segmento
      */
-    public function agregarSegmento(string $cliente, string $segmento)
+    public function agregarSegmento(string $cliente, string $segmento): void
     {
         $queryListIn = "INSERT IGNORE INTO queuelist
             (gestor, cliente, status_aarsa, updown1, orden1, camp, sdc,
@@ -63,7 +65,7 @@ class SegmentAdminClass
     /**
      *
      */
-    public function addAllSegmentos()
+    public function addAllSegmentos(): void
     {
         $query = "SELECT DISTINCT cliente, status_de_credito 
         FROM resumen 
@@ -77,11 +79,16 @@ class SegmentAdminClass
             SELECT distinct gestor, :cliente, status_aarsa, updown1,
             orden1, 9999999, :segmento, 0
             FROM queuelist";
+        /** @var PDOStatement $stl */
         $stl = $this->pdo->prepare($queryListIn);
         foreach ($result as $row) {
             $stl->bindParam(':cliente', $row['cliente']);
             $stl->bindParam(':segmento', $row['status_de_credito']);
-            $stl->execute();
+            try {
+                $stl->execute();
+            } catch (PDOException $e) {
+                throw new PDOException($e->getMessage());
+            }
         }
         $queryListCamp = "update queuelist
             set camp=auto where camp=9999999;";
@@ -109,8 +116,11 @@ group by cliente, status_de_credito";
     and cnt is null
     group by q.cliente,sdc,cnt
     ";
-        $stm = $this->pdo->prepare($query);
-        $stm->execute();
+        try {
+            $stm = $this->pdo->query($query);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -135,8 +145,7 @@ select distinct cliente,sdc from queuelist";
     ";
         $this->pdo->query($queryDrop);
         $this->pdo->query($queryTemp);
-        $stm = $this->pdo->prepare($query);
-        $stm->execute();
+        $stm = $this->pdo->query($query);
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         if ($result) {
             return $result;

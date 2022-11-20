@@ -8,6 +8,7 @@ use OpenSpout\Reader\XLSX\Reader;
 use OpenSpout\Reader\XLSX\RowIterator;
 use OpenSpout\Reader\XLSX\Sheet;
 use OpenSpout\Common\Entity\Cell;
+use RuntimeException;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -53,7 +54,7 @@ class InputClass
             }
             return $output;
         } catch (Exception $e) {
-            throw new Exception($e);
+            throw new RuntimeException($e);
         }
     }
 }

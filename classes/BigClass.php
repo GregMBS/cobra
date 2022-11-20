@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 /**
  * Database queries for 'big' reports
@@ -54,7 +55,11 @@ WHERE n_prom>0
         where d_fech>last_day(curdate()-interval 2 month)
         limit 10
 	";
-        $result = $this->pdo->query($query);
+        try {
+            $result = $this->pdo->query($query);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $result->fetchAll();
     }
 
@@ -68,7 +73,11 @@ WHERE n_prom>0
         where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvge
         limit 1000";
-        $result = $this->pdo->query($query);
+        try {
+            $result = $this->pdo->query($query);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $result->fetchAll();
     }
 
