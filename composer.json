@@ -13,7 +13,8 @@
 	},
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",
-		"phpunit/phpunit": "*"
+		"phpunit/phpunit": "*",
+		"vimeo/psalm": "^4.30"
 	},
 	"config": {
 		"platform": {

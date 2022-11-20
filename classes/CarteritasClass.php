@@ -5,8 +5,8 @@ namespace cobra_salsa;
 use DateTimeImmutable;
 use Exception;
 
-require_once 'InputClass.php';
-require_once 'CarteritasObject.php';
+require_once 'classes/InputClass.php';
+require_once 'classes/CarteritasObject.php';
 
 class CarteritasClass extends BaseClass
 {
