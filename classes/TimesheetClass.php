@@ -2,6 +2,7 @@
 
 namespace cobra_salsa;
 
+use BadMethodCallException;
 use PDO;
 
 
@@ -301,15 +302,12 @@ abstract class TimesheetClass
      */
     protected function prepareAllSheet($gestor, int $hoy): array
     {
+        if (!empty($gestor)) {
+            throw new BadMethodCallException('Why is there something here?');
+        }
         $month = [];
         for ($i = 1; $i <= $hoy; $i++) {
             $day = new TimesheetDayObject();
-            //$resultStartStop = $this->getCurrentMain($gestor, $i);
-            //foreach ($resultStartStop as $answerStartStop) {
-                //$this->breakLoop($gestor, $i, $day, 'break');
-                //$this->breakLoop($gestor, $i, $day, 'bano');
-                //$this->loadDay($gestor, $i, $answerStartStop, $day);
-            //}
             $month[$i] = $day;
         }
         return $month;
