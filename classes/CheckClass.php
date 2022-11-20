@@ -135,6 +135,7 @@ and tipo IN ('visitador','admin')";
      */
     public function countInOut(?string $gestor): array
     {
+
         if ($gestor) {
             $query = "select sum(fechaout>curdate()) as countOut,
     sum(fechain>curdate()) as countIn
@@ -143,9 +144,13 @@ where gestor=:gestor";
             $stc = $this->pdo->prepare($query);
             $stc->bindParam(':gestor', $gestor);
             $stc->execute();
-            return $stc->fetch(PDO::FETCH_ASSOC);
+        } else {
+            $query = "select sum(fechaout>curdate()) as countOut,
+    sum(fechain>curdate()) as countIn
+    from vasign";
+            $stc = $this->pdo->query($query);
         }
-        return [];
+        return $stc->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
