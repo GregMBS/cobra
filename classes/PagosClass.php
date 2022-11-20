@@ -279,8 +279,7 @@ order by cliente,gestor,fecha";
      */
     private function buildSheet(string $queryDA, array $output): array
     {
-        $std = $this->pdo->prepare($queryDA);
-        $std->execute();
+        $std = $this->pdo->query($queryDA);
         return $this->sheetLoop($std, $output);
     }
 
@@ -377,8 +376,7 @@ order by cliente,gestor,fecha";
         $query = "SELECT DISTINCT cliente FROM pagos 
                     ORDER BY cliente
                     LIMIT 1000";
-        $stc = $this->pdo->prepare($query);
-        $stc->execute();
+        $stc = $this->pdo->query($query);
         $result = $stc->fetchAll(PDO::FETCH_ASSOC);
         return array_column($result, 'cliente');
     }

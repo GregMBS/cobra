@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 require_once __DIR__ . '/QueuelistObject.php';
 require_once __DIR__ . '/QueueObject.php';
@@ -136,8 +137,11 @@ and sdc=:sdc and status_aarsa=:status";
         JOIN queuelist ON gestor=iniciales
         WHERE tipo <> ''
         ORDER BY iniciales";
-        $stl = $this->pdo->prepare($query);
-        $stl->execute();
+        try {
+            $stl = $this->pdo->query($query);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $stl->fetchAll(PDO::FETCH_CLASS, UserDataObject::class);
     }
 

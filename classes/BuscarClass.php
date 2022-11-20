@@ -230,13 +230,9 @@ tel_4_verif = :find )";
      */
     public function searchAccounts(string $field, string $find, string $CLIENTE): array
     {
-        switch ($field) {
-            case 'ROBOT':
-                $queryMain = $this->robotString;
-                break;
-
-            default:
-                $queryMain = $this->queryHead . $this->searchExactField($field);
+        $queryMain = $this->queryHead . $this->searchExactField($field);
+        if ($field === 'ROBOT') {
+            $queryMain = $this->robotString;
         }
         $result = $this->runSearch($CLIENTE, $queryMain, $find);
         if (($field !== 'ROBOT') && (count($result) === 0))

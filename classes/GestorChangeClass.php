@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 require_once __DIR__ . '/ResumenObject.php';
 
@@ -27,8 +28,11 @@ class GestorChangeClass extends BaseClass {
     {
         $query = "SELECT iniciales FROM nombres 
         ORDER BY iniciales";
-        $stu = $this->pdo->prepare($query);
-        $stu->execute();
+        try {
+            $stu = $this->pdo->query($query);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
         return $stu->fetchAll(PDO::FETCH_COLUMN,0);
     }
 

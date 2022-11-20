@@ -3,6 +3,7 @@
 namespace cobra_salsa;
 
 use PDO;
+use PDOException;
 
 require_once __DIR__ . '/DhObject.php';
 require_once __DIR__ . '/HistoriaObject.php';
@@ -70,8 +71,12 @@ where (c_cvge = :gestor or c_visit = :gestor) and d_fech = :fecha and c_cont > 0
         $stl = $this->pdo->prepare($queryLastProm);
         $report = [];
         foreach ($promesas as $prom) {
-            $str->bindParam(':id_cuenta', $prom['c_cont']);
-            $str->execute();
+            try {
+                $str->bindParam(':id_cuenta', $prom['c_cont']);
+                $str->execute();
+            } catch (PDOException $e) {
+                throw new PDOException($e->getMessage());
+            }
             /** @var DhObject $resumen */
             $resumen = $str->fetchObject(DhObject::class);
             $stl->bindParam(':c_cont', $resumen->id_cuenta);
