@@ -29,7 +29,7 @@ I can deploy this on a DigitalOcean Debian droplet for you, Contact me for my ho
 ## Built With
 
 * [PHP7.4](https://www.php.net/releases/7_4_32.php)
-* {OpenSpout 3](https://github.com/openspout/openspout/tree/3.x)
+* [OpenSpout 3](https://github.com/openspout/openspout/tree/3.x)
 
 ## Contributing
 
@@ -45,7 +45,7 @@ Version 8 may be in process, but only if someone pays me for the time. Version 7
 
 ## License
 
-This project is licensed under the GPLv3 License - see the [LICENSE.md](/public/licencia.txt) file for details
+This project is licensed under the GPLv3 License - see the [LICENSE.md](/licencia.txt) file for details
 
 ## Acknowledgments
 
