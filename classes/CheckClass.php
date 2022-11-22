@@ -52,10 +52,13 @@ and status_de_credito not regexp '-' LIMIT 1";
         $stc->bindParam(':id_cuenta', $id_cuenta);
         $stc->execute();
         $result = $stc->fetch(PDO::FETCH_ASSOC);
-        if (is_string($result['numero_de_cuenta'])) {
-            return $result['numero_de_cuenta'];
+        if ($result) {
+            if (is_string($result['numero_de_cuenta'])) {
+                return $result['numero_de_cuenta'];
+            }
+            return (string)$result['numero_de_cuenta'];
         }
-        return (string)$result['numero_de_cuenta'];
+        return (string)$id_cuenta;
     }
 
     /**

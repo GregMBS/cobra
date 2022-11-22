@@ -412,14 +412,9 @@
                 echo $tel_4_alterno;
                 ?></span><br>
             <?php
-        }
-        if ($cliente === 'UR') {
-            ?>
-            <span class='formCap'>Madre</span>
-        <?php } else { ?>
-            <span class='formCaps'>Ref 1</span>
-            <?php
-        }
+        } ?>
+        <span class='formCaps'>Ref 1</span>
+        <?php
         if (isset($nombre_referencia_1)) {
             ?>
             <span class="fakeInput"><?php
@@ -479,13 +474,9 @@
                 ?></span><br>
             <?php
         }
-        if ($cliente === 'UR') {
-            ?>
-            <span class=' formCap'>Tutor</span>
-        <?php } else { ?>
-            <span class='formCaps'>Ref 3</span>
+        ?>
+        <span class='formCaps'>Ref 3</span>
             <?php
-        }
         if (isset($nombre_referencia_3)) {
             ?>
             <span class="fakeInput"><?php
