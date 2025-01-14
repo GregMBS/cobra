@@ -25,8 +25,7 @@
         "maatwebsite/excel": "*",
         "rcrowe/twigbridge": "*",
         "spatie/laravel-medialibrary": "*",
-        "twig/extensions": "*",
-        "twig/twig": "*"
+        "twig/twig": "3.14.1.0"
     },
     "require-dev": {
         "laravel/dusk": "*",
