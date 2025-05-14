@@ -2,6 +2,59 @@
 
 use cobra_salsa\PdoClass;
 use cobra_salsa\LoginClass;
+use cobra_salsa\ActivarClass;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Slim\Factory\AppFactory;
+use Slim\Factory\ServerRequestCreatorFactory;
+
+// Load Composer's autoloader
+require __DIR__ . '/vendor/autoload.php';
+
+// Set up PSR-17 and PSR-7 factories
+$psr17Factory = new Psr17Factory();
+$serverRequestCreator = ServerRequestCreatorFactory::create();
+$serverRequest = $serverRequestCreator->createServerRequestFromGlobals();
+
+$app = AppFactory::create();
+
+// Define a test route
+$app->get('/test', function ($request, $response, $args) {
+    $response->getBody()->write('Slim Framework is working!');
+    return $response;
+});
+
+// Define a route to test dbConnectAdmin functionality
+$app->get('/db-admin-test', function (Request $request, Response $response, $args) {
+    $pdoClass = new PdoClass();
+    try {
+        $pdo = $pdoClass->dbConnectAdmin();
+        $response->getBody()->write('Database connection successful.');
+    } catch (Exception $e) {
+        $response->getBody()->write('Database connection failed: ' . $e->getMessage());
+    }
+    return $response;
+});
+
+// Define a route to handle account activation logic
+$app->post('/activate', function (Request $request, Response $response, $args) {
+    $parsedBody = $request->getParsedBody();
+    $dataRaw = $parsedBody['data'] ?? '';
+
+    if (empty($dataRaw)) {
+        $response->getBody()->write('No data provided.');
+        return $response->withStatus(400);
+    }
+
+    $pdoClass = new PdoClass();
+    $pdo = $pdoClass->dbConnectAdmin();
+    $activarClass = new ActivarClass($pdo);
+
+    $data = preg_split("/[\s,]+/", $dataRaw, 0, PREG_SPLIT_NO_EMPTY);
+    $count = $activarClass->activateCuentas($data);
+
+    $response->getBody()->write("<p>$count Cuentas están activadas</p>");
+    return $response;
+});
 
 $local = $_SERVER['REMOTE_ADDR'];
 $go = filter_input(INPUT_POST, 'go');
@@ -32,3 +85,5 @@ if (!empty($go)) {
     }
 }
 require_once 'views/indexView.php';
+
+$app->run();

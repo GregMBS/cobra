@@ -5,13 +5,15 @@
 		}
 	},
 	"require": {
-		"box/spout": "*",
 		"ext-pdo": "*",
 		"ext-mysqli": "*",
 		"ext-json": "*",
-		"ext-calendar": "*"
+		"ext-calendar": "*",
+		"slim/slim": "^4.14",
+		"nyholm/psr7": "^1.8",
+		"slim/psr7": "^1.7"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "9.2.6"
+		"phpunit/phpunit": "12.*"
 	}
 }

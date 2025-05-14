@@ -18,7 +18,7 @@ class PdoClass {
      *
      * @var string
      */
-    protected $dsn = 'mysql:dbname=cobrarbm;host=localhost';
+    protected $dsn;
 
     /**
      *
@@ -30,13 +30,13 @@ class PdoClass {
      *
      * @var string
      */
-    protected $username = "gmbs";
+    protected $username;
 
     /**
      *
      * @var string
      */
-    protected $passwd = "DeathSta1";
+    protected $passwd;
 
     /**
      * @var PDO
@@ -80,7 +80,16 @@ class PdoClass {
         $config = new ConfigObject();
         $this->db = $config->dbName;
         $this->dsn = 'mysql:dbname=' . $this->db . ';host=localhost';
-        $this->pdo = new PDO($this->dsn, $this->username, $this->passwd);
+        $this->username = getenv('DB_USERNAME') ?: 'gmbs';
+        $this->passwd = getenv('DB_PASSWORD') ?: 'DeathSta1';
+        try {
+            $this->pdo = new PDO($this->dsn, $this->username, $this->passwd);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            error_log('Database connection failed: ' . $e->getMessage());
+            header('Location: error.php');
+            exit;
+        }
     }
 
     /**
@@ -88,31 +97,33 @@ class PdoClass {
      * @return PDO
      */
     private function dbConnect($queryCheck) {
-        $ticket = filter_input(INPUT_COOKIE, 'auth');
-        $capt = filter_input(INPUT_GET, 'capt');
+        $ticket = filter_input(INPUT_COOKIE, 'auth', FILTER_SANITIZE_STRING);
+        $capt = filter_input(INPUT_GET, 'capt', FILTER_SANITIZE_STRING) ?: filter_input(INPUT_POST, 'capt', FILTER_SANITIZE_STRING);
+
         if (empty($capt)) {
-            $capt = filter_input(INPUT_POST, 'capt');
+            header('Location: index.php');
+            exit;
         }
-        if (empty($capt)) {
-            $redirector = "Location: index.php";
-            header($redirector);
-        }
+
         $this->capt = $capt;
         $stc = $this->pdo->prepare($queryCheck);
-        $stc->bindParam(':ticket', $ticket);
-        $stc->bindParam(':capt', $capt);
+        $stc->bindParam(':ticket', $ticket, PDO::PARAM_STR);
+        $stc->bindParam(':capt', $capt, PDO::PARAM_STR);
         $stc->execute();
-        $count = $stc->fetch();
-        if ($count[0] != 1) {
-            $redirector = 'Location: index.php';
-            header($redirector);
+
+        $count = $stc->fetchColumn();
+        if ($count != 1) {
+            header('Location: index.php');
+            exit;
         }
+
         $stt = $this->pdo->prepare($this->queryTipo);
-        $stt->bindParam(':ticket', $ticket);
-        $stt->bindParam(':capt', $capt);
+        $stt->bindParam(':ticket', $ticket, PDO::PARAM_STR);
+        $stt->bindParam(':capt', $capt, PDO::PARAM_STR);
         $stt->execute();
+
         $tipo = $stt->fetch();
-        $this->tipo = $tipo['tipo'];
+        $this->tipo = $tipo['tipo'] ?? '';
         return $this->pdo;
     }
 
