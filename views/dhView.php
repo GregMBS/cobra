@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
         <title>Cuentas gestionado por <?php
+            /** @var string $gestor */
             echo $gestor;
         ?> en <?php
+            /** @var string $fecha */
             echo $fecha;
         ?></title>
     <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>

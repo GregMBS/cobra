@@ -8,8 +8,10 @@
 
 namespace cobra_salsa;
 
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Exception;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Csv;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -30,12 +32,20 @@ class OutputClass
     public function writeCSVFile($filename, $array, $headers)
     {
         try {
-            $writer = WriterEntityFactory::createCSVWriter(); // for CSV files
-            $writer->openToBrowser($filename); // stream data directly to the browser
-            $row = WriterEntityFactory::createRowFromArray($headers);
-            $writer->addRow($row);
-            $writer->addRows($array); // add multiple rows at a time
-            $writer->close();
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $rowNum = 1;
+            $sheet->fromArray($headers, null, 'A' . $rowNum++);
+            foreach ($array as $rowData) {
+                $sheet->fromArray($rowData, null, 'A' . $rowNum++);
+            }
+            $writer = new Csv($spreadsheet);
+            // Output to browser
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment;filename="' . $filename . '"');
+            header('Cache-Control: max-age=0');
+            $writer->save('php://output');
+            exit;
         } catch (Exception $e) {
             throw new Exception($e);
         }
@@ -51,17 +61,22 @@ class OutputClass
     public function writeXLSXFile($filename, $array, $headers = [])
     {
         try {
-            $writer = WriterEntityFactory::createXLSXWriter(); // for CSV files
-            $writer->openToBrowser($filename); // stream data directly to the browser
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $rowNum = 1;
             if (count($headers) > 0) {
-                $rowHead = WriterEntityFactory::createRowFromArray($headers);
-                $writer->addRow($rowHead);
+                $sheet->fromArray($headers, null, 'A' . $rowNum++);
             }
             foreach ($array as $rowData) {
-                $row = WriterEntityFactory::createRowFromArray($rowData);
-                $writer->addRow($row);
+                $sheet->fromArray($rowData, null, 'A' . $rowNum++);
             }
-            $writer->close();
+            $writer = new Xlsx($spreadsheet);
+            // Output to browser
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="' . $filename . '"');
+            header('Cache-Control: max-age=0');
+            $writer->save('php://output');
+            exit;
         } catch (Exception $e) {
             throw new Exception($e);
         }

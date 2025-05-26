@@ -4,21 +4,13 @@
 /nbproject/
 .buildpath
 .project
-.idea/cobra_ribemi.iml
-.idea/cobra_rbm.iml
-.idea/codeStyles/
-.idea/dataSources.local.xml
-.idea/dataSources.xml
-.idea/dataSources/
-.idea/dbnavigator.xml
-.idea/dictionaries/
-.idea/encodings.xml
-.idea/inspectionProfiles/
-.idea/jsLibraryMappings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/php.xml
-.idea/vcs.xml
-.idea/php-test-framework.xml
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# PHPStorm
 .phpunit.result.cache
+
+# Composer
 composer.lock
