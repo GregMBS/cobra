@@ -1,11 +1,13 @@
 <?php
 use cobra_salsa\TimesheetDayObject;
+use cobra_salsa\TimesheetViewClass;
 
 require_once __DIR__ . '/../classes/TimesheetDayObject.php';
 
 /**
  * @var TimesheetDayObject $monthSum
  * @var array $month
+ * @var TimesheetViewClass $tv
  */
 echo $tv->timeRow('LOGIN', $month, $monthSum, 'start');
 echo $tv->timeRow('LOGOUT', $month, $monthSum, 'stop');

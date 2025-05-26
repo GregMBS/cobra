@@ -41,8 +41,10 @@ class BigClass extends BaseClass {
      *
      * @return array
      */
-    public function getGestionGestores() {
-        $query = "SELECT distinct c_cvge FROM historia
+    public function getGestionGestores(): array
+    {
+        $query = /** @lang MySQL */
+            "SELECT distinct c_cvge FROM historia
         where d_fech>last_day(curdate()-interval 2 month)
         order by c_cvge
         limit 1000";

@@ -14,7 +14,10 @@ require_once __DIR__ . '/ResumenObject.php';
 class RotasClass
 {
     protected $pdo;
-    protected $queryRotas = "select c_cont,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
+    /**
+     * @var string
+     */
+    protected string $queryRotas = "select c_cont,c_cvge,datediff(curdate(),max(d_prom)) as semaforo,
     max(d_prom1) as dp1, max(n_prom1) as np1, 
     max(d_prom2) as dp2, max(n_prom2) as np2, 
     max(d_prom3) as dp3, max(n_prom3) as np3, 
@@ -43,14 +46,18 @@ order by c_cvge
         $this->pdo = $pdo;
     }
 
-    public function getRotas($capt)
+    public function getRotas($capt): array
     {
         $promesas = $this->buildPromesas($capt);
-        return $this->addAccountData($promesas);
+        $result = $this->addAccountData($promesas);
+        if ($result) return $result;
+        $item = [];
+        return array($item);
     }
 
     private function buildPromesas(string $capt): array
     {
+        $array = [];
         $gestorstr = " and (ejecutivo_asignado_call_center=:capt or c_cvge=:capt) ";
         $tipo = $this->getUserType($capt);
         if ($tipo == 'admin') {
@@ -62,8 +69,12 @@ order by c_cvge
             $stq->bindParam(':capt', $capt);
         }
         $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
+        while ($row = $stq->fetch(PDO::FETCH_ASSOC)) {
+            $array[] = $row;
+        }
+        return $array;
     }
+
 
     public function getUserType($capt)
     {
@@ -84,10 +95,9 @@ order by c_cvge
     {
         $result = [];
         foreach ($array as $row) {
-            $id_cuenta = $row['c_cont'];
-            $fecha = $row['fecha'];
-            $account = $this->getAccount($id_cuenta);
-            $account['sum_monto'] = $this->getMonto($id_cuenta, $fecha);
+            $row['id_cuenta'] = $row['c_cont'];
+            $account = $this->getAccount($row['c_cont']);
+            $account['sum_monto'] = $this->getMonto($row['c_cont'], $row['fecha']);
             $result[] = array_merge($row, $account);
         }
         return $result;

@@ -1,6 +1,8 @@
 <?php
 /**
  * @var ResumenObject[] $report
+ * @var string $capt
+ * @var string[][] $gestores
  */
 
 use cobra_salsa\ResumenObject;

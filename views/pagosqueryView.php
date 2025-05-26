@@ -1,7 +1,8 @@
 <?php 
 /**
  * @var string $capt user
- * @var string[][] $resultc clientes
+ * @var string[][] $resultc
+ * @var string[][] $clientes
  */
 ?>
 <!DOCTYPE html>

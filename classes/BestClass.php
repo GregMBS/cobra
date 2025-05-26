@@ -19,7 +19,8 @@ class BestClass extends BaseClass
     /**
      * @return false|array
      */
-    public function getResumenData() {
+    public function getResumenData(): bool|array {
+        $result = [];
         $query = "select ejecutivo_asignado_call_center, numero_de_cuenta, nombre_deudor, cliente, status_de_credito, 
         id_cuenta, saldo_total, saldo_descuento_1, saldo_descuento_2, date(fecha_ultima_gestion) as fecha_ultima, 
         time(fecha_ultima_gestion) as hora_ultima, 
@@ -28,8 +29,10 @@ class BestClass extends BaseClass
         order by numero_de_cuenta";
         $stq = $this->pdo->prepare($query);
         $stq->execute();
-        $data = $stq->fetchObject('ResumenObject');
-        return $data;
+        while ($item = $stq->fetchObject(ResumenObject::class)) {
+            $result[] = $item;
+        }
+        return $result;
     }
 
     /**

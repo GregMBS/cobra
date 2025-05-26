@@ -161,7 +161,7 @@ and sdc=:sdc and status_aarsa=:status";
      * @param string $GESTOR
      * @return QueuelistObject
      */
-    public function getMyQueue($GESTOR)
+    public function getMyQueue(string $GESTOR): QueuelistObject
     {
         $query = "SELECT queuelist.*
                                 FROM queuelist, nombres 
@@ -173,7 +173,11 @@ and sdc=:sdc and status_aarsa=:status";
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':gestor', $GESTOR);
         $stq->execute();
-        return $stq->fetchObject(QueuelistObject::class);
+        $result = $stq->fetchObject(QueuelistObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new QueuelistObject();
     }
 
     /**

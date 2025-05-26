@@ -1,3 +1,15 @@
+<?php
+/**
+ * @var string $message
+ * @var string $file
+ * @var string $gestor
+ * @var string $tipo
+ * @var string $capt
+ * @var string $label
+ * @var array $result
+ * @var array $resultcount
+ */
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,7 +26,8 @@ if (!empty($gestor)) {
         document.getElementById('CUENTA').focus();
 <?php } ?>">
 <div id="vtable">
-    <h1><?php echo $message; ?></h1>
+    <h1><?php
+        echo $message; ?></h1>
     <form id='asigform' action='<?php
     echo $file;
     ?>' method='get'>

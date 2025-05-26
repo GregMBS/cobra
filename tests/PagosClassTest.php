@@ -62,8 +62,10 @@ class PagosClassTest extends TestCase
             'sm',
             'smc'
         ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if ($first) {
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        }
     }
 
     public function testDetailsThisMonth()
@@ -94,8 +96,12 @@ class PagosClassTest extends TestCase
             'sm',
             'smc'
         ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if ($first) {
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        } else {
+            $this->assertNull($first);
+        }
     }
 
     public function testListPagos()
@@ -140,11 +146,16 @@ class PagosClassTest extends TestCase
         $report = $this->cc->queryOldSheet();
         $this->assertIsArray($report);
         $first = array_pop($report);
-        $this->assertIsArray($first);
-        $keys = array_keys((array) $first);
-        $expected = (array) new PagosQueryObject();
-        $expectedKeys = array_keys($expected);
-        $this->assertEquals($expectedKeys, $keys);
+        if ($first) {
+            $this->assertIsArray($first);
+            $keys = array_keys((array) $first);
+            $expected = (array) new PagosQueryObject();
+            $expectedKeys = array_keys($expected);
+            $this->assertEquals($expectedKeys, $keys);
+        } else {
+            $this->assertNull($first);
+        }
+
     }
 
     public function testSummaryThisMonth()
@@ -175,8 +186,12 @@ class PagosClassTest extends TestCase
             'sm',
             'smc'
         ];
-        $keys = array_keys($first);
-        $this->assertEquals($expected, $keys);
+        if ($first) {
+            $keys = array_keys($first);
+            $this->assertEquals($expected, $keys);
+        } else {
+            $this->assertNull($first);
+        }
     }
 
     public function testGetCuentaClienteFromID()

@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var string $capt
+ */
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>

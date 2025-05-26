@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var string[][] $gestores
+ */
+?>
 <!DOCTYPE html>
 <html lang="es">
 <?php

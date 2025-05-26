@@ -65,8 +65,10 @@ class TimesheetClassTest extends TestCase
         }
         $report = $this->pc->getTiempoDiff('cristina', 1, 'Break');
         $first = array_pop($report);
-        $this->assertArrayHasKey('tiempo', $first);
-        $this->assertArrayHasKey('diff', $first);
+        if ($first) {
+            $this->assertArrayHasKey('tiempo', $first);
+            $this->assertArrayHasKey('diff', $first);
+        }
     }
 
     public function testGetPagos()

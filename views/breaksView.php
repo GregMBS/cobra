@@ -5,7 +5,7 @@
     <meta http-equiv="refresh" content="15"/>
     <link href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.datatables.net/1.10.12/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css"/>
-    <style type="text/css">
+    <style>
         .late {
             background-color: #ffff00;
             font-weight: bold;

@@ -114,7 +114,15 @@ abstract class TimesheetClass
         $stq->bindParam(':dom', $dom, PDO::PARAM_INT);
         $stq->bindParam(':tipo', $tipo);
         $stq->execute();
-        return $stq->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stq->fetchAll(PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result;
+        }
+        $item = [
+            'tiempo' => 0,
+            'diff' => 0
+        ];
+        return array($item);
     }
 
     /**

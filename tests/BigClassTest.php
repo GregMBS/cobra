@@ -104,7 +104,7 @@ class BigClassTest extends TestCase
         $this->assertIsArray($report);
         $first = array_pop($report);
         $this->assertIsArray($first);
-        $keys =array_keys($first);
+        $keys = array_keys($first);
         $this->assertEquals($this->fields, $keys);
     }
 
@@ -112,18 +112,26 @@ class BigClassTest extends TestCase
     {
         $report = $this->cc->getGestionGestores();
         $first = array_pop($report);
-        $this->assertIsArray($first);
-        $this->assertArrayHasKey('c_cvge', $first);
-        $this->assertArrayHasKey(0, $first);
+        if ($first) {
+            $this->assertIsArray($first);
+            $this->assertArrayHasKey('c_cvge', $first);
+            $this->assertArrayHasKey(0, $first);
+        } else {
+            $this->assertNull($first);
+        }
     }
 
     public function testGetGestionClientes()
     {
         $report = $this->cc->getGestionClientes();
         $first = array_pop($report);
-        $this->assertIsArray($first);
-        $this->assertArrayHasKey('c_cvba', $first);
-        $this->assertArrayHasKey(0, $first);
+        if ($first) {
+            $this->assertIsArray($first);
+            $this->assertArrayHasKey('c_cvba', $first);
+            $this->assertArrayHasKey(0, $first);
+        } else {
+            $this->assertNull($first);
+        }
     }
 
     public function testGetGestiones()

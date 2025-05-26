@@ -122,6 +122,10 @@ class QueuesgClass {
         $stq = $this->pdo->prepare($query);
         $stq->bindParam(':capt', $capt);
         $stq->execute();
-        return $stq->fetchObject(QueuelistObject::class);
+        $result = $stq->fetchObject(QueuelistObject::class);
+        if ($result) {
+            return $result;
+        }
+        return new QueuelistObject();
     }
 }
