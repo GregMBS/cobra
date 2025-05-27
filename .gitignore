@@ -24,3 +24,4 @@
 composer.lock
 .idea/phpunit.xml
 .idea/sqldialects.xml
+.env
