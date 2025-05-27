@@ -22,3 +22,5 @@
 .idea/php-test-framework.xml
 .phpunit.result.cache
 composer.lock
+.idea/phpunit.xml
+.idea/sqldialects.xml
