@@ -117,7 +117,7 @@ class PdoClass {
     }
 
     /**
-     * @returns PDO
+     * @return PDO
      */
     public function dbConnectAdmin() {
         $query = $this->queryAdmin;
@@ -125,7 +125,7 @@ class PdoClass {
     }
 
     /**
-     * @returns PDO
+     * @return PDO
      */
     public function dbConnectUser() {
         $query = $this->queryUser;
@@ -133,7 +133,7 @@ class PdoClass {
     }
 
     /**
-     * @returns PDO
+     * @return PDO
      */
     public function dbConnectNobody() {
         return $this->pdo;

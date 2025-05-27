@@ -11,7 +11,7 @@ function trim(str)
 /**
  *
  * @param value
- * @returns {boolean}
+ * @return {boolean}
  */
 function notJustNumbers(value)
 {

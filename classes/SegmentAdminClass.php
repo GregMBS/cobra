@@ -118,7 +118,7 @@ group by cliente, status_de_credito";
      *
      * @return array
      */
-    public function listUnqueuedSegments()
+    public function listUnqueuedSegments(): array
     {
         $queryDrop = "drop table if exists unqueued";
         $queryTemp = "create table unqueued
