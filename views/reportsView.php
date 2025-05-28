@@ -2,116 +2,108 @@
 <html lang="es">
 <head>
     <title>Cobra Reports Menu</title>
-    <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <style>
-        #admin div {
-            float: left;
-            width: 33.333%;
-            font-size: larger;
-        }
-        #gen div {
-            float: left;
-            width: 24.9%;
-            font-size: larger;
-        }
-        button {
-            margin: 0.75em;
-        }
+        .tab-content > .tab-pane { padding-top: 1em; }
+        .nav-tabs .nav-link.active { background-color: #f8f9fa; }
+        .section-col { float: left; min-width: 220px; width: 33.333%; font-size: larger; }
+        .section-col-gen { float: left; min-width: 180px; width: 24.9%; font-size: larger; }
+        button { margin: 0.75em; }
     </style>
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 </head>
-<body id="demos">
-<script>
-    $(function () {
-        $("#tabs").tabs();
-        $("button").button();
-    });
-</script>
-<div id="tabs">
-    <ul>
-        <li><a href="#admin">Administración</a></li>
-        <li><a href="#gen">Reportes Generales</a></li>
-        <li><a href="#spec">Reportes por Clientes</a></li>
-        <li><a href="#bot">ROBOT y ELASTIX</a></li>
+<body>
+<div class="container py-4">
+    <ul class="nav nav-tabs" id="reportTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab">Administración</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen" type="button" role="tab">Reportes Generales</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="spec-tab" data-bs-toggle="tab" data-bs-target="#spec" type="button" role="tab">Reportes por Clientes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="bot-tab" data-bs-toggle="tab" data-bs-target="#bot" type="button" role="tab">ROBOT y ELASTIX</button>
+        </li>
     </ul>
-    <div id="admin">
-        <div>
-        <h2>Cargas</h2>
-        <?php
-        foreach ($cargas as $row) { ?>
-            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button><br>
-        <?php
-        }
-        ?>
+    <div class="tab-content" id="reportTabsContent">
+        <div class="tab-pane fade show active" id="admin" role="tabpanel">
+            <div class="row">
+                <div class="section-col">
+                    <h2>Cargas</h2>
+                    <?php foreach ($cargas as $row) { ?>
+                        <button class="btn btn-outline-primary w-100 mb-2" onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                    <?php } ?>
+                </div>
+                <div class="section-col">
+                    <h2>Visitas</h2>
+                    <?php foreach ($visitas as $row) { ?>
+                        <button class="btn btn-outline-primary w-100 mb-2" onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                    <?php } ?>
+                </div>
+                <div class="section-col">
+                    <h2>Administración</h2>
+                    <?php foreach ($admin as $row) { ?>
+                        <button class="btn btn-outline-primary w-100 mb-2" onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                    <?php } ?>
+                </div>
+            </div>
         </div>
-        <div>
-        <h2>Visitas</h2>
-        <?php
-        foreach ($visitas as $row) { ?>
-            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button><br>
-            <?php
-        }
-        ?>
+        <div class="tab-pane fade" id="gen" role="tabpanel">
+            <div class="row">
+                <div class="section-col-gen">
+                    <h2>Queues</h2>
+                    <?php foreach ($queues as $row) { ?>
+                        <button class="btn btn-outline-secondary w-100 mb-2" onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                    <?php } ?>
+                </div>
+                <div class="section-col-gen">
+                    <h2>Promesas y Pagos</h2>
+                    <?php foreach ($promPago as $row) { ?>
+                        <button class="btn btn-outline-secondary w-100 mb-2" onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                    <?php } ?>
+                </div>
+                <div class="section-col-gen">
+                    <h2>Horarios</h2>
+                    <?php foreach ($horarios as $row) { ?>
+                        <button class="btn btn-outline-secondary w-100 mb-2" onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                    <?php } ?>
+                </div>
+                <div class="section-col-gen">
+                    <h2>Hojas de Cálculo</h2>
+                    <?php foreach ($XLS as $row) { ?>
+                        <button class="btn btn-outline-secondary w-100 mb-2" onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
+                    <?php } ?>
+                </div>
+            </div>
         </div>
-        <div>
-        <h2>Administración</h2>
-        <?php
-        foreach ($admin as $row) { ?>
-            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button><br>
-            <?php
-        }
-        ?>
+        <div class="tab-pane fade" id="spec" role="tabpanel">
+            <!-- Reportes por Clientes -->
         </div>
-    </div>
-    <div id="gen">
-        <div>
-            <h2>Queues</h2>
-        <?php
-        foreach ($queues as $row) { ?>
-            <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
-            <?php
-        }
-        ?>
-        </div>
-        <div>
-            <h2>Promesas y Pagos</h2>
-            <?php
-            foreach ($promPago as $row) { ?>
-                <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
-                <?php
-            }
-            ?>
-        </div>
-        <div>
-            <h2>Horarios</h2>
-            <?php
-            foreach ($horarios as $row) { ?>
-                <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
-                <?php
-            }
-            ?>
-        </div>
-        <div>
-            <h2>Hojas de Cálculo</h2>
-            <?php
-            foreach ($XLS as $row) { ?>
-                <button onclick="window.location = '<?php echo $row['page']; ?>.php?capt=<?php echo $capt; ?>'"><?php echo $row['label']; ?></button>
-                <?php
-            }
-            ?>
+        <div class="tab-pane fade" id="bot" role="tabpanel">
+            <!-- ROBOT y ELASTIX -->
         </div>
     </div>
-    <div id="spec">
-    </div>
-    <div id="bot">
+    <div class="mt-4">
+        <button class="btn btn-success me-2" onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
+        <button class="btn btn-info me-2" onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
+        <button class="btn btn-danger" onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button>
     </div>
 </div>
-<p>
-    <button onclick="window.location = 'quick.php?capt=<?php echo $capt; ?>'">Tiempo Real</button>
-    <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>'">Las Cuentas</button>
-    <button onclick="window.location = 'resumen.php?capt=<?php echo $capt; ?>&go=LOGOUT'">LOGOUT</button>
-    <br>
-</p>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tabs = document.querySelectorAll('.nav-tabs .nav-link');
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                tabs.forEach(function (t) { t.classList.remove('active'); });
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
 </body>
 </html>
