@@ -36,7 +36,7 @@ $msg = 'CobraMas';
         </div>
         <p>&nbsp;</p>
         <a href="/licencia.txt">
-            <cite>&copy;GMBS Consulting 2022</cite>
+            <cite>&copy;GMBS Consulting 2025</cite>
         </a>
     </body>
 </html>
