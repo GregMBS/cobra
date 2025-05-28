@@ -1,5 +1,5 @@
 <?php
-$msg = 'CobraMas';
+$msg = 'Cobra';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +16,7 @@ $msg = 'CobraMas';
     </head>
     <body>
         <h1><?php echo $msg; ?></h1>
-        <em>versi&oacute;n configurado para RBM</em>
+        <em>versi&oacute;n configurado 2025</em>
         <div class="forma">
             <form action="/index.php" method="post" autocomplete="off">
                 <fieldset>
