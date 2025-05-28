@@ -99,7 +99,7 @@ function valid(o, w) {
 /**
  *
  * @param campo
- * @returns {boolean}
+ * @return {boolean}
  */
 function tooLong(campo) {
     if (window.document.getElementById(campo).value.length > 250) {

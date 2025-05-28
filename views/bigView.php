@@ -10,94 +10,112 @@
 <html lang="es">
 <head>
     <title><?php echo $title; ?></title>
-    <link rel="Stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/redmond/jquery-ui.css"/>
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
-<button onclick="window.location = 'reports.php?capt=<?php
-if (isset($capt)) {
-    echo $capt;
-}
-?>'">Regresar a la pagina administrativa
-</button>
-<br>
-<form action="/big<?php echo $flag; ?>.php" method="get" name="queryParams">
-    <input type="hidden" name="capt" value="<?php if (isset($capt)) {
+<div class="container">
+    <button class="btn btn-primary" onclick="window.location = 'reports.php?capt=<?php
+    if (isset($capt)) {
         echo $capt;
-    } ?>">
-    <p>
-        <label>Gestor: <?php
-            if (isset($gestor)) {
-                echo $gestor;
-            }
-            ?>
-            <select name="gestor">
-                <option value="todos" style="font-size:120%;">todos</option>
+    }
+    ?>'">Regresar a la pagina administrativa
+    </button>
+    <br><br>
+    <form action="/big<?php echo $flag; ?>.php" method="get" name="queryParams">
+        <input type="hidden" name="capt" value="<?php if (isset($capt)) {
+            echo $capt;
+        } ?>">
+        <div class="form-group">
+            <label for="gestor">Gestor:</label>
+            <select class="form-control" name="gestor" id="gestor">
+                <option value="todos">todos</option>
                 <?php
                 foreach ($gestores as $gestor) {
                     ?>
-                    <option value="<?php echo $gestor[0]; ?>" style="font-size:120%;">
+                    <option value="<?php echo $gestor[0]; ?>">
                         <?php echo $gestor[0]; ?></option>
                     <?php
                 }
                 ?>
             </select>
-        </label>
-    </p>
-    <p>
-        <label>Cliente:
-            <select name="cliente">
-                <option value="todos" style="font-size:120%;">todos</option>
+        </div>
+        <div class="form-group">
+            <label for="cliente">Cliente:</label>
+            <select class="form-control" name="cliente" id="cliente">
+                <option value="todos">todos</option>
                 <?php
                 foreach ($clientes as $cliente) {
                     ?>
-                    <option value="<?php echo $cliente[0]; ?>" style="font-size:120%;">
+                    <option value="<?php echo $cliente[0]; ?>">
                         <?php echo $cliente[0]; ?></option>
                     <?php
                 }
                 ?>
             </select>
-        </label>
-    </p>
-    <p>
-        <label>HECHO de:
-            <input name="fecha1" id="fecha1" readonly="readonly"/>
-            a:
-            <input name="fecha2" id="fecha2" readonly="readonly"/>
-        </label>
-    </p>
-    <p>
-        <?php
-        if (!empty($flag)) {
-            if ($flag == 'prom') {
-                ?>
-                <label>VENCIDO de:
-                    <input name="fecha3" id="fecha3" readonly="readonly"/>
-                    a:
-                    <input name="fecha4" id="fecha4" readonly="readonly"/>
-                </label>
-                <?php
+        </div>
+        <div class="form-group">
+            <label>HECHO de:</label>
+            <input class="form-control" name="fecha1" id="fecha1" readonly="readonly"/>
+            <label>a:</label>
+            <input class="form-control" name="fecha2" id="fecha2" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+            <?php
+            if (!empty($flag)) {
+                if ($flag == 'prom') {
+                    ?>
+                    <label>VENCIDO de:</label>
+                    <input class="form-control" name="fecha3" id="fecha3" readonly="readonly"/>
+                    <label>a:</label>
+                    <input class="form-control" name="fecha4" id="fecha4" readonly="readonly"/>
+                    <?php
+                }
             }
-        }
-        ?>
-    </p>
-    <label for='visits'>Visitas</label>
-    <input type='radio' name='tipo' id='visits' value='visits'/><br>
-    <label for='telefono'>Telefónica</label>
-    <input type='radio' name='tipo' id='telefono' value='telefono'/><br>
-    <label for='todos'>Todos</label>
-    <input type='radio' name='tipo' id='todos' value='todos'/><br>
-    <input type='submit' name='go' value='Query'>
-</form>
-<script src="/js/datepicker_mx.js" type="text/javascript"></script>
+            ?>
+        </div>
+        <fieldset class="form-group">
+            <legend>Tipo</legend>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipo" id="visits" value="visits">
+                <label class="form-check-label" for="visits">
+                    Visitas
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipo" id="telefono" value="telefono">
+                <label class="form-check-label" for="telefono">
+                    Telefónica
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipo" id="todos" value="todos">
+                <label class="form-check-label" for="todos">
+                    Todos
+                </label>
+            </div>
+        </fieldset>
+        <button type="submit" class="btn btn-success" name="go">Query</button>
+    </form>
+</div>
 <script>
     $(document).ready(function () {
-        $.datepicker.setDefaults(getMx());
-        $('#fecha1').datepicker();
-        $('#fecha2').datepicker();
-        $('#fecha3').datepicker();
-        $('#fecha4').datepicker();
+        flatpickr("#fecha1", {
+            locale: "es"
+        });
+        flatpickr("#fecha2", {
+            locale: "es"
+        });
+        flatpickr("#fecha3", {
+            locale: "es"
+        });
+        flatpickr("#fecha4", {
+            locale: "es"
+        });
     });
 </script>
 </body>

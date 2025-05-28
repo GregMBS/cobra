@@ -30,7 +30,7 @@ class ResumenClass {
 from notas 
 where c_cvge = :capt 
 AND borrado=0 
-and fecha<>'0000-00-00'
+and fecha is not null
 AND concat_ws(' ',fecha,hora)<now()
 ORDER BY fecha, hora LIMIT 1";
 
@@ -362,9 +362,9 @@ AND c_cont <> 0
      * @return array
      */
     public function getQueueList($capt) {
-        $query = "SELECT cliente,sdc,queue FROM queuelist 
+        $query = "SELECT cliente,sdc,status_aarsa as 'queue' FROM queuelist 
 WHERE gestor = :capt 
-ORDER BY cliente,sdc,queue";
+ORDER BY cliente,sdc,status_aarsa";
         $stf = $this->pdo->prepare($query);
         $stf->bindParam(':capt', $capt);
         $stf->execute();
