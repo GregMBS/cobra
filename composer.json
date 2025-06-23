@@ -6,7 +6,7 @@
 	},
 	"require": {
 		"php": "^8.4",
-		"phpoffice/phpspreadsheet": "4.3.1",
+		"phpoffice/phpspreadsheet": "4.4.0",
 		"ext-pdo": "*",
 		"ext-mysqli": "*",
 		"ext-json": "*",
