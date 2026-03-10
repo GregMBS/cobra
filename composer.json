@@ -10,7 +10,8 @@
 		"ext-pdo": "*",
 		"ext-mysqli": "*",
 		"ext-json": "*",
-		"ext-calendar": "*"
+		"ext-calendar": "*",
+		"psy/psysh": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "*"
