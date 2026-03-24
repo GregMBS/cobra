@@ -11,7 +11,8 @@
 		"ext-mysqli": "*",
 		"ext-json": "*",
 		"ext-calendar": "*",
-		"psy/psysh": "*"
+		"psy/psysh": "*",
+		"league/commonmark": ">=2.8.2"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "*"
