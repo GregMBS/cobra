@@ -12,5 +12,3 @@
 # PHPStorm
 .phpunit.result.cache
 
-# Composer
-composer.lock
