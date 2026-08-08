@@ -60,7 +60,7 @@ php composer.phar vendor/bin/phpunit tests
 - Use secure passwords and HTTPS in production environments.
 
 ## License
-© GMBS Consulting 2025. All rights reserved.
+© GMBS Consulting 2026. All rights reserved.
 
 ---
 For questions or support, contact the project maintainer.
