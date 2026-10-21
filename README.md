@@ -1,5 +1,12 @@
 # Cobra 
 
+> **ARCHIVED - UNMAINTAINED (October 2026).**
+> This project is no longer maintained or supported, and PHP can no longer be supported for it going forward.
+> **Do not run it on a public or internet-facing server.** In October 2026 two critical unauthenticated
+> remote code execution vulnerabilities in PHP (CVE-2026-109618 and CVE-2026-109619, "php2shell") were
+> reported, and this code has not been tested against any patched PHP release. It is kept for reference only.
+> The final state is tagged `archive-final`.
+
 Cobra is a PHP-based debt collection and account management system. It provides tools for managing agents, clients, payments, reports, and more, with a focus on administrative workflows and productivity tracking.
 
 ## Features
